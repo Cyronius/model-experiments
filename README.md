@@ -8,7 +8,7 @@ Example:
 
 ```text
 how do I center a div horizontally with flexbox
-→ Centering a Div with Flexbox
+→ Centering a Div Humanly with Flexbox
 ```
 
 The released model is on Hugging Face:
@@ -31,19 +31,28 @@ It uses a from-scratch T5 architecture with:
 
 The current model was trained on about **481k prompt → title pairs** distilled from larger language models.
 
+Getting here took five iterations, not one. A 2.75×-larger architecture was tried and rejected
+twice (+0.004 ROUGE-L, vs. +0.028 from a full-data retrain on the *unchanged* architecture); a
+pretrained base closed the ROUGE-L gap faster but introduced a confident collapse into generic
+templates on short/ambiguous inputs that took real investigation to root-cause and fix. Full
+history, including what was tried and rejected and why: **[EXPERIMENTS.md](EXPERIMENTS.md)**.
+
 ## Performance
 
-Current v1.5 model:
-
-| Metric | Result |
-| --- | ---: |
-| Parameters | 7.61M |
-| int8 ONNX size | 10.3 MB |
-| CPU latency | ~160–220 ms |
-| ROUGE-L vs teacher | 0.513 |
-| Format compliance | 99.8% |
+| Metric | v1.2 | v1.4 | **v1.5 (current)** |
+| --- | ---: | ---: | ---: |
+| Parameters | 7.61M | 7.61M | 7.61M |
+| int8 ONNX size | 10.3 MB | 10.3 MB | 10.3 MB |
+| CPU latency | ~160–220 ms | ~160–220 ms | ~160–220 ms |
+| ROUGE-L vs teacher | 0.484 | 0.473 | **0.513** |
+| Format compliance | 98.0% | 97.8% | **99.8%** |
 
 The target output is a useful **3–8 word title**.
+
+Format compliance jumped from ~95-98% (every prior release missed its own ≥99% gate) to 99.8%
+with **no model or weight change**. It was a measurement bug: `eval.py` wasn't applying the same
+title-length clamp every real consumer of the model already applies downstream. Full writeup in
+`EXPERIMENTS.md` (v1.6 section).
 
 ## Runtimes
 
@@ -184,14 +193,14 @@ uv run --extra gguf python scripts/export_gguf.py \
   --name titler-v1.5
 ```
 
-Current builds:
+Current builds, benchmarked against the f16 baseline on the same 100-prompt held-out set (greedy, temp 0):
 
-| Quant | Size | Notes |
-| --- | ---: | --- |
-| F16 | 15.4 MB | baseline |
-| Q8_0 | 8.3 MB | recommended default |
-| Q6_K | 6.4 MB | smallest with no measured quality loss |
-| Q4_0 | 5.0 MB | modest quality loss |
+| Quant | Size | ROUGE-L vs teacher | Outputs differing from f16 |
+| --- | ---: | ---: | --- |
+| F16 | 15.4 MB | 0.484 | baseline |
+| Q8_0 | 8.3 MB | 0.485 | 6/100, paraphrases only |
+| Q6_K | 6.4 MB | 0.490 | 11/100, paraphrases only — recommended if size matters |
+| Q4_0 | 5.0 MB | 0.465 | 29/100, mostly paraphrases, a few real topic drifts |
 
 Run GGUF models with `llama-completion`:
 
@@ -240,6 +249,7 @@ examples/      Python, Node and browser inference examples
 hf-release/    Hugging Face release files
 notebooks/     training notebooks
 scripts/       data, training, export and evaluation tools
+EXPERIMENTS.md full methodology and results, every version, what was tried and rejected
 ```
 
 ## License
