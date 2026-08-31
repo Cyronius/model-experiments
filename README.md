@@ -15,6 +15,8 @@ The released model is on Hugging Face:
 
 https://huggingface.co/Cyronius/titler
 
+Live demo (server-side ONNX inference, no browser WASM): https://titler-production.up.railway.app
+
 ## Why?
 
 Generating a conversation title is a tiny job, but it's usually handed to a general-purpose LLM.
