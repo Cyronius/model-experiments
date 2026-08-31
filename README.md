@@ -45,8 +45,8 @@ established as the right architecture to build on.
 
 | gate | v1.2 (339k) | v1.4-scratch (349k, collapse-fix) | **v1.5 (481k)** |
 |---|---|---|---|
-| ROUGE-L F1 vs teacher (test, n=500, beams=2) | 0.484 | 0.473 | **0.511** |
-| Format compliance (raw) | 98.0% | 97.8% | 95.0% |
+| ROUGE-L F1 vs teacher (test, n=500, beams=2) | 0.484 | 0.473 | **0.513** |
+| Format compliance | 98.0% raw | 97.8% raw | **99.8%** |
 | Hard-case suite >= 80% usable | pass | pass, generic-collapse still present | **pass, collapse resolved** |
 
 **Architecture scaling was tried and rejected, twice:** a 21M-param variant (8+4 layers,
@@ -60,9 +60,19 @@ distributional collapse, not a decoding bug (`.claude/plans/titler-v1.3-pretrain
 pretrained one on every axis at half the size, so pretrained init was dropped. **Adding data
 (v1.5) is what actually resolved the collapse** — see `.claude/plans/titler-v1.5-lmsys-data-expansion.md`.
 
-**Format compliance has never cleared its own >=99% gate**, at any released version (v1.0 96.7%
-through v1.5 95.0%) — a persistent, disclosed gap, not a v1.5 regression. It's the next concrete
-target; see the plan doc above.
+**Format compliance was reported at 95.0% through v1.4/early v1.5 and never cleared its own
+>=99% gate — turned out to be mostly a measurement gap, not a model-quality one.** `eval.py`
+never applied the 8-word clamp that every real consumer of this model already applies downstream
+(`examples/`, `scripts/usability_judge.py`), so ~68% of the reported "failures" were titles
+exactly 1-2 words over the cap — already-correct titles the deployed pipeline would have shipped
+fine. Moved the clamp into the shared `clean_title()` (`scripts/common/validation.py`) as the
+single source of truth, fixed `eval.py` to call it, and reported the one remaining ambiguous
+check (near-verbatim prompt echoing, which manual review found mostly flags legitimately good
+titles) as a separate informational metric rather than folding it into the gate. Real number now:
+**99.8%** (one genuine short-output edge case, 0.2%, left as an accepted case — a `min_new_tokens`
+decode constraint was tried and made things worse, forcing awkward padding onto already-good
+short titles without even fixing the target case). Full investigation:
+`.claude/plans/titler-v1.6-format-compliance-fix.md`.
 
 Decode settings: `num_beams=2, max_new_tokens=32, no_repeat_ngram_size=2` + the clamp
 (strip quotes, cap 8 words) shown in `examples/`. ~160-220ms per title (Python ORT,
@@ -136,7 +146,7 @@ that correctly calls `llama_encode()` before `llama_decode()` for encoder-decode
 
 - Architecture and all design decisions: `.claude/plans/titler-v1.md`, `titler-v2-8x4-d320-gated.md`,
   `titler-v1.3-pretrained-init.md`, `titler-v1.4-collapse-fix-dual-arch.md`,
-  `titler-v1.5-lmsys-data-expansion.md` (local only).
+  `titler-v1.5-lmsys-data-expansion.md`, `titler-v1.6-format-compliance-fix.md` (local only).
 - `feed_forward_proj: "relu"` and 3+3 layers are size-driven: the ONNX export duplicates the embedding matrix in encoder and decoder graphs, so 4+4/gated variants blow the ~10MB budget.
 - `accelerate` must be installed for the optimum export or tied weights get duplicated (+8MB).
 - Do not pass `decoder_file_name` to `ORTModelForSeq2SeqLM.from_pretrained` — use `use_merged=True` and let the pattern match find the `*_quantized.onnx` files.

@@ -6,7 +6,6 @@
 import argparse
 import asyncio
 import json
-import re
 import warnings
 from collections import defaultdict
 from pathlib import Path
@@ -14,6 +13,7 @@ from pathlib import Path
 import httpx
 
 from common.lmstudio_client import _post_with_retry, truncate_prompt, warmup
+from common.validation import clean_title
 
 warnings.filterwarnings("ignore")
 
@@ -35,8 +35,7 @@ def generate_all(model_dir: str, rows: list[dict]) -> list[str]:
         ids = tok(r["prompt"], return_tensors="pt", truncation=True, max_length=512)
         gen = model.generate(**ids, max_new_tokens=32, num_beams=2, no_repeat_ngram_size=2)
         t = tok.decode(gen[0], skip_special_tokens=True).strip()
-        t = re.sub(r"[\"'“”‘’`]", "", t)
-        out.append(" ".join(t.split()[:8]))
+        out.append(clean_title(t))
     return out
 
 

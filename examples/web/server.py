@@ -45,8 +45,8 @@ def generate_title(req: TitleRequest):
     inputs = tokenizer(req.prompt, return_tensors="pt", truncation=True, max_length=512)
     out = model.generate(**inputs, **GEN_KWARGS)
     raw = tokenizer.decode(out[0], skip_special_tokens=True).strip()
-    title = clean_title(raw)
-    return {"title": " ".join(title.split()[:8])}
+    title = clean_title(raw)  # clean_title clamps to MAX_WORDS itself
+    return {"title": title}
 
 
 def main() -> None:

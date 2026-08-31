@@ -15,7 +15,9 @@ def has_emoji(text: str) -> bool:
 
 
 def clean_title(raw: str) -> str:
-    """Normalize a candidate title: strip wrappers, quotes, trailing punctuation, Title Case."""
+    """Normalize a candidate title: strip wrappers, quotes, trailing punctuation, Title Case,
+    clamp to MAX_WORDS. Single source of truth for the word-count clamp -- callers should not
+    duplicate a `[:8]`/`.slice(0, 8)` step of their own."""
     t = raw.strip()
     t = re.sub(r"</?think>.*?(</think>|$)", "", t, flags=re.S).strip()  # qwen think tags
     t = t.splitlines()[0].strip() if t else t
@@ -27,7 +29,7 @@ def clean_title(raw: str) -> str:
     t = re.sub(r"\*+", "", t)  # markdown bold
     t = re.sub(f"[{QUOTE_CHARS}]", "", t)  # inner quotes: strip rather than reject
     t = re.sub(r"\s{2,}", " ", t).strip()
-    words = t.split()
+    words = t.split()[:MAX_WORDS]
     cased = [
         w if (w.isupper() and len(w) > 1) or any(c.isdigit() for c in w)  # keep acronyms/versions
         else (w.lower() if w.lower() in SMALL_WORDS and 0 < i < len(words) - 1 else w[:1].upper() + w[1:])
