@@ -4,9 +4,10 @@ Local-Network-Access fetch restrictions that break transformers.js when the
 page isn't loaded from localhost.
 
 Usage:
-    uv run python examples/web/server.py [--model model/titler-v12-339k-web] [--port 8000]
+    uv run python examples/web/server.py [--model model/titler-v12-339k-web] [--host 127.0.0.1] [--port 8000]
 
-Then open http://localhost:8000/
+Then open http://localhost:8000/. --host 0.0.0.0 is for container/deploy use
+(see ../../Dockerfile) — leave it at the 127.0.0.1 default for local runs.
 """
 
 import argparse
@@ -52,15 +53,16 @@ def generate_title(req: TitleRequest):
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="model/titler-v12-339k-web")
+    ap.add_argument("--host", default="127.0.0.1", help="use 0.0.0.0 to serve outside localhost (e.g. in a container)")
     ap.add_argument("--port", type=int, default=8000)
     args = ap.parse_args()
 
     global tokenizer, model
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     model = ORTModelForSeq2SeqLM.from_pretrained(args.model, subfolder="onnx", use_merged=True, use_cache=True)
-    print(f"loaded {args.model} -> http://localhost:{args.port}/")
+    print(f"loaded {args.model} -> http://{args.host}:{args.port}/")
 
-    uvicorn.run(app, host="127.0.0.1", port=args.port)
+    uvicorn.run(app, host=args.host, port=args.port)
 
 
 if __name__ == "__main__":

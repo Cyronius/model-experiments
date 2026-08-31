@@ -7,8 +7,10 @@ data/*
 !data/bakeoff_prompts.jsonl
 !data/spike_pairs.jsonl
 
-# model artifacts
-model/
+# model artifacts (except the small, already-public web-serve export used by
+# the Railway deploy — see Dockerfile)
+model/*
+!model/titler-v15-scratch-web
 
 # auto-fetched llama.cpp conversion tooling (scripts/export_gguf.py)
 .cache/
