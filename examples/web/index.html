@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>titler — browser demo</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 3rem auto; padding: 0 1rem; }
+    textarea { width: 100%; min-height: 90px; font: inherit; padding: .5rem; }
+    button { font: inherit; padding: .5rem 1.25rem; margin-top: .5rem; }
+    #title { font-size: 1.3rem; font-weight: 600; margin-top: 1rem; min-height: 1.6em; }
+    #status { color: #666; font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <h1>titler</h1>
+  <p id="status">loading model…</p>
+  <textarea id="prompt">how do I center a div horizontally with flexbox</textarea>
+  <br />
+  <button id="go" disabled>Generate title</button>
+  <div id="title"></div>
+
+  <!-- Inference runs server-side via server.py (FastAPI + optimum ONNX Runtime):
+       uv run python examples/web/server.py   then open http://localhost:8000/ -->
+  <script type="module">
+    const status = document.getElementById("status");
+    const button = document.getElementById("go");
+    const titleEl = document.getElementById("title");
+
+    status.textContent = "model ready";
+    button.disabled = false;
+
+    async function generate() {
+      button.disabled = true;
+      const start = performance.now();
+      const resp = await fetch("/api/title", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: document.getElementById("prompt").value }),
+      });
+      const { title } = await resp.json();
+      titleEl.textContent = title;
+      status.textContent = `generated in ${Math.round(performance.now() - start)}ms`;
+      button.disabled = false;
+    }
+
+    button.addEventListener("click", generate);
+    document.getElementById("prompt").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        if (!button.disabled) generate();
+      }
+    });
+  </script>
+</body>
+</html>

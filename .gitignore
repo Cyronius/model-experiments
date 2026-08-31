@@ -1,0 +1,25 @@
+# plans stay local
+.claude/plans/
+
+# data artifacts (except small hand-made files, re-included below)
+data/*
+!data/hardcases.jsonl
+!data/bakeoff_prompts.jsonl
+!data/spike_pairs.jsonl
+
+# model artifacts
+model/
+
+# auto-fetched llama.cpp conversion tooling (scripts/export_gguf.py)
+.cache/
+
+# stray debug logs from ad hoc runs
+*.log
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# node
+node_modules/
