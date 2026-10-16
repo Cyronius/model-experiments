@@ -7,7 +7,14 @@ MIN_WORDS, MAX_WORDS = 3, 8
 
 BANNED_PREFIX_RE = re.compile(r"^\s*(title\s*:|here('s| is)|sure[,!]|a title)", re.I)
 QUOTE_CHARS = "\"'“”‘’`"
+# any quote mark except an apostrophe inside a word (Don't, Children's)
+STRAY_QUOTE_RE = re.compile(r"[\"“”‘`]|(?<!\w)['’]|['’](?!\w)")
 SMALL_WORDS = {"a", "an", "the", "and", "or", "nor", "but", "for", "of", "in", "on", "at", "to", "vs", "via", "with"}
+
+
+def keeps_case(word: str) -> bool:
+    """Acronyms, versions and inner-capital words (SQL, v2, iPhone, mRNA) are never re-cased."""
+    return any(c.isdigit() for c in word) or any(c.isupper() for c in word[1:])
 
 
 def has_emoji(text: str) -> bool:
@@ -18,7 +25,7 @@ def clean_title(raw: str) -> str:
     """Normalize a candidate title: strip wrappers, quotes, trailing punctuation, Title Case,
     clamp to MAX_WORDS. Single source of truth for the word-count clamp -- callers should not
     duplicate a `[:8]`/`.slice(0, 8)` step of their own."""
-    t = raw.strip()
+    t = raw.strip().replace("’", "'")
     t = re.sub(r"</?think>.*?(</think>|$)", "", t, flags=re.S).strip()  # qwen think tags
     t = t.splitlines()[0].strip() if t else t
     t = t.strip(QUOTE_CHARS + " ")
@@ -27,11 +34,11 @@ def clean_title(raw: str) -> str:
     t = re.sub(r"^\s*\d+\s*-\s*\d+\s*w(?:or)?ds?(\s+title)?\s*:?\s*", "", t, flags=re.I)
     t = re.sub(r"[.!?:;,\s]+$", "", t)
     t = re.sub(r"\*+", "", t)  # markdown bold
-    t = re.sub(f"[{QUOTE_CHARS}]", "", t)  # inner quotes: strip rather than reject
+    t = STRAY_QUOTE_RE.sub("", t)  # inner quotes: strip rather than reject
     t = re.sub(r"\s{2,}", " ", t).strip()
     words = t.split()[:MAX_WORDS]
     cased = [
-        w if (w.isupper() and len(w) > 1) or any(c.isdigit() for c in w)  # keep acronyms/versions
+        w if keeps_case(w)
         else (w.lower() if w.lower() in SMALL_WORDS and 0 < i < len(words) - 1 else w[:1].upper() + w[1:])
         for i, w in enumerate(words)
     ]
@@ -47,7 +54,7 @@ def validate_title(title: str, prompt: str) -> str | None:
         return f"too short ({len(words)} words)"
     if len(words) > MAX_WORDS:
         return f"too long ({len(words)} words)"
-    if any(c in QUOTE_CHARS for c in title):
+    if STRAY_QUOTE_RE.search(title):
         return "contains quotes"
     if "\n" in title:
         return "contains newline"
