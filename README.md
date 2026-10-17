@@ -1,4 +1,4 @@
-# a collection of some of my model experiment.
+# a collection of some of my model experiments
 
 Shrinking Qwen MoE models to run well on shared-memory hardware (CPU / iGPU boxes, no discrete GPU required). Each campaign takes a released checkpoint, finds what can be cut, benchmarks the damage honestly, and ships the result on Hugging Face. Failures are documented as carefully as the wins — they're most of the useful information.
 
