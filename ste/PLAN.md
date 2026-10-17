@@ -176,6 +176,8 @@ There is no public parallel corpus of plain English to STE. We build it. Generat
 | lean | one 48 GB card | the 35B-A3B at Q4 for volume and hard cases; skip the 131B; judge with a smaller model | 4 to 8 | $3 to $10 |
 | standard | one H200 | all three teachers as listed, then training | 4 to 6 | $15 to $30 |
 
+**First session, budget $5.** Lean tier with one change: a single teacher, the 16.5 GB Qwen3.6-27B-A2.8B Q4_K_M from this repo, does the volume and hard-case jobs. The 131B is skipped. The judge is gpt-oss-20b (about 12 GB), a different lineage, scoring a 1,500-row sample. The session makes data only. Student training waits for the model code. `pod/README.md` has the steps and `pod/common.sh` enforces the cap by stopping at 85 percent of the budget.
+
 Downloads eat pod time: the 131B and the judge together are about 130 GB. Cache them on a network volume if you expect a second run. The lean tier is the one closest to your $1 to $3 line, and it still probably lands above it. Say which tier you want after the smoke session.
 
 **Noise the clean STE into messy English.** Two noisers, mixed about half and half.
@@ -328,6 +330,17 @@ Deterministic scoring everywhere the checker can do it, as in `bench/`. The judg
 | 6 | hardening | gold set growth; adapter training script if a domain ever needs one | ongoing |
 
 Roughly two and a half to three months for one person. The laptop does everything except the pod session. Training a 25M parameter model on 1M to 2M short pairs is under an hour on an H200, so the pod bill is dominated by teacher generation and model downloads, not training.
+
+**Built so far (October 2026).**
+
+| piece | state |
+|---|---|
+| `lexicon/build_lexicon.py` | done; converts both PyPI packages: 2,200 rows, 1,838 aligned pairs, 66 rules |
+| `checker/checker.py` | tier A subset only: rejected words and phrases, forms of be, contractions, sentence and paragraph length, semicolons, perfect tense, passive in `PROC`. No noun clusters, no instruction counting, no article check |
+| checker accuracy | on the dictionary's own pairs: 93.7 percent of STE sentences pass with no errors, and 81.5 percent of non-STE sentences get at least one error. About 6 percent of good STE is falsely rejected, mostly nouns spelled like rejected verbs |
+| `data/gen.py`, `fetch_sources.py`, `judge.py` | done; tested against a fake teacher: retry with feedback, resume, back-translation, judging. Not yet run against a real model |
+| `pod/` | smoke and full session scripts; budget guard tested with a fake clock; model downloads and the llama.cpp build unverified |
+| noiser, pair builder, model code, GGUF writer | not started |
 
 **First week, concretely.**
 1. `pip download` both packages into a scratch directory. Add the derived files to `.gitignore` before writing the converter.
