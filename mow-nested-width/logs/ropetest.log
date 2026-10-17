@@ -1,0 +1,193 @@
+=== rope test: 12 runs (loss/exact per cell) ===
+[rope_w16_s1] 0.307M params | mode=dense | steps=12000 | lam=0.0
+[rope_w8_s1] 0.299M params | mode=dense | steps=12000 | lam=0.0
+[rope_w32_s0] 0.323M params | mode=dense | steps=12000 | lam=0.0
+[rope_w8_s2] 0.299M params | mode=dense | steps=12000 | lam=0.0
+[rope_w8_s0] 0.299M params | mode=dense | steps=12000 | lam=0.0
+[rope_w32_s1] 0.323M params | mode=dense | steps=12000 | lam=0.0
+[rope_w16_s0] 0.307M params | mode=dense | steps=12000 | lam=0.0
+[rope_w16_s2] 0.307M params | mode=dense | steps=12000 | lam=0.0
+  [rope_w8_s1]      0 loss 4.5021 acc 0.000 frac 0.125 (7s)
+  [rope_w16_s2]      0 loss 4.5768 acc 0.000 frac 0.250 (8s)
+  [rope_w16_s0]      0 loss 4.5293 acc 0.000 frac 0.250 (8s)
+  [rope_w32_s1]      0 loss 4.4907 acc 0.000 frac 0.500 (8s)
+  [rope_w8_s2]      0 loss 4.5560 acc 0.000 frac 0.125 (9s)
+  [rope_w32_s0]      0 loss 4.5089 acc 0.000 frac 0.500 (9s)
+  [rope_w8_s0]      0 loss 4.5420 acc 0.000 frac 0.125 (9s)
+  [rope_w16_s1]      0 loss 4.5148 acc 0.000 frac 0.250 (9s)
+  [rope_w16_s0]   1000 loss 1.1117 frac 0.250 (85s)
+  [rope_w8_s1]   1000 loss 1.2338 frac 0.125 (86s)
+  [rope_w16_s2]   1000 loss 0.9494 frac 0.250 (86s)
+  [rope_w32_s1]   1000 loss 1.1355 frac 0.500 (87s)
+  [rope_w16_s1]   1000 loss 1.2979 frac 0.250 (97s)
+  [rope_w8_s2]   1000 loss 1.2401 frac 0.125 (100s)
+  [rope_w8_s0]   1000 loss 1.0116 frac 0.125 (100s)
+  [rope_w32_s0]   1000 loss 1.2565 frac 0.500 (101s)
+  [rope_w16_s0]   2000 loss 0.7683 acc 0.560 frac 0.250 (166s)
+  [rope_w16_s2]   2000 loss 0.7457 acc 0.590 frac 0.250 (166s)
+  [rope_w32_s1]   2000 loss 0.7401 acc 0.552 frac 0.500 (171s)
+  [rope_w8_s1]   2000 loss 0.8006 acc 0.477 frac 0.125 (172s)
+  [rope_w16_s1]   2000 loss 0.8064 acc 0.451 frac 0.250 (192s)
+  [rope_w8_s2]   2000 loss 0.7994 acc 0.509 frac 0.125 (197s)
+  [rope_w32_s0]   2000 loss 0.7045 acc 0.646 frac 0.500 (199s)
+  [rope_w8_s0]   2000 loss 0.8002 acc 0.480 frac 0.125 (199s)
+  [rope_w16_s0]   3000 loss 0.6941 frac 0.250 (246s)
+  [rope_w16_s2]   3000 loss 0.6583 frac 0.250 (246s)
+  [rope_w32_s1]   3000 loss 0.6621 frac 0.500 (249s)
+  [rope_w8_s1]   3000 loss 0.6796 frac 0.125 (253s)
+  [rope_w16_s1]   3000 loss 0.7272 frac 0.250 (282s)
+  [rope_w8_s2]   3000 loss 0.7064 frac 0.125 (288s)
+  [rope_w32_s0]   3000 loss 0.6129 frac 0.500 (290s)
+  [rope_w8_s0]   3000 loss 0.6999 frac 0.125 (290s)
+  [rope_w16_s2]   4000 loss 0.5714 acc 0.703 frac 0.250 (326s)
+  [rope_w16_s0]   4000 loss 0.5706 acc 0.698 frac 0.250 (326s)
+  [rope_w32_s1]   4000 loss 0.5533 acc 0.707 frac 0.500 (331s)
+  [rope_w8_s1]   4000 loss 0.5403 acc 0.738 frac 0.125 (334s)
+  [rope_w16_s1]   4000 loss 0.5841 acc 0.701 frac 0.250 (366s)
+  [rope_w8_s2]   4000 loss 0.5886 acc 0.703 frac 0.125 (373s)
+  [rope_w8_s0]   4000 loss 0.6398 acc 0.603 frac 0.125 (376s)
+  [rope_w32_s0]   4000 loss 0.5361 acc 0.733 frac 0.500 (376s)
+  [rope_w16_s0]   5000 loss 0.5254 frac 0.250 (400s)
+  [rope_w16_s2]   5000 loss 0.5064 frac 0.250 (401s)
+  [rope_w32_s1]   5000 loss 0.4719 frac 0.500 (407s)
+  [rope_w8_s1]   5000 loss 0.5064 frac 0.125 (411s)
+  [rope_w16_s1]   5000 loss 0.5083 frac 0.250 (447s)
+  [rope_w8_s2]   5000 loss 0.5135 frac 0.125 (454s)
+  [rope_w32_s0]   5000 loss 0.4813 frac 0.500 (457s)
+  [rope_w8_s0]   5000 loss 0.4961 frac 0.125 (458s)
+  [rope_w16_s0]   6000 loss 0.4520 acc 0.802 frac 0.250 (479s)
+  [rope_w16_s2]   6000 loss 0.4687 acc 0.798 frac 0.250 (480s)
+  [rope_w32_s1]   6000 loss 0.4452 acc 0.802 frac 0.500 (487s)
+  [rope_w8_s1]   6000 loss 0.4540 acc 0.797 frac 0.125 (493s)
+  [rope_w16_s1]   6000 loss 0.4903 acc 0.721 frac 0.250 (533s)
+  [rope_w8_s2]   6000 loss 0.4712 acc 0.772 frac 0.125 (542s)
+  [rope_w32_s0]   6000 loss 0.4384 acc 0.826 frac 0.500 (545s)
+  [rope_w8_s0]   6000 loss 0.4598 acc 0.803 frac 0.125 (546s)
+  [rope_w16_s0]   7000 loss 0.4310 frac 0.250 (555s)
+  [rope_w16_s2]   7000 loss 0.4398 frac 0.250 (556s)
+  [rope_w32_s1]   7000 loss 0.4350 frac 0.500 (563s)
+  [rope_w8_s1]   7000 loss 0.4270 frac 0.125 (570s)
+  [rope_w16_s1]   7000 loss 0.4303 frac 0.250 (614s)
+  [rope_w8_s2]   7000 loss 0.4339 frac 0.125 (627s)
+  [rope_w32_s0]   7000 loss 0.4213 frac 0.500 (631s)
+  [rope_w8_s0]   7000 loss 0.4304 frac 0.125 (631s)
+  [rope_w16_s0]   8000 loss 0.4148 acc 0.822 frac 0.250 (638s)
+  [rope_w16_s2]   8000 loss 0.4195 acc 0.822 frac 0.250 (639s)
+  [rope_w32_s1]   8000 loss 0.4082 acc 0.832 frac 0.500 (649s)
+  [rope_w8_s1]   8000 loss 0.4117 acc 0.831 frac 0.125 (656s)
+  [rope_w16_s1]   8000 loss 0.4186 acc 0.829 frac 0.250 (710s)
+  [rope_w16_s2]   9000 loss 0.4117 frac 0.250 (720s)
+  [rope_w16_s0]   9000 loss 0.4048 frac 0.250 (720s)
+  [rope_w8_s2]   8000 loss 0.4260 acc 0.819 frac 0.125 (724s)
+  [rope_w8_s0]   8000 loss 0.4197 acc 0.832 frac 0.125 (729s)
+  [rope_w32_s0]   8000 loss 0.4122 acc 0.833 frac 0.500 (730s)
+  [rope_w32_s1]   9000 loss 0.3946 frac 0.500 (733s)
+  [rope_w8_s1]   9000 loss 0.4016 frac 0.125 (738s)
+  [rope_w16_s1]   9000 loss 0.4088 frac 0.250 (806s)
+  [rope_w16_s2]  10000 loss 0.4044 acc 0.835 frac 0.250 (810s)
+  [rope_w16_s0]  10000 loss 0.3931 acc 0.837 frac 0.250 (810s)
+  [rope_w8_s2]   9000 loss 0.4120 frac 0.125 (819s)
+  [rope_w32_s1]  10000 loss 0.3861 acc 0.837 frac 0.500 (824s)
+  [rope_w8_s0]   9000 loss 0.4084 frac 0.125 (825s)
+  [rope_w32_s0]   9000 loss 0.4042 frac 0.500 (827s)
+  [rope_w8_s1]  10000 loss 0.3867 acc 0.837 frac 0.125 (829s)
+  [rope_w16_s2]  11000 loss 0.3980 frac 0.250 (890s)
+  [rope_w16_s0]  11000 loss 0.3805 frac 0.250 (892s)
+  [rope_w16_s1]  10000 loss 0.3994 acc 0.835 frac 0.250 (903s)
+  [rope_w32_s1]  11000 loss 0.3709 frac 0.500 (906s)
+  [rope_w8_s1]  11000 loss 0.3758 frac 0.125 (912s)
+  [rope_w8_s2]  10000 loss 0.4000 acc 0.832 frac 0.125 (916s)
+  [rope_w8_s0]  10000 loss 0.3946 acc 0.839 frac 0.125 (922s)
+  [rope_w32_s0]  10000 loss 0.3875 acc 0.835 frac 0.500 (925s)
+  [rope_w16_s2]  11999 loss 0.3902 acc 0.841 frac 0.250 (973s)
+  [rope_w16_s0]  11999 loss 0.3690 acc 0.844 frac 0.250 (976s)
+[rope_w16_s2] done in 980s | loss 0.3902 | acc 0.841 | frac 0.250
+[rope_w32_s2] 0.323M params | mode=dense | steps=12000 | lam=0.0
+[rope_w16_s0] done in 983s | loss 0.3690 | acc 0.844 | frac 0.250
+[rope_w64_s0] 0.356M params | mode=dense | steps=12000 | lam=0.0
+  [rope_w32_s2]      0 loss 4.5352 acc 0.000 frac 0.500 (7s)
+  [rope_w64_s0]      0 loss 4.5346 acc 0.000 frac 1.000 (7s)
+  [rope_w32_s1]  11999 loss 0.3561 acc 0.845 frac 0.500 (991s)
+[rope_w32_s1] done in 998s | loss 0.3561 | acc 0.845 | frac 0.500
+  [rope_w16_s1]  11000 loss 0.3893 frac 0.250 (998s)
+[rope_w64_s1] 0.356M params | mode=dense | steps=12000 | lam=0.0
+  [rope_w8_s1]  11999 loss 0.3685 acc 0.845 frac 0.125 (999s)
+  [rope_w64_s1]      0 loss 4.5208 acc 0.000 frac 1.000 (7s)
+[rope_w8_s1] done in 1006s | loss 0.3685 | acc 0.845 | frac 0.125
+[rope_w64_s2] 0.356M params | mode=dense | steps=12000 | lam=0.0
+  [rope_w64_s2]      0 loss 4.5231 acc 0.000 frac 1.000 (7s)
+  [rope_w8_s2]  11000 loss 0.3963 frac 0.125 (1014s)
+  [rope_w8_s0]  11000 loss 0.3896 frac 0.125 (1019s)
+  [rope_w32_s0]  11000 loss 0.3784 frac 0.500 (1023s)
+  [rope_w32_s2]   1000 loss 1.1329 frac 0.500 (90s)
+  [rope_w64_s0]   1000 loss 1.0105 frac 1.000 (91s)
+  [rope_w64_s1]   1000 loss 1.0253 frac 1.000 (90s)
+  [rope_w16_s1]  11999 loss 0.3805 acc 0.836 frac 0.250 (1095s)
+  [rope_w64_s2]   1000 loss 1.2326 frac 1.000 (93s)
+[rope_w16_s1] done in 1102s | loss 0.3805 | acc 0.836 | frac 0.250
+  [rope_w8_s2]  11999 loss 0.3871 acc 0.837 frac 0.125 (1111s)
+  [rope_w8_s0]  11999 loss 0.3804 acc 0.839 frac 0.125 (1116s)
+[rope_w8_s2] done in 1118s | loss 0.3871 | acc 0.837 | frac 0.125
+  [rope_w32_s0]  11999 loss 0.3683 acc 0.841 frac 0.500 (1120s)
+[rope_w8_s0] done in 1123s | loss 0.3804 | acc 0.839 | frac 0.125
+  rope_w8_s0         arith 0.0008/1.000  recall 2.2732/0.039  (19m) | elapsed 18.8m
+  rope_w8_s1         arith 0.0010/1.000  recall 2.2059/0.070  (17m) | elapsed 18.8m
+  rope_w8_s2         arith 0.0001/1.000  recall 2.3175/0.023  (19m) | elapsed 18.8m
+  rope_w16_s0        arith 0.0003/1.000  recall 2.2079/0.070  (16m) | elapsed 18.8m
+  rope_w16_s1        arith 0.0001/1.000  recall 2.2789/0.016  (18m) | elapsed 18.8m
+  rope_w16_s2        arith 0.0000/1.000  recall 2.3385/0.047  (16m) | elapsed 18.8m
+[rope_w32_s0] done in 1126s | loss 0.3683 | acc 0.841 | frac 0.500
+  rope_w32_s0        arith 0.0002/1.000  recall 2.2065/0.047  (19m) | elapsed 18.8m
+  rope_w32_s1        arith 0.0003/1.000  recall 2.1320/0.070  (17m) | elapsed 18.8m
+  [rope_w32_s2]   2000 loss 0.7324 acc 0.594 frac 0.500 (163s)
+  [rope_w64_s0]   2000 loss 0.7159 acc 0.591 frac 1.000 (165s)
+  [rope_w64_s1]   2000 loss 0.7438 acc 0.562 frac 1.000 (158s)
+  [rope_w64_s2]   2000 loss 0.7299 acc 0.602 frac 1.000 (156s)
+  [rope_w32_s2]   3000 loss 0.6017 frac 0.500 (212s)
+  [rope_w64_s0]   3000 loss 0.6234 frac 1.000 (215s)
+  [rope_w64_s1]   3000 loss 0.6599 frac 1.000 (208s)
+  [rope_w64_s2]   3000 loss 0.5944 frac 1.000 (206s)
+  [rope_w32_s2]   4000 loss 0.5083 acc 0.746 frac 0.500 (263s)
+  [rope_w64_s0]   4000 loss 0.5160 acc 0.758 frac 1.000 (266s)
+  [rope_w64_s1]   4000 loss 0.5728 acc 0.711 frac 1.000 (259s)
+  [rope_w64_s2]   4000 loss 0.5140 acc 0.737 frac 1.000 (258s)
+  [rope_w32_s2]   5000 loss 0.4556 frac 0.500 (309s)
+  [rope_w64_s0]   5000 loss 0.4720 frac 1.000 (313s)
+  [rope_w64_s1]   5000 loss 0.4892 frac 1.000 (307s)
+  [rope_w64_s2]   5000 loss 0.4592 frac 1.000 (306s)
+  [rope_w32_s2]   6000 loss 0.4403 acc 0.819 frac 0.500 (358s)
+  [rope_w64_s0]   6000 loss 0.4324 acc 0.826 frac 1.000 (364s)
+  [rope_w64_s1]   6000 loss 0.4579 acc 0.779 frac 1.000 (357s)
+  [rope_w64_s2]   6000 loss 0.4320 acc 0.812 frac 1.000 (357s)
+  [rope_w32_s2]   7000 loss 0.4189 frac 0.500 (407s)
+  [rope_w64_s0]   7000 loss 0.4266 frac 1.000 (416s)
+  [rope_w64_s1]   7000 loss 0.4184 frac 1.000 (409s)
+  [rope_w64_s2]   7000 loss 0.4194 frac 1.000 (410s)
+  [rope_w32_s2]   8000 loss 0.4049 acc 0.837 frac 0.500 (459s)
+  [rope_w64_s0]   8000 loss 0.4094 acc 0.833 frac 1.000 (469s)
+  [rope_w64_s1]   8000 loss 0.4039 acc 0.831 frac 1.000 (462s)
+  [rope_w64_s2]   8000 loss 0.4009 acc 0.832 frac 1.000 (464s)
+  [rope_w32_s2]   9000 loss 0.3916 frac 0.500 (508s)
+  [rope_w64_s0]   9000 loss 0.4027 frac 1.000 (518s)
+  [rope_w64_s1]   9000 loss 0.3943 frac 1.000 (513s)
+  [rope_w64_s2]   9000 loss 0.3833 frac 1.000 (514s)
+  [rope_w32_s2]  10000 loss 0.3795 acc 0.836 frac 0.500 (560s)
+  [rope_w64_s0]  10000 loss 0.3814 acc 0.839 frac 1.000 (571s)
+  [rope_w64_s1]  10000 loss 0.3816 acc 0.844 frac 1.000 (565s)
+  [rope_w64_s2]  10000 loss 0.3671 acc 0.841 frac 1.000 (567s)
+  [rope_w32_s2]  11000 loss 0.3683 frac 0.500 (607s)
+  [rope_w64_s0]  11000 loss 0.3628 frac 1.000 (620s)
+  [rope_w64_s1]  11000 loss 0.3698 frac 1.000 (614s)
+  [rope_w64_s2]  11000 loss 0.3517 frac 1.000 (616s)
+  [rope_w32_s2]  11999 loss 0.3516 acc 0.848 frac 0.500 (658s)
+[rope_w32_s2] done in 662s | loss 0.3516 | acc 0.848 | frac 0.500
+  rope_w32_s2        arith 0.0002/1.000  recall 2.1059/0.086  (11m) | elapsed 27.4m
+  [rope_w64_s0]  11999 loss 0.3520 acc 0.842 frac 1.000 (671s)
+[rope_w64_s0] done in 674s | loss 0.3520 | acc 0.842 | frac 1.000
+  rope_w64_s0        arith 0.0001/1.000  recall 2.1059/0.070  (11m) | elapsed 27.7m
+  [rope_w64_s1]  11999 loss 0.3546 acc 0.848 frac 1.000 (664s)
+[rope_w64_s1] done in 667s | loss 0.3546 | acc 0.848 | frac 1.000
+  rope_w64_s1        arith 0.0004/1.000  recall 2.1234/0.094  (11m) | elapsed 27.8m
+  [rope_w64_s2]  11999 loss 0.3368 acc 0.854 frac 1.000 (663s)
+[rope_w64_s2] done in 666s | loss 0.3368 | acc 0.854 | frac 1.000
+  rope_w64_s2        arith 0.0001/1.000  recall 2.0184/0.125  (11m) | elapsed 27.9m

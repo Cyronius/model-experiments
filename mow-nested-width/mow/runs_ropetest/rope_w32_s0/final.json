@@ -1,0 +1,59 @@
+{
+  "per_cell": {
+    "arith_easy": {
+      "loss": 8.427641523351266e-06,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "arith_hard": {
+      "loss": 0.00015930940061214795,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "dyck_easy": {
+      "loss": 2.247468658089171e-05,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "dyck_hard": {
+      "loss": 0.00018021860172168493,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "recall_easy": {
+      "loss": 0.0031791419411698976,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "recall_hard": {
+      "loss": 2.2064682642618814,
+      "mlp_frac": 0.5,
+      "acc": 0.046875
+    }
+  },
+  "loss": 0.3683363060889149,
+  "mlp_frac": 0.5,
+  "acc": 0.8411458333333334,
+  "flops": {
+    "mlp": 65536.0,
+    "attn": 557056.0,
+    "head": 23552.0,
+    "total": 646144.0,
+    "mlp_frac": 0.5
+  },
+  "tier_scales": null,
+  "name": "rope_w32_s0",
+  "tag": "dense_rope",
+  "seed": 0,
+  "lambda_flops": 0.0,
+  "n_params": 323456,
+  "wall_s": 1125.8,
+  "total_steps": 12000,
+  "d_ff": 64,
+  "tiers": [
+    8,
+    16,
+    32,
+    64
+  ]
+}

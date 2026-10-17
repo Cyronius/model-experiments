@@ -1,0 +1,59 @@
+{
+  "per_cell": {
+    "arith_easy": {
+      "loss": 0.00019007835558375,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "arith_hard": {
+      "loss": 0.0008558152348549394,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "dyck_easy": {
+      "loss": 1.433266716233995e-05,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "dyck_hard": {
+      "loss": 0.0007689025486010473,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "recall_easy": {
+      "loss": 0.0025286775392790637,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "recall_hard": {
+      "loss": 0.10810152192910512,
+      "mlp_frac": 0.5,
+      "acc": 0.9140625
+    }
+  },
+  "loss": 0.01874322137909771,
+  "mlp_frac": 0.5,
+  "acc": 0.9856770833333334,
+  "flops": {
+    "mlp": 65536.0,
+    "attn": 557056.0,
+    "head": 24320.0,
+    "total": 646912.0,
+    "mlp_frac": 0.5
+  },
+  "tier_scales": null,
+  "name": "dense_w32_s9",
+  "tag": "dense",
+  "seed": 9,
+  "lambda_flops": 0.0,
+  "n_params": 324224,
+  "wall_s": 1384.5,
+  "total_steps": 12000,
+  "d_ff": 64,
+  "tiers": [
+    8,
+    16,
+    32,
+    64
+  ]
+}

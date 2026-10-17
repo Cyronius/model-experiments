@@ -1,0 +1,94 @@
+{
+  "name": "moe_fine_bal_lam0_s1",
+  "tag": "moe_fine_bal",
+  "data": {
+    "block_size": 32,
+    "easy_digits": [
+      1,
+      2
+    ],
+    "hard_digits": [
+      5,
+      8
+    ],
+    "easy_depth": [
+      1,
+      2
+    ],
+    "hard_depth": [
+      5,
+      8
+    ],
+    "max_extra_pairs": 4,
+    "recall_easy_m": [
+      16
+    ],
+    "recall_hard_m": [
+      32,
+      64
+    ],
+    "recall_table_seed": 20260815,
+    "n_eval_per_cell": 512,
+    "n_exact_per_cell": 128
+  },
+  "model": {
+    "vocab_size": 92,
+    "block_size": 32,
+    "n_layer": 4,
+    "d_model": 128,
+    "n_head": 4,
+    "d_ff": 64,
+    "dropout": 0.0,
+    "mlp": "moe",
+    "dense_hidden": null,
+    "tiers": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "tier_scales": true,
+    "n_experts": 16,
+    "expert_hidden": 4,
+    "moe_mode": "adaptive",
+    "top_k": 1,
+    "k_choices": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "balance_coef": 0.01,
+    "router": true,
+    "router_temp0": 1.0,
+    "router_temp_min": 0.1,
+    "router_hard": false
+  },
+  "train": {
+    "seed": 1,
+    "steps": 12000,
+    "batch_size": 32,
+    "lr": 0.002,
+    "min_lr_frac": 0.1,
+    "warmup": 200,
+    "weight_decay": 0.0,
+    "grad_clip": 1.0,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "eval_every": 500,
+    "eval_batches": 8,
+    "exact_every": 2000,
+    "mode": "routed",
+    "pretrain_uniform": true,
+    "pretrain_mixed": true,
+    "hard_after_frac": 0.7,
+    "lambda_flops": 0.0,
+    "init_from": null,
+    "trunk_lr_mult": 1.0,
+    "freeze_trunk": false,
+    "entropy_collapse_thresh": 0.1
+  },
+  "device": "cpu",
+  "notes": ""
+}

@@ -1,0 +1,59 @@
+{
+  "per_cell": {
+    "arith_easy": {
+      "loss": 0.0005373916366924158,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "arith_hard": {
+      "loss": 0.2808632487969518,
+      "mlp_frac": 0.5,
+      "acc": 0.0390625
+    },
+    "dyck_easy": {
+      "loss": 0.00012472150562886812,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "dyck_hard": {
+      "loss": 0.0007027611156012344,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "recall_easy": {
+      "loss": 0.010107724306484064,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "recall_hard": {
+      "loss": 2.1417632897694907,
+      "mlp_frac": 0.5,
+      "acc": 0.078125
+    }
+  },
+  "loss": 0.4056831895218082,
+  "mlp_frac": 0.5,
+  "acc": 0.6861979166666666,
+  "flops": {
+    "mlp": 65536.0,
+    "attn": 557056.0,
+    "head": 23552.0,
+    "total": 646144.0,
+    "mlp_frac": 0.5
+  },
+  "tier_scales": null,
+  "name": "fx_w32_s1_wd01",
+  "tag": "wd01",
+  "seed": 1,
+  "lambda_flops": 0.0,
+  "n_params": 327552,
+  "wall_s": 887.2,
+  "total_steps": 12000,
+  "d_ff": 64,
+  "tiers": [
+    8,
+    16,
+    32,
+    64
+  ]
+}

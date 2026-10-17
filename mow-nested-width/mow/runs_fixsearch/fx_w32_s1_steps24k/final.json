@@ -1,0 +1,59 @@
+{
+  "per_cell": {
+    "arith_easy": {
+      "loss": 0.0002487229721047648,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "arith_hard": {
+      "loss": 0.27960577888229876,
+      "mlp_frac": 0.5,
+      "acc": 0.1328125
+    },
+    "dyck_easy": {
+      "loss": 1.068132766868887e-05,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "dyck_hard": {
+      "loss": 0.00014708193407613732,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "recall_easy": {
+      "loss": 0.001586336875334382,
+      "mlp_frac": 0.5,
+      "acc": 1.0
+    },
+    "recall_hard": {
+      "loss": 1.40603240331014,
+      "mlp_frac": 0.5,
+      "acc": 0.4765625
+    }
+  },
+  "loss": 0.2812718342169371,
+  "mlp_frac": 0.5,
+  "acc": 0.7682291666666666,
+  "flops": {
+    "mlp": 65536.0,
+    "attn": 557056.0,
+    "head": 23552.0,
+    "total": 646144.0,
+    "mlp_frac": 0.5
+  },
+  "tier_scales": null,
+  "name": "fx_w32_s1_steps24k",
+  "tag": "steps24k",
+  "seed": 1,
+  "lambda_flops": 0.0,
+  "n_params": 327552,
+  "wall_s": 1331.2,
+  "total_steps": 24000,
+  "d_ff": 64,
+  "tiers": [
+    8,
+    16,
+    32,
+    64
+  ]
+}

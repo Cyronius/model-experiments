@@ -1,0 +1,27 @@
+sanity: mixed forward matches plain forward
+seed 0 done (103s)
+seed 1 done (331s)
+seed 2 done (533s)
+seed 3 done (575s)
+seed 4 done (605s)
+seed 5 done (635s)
+seed 6 done (665s)
+seed 7 done (686s)
+seed 8 done (718s)
+seed 9 done (746s)
+
+=== overall answer loss, mean over seeds (rows: context tier A, cols: answer tier B) ===
+                 8        16        32        64
+       8    0.1141    0.1081    0.1023    0.0963
+      16    0.1133    0.1051    0.0993    0.0929
+      32    0.1133    0.1047    0.0974    0.0911
+      64    0.1138    0.1048    0.0971    0.0891
+
+=== recall_hard loss (the only width-sensitive cell) ===
+                 8        16        32        64
+       8    0.6695    0.6358    0.6030    0.5679
+      16    0.6628    0.6200    0.5867    0.5505
+      32    0.6624    0.6172    0.5763    0.5402
+      64    0.6637    0.6167    0.5743    0.5290
+
+wrote C:\code\mow-experiments\mow\runs_kvswitch\results.json (746s total)

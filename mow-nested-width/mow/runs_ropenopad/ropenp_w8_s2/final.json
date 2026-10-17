@@ -1,0 +1,59 @@
+{
+  "per_cell": {
+    "arith_easy": {
+      "loss": 0.08231802944585785,
+      "mlp_frac": 0.125,
+      "acc": 0.9140625
+    },
+    "arith_hard": {
+      "loss": 1.8098366788921718,
+      "mlp_frac": 0.125,
+      "acc": 0.0
+    },
+    "dyck_easy": {
+      "loss": 0.00012405208525661387,
+      "mlp_frac": 0.125,
+      "acc": 1.0
+    },
+    "dyck_hard": {
+      "loss": 0.0003747207299070614,
+      "mlp_frac": 0.125,
+      "acc": 1.0
+    },
+    "recall_easy": {
+      "loss": 0.006036593268314998,
+      "mlp_frac": 0.125,
+      "acc": 1.0
+    },
+    "recall_hard": {
+      "loss": 2.2963218688964844,
+      "mlp_frac": 0.125,
+      "acc": 0.046875
+    }
+  },
+  "loss": 0.6991686572196655,
+  "mlp_frac": 0.125,
+  "acc": 0.66015625,
+  "flops": {
+    "mlp": 16384.0,
+    "attn": 557056.0,
+    "head": 23552.0,
+    "total": 596992.0,
+    "mlp_frac": 0.125
+  },
+  "tier_scales": null,
+  "name": "ropenp_w8_s2",
+  "tag": "dense_rope_nopad",
+  "seed": 2,
+  "lambda_flops": 0.0,
+  "n_params": 298784,
+  "wall_s": 1081.6,
+  "total_steps": 12000,
+  "d_ff": 64,
+  "tiers": [
+    8,
+    16,
+    32,
+    64
+  ]
+}

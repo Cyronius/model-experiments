@@ -1,0 +1,59 @@
+{
+  "per_cell": {
+    "arith_easy": {
+      "loss": 0.00038969680544551386,
+      "mlp_frac": 0.25,
+      "acc": 1.0
+    },
+    "arith_hard": {
+      "loss": 0.28053046221368183,
+      "mlp_frac": 0.25,
+      "acc": 0.125
+    },
+    "dyck_easy": {
+      "loss": 1.5917442704003214e-05,
+      "mlp_frac": 0.25,
+      "acc": 1.0
+    },
+    "dyck_hard": {
+      "loss": 0.0005260552238052416,
+      "mlp_frac": 0.25,
+      "acc": 1.0
+    },
+    "recall_easy": {
+      "loss": 0.005749080951015155,
+      "mlp_frac": 0.25,
+      "acc": 1.0
+    },
+    "recall_hard": {
+      "loss": 2.306456963221232,
+      "mlp_frac": 0.25,
+      "acc": 0.0703125
+    }
+  },
+  "loss": 0.4322780293096473,
+  "mlp_frac": 0.25,
+  "acc": 0.69921875,
+  "flops": {
+    "mlp": 32768.0,
+    "attn": 557056.0,
+    "head": 23552.0,
+    "total": 613376.0,
+    "mlp_frac": 0.25
+  },
+  "tier_scales": null,
+  "name": "fx_w16_s2_warm1000",
+  "tag": "warm1000",
+  "seed": 2,
+  "lambda_flops": 0.0,
+  "n_params": 311104,
+  "wall_s": 875.3,
+  "total_steps": 12000,
+  "d_ff": 64,
+  "tiers": [
+    8,
+    16,
+    32,
+    64
+  ]
+}
