@@ -1,6 +1,6 @@
 # Plan: a tiny iterative editor that rewrites English into ASD-STE100
 
-*Draft, October 2026. Personal project. Guideline targets, not gates: under 100 MB on disk, under 500 ms per sentence on a laptop CPU, the XDNA2 NPU on Strix Point under Windows as the preferred deployment target, zero API spend.*
+*Draft, October 2026. Personal project. Guideline targets, not gates: under 100 MB on disk, under 500 ms per sentence on a laptop CPU, the XDNA2 NPU on Strix Point as the preferred deployment target on Windows and Linux, GGUF as the model format, no API spend. Data generation and training run on a rented pod.*
 
 This is the design record for the Simplified Technical English (STE) rewriter. Read it before touching anything under `ste/`. The other plan in this repo, the heal pipeline, is referenced the same way from `heal/README.md`.
 
@@ -33,9 +33,10 @@ This is the design record for the Simplified Technical English (STE) rewriter. R
 | protected spans | slotted at the edges, never in the weights | Code, identifiers, paths, URLs, numbers, and proper nouns pass through untouched. STE rules 1.5 and 1.12 define the same mechanism for technical names and verbs. |
 | unknown words | protect and copy | A preprocessor that leaves a word alone costs nothing. One that guesses costs meaning. |
 | graph | static shapes, boring ops, loop on the host | Every NPU toolchain handles MatMul, LayerNorm, GELU, Softmax, Gather. Several choke on RoPE, SwiGLU, RMSNorm, or dynamic shapes. |
-| NPU target and OS | AMD XDNA2 on Strix Point, under Windows, through ONNX Runtime and the Vitis AI execution provider | It is the machine on the desk, and Windows is where AMD's production toolchain is. Linux has the kernel driver and IRON but no production execution provider as of Ryzen AI 1.7, so it is not planned. See 3.8. |
-| quantization | W8A8 as the shipping target, BF16 as the fallback on XDNA2; ternary as a custom-kernel experiment | The Ryzen AI compiler accepts INT8 and BF16, nothing lower. Ternary packs to INT8 on the standard path and only pays off through a hand-written IRON kernel. At 20M to 40M parameters the model fits in cache on the CPU, so bandwidth is not the bottleneck there. |
-| teachers | all local: Qwen3.6-27B-A2.8B for volume, Qwen3.8-Flash-Next-131B-A6B for hard cases, gpt-oss-120b as judge | The box is bandwidth-bound at about 120 GB/s, so only MoE teachers decode at a usable rate, and all three fit in 96 GB. The checker filters compliance, so the volume teacher can be modest. The judge is a different lineage from the teachers. No API spend. See 3.4. |
+| model format | GGUF | One file format that llama.cpp, ggml-xdna, and OpenFlowLM-Next's converter all read. ggml already defines ternary types. We add our own architecture to llama.cpp. See 3.8. |
+| NPU target | AMD XDNA2 on Strix Point, on Windows and Linux, through OpenFlowLM-Next's engine, with CPU and Vulkan through llama.cpp as the reference | Both of your NPU projects support both operating systems. But the NPU may be slower than the CPU for a model this narrow. We measure before committing. See 3.8. |
+| quantization | Q8_0 on CPU and Vulkan, bf16 on the NPU, TQ2_0 ternary as a CPU experiment | The NPU kernels in both projects take bf16 and keep their own 8-bit weight copies, so there is nothing to quantize for them. Width is a multiple of 256 so ggml's block types fit. See 3.9. |
+| teachers and training | one flag-gated session on a rented pod | Three days of laptop time was the real cost, and training the student is under an hour. Same models, run in large batches on a GPU. No API spend. See 3.4. |
 | build order | tagger baseline before the canvas model | A GECToR-style tagger is the simplest thing that can work. It shares the lexicon, checker, slots, and data. It sets the metric floor and is the fallback if small-scale diffusion disappoints. |
 | pretrained weights | none | Our vocab is word-level and ours. A short MLM pretrain on technical English with our tokenizer is cheap if we want it. |
 
@@ -69,17 +70,13 @@ Both are AGPL-3.0 and unaffiliated with ASD. The owner has decided to use them. 
 
 Everything lives under `ste/`. Each component gets its own README once it exists.
 
-### 3.0 The development machine
+### 3.0 The development machine and the pod
 
-A Strix Point laptop: Ryzen AI 9 HX 370-class, 12 Zen 5 cores, Radeon 890M iGPU, XDNA2 NPU rated at 50 TOPS INT8, and 96 GB of LPDDR5X on a 128-bit bus. For the teachers, the number that matters is the memory bus: about 120 GB/s theoretical, 80 to 100 GB/s in practice. Decode speed for any model on this box is roughly that bandwidth divided by the bytes touched per token. For the student, the number that matters is the NPU, covered in 3.8.
+**The laptop** is a Strix Point machine: Ryzen AI 9 HX 370-class, 12 Zen 5 cores, Radeon 890M iGPU, XDNA2 NPU, and 96 GB of LPDDR5X. It is where the student runs, so every latency number in this plan comes from it. It also runs the converter, the checker, the rule-based noiser, and small experiments. It does not run the teachers. Three days of generation would tie it up, and the memory bus (about 120 GB/s) makes big models slow there.
 
-Three consequences:
+**The pod** is a rented GPU box for one session that does the heavy work: teacher generation, the judge, student training, and GGUF export. Section 3.4 has the plan and the cost.
 
-- **MoE teachers only.** A dense 27B model at Q4 touches about 15 GB per token and decodes at 5 to 8 tok/s. A 27B-A2.8B MoE touches about 1.6 GB and decodes several times faster.
-- **The 96 GB is what makes the big models possible.** Qwen3.8-Flash-Next-131B-A6B at 65 GB and gpt-oss-120b at about 63 GB each sit in RAM with room for KV cache. One at a time.
-- **The NPU does not help the teachers.** Ryzen AI's LLM path targets small dense models and does not run a custom MoE GGUF. The iGPU speeds up prefill through Vulkan but shares the same memory bus, so it does not change decode speed.
-
-**Operating system: Windows.** Everything in this plan runs on Windows. Teachers run under `llama-server` with the Vulkan backend, as the heal campaign already does from PowerShell. Training is PyTorch on the CPU; a 15M to 40M parameter model on 1M to 2M short pairs is hours, so the iGPU is optional. The Ryzen AI Software installer provides ONNX Runtime with the Vitis AI execution provider and the Quark quantizer. Scripts that drive the machine are PowerShell; the Python code is platform-neutral.
+**Operating systems.** Windows and Linux both work. OpenFlowLM-Next ships a Windows installer and a Linux guide. ggml-xdna builds for both, with Linux not yet run on an NPU by its author. Pod scripts are bash; laptop scripts are Python.
 
 ### 3.1 Lexicon and tokenizer, `ste/lexicon/`
 
@@ -154,32 +151,32 @@ The input is LLM-facing text, so most protected spans are not aircraft parts. Th
 
 ### 3.4 Data pipeline, `ste/data/`
 
-There is no public parallel corpus of plain English to STE. We build it. Everything in this section runs on the laptop; nothing calls an API.
+There is no public parallel corpus of plain English to STE. We build it. Generation runs on a rented pod, rule-based noising runs anywhere, and nothing calls an API.
 
 **Seed clean STE.**
 - The 1,878 aligned pairs from the dictionary and the rule examples. Small, but they are the only human-written gold we have, so they seed the gold set and the checker tests, not training.
-- Teacher-generated STE. Prompt the local volume teacher with a short rule summary and a source text, generate a rewrite, keep it only if the checker reports zero tier A violations. Source texts are the kind of thing this tool will actually see: public instruction datasets, system prompts and agent instructions, README and documentation text, tool and API descriptions, forum questions. Not aircraft manuals.
+- Teacher-generated STE. Prompt the volume teacher with a short rule summary and a source text, generate a rewrite, keep it only if the checker reports zero tier A violations. Source texts are the kind of thing this tool will actually see: public instruction datasets, system prompts and agent instructions, README and documentation text, tool and API descriptions, forum questions. Not aircraft manuals.
 
-**Teacher plan.** Three jobs, three local models. The checker filters compliance on every slice, so what a stronger teacher buys is meaning fidelity and natural phrasing, not rule knowledge.
+**Teacher plan.** Three jobs, three models. The checker filters compliance on every slice, so what a stronger teacher buys is meaning fidelity and natural phrasing, not rule knowledge.
 
 | job | teacher | why |
 |---|---|---|
-| volume: seed STE and LLM back-translation, about 11M output tokens | Qwen3.6-27B-A2.8B Q4_K_M with MTP, from this repo, behind `llama-server` | Fastest thing on the box, already tuned for it, and good enough for paraphrase with the checker downstream. Keep the prompt to a 300-token rule summary plus the one rule being targeted. Prefill is what hurts here, not decode. |
-| hard cases: passive-to-active and sentence splitting, 50k pairs with retries, about 4.5M tokens | Qwen3.8-Flash-Next-131B-A6B at 65 GB, from this repo | A weak rewriter passes the checker and quietly changes meaning. This is the strongest model that fits. |
-| judge: meaning preservation and downstream equivalence on the gold set and on sampled training pairs | gpt-oss-120b MXFP4, about 63 GB | Different lineage from both teachers, so its blind spots are not theirs. Strong enough to grade. |
+| volume: seed STE and LLM back-translation, about 11M output tokens | Qwen3.6-35B-A3B, unpruned, from Hugging Face, run with vLLM | `heal/pod_run.sh` already downloads it. It is stronger than the pruned build, and vLLM batches it hard. Keep the prompt to a 300-token rule summary plus the one rule being targeted. |
+| hard cases: passive-to-active and sentence splitting, 50k pairs with retries, about 4.5M tokens | Qwen3.8-Flash-Next-131B-A6B, the 65 GB build from this repo, under llama.cpp CUDA | A weak rewriter passes the checker and quietly changes meaning. This is the strongest model that fits. `bench/pod_bench.sh` already builds llama.cpp for CUDA. |
+| judge: meaning preservation and downstream equivalence | gpt-oss-120b MXFP4, about 63 GB, run with vLLM | Different lineage from both teachers, so its blind spots are not theirs. |
 
-**Local throughput, measured on day one.** Expect roughly 20 to 35 tok/s single stream for the 27B-A2.8B and 60 to 100 tok/s aggregate with 8 to 16 parallel slots; about half that for the two big models. Run `llama-server` with parallel slots, continuous batching, Vulkan offload for prefill, and prompt-cache reuse so the shared rule prefix is not re-prefilled per request. Size the context as slots times a per-slot budget of about 1k tokens.
+**One session, flag-gated.** Model it on `bench/pod_bench.sh`: each phase writes a done flag so a rerun resumes, any failure writes `FAILED.flag`, and a wall-clock cap stops the pod. Phases: `env`, `volume`, `hard`, `judge`, `train`, `export`, then pull the artifacts home. Log elapsed time and running cost per phase, as `heal/pod_gate.sh` does.
 
-**Time, rough.**
+**Smoke session first.** Before the real run, rent the pod for about 20 minutes with a spend cap of about $2. Run 200 requests through each teacher and read the throughput and cost from the log. Every number in the table below is my guess until that log exists.
 
-| slice | output tokens | laptop time |
-|---|---|---|
-| seed STE, 200k sentences with rejection sampling, 27B-A2.8B | about 5M | about 18 hours |
-| LLM back-translation, 150k sentences, 27B-A2.8B | about 6M | about 20 hours |
-| hard-case distillation, 75k requests with retries, 131B-A6B | about 4.5M | about 30 hours |
-| judge, one round of 3k items, gpt-oss-120b | about 0.6M | about 4 hours |
+**Cost, estimated and unmeasured.** The repo's notes price an H200 community pod at $3.59 per hour.
 
-Call it three days of background laptop time for the full set, plus an evening per evaluation round. Rule-based noising below is free and makes up most of the pairs.
+| tier | hardware | what runs | rough pod hours | rough cost |
+|---|---|---|---|---|
+| lean | one 48 GB card | the 35B-A3B at Q4 for volume and hard cases; skip the 131B; judge with a smaller model | 4 to 8 | $3 to $10 |
+| standard | one H200 | all three teachers as listed, then training | 4 to 6 | $15 to $30 |
+
+Downloads eat pod time: the 131B and the judge together are about 130 GB. Cache them on a network volume if you expect a second run. The lean tier is the one closest to your $1 to $3 line, and it still probably lands above it. Say which tier you want after the smoke session.
 
 **Noise the clean STE into messy English.** Two noisers, mixed about half and half.
 
@@ -201,7 +198,7 @@ The reversed dictionary is the key trick. The 1,319 rejected words with their al
 | hard-case distilled pairs | 50k |
 | paragraph pairs, 2 to 6 sentences | 100k |
 
-Reuse `heal/gen_teacher.py`'s shard writer and `bench/run_bench.py`'s `llama-server` client. Neither needs much change.
+Reuse `heal/gen_teacher.py`'s shard writer and `bench/run_bench.py`'s `llama-server` client. Neither needs much change. The pod session scripts copy the layout of `bench/pod_bench.sh` and `heal/pod_run.sh`.
 
 **Gold set.** 300 sentences and 50 paragraphs. Source text is real messy input of the kind this tool will see; the STE rewrite is hand-verified by the owner. Tagged by rule category so per-rule accuracy is visible. The dictionary's 1,878 pairs are the seed; the rest comes from real prompts and docs. This set is the only thing that tells us the truth, so it gets built in phase 2 and grows every phase.
 
@@ -211,8 +208,8 @@ GECToR-style. An encoder with a per-token tag head.
 
 | | |
 |---|---|
-| encoder | 6 layers, width 384, 6 heads, FFN 1536, learned absolute positions, LayerNorm, GELU |
-| parameters | about 15M including embeddings |
+| encoder | 6 layers, width 512, 8 heads, FFN 2048, learned absolute positions, LayerNorm, GELU |
+| parameters | about 25M including embeddings |
 | tags | `KEEP`, `DELETE`, `REPLACE_w` and `APPEND_w` for every `w` in `V_out`, plus about 20 transforms: verb form changes, case changes, merge-with-next |
 | inference | apply tags, re-run, stop when every tag is `KEEP` or the checker is clean or the cap of 5 passes is hit |
 | conditioning | mode token prepended; checker violation features added to token embeddings |
@@ -256,41 +253,33 @@ Exit when all three hold: tier A violations are zero; the canvas did not change 
 
 ### 3.8 Runtime, `ste/runtime/`
 
-**Export.** PyTorch to ONNX, one static graph per bucket.
+**Format: GGUF.** The model is written once to a GGUF file by `export_gguf.py`. The host loop (freezing, re-masking, the checker, slot restore) lives outside the graph in a small library.
 
-| graph inputs | shape | notes |
-|---|---|---|
-| token ids | `[L]` | source plus canvas, padded |
-| attention bias | `[L, L]` | additive; pads masked |
-| checker feature ids | `[L]` | zero where clean |
-| lexicon bias | `[|V_out|]` | additive; minus infinity for disallowed words |
-| graph output | `[L_canvas, |V_out|]` | logits |
+**What the two NPU projects actually do.** I read both repos in October 2026.
 
-Ops allowed in the graph: MatMul, Add, Mul, LayerNorm, Gelu, Softmax, Gather, Transpose, Reshape. Nothing else. Position embeddings are baked constants since lengths are fixed. Everything that is dynamic, freezing, re-masking, slot restore, and the checker, runs on the host.
+- **ggml-xdna** adds an NPU backend to llama.cpp. It offloads big matrix multiplies during prompt reading only. It declines chunks under 1,024 tokens. Its own tests show models narrower than 2,048 get slower on the NPU: 0.77x at width 1,536 and 0.89x at width 1,024. Our model is 512 wide and sees 64 to 256 tokens per call. Under ggml-xdna as written, the NPU would decline almost all of our work, and what it took would likely lose to the CPU.
+- **OpenFlowLM-Next** is a fork of FastFlowLM, an NPU-first runtime for Windows and Linux. It converts GGUF files to its own format with `q4nx-build`, one builder per architecture, and each model links to a shared kernel binary for its family. It also has an open engine pattern, `open_embedding`, which is the closest thing to our model: a bidirectional encoder (EmbeddingGemma-300M) run in FP32 on the CPU, with the big projections sent to the NPU as bf16 matrix multiplies, and results checked against the CPU at cosine 0.999 or better. The repo's `npu_offload_pipeline` skill documents how to compile kernels for new shapes.
 
-**Backends, in order.**
+**Plan, in order.**
 
-1. **ONNX Runtime CPU, INT8, on the Strix Point box.** The reference latency numbers come from here.
-2. **XDNA2 through Ryzen AI Software on Windows**, 1.7.x as of this writing: ONNX Runtime with the Vitis AI execution provider. The compiler accepts INT8 and BF16. AMD documents BF16 as the transformer flow and INT8 for CNNs, and INT8 transformers work when the graph stays inside the supported op subset. Try INT8 first through Quark static quantization and fall back to BF16 if the INT8 compile rejects ops. Export at ONNX opset 17. Unsupported subgraphs fall back to the CPU silently, so read the partition report and demand zero fallback nodes. Pre-compile for the deployment build of the provider.
-3. **Later, same graph:** Intel through OpenVINO, Qualcomm QNN, Core ML.
+1. **Reference: llama.cpp with a new `ste` architecture, on CPU and Vulkan.** Bidirectional attention, learned absolute positions, LayerNorm, GELU, a logits head over `V_out`, and the lexicon bias as an input. The patch lives beside the existing one in `patches/`. Two things to verify before writing it: that llama.cpp can return logits at every position of a non-causal batch, and that a per-call additive bias is easy to add. If either is hard, the patch grows. This is the baseline all latency numbers are measured against.
+2. **NPU: an `open_ste` engine in OpenFlowLM-Next,** cloned from `open_embedding`. Load from the GGUF through a new `ste.py` builder in `q4nx-build`, or the safetensors route that `open_embedding` uses, whichever is less work. Compile kernels for our shapes: M of 64, 128, 256 and K and N from 512 and 2048. Offload only the dense projections first, as `open_embedding` does.
+3. **The deciding measurement.** In week one of phase 3, take a random-weight model of the final shape and time one full pass on three paths: llama.cpp CPU, llama.cpp Vulkan, and the NPU engine. At width 512, per-dispatch overhead may eat the gain, which is exactly what ggml-xdna measured. If the NPU loses, the answer is a fused kernel that runs a whole layer or a whole pass in one dispatch, which is a larger IRON project, or the answer is to ship on CPU. A 25M-parameter model on 12 Zen 5 cores is probably fast enough that CPU is a fine place to stop.
+4. **Dropped from the earlier plan:** the ONNX Runtime and Vitis AI path. GGUF replaces it.
 
-**Not planned: Linux on the NPU.** The amdxdna kernel driver, mainline since 6.14, plus XRT gives device access, and IRON gives custom kernels, but there is no production ONNX execution provider for Ryzen NPUs on Linux as of this writing. The CPU path works anywhere, so a Linux user gets ONNX Runtime CPU and nothing else.
-
-**XDNA2 budget.** A 30M-parameter INT8 model streams 30 MB of weights per pass and needs about 10 GFLOP, which is 0.2 ms at the rated 50 TOPS. Launch and DMA overhead will dominate, so expect a few milliseconds per pass, and a whole sentence under 50 ms. Measure; do not trust this paragraph.
-
-**De-risk early.** In the first week of phase 3, export a random-weight model of the final shape through the Vitis AI provider on the Strix Point box. Fix op-support and partition problems before training a real model into them.
-
-**Custom kernels.** Two separate questions. On the CPU: only if ONNX Runtime INT8 misses the budget, which it almost certainly will not. On XDNA2: IRON is the path. Python describes the dataflow across the AIE2P tile array, C++ with vector intrinsics describes each tile's kernel, and Peano compiles it. The mlir-aie repo carries Windows setup instructions for Ryzen AI machines; confirm they cover Strix before phase 5b. Phoenix-era kernels do not run on Strix; build for the NPU2 targets from the mlir-aie Strix examples. This is also where a ternary experiment could actually pay. XDNA2 is a dataflow array fed by DMA from shared DDR, so a hand-written ternary GEMM that streams 2-bit weights and expands them in tile memory cuts weight traffic per pass by about 4x against INT8. Treat it as phase 5b research, not the plan of record.
+**Not planned:** any NPU path that depends on closed kernels. OpenFlowLM-Next's own notes say to replace closed pieces with open ones, and we follow that.
 
 ### 3.9 Quantization
 
 | phase | precision | criterion |
 |---|---|---|
 | 1 to 3 | bf16 training, fp32 eval | none; establish quality |
-| 5 | quantization-aware training, W8A8, per-channel weights, per-tensor activations, about 10 percent extra steps; Quark static quantization for the Vitis AI provider | compliance within 0.5 points of bf16; if the INT8 compile fails on transformer ops, ship BF16 on the NPU and INT8 on the CPU |
-| 5b, optional | ternary weights, 8-bit activations, trained from scratch per the BitNet b1.58 recipe; embeddings and output head stay INT8; deployed through a custom IRON kernel on XDNA2 or a lookup-table kernel on the CPU | within 1 point of bf16 and measurably faster on the target, else drop it |
+| 5 | GGUF export: F16 and Q8_0 for CPU and Vulkan; plain bf16 weights for the NPU path | compliance within 0.5 points of bf16 |
+| 5b, optional | ternary weights trained from scratch per the BitNet b1.58 recipe, stored as ggml's TQ2_0 type; embeddings and output head stay at Q8_0; CPU only | within 1 point of bf16 and measurably faster on the CPU, else drop it |
 
-**Rough budget for the W8A8 model.**
+**Why width 512.** ggml's k-quant and ternary types work in blocks of 256, so every weight dimension should be a multiple of 256. The Qwen3.6 campaign in this repo hit exactly this: width 384 pushed expert tensors into a large fallback format and decode fell to 9.4 tok/s. Width 512 with FFN 2048 avoids it. The legacy Q8_0 and Q4_0 types use blocks of 32 and would also work at 384, but ternary needs 256.
+
+**Rough budget for the Q8_0 model.**
 
 | | estimate |
 |---|---|
@@ -299,7 +288,7 @@ Ops allowed in the graph: MatMul, Add, Mul, LayerNorm, Gelu, Softmax, Gather, Tr
 | compute per pass, 128-token bucket | 4 to 10 GFLOP |
 | passes before exit | 2 to 4 typical |
 | CPU latency per sentence, 4 threads | 50ms to 300ms |
-| XDNA2 latency per pass | a few ms, overhead-dominated; see 3.8 |
+| XDNA2 latency per pass | unknown; may be slower than the CPU at this width; see 3.8 |
 
 These are back-of-envelope numbers. The latency table in `ste/eval/` replaces them the day we have a model.
 
@@ -320,7 +309,7 @@ These are back-of-envelope numbers. The latency table in `ste/eval/` replaces th
 | latency | p50 and p95 per sentence and per six-sentence paragraph, Strix Point CPU, 4 threads; same on XDNA2 | p95 sentence under 500ms on CPU; stretch 150ms |
 | size | on disk including lexicon | under 100MB; stretch 40MB |
 
-**Ablations to run once.** Checker feedback on and off. Slots on and off. One pass versus adaptive. W8A8 versus ternary versus bf16. Tagger versus canvas on the structural-rule subset of the gold set.
+**Ablations to run once.** Checker feedback on and off. Slots on and off. One pass versus adaptive. Q8_0 versus ternary versus bf16. Tagger versus canvas on the structural-rule subset of the gold set.
 
 Deterministic scoring everywhere the checker can do it, as in `bench/`. The judge is only for what the checker cannot see.
 
@@ -332,13 +321,13 @@ Deterministic scoring everywhere the checker can do it, as in `bench/`. The judg
 |---|---|---|---|
 | 0 | converter from the PyPI packages, lexicon, checker | every dictionary row converted or on the review list; checker passes the rule examples and the 1,878 pairs | 1 week |
 | 1 | protected-span detector, slotter, inflector | 100 percent restoration on a synthetic test; checker respects glossaries | 1 week |
-| 2 | data v1, gold set v1, and the token-delta measurement on real inputs | 1M pairs; every target checker-clean; judge-sampled meaning at least 4.5; 300-sentence gold set; a decision on whether STE saves tokens on our inputs | 2 weeks |
-| 3 | tagger baseline; ONNX export of a random-weight model through the Vitis AI provider | all metrics measured; export runs with zero CPU-fallback nodes | 2 weeks |
+| 2 | data v1 (pod session), gold set v1, and the token-delta measurement on real inputs | 1M pairs; every target checker-clean; judge-sampled meaning at least 4.5; 300-sentence gold set; a decision on whether STE saves tokens on our inputs | 2 weeks |
+| 3 | tagger baseline (trained on the pod); GGUF writer and `ste` architecture in llama.cpp; a random-weight model of the final shape timed on CPU, Vulkan, and the NPU engine | all metrics measured; GGUF loads; NPU dispatch overhead measured at our width | 2 weeks |
 | 4 | canvas model | beats the tagger on the structural-rule subset at equal latency, or we keep the tagger | 3 to 4 weeks |
-| 5 | W8A8 model on ONNX Runtime CPU and on XDNA2 under Windows; optional ternary IRON kernel | within budget on the Strix Point box | 2 to 3 weeks |
+| 5 | Q8_0 on CPU and Vulkan, bf16 on the NPU through OpenFlowLM-Next; optional TQ2_0 ternary on CPU; a fused NPU kernel only if the measurement in 3.8 says it can win | within budget on the Strix Point box | 2 to 3 weeks |
 | 6 | hardening | gold set growth; codebook output; adapter training script if a domain ever needs one | ongoing |
 
-Roughly two and a half to three months for one person. Compute is the laptop. Training a 15M to 40M parameter model on 1M to 2M short pairs is hours on the iGPU or a day on CPU; if it drags, one rented GPU-hour is the only line item, and it is optional.
+Roughly two and a half to three months for one person. The laptop does everything except the pod session. Training a 25M parameter model on 1M to 2M short pairs is under an hour on an H200, so the pod bill is dominated by teacher generation and model downloads, not training.
 
 **First week, concretely.**
 1. `pip download` both packages into a scratch directory. Add the derived files to `.gitignore` before writing the converter.
@@ -346,7 +335,7 @@ Roughly two and a half to three months for one person. Compute is the laptop. Tr
 3. Write the inflection generator and check it against the 663 spellings the package lists.
 4. Extract the rule examples from the rules JSON into `spec_examples.jsonl`, keyed by rule ID.
 5. Write the tier A checker for the five lookup rules: unapproved word, wrong part of speech, sentence length, -ing form, perfect tense. Run it over the examples and start the failure list.
-6. Take 200 real prompts and docs from your own use, run them through the volume teacher with the checker, and count tokens before and after. This is the number that decides what this project is for.
+6. Take 200 real prompts and docs from your own use, run them through the local Qwen3.6-27B-A2.8B with the checker, and count tokens before and after. Two hundred prompts take minutes, so this needs no pod. This is the number that decides what this project is for.
 
 ---
 
@@ -359,7 +348,10 @@ Roughly two and a half to three months for one person. Compute is the laptop. Tr
 | synthetic messy English does not match real prompts and docs | several LLM noise styles; seed from real prompts, system prompts, and docs; grow the gold set from real text only |
 | meaning drift | local judge plus downstream equivalence on real prompts; protect-and-copy default; owner spot checks |
 | code and identifiers get rewritten | the protect step runs before anything else and treats backticks, paths, URLs, and identifier shapes as untouchable; slot fidelity is a hard gate |
-| NPU op support gaps found late | boring graph; random-weight export in phase 3, not phase 5 |
+| NPU slower than CPU at this width | ggml-xdna measured losses below width 2,048; time a random-weight model on CPU, Vulkan, and the NPU in phase 3; CPU is a fine shipping answer for a model this small |
+| llama.cpp cannot return per-position logits or take a bias cleanly | check before writing the architecture; the patch directory already exists; worst case the patch is larger |
+| OpenFlowLM-Next needs a new builder and kernels per architecture | start from `open_embedding`, the closest existing encoder; only attempt after the CPU path works |
+| pod cost runs past the budget | smoke session with a spend cap first; flag-gated phases; wall-clock cap; lean tier available |
 | small-scale masked diffusion underperforms | the tagger is the fallback and is built first |
 | -ing words inside names, like "landing gear" or "logging" | glossary and protect step handle them; a dedicated test set for -ing edge cases |
 | passive detection false positives on adjectival participles, like "the file is closed" | tier A rule only fires with an explicit agent or in `PROC` mode; otherwise tier B |
@@ -368,13 +360,16 @@ Roughly two and a half to three months for one person. Compute is the laptop. Tr
 
 ---
 
-## 7. Open questions for the owner
+## 7. Open questions, in plain words
 
-1. Which model consumes the output? Its tokenizer is the one the token-delta metric should use.
-2. Is the primary surface a sentence, a paragraph, or a whole prompt with structure? This decides whether the 256 bucket matters and whether we need cross-paragraph terminology consistency.
-3. Is the 12-bit codebook output wanted as a real feature, or is STE text itself the deliverable?
+None of these block work. Each has a default. Say nothing and the default stands.
 
-Settled: the runtime ships on Windows, where AMD's XDNA2 toolchain lives.
+1. **Which AI will read the shorter text?** We measure success partly by counting tokens before and after the rewrite. Every AI model splits text into tokens its own way, so the count depends on which model you pick. *Default:* count with the Qwen3 tokenizer from this repo, plus one other, and report both.
+2. **How much text goes in at once?** One sentence per call is fast and simple. A whole prompt of several paragraphs is more useful but needs bigger buffers and more passes. *Default:* build for sentences and short paragraphs first (the 64 and 128 sizes), and add the 256 size later.
+3. **Do you want a compact number format for the output?** The output vocabulary is under 4,096 words. So every word could be saved as a 12-bit number instead of text. That is a compressed form, useful if a program, not a model, stores or sends the text. *Default:* no. Skip it until the text version works. It costs nothing to add later.
+4. **How much will you spend on the pod?** Section 3.4 has two tiers, about $3 to $10 and about $15 to $30. Both are my guesses. *Default:* run the 20-minute smoke session first, capped near $2, then pick a tier from its real numbers.
+
+Settled: the model format is GGUF. Both Windows and Linux are supported through your two NPU projects. Training and data generation run on a pod.
 
 ---
 
@@ -410,10 +405,13 @@ ste/
     judge.py                   meaning preservation and downstream equivalence, local models
     gold/                      the hand-verified set, by rule category
   runtime/
-    export_onnx.py
+    export_gguf.py             writes the trained model to GGUF
     loop.py                    the host-side pass loop
     codebook.py                12-bit word-ID encode and decode
-    backends/                  ort_cpu.py, vitisai_npu.py (Windows), later openvino.py, qnn.py, coreml.py
+    backends/                  llama_cpp.py (CPU, Vulkan), openflowlm.py (NPU)
+  pod/
+    pod_smoke.sh               20-minute throughput and cost probe
+    pod_run.sh                 flag-gated session: env, volume, hard, judge, train, export
 ```
 
 ---
@@ -430,7 +428,8 @@ ste/
 - Nie et al. 2025. *Large Language Diffusion Models.* Evidence the masked-diffusion recipe scales; we are going the other way.
 - Ma et al. 2024. *The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits.* The ternary recipe, if phase 5b happens.
 - Wei et al. 2024. *T-MAC: CPU Renaissance via Table Lookup for Low-Bit LLM Deployment on Edge.* The CPU kernel approach for ternary.
-- AMD. *Ryzen AI Software documentation*, release 1.7.x. ryzenai.docs.amd.com. Model compatibility, the Vitis AI execution provider, Quark quantization, supported ops.
+- Cyronius/ggml-xdna. NPU prompt offload for llama.cpp; its Results and Limitations sections are the evidence on narrow models.
+- Cyronius/OpenFlowLM-Next, a FastFlowLM fork. `open_embedding`, `q4nx-build`, and the `npu_offload_pipeline` skill.
 - AMD / Xilinx. *mlir-aie* repository and the IRON tutorial, ASPLOS 2026. The custom-kernel path for XDNA2.
 - Linux kernel documentation, *accel/amdxdna*. Driver, firmware loading, and XRT layering for the NPU on Linux.
 - dfch. *biz-dfch-asdste100vocab* 0.8.1 and *biz-dfch-asdste100rules* 0.1.1 on PyPI. The lexicon and rule data this plan builds from.
