@@ -1,6 +1,6 @@
 # Plan: a tiny iterative editor that rewrites English into ASD-STE100
 
-*Draft, October 2026. Personal project. Guideline targets, not gates: under 100 MB on disk, under 500 ms per sentence on a laptop CPU, the XDNA2 NPU on Strix Point as the preferred deployment target, zero API spend.*
+*Draft, October 2026. Personal project. Guideline targets, not gates: under 100 MB on disk, under 500 ms per sentence on a laptop CPU, the XDNA2 NPU on Strix Point under Windows as the preferred deployment target, zero API spend.*
 
 This is the design record for the Simplified Technical English (STE) rewriter. Read it before touching anything under `ste/`. The other plan in this repo, the heal pipeline, is referenced the same way from `heal/README.md`.
 
@@ -33,7 +33,7 @@ This is the design record for the Simplified Technical English (STE) rewriter. R
 | protected spans | slotted at the edges, never in the weights | Code, identifiers, paths, URLs, numbers, and proper nouns pass through untouched. STE rules 1.5 and 1.12 define the same mechanism for technical names and verbs. |
 | unknown words | protect and copy | A preprocessor that leaves a word alone costs nothing. One that guesses costs meaning. |
 | graph | static shapes, boring ops, loop on the host | Every NPU toolchain handles MatMul, LayerNorm, GELU, Softmax, Gather. Several choke on RoPE, SwiGLU, RMSNorm, or dynamic shapes. |
-| NPU target | AMD XDNA2 on Strix Point, through ONNX Runtime and the Vitis AI execution provider | It is the machine on the desk. The official toolchain is Windows-only as of Ryzen AI 1.7; Linux has the kernel driver and IRON for custom kernels but no production execution provider. See 3.8. |
+| NPU target and OS | AMD XDNA2 on Strix Point, under Windows, through ONNX Runtime and the Vitis AI execution provider | It is the machine on the desk, and Windows is where AMD's production toolchain is. Linux has the kernel driver and IRON but no production execution provider as of Ryzen AI 1.7, so it is not planned. See 3.8. |
 | quantization | W8A8 as the shipping target, BF16 as the fallback on XDNA2; ternary as a custom-kernel experiment | The Ryzen AI compiler accepts INT8 and BF16, nothing lower. Ternary packs to INT8 on the standard path and only pays off through a hand-written IRON kernel. At 20M to 40M parameters the model fits in cache on the CPU, so bandwidth is not the bottleneck there. |
 | teachers | all local: Qwen3.6-27B-A2.8B for volume, Qwen3.8-Flash-Next-131B-A6B for hard cases, gpt-oss-120b as judge | The box is bandwidth-bound at about 120 GB/s, so only MoE teachers decode at a usable rate, and all three fit in 96 GB. The checker filters compliance, so the volume teacher can be modest. The judge is a different lineage from the teachers. No API spend. See 3.4. |
 | build order | tagger baseline before the canvas model | A GECToR-style tagger is the simplest thing that can work. It shares the lexicon, checker, slots, and data. It sets the metric floor and is the fallback if small-scale diffusion disappoints. |
@@ -77,7 +77,9 @@ Three consequences:
 
 - **MoE teachers only.** A dense 27B model at Q4 touches about 15 GB per token and decodes at 5 to 8 tok/s. A 27B-A2.8B MoE touches about 1.6 GB and decodes several times faster.
 - **The 96 GB is what makes the big models possible.** Qwen3.8-Flash-Next-131B-A6B at 65 GB and gpt-oss-120b at about 63 GB each sit in RAM with room for KV cache. One at a time.
-- **The NPU does not help the teachers.** Ryzen AI's LLM path targets small dense models on Windows and does not run a custom MoE GGUF. The iGPU speeds up prefill through Vulkan but shares the same memory bus, so it does not change decode speed.
+- **The NPU does not help the teachers.** Ryzen AI's LLM path targets small dense models and does not run a custom MoE GGUF. The iGPU speeds up prefill through Vulkan but shares the same memory bus, so it does not change decode speed.
+
+**Operating system: Windows.** Everything in this plan runs on Windows. Teachers run under `llama-server` with the Vulkan backend, as the heal campaign already does from PowerShell. Training is PyTorch on the CPU; a 15M to 40M parameter model on 1M to 2M short pairs is hours, so the iGPU is optional. The Ryzen AI Software installer provides ONNX Runtime with the Vitis AI execution provider and the Quark quantizer. Scripts that drive the machine are PowerShell; the Python code is platform-neutral.
 
 ### 3.1 Lexicon and tokenizer, `ste/lexicon/`
 
@@ -269,15 +271,16 @@ Ops allowed in the graph: MatMul, Add, Mul, LayerNorm, Gelu, Softmax, Gather, Tr
 **Backends, in order.**
 
 1. **ONNX Runtime CPU, INT8, on the Strix Point box.** The reference latency numbers come from here.
-2. **XDNA2 through Ryzen AI Software**, 1.7.x as of this writing: ONNX Runtime with the Vitis AI execution provider. The compiler accepts INT8 and BF16. AMD documents BF16 as the transformer flow and INT8 for CNNs, and INT8 transformers work when the graph stays inside the supported op subset. Try INT8 first through Quark static quantization and fall back to BF16 if the INT8 compile rejects ops. Export at ONNX opset 17. Unsupported subgraphs fall back to the CPU silently, so read the partition report and demand zero fallback nodes. Pre-compile for the deployment build of the provider. Windows only as of Ryzen AI 1.7.
-3. **Linux on the same machine.** The amdxdna kernel driver, mainline since 6.14, plus XRT gives device access, and IRON gives custom kernels. There is no production ONNX execution provider for Ryzen NPUs on Linux as of this writing. Verify against AMD's current release notes before planning around it.
-4. **Later, same graph:** Intel through OpenVINO, Qualcomm QNN, Core ML.
+2. **XDNA2 through Ryzen AI Software on Windows**, 1.7.x as of this writing: ONNX Runtime with the Vitis AI execution provider. The compiler accepts INT8 and BF16. AMD documents BF16 as the transformer flow and INT8 for CNNs, and INT8 transformers work when the graph stays inside the supported op subset. Try INT8 first through Quark static quantization and fall back to BF16 if the INT8 compile rejects ops. Export at ONNX opset 17. Unsupported subgraphs fall back to the CPU silently, so read the partition report and demand zero fallback nodes. Pre-compile for the deployment build of the provider.
+3. **Later, same graph:** Intel through OpenVINO, Qualcomm QNN, Core ML.
+
+**Not planned: Linux on the NPU.** The amdxdna kernel driver, mainline since 6.14, plus XRT gives device access, and IRON gives custom kernels, but there is no production ONNX execution provider for Ryzen NPUs on Linux as of this writing. The CPU path works anywhere, so a Linux user gets ONNX Runtime CPU and nothing else.
 
 **XDNA2 budget.** A 30M-parameter INT8 model streams 30 MB of weights per pass and needs about 10 GFLOP, which is 0.2 ms at the rated 50 TOPS. Launch and DMA overhead will dominate, so expect a few milliseconds per pass, and a whole sentence under 50 ms. Measure; do not trust this paragraph.
 
 **De-risk early.** In the first week of phase 3, export a random-weight model of the final shape through the Vitis AI provider on the Strix Point box. Fix op-support and partition problems before training a real model into them.
 
-**Custom kernels.** Two separate questions. On the CPU: only if ONNX Runtime INT8 misses the budget, which it almost certainly will not. On XDNA2: IRON is the path. Python describes the dataflow across the AIE2P tile array, C++ with vector intrinsics describes each tile's kernel, and Peano compiles it. Phoenix-era kernels do not run on Strix; build for the NPU2 targets from the mlir-aie Strix examples. This is also where a ternary experiment could actually pay. XDNA2 is a dataflow array fed by DMA from shared DDR, so a hand-written ternary GEMM that streams 2-bit weights and expands them in tile memory cuts weight traffic per pass by about 4x against INT8. Treat it as phase 5b research, not the plan of record.
+**Custom kernels.** Two separate questions. On the CPU: only if ONNX Runtime INT8 misses the budget, which it almost certainly will not. On XDNA2: IRON is the path. Python describes the dataflow across the AIE2P tile array, C++ with vector intrinsics describes each tile's kernel, and Peano compiles it. The mlir-aie repo carries Windows setup instructions for Ryzen AI machines; confirm they cover Strix before phase 5b. Phoenix-era kernels do not run on Strix; build for the NPU2 targets from the mlir-aie Strix examples. This is also where a ternary experiment could actually pay. XDNA2 is a dataflow array fed by DMA from shared DDR, so a hand-written ternary GEMM that streams 2-bit weights and expands them in tile memory cuts weight traffic per pass by about 4x against INT8. Treat it as phase 5b research, not the plan of record.
 
 ### 3.9 Quantization
 
@@ -332,7 +335,7 @@ Deterministic scoring everywhere the checker can do it, as in `bench/`. The judg
 | 2 | data v1, gold set v1, and the token-delta measurement on real inputs | 1M pairs; every target checker-clean; judge-sampled meaning at least 4.5; 300-sentence gold set; a decision on whether STE saves tokens on our inputs | 2 weeks |
 | 3 | tagger baseline; ONNX export of a random-weight model through the Vitis AI provider | all metrics measured; export runs with zero CPU-fallback nodes | 2 weeks |
 | 4 | canvas model | beats the tagger on the structural-rule subset at equal latency, or we keep the tagger | 3 to 4 weeks |
-| 5 | W8A8 model on ONNX Runtime CPU and on XDNA2; optional ternary IRON kernel | within budget on the Strix Point box | 2 to 3 weeks |
+| 5 | W8A8 model on ONNX Runtime CPU and on XDNA2 under Windows; optional ternary IRON kernel | within budget on the Strix Point box | 2 to 3 weeks |
 | 6 | hardening | gold set growth; codebook output; adapter training script if a domain ever needs one | ongoing |
 
 Roughly two and a half to three months for one person. Compute is the laptop. Training a 15M to 40M parameter model on 1M to 2M short pairs is hours on the iGPU or a day on CPU; if it drags, one rented GPU-hour is the only line item, and it is optional.
@@ -367,10 +370,11 @@ Roughly two and a half to three months for one person. Compute is the laptop. Tr
 
 ## 7. Open questions for the owner
 
-1. Windows or Linux for the shipped XDNA2 runtime? The official execution provider is Windows-only today. Linux means IRON and our own kernels from day one, which is a different project.
-2. Which model consumes the output? Its tokenizer is the one the token-delta metric should use.
-3. Is the primary surface a sentence, a paragraph, or a whole prompt with structure? This decides whether the 256 bucket matters and whether we need cross-paragraph terminology consistency.
-4. Is the 12-bit codebook output wanted as a real feature, or is STE text itself the deliverable?
+1. Which model consumes the output? Its tokenizer is the one the token-delta metric should use.
+2. Is the primary surface a sentence, a paragraph, or a whole prompt with structure? This decides whether the 256 bucket matters and whether we need cross-paragraph terminology consistency.
+3. Is the 12-bit codebook output wanted as a real feature, or is STE text itself the deliverable?
+
+Settled: the runtime ships on Windows, where AMD's XDNA2 toolchain lives.
 
 ---
 
@@ -409,7 +413,7 @@ ste/
     export_onnx.py
     loop.py                    the host-side pass loop
     codebook.py                12-bit word-ID encode and decode
-    backends/                  ort_cpu.py, vitisai_npu.py, later openvino.py, qnn.py, coreml.py
+    backends/                  ort_cpu.py, vitisai_npu.py (Windows), later openvino.py, qnn.py, coreml.py
 ```
 
 ---
