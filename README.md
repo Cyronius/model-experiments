@@ -18,6 +18,7 @@ Two campaigns, nearly opposite conclusions, one generation apart: on Qwen3.6, la
 | `prune_qwen35.py` | Qwen3.5/3.6 layer-cut / expert-width-cut script (safetensors-level) |
 | `surgery_qwen38.py` | Qwen3.8-Flash-Next GGUF→GGUF surgery: n-gram head dropping, layer cuts |
 | `heal/` | LoRA healing pipeline: teacher generation, training, merging, CPU smoke test |
+| `ste/` | plan for a tiny iterative editor that rewrites English into ASD-STE100 Simplified Technical English (design only so far) |
 | `bench/` | benchmark harness (tools / GSM8K / MMLU / perplexity), pod orchestration, result logs |
 | `patches/` | llama.cpp tokenizer-hash patch (only needed for pre-Aug-2026 checkouts) |
 | `writeups/` | the full campaign write-ups behind every number |
