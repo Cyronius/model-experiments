@@ -10,9 +10,9 @@ This is the design record for the Simplified Technical English (STE) rewriter. R
 
 **Purpose.** Normalize English that goes into or comes out of an LLM: prompts, system prompts, tool descriptions, documentation, agent-to-agent messages. STE is a closed-vocabulary controlled language with about 900 approved words and 53 writing rules. Text in STE is shorter where English is verbose, has one meaning per word, one instruction per sentence, and no tense or voice variety. That makes it predictable for a model to read and cheap to encode. The consumer of the output is a model or a codec, not a human reader.
 
-**Input:** English text, one sentence or one paragraph at a time, plus a mode flag: `PROC` for instructions and prompts, `DESC` for context and explanations. Optionally a glossary of terms to protect.
+**Input:** English text from one sentence up to several paragraphs, plus a mode flag: `PROC` for instructions and prompts, `DESC` for context and explanations. Optionally a glossary of terms to protect.
 
-**Output:** the STE rewrite, a token-aligned diff, and the list of spans the model left unchanged because it was not confident. Optionally, the same text as a sequence of 12-bit word IDs over the closed output vocabulary, for storage or transfer between agents you control.
+**Output:** the STE rewrite, a token-aligned diff, and the list of spans the model left unchanged because it was not confident.
 
 **Shape:** a small bidirectional transformer that iteratively edits a fixed-length canvas. The canvas starts as a copy of the source. Every pass runs under a hard lexicon mask, so the model cannot emit an unapproved word. A deterministic rule checker runs between passes. It feeds violations back into the next pass and decides when to stop.
 
@@ -98,7 +98,7 @@ The converter lowercases the dictionary's uppercase convention, expands inflecti
 | `V_out` | every inflected form of every approved word; function words; punctuation; digit tokens; slot tokens `TN_1..TN_32`, `TV_1..TV_16`, `NUM_1..NUM_16`, `PROTECT_1..PROTECT_16`; control tokens `NULL`, `PAD`, `SEP`, `PROC`, `DESC` | 3k to 4k |
 | `V_in` | `V_out` plus every inflected form of every rejected word, plus a 4k to 8k BPE fallback for everything else | 12k to 16k |
 
-The output head only ever scores `V_out`. The lexicon mask is a `[|V_out|]` additive bias, built once per request from the base lexicon plus any glossary additions. Because `V_out` is under 4,096 entries, a 12-bit ID per output word is a complete encoding of any STE text. That is the optional codebook output in section 0.
+The output head only ever scores `V_out`. The lexicon mask is a `[|V_out|]` additive bias, built once per request from the base lexicon plus any glossary additions.
 
 **Numbers never change.** Numbers, units, and identifiers go through `NUM` slots and are copied back verbatim.
 
@@ -220,7 +220,7 @@ Why first: it is the simplest thing that can work, it exercises every shared com
 
 A single bidirectional transformer over `[mode] [source tokens] [SEP] [canvas]`. Same encoder size as Model A to start.
 
-**Buckets.** Total length 64, 128, or 256. One compiled graph per bucket. A 20-word sentence with its canvas fits in 64. A six-sentence paragraph fits in 256.
+**Buckets.** Total length 64, 128, or 256. One compiled graph per bucket. A 20-word sentence with its canvas fits in 64. A six-sentence paragraph fits in 256. A longer document is split at paragraph breaks, and any paragraph over 256 tokens is split again at sentence boundaries. The pieces run as one batch. Each piece is edited on its own, so word choice can drift between paragraphs. The checker catches rule breaks, not drift.
 
 **Canvas layout.** Length is twice the source length, rounded up into the bucket. Source tokens sit on even slots, `NULL` on odd slots. Insertions fill the nearest free `NULL` to the right. Deletions become `NULL`. Target placement is precomputed by token-level Levenshtein alignment. A sample whose insertions do not fit moves up a bucket; one that does not fit in 256 is dropped.
 
@@ -257,7 +257,7 @@ Exit when all three hold: tier A violations are zero; the canvas did not change 
 
 **What the two NPU projects actually do.** I read both repos in October 2026.
 
-- **ggml-xdna** adds an NPU backend to llama.cpp. It offloads big matrix multiplies during prompt reading only. It declines chunks under 1,024 tokens. Its own tests show models narrower than 2,048 get slower on the NPU: 0.77x at width 1,536 and 0.89x at width 1,024. Our model is 512 wide and sees 64 to 256 tokens per call. Under ggml-xdna as written, the NPU would decline almost all of our work, and what it took would likely lose to the CPU.
+- **ggml-xdna** adds an NPU backend to llama.cpp. It offloads big matrix multiplies during prompt reading only. It declines chunks under 1,024 tokens. Every model it tested narrower than 2,048 lost to the GPU, by varying amounts: 0.77x at width 1,536 and 0.89x at width 1,024. There is no clean trend between them, because the models and quantizations differ. Most models at 2,048 and up gained. Our model is 512 wide and sees 64 to 256 tokens per call. Under ggml-xdna as written, the NPU would decline almost all of our work, and what it took would likely lose to the CPU.
 - **OpenFlowLM-Next** is a fork of FastFlowLM, an NPU-first runtime for Windows and Linux. It converts GGUF files to its own format with `q4nx-build`, one builder per architecture, and each model links to a shared kernel binary for its family. It also has an open engine pattern, `open_embedding`, which is the closest thing to our model: a bidirectional encoder (EmbeddingGemma-300M) run in FP32 on the CPU, with the big projections sent to the NPU as bf16 matrix multiplies, and results checked against the CPU at cosine 0.999 or better. The repo's `npu_offload_pipeline` skill documents how to compile kernels for new shapes.
 
 **Plan, in order.**
@@ -299,7 +299,7 @@ These are back-of-envelope numbers. The latency table in `ste/eval/` replaces th
 | metric | how | target |
 |---|---|---|
 | compliance | tier A violations per 100 output sentences, from the checker | at most 2 |
-| token delta | tokens before and after under the tokenizer of the model that will consume the output, plus one other tokenizer | reported per input type; see the risk table |
+| token delta | tokens before and after under the Qwen3 tokenizer (the main number), plus tiktoken `o200k_base` as a check | reported per input type; see the risk table |
 | meaning preservation | local judge, five-point scale, plus two-way entailment; owner spot-checks 50 per release | mean at least 4.5; at most 1 percent rated "meaning changed" |
 | downstream equivalence | run the same local model on the original and the STE version of 200 prompts; judge whether the answers match | at least 95 percent judged equivalent |
 | over-editing | token edit rate on input that is already compliant | at most 3 percent |
@@ -325,7 +325,7 @@ Deterministic scoring everywhere the checker can do it, as in `bench/`. The judg
 | 3 | tagger baseline (trained on the pod); GGUF writer and `ste` architecture in llama.cpp; a random-weight model of the final shape timed on CPU, Vulkan, and the NPU engine | all metrics measured; GGUF loads; NPU dispatch overhead measured at our width | 2 weeks |
 | 4 | canvas model | beats the tagger on the structural-rule subset at equal latency, or we keep the tagger | 3 to 4 weeks |
 | 5 | Q8_0 on CPU and Vulkan, bf16 on the NPU through OpenFlowLM-Next; optional TQ2_0 ternary on CPU; a fused NPU kernel only if the measurement in 3.8 says it can win | within budget on the Strix Point box | 2 to 3 weeks |
-| 6 | hardening | gold set growth; codebook output; adapter training script if a domain ever needs one | ongoing |
+| 6 | hardening | gold set growth; adapter training script if a domain ever needs one | ongoing |
 
 Roughly two and a half to three months for one person. The laptop does everything except the pod session. Training a 25M parameter model on 1M to 2M short pairs is under an hour on an H200, so the pod bill is dominated by teacher generation and model downloads, not training.
 
@@ -360,16 +360,16 @@ Roughly two and a half to three months for one person. The laptop does everythin
 
 ---
 
-## 7. Open questions, in plain words
+## 7. Decisions and the one open question
 
-None of these block work. Each has a default. Say nothing and the default stands.
+Settled by the owner:
 
-1. **Which AI will read the shorter text?** We measure success partly by counting tokens before and after the rewrite. Every AI model splits text into tokens its own way, so the count depends on which model you pick. *Default:* count with the Qwen3 tokenizer from this repo, plus one other, and report both.
-2. **How much text goes in at once?** One sentence per call is fast and simple. A whole prompt of several paragraphs is more useful but needs bigger buffers and more passes. *Default:* build for sentences and short paragraphs first (the 64 and 128 sizes), and add the 256 size later.
-3. **Do you want a compact number format for the output?** The output vocabulary is under 4,096 words. So every word could be saved as a 12-bit number instead of text. That is a compressed form, useful if a program, not a model, stores or sends the text. *Default:* no. Skip it until the text version works. It costs nothing to add later.
-4. **How much will you spend on the pod?** Section 3.4 has two tiers, about $3 to $10 and about $15 to $30. Both are my guesses. *Default:* run the 20-minute smoke session first, capped near $2, then pick a tier from its real numbers.
+- **Success is measured in Qwen3 tokens,** with tiktoken `o200k_base` as a check.
+- **Input runs from one sentence to several paragraphs.** All three bucket sizes (64, 128, 256) are built from the start. See 3.6.
+- **No compact number format for the output.** Plain STE text is the deliverable.
+- **The model format is GGUF.** Windows and Linux are both supported through the two NPU projects. Training and data generation run on a pod.
 
-Settled: the model format is GGUF. Both Windows and Linux are supported through your two NPU projects. Training and data generation run on a pod.
+Open, with a default: **how much will you spend on the pod?** Section 3.4 has two tiers, about $3 to $10 and about $15 to $30. Both are guesses. Default: run the 20-minute smoke session first, capped near $2, then pick a tier from its real numbers.
 
 ---
 
@@ -407,7 +407,6 @@ ste/
   runtime/
     export_gguf.py             writes the trained model to GGUF
     loop.py                    the host-side pass loop
-    codebook.py                12-bit word-ID encode and decode
     backends/                  llama_cpp.py (CPU, Vulkan), openflowlm.py (NPU)
   pod/
     pod_smoke.sh               20-minute throughput and cost probe
