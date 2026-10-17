@@ -30,7 +30,7 @@ base)
   ;;
 prune)
   phase_time
-  python3 $W/heal/prune_qwen35.py $W/base $W/pruned-c --skip-expert-cut 2>&1 | tail -5 | tee -a $LOG
+  python3 $W/qwen36-moe/prune_qwen35.py $W/base $W/pruned-c --skip-expert-cut 2>&1 | tail -5 | tee -a $LOG
   du -sh $W/pruned-c | tee -a $LOG
   phase_done prune
   ;;

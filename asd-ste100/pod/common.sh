@@ -55,7 +55,7 @@ phase_env(){
   pip install -q --break-system-packages -U "huggingface_hub[cli,hf_transfer]" datasets 2>&1 | tail -1
   apt-get install -y -qq cmake ccache psmisc > /dev/null 2>&1 || true
   [ -d "$W/repo" ] || git clone -q --depth 1 --branch "$BRANCH" "$REPO_URL" "$W/repo" || fail env
-  python3 -I "$W/repo/ste/lexicon/build_lexicon.py" --fetch | tee -a "$LOG" || fail env
+  python3 -I "$W/repo/asd-ste100/lexicon/build_lexicon.py" --fetch | tee -a "$LOG" || fail env
   [ -d "$W/llama.cpp" ] || git clone -q --depth 1 --branch "$LLAMA_TAG" https://github.com/ggml-org/llama.cpp || fail env
   cmake -S "$W/llama.cpp" -B "$W/llama.cpp/build" -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=native \
         -DLLAMA_CURL=OFF -DCMAKE_BUILD_TYPE=Release > /dev/null 2>&1 || fail env
@@ -87,4 +87,4 @@ start_server(){   # start_server <model> <port>
   log "server did not come up; tail of its log:"; tail -5 "$W/server-$2.log" | tee -a "$LOG"; return 1
 }
 
-gen(){ timeout "$(remaining)" python3 -I "$W/repo/ste/data/gen.py" "$@"; }
+gen(){ timeout "$(remaining)" python3 -I "$W/repo/asd-ste100/data/gen.py" "$@"; }

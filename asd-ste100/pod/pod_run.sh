@@ -7,7 +7,7 @@ guard env;     phase_env || fail env
 guard model;   fetch_model vol "$VOL_REPO" "*Q4_K_M*"; VOL=$MODEL_PATH
 if ! done_flag sources; then
   guard sources
-  python3 -I "$W/repo/ste/data/fetch_sources.py" --out "$OUT/sources.jsonl" --n "$N" --md-dir "$W/repo" | tee -a "$LOG" || fail sources
+  python3 -I "$W/repo/asd-ste100/data/fetch_sources.py" --out "$OUT/sources.jsonl" --n "$N" --md-dir "$W/repo" | tee -a "$LOG" || fail sources
   mark sources
 fi
 guard server;  start_server "$VOL" 8080 || fail server
@@ -37,7 +37,7 @@ fi
 if ! done_flag judge; then
   guard judge; fetch_model judge "$JUDGE_REPO" "*mxfp4*"; JUDGE=$MODEL_PATH
   start_server "$JUDGE" 8081 || fail judge
-  python3 -I "$W/repo/ste/data/judge.py" --url http://127.0.0.1:8081 --input "$OUT/clean.jsonl" --out "$OUT/judged.jsonl" --limit 1500 --workers "$SLOTS" | tee -a "$LOG"
+  python3 -I "$W/repo/asd-ste100/data/judge.py" --url http://127.0.0.1:8081 --input "$OUT/clean.jsonl" --out "$OUT/judged.jsonl" --limit 1500 --workers "$SLOTS" | tee -a "$LOG"
   mark judge
 fi
 log "ALL PHASES DONE"; pack; stop_pod

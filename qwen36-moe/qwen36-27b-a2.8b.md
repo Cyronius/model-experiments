@@ -10,22 +10,22 @@ git clone https://github.com/Cyronius/qwen-prune-heal-pipeline.git
 cd qwen-prune-heal-pipeline
 
 # 1. prune a 40-layer Qwen3.6-35B-A3B checkpoint
-python prune_qwen35.py --skip-expert-cut   # layer cut only (the shipped path)
+python qwen36-moe/prune_qwen35.py --skip-expert-cut   # layer cut only (the shipped path)
 
 # 2. smoke-test the healing pipeline on CPU before renting a GPU
 cd heal && python smoke.py --work <scratch dir>
 
 # 3. heal on a GPU box — see heal/README.md for the full LoRA run
-pip install -r heal/requirements.txt
+pip install -r qwen36-moe/heal/requirements.txt
 ```
-Converting to GGUF needs `patches/llamacpp-qwen35-tokenizer-hash.patch` applied to llama.cpp first — see `patches/README.md`.
+Converting to GGUF needs `qwen36-moe/patches/llamacpp-qwen35-tokenizer-hash.patch` applied to llama.cpp first — see `qwen36-moe/patches/README.md`.
 
 **Repo structure:**
 | path | what's there |
 |---|---|
 | `prune_qwen35.py` | the layer-cut / expert-width-cut script |
 | `heal/` | LoRA healing pipeline: teacher generation, training, merging, CPU smoke test |
-| `patches/` | the llama.cpp tokenizer-hash patch needed to convert this model family |
+| `qwen36-moe/patches/` | the llama.cpp tokenizer-hash patch needed to convert this model family |
 | `bench/` | benchmark harness, tool-calling cases, and the raw result logs behind every number below |
 
 Model weights, adapter checkpoints, and quantized builds aren't in this repo — see the Hugging Face link above.

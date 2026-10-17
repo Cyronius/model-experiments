@@ -2,7 +2,7 @@
 
 *Draft, October 2026. Personal project. Guideline targets, not gates: under 100 MB on disk, under 500 ms per sentence on a laptop CPU, the XDNA2 NPU on Strix Point as the preferred deployment target on Windows and Linux, GGUF as the model format, no API spend. Data generation and training run on a rented pod.*
 
-This is the design record for the Simplified Technical English (STE) rewriter. Read it before touching anything under `ste/`. The other plan in this repo, the heal pipeline, is referenced the same way from `heal/README.md`.
+This is the design record for the Simplified Technical English (STE) rewriter. Read it before touching anything under `asd-ste100/`. The other plan in this repo, the heal pipeline, is referenced the same way from `qwen36-moe/heal/README.md`.
 
 ---
 
@@ -62,13 +62,13 @@ Source: ASD-STE100 Issue 9, January 2025. The spec is free on request from asd-s
 | `biz-dfch-asdste100vocab` | 0.8.1 | 2,200 dictionary rows: 881 approved, 1,319 rejected. Each row has a part of speech, approved rows have meanings with STE example sentences, rejected rows have approved alternatives, and 1,878 of those alternatives carry an aligned non-STE and STE sentence pair. 663 inflected spellings. A separate file of 779 technical words with TN and TV categories. |
 | `biz-dfch-asdste100rules` | 0.1.1 | 66 entries covering the 53 rules with section, category, summary, and content items that include the spec's examples. |
 
-Both are AGPL-3.0 and unaffiliated with ASD. The owner has decided to use them. The one practical consequence: this repo is public and Apache-2.0, so the derived lexicon and rule files are not committed. The build step fetches the packages from PyPI and converts them into our schema locally. `ste/lexicon/lexicon.jsonl` and `ste/checker/tests/spec_examples.jsonl` go in `.gitignore`. The Issue 9 PDF is for spot-checking rows the converter flags as odd, nothing more.
+Both are AGPL-3.0 and unaffiliated with ASD. The owner has decided to use them. The one practical consequence: this repo is public and Apache-2.0, so the derived lexicon and rule files are not committed. The build step fetches the packages from PyPI and converts them into our schema locally. `asd-ste100/lexicon/lexicon.jsonl` and `asd-ste100/checker/tests/spec_examples.jsonl` go in `.gitignore`. The Issue 9 PDF is for spot-checking rows the converter flags as odd, nothing more.
 
 ---
 
 ## 3. Components
 
-Everything lives under `ste/`. Each component gets its own README once it exists.
+Everything lives under `asd-ste100/`. Each component gets its own README once it exists.
 
 ### 3.0 The development machine and the pod
 
@@ -78,7 +78,7 @@ Everything lives under `ste/`. Each component gets its own README once it exists
 
 **Operating systems.** Windows and Linux both work. OpenFlowLM-Next ships a Windows installer and a Linux guide. ggml-xdna builds for both, with Linux not yet run on an NPU by its author. Pod scripts are bash; laptop scripts are Python.
 
-### 3.1 Lexicon and tokenizer, `ste/lexicon/`
+### 3.1 Lexicon and tokenizer, `asd-ste100/lexicon/`
 
 **Lexicon.** One JSONL row per dictionary entry, produced by `build_lexicon.py` from the PyPI data.
 
@@ -104,7 +104,7 @@ The output head only ever scores `V_out`. The lexicon mask is a `[|V_out|]` addi
 
 **Case.** The detokenizer restores sentence-initial capitals and protected-span casing. Slots carry their original surface form.
 
-### 3.2 Deterministic checker, `ste/checker/`
+### 3.2 Deterministic checker, `asd-ste100/checker/`
 
 **Interface.** `check(tokens, mode, glossary) -> [Violation(rule_id, span, severity, suggestion)]`.
 
@@ -122,7 +122,7 @@ The output head only ever scores `V_out`. The lexicon mask is a `[|V_out|]` addi
 
 **Tests.** The example sentences from the rules package and the 1,878 aligned pairs from the dictionary. Every non-STE example must raise at least the rule it illustrates. Every STE example must raise nothing in tier A. Rule IDs in our checker match the package's `R1.1` style so failures point at the spec.
 
-### 3.3 Protected spans and slotting, `ste/glossary/`
+### 3.3 Protected spans and slotting, `asd-ste100/glossary/`
 
 The input is LLM-facing text, so most protected spans are not aircraft parts. They are code, identifiers, paths, URLs, product names, and numbers. Detection is mostly automatic; the glossary is optional.
 
@@ -149,7 +149,7 @@ The input is LLM-facing text, so most protected spans are not aircraft parts. Th
 
 **One glossary, two consumers.** The checker reads the same file, so it never flags a protected term as an unapproved word.
 
-### 3.4 Data pipeline, `ste/data/`
+### 3.4 Data pipeline, `asd-ste100/data/`
 
 There is no public parallel corpus of plain English to STE. We build it. Generation runs on a rented pod, rule-based noising runs anywhere, and nothing calls an API.
 
@@ -161,11 +161,11 @@ There is no public parallel corpus of plain English to STE. We build it. Generat
 
 | job | teacher | why |
 |---|---|---|
-| volume: seed STE and LLM back-translation, about 11M output tokens | Qwen3.6-35B-A3B, unpruned, from Hugging Face, run with vLLM | `heal/pod_run.sh` already downloads it. It is stronger than the pruned build, and vLLM batches it hard. Keep the prompt to a 300-token rule summary plus the one rule being targeted. |
+| volume: seed STE and LLM back-translation, about 11M output tokens | Qwen3.6-35B-A3B, unpruned, from Hugging Face, run with vLLM | `qwen36-moe/heal/pod_run.sh` already downloads it. It is stronger than the pruned build, and vLLM batches it hard. Keep the prompt to a 300-token rule summary plus the one rule being targeted. |
 | hard cases: passive-to-active and sentence splitting, 50k pairs with retries, about 4.5M tokens | Qwen3.8-Flash-Next-131B-A6B, the 65 GB build from this repo, under llama.cpp CUDA | A weak rewriter passes the checker and quietly changes meaning. This is the strongest model that fits. `bench/pod_bench.sh` already builds llama.cpp for CUDA. |
 | judge: meaning preservation and downstream equivalence | gpt-oss-120b MXFP4, about 63 GB, run with vLLM | Different lineage from both teachers, so its blind spots are not theirs. |
 
-**One session, flag-gated.** Model it on `bench/pod_bench.sh`: each phase writes a done flag so a rerun resumes, any failure writes `FAILED.flag`, and a wall-clock cap stops the pod. Phases: `env`, `volume`, `hard`, `judge`, `train`, `export`, then pull the artifacts home. Log elapsed time and running cost per phase, as `heal/pod_gate.sh` does.
+**One session, flag-gated.** Model it on `bench/pod_bench.sh`: each phase writes a done flag so a rerun resumes, any failure writes `FAILED.flag`, and a wall-clock cap stops the pod. Phases: `env`, `volume`, `hard`, `judge`, `train`, `export`, then pull the artifacts home. Log elapsed time and running cost per phase, as `qwen36-moe/heal/pod_gate.sh` does.
 
 **Smoke session first.** Before the real run, rent the pod for about 20 minutes with a spend cap of about $2. Run 200 requests through each teacher and read the throughput and cost from the log. Every number in the table below is my guess until that log exists.
 
@@ -200,11 +200,11 @@ The reversed dictionary is the key trick. The 1,319 rejected words with their al
 | hard-case distilled pairs | 50k |
 | paragraph pairs, 2 to 6 sentences | 100k |
 
-Reuse `heal/gen_teacher.py`'s shard writer and `bench/run_bench.py`'s `llama-server` client. Neither needs much change. The pod session scripts copy the layout of `bench/pod_bench.sh` and `heal/pod_run.sh`.
+Reuse `qwen36-moe/heal/gen_teacher.py`'s shard writer and `bench/run_bench.py`'s `llama-server` client. Neither needs much change. The pod session scripts copy the layout of `bench/pod_bench.sh` and `qwen36-moe/heal/pod_run.sh`.
 
 **Gold set.** 300 sentences and 50 paragraphs. Source text is real messy input of the kind this tool will see; the STE rewrite is hand-verified by the owner. Tagged by rule category so per-rule accuracy is visible. The dictionary's 1,878 pairs are the seed; the rest comes from real prompts and docs. This set is the only thing that tells us the truth, so it gets built in phase 2 and grows every phase.
 
-### 3.5 Model A: iterative tagger baseline, `ste/model_tagger/`
+### 3.5 Model A: iterative tagger baseline, `asd-ste100/model_tagger/`
 
 GECToR-style. An encoder with a per-token tag head.
 
@@ -218,7 +218,7 @@ GECToR-style. An encoder with a per-token tag head.
 
 Why first: it is the simplest thing that can work, it exercises every shared component, and it sets the metric floor. If it hits the targets, we may be done.
 
-### 3.6 Model B: canvas editor, `ste/model_canvas/`
+### 3.6 Model B: canvas editor, `asd-ste100/model_canvas/`
 
 A single bidirectional transformer over `[mode] [source tokens] [SEP] [canvas]`. Same encoder size as Model A to start.
 
@@ -253,7 +253,7 @@ return collapse(canvas), diff, unresolved_spans
 
 Exit when all three hold: tier A violations are zero; the canvas did not change in the last pass, or every position is frozen; the pass count is under the cap. Otherwise run another pass. A learned "another pass will help" head is a phase 6 option, only if the measured pass count is too high.
 
-### 3.8 Runtime, `ste/runtime/`
+### 3.8 Runtime, `asd-ste100/runtime/`
 
 **Format: GGUF.** The model is written once to a GGUF file by `export_gguf.py`. The host loop (freezing, re-masking, the checker, slot restore) lives outside the graph in a small library.
 
@@ -292,11 +292,11 @@ Exit when all three hold: tier A violations are zero; the canvas did not change 
 | CPU latency per sentence, 4 threads | 50ms to 300ms |
 | XDNA2 latency per pass | unknown; may be slower than the CPU at this width; see 3.8 |
 
-These are back-of-envelope numbers. The latency table in `ste/eval/` replaces them the day we have a model.
+These are back-of-envelope numbers. The latency table in `asd-ste100/eval/` replaces them the day we have a model.
 
 ---
 
-## 4. Evaluation, `ste/eval/`
+## 4. Evaluation, `asd-ste100/eval/`
 
 | metric | how | target |
 |---|---|---|
@@ -389,7 +389,7 @@ Open, with a default: **how much will you spend on the pod?** Section 3.4 has tw
 ## 8. Repo layout
 
 ```
-ste/
+asd-ste100/
   PLAN.md                      this file
   lexicon/
     build_lexicon.py           PyPI JSONL to our schema, review list, pairs.jsonl

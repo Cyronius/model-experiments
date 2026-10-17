@@ -4,10 +4,10 @@
 
 **Model weights:** [huggingface.co/Cyronius/Qwen3.8-Flash-Next-131B-A6B-GGUF](https://huggingface.co/Cyronius/Qwen3.8-Flash-Next-131B-A6B-GGUF)
 
-**Reproduce it:** `surgery_qwen38.py` in the repo root, run against [unsloth's UD-Q3_K_XL shards](https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF). No GPU, no training, ~45 minutes on an NVMe laptop:
+**Reproduce it:** `qwen38-flash-next-ngram/surgery_qwen38.py`, run against [unsloth's UD-Q3_K_XL shards](https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF). No GPU, no training, ~45 minutes on an NVMe laptop:
 
 ```
-python surgery_qwen38.py Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00003.gguf out.gguf --ple-keep 1
+python qwen38-flash-next-ngram/surgery_qwen38.py Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00003.gguf out.gguf --ple-keep 1
 ```
 
 ## TL;DR

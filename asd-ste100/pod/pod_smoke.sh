@@ -5,7 +5,7 @@ source "$(dirname "$0")/common.sh"
 guard env;  phase_env || fail env
 guard model; fetch_model vol "$VOL_REPO" "*Q4_K_M*" ; VOL=$MODEL_PATH
 guard sources
-python3 -I "$W/repo/ste/data/fetch_sources.py" --out "$OUT/sources.jsonl" --n 3000 --md-dir "$W/repo" | tee -a "$LOG"
+python3 -I "$W/repo/asd-ste100/data/fetch_sources.py" --out "$OUT/sources.jsonl" --n 3000 --md-dir "$W/repo" | tee -a "$LOG"
 guard server; start_server "$VOL" 8080 || fail server
 guard gen
 T0=$(date +%s)

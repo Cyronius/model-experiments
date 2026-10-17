@@ -24,8 +24,8 @@ from transformers import AutoTokenizer
 from transformers.models.qwen3_5_moe import Qwen3_5MoeForConditionalGeneration
 from transformers.models.qwen3_5_moe.modeling_qwen3_5_moe import Qwen3_5MoeExperts
 
-MODEL_DIR = sys.argv[1] if len(sys.argv) > 1 else r"C:/code/model-shrink-ideas/heal-artifacts/layer-prefix-3"
-CALIB_TXT = sys.argv[2] if len(sys.argv) > 2 else r"C:/code/model-shrink-ideas/heal-artifacts/calibration.txt"
+MODEL_DIR = sys.argv[1] if len(sys.argv) > 1 else r"C:/code/model-shrink-ideas/qwen36-moe/heal-artifacts/layer-prefix-3"
+CALIB_TXT = sys.argv[2] if len(sys.argv) > 2 else r"C:/code/model-shrink-ideas/qwen36-moe/heal-artifacts/calibration.txt"
 MAX_TOKENS = int(sys.argv[3]) if len(sys.argv) > 3 else 24000
 CHUNK_TOKENS = 1024  # forward pass window; keeps peak activation memory bounded
 

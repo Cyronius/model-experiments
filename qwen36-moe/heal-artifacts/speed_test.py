@@ -15,5 +15,5 @@ for name in ["base-q4km", "healed-C"]:
     finally:
         stop_server(proc)
     print(json.dumps(out[name], indent=2), flush=True)
-json.dump(out, open(r"C:/code/model-shrink-ideas/heal-artifacts/speed-test.json", "w"), indent=2)
+json.dump(out, open(r"C:/code/model-shrink-ideas/qwen36-moe/heal-artifacts/speed-test.json", "w"), indent=2)
 print("DONE")

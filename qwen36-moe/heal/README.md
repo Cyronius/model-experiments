@@ -125,7 +125,7 @@ python merge_heal.py --student ../pruned36-c-only \
     --adapter runs/heal-c/adapter-final --out merged/heal-c
 ```
 
-Then convert to GGUF (apply `patches/llamacpp-qwen35-tokenizer-hash.patch` first),
+Then convert to GGUF (apply `qwen36-moe/patches/llamacpp-qwen35-tokenizer-hash.patch` first),
 quantise with imatrix, add the result to `bench/registry.json`, and run
 `bench/run_bench.py`.
 

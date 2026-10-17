@@ -20,7 +20,7 @@ control, all three pruned models, and any healed model.
 
 ```
 cd c:/code/llama.cpp
-git apply c:/code/model-shrink-ideas/patches/llamacpp-qwen35-tokenizer-hash.patch
+git apply c:/code/model-shrink-ideas/qwen36-moe/patches/llamacpp-qwen35-tokenizer-hash.patch
 ```
 
 ### Version it was taken from

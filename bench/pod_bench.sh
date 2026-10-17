@@ -44,7 +44,7 @@ surgery(){ # name args...
   local name=$1; shift
   if ! done_flag "build-$name"; then
     log "=== phase build $name ==="
-    python3 $W/bench/surgery_qwen38.py "$SRC" "$W/builds/$name.gguf" "$@" 2>&1 | tail -2 | tee -a $LOG || fail "build-$name"
+    python3 $W/qwen38-flash-next-ngram/surgery_qwen38.py "$SRC" "$W/builds/$name.gguf" "$@" 2>&1 | tail -2 | tee -a $LOG || fail "build-$name"
     mark "build-$name"
   fi
 }

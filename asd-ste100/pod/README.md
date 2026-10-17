@@ -12,7 +12,7 @@ not train a model: the student code is not written yet. Training is a later, che
 
    ```
    git clone --depth 1 --branch ccr-822a92e7-k01v1x https://github.com/Cyronius/qwen-prune-heal-pipeline /workspace/repo
-   cd /workspace/repo/ste/pod
+   cd /workspace/repo/asd-ste100/pod
    RATE=<price per hour> BUDGET=2 bash pod_smoke.sh      # about 20 to 30 minutes
    ```
 

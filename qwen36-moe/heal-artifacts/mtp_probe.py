@@ -21,5 +21,5 @@ for name, extra in configs.items():
     finally:
         stop_server(proc)
     print(json.dumps({k: v for k, v in out[name].items() if "tg" in k or "pp" in k}, indent=1), flush=True)
-json.dump(out, open(r"C:/code/model-shrink-ideas/heal-artifacts/mtp-probe.json", "w"), indent=2)
+json.dump(out, open(r"C:/code/model-shrink-ideas/qwen36-moe/heal-artifacts/mtp-probe.json", "w"), indent=2)
 print("PROBE-DONE")

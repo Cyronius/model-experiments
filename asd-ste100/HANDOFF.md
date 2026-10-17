@@ -1,6 +1,6 @@
 # Handoff: STE rewriter
 
-Read `ste/PLAN.md` for the full design and `ste/pod/README.md` for the pod steps. This page is the short version.
+Read `asd-ste100/PLAN.md` for the full design and `asd-ste100/pod/README.md` for the pod steps. This page is the short version.
 
 ## Goal
 
@@ -26,16 +26,16 @@ A tiny, fast, non-autoregressive model that rewrites English into ASD-STE100 Sim
 ## State on branch `ccr-822a92e7-k01v1x`
 
 Done and tested:
-- `ste/lexicon/build_lexicon.py`: 2,200 rows, 1,838 aligned pairs, 66 rules.
-- `ste/checker/checker.py`: tier A subset. On the dictionary's own pairs, 93.7% of STE passes and 81.5% of non-STE is caught. About 6% false rejects, mostly nouns spelled like rejected verbs.
-- `ste/data/gen.py`, `fetch_sources.py`, `judge.py`: tested only against a fake teacher.
-- `ste/pod/`: scripts with a hard stop at 85% of budget, tested with a fake clock.
+- `asd-ste100/lexicon/build_lexicon.py`: 2,200 rows, 1,838 aligned pairs, 66 rules.
+- `asd-ste100/checker/checker.py`: tier A subset. On the dictionary's own pairs, 93.7% of STE passes and 81.5% of non-STE is caught. About 6% false rejects, mostly nouns spelled like rejected verbs.
+- `asd-ste100/data/gen.py`, `fetch_sources.py`, `judge.py`: tested only against a fake teacher.
+- `asd-ste100/pod/`: scripts with a hard stop at 85% of budget, tested with a fake clock.
 
 Not started: noiser, pair builder, model code, GGUF writer, llama.cpp patch, NPU engine.
 
 ## Do next, in order
 
-1. Run the pod smoke session, then the full session. The owner launches the pod. You cannot. Steps are in `ste/pod/README.md`. Verify the model file globs in `pod/common.sh` first; they were never checked against Hugging Face.
+1. Run the pod smoke session, then the full session. The owner launches the pod. You cannot. Steps are in `asd-ste100/pod/README.md`. Verify the model file globs in `pod/common.sh` first; they were never checked against Hugging Face.
 2. Write `data/noise_rules.py`: reverse the dictionary (swap approved words for rejected words that list them as alternatives), plus merges, nominalizations, dropped articles, perfect tense, passive. Write `data/build_pairs.py` to assemble, dedupe, align, and bucket.
 3. Build a gold set of 300 sentences and 50 paragraphs of real messy text with hand-verified STE. The owner verifies.
 4. Week-one measurement: run 200 of the owner's real prompts through the teacher and compare token counts before and after. If STE does not save tokens, tell the owner before building further.
