@@ -19,6 +19,7 @@ dependencies = [
     "accelerate>=1.14.0",
     "fastapi>=0.115",
     "uvicorn>=0.32",
+    "anthropic>=1.15.0",
 ]
 
 [project.optional-dependencies]
@@ -28,3 +29,12 @@ gguf = ["gguf>=0.10", "mistral-common"]
 
 [tool.uv]
 package = false
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["scripts"]
+testpaths = ["specs"]

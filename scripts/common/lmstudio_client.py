@@ -105,8 +105,12 @@ async def generate_title(
             # vLLM and llama-server honor this for Qwen3 hybrid-thinking models; LM Studio ignores it
             body["chat_template_kwargs"] = {"enable_thinking": False}
         resp = await _post_with_retry(client, body)
-        raw = resp.json()["choices"][0]["message"]["content"]
-        title = clean_title(raw)
+        choice = resp.json()["choices"][0]
+        # a reply cut off by max_tokens can still look like a valid short title ("...pyridazinem")
+        if choice.get("finish_reason") == "length":
+            reason = "hit token limit"
+            continue
+        title = clean_title(choice["message"]["content"] or "", clamp=False)
         reason = validate_title(title, prompt)
         if reason is None:
             return title, attempt, None

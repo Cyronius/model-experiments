@@ -21,10 +21,11 @@ def has_emoji(text: str) -> bool:
     return any(unicodedata.category(c) == "So" or 0x1F000 <= ord(c) <= 0x1FAFF for c in text)
 
 
-def clean_title(raw: str) -> str:
+def clean_title(raw: str, clamp: bool = True) -> str:
     """Normalize a candidate title: strip wrappers, quotes, trailing punctuation, Title Case,
     clamp to MAX_WORDS. Single source of truth for the word-count clamp -- callers should not
-    duplicate a `[:8]`/`.slice(0, 8)` step of their own."""
+    duplicate a `[:8]`/`.slice(0, 8)` step of their own. Teacher titling passes clamp=False so an
+    over-long title fails validate_title and is retried instead of being cut mid-phrase."""
     t = raw.strip().replace("’", "'")
     t = re.sub(r"</?think>.*?(</think>|$)", "", t, flags=re.S).strip()  # qwen think tags
     t = t.splitlines()[0].strip() if t else t
@@ -36,7 +37,7 @@ def clean_title(raw: str) -> str:
     t = re.sub(r"\*+", "", t)  # markdown bold
     t = STRAY_QUOTE_RE.sub("", t)  # inner quotes: strip rather than reject
     t = re.sub(r"\s{2,}", " ", t).strip()
-    words = t.split()[:MAX_WORDS]
+    words = t.split()[:MAX_WORDS] if clamp else t.split()
     cased = [
         w if keeps_case(w)
         else (w.lower() if w.lower() in SMALL_WORDS and 0 < i < len(words) - 1 else w[:1].upper() + w[1:])
