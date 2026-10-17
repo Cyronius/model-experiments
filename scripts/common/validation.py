@@ -46,6 +46,11 @@ def clean_title(raw: str, clamp: bool = True) -> str:
     return " ".join(cased)
 
 
+def decase_title(title: str) -> str:
+    """Lowercase the first letter of each ordinary word; clean_title restores it."""
+    return " ".join(w if keeps_case(w) else w[:1].lower() + w[1:] for w in title.split())
+
+
 def validate_title(title: str, prompt: str) -> str | None:
     """Return None if valid, else a short reason string."""
     if not title:

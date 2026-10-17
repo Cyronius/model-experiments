@@ -51,3 +51,16 @@ vs, …) are lowercase except first and last.
 
 **Acceptance criteria:**
 - `iphone vs iPhone mRNA SQL v2 setup` → `Iphone vs iPhone mRNA SQL v2 Setup`
+
+### TITLE-DECASE-ROUNDTRIP: Training titles drop Title Case and `clean_title` restores it
+**Applies to:** titler
+**Verification:** test
+
+The v2 model trains on titles with the first letter of each ordinary word lowercased
+(`decase_title`). `clean_title` on a decased title gives back the original, except for rare
+Unicode cases (see the plan's round-trip count).
+
+**Acceptance criteria:**
+- `decase_title("Fixing My Children's Bike")` → `fixing my children's bike`
+- `decase_title("iPhone SQL Setup Guide")` → `iPhone SQL setup guide`
+- `clean_title(decase_title(t)) == t` for `Fixing My Children's Bike`, `Python vs Rust for CLI Tools`, `A Guide to mRNA Vaccines`

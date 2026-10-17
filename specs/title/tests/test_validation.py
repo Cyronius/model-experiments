@@ -1,11 +1,11 @@
-# Traces: TITLE-MAX-WORDS, TITLE-PRODUCT-CLAMP, TITLE-APOSTROPHE, TITLE-CASING
+# Traces: TITLE-MAX-WORDS, TITLE-PRODUCT-CLAMP, TITLE-APOSTROPHE, TITLE-CASING, TITLE-DECASE-ROUNDTRIP
 import asyncio
 import json
 
 import httpx
 
 from common.lmstudio_client import generate_title
-from common.validation import clean_title, validate_title
+from common.validation import clean_title, decase_title, validate_title
 
 LONG = "Debugging Python Memory Leaks Inside Production Flask Apps Under Heavy Load"
 PROMPT = "my flask app leaks memory in production, how do I find where it comes from?"
@@ -64,3 +64,13 @@ def test_apostrophes_inside_words_are_kept():
 
 def test_acronyms_and_inner_capitals_keep_their_spelling():
     assert clean_title("iphone vs iPhone mRNA SQL v2 setup") == "Iphone vs iPhone mRNA SQL v2 Setup"
+
+
+def test_decase_lowers_ordinary_words_only():
+    assert decase_title("Fixing My Children's Bike") == "fixing my children's bike"
+    assert decase_title("iPhone SQL Setup Guide") == "iPhone SQL setup guide"
+
+
+def test_clean_title_restores_decased_titles():
+    for t in ["Fixing My Children's Bike", "Python vs Rust for CLI Tools", "A Guide to mRNA Vaccines"]:
+        assert clean_title(decase_title(t)) == t
