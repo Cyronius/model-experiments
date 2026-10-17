@@ -7,7 +7,7 @@ set -uo pipefail
 BUDGET=${BUDGET:-5}
 W=${W:-/workspace}
 BRANCH=${BRANCH:-ccr-822a92e7-k01v1x}
-REPO_URL=https://github.com/Cyronius/qwen-prune-heal-pipeline
+REPO_URL=https://github.com/Cyronius/model-experiments
 LLAMA_TAG=b10673                      # same tag bench/pod_bench.sh uses
 VOL_REPO=Cyronius/Qwen3.6-27B-A2.8B   # volume and hard-case teacher
 JUDGE_REPO=ggml-org/gpt-oss-20b-GGUF  # judge, a different lineage

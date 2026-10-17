@@ -64,7 +64,7 @@ Decode tok/s varied between repeat runs; treat those two columns as directional,
 
 ## How this model was made
 
-Full write-up, code, and result logs: [github.com/Cyronius/qwen-prune-heal-pipeline](https://github.com/Cyronius/qwen-prune-heal-pipeline)
+Full write-up, code, and result logs: [github.com/Cyronius/model-experiments](https://github.com/Cyronius/model-experiments)
 
 Short version: 1-in-3 gated-DeltaNet layers were structurally removed from the 40-layer base, then a rank-32 LoRA (~33M trainable params, ~$53 of H200 time) was trained on a mix of general text, tool-use, and GSM8K-style reasoning data to heal the cut, then the result was quantized to GGUF with a calibrated imatrix.
 

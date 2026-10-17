@@ -6,8 +6,8 @@
 
 **Reproduce it:**
 ```
-git clone https://github.com/Cyronius/qwen-prune-heal-pipeline.git
-cd qwen-prune-heal-pipeline
+git clone https://github.com/Cyronius/model-experiments.git
+cd model-experiments
 
 # 1. prune a 40-layer Qwen3.6-35B-A3B checkpoint
 python qwen36-moe/prune_qwen35.py --skip-expert-cut   # layer cut only (the shipped path)

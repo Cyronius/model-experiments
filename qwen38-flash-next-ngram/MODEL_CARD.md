@@ -83,7 +83,7 @@ Text-only GGUF (vision tensors ship separately as unsloth's mmproj; the vision p
 
 ## How this model was made
 
-Full write-up, surgery script, and raw result logs: [github.com/Cyronius/qwen-prune-heal-pipeline](https://github.com/Cyronius/qwen-prune-heal-pipeline) (`surgery_qwen38.py`).
+Full write-up, surgery script, and raw result logs: [github.com/Cyronius/model-experiments](https://github.com/Cyronius/model-experiments) (`surgery_qwen38.py`).
 
 Short version: the GGUF's per-head hash-table layout is entirely metadata-driven (`ple.head_offsets`, `ple.head_vocab_sizes`), and llama.cpp reads the table's row count back from the tensor itself. Dropped heads get `vocab_size = 1` pointing at a shared all-zero row, so they contribute nothing and cost one row of storage — no llama.cpp patch, no requantization, no training. The whole build is a streaming byte copy: ~45 minutes on an NVMe laptop, and the entire experimental campaign that selected this configuration cost $1.50 of A100 time.
 
