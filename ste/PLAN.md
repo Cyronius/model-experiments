@@ -343,7 +343,7 @@ Roughly two and a half to three months for one person. The laptop does everythin
 
 | risk | mitigation |
 |---|---|
-| STE does not save tokens on our inputs | STE was designed for human readers, not token counts. It adds articles and "make sure", and splitting adds subjects. On terse input it may cost tokens; on verbose input it saves them. Measure in week one. If it does not save tokens, the goal is normalization and the codebook encoding, and that is still worth having. |
+| STE does not save tokens on our inputs | STE was designed for human readers, not token counts. It adds articles and "make sure", and splitting adds subjects. On terse input it may cost tokens; on verbose input it saves them. Measure in week one. If it does not save tokens, the goal is normalization, meaning one consistent vocabulary and sentence shape, and that is still worth having. |
 | converter errors poison everything downstream | the package's own examples as unit tests; the review list; spot-check odd rows against the PDF |
 | synthetic messy English does not match real prompts and docs | several LLM noise styles; seed from real prompts, system prompts, and docs; grow the gold set from real text only |
 | meaning drift | local judge plus downstream equivalence on real prompts; protect-and-copy default; owner spot checks |
