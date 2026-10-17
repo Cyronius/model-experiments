@@ -76,6 +76,7 @@ async def generate_title(
     max_attempts: int = 3,
     no_think: bool = False,
     max_tokens: int | None = None,
+    reasoning_effort: str | None = None,
 ) -> tuple[str | None, int, str | None]:
     """Returns (title, attempts_used, last_failure_reason)."""
     reason = None
@@ -99,8 +100,13 @@ async def generate_title(
                 {"role": "user", "content": user},
             ],
             "temperature": 0.3 if attempt == 1 else 0.7,
-            "max_tokens": max_tokens,
         }
+        if reasoning_effort:
+            # OpenAI reasoning models (e.g. gpt-6-luna) reject max_tokens
+            body["reasoning_effort"] = reasoning_effort
+            body["max_completion_tokens"] = max_tokens
+        else:
+            body["max_tokens"] = max_tokens
         if no_think:
             # vLLM and llama-server honor this for Qwen3 hybrid-thinking models; LM Studio ignores it
             body["chat_template_kwargs"] = {"enable_thinking": False}

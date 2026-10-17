@@ -46,14 +46,16 @@ async def run(args) -> None:
     stats = {"ok": 0, "failed": 0, "start": time.time()}
 
     async with httpx.AsyncClient() as client:
-        await warmup(client, args.model)
+        if not args.reasoning_effort:  # warmup is for LM Studio's model loading; OpenAI rejects its max_tokens
+            await warmup(client, args.model)
         fout = out_path.open("a", encoding="utf-8")
 
         async def work(rec: dict) -> None:
             async with sem:
                 try:
                     title, attempts, reason = await generate_title(
-                        client, rec["prompt"], args.model, no_think=args.no_think, max_tokens=args.max_tokens
+                        client, rec["prompt"], args.model, no_think=args.no_think, max_tokens=args.max_tokens,
+                        reasoning_effort=args.reasoning_effort,
                     )
                 except (httpx.HTTPError, KeyError) as e:
                     title, attempts, reason = None, 0, f"http error: {e}"
@@ -92,6 +94,8 @@ def main() -> None:
                     help="override the default (1024 if --no-think else 24) -- use a small value "
                          "(e.g. 32-40) with --no-think on a backend confirmed to honor "
                          "chat_template_kwargs.enable_thinking (llama-server/vLLM, not LM Studio)")
+    ap.add_argument("--reasoning-effort", default=None,
+                    help="OpenAI reasoning models: e.g. 'none' for gpt-6-luna (sends max_completion_tokens)")
     ap.add_argument("--concurrency", type=int, default=8)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--bucket", default=None)
