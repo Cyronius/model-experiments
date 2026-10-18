@@ -17,6 +17,17 @@ PAD, BOS, EOS, SEP = 0, 1, 2, 3
 MAX_PROMPT, MAX_NEW = 256, 40
 
 
+class PenalizeTokens(LogitsProcessor):
+    """Soft push away from filler words ("request", "inquiry"); not a ban, so a real use can still win."""
+
+    def __init__(self, ids: list[int], penalty: float):
+        self.ids, self.penalty = ids, penalty
+
+    def __call__(self, input_ids, scores):
+        scores[:, self.ids] -= self.penalty
+        return scores
+
+
 class NoRepeatInTitle(LogitsProcessor):
     """Inside the title only (the stock n-gram ban also counts the prompt): no repeated token pair, and a
     one-token word is never followed by itself."""
@@ -41,6 +52,7 @@ def main() -> None:
     ap.add_argument("--eval-set", default="data/eval/eval_set.jsonl")
     ap.add_argument("--out", required=True)
     ap.add_argument("--beams", type=int, default=2)
+    ap.add_argument("--filler-penalty", type=float, default=3.0)
     ap.add_argument("--no-repeat", type=int, default=1, help="1 = ban repeated token pairs inside the title")
     args = ap.parse_args()
 
@@ -48,6 +60,7 @@ def main() -> None:
     model = LlamaForCausalLM.from_pretrained(args.model).to(device).eval()
     tok = Tokenizer.from_file(f"{args.model}/tokenizer.json")
     word_starts = {i for i in range(tok.get_vocab_size()) if tok.id_to_token(i).startswith("▁")}
+    filler = sorted({tok.encode(w).ids[0] for w in ("request", "inquiry")})
     rows = [json.loads(line) for line in Path(args.eval_set).open(encoding="utf-8") if line.strip()]
     titles = {}
     with torch.no_grad():
@@ -56,7 +69,7 @@ def main() -> None:
             x = torch.tensor([ids], device=device)
             gen = model.generate(x, attention_mask=torch.ones_like(x), max_new_tokens=MAX_NEW, do_sample=False,
                                  eos_token_id=EOS, pad_token_id=PAD, num_beams=args.beams,
-                                 logits_processor=LogitsProcessorList([NoRepeatInTitle(len(ids), word_starts)] if args.no_repeat else []))
+                                 logits_processor=LogitsProcessorList(([NoRepeatInTitle(len(ids), word_starts)] if args.no_repeat else []) + ([PenalizeTokens(filler, args.filler_penalty)] if args.filler_penalty else [])))
             titles[r["id"]] = clean_title(tok.decode(gen[0, len(ids):].tolist(), skip_special_tokens=True))
     Path(args.out).write_text(json.dumps(titles, ensure_ascii=False), encoding="utf-8")
     print(f"{len(titles)} titles -> {args.out}")
