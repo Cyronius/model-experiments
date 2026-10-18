@@ -54,7 +54,7 @@ async def _post_with_retry(
                 continue
             resp.raise_for_status()
             return resp
-        except (httpx.ConnectError, httpx.ReadTimeout):
+        except (httpx.ConnectError, httpx.ReadTimeout, httpx.ReadError, httpx.RemoteProtocolError):
             if i == tries - 1:
                 raise
             await asyncio.sleep(2**i)

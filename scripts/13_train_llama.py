@@ -14,6 +14,7 @@ import random
 import time
 from pathlib import Path
 
+import numpy as np
 import torch
 from tokenizers import Tokenizer
 from transformers import LlamaConfig, LlamaForCausalLM
@@ -46,11 +47,18 @@ def title_examples(tok: Tokenizer, rows: list[dict]) -> list[tuple[list[int], in
     return out
 
 
-def lm_examples(tok: Tokenizer, texts: list[str]) -> list[tuple[list[int], int]]:
-    stream: list[int] = []
-    for enc in tok.encode_batch(texts):
-        stream += [BOS] + enc.ids + [EOS]
-    return [(stream[i : i + LM_BLOCK], 0) for i in range(0, len(stream) - LM_BLOCK + 1, LM_BLOCK)]
+def lm_examples(tok: Tokenizer, texts: list[str]) -> list[tuple[np.ndarray, int]]:
+    """Packed LM_BLOCK-token blocks; uint16 arrays keep a billion-token stream in memory."""
+    blocks, tail = [], np.zeros(0, dtype=np.uint16)
+    for i in range(0, len(texts), 20_000):
+        parts = [tail]
+        for enc in tok.encode_batch(texts[i : i + 20_000]):
+            parts.append(np.array([BOS] + enc.ids + [EOS], dtype=np.uint16))
+        stream = np.concatenate(parts)
+        usable = len(stream) // LM_BLOCK * LM_BLOCK
+        blocks += [(stream[j : j + LM_BLOCK], 0) for j in range(0, usable, LM_BLOCK)]
+        tail = stream[usable:]
+    return blocks
 
 
 def batches(examples, tokens_per_batch: int, shuffle: bool, seed: int):
@@ -77,8 +85,9 @@ def batches(examples, tokens_per_batch: int, shuffle: bool, seed: int):
             labels = torch.full((len(chunk), n), -100)
             for r, i in enumerate(chunk):
                 seq, ctx = examples[i]
-                ids[r, : len(seq)] = torch.tensor(seq)
-                labels[r, ctx : len(seq)] = torch.tensor(seq[ctx:])
+                arr = torch.from_numpy(np.asarray(seq, dtype=np.int64))
+                ids[r, : len(seq)] = arr
+                labels[r, ctx : len(seq)] = arr[ctx:]
             yield ids, labels, (ids != PAD).long()
 
 
