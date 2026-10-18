@@ -30,16 +30,16 @@ body{font:16px/1.5 system-ui,sans-serif;max-width:760px;margin:0 auto;padding:16
 @media(prefers-color-scheme:dark){body{background:#161616;color:#eee}pre,.card{background:#222!important;border-color:#444!important}}
 pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid #ddd;border-radius:8px;padding:12px;max-height:280px;overflow:auto}
 .titles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
-.card{border:2px solid #ccc;border-radius:10px;padding:14px;font-size:18px;background:#fff}
+.card{border:2px solid #ccc;border-radius:10px;padding:14px;font-size:18px;background:#fff;cursor:pointer;user-select:none}.card:hover{border-color:#2563eb}.card.sel{border-color:#2563eb;background:#dbeafe!important;color:#111}
 .btns{display:flex;gap:8px;flex-wrap:wrap}button{font:inherit;padding:10px 18px;border-radius:8px;border:1px solid #888;cursor:pointer}
 button.sel{background:#2563eb;color:#fff;border-color:#2563eb}small{color:#888}
 @media(max-width:560px){.titles{grid-template-columns:1fr}}
 </style>
 <h3>Which title is better? <small id=prog></small></h3>
-<p><small>Judge: would a reader scanning a sidebar know what this chat is about? Keys: A, T (tie), B, left/right arrows.</small></p>
+<p><small>Judge: would a reader scanning a sidebar know what this chat is about? Click the better title (or Tie). Keys: A, T, B, arrows.</small></p>
 <pre id=prompt></pre>
-<div class=titles><div class=card><small>A</small><br><span id=a></span></div><div class=card><small>B</small><br><span id=b></span></div></div>
-<div class=btns><button id=bA onclick=vote('A')>A is better</button><button id=bT onclick=vote('T')>Tie</button><button id=bB onclick=vote('B')>B is better</button>
+<div class=titles><div class=card id=cA onclick="vote('A')"><small>A (click if better)</small><br><span id=a></span></div><div class=card id=cB onclick="vote('B')"><small>B (click if better)</small><br><span id=b></span></div></div>
+<div class=btns><button id=bT onclick=vote('T')>Tie</button>
 <button onclick=go(-1)>Back</button><button onclick=go(1)>Skip</button><button onclick=exp()>Download results</button></div>
 <script>
 const items=__ITEMS__;let i=0;let votes={};
@@ -47,7 +47,7 @@ try{votes=JSON.parse(localStorage.getItem('votes')||'{}')}catch(e){}
 function show(){const it=items[i];document.getElementById('prompt').textContent=it.prompt;
 document.getElementById('a').textContent=it.a;document.getElementById('b').textContent=it.b;
 const done=Object.keys(votes).length;document.getElementById('prog').textContent=`${i+1}/${items.length}  (${done} answered)`;
-for(const k of ['A','T','B'])document.getElementById('b'+k).classList.toggle('sel',votes[it.n]===k)}
+document.getElementById('bT').classList.toggle('sel',votes[it.n]==='T');document.getElementById('cA').classList.toggle('sel',votes[it.n]==='A');document.getElementById('cB').classList.toggle('sel',votes[it.n]==='B')}
 function save(){try{localStorage.setItem('votes',JSON.stringify(votes))}catch(e){}}
 function vote(v){votes[items[i].n]=v;save();if(i<items.length-1)i++;show()}
 function go(d){i=Math.max(0,Math.min(items.length-1,i+d));show()}
@@ -78,10 +78,10 @@ body{font:15px/1.45 system-ui,sans-serif;margin:0;background:#fafafa;color:#111}
 table{border-collapse:collapse;width:100%}th,td{padding:8px 10px;text-align:left;vertical-align:top;border-bottom:1px solid #8884}
 th{position:sticky;top:49px;background:#eee}tr:nth-child(even){background:#f2f2f2}
 .p{max-width:360px;white-space:pre-wrap;word-break:break-word;font-size:13px;color:#666}.p b{cursor:pointer;color:#2563eb;font-weight:normal}
-label{margin-right:10px;cursor:pointer;white-space:nowrap}td.t{font-weight:600}
+label{margin-right:10px;cursor:pointer;white-space:nowrap}td.t{font-weight:600;cursor:pointer}td.t:hover{outline:2px solid #2563eb;outline-offset:-2px}td.t.sel{background:#dbeafe!important;color:#111;outline:2px solid #2563eb;outline-offset:-2px}
 button{font:inherit;padding:6px 14px;border-radius:8px;border:1px solid #888;cursor:pointer}
 </style>
-<div class=bar><b id=prog></b><button onclick=exp()>Download results</button><span style="color:#888">Pick A, Tie or B for each row. Answers save in this browser.</span></div>
+<div class=bar><b id=prog></b><button onclick=exp()>Download results</button><span style="color:#888">Click the better title (or Tie). Answers save in this browser.</span></div>
 <table><thead><tr><th>#</th><th>Prompt</th><th>Title A</th><th>Title B</th><th>Better</th></tr></thead><tbody id=rows></tbody></table>
 <script>
 const items=__ITEMS__;let votes={};try{votes=JSON.parse(localStorage.getItem('votes_table')||'{}')}catch(e){}
@@ -89,10 +89,14 @@ const rows=document.getElementById('rows');
 function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
 items.forEach(it=>{const tr=document.createElement('tr');
 const short=it.prompt.length>260?it.prompt.slice(0,260):it.prompt;
-tr.innerHTML=`<td>${it.n+1}</td><td class=p>${esc(short)}${it.prompt.length>260?' <b onclick="this.parentNode.textContent=items[${it.n}].prompt">…more</b>':''}</td><td class=t>${esc(it.a)}</td><td class=t>${esc(it.b)}</td><td>`+
+tr.innerHTML=`<td>${it.n+1}</td><td class=p>${esc(short)}${it.prompt.length>260?' <b onclick="this.parentNode.textContent=items[${it.n}].prompt">…more</b>':''}</td><td class='t ${votes[it.n]==='A'?'sel':''}' data-n=${it.n} data-v=A>${esc(it.a)}</td><td class='t ${votes[it.n]==='B'?'sel':''}' data-n=${it.n} data-v=B>${esc(it.b)}</td><td>`+
 ['A','T','B'].map(v=>`<label><input type=radio name=r${it.n} value=${v} ${votes[it.n]===v?'checked':''}> ${v==='T'?'Tie':v}</label>`).join('')+'</td>';
 rows.appendChild(tr)});
-rows.addEventListener('change',e=>{votes[e.target.name.slice(1)]=e.target.value;try{localStorage.setItem('votes_table',JSON.stringify(votes))}catch(_){}count()});
+function setVote(n,v){votes[n]=v;try{localStorage.setItem('votes_table',JSON.stringify(votes))}catch(_){}
+const tr=rows.children[n];tr.querySelectorAll('td.t').forEach(td=>td.classList.toggle('sel',td.dataset.v===v));
+tr.querySelectorAll('input').forEach(i=>i.checked=i.value===v);count()}
+rows.addEventListener('change',e=>setVote(e.target.name.slice(1),e.target.value));
+rows.addEventListener('click',e=>{const td=e.target.closest('td.t');if(td)setVote(td.dataset.n,td.dataset.v)});
 function count(){document.getElementById('prog').textContent=Object.keys(votes).length+'/'+items.length+' answered'}
 function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(votes)],{type:'application/json'}));a.download='human_votes.json';a.click()}
 count();
