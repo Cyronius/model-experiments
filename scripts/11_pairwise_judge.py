@@ -83,10 +83,10 @@ def read_eval_set() -> list[dict]:
         return [json.loads(line) for line in f if line.strip()]
 
 
-def load_pairs(a_path: str, b_path: str, limit: int | None) -> list[dict]:
+def load_pairs(a_path: str, b_path: str, limit: int | None, bucket: str | None = None) -> list[dict]:
     a, b = json.loads(Path(a_path).read_text(encoding="utf-8")), json.loads(Path(b_path).read_text(encoding="utf-8"))
     pairs = [{"id": r["id"], "bucket": r["bucket"], "prompt": r["prompt"], "a": a[r["id"]], "b": b[r["id"]]}
-             for r in read_eval_set() if r["id"] in a and r["id"] in b and a[r["id"]] != b[r["id"]]]
+             for r in read_eval_set() if r["id"] in a and r["id"] in b and a[r["id"]] != b[r["id"]] and (not bucket or r["bucket"] == bucket)]
     return pairs[:limit] if limit else pairs
 
 
@@ -104,11 +104,12 @@ def main() -> None:
     ap.add_argument("--a")
     ap.add_argument("--b")
     ap.add_argument("--limit", type=int)
+    ap.add_argument("--bucket", help="only this bucket, e.g. hard")
     ap.add_argument("--calibrate", action="store_true")
     ap.add_argument("--extra", default="{}", help="JSON merged into the request, e.g. reasoning_effort")
     ap.add_argument("--dump", help="write per-pair verdicts here")
     args = ap.parse_args()
-    pairs = calibration_pairs(args.limit or 100) if args.calibrate else load_pairs(args.a, args.b, args.limit)
+    pairs = calibration_pairs(args.limit or 100) if args.calibrate else load_pairs(args.a, args.b, args.limit, args.bucket)
     verdicts = asyncio.run(judge_pairs(args.judge, pairs, json.loads(args.extra)))
     report(pairs, verdicts)
     if args.dump:
