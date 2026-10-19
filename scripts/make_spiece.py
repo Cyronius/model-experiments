@@ -18,10 +18,28 @@ os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
 from sentencepiece import sentencepiece_model_pb2 as spm_pb2  # noqa: E402
 
 PAD, EOS, UNK = "<pad>", "</s>", "<unk>"
-CONTROL, UNKNOWN, NORMAL = 3, 2, 1  # spm_pb2 PieceType values
+CONTROL_TOKENS = {PAD, EOS, "<s>", "<sep>"}
+CONTROL, UNKNOWN, NORMAL, BYTE = 3, 2, 1, 6  # spm_pb2 PieceType values
 
 
-def write_spiece(tokenizer_json: str, out_path: str) -> int:
+def nfkc_charsmap() -> bytes:
+    """sentencepiece's NFKC normalization table, so llama.cpp can normalize input like our tokenizers do."""
+    import tempfile
+    from pathlib import Path
+
+    import sentencepiece as spm
+
+    with tempfile.TemporaryDirectory() as tmp:
+        corpus = Path(tmp) / "c.txt"
+        corpus.write_text("\n".join(f"hello world {i} test sentence number {i * 7}" for i in range(300)), encoding="utf-8")
+        spm.SentencePieceTrainer.train(input=str(corpus), model_prefix=str(Path(tmp) / "m"), vocab_size=40,
+                                       normalization_rule_name="nmt_nfkc", model_type="unigram")
+        proto = spm_pb2.ModelProto()
+        proto.ParseFromString((Path(tmp) / "m.model").read_bytes())
+        return proto.normalizer_spec.precompiled_charsmap
+
+
+def write_spiece(tokenizer_json: str, out_path: str, with_charsmap: bool = False) -> int:
     """Returns the vocab size written."""
     d = json.load(open(tokenizer_json, encoding="utf-8"))
     vocab = d["model"]["vocab"]  # [[piece, score], ...] -- id == list index
@@ -31,8 +49,14 @@ def write_spiece(tokenizer_json: str, out_path: str) -> int:
     m = spm_pb2.ModelProto()
     m.trainer_spec.model_type = 1  # UNIGRAM
     m.trainer_spec.vocab_size = len(vocab)
+    for name in ("pad", "bos", "eos", "unk"):  # ids, when the tokenizer has those pieces
+        tok = {"pad": PAD, "bos": "<s>", "eos": EOS, "unk": UNK}[name]
+        ids = [i for i, (pc, _) in enumerate(vocab) if pc == tok]
+        setattr(m.trainer_spec, f"{name}_id", ids[0] if ids else -1)
     m.normalizer_spec.add_dummy_prefix = add_prefix
     m.normalizer_spec.remove_extra_whitespaces = True
+    if with_charsmap:
+        m.normalizer_spec.precompiled_charsmap = nfkc_charsmap()
     # no precompiled_charsmap: our NFKC + whitespace-collapse normalization already
     # happened at train time (baked into which pieces exist); llama.cpp's own
     # runtime tokenizer won't re-apply NFKC to new input, so exotic Unicode input
@@ -52,7 +76,14 @@ def write_spiece(tokenizer_json: str, out_path: str) -> int:
             continue
         p.piece = piece
         p.score = score
-        p.type = {PAD: CONTROL, EOS: CONTROL, UNK: UNKNOWN}.get(piece, NORMAL)
+        if piece == UNK:
+            p.type = UNKNOWN
+        elif piece in CONTROL_TOKENS:
+            p.type = CONTROL
+        elif len(piece) == 6 and piece.startswith("<0x") and piece.endswith(">"):
+            p.type = BYTE
+        else:
+            p.type = NORMAL
 
     with open(out_path, "wb") as f:
         f.write(m.SerializeToString())

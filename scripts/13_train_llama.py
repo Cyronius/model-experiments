@@ -21,6 +21,55 @@ from transformers import LlamaConfig, LlamaForCausalLM
 
 from common.validation import clean_title, decase_title
 
+BLOCK = 256  # TQ2_0 block size: one fp16 scale per 256 input weights
+
+
+class TernaryLinear(torch.nn.Linear):
+    """nn.Linear that trains against what llama.cpp's TQ2_0 does: weights in {-1,0,1} x one scale per 256-block,
+    activations rounded to int8 per 256-block. Straight-through gradients; latent weights stay full precision."""
+
+    def forward(self, x):
+        w = self.weight.float()
+        o, i = w.shape
+        wb = w.reshape(o, i // BLOCK, BLOCK)
+        d = wb.abs().mean(-1, keepdim=True).clamp(min=1e-8)
+        wq = ((wb / d).round().clamp(-1, 1) * d).reshape(o, i)
+        w_ste = w + (wq - w).detach()
+        xf = x.float()
+        xb = xf.reshape(*xf.shape[:-1], i // BLOCK, BLOCK)
+        s = xb.abs().amax(-1, keepdim=True).clamp(min=1e-8) / 127
+        xq = ((xb / s).round().clamp(-127, 127) * s).reshape(xf.shape)
+        x_ste = xf + (xq - xf).detach()
+        return torch.nn.functional.linear(x_ste.to(x.dtype), w_ste.to(x.dtype), self.bias)
+
+    def ternary_weight(self) -> torch.Tensor:
+        w = self.weight.detach().float()
+        o, i = w.shape
+        wb = w.reshape(o, i // BLOCK, BLOCK)
+        d = wb.abs().mean(-1, keepdim=True).clamp(min=1e-8)
+        return ((wb / d).round().clamp(-1, 1) * d).reshape(o, i)
+
+
+def make_ternary(model) -> int:
+    """Swap every attention and MLP projection to TernaryLinear in place; embeddings, norms and the tied head stay full precision."""
+    n = 0
+    for name, m in model.named_modules():
+        if isinstance(m, torch.nn.Linear) and name.rsplit(".", 1)[-1] in {"q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"}:
+            m.__class__ = TernaryLinear
+            n += 1
+    return n
+
+
+def save_ternary(model, out: Path) -> None:
+    """Checkpoint whose projection weights are already ternary x scale, ready for the GGUF converter (--outtype tq2_0)."""
+    import copy
+
+    clone = copy.deepcopy(model).cpu()
+    for m in clone.modules():
+        if isinstance(m, TernaryLinear):
+            m.weight.data = m.ternary_weight().to(m.weight.dtype)
+    clone.save_pretrained(out)
+
 SHAPES = {
     "5L": dict(num_hidden_layers=5, intermediate_size=768, num_attention_heads=4, num_key_value_heads=4),
     "8L": dict(num_hidden_layers=8, intermediate_size=512, num_attention_heads=4, num_key_value_heads=2),
@@ -137,6 +186,7 @@ def main() -> None:
     ap.add_argument("--limit-train", type=int, default=None)
     ap.add_argument("--eval-every", type=int, default=500)
     ap.add_argument("--threads", type=int, default=None)
+    ap.add_argument("--ternary", action="store_true", help="quantization-aware training: ternary projections, int8 activations")
     args = ap.parse_args()
 
     if args.threads:
@@ -167,6 +217,8 @@ def main() -> None:
                           tie_word_embeddings=True, pad_token_id=PAD, bos_token_id=BOS, eos_token_id=EOS, **SHAPES[args.shape])
         cfg.max_position_embeddings = max(cfg.max_position_embeddings, LM_BLOCK)
         model = LlamaForCausalLM(cfg)
+    if args.ternary:
+        print(f"ternary QAT on {make_ternary(model)} projection layers")
     model.to(device).train()
     print(f"{sum(p.numel() for p in model.parameters()) / 1e6:.2f}M parameters")
 
@@ -200,6 +252,9 @@ def main() -> None:
 
     out = Path(args.out)
     model.save_pretrained(out)
+    if args.ternary:
+        save_ternary(model, out / "ternary")
+        Path(out / "ternary" / "tokenizer.json").write_bytes(Path(f"{args.tokenizer}/tokenizer.json").read_bytes())
     Path(out / "tokenizer.json").write_bytes(Path(f"{args.tokenizer}/tokenizer.json").read_bytes())
     if args.stage == "title":
         for r, t in zip(val_rows[:8], sample_titles(model, tok, val_rows[:8], device)):
