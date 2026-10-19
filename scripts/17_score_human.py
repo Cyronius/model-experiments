@@ -1,6 +1,7 @@
 """Score the human read of v2 vs v1.5 against the hidden key, next to both LLM judges (2026-10-18)."""
 
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -18,7 +19,14 @@ def verdicts(path: str) -> dict[str, str]:
         return {}
 
 
-qwen, granite = verdicts("data/eval/judge_8Lb_vs_v15_qwen.jsonl"), verdicts("data/eval/judge_8Lb_vs_v15_granite.jsonl")
+# judge dump name stems, e.g. "v3_luna" -> judge_v3_vs_v15_luna.jsonl + judge_v3_hard_luna.jsonl
+JUDGES = sys.argv[1:] or ["v3_luna"]
+
+
+def judge_verdicts(stem: str) -> dict[str, str]:
+    model, judge = stem.split("_", 1)
+    return {**verdicts(f"data/eval/judge_{model}_vs_v15_{judge}.jsonl"), **verdicts(f"data/eval/judge_{model}_hard_{judge}.jsonl")}
+
 # judge dumps hold a = v2 (title file A); human A/B is randomized, so convert to "v2"/"v1.5"
 to_side = {"a": "v2", "b": "v1.5", "tie": "tie"}
 
@@ -46,8 +54,7 @@ tally(human, "human, all")
 tally([(n, s) for n, s in human if key[n]["bucket"] != "hard"], "human, test prompts")
 tally([(n, s) for n, s in human if key[n]["bucket"] == "hard"], "human, hard cases")
 
-granite.update(verdicts("data/eval/judge_8Lb_hard_granite.jsonl"))
-for name, j in (("Qwen3-14B", qwen), ("Granite 4.2 8B", granite)):
+for name, j in ((stem, judge_verdicts(stem)) for stem in JUDGES):
     rows = [(n, human_side(n), to_side[j[key[n]["id"]]]) for n in key if key[n]["id"] in j and human_side(n)]
     if rows:
         tally([(n, s) for n, _, s in rows], f"{name} on the same pairs")
