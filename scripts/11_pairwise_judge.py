@@ -39,6 +39,8 @@ async def ask(client, judge: str, prompt: str, a: str, b: str, extra: dict) -> s
         "max_tokens": 1024,
         **extra,
     }
+    if "reasoning_effort" in body:  # OpenAI reasoning models reject max_tokens
+        body["max_completion_tokens"] = body.pop("max_tokens")
     resp = await _post_with_retry(client, body, timeout=600)
     text = re.sub(r"<think>.*?(</think>|$)", "", resp.json()["choices"][0]["message"]["content"] or "", flags=re.S)
     m = re.search(r"\b([ABT])\b", text.strip().upper())
@@ -50,7 +52,8 @@ async def judge_pairs(judge: str, pairs: list[dict], extra: dict, concurrency: i
     sem = asyncio.Semaphore(concurrency)
     out = ["tie"] * len(pairs)
     async with httpx.AsyncClient() as client:
-        await warmup(client, judge)
+        if "reasoning_effort" not in extra:  # warmup is for LM Studio model loading
+            await warmup(client, judge)
 
         async def one(i: int) -> None:
             p = pairs[i]

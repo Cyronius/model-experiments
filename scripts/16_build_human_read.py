@@ -4,9 +4,12 @@ import json
 import random
 from pathlib import Path
 
+import sys
+
 OUT = Path("data/eval/human_read")
+TITLES = sys.argv[1] if len(sys.argv) > 1 else "data/eval/titles_v2b_8L.json"
 rows = [json.loads(line) for line in Path("data/eval/eval_set.jsonl").open(encoding="utf-8")]
-v2 = json.loads(Path("data/eval/titles_v2b_8L.json").read_text(encoding="utf-8"))
+v2 = json.loads(Path(TITLES).read_text(encoding="utf-8"))
 v15 = json.loads(Path("data/eval/titles_v15.json").read_text(encoding="utf-8"))
 differ = [r for r in rows if v2[r["id"]] != v15[r["id"]]]
 rng = random.Random(18)
