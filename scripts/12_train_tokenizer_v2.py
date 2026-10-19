@@ -28,6 +28,7 @@ def read(path: Path) -> list[dict]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="data/v3")
+    ap.add_argument("--byte-fallback", action="store_true", help="add 256 byte tokens so unseen characters encode instead of <unk>")
     ap.add_argument("--output", default="model/tokenizer-v2")
     ap.add_argument("--vocab-size", type=int, default=4096)
     ap.add_argument("--prompt-rows", type=int, default=150_000, help="prompts sampled for training")
@@ -57,9 +58,18 @@ def main() -> None:
     tok.normalizer = normalizers.Sequence([normalizers.NFKC(), normalizers.Replace(Regex(r"\s+"), " ")])
     tok.pre_tokenizer = pre_tokenizers.Metaspace()
     tok.decoder = decoders.Metaspace()
+    specials = SPECIALS + ([f"<0x{b:02X}>" for b in range(256)] if args.byte_fallback else [])
     tok.train_from_iterator(
-        texts(), trainer=trainers.UnigramTrainer(vocab_size=args.vocab_size, special_tokens=SPECIALS, unk_token="<unk>")
+        texts(), trainer=trainers.UnigramTrainer(
+            vocab_size=args.vocab_size + (256 if args.byte_fallback else 0), special_tokens=specials, unk_token="<unk>")
     )
+    if args.byte_fallback:
+        spec = json.loads(tok.to_str())
+        spec["model"]["byte_fallback"] = True
+        spec["decoder"] = {"type": "Sequence", "decoders": [
+            {"type": "Replace", "pattern": {"String": "▁"}, "content": " "},
+            {"type": "ByteFallback"}, {"type": "Fuse"}, {"type": "Strip", "content": " ", "start": 1, "stop": 0}]}
+        tok = Tokenizer.from_str(json.dumps(spec))
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
     tok.save(str(out / "tokenizer.json"))
@@ -71,6 +81,10 @@ def main() -> None:
     unk_titles = sum(unk in tok.encode(decase_title(r["title"])).ids for r in test)
     print(f"vocab {tok.get_vocab_size()}; test titles: mean {sum(title_len) / n:.1f} tokens, p90 {title_len[int(n * .9)]}, "
           f"max {title_len[-1]}; titles with <unk>: {unk_titles}")
+    if args.byte_fallback:
+        for sample in ("こんにちは、東京の天気はどうですか", "¿puedes ayudarme a escribir un correo?", "hello world"):
+            enc = tok.encode(sample)
+            print(f"byte-fallback check: {len(enc.ids)} tokens, unk {unk in enc.ids}, round trip {tok.decode(enc.ids) == sample}")
     print(f"test prompts: median {prompt_len[n // 2]} tokens, share <=256: {sum(x <= 256 for x in prompt_len) / n:.1%}")
 
 
