@@ -48,19 +48,20 @@ button.sel{background:#2563eb;color:#fff;border-color:#2563eb}small{color:#888}
 <button onclick=go(-1)>Back</button><button onclick=go(1)>Skip</button><button onclick=exp()>Download results</button></div>
 <script>
 const items=__ITEMS__;let i=0;let votes={};
-try{votes=JSON.parse(localStorage.getItem('votes')||'{}')}catch(e){}
+try{votes=JSON.parse(localStorage.getItem('votes___BUILD__')||'{}')}catch(e){}
 function show(){const it=items[i];document.getElementById('prompt').textContent=it.prompt;
 document.getElementById('a').textContent=it.a;document.getElementById('b').textContent=it.b;
 const done=Object.keys(votes).length;document.getElementById('prog').textContent=`${i+1}/${items.length}  (${done} answered)`;
 for(const k of ['T','X','R'])document.getElementById('b'+k).classList.toggle('sel',votes[it.n]===k);document.getElementById('cA').classList.toggle('sel',votes[it.n]==='A');document.getElementById('cB').classList.toggle('sel',votes[it.n]==='B')}
-function save(){try{localStorage.setItem('votes',JSON.stringify(votes))}catch(e){}}
+function save(){try{localStorage.setItem('votes___BUILD__',JSON.stringify(votes))}catch(e){}}
 function vote(v){votes[items[i].n]=v;save();if(i<items.length-1)i++;show()}
 function go(d){i=Math.max(0,Math.min(items.length-1,i+d));show()}
 function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(votes)],{type:'application/json'}));a.download='human_votes.json';a.click()}
 document.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='a'||k==='t'||k==='b'||k==='x'||k==='r')vote(k.toUpperCase());else if(k==='arrowleft')go(-1);else if(k==='arrowright')go(1)});
 show();
 </script>""".replace("__ITEMS__", json.dumps(items, ensure_ascii=False).replace("</", "<\/"))
-(OUT / "pairs.html").write_text(page, encoding="utf-8")
+BUILD = str(abs(hash(json.dumps(key))) % 10**8) + str(len(items))  # new storage key per sheet, so old answers never show
+(OUT / "pairs.html").write_text(page.replace("__BUILD__", BUILD), encoding="utf-8")
 print(f"{len(items)} pairs ({sum(r['bucket'] == 'hard' for r in picked)} hard) -> {OUT / 'pairs.html'}")
 
 
@@ -91,7 +92,7 @@ td:last-child{white-space:nowrap}
 <div class=bar><b id=prog></b><button onclick=exp()>Download results</button><span style="color:#888">Click the better title, or Tie / Both bad / Reject (inappropriate prompt). Answers save in this browser.</span></div>
 <table><thead><tr><th>#</th><th>Prompt</th><th>Title A</th><th>Title B</th><th>Other</th></tr></thead><tbody id=rows></tbody></table>
 <script>
-const items=__ITEMS__;let votes={};try{votes=JSON.parse(localStorage.getItem('votes_table')||'{}')}catch(e){}
+const items=__ITEMS__;let votes={};try{votes=JSON.parse(localStorage.getItem('votes_table___BUILD__')||'{}')}catch(e){}
 const rows=document.getElementById('rows');
 function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
 items.forEach(it=>{const tr=document.createElement('tr');
@@ -100,7 +101,7 @@ tr.innerHTML=`<td>${it.n+1}</td><td class=p>${esc(short)}${it.prompt.length>260?
 [['T','Tie'],['X','Both bad'],['R','Reject']].map(([v,l])=>`<button class='vb ${votes[it.n]===v?'sel':''}' data-n=${it.n} data-v=${v}>${l}</button>`).join(' ')+'</td>';
 if(votes[it.n]==='R')tr.classList.add('rej');
 rows.appendChild(tr)});
-function setVote(n,v){votes[n]=v;try{localStorage.setItem('votes_table',JSON.stringify(votes))}catch(_){}
+function setVote(n,v){votes[n]=v;try{localStorage.setItem('votes_table___BUILD__',JSON.stringify(votes))}catch(_){}
 const tr=rows.children[n];tr.querySelectorAll('td.t,button.vb').forEach(el=>el.classList.toggle('sel',el.dataset.v===v));
 tr.classList.toggle('rej',v==='R');count()}
 rows.addEventListener('click',e=>{const el=e.target.closest('td.t,button.vb');if(el)setVote(el.dataset.n,el.dataset.v)});
@@ -108,4 +109,4 @@ function count(){document.getElementById('prog').textContent=Object.keys(votes).
 function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(votes)],{type:'application/json'}));a.download='human_votes.json';a.click()}
 count();
 </script>""".replace("__ITEMS__", json.dumps(items, ensure_ascii=False).replace("</", "<\/"))
-(OUT / "pairs_table.html").write_text(table_page, encoding="utf-8")
+(OUT / "pairs_table.html").write_text(table_page.replace("__BUILD__", BUILD), encoding="utf-8")
