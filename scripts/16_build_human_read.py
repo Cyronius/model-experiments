@@ -15,7 +15,9 @@ differ = [r for r in rows if v2[r["id"]] != v15[r["id"]]]
 rng = random.Random(18)
 hard = [r for r in differ if r["bucket"] == "hard"]
 rest = [r for r in differ if r["bucket"] != "hard"]
-picked = rng.sample(rest, 85) + rng.sample(hard, 15)
+N = int(sys.argv[2]) if len(sys.argv) > 2 else 100
+n_hard = round(N * 0.15)
+picked = rng.sample(rest, N - n_hard) + rng.sample(hard, n_hard)
 rng.shuffle(picked)
 
 items, key = [], {}
