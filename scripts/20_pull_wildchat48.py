@@ -16,14 +16,15 @@ from datasets import load_dataset
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", required=True)
-    ap.add_argument("--max-rows", type=int, default=2_600_000)
+    ap.add_argument("--skip-rows", type=int, default=0, help="resume: rows already scanned")
+    ap.add_argument("--max-rows", type=int, default=2_600_000, help="stop at this absolute row index")
     ap.add_argument("--max-kept", type=int, default=700_000)
     args = ap.parse_args()
 
-    ds = load_dataset("allenai/WildChat-4.8M", split="train", streaming=True)
+    ds = load_dataset("allenai/WildChat-4.8M", split="train", streaming=True).skip(args.skip_rows)
     kept = 0
     with Path(args.output).open("w", encoding="utf-8") as f:
-        for i, row in enumerate(ds):
+        for i, row in enumerate(ds, start=args.skip_rows):
             if i >= args.max_rows or kept >= args.max_kept:
                 break
             if row.get("language") != "English" or row.get("toxic") or row.get("redacted"):

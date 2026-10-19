@@ -39,18 +39,28 @@ def main() -> None:
         name = path.as_posix()
         if name.startswith(EXCLUDE):
             continue
-        keep, drop = [], []
+        dropped_ids, total = [], 0
+        tmp = path.with_suffix(".jsonl.tmp")
+        out = tmp.open("w", encoding="utf-8") if args.apply else None
         with path.open(encoding="utf-8") as f:
             for line in f:
                 if not line.strip():
                     continue
                 rec = json.loads(line)
-                (drop if flagged(rec) else keep).append(rec)
-        if drop:
-            removed[name] = removed.get(name, []) + [r.get("id") for r in drop]
-        print(f"{name}: {len(drop):,} of {len(keep) + len(drop):,} flagged")
-        if args.apply and drop:
-            path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in keep), encoding="utf-8")
+                total += 1
+                if flagged(rec):
+                    dropped_ids.append(rec.get("id"))
+                elif out:
+                    out.write(line.rstrip("\r\n") + "\n")
+        if out:
+            out.close()
+            if dropped_ids:
+                tmp.replace(path)
+            else:
+                tmp.unlink()
+        if dropped_ids:
+            removed[name] = removed.get(name, []) + dropped_ids
+        print(f"{name}: {len(dropped_ids):,} of {total:,} flagged")
     if args.apply:
         log.write_text(json.dumps(removed), encoding="utf-8")
 
