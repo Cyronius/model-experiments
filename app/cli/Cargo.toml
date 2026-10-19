@@ -1,0 +1,13 @@
+[package]
+name = "titler-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "titler"
+path = "src/main.rs"
+
+[dependencies]
+titler-core = { path = "../core" }
+titler-llama = { path = "../llama" }
