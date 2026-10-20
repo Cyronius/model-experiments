@@ -81,8 +81,11 @@ def report(pairs: list[dict], verdicts: list[str]) -> None:
         print(f"  {bucket}: A {bc['a']}  B {bc['b']}  tie {bc['tie']}")
 
 
+EVAL_SET = "data/eval/eval_set.jsonl"
+
+
 def read_eval_set() -> list[dict]:
-    with Path("data/eval/eval_set.jsonl").open(encoding="utf-8") as f:
+    with Path(EVAL_SET).open(encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
 
 
@@ -108,10 +111,12 @@ def main() -> None:
     ap.add_argument("--b")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--bucket", help="only this bucket, e.g. hard")
+    ap.add_argument("--eval-set", default=EVAL_SET, help="JSONL with id, bucket, prompt")
     ap.add_argument("--calibrate", action="store_true")
     ap.add_argument("--extra", default="{}", help="JSON merged into the request, e.g. reasoning_effort")
     ap.add_argument("--dump", help="write per-pair verdicts here")
     args = ap.parse_args()
+    globals()["EVAL_SET"] = args.eval_set
     pairs = calibration_pairs(args.limit or 100) if args.calibrate else load_pairs(args.a, args.b, args.limit, args.bucket)
     verdicts = asyncio.run(judge_pairs(args.judge, pairs, json.loads(args.extra)))
     report(pairs, verdicts)
