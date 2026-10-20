@@ -36,10 +36,8 @@ This repository holds two models:
 
 | | file | size | parameters | architecture | status |
 |---|---|---:|---:|---|---|
-| **v2** | `titler-v3-q4_k_m.gguf` | **4.1 MB** | 5.84M | Llama, 8 layers, 4,352-token vocabulary, Q4_K_M | **current** |
+| **v2** | `titler-v2-q4_k_m.gguf` | **4.1 MB** | 5.84M | Llama, 8 layers, 4,352-token vocabulary, Q4_K_M | **current** |
 | v1.5 | `model.safetensors`, `onnx/`, `gguf/` | 5–15 MB | 7.61M | T5 encoder-decoder, 3 + 3 layers, 8,192-token vocabulary | legacy, kept for existing users |
-
-The v2 file is named `v3` because that was the number of the training run that produced it. "v2" is the release name.
 
 **Source code, apps and write-ups:** https://github.com/Cyronius/model-experiments/tree/main/titler
 **Try v2 in your browser** (runs locally with WebAssembly, nothing is sent anywhere): https://cyronius.github.io/model-experiments/titler/
@@ -82,7 +80,7 @@ The titler engine is in the GitHub repository. See [EMBEDDING.md](https://github
 
 ```python
 from titler import Titler
-t = Titler()   # the model is inside the wheel; or Titler("titler-v3-q4_k_m.gguf")
+t = Titler()   # the model is inside the wheel; or Titler("titler-v2-q4_k_m.gguf")
 print(t.title("how do I sort a list of dicts by a key in python"))
 ```
 

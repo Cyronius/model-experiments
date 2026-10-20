@@ -16,7 +16,7 @@ fn golden(name: &str) -> Value {
 }
 
 fn tokenizer() -> Tokenizer {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../model/titler-v3-q4_k_m.gguf");
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../model/titler-v2-q4_k_m.gguf");
     Tokenizer::from_gguf(&Gguf::parse(&fs::read(path).unwrap()).unwrap()).unwrap()
 }
 

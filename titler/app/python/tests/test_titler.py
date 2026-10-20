@@ -6,7 +6,7 @@ import pytest
 
 from titler import Titler, TitlerError, version
 
-MODEL = Path(__file__).parents[2] / "model" / "titler-v3-q4_k_m.gguf"
+MODEL = Path(__file__).parents[2] / "model" / "titler-v2-q4_k_m.gguf"
 
 
 @pytest.fixture(scope="module")

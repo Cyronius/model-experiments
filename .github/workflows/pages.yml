@@ -37,7 +37,7 @@ jobs:
         run: |
           cp site/index.html _site/
           cp titler/app/website/index.html titler/app/website/worker.js _site/titler/
-          cp titler/app/model/titler-v3-q4_k_m.gguf _site/titler/titler.gguf
+          cp titler/app/model/titler-v2-q4_k_m.gguf _site/titler/titler.gguf
           rm -f _site/titler/pkg/.gitignore _site/titler/pkg/package.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

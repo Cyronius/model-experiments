@@ -5,7 +5,7 @@ use std::time::Instant;
 use titler_core::{Options, Titler};
 use titler_llama::Engine;
 
-const MODEL: &[u8] = include_bytes!("../../model/titler-v3-q4_k_m.gguf");
+const MODEL: &[u8] = include_bytes!("../../model/titler-v2-q4_k_m.gguf");
 
 const HELP: &str = "titler: short titles for a prompt, from a 4 MB model running on your CPU
 
