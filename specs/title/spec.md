@@ -101,3 +101,7 @@ not strip teacher-only `<think>` tags.
 
 **Acceptance criteria:**
 - 1,533 decased training titles and 30 edge cases (quotes, markdown, leaked format ranges, line breaks) → identical strings
+
+### Known limits
+- Dropped apostrophes in possessives (`Nick Wildes`): 1 of 1,064 eval titles and 4.5% of training titles that could drop one (2026-10-20), so not worth a retrain.
+- Hard inputs (non-English, logs, short prompts) are not yet measured well enough: see `.claude/plans/titler-v3-hard-inputs.md`.
