@@ -256,7 +256,9 @@ EXPERIMENTS.md full methodology and results, every version, what was tried and r
 
 ## License
 
-Apache 2.0.
+The code and the v2 model file (`app/model/titler-v3-q4_k_m.gguf`) are dual-licensed: you may use them under either the
+[MIT License](LICENSE-MIT) or the [Apache License 2.0](LICENSE-APACHE), at your option. Data and attribution notes: `app/model/NOTICE.md`.
+The published v1.5 weights stay under Apache 2.0.
 
 Model weights:
 

@@ -28,4 +28,4 @@ Model weights, adapter checkpoints, and quantized builds aren't in this repo —
 
 ## License
 
-Code is Apache-2.0 — see [LICENSE](LICENSE). Model weights are distributed separately on Hugging Face under their own licenses (Apache-2.0 for the 3.6 derivative, qwen-community-1.0 for the 3.8 derivative).
+Code is Apache-2.0 — see [LICENSE](LICENSE). The exception is [`titler/`](titler/), which is dual-licensed under MIT or Apache-2.0, at your option ([LICENSE-MIT](titler/LICENSE-MIT), [LICENSE-APACHE](titler/LICENSE-APACHE)). Model weights are distributed separately on Hugging Face under their own licenses (Apache-2.0 for the 3.6 derivative, qwen-community-1.0 for the 3.8 derivative).
