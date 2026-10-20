@@ -104,4 +104,5 @@ not strip teacher-only `<think>` tags.
 
 ### Known limits
 - Dropped apostrophes in possessives (`Nick Wildes`): 1 of 1,064 eval titles and 4.5% of training titles that could drop one (2026-10-20), so not worth a retrain.
-- Hard inputs (non-English, logs, short prompts) are not yet measured well enough: see `.claude/plans/titler-v3-hard-inputs.md`.
+- English only: non-English prompts are out of scope (owner, 2026-10-20).
+- Hard inputs (logs, the mixed hard bucket) are weaker than the rest: see `.claude/plans/titler-v3-hard-inputs.md`.

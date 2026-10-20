@@ -67,7 +67,7 @@ Host `pkg/titler_wasm_bg.wasm` and `titler.gguf` as static files next to your sc
 | | |
 |---|---|
 | Output | 3 to 8 words in Title Case, for example `Sorting Dicts By Key in Python`. Same input, same output. |
-| Input | Any text. Only the first 256 tokens (about 1,000 characters of English) are read. English works best. |
+| Input | Any text. Only the first 256 tokens (about 1,000 characters of English) are read. English only: other languages are not supported. |
 | Speed, 4 beams | Native Rust (one thread): median 40-70 ms, slowest 5% 200-275 ms (long prompts). llama.cpp: 18 ms / 48 ms. Browser: 50-175 ms. |
 | Speed, 1 beam | About half of that, with slightly worse titles. |
 | Memory | About 25 MB after loading (weights are held as 32-bit numbers). Load time about 30 ms. |
@@ -77,7 +77,7 @@ Host `pkg/titler_wasm_bg.wasm` and `titler.gguf` as static files next to your sc
 ## Limits
 
 - It titles; it does not summarize, translate or answer.
-- It sometimes drops an apostrophe (`Nick Wildes Judy Hopp Dialog Line`). Weak inputs are non-English text, vague one-liners and pasted data.
+- It sometimes drops an apostrophe (`Nick Wildes Judy Hopp Dialog Line`). Weak inputs are vague one-liners and pasted logs.
 - The training data and its licenses are listed in `model/NOTICE.md`.
 
 ## Build from source
