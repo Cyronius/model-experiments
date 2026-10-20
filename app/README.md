@@ -5,12 +5,18 @@ A 4 MB model that turns a prompt into a short title. It runs on the CPU in about
 | Folder | Content |
 |---|---|
 | `core/` | Tokenizer, beam search, title cleanup. No I/O. The model side is a `Backend` trait. |
+| `titler/` | The `titler` crate: load a model, call `title`. Shares one model between threads. |
+| `capi/` | C library and `include/titler.h`. |
+| `python/` | Python package (ctypes over the C library) and wheel builder. |
+| `npm/` | The `titler-wasm` npm package. |
 | `cpu/` | `Backend` in plain Rust (no C++, no dependencies). It runs in the browser. |
 | `llama/` | `Backend` for llama.cpp (through `llama-cpp-2`). Faster on a desktop. |
 | `cli/` | The `titler` command. The model is built into the binary. |
 | `wasm/` | WebAssembly wrapper around `core` and `cpu`. |
 | `website/` | The demo page. `build-site.sh` builds it into `website/dist/`. |
 | `model/` | The shipped GGUF (Q4_K_M, 5.84M parameters) and `NOTICE.md` (data licenses). |
+
+To use titler in your own app (Rust, C, Python, JavaScript), see [EMBEDDING.md](EMBEDDING.md).
 
 ## Use
 

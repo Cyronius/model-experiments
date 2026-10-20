@@ -32,3 +32,73 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: titler-${{ matrix.name }}*
+
+  libraries:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, name: linux-x86_64 }
+          - { os: windows-latest, name: windows-x86_64 }
+          - { os: macos-latest, name: macos-arm64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build the C library
+        working-directory: app
+        run: cargo build --release -p titler-capi
+      - name: Zip the C library with its header
+        shell: bash
+        working-directory: app
+        run: |
+          files="capi/include/titler.h"
+          for f in target/release/titler_c.dll target/release/titler_c.dll.lib target/release/titler_c.lib target/release/libtitler_c.so target/release/libtitler_c.dylib target/release/libtitler_c.a; do
+            [ -f "$f" ] && files="$files $f"
+          done
+          python -m zipfile -c "../titler-capi-${{ matrix.name }}.zip" $files
+      - name: Build the Python wheel
+        shell: bash
+        working-directory: app/python
+        run: |
+          pip install build wheel setuptools
+          python build_wheel.py
+          cp dist/*.whl ../..
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            titler-capi-${{ matrix.name }}.zip
+            titler-*.whl
+
+  npm-and-model:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+      - name: Build the npm package
+        working-directory: app
+        run: |
+          wasm-pack build wasm --target web --release --out-dir ../npm/pkg --out-name titler_wasm
+          cp model/titler-v3-q4_k_m.gguf npm/titler.gguf
+          cd npm && npm pack
+          cp titler-wasm-*.tgz ../..
+          cp ../model/titler-v3-q4_k_m.gguf ../../titler-v3-q4_k_m.gguf
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            titler-wasm-*.tgz
+            titler-v3-q4_k_m.gguf
