@@ -1,0 +1,13 @@
+[package]
+name = "titler"
+description = "A 4 MB model that turns a prompt into a short title. Runs on the CPU, no C++ needed."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository = "https://github.com/Cyronius/model-experiments"
+keywords = ["llm", "title", "gguf", "wasm"]
+categories = ["text-processing"]
+
+[dependencies]
+titler-core = { path = "../core", version = "0.1.0" }
+titler-cpu = { path = "../cpu", version = "0.1.0" }

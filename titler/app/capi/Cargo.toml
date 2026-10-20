@@ -1,0 +1,13 @@
+[package]
+name = "titler-capi"
+description = "C interface to titler (include/titler.h)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "titler_c"
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+titler = { path = "../titler" }

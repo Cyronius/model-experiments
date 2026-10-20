@@ -1,0 +1,20 @@
+{
+  "name": "titler-wasm",
+  "version": "0.1.0",
+  "description": "A 4 MB model that turns a prompt into a short title. Runs in the browser and in Node with WebAssembly.",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": { "types": "./index.d.ts", "default": "./index.js" },
+    "./titler.gguf": "./titler.gguf"
+  },
+  "files": ["index.js", "index.d.ts", "pkg/titler_wasm.js", "pkg/titler_wasm.d.ts", "pkg/titler_wasm_bg.wasm", "titler.gguf", "README.md"],
+  "keywords": ["llm", "title", "wasm", "gguf"],
+  "repository": { "type": "git", "url": "https://github.com/Cyronius/model-experiments.git", "directory": "titler/app/npm" },
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "bash build.sh",
+    "test": "node --test"
+  }
+}

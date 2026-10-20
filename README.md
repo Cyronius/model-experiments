@@ -19,6 +19,7 @@ One folder per experiment.
 |---|---|
 | [`qwen36-moe/`](qwen36-moe/) | Qwen3.6 MoE layer prune + LoRA heal: `prune_qwen35.py`, `heal/`, `heal-artifacts/`, `patches/`, model card, [write-up](qwen36-moe/qwen36-27b-a2.8b.md), pruning plans |
 | [`qwen38-flash-next-ngram/`](qwen38-flash-next-ngram/) | Qwen3.8-Flash-Next n-gram table prune: `surgery_qwen38.py`, model card, [write-up](qwen38-flash-next-ngram/qwen38-flash-next-131b-a6b.md) |
+| [`titler/`](titler/) | a 4 MB model (5.8M-parameter Llama GGUF) that turns a prompt into a short title: training and eval scripts, a Rust engine, C / Python / npm packages, a WebAssembly demo ([try it](https://cyronius.github.io/model-experiments/)) and the older v1.5 T5 model. Start at [`titler/app/EMBEDDING.md`](titler/app/EMBEDDING.md) |
 | [`ternary/`](ternary/) | ternary quantization investigation (fingerprint, layer error, perplexity) |
 | [`asd-ste100/`](asd-ste100/) | a tiny iterative editor that rewrites English into ASD-STE100 Simplified Technical English (lexicon, checker, data pipeline, pod scripts) |
 | [`bench/`](bench/) | shared benchmark harness (tools / GSM8K / MMLU / perplexity), pod orchestration, result logs for both Qwen campaigns |
