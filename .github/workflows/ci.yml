@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app
+      - name: Core tests (golden files from the Python code)
+        working-directory: app
+        run: cargo test -p titler-core
+      - name: WebAssembly build
+        working-directory: app
+        run: cargo build --release -p titler-wasm --target wasm32-unknown-unknown

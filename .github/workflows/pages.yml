@@ -1,0 +1,53 @@
+name: Website
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+      - name: Build the WebAssembly module
+        working-directory: app
+        run: wasm-pack build wasm --target web --release --out-dir ../website/dist/pkg --out-name titler_wasm
+      - name: Assemble the site
+        working-directory: app
+        run: |
+          cp website/index.html website/worker.js website/dist/
+          cp model/titler-v3-q4_k_m.gguf website/dist/titler.gguf
+          rm -f website/dist/pkg/.gitignore website/dist/pkg/package.json
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/website/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

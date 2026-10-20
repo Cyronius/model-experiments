@@ -56,8 +56,21 @@ impl Value {
     }
 }
 
+#[derive(Debug, Clone)]
+pub struct TensorInfo {
+    pub name: String,
+    /// ggml order: `dims[0]` is the contiguous (innermost) dimension.
+    pub dims: Vec<u64>,
+    pub dtype: u32,
+    /// Byte offset from the start of the tensor data block.
+    pub offset: u64,
+}
+
 pub struct Gguf {
     pub metadata: HashMap<String, Value>,
+    pub tensors: Vec<TensorInfo>,
+    /// Byte offset of the tensor data block in the file.
+    pub data_start: usize,
 }
 
 struct Reader<'a> {
@@ -124,7 +137,7 @@ impl Gguf {
         if !(2..=3).contains(&version) {
             return Err(Error(format!("GGUF: unsupported version {version}")));
         }
-        let _tensor_count = r.u64()?;
+        let tensor_count = r.u64()?;
         let kv_count = r.u64()?;
         let mut metadata = HashMap::new();
         for _ in 0..kv_count {
@@ -132,7 +145,21 @@ impl Gguf {
             let ty = r.u32()?;
             metadata.insert(key, r.value(ty)?);
         }
-        Ok(Gguf { metadata })
+        let mut tensors = Vec::new();
+        for _ in 0..tensor_count {
+            let name = r.string()?;
+            let n_dims = r.u32()? as usize;
+            let mut dims = Vec::with_capacity(n_dims);
+            for _ in 0..n_dims {
+                dims.push(r.u64()?);
+            }
+            let dtype = r.u32()?;
+            let offset = r.u64()?;
+            tensors.push(TensorInfo { name, dims, dtype, offset });
+        }
+        let align = metadata.get("general.alignment").and_then(Value::as_u32).unwrap_or(32) as usize;
+        let data_start = r.pos.div_ceil(align) * align;
+        Ok(Gguf { metadata, tensors, data_start })
     }
 
     pub fn get(&self, key: &str) -> Result<&Value> {

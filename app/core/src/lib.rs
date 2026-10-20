@@ -60,7 +60,12 @@ impl Titler {
     }
 
     pub fn title<B: Backend>(&self, backend: &mut B, prompt: &str) -> Result<String> {
-        let cfg = BeamConfig { beams: self.opts.beams, max_new: self.opts.max_new_tokens, eos: self.tok.eos };
+        self.title_with_beams(backend, prompt, self.opts.beams)
+    }
+
+    /// The backend must have at least `2 * beams` slots.
+    pub fn title_with_beams<B: Backend>(&self, backend: &mut B, prompt: &str, beams: usize) -> Result<String> {
+        let cfg = BeamConfig { beams, max_new: self.opts.max_new_tokens, eos: self.tok.eos };
         let ids = beam::beam_search(backend, &self.prompt_ids(prompt), &cfg, &self.rules)?;
         Ok(text::clean_title(&self.tok.decode(&ids)))
     }

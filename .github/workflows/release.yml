@@ -1,0 +1,34 @@
+name: Release binaries
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, name: linux-x86_64, file: titler }
+          - { os: windows-latest, name: windows-x86_64, file: titler.exe }
+          - { os: macos-latest, name: macos-arm64, file: titler }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app
+      - name: Build the titler command
+        working-directory: app
+        run: cargo build --release -p titler-cli
+      - name: Name the file for this platform
+        shell: bash
+        run: cp "app/target/release/${{ matrix.file }}" "titler-${{ matrix.name }}${{ matrix.os == 'windows-latest' && '.exe' || '' }}"
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: titler-${{ matrix.name }}*
