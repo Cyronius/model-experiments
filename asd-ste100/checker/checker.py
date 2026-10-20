@@ -8,6 +8,7 @@ articles (R4.5), and everything in tier B or C. Meaning is never checked here.
 Severity: a word is an error only when it is a known rejected word (R1.1) or a form the
 dictionary does not give (R3.1). A word the dictionary does not list at all is "info": it may be
 a technical noun, which R1.5 allows, and this checker cannot tell nouns from other words.
+Words in lexicon/tech_words.txt count as approved, in every part of speech.
 
 Protected spans (backticks, URLs, paths, identifiers, anything with a digit, listed
 technical words) count as one allowed word.
@@ -45,7 +46,7 @@ def plural_forms(w: str) -> set[str]:
 
 
 class Lexicon:
-    def __init__(self, d: Path = LEX_DIR):
+    def __init__(self, d: Path = LEX_DIR, tech_words: bool = True):
         rows = [json.loads(l) for l in (d / "lexicon.jsonl").open(encoding="utf-8")]
         self.allowed: set[str] = set()
         self.rejected: dict[str, list[str]] = {}
@@ -69,6 +70,10 @@ class Lexicon:
         if tp.exists():
             for l in tp.open(encoding="utf-8"):
                 self.technical.update(re.findall(r"[a-z]+", json.loads(l)["name"]))
+        tw = d / "tech_words.txt"
+        if tech_words and tw.exists():
+            for l in tw.open(encoding="utf-8"):
+                if not l.startswith("#"): self.allowed.update(l.split())
 
     def suggest(self, w: str) -> str:
         for cand in (w, w.rstrip("s"), w[:-2] if w.endswith("ed") else w, w[:-3] if w.endswith("ing") else w):

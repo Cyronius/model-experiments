@@ -8,7 +8,7 @@ This is the design record for the Simplified Technical English (STE) rewriter. R
 
 ## 0. What we are building
 
-**Purpose.** Normalize English that goes into or comes out of an LLM: prompts, system prompts, tool descriptions, documentation, agent-to-agent messages. STE is a closed-vocabulary controlled language with about 900 approved words and 53 writing rules. Text in STE is shorter where English is verbose, has one meaning per word, one instruction per sentence, and no tense or voice variety. That makes it predictable for a model to read and cheap to encode. The consumer of the output is a model or a codec, not a human reader.
+**Purpose.** Normalize English that goes into or comes out of an LLM: prompts, system prompts, tool descriptions, documentation, agent-to-agent messages. STE is a closed-vocabulary controlled language with about 900 approved words and 53 writing rules. Text in STE is shorter where English is verbose, has one meaning per word, one instruction per sentence, and no tense or voice variety. That makes it clear and predictable for a model to read. The goal is clarity, not fewer tokens. The consumer of the output is a model or a codec, not a human reader.
 
 **Input:** English text from one sentence up to several paragraphs, plus a mode flag: `PROC` for instructions and prompts, `DESC` for context and explanations. Optionally a glossary of terms to protect.
 
@@ -95,7 +95,7 @@ The converter lowercases the dictionary's uppercase convention, expands inflecti
 
 | vocab region | contents | rough size |
 |---|---|---|
-| `V_out` | every inflected form of every approved word; function words; punctuation; digit tokens; slot tokens `TN_1..TN_32`, `TV_1..TV_16`, `NUM_1..NUM_16`, `PROTECT_1..PROTECT_16`; control tokens `NULL`, `PAD`, `SEP`, `PROC`, `DESC` | 3k to 4k |
+| `V_out` | every inflected form of every approved word; every word in `lexicon/tech_words.txt`; function words; punctuation; digit tokens; slot tokens `TN_1..TN_32`, `TV_1..TV_16`, `NUM_1..NUM_16`, `PROTECT_1..PROTECT_16`; control tokens `NULL`, `PAD`, `SEP`, `PROC`, `DESC` | 3k to 4k |
 | `V_in` | `V_out` plus every inflected form of every rejected word, plus a 4k to 8k BPE fallback for everything else | 12k to 16k |
 
 The output head only ever scores `V_out`. The lexicon mask is a `[|V_out|]` additive bias, built once per request from the base lexicon plus any glossary additions.
@@ -301,7 +301,7 @@ These are back-of-envelope numbers. The latency table in `asd-ste100/eval/` repl
 | metric | how | target |
 |---|---|---|
 | compliance | tier A violations per 100 output sentences, from the checker | at most 2 |
-| token delta | tokens before and after under the Qwen3 tokenizer (the main number), plus tiktoken `o200k_base` as a check | reported per input type; see the risk table |
+| token delta | tokens before and after under the Qwen3 tokenizer, plus tiktoken `o200k_base` as a check | reported per input type, not a target |
 | meaning preservation | local judge, five-point scale, plus two-way entailment; owner spot-checks 50 per release | mean at least 4.5; at most 1 percent rated "meaning changed" |
 | downstream equivalence | run the same local model on the original and the STE version of 200 prompts; judge whether the answers match | at least 95 percent judged equivalent |
 | over-editing | token edit rate on input that is already compliant | at most 3 percent |
@@ -323,7 +323,7 @@ Deterministic scoring everywhere the checker can do it, as in `bench/`. The judg
 |---|---|---|---|
 | 0 | converter from the PyPI packages, lexicon, checker | every dictionary row converted or on the review list; checker passes the rule examples and the 1,878 pairs | 1 week |
 | 1 | protected-span detector, slotter, inflector | 100 percent restoration on a synthetic test; checker respects glossaries | 1 week |
-| 2 | data v1 (pod session), gold set v1, and the token-delta measurement on real inputs | 1M pairs; every target checker-clean; judge-sampled meaning at least 4.5; 300-sentence gold set; a decision on whether STE saves tokens on our inputs | 2 weeks |
+| 2 | data v1 (pod session), gold set v1, and a meaning check on real inputs | 1M pairs; every target checker-clean; judge-sampled meaning at least 4.5; 300-sentence gold set | 2 weeks |
 | 3 | tagger baseline (trained on the pod); GGUF writer and `ste` architecture in llama.cpp; a random-weight model of the final shape timed on CPU, Vulkan, and the NPU engine | all metrics measured; GGUF loads; NPU dispatch overhead measured at our width | 2 weeks |
 | 4 | canvas model | beats the tagger on the structural-rule subset at equal latency, or we keep the tagger | 3 to 4 weeks |
 | 5 | Q8_0 on CPU and Vulkan, bf16 on the NPU through OpenFlowLM-Next; optional TQ2_0 ternary on CPU; a fused NPU kernel only if the measurement in 3.8 says it can win | within budget on the Strix Point box | 2 to 3 weeks |
@@ -348,7 +348,7 @@ Roughly two and a half to three months for one person. The laptop does everythin
 3. Write the inflection generator and check it against the 663 spellings the package lists.
 4. Extract the rule examples from the rules JSON into `spec_examples.jsonl`, keyed by rule ID.
 5. Write the tier A checker for the five lookup rules: unapproved word, wrong part of speech, sentence length, -ing form, perfect tense. Run it over the examples and start the failure list.
-6. Take 200 real prompts and docs from your own use, run them through the local Qwen3.6-27B-A2.8B with the checker, and count tokens before and after. Two hundred prompts take minutes, so this needs no pod. This is the number that decides what this project is for.
+6. Take 200 real prompts and docs from your own use, run them through the teacher with the checker, and judge whether the meaning survives. Report token counts as information only.
 
 ---
 
@@ -356,7 +356,7 @@ Roughly two and a half to three months for one person. The laptop does everythin
 
 | risk | mitigation |
 |---|---|
-| STE does not save tokens on our inputs | STE was designed for human readers, not token counts. It adds articles and "make sure", and splitting adds subjects. On terse input it may cost tokens; on verbose input it saves them. Measure in week one. If it does not save tokens, the goal is normalization, meaning one consistent vocabulary and sentence shape, and that is still worth having. |
+| STE costs tokens | Expected and accepted: STE adds articles and "make sure", and splitting adds subjects. The first smoke sample measured +6 percent Qwen tokens. The goal is clarity, so this is reported, not fixed. |
 | converter errors poison everything downstream | the package's own examples as unit tests; the review list; spot-check odd rows against the PDF |
 | synthetic messy English does not match real prompts and docs | several LLM noise styles; seed from real prompts, system prompts, and docs; grow the gold set from real text only |
 | meaning drift | local judge plus downstream equivalence on real prompts; protect-and-copy default; owner spot checks |
@@ -377,7 +377,7 @@ Roughly two and a half to three months for one person. The laptop does everythin
 
 Settled by the owner:
 
-- **Success is measured in Qwen3 tokens,** with tiktoken `o200k_base` as a check.
+- **The goal is clear, simple language.** Success is checker-clean STE that keeps the meaning. Token counts are reported, not targeted.
 - **Input runs from one sentence to several paragraphs.** All three bucket sizes (64, 128, 256) are built from the start. See 3.6.
 - **No compact number format for the output.** Plain STE text is the deliverable.
 - **The model format is GGUF.** Windows and Linux are both supported through the two NPU projects. Training and data generation run on a pod.

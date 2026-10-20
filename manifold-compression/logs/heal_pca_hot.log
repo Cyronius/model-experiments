@@ -1,0 +1,63 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:  13%|█▎        | 41/320 [00:00<00:01, 221.92it/s]Loading weights:  25%|██▌       | 81/320 [00:00<00:00, 297.02it/s]Loading weights:  37%|███▋      | 118/320 [00:00<00:00, 321.03it/s]Loading weights:  54%|█████▍    | 173/320 [00:00<00:00, 400.11it/s]Loading weights:  68%|██████▊   | 216/320 [00:00<00:00, 405.88it/s]Loading weights:  86%|████████▌ | 274/320 [00:00<00:00, 460.66it/s]Loading weights: 100%|██████████| 320/320 [00:00<00:00, 403.75it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+320 fit sequences, T=512, d=1024, k=256, warp=False
+pass 1: fit the compressors on the teacher stream
+  site 1 fitted  0s
+  site 9 fitted  2s
+  site 17 fitted  4s
+  site 25 fitted  6s
+  site 33 fitted  8s
+  site 41 fitted  10s
+before healing: KL 3.4495  copy 2.7796
+pass 2: heal
+half-layer 0: loss 0.442 -> 0.261  43s
+half-layer 1: loss 0.325 -> 0.259  55s  KL after layer 0: 0.5172
+half-layer 2: loss 0.368 -> 0.312  88s
+half-layer 3: loss 0.382 -> 0.348  101s  KL after layer 1: 0.6092
+half-layer 4: loss 0.417 -> 0.353  134s
+half-layer 5: loss 0.359 -> 0.326  146s  KL after layer 2: 0.6813
+half-layer 6: loss 0.371 -> 0.337  174s
+half-layer 7: loss 0.389 -> 0.298  190s  KL after layer 3: 0.6676
+half-layer 8: loss 0.390 -> 0.352  224s
+half-layer 9: loss 0.408 -> 0.272  236s  KL after layer 4: 0.6963
+half-layer 10: loss 0.350 -> 0.274  272s
+half-layer 11: loss 0.295 -> 0.286  284s  KL after layer 5: 0.7138
+half-layer 12: loss 0.372 -> 0.301  319s
+half-layer 13: loss 0.343 -> 0.249  331s  KL after layer 6: 0.7575
+half-layer 14: loss 0.388 -> 0.335  363s
+half-layer 15: loss 0.331 -> 0.299  375s  KL after layer 7: 0.7238
+half-layer 16: loss 0.336 -> 0.299  409s
+half-layer 17: loss 0.318 -> 0.303  421s  KL after layer 8: 0.7464
+half-layer 18: loss 0.308 -> 0.304  456s
+half-layer 19: loss 0.289 -> 0.263  468s  KL after layer 9: 0.7564
+half-layer 20: loss 0.302 -> 0.286  503s
+half-layer 21: loss 0.316 -> 0.268  516s  KL after layer 10: 0.7799
+half-layer 22: loss 0.336 -> 0.310  544s
+half-layer 23: loss 0.318 -> 0.280  556s  KL after layer 11: 0.8010
+half-layer 24: loss 0.334 -> 0.317  590s
+half-layer 25: loss 0.353 -> 0.336  602s  KL after layer 12: 0.8517
+half-layer 26: loss 0.366 -> 0.319  637s
+half-layer 27: loss 0.345 -> 0.327  650s  KL after layer 13: 0.9340
+half-layer 28: loss 0.338 -> 0.303  684s
+half-layer 29: loss 0.311 -> 0.273  696s  KL after layer 14: 1.0511
+half-layer 30: loss 0.340 -> 0.325  720s
+half-layer 31: loss 0.395 -> 0.339  732s  KL after layer 15: 1.1267
+half-layer 32: loss 0.361 -> 0.352  767s
+half-layer 33: loss 0.339 -> 0.319  779s  KL after layer 16: 1.2200
+half-layer 34: loss 0.367 -> 0.321  811s
+half-layer 35: loss 0.362 -> 0.327  823s  KL after layer 17: 1.2895
+half-layer 36: loss 0.368 -> 0.302  857s
+half-layer 37: loss 0.355 -> 0.307  869s  KL after layer 18: 1.3591
+half-layer 38: loss 0.365 -> 0.345  896s
+half-layer 39: loss 0.371 -> 0.350  908s  KL after layer 19: 1.4719
+half-layer 40: loss 0.348 -> 0.330  943s
+half-layer 41: loss 0.373 -> 0.323  954s  KL after layer 20: 1.5285
+half-layer 42: loss 0.312 -> 0.365  986s
+half-layer 43: loss 0.347 -> 0.351  997s  KL after layer 21: 1.5689
+half-layer 44: loss 0.374 -> 0.345  1031s
+half-layer 45: loss 0.379 -> 0.361  1043s  KL after layer 22: 1.6359
+half-layer 46: loss 0.382 -> 0.340  1070s
+half-layer 47: loss 0.389 -> 0.323  1081s  KL after layer 23: 1.9338
+ALL SITES after healing: KL 1.9338  prose 1.2523  code 2.7553  math 1.4268  chat 2.4964  copy 0.3711
+before healing:          KL 3.4495  prose 2.3323  code 4.5257  math 2.5379  chat 4.4860  copy 2.7796

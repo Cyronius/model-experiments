@@ -1,0 +1,30 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:01<05:35,  1.05s/it]Loading weights: 100%|##########| 320/320 [00:01<00:00, 295.82it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[   114s] pca done
+[   221s] eval cache built
+[   475s] all-sites k=256: KL 2.7694  shared 5.3315
+[   629s] single L0.in(gdn): k=256:0.3732
+[   666s] single final: k=256:0.6459
+[   908s] decoders k=256: median val R2 of the cut part -0.006
+[  1027s] mlp all-sites k=256: KL 2.7694
+[  1129s] mlp single k=256: 0:0.3732  48:0.6459
+[  1129s] done
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<04:28,  1.19it/s]Loading weights: 100%|##########| 320/320 [00:00<00:00, 367.22it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    93s] eval cache built
+[   455s] L3 full_a  R2 lin 0.496 mlp 0.211  KL predict 0.0175 drop 0.1081  copy p99 predict 0.041
+[   562s] greedy +L3 (full_a): 1 substituted, KL 0.0175  copy p99 0.041
+[   562s] done
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:01<05:41,  1.07s/it]Loading weights: 100%|##########| 320/320 [00:01<00:00, 294.28it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[   100s] eval cache built
+[   216s] L0.in(gdn) on@0.1: relative deviation final/injected 0.38  abs gain 6.57  KL 0.0020
+[   322s] L0.in(gdn) off@0.1: relative deviation final/injected 0.39  abs gain 6.62  KL 0.0018
+[   322s] done
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:01<06:31,  1.23s/it]Loading weights: 100%|##########| 320/320 [00:01<00:00, 253.84it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+L6.in(gdn) k=256: KL PCA 0.0968  PCA+decoder 0.1001  (-3% lower)

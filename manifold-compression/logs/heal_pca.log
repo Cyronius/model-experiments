@@ -1,0 +1,71 @@
+/usr/local/lib/python3.12/dist-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Fetching 13 files:   0%|          | 0/13 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 13 files:   8%|▊         | 1/13 [00:00<00:02,  5.26it/s]Fetching 13 files:  62%|██████▏   | 8/13 [00:00<00:00, 26.17it/s]Fetching 13 files:  85%|████████▍ | 11/13 [00:00<00:00, 26.81it/s]Fetching 13 files: 100%|██████████| 13/13 [00:03<00:00,  3.93it/s]
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<01:03,  5.00it/s]Loading weights:  23%|██▎       | 75/320 [00:00<00:00, 310.20it/s]Loading weights:  37%|███▋      | 119/320 [00:00<00:00, 268.73it/s]Loading weights:  48%|████▊     | 154/320 [00:00<00:00, 291.37it/s]Loading weights:  59%|█████▉    | 189/320 [00:00<00:00, 306.42it/s]Loading weights:  70%|███████   | 224/320 [00:00<00:00, 312.35it/s]Loading weights:  81%|████████  | 258/320 [00:00<00:00, 253.24it/s]Loading weights:  90%|████████▉ | 287/320 [00:01<00:00, 260.66it/s]Loading weights:  99%|█████████▉| 316/320 [00:01<00:00, 266.00it/s]Loading weights: 100%|██████████| 320/320 [00:01<00:00, 266.81it/s]
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  33%|███▎      | 1/3 [00:00<00:00,  6.58it/s]Fetching 3 files: 100%|██████████| 3/3 [00:01<00:00,  2.81it/s]Fetching 3 files: 100%|██████████| 3/3 [00:01<00:00,  2.98it/s]
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:00<00:02,  1.06it/s]Fetching 4 files:  75%|███████▌  | 3/4 [00:01<00:00,  3.51it/s]Fetching 4 files: 100%|██████████| 4/4 [00:01<00:00,  3.77it/s]
+Fetching 1 files:   0%|          | 0/1 [00:00<?, ?it/s]Fetching 1 files: 100%|██████████| 1/1 [00:01<00:00,  1.46s/it]Fetching 1 files: 100%|██████████| 1/1 [00:01<00:00,  1.46s/it]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+320 fit sequences, T=512, d=1024, k=256, warp=False
+pass 1: fit the compressors on the teacher stream
+  site 1 fitted  0s
+  site 9 fitted  2s
+  site 17 fitted  4s
+  site 25 fitted  6s
+  site 33 fitted  8s
+  site 41 fitted  10s
+before healing: KL 3.4495  copy 2.7796
+pass 2: heal
+half-layer 0: loss 0.418 -> 0.374  94s
+half-layer 1: loss 0.466 -> 0.334  98s  KL after layer 0: 0.8329
+half-layer 2: loss 0.411 -> 0.366  115s
+half-layer 3: loss 0.487 -> 0.348  119s  KL after layer 1: 0.9719
+half-layer 4: loss 0.399 -> 0.402  136s
+half-layer 5: loss 0.520 -> 0.418  140s  KL after layer 2: 1.1010
+half-layer 6: loss 0.415 -> 0.415  153s
+half-layer 7: loss 0.462 -> 0.429  157s  KL after layer 3: 1.1365
+half-layer 8: loss 0.476 -> 0.363  170s
+half-layer 9: loss 0.398 -> 0.359  174s  KL after layer 4: 1.1698
+half-layer 10: loss 0.415 -> 0.385  187s
+half-layer 11: loss 0.424 -> 0.439  191s  KL after layer 5: 1.2157
+half-layer 12: loss 0.447 -> 0.450  205s
+half-layer 13: loss 0.477 -> 0.347  209s  KL after layer 6: 1.3229
+half-layer 14: loss 0.400 -> 0.465  220s
+half-layer 15: loss 0.398 -> 0.387  224s  KL after layer 7: 1.2647
+half-layer 16: loss 0.409 -> 0.410  239s
+half-layer 17: loss 0.415 -> 0.370  243s  KL after layer 8: 1.3244
+half-layer 18: loss 0.476 -> 0.424  259s
+half-layer 19: loss 0.422 -> 0.409  263s  KL after layer 9: 1.3278
+half-layer 20: loss 0.421 -> 0.363  276s
+half-layer 21: loss 0.341 -> 0.437  280s  KL after layer 10: 1.3688
+half-layer 22: loss 0.467 -> 0.423  291s
+half-layer 23: loss 0.380 -> 0.411  295s  KL after layer 11: 1.4106
+half-layer 24: loss 0.445 -> 0.436  309s
+half-layer 25: loss 0.462 -> 0.429  313s  KL after layer 12: 1.4624
+half-layer 26: loss 0.504 -> 0.441  329s
+half-layer 27: loss 0.434 -> 0.417  333s  KL after layer 13: 1.5597
+half-layer 28: loss 0.449 -> 0.424  349s
+half-layer 29: loss 0.423 -> 0.392  353s  KL after layer 14: 1.7060
+half-layer 30: loss 0.474 -> 0.452  369s
+half-layer 31: loss 0.457 -> 0.466  373s  KL after layer 15: 1.8284
+half-layer 32: loss 0.471 -> 0.463  388s
+half-layer 33: loss 0.498 -> 0.399  392s  KL after layer 16: 1.9296
+half-layer 34: loss 0.453 -> 0.485  405s
+half-layer 35: loss 0.428 -> 0.460  409s  KL after layer 17: 1.9907
+half-layer 36: loss 0.446 -> 0.455  423s
+half-layer 37: loss 0.539 -> 0.484  427s  KL after layer 18: 2.0395
+half-layer 38: loss 0.499 -> 0.472  441s
+half-layer 39: loss 0.482 -> 0.443  445s  KL after layer 19: 2.1144
+half-layer 40: loss 0.491 -> 0.447  461s
+half-layer 41: loss 0.448 -> 0.495  465s  KL after layer 20: 2.1715
+half-layer 42: loss 0.449 -> 0.535  482s
+half-layer 43: loss 0.495 -> 0.524  486s  KL after layer 21: 2.2324
+half-layer 44: loss 0.482 -> 0.494  503s
+half-layer 45: loss 0.530 -> 0.488  507s  KL after layer 22: 2.3544
+half-layer 46: loss 0.592 -> 0.504  520s
+half-layer 47: loss 0.608 -> 0.471  524s  KL after layer 23: 2.8636
+ALL SITES after healing: KL 2.8636  prose 1.8016  code 3.8004  math 1.8882  chat 4.2089  copy 0.9101
+before healing:          KL 3.4495  prose 2.3323  code 4.5257  math 2.5379  chat 4.4860  copy 2.7796
+[W1019 00:07:10.946993366 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

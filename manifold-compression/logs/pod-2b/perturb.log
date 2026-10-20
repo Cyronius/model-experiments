@@ -1,0 +1,71 @@
+/usr/local/lib/python3.12/dist-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<03:40,  1.45it/s]Loading weights:  45%|████▌     | 144/320 [00:00<00:00, 245.02it/s]Loading weights:  71%|███████   | 226/320 [00:01<00:00, 201.46it/s]Loading weights:  87%|████████▋ | 279/320 [00:01<00:00, 192.97it/s]Loading weights:  99%|█████████▉| 318/320 [00:01<00:00, 192.49it/s]Loading weights: 100%|██████████| 320/320 [00:01<00:00, 178.10it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    21s] eval cache built
+Traceback (most recent call last):
+  File "/workspace/model-experiments/manifold-compression/m_perturb.py", line 60, in <module>
+    acc.add(kl_per_token(b["ref_lp"], logits), b["doms"], b["focus"])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/model-experiments/manifold-compression/common.py", line 235, in kl_per_token
+    return (ref_lp.exp() * (ref_lp - lp)).sum(-1)
+                            ~~~~~~~^~~~
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!
+[W1018 13:41:29.718917810 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+/usr/local/lib/python3.12/dist-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<03:39,  1.46it/s]Loading weights:  44%|████▍     | 142/320 [00:00<00:00, 243.89it/s]Loading weights:  70%|███████   | 225/320 [00:01<00:00, 225.51it/s]Loading weights:  88%|████████▊ | 280/320 [00:01<00:00, 210.03it/s]Loading weights: 100%|██████████| 320/320 [00:01<00:00, 188.51it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    21s] eval cache built
+[    32s] L0.in(gdn) on@0.1: relative deviation final/injected 0.31  abs gain 19.23  KL 0.0015
+[    40s] L0.in(gdn) off@0.1: relative deviation final/injected 0.30  abs gain 18.61  KL 0.0013
+[    51s] L1.in(gdn) on@0.1: relative deviation final/injected 0.39  abs gain 7.87  KL 0.0013
+[    62s] L1.in(gdn) off@0.1: relative deviation final/injected 0.31  abs gain 6.25  KL 0.0012
+[    74s] L2.in(gdn) on@0.1: relative deviation final/injected 0.38  abs gain 6.00  KL 0.0015
+[    85s] L2.in(gdn) off@0.1: relative deviation final/injected 0.26  abs gain 4.06  KL 0.0009
+[    96s] L3.in(attn) on@0.1: relative deviation final/injected 0.41  abs gain 5.10  KL 0.0015
+[   105s] L3.in(attn) off@0.1: relative deviation final/injected 0.26  abs gain 3.24  KL 0.0008
+[   116s] L4.in(gdn) on@0.1: relative deviation final/injected 0.40  abs gain 4.47  KL 0.0015
+[   125s] L4.in(gdn) off@0.1: relative deviation final/injected 0.24  abs gain 2.70  KL 0.0008
+[   137s] L5.in(gdn) on@0.1: relative deviation final/injected 0.40  abs gain 4.16  KL 0.0015
+[   146s] L5.in(gdn) off@0.1: relative deviation final/injected 0.23  abs gain 2.34  KL 0.0007
+[   155s] L6.in(gdn) on@0.1: relative deviation final/injected 0.43  abs gain 3.98  KL 0.0017
+[   164s] L6.in(gdn) off@0.1: relative deviation final/injected 0.24  abs gain 2.20  KL 0.0008
+[   177s] L7.in(attn) on@0.1: relative deviation final/injected 0.45  abs gain 3.69  KL 0.0019
+[   186s] L7.in(attn) off@0.1: relative deviation final/injected 0.26  abs gain 2.12  KL 0.0009
+[   195s] L8.in(gdn) on@0.1: relative deviation final/injected 0.45  abs gain 3.73  KL 0.0019
+[   203s] L8.in(gdn) off@0.1: relative deviation final/injected 0.25  abs gain 2.06  KL 0.0009
+[   212s] L9.in(gdn) on@0.1: relative deviation final/injected 0.45  abs gain 3.70  KL 0.0018
+[   219s] L9.in(gdn) off@0.1: relative deviation final/injected 0.25  abs gain 2.07  KL 0.0009
+[   228s] L10.in(gdn) on@0.1: relative deviation final/injected 0.45  abs gain 3.55  KL 0.0019
+[   235s] L10.in(gdn) off@0.1: relative deviation final/injected 0.25  abs gain 1.99  KL 0.0009
+[   243s] L11.in(attn) on@0.1: relative deviation final/injected 0.48  abs gain 3.48  KL 0.0021
+[   249s] L11.in(attn) off@0.1: relative deviation final/injected 0.28  abs gain 2.07  KL 0.0010
+[   256s] L12.in(gdn) on@0.1: relative deviation final/injected 0.46  abs gain 3.28  KL 0.0020
+[   262s] L12.in(gdn) off@0.1: relative deviation final/injected 0.27  abs gain 1.97  KL 0.0010
+[   269s] L13.in(gdn) on@0.1: relative deviation final/injected 0.48  abs gain 3.06  KL 0.0023
+[   275s] L13.in(gdn) off@0.1: relative deviation final/injected 0.29  abs gain 1.89  KL 0.0010
+[   282s] L14.in(gdn) on@0.1: relative deviation final/injected 0.51  abs gain 2.82  KL 0.0025
+[   287s] L14.in(gdn) off@0.1: relative deviation final/injected 0.33  abs gain 1.81  KL 0.0011
+[   294s] L15.in(attn) on@0.1: relative deviation final/injected 0.57  abs gain 2.49  KL 0.0031
+[   299s] L15.in(attn) off@0.1: relative deviation final/injected 0.40  abs gain 1.74  KL 0.0015
+[   305s] L16.in(gdn) on@0.1: relative deviation final/injected 0.61  abs gain 2.21  KL 0.0032
+[   310s] L16.in(gdn) off@0.1: relative deviation final/injected 0.44  abs gain 1.58  KL 0.0016
+[   316s] L17.in(gdn) on@0.1: relative deviation final/injected 0.69  abs gain 2.03  KL 0.0037
+[   321s] L17.in(gdn) off@0.1: relative deviation final/injected 0.53  abs gain 1.55  KL 0.0019
+[   326s] L18.in(gdn) on@0.1: relative deviation final/injected 0.75  abs gain 1.93  KL 0.0040
+[   331s] L18.in(gdn) off@0.1: relative deviation final/injected 0.60  abs gain 1.53  KL 0.0020
+[   336s] L19.in(attn) on@0.1: relative deviation final/injected 0.84  abs gain 1.84  KL 0.0042
+[   340s] L19.in(attn) off@0.1: relative deviation final/injected 0.70  abs gain 1.52  KL 0.0021
+[   345s] L20.in(gdn) on@0.1: relative deviation final/injected 0.87  abs gain 1.67  KL 0.0041
+[   349s] L20.in(gdn) off@0.1: relative deviation final/injected 0.73  abs gain 1.40  KL 0.0021
+[   354s] L21.in(gdn) on@0.1: relative deviation final/injected 0.94  abs gain 1.53  KL 0.0043
+[   358s] L21.in(gdn) off@0.1: relative deviation final/injected 0.81  abs gain 1.31  KL 0.0023
+[   363s] L22.in(gdn) on@0.1: relative deviation final/injected 1.01  abs gain 1.42  KL 0.0048
+[   367s] L22.in(gdn) off@0.1: relative deviation final/injected 0.86  abs gain 1.21  KL 0.0024
+[   372s] L23.in(attn) on@0.1: relative deviation final/injected 1.00  abs gain 1.31  KL 0.0058
+[   376s] L23.in(attn) off@0.1: relative deviation final/injected 0.86  abs gain 1.12  KL 0.0027
+[   376s] done
+[W1018 13:48:38.551356969 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

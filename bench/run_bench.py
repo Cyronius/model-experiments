@@ -1,8 +1,9 @@
 """Prune benchmark harness: smarts + speed for GGUF models behind llama-server.
 
-Per model in registry.json: start llama-server, run suites (tools / gsm8k / mmlu),
+Per model in registry.json: start llama-server, run suites (tools / gsm8k / mmlu / ifeval / mtbench),
 kill server, then llama-bench + llama-perplexity from official release binaries.
-Deterministic scoring, no LLM judge. Resumable via per-item work files.
+Deterministic scoring, except MT-Bench, whose answers are judged afterwards by mtbench_judge.py.
+Resumable via per-item work files.
 
 Usage:
   python run_bench.py                         # all models, all suites, new run id
@@ -16,6 +17,7 @@ import subprocess
 import sys
 import time
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,8 +28,13 @@ BASE_URL = f"http://127.0.0.1:{PORT}"
 REQUEST_TIMEOUT = 900
 # tools keeps thinking on (matches real agentic traffic); gsm8k/mmlu run with
 # thinking disabled so a 5-model round fits in hours, not days
-CAPS = {"tools": 1024, "gsm8k": 1024, "mmlu": 256}
-NO_THINK = {"gsm8k", "mmlu"}
+CAPS = {"tools": 1024, "gsm8k": 1024, "mmlu": 256, "ifeval": 1280, "mtbench": 1024}
+NO_THINK = {"gsm8k", "mmlu", "ifeval", "mtbench"}
+# An answer whose repeated word-4-gram share exceeds this counts as degenerate (looping).
+# Calibrated on 80 Haiku-judged answers: stock 2B max 0.12, every flagged loop at least 0.18.
+REP_THRESHOLD = 0.15
+# Requests in flight at once for ifeval / mtbench; batched decoding on the iGPU gives several times the throughput.
+PARALLEL = 4
 
 
 def log(msg):
@@ -60,7 +67,8 @@ def start_server(server_bin, gguf, extra_args, _retry=True):
     free_port()
     time.sleep(2)
     proc = subprocess.Popen(
-        [server_bin, "-m", gguf, "--port", str(PORT), "-ngl", "99", "-c", "8192", *extra_args],
+        [server_bin, "-m", gguf, "--port", str(PORT), "-ngl", "99", "-c", str(2048 * PARALLEL + 4096),
+         "-np", str(PARALLEL), *extra_args],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
     )
     deadline = time.time() + 600
@@ -169,6 +177,12 @@ def parse_gsm_answer(text):
     return m.group(1) if m else None
 
 
+def repeat_share(text, n=4):
+    words = re.findall(r"\w+", text.lower())
+    grams = [tuple(words[i:i + n]) for i in range(len(words) - n + 1)]
+    return round(1 - len(set(grams)) / len(grams), 4) if grams else 0.0
+
+
 # ---------------- suites ----------------
 
 def run_tools_suite(work, limit):
@@ -250,6 +264,69 @@ def run_qa_suite(suite, work, limit):
     return results
 
 
+def run_ifeval_suite(work, limit):
+    from lm_eval.tasks.ifeval import utils as ifeval_utils
+    data = [json.loads(l) for l in (BENCH / "data" / "ifeval.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+    if limit:
+        data = data[:limit]
+    def one(doc):
+        f = work / f"{doc['key']}.json"
+        if f.exists():
+            return json.loads(f.read_text(encoding="utf-8"))
+        payload = {"messages": [{"role": "user", "content": doc["prompt"]}], "temperature": 0,
+                   "max_tokens": CAPS["ifeval"], "chat_template_kwargs": {"enable_thinking": False}}
+        try:
+            resp = post_chat(payload)
+            choice = resp["choices"][0]
+            content = choice["message"].get("content") or ""
+            scores = ifeval_utils.process_results(doc, [content])
+            item = {"key": doc["key"], "correct": bool(scores["prompt_level_strict_acc"]),
+                    "loose": bool(scores["prompt_level_loose_acc"]),
+                    "inst_strict": scores["inst_level_strict_acc"], "inst_loose": scores["inst_level_loose_acc"],
+                    "repeat_share": repeat_share(content), "hit_cap": choice.get("finish_reason") == "length",
+                    "response": content, "elapsed_s": resp["_elapsed_s"],
+                    "completion_tokens": resp.get("usage", {}).get("completion_tokens")}
+        except Exception as e:
+            item = {"key": doc["key"], "correct": False, "error": str(e)}
+        f.write_text(json.dumps(item), encoding="utf-8")
+        log(f"  ifeval {doc['key']}: {'OK' if item['correct'] else 'FAIL'}")
+        return item
+
+    with ThreadPoolExecutor(PARALLEL) as pool:
+        return list(pool.map(one, data))
+
+
+def run_mtbench_suite(work, limit):
+    """Two-turn answers to the 80 MT-Bench questions; scored afterwards by mtbench_judge.py."""
+    data = [json.loads(l) for l in (BENCH / "data" / "mtbench.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+    if limit:
+        data = data[:limit]
+    def one(q):
+        f = work / f"{q['question_id']}.json"
+        if f.exists():
+            return json.loads(f.read_text(encoding="utf-8"))
+        messages, answers, item = [], [], {"question_id": q["question_id"], "category": q["category"]}
+        try:
+            for turn in q["prompt"]:
+                messages.append({"role": "user", "content": turn})
+                resp = post_chat({"messages": messages, "temperature": 0, "max_tokens": CAPS["mtbench"],
+                                  "chat_template_kwargs": {"enable_thinking": False}})
+                choice = resp["choices"][0]
+                content = choice["message"].get("content") or ""
+                answers.append({"content": content, "hit_cap": choice.get("finish_reason") == "length",
+                                "repeat_share": repeat_share(content)})
+                messages.append({"role": "assistant", "content": content})
+            item["answers"] = answers
+        except Exception as e:
+            item["error"] = str(e)
+        f.write_text(json.dumps(item), encoding="utf-8")
+        log(f"  mtbench {q['question_id']}: {len(answers)} turns")
+        return item
+
+    with ThreadPoolExecutor(PARALLEL) as pool:
+        return list(pool.map(one, data))
+
+
 # ---------------- speed ----------------
 
 def run_speed_probe(reps=10):
@@ -308,6 +385,9 @@ def aggregate(results_by_suite, speed, ppl, model_name, model_cfg, runid):
 
     gen_items = [r for suite in results_by_suite.values() for r in suite]
     tools = results_by_suite.get("tools", [])
+    ifeval = results_by_suite.get("ifeval", [])
+    mt_turns = [a for q in results_by_suite.get("mtbench", []) for a in q.get("answers", [])]
+    open_ended = [r for r in ifeval if "repeat_share" in r] + mt_turns
     by_cat = {}
     for cat in sorted({t["category"] for t in tools}):
         by_cat[cat] = rate([t for t in tools if t["category"] == cat])
@@ -319,6 +399,12 @@ def aggregate(results_by_suite, speed, ppl, model_name, model_cfg, runid):
         "gsm8k_acc": rate(results_by_suite.get("gsm8k", [])),
         "mmlu_acc": rate(results_by_suite.get("mmlu", [])),
         "loop_rate": rate(gen_items, "looped"),
+        "ifeval_prompt_strict": rate(ifeval), "ifeval_prompt_loose": rate(ifeval, "loose"),
+        "ifeval_inst_strict": round(sum(sum(r.get("inst_strict", [])) for r in ifeval) /
+                                    max(1, sum(len(r.get("inst_strict", [])) for r in ifeval)), 4) if ifeval else None,
+        "degenerate_rate": round(sum(1 for r in open_ended if r["repeat_share"] > REP_THRESHOLD) / len(open_ended), 4)
+                           if open_ended else None,
+        "cap_hit_rate": rate(open_ended, "hit_cap"),
         **speed, **ppl,
         "n": {k: len(v) for k, v in results_by_suite.items()},
     }
@@ -330,6 +416,7 @@ def write_summary(results_dir):
         r = json.loads(f.read_text(encoding="utf-8"))
         latest[r["model"]] = r
     cols = ["model", "size_gb", "tools_acc", "gsm8k_acc", "mmlu_acc", "loop_rate",
+            "ifeval_prompt_strict", "ifeval_inst_strict", "degenerate_rate", "mtbench_haiku",
             "ppl_wikitext2_32chunk", "completion_pp_tps_mean", "completion_tg_tps_mean",
             "completion_tg_tps_sd", "tool_call_tg_tps_mean"]
     lines = ["# Prune benchmark summary", "",
@@ -364,7 +451,7 @@ def main():
             continue
         log(f"=== {name} ===")
         results_by_suite, proc, speed = {}, None, {}
-        gen_suites = [s for s in suites if s in ("tools", "gsm8k", "mmlu")]
+        gen_suites = [s for s in suites if s in ("tools", "gsm8k", "mmlu", "ifeval", "mtbench")]
         try:
             if gen_suites or "speed" in suites:
                 proc = start_server(registry["server_bin"], cfg["gguf"], cfg.get("extra_args", []))
@@ -375,6 +462,10 @@ def main():
                     work.mkdir(parents=True, exist_ok=True)
                     if suite == "tools":
                         results_by_suite[suite] = run_tools_suite(work, args.limit)
+                    elif suite == "ifeval":
+                        results_by_suite[suite] = run_ifeval_suite(work, args.limit)
+                    elif suite == "mtbench":
+                        results_by_suite[suite] = run_mtbench_suite(work, args.limit)
                     else:
                         results_by_suite[suite] = run_qa_suite(suite, work, args.limit)
         finally:
@@ -384,7 +475,8 @@ def main():
         out = results_dir / f"{runid}_result_{name}.json"
         out.write_text(json.dumps(result, indent=2), encoding="utf-8")
         log(f"{name}: tools={result['tools_acc']} gsm8k={result['gsm8k_acc']} mmlu={result['mmlu_acc']} "
-            f"loop={result['loop_rate']} tg128={result.get('tg128_ts')}")
+            f"loop={result['loop_rate']} ifeval={result['ifeval_prompt_strict']} degenerate={result['degenerate_rate']} "
+            f"tg128={result.get('tg128_ts')}")
     write_summary(results_dir)
     log(f"summary written to {results_dir / 'summary.md'}")
 

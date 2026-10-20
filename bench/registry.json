@@ -1,6 +1,6 @@
 {
-  "server_bin": "C:/code/model-shrink-ideas/bench/tools/llama-b10673/llama-server.exe",
-  "ppl_bin": "C:/code/model-shrink-ideas/bench/tools/llama-b10673/llama-perplexity.exe",
+  "server_bin": "C:/code/model-experiments/bench/tools/llama-b10673/llama-server.exe",
+  "ppl_bin": "C:/code/model-experiments/bench/tools/llama-b10673/llama-perplexity.exe",
   "server_bin_note": "switched 2026-08-28 from LM Studio 2.27.1 to b10673 for qwen4exp (Qwen3.8-Flash-Next) support. 3.6-era entries below predate this binary AND their gguf paths moved to the LM Studio library -- rebench before trusting any cross-binary comparison.",
   "models": {
     "qwen38-base-q3kxl": {
@@ -136,7 +136,19 @@
         "none"
       ],
       "note": "SHIP (2026-08-28): PLE keep 1/8 heads per n-gram (2 of 16 live), transformer untouched, 64.8 GB. Pod bench: tools 1.0, gsm8k 1.0, mmlu 0.833 (= base), ppl 4.66 (base 2.40). Rebuilt locally from source shards, PLE-only path identical to pod build."
+    },
+    "stock-2b": {
+      "gguf": "C:/code/model-experiments/models/stock/Qwen3.5-2B-BF16.gguf",
+      "note": "unsloth BF16 of Qwen/Qwen3.5-2B (chat)"
+    },
+    "mc-2b-mlp75": {
+      "gguf": "C:/code/model-experiments/models/manifold-compression/mc-2b-mlp75.gguf",
+      "note": "manifold-compression MLP shrink 75%, reconverted --no-mtp"
+    },
+    "mc-2b-mlp50-selfchat": {
+      "gguf": "C:/code/model-experiments/models/manifold-compression/mc-2b-mlp50-selfchat.gguf",
+      "note": "manifold-compression MLP shrink 50%, own-chat calibration, --no-mtp"
     }
   },
-  "server_bin_mtp": "C:/code/model-shrink-ideas/bench/tools/llama-current/llama-server.exe"
+  "server_bin_mtp": "C:/code/model-experiments/bench/tools/llama-current/llama-server.exe"
 }

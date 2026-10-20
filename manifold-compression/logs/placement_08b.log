@@ -1,0 +1,165 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:  24%|##3       | 76/320 [00:00<00:00, 721.14it/s]Loading weights:  47%|####6     | 149/320 [00:00<00:00, 718.19it/s]Loading weights:  70%|#######   | 225/320 [00:00<00:00, 731.42it/s]Loading weights:  94%|#########4| 301/320 [00:00<00:00, 736.34it/s]Loading weights: 100%|##########| 320/320 [00:00<00:00, 746.44it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+batch 1/91  18s
+batch 2/91  34s
+batch 3/91  53s
+batch 4/91  74s
+batch 5/91  97s
+batch 6/91  119s
+batch 7/91  144s
+batch 8/91  169s
+batch 9/91  188s
+batch 10/91  207s
+batch 11/91  227s
+batch 12/91  248s
+batch 13/91  267s
+batch 14/91  286s
+batch 15/91  306s
+batch 16/91  328s
+batch 17/91  352s
+batch 18/91  383s
+batch 19/91  414s
+batch 20/91  441s
+batch 21/91  471s
+batch 22/91  499s
+batch 23/91  530s
+batch 24/91  556s
+batch 25/91  583s
+batch 26/91  608s
+batch 27/91  630s
+batch 28/91  651s
+batch 29/91  673s
+batch 30/91  695s
+batch 31/91  716s
+batch 32/91  738s
+batch 33/91  759s
+batch 34/91  783s
+batch 35/91  805s
+batch 36/91  826s
+batch 37/91  848s
+batch 38/91  873s
+batch 39/91  896s
+batch 40/91  921s
+batch 41/91  943s
+batch 42/91  967s
+batch 43/91  991s
+batch 44/91  1016s
+batch 45/91  1047s
+batch 46/91  1078s
+batch 47/91  1109s
+batch 48/91  1138s
+batch 49/91  1163s
+batch 50/91  1188s
+batch 51/91  1213s
+batch 52/91  1240s
+batch 53/91  1263s
+batch 54/91  1291s
+batch 55/91  1323s
+batch 56/91  1351s
+batch 57/91  1381s
+batch 58/91  1410s
+batch 59/91  1435s
+batch 60/91  1462s
+batch 61/91  1490s
+batch 62/91  1520s
+batch 63/91  1550s
+batch 64/91  1580s
+batch 65/91  1607s
+batch 66/91  1638s
+batch 67/91  1673s
+batch 68/91  1702s
+batch 69/91  1731s
+batch 70/91  1761s
+batch 71/91  1789s
+batch 72/91  1827s
+batch 73/91  1874s
+batch 74/91  1918s
+batch 75/91  1962s
+batch 76/91  2009s
+batch 77/91  2050s
+batch 78/91  2093s
+batch 79/91  2132s
+batch 80/91  2167s
+batch 81/91  2204s
+batch 82/91  2240s
+batch 83/91  2273s
+batch 84/91  2306s
+batch 85/91  2338s
+batch 86/91  2371s
+batch 87/91  2395s
+batch 88/91  2421s
+batch 89/91  2445s
+batch 90/91  2469s
+batch 91/91  2486s
+done 185493 tokens x 49 sites
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:01<06:31,  1.23s/it]Loading weights:  47%|####7     | 151/320 [00:01<00:01, 153.25it/s]Loading weights:  69%|######9   | 222/320 [00:01<00:00, 168.93it/s]Loading weights:  84%|########4 | 270/320 [00:01<00:00, 171.37it/s]Loading weights:  96%|#########5| 306/320 [00:02<00:00, 173.52it/s]Loading weights: 100%|##########| 320/320 [00:02<00:00, 143.66it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    64s] L6: drop-MLP KL 0.1211
+[   130s] L6 k=full random     m=  256: R2 0.196  KL 0.0421
+[   198s] L6 k=full random     m=  512: R2 0.271  KL 0.0386
+[   278s] L6 k=full random     m= 1024: R2 0.362  KL 0.0327
+[   352s] L6 k=full random     m= 1792: R2 0.439  KL 0.0287
+[   414s] L6 k=full importance m=  256: R2 0.405  KL 0.0308
+[   472s] L6 k=full importance m=  512: R2 0.543  KL 0.0220
+[   532s] L6 k=full importance m= 1024: R2 0.701  KL 0.0143
+[   591s] L6 k=full importance m= 1792: R2 0.837  KL 0.0079
+[   648s] L6 k=full omp        m=  256: R2 0.409  KL 0.0309
+[   720s] L6 k=full omp        m=  512: R2 0.545  KL 0.0224
+[   816s] L6 k=full omp        m= 1024: R2 0.697  KL 0.0150
+[   956s] L6 k=full omp        m= 1792: R2 0.832  KL 0.0078
+[  1024s] L6 k=full omp_mixed  m=  256: R2 0.409  KL 0.0314  (254/256 teacher)
+[  1109s] L6 k=full omp_mixed  m=  512: R2 0.544  KL 0.0224  (510/512 teacher)
+[  1266s] L6 k=full omp_mixed  m= 1024: R2 0.696  KL 0.0144  (1022/1024 teacher)
+[  1482s] L6 k=full omp_mixed  m= 1792: R2 0.832  KL 0.0075  (1790/1792 teacher)
+[  1543s] L6 k=512 random     m=  256: R2 0.222  KL 0.0411
+[  1598s] L6 k=512 random     m=  512: R2 0.301  KL 0.0375
+[  1716s] L6 k=512 random     m= 1024: R2 0.392  KL 0.0308
+[  1772s] L6 k=512 random     m= 1792: R2 0.464  KL 0.0270
+[  1822s] L6 k=512 importance m=  256: R2 0.388  KL 0.0312
+[  1875s] L6 k=512 importance m=  512: R2 0.508  KL 0.0241
+[  1927s] L6 k=512 importance m= 1024: R2 0.632  KL 0.0173
+[  1981s] L6 k=512 importance m= 1792: R2 0.721  KL 0.0126
+[  2037s] L6 k=512 omp        m=  256: R2 0.394  KL 0.0317
+[  2103s] L6 k=512 omp        m=  512: R2 0.506  KL 0.0244
+[  2192s] L6 k=512 omp        m= 1024: R2 0.620  KL 0.0178
+[  2377s] L6 k=512 omp        m= 1792: R2 0.715  KL 0.0125
+[  2459s] L6 k=512 omp_mixed  m=  256: R2 0.392  KL 0.0314  (254/256 teacher)
+[  2524s] L6 k=512 omp_mixed  m=  512: R2 0.505  KL 0.0244  (510/512 teacher)
+[  2632s] L6 k=512 omp_mixed  m= 1024: R2 0.621  KL 0.0173  (1022/1024 teacher)
+[  2823s] L6 k=512 omp_mixed  m= 1792: R2 0.715  KL 0.0121  (1790/1792 teacher)
+[  2873s] L15: drop-MLP KL 0.1156
+[  2917s] L15 k=full random     m=  256: R2 0.199  KL 0.0854
+[  2956s] L15 k=full random     m=  512: R2 0.280  KL 0.0735
+[  2996s] L15 k=full random     m= 1024: R2 0.376  KL 0.0627
+[  3041s] L15 k=full random     m= 1792: R2 0.458  KL 0.0535
+[  3081s] L15 k=full importance m=  256: R2 0.526  KL 0.0521
+[  3119s] L15 k=full importance m=  512: R2 0.663  KL 0.0384
+[  3155s] L15 k=full importance m= 1024: R2 0.802  KL 0.0181
+[  3196s] L15 k=full importance m= 1792: R2 0.901  KL 0.0082
+[  3268s] L15 k=full omp        m=  256: R2 0.518  KL 0.0527
+[  3335s] L15 k=full omp        m=  512: R2 0.656  KL 0.0360
+[  3414s] L15 k=full omp        m= 1024: R2 0.795  KL 0.0208
+[  3533s] L15 k=full omp        m= 1792: R2 0.900  KL 0.0081
+[  3594s] L15 k=full omp_mixed  m=  256: R2 0.518  KL 0.0525  (255/256 teacher)
+[  3638s] L15 k=full omp_mixed  m=  512: R2 0.656  KL 0.0361  (511/512 teacher)
+[  3691s] L15 k=full omp_mixed  m= 1024: R2 0.795  KL 0.0208  (1023/1024 teacher)
+[  3768s] L15 k=full omp_mixed  m= 1792: R2 0.899  KL 0.0081  (1791/1792 teacher)
+[  3784s] L15 k=512 random     m=  256: R2 0.222  KL 0.0839
+[  3799s] L15 k=512 random     m=  512: R2 0.309  KL 0.0715
+[  3814s] L15 k=512 random     m= 1024: R2 0.406  KL 0.0609
+[  3830s] L15 k=512 random     m= 1792: R2 0.485  KL 0.0527
+[  3845s] L15 k=512 importance m=  256: R2 0.490  KL 0.0555
+[  3859s] L15 k=512 importance m=  512: R2 0.610  KL 0.0408
+[  3875s] L15 k=512 importance m= 1024: R2 0.724  KL 0.0259
+[  3892s] L15 k=512 importance m= 1792: R2 0.801  KL 0.0170
+[  3911s] L15 k=512 omp        m=  256: R2 0.477  KL 0.0540
+[  3933s] L15 k=512 omp        m=  512: R2 0.601  KL 0.0400
+[  3967s] L15 k=512 omp        m= 1024: R2 0.719  KL 0.0263
+[  4022s] L15 k=512 omp        m= 1792: R2 0.800  KL 0.0168
+[  4045s] L15 k=512 omp_mixed  m=  256: R2 0.477  KL 0.0540  (256/256 teacher)
+[  4079s] L15 k=512 omp_mixed  m=  512: R2 0.601  KL 0.0400  (512/512 teacher)
+[  4135s] L15 k=512 omp_mixed  m= 1024: R2 0.719  KL 0.0263  (1024/1024 teacher)
+[  4216s] L15 k=512 omp_mixed  m= 1792: R2 0.800  KL 0.0168  (1792/1792 teacher)
+[  4216s] done

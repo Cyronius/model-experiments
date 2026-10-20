@@ -1,0 +1,25 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<01:28,  3.61it/s]Loading weights:  58%|#####7    | 185/320 [00:00<00:00, 621.06it/s]Loading weights:  91%|######### | 290/320 [00:00<00:00, 623.62it/s]Loading weights: 100%|##########| 320/320 [00:00<00:00, 495.49it/s]
+[31s] our GGUF loaded into the 0.8B architecture
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297193 > 262144). Running this sequence through the model will result in indexing errors
+[195s] streams recorded
+[272s] maps fit: in0 0.82, mid6 0.684, in12 0.657, mid18 0.667, out 0.602
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:03<00:00,  3.16s/it]Writing model shards: 100%|##########| 1/1 [00:03<00:00,  3.16s/it]
+[315s] ours: ps-ours.gguf 1.52 GB
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:02<00:00,  2.70s/it]Writing model shards: 100%|##########| 1/1 [00:02<00:00,  2.70s/it]
+[359s] stock: ps-stock.gguf 1.52 GB
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:02<00:00,  2.75s/it]Writing model shards: 100%|##########| 1/1 [00:02<00:00,  2.75s/it]
+[407s] mlp: ps-mlp.gguf 1.52 GB
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:04<00:00,  4.30s/it]Writing model shards: 100%|##########| 1/1 [00:04<00:00,  4.30s/it]
+[462s] attn: ps-attn.gguf 1.52 GB
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:13<00:00, 13.25s/it]Writing model shards: 100%|##########| 1/1 [00:13<00:00, 13.25s/it]
+[532s] io: ps-io.gguf 2.03 GB
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:06<00:00,  6.74s/it]Writing model shards: 100%|##########| 1/1 [00:06<00:00,  6.74s/it]
+[587s] ctrl-mlp: ps-ctrl-mlp.gguf 1.52 GB
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:08<00:00,  8.62s/it]Writing model shards: 100%|##########| 1/1 [00:08<00:00,  8.62s/it]
+[638s] ctrl-attn: ps-ctrl-attn.gguf 1.52 GB
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:09<00:00,  9.61s/it]Writing model shards: 100%|##########| 1/1 [00:09<00:00,  9.61s/it]
+[700s] ctrl-io: ps-ctrl-io.gguf 2.03 GB
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:14<00:00, 14.84s/it]Writing model shards: 100%|##########| 1/1 [00:14<00:00, 14.84s/it]
+[775s] ctrl-all: ps-ctrl-all.gguf 2.03 GB
+[776s] done

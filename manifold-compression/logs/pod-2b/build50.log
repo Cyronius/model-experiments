@@ -1,0 +1,25 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<02:07,  2.51it/s]Loading weights:  33%|███▎      | 106/320 [00:00<00:00, 228.46it/s]Loading weights:  44%|████▍     | 140/320 [00:00<00:00, 250.41it/s]Loading weights:  54%|█████▍    | 173/320 [00:00<00:00, 216.02it/s]Loading weights:  62%|██████▎   | 200/320 [00:01<00:00, 188.39it/s]Loading weights:  70%|███████   | 224/320 [00:01<00:00, 197.88it/s]Loading weights:  77%|███████▋  | 247/320 [00:01<00:00, 168.25it/s]Loading weights:  83%|████████▎ | 266/320 [00:01<00:00, 169.46it/s]Loading weights:  89%|████████▉ | 285/320 [00:01<00:00, 173.58it/s]Loading weights:  95%|█████████▌| 304/320 [00:01<00:00, 145.90it/s]Loading weights: 100%|██████████| 320/320 [00:01<00:00, 122.23it/s]Loading weights: 100%|██████████| 320/320 [00:01<00:00, 161.37it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+Traceback (most recent call last):
+  File "/workspace/model-experiments/manifold-compression/build_pruned.py", line 56, in <module>
+    S.eval_batches()
+  File "/workspace/model-experiments/manifold-compression/common.py", line 287, in eval_batches
+    logits, states = self.runner.run(emb, 0, ctx, record=set(range(self.runner.n_sites)), positions=pos)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/model-experiments/manifold-compression/common.py", line 224, in run
+    logits = self.model.lm_head(self.lm.norm(h))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 3.78 GiB. GPU 0 has a total capacity of 44.42 GiB of which 1.01 GiB is free. Process 2148 has 34.40 GiB memory in use. Including non-PyTorch memory, this process has 9.00 GiB memory in use. Of the allocated memory 8.65 GiB is allocated by PyTorch, and 47.32 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

@@ -1,0 +1,29 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<02:16,  2.33it/s]Loading weights:  37%|###6      | 118/320 [00:00<00:00, 292.01it/s]Loading weights:  58%|#####8    | 186/320 [00:00<00:00, 352.50it/s]Loading weights:  77%|#######6  | 245/320 [00:00<00:00, 398.01it/s]Loading weights:  94%|#########4| 301/320 [00:00<00:00, 422.00it/s]Loading weights: 100%|##########| 320/320 [00:00<00:00, 336.82it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    45s] eval cache built
+[    98s] L0.in(gdn) on@0.1: relative deviation final/injected 0.41  abs gain 6.97  KL 0.0028
+[   150s] L0.in(gdn) off@0.1: relative deviation final/injected 0.41  abs gain 7.07  KL 0.0027
+[   197s] L2.in(gdn) on@0.1: relative deviation final/injected 0.45  abs gain 3.66  KL 0.0025
+[   250s] L2.in(gdn) off@0.1: relative deviation final/injected 0.27  abs gain 2.21  KL 0.0011
+[   294s] L4.in(gdn) on@0.1: relative deviation final/injected 0.47  abs gain 3.17  KL 0.0023
+[   338s] L4.in(gdn) off@0.1: relative deviation final/injected 0.26  abs gain 1.76  KL 0.0010
+[   391s] L6.in(gdn) on@0.1: relative deviation final/injected 0.53  abs gain 3.34  KL 0.0027
+[   456s] L6.in(gdn) off@0.1: relative deviation final/injected 0.25  abs gain 1.60  KL 0.0009
+[   500s] L8.in(gdn) on@0.1: relative deviation final/injected 0.56  abs gain 3.35  KL 0.0030
+[   538s] L8.in(gdn) off@0.1: relative deviation final/injected 0.26  abs gain 1.57  KL 0.0009
+[   577s] L10.in(gdn) on@0.1: relative deviation final/injected 0.57  abs gain 3.34  KL 0.0031
+[   613s] L10.in(gdn) off@0.1: relative deviation final/injected 0.27  abs gain 1.60  KL 0.0009
+[   650s] L12.in(gdn) on@0.1: relative deviation final/injected 0.58  abs gain 3.20  KL 0.0032
+[   684s] L12.in(gdn) off@0.1: relative deviation final/injected 0.31  abs gain 1.71  KL 0.0012
+[   717s] L14.in(gdn) on@0.1: relative deviation final/injected 0.63  abs gain 2.84  KL 0.0037
+[   747s] L14.in(gdn) off@0.1: relative deviation final/injected 0.39  abs gain 1.75  KL 0.0014
+[   773s] L16.in(gdn) on@0.1: relative deviation final/injected 0.71  abs gain 2.15  KL 0.0045
+[   803s] L16.in(gdn) off@0.1: relative deviation final/injected 0.51  abs gain 1.55  KL 0.0020
+[   827s] L18.in(gdn) on@0.1: relative deviation final/injected 0.83  abs gain 1.92  KL 0.0052
+[   851s] L18.in(gdn) off@0.1: relative deviation final/injected 0.69  abs gain 1.60  KL 0.0026
+[   872s] L20.in(gdn) on@0.1: relative deviation final/injected 0.95  abs gain 1.63  KL 0.0050
+[   893s] L20.in(gdn) off@0.1: relative deviation final/injected 0.86  abs gain 1.48  KL 0.0030
+[   913s] L22.in(gdn) on@0.1: relative deviation final/injected 1.07  abs gain 1.40  KL 0.0053
+[   931s] L22.in(gdn) off@0.1: relative deviation final/injected 0.98  abs gain 1.28  KL 0.0029
+[   931s] done

@@ -1,0 +1,63 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<00:56,  5.68it/s]Loading weights:  40%|████      | 128/320 [00:00<00:00, 567.22it/s]Loading weights:  63%|██████▎   | 202/320 [00:00<00:00, 618.51it/s]Loading weights:  86%|████████▌ | 274/320 [00:00<00:00, 493.01it/s]Loading weights: 100%|██████████| 320/320 [00:00<00:00, 472.76it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+320 fit sequences, T=512, d=1024, k=256, warp=True
+pass 1: fit the compressors on the teacher stream
+  site 1 fitted  24s
+  site 9 fitted  92s
+  site 17 fitted  164s
+  site 25 fitted  233s
+  site 33 fitted  316s
+  site 41 fitted  398s
+before healing: KL 1.6502  copy 0.4398
+pass 2: heal
+half-layer 0: loss 0.136 -> 0.086  506s
+half-layer 1: loss 0.092 -> 0.064  523s  KL after layer 0: 0.1754
+half-layer 2: loss 0.127 -> 0.101  562s
+half-layer 3: loss 0.152 -> 0.109  579s  KL after layer 1: 0.2186
+half-layer 4: loss 0.153 -> 0.139  618s
+half-layer 5: loss 0.159 -> 0.108  635s  KL after layer 2: 0.2493
+half-layer 6: loss 0.167 -> 0.129  667s
+half-layer 7: loss 0.155 -> 0.133  684s  KL after layer 3: 0.2671
+half-layer 8: loss 0.169 -> 0.145  721s
+half-layer 9: loss 0.171 -> 0.125  738s  KL after layer 4: 0.2803
+half-layer 10: loss 0.159 -> 0.133  777s
+half-layer 11: loss 0.139 -> 0.101  793s  KL after layer 5: 0.2926
+half-layer 12: loss 0.147 -> 0.133  833s
+half-layer 13: loss 0.133 -> 0.123  849s  KL after layer 6: 0.3196
+half-layer 14: loss 0.194 -> 0.142  882s
+half-layer 15: loss 0.163 -> 0.132  899s  KL after layer 7: 0.3348
+half-layer 16: loss 0.162 -> 0.152  937s
+half-layer 17: loss 0.152 -> 0.126  954s  KL after layer 8: 0.3493
+half-layer 18: loss 0.147 -> 0.143  993s
+half-layer 19: loss 0.154 -> 0.119  1010s  KL after layer 9: 0.3590
+half-layer 20: loss 0.143 -> 0.133  1050s
+half-layer 21: loss 0.141 -> 0.126  1067s  KL after layer 10: 0.3792
+half-layer 22: loss 0.164 -> 0.146  1095s
+half-layer 23: loss 0.148 -> 0.143  1112s  KL after layer 11: 0.3914
+half-layer 24: loss 0.159 -> 0.141  1151s
+half-layer 25: loss 0.149 -> 0.137  1168s  KL after layer 12: 0.4088
+half-layer 26: loss 0.159 -> 0.150  1205s
+half-layer 27: loss 0.159 -> 0.143  1222s  KL after layer 13: 0.4360
+half-layer 28: loss 0.148 -> 0.143  1262s
+half-layer 29: loss 0.142 -> 0.122  1279s  KL after layer 14: 0.4752
+half-layer 30: loss 0.171 -> 0.151  1310s
+half-layer 31: loss 0.170 -> 0.137  1327s  KL after layer 15: 0.5174
+half-layer 32: loss 0.153 -> 0.127  1367s
+half-layer 33: loss 0.166 -> 0.144  1384s  KL after layer 16: 0.5579
+half-layer 34: loss 0.152 -> 0.150  1424s
+half-layer 35: loss 0.184 -> 0.149  1440s  KL after layer 17: 0.5931
+half-layer 36: loss 0.168 -> 0.151  1480s
+half-layer 37: loss 0.156 -> 0.122  1497s  KL after layer 18: 0.6386
+half-layer 38: loss 0.161 -> 0.162  1531s
+half-layer 39: loss 0.186 -> 0.160  1548s  KL after layer 19: 0.7032
+half-layer 40: loss 0.178 -> 0.152  1584s
+half-layer 41: loss 0.190 -> 0.156  1601s  KL after layer 20: 0.7560
+half-layer 42: loss 0.175 -> 0.148  1641s
+half-layer 43: loss 0.176 -> 0.163  1658s  KL after layer 21: 0.8042
+half-layer 44: loss 0.186 -> 0.176  1699s
+half-layer 45: loss 0.211 -> 0.181  1716s  KL after layer 22: 0.8502
+half-layer 46: loss 0.205 -> 0.195  1751s
+half-layer 47: loss 0.205 -> 0.179  1768s  KL after layer 23: 0.9711
+ALL SITES after healing: KL 0.9711  prose 0.5573  code 1.6543  math 0.6432  chat 1.1252  copy 0.2080
+before healing:          KL 1.6502  prose 0.9563  code 2.4867  math 1.0243  chat 2.2851  copy 0.4398

@@ -1,0 +1,43 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<00:56,  5.61it/s]Loading weights:  62%|######1   | 198/320 [00:00<00:00, 874.31it/s]Loading weights:  98%|#########7| 313/320 [00:00<00:00, 923.36it/s]Loading weights: 100%|##########| 320/320 [00:00<00:00, 800.32it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    51s] eval cache built
+[   145s] L0 predictor refit (R2 0.831)
+[   224s] L1 predictor refit (R2 0.423)
+[   297s] L2 predictor refit (R2 0.438)
+[   370s] L3 predictor refit (R2 0.525)
+[   446s] L4 predictor refit (R2 0.437)
+[   523s] L5 predictor refit (R2 0.422)
+[   596s] L6 predictor refit (R2 0.355)
+[   669s] L7 predictor refit (R2 0.534)
+[   740s] L8 predictor refit (R2 0.432)
+[   805s] L9 predictor refit (R2 0.456)
+[   870s] L10 predictor refit (R2 0.452)
+[   931s] L11 predictor refit (R2 0.455)
+[   987s] L12 predictor refit (R2 0.492)
+[  1047s] L13 predictor refit (R2 0.475)
+[  1120s] L14 predictor refit (R2 0.461)
+[  1170s] L15 predictor refit (R2 0.387)
+[  1225s] L16 predictor refit (R2 0.618)
+[  1282s] L17 predictor refit (R2 0.513)
+[  1336s] L18 predictor refit (R2 0.550)
+[  1392s] L19 predictor refit (R2 0.344)
+[  1447s] L20 predictor refit (R2 0.608)
+[  1500s] L21 predictor refit (R2 0.531)
+[  1553s] L22 predictor refit (R2 0.620)
+[  1608s] L23 predictor refit (R2 0.832)
+[  1689s] greedy_tail +L12 (linear): 1 substituted, KL 0.0099  copy p99 0.010
+[  1775s] greedy_tail +L17 (linear): 2 substituted, KL 0.0284  copy p99 0.023
+[  1860s] greedy_tail +L18 (linear): 3 substituted, KL 0.0469  copy p99 0.047
+[  1965s] greedy_tail +L13 (linear): 4 substituted, KL 0.0751  copy p99 0.065
+[  2092s] greedy_tail +L8 (linear): 5 substituted, KL 0.0951  copy p99 0.098
+[  2178s] greedy_tail +L7 (full_a): 6 substituted, KL 0.1230  copy p99 0.121
+[  2256s] greedy_tail +L16 (linear): 7 substituted, KL 0.1698  copy p99 0.137
+[  2338s] greedy_tail +L9 (linear): 8 substituted, KL 0.1976  copy p99 0.192
+[  2415s] greedy_tail +L10 (linear): 9 substituted, KL 0.2548  copy p99 0.210
+[  2507s] greedy_tail +L11 (full_a): 10 substituted, KL 0.2771  copy p99 0.207
+[  2588s] greedy_tail +L2 (linear): 11 substituted, KL 0.3317  copy p99 0.228
+[  2671s] greedy_tail +L5 (linear): 12 substituted, KL 0.4110  copy p99 0.339
+[  2753s] greedy_tail +L4 (linear): 13 substituted, KL 0.5108  copy p99 0.442
+[  2834s] greedy_tail +L22 (linear): 14 substituted, KL 0.5552  copy p99 0.553
+[  2834s] done

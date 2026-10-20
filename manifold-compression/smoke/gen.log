@@ -1,0 +1,134 @@
+stock 0 252
+stock 1 98
+stock 2 148
+stock 3 397
+stock 4 400
+stock 5 400
+stock 6 400
+stock 7 400
+stock 8 342
+stock 9 400
+stock 10 400
+stock 11 400
+stock 12 400
+stock 13 113
+stock 14 216
+stock 15 246
+stock 16 400
+stock 17 328
+stock 18 400
+stock 19 253
+stock 20 101
+stock 21 133
+stock 22 239
+stock 23 400
+stock 24 185
+stock 25 27
+stock 26 11
+stock 27 25
+stock 28 43
+stock 29 250
+stock 30 58
+stock 31 400
+stock 32 170
+stock 33 400
+stock 34 261
+stock 35 400
+stock 36 278
+stock 37 23
+stock 38 24
+stock 39 2
+mlp75 0 400
+mlp75 1 138
+mlp75 2 178
+mlp75 3 400
+mlp75 4 400
+mlp75 5 400
+mlp75 6 400
+mlp75 7 400
+mlp75 8 400
+mlp75 9 400
+mlp75 10 400
+mlp75 11 400
+mlp75 12 400
+mlp75 13 76
+mlp75 14 115
+mlp75 15 177
+mlp75 16 41
+mlp75 17 119
+mlp75 18 190
+mlp75 19 400
+mlp75 20 290
+mlp75 21 161
+mlp75 22 400
+mlp75 23 400
+mlp75 24 132
+mlp75 25 36
+mlp75 26 11
+mlp75 27 25
+mlp75 28 40
+mlp75 29 237
+mlp75 30 79
+mlp75 31 400
+mlp75 32 400
+mlp75 33 400
+mlp75 34 400
+mlp75 35 400
+mlp75 36 165
+mlp75 37 36
+mlp75 38 400
+mlp75 39 2
+mlp50-selfchat 0 70
+mlp50-selfchat 1 400
+mlp50-selfchat 2 124
+mlp50-selfchat 3 400
+mlp50-selfchat 4 269
+mlp50-selfchat 5 400
+mlp50-selfchat 6 400
+mlp50-selfchat 7 400
+mlp50-selfchat 8 400
+mlp50-selfchat 9 400
+mlp50-selfchat 10 400
+mlp50-selfchat 11 215
+mlp50-selfchat 12 400
+mlp50-selfchat 13 71
+mlp50-selfchat 14 108
+mlp50-selfchat 15 400
+mlp50-selfchat 16 126
+Traceback (most recent call last):
+  File "C:\code\model-experiments\manifold-compression\smoke\gen.py", line 44, in <module>
+    r = post({"messages": [{"role": "user", "content": p["prompt"]}], "max_tokens": 400, "temperature": 0,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\code\model-experiments\manifold-compression\smoke\gen.py", line 24, in post
+    return json.loads(urllib.request.urlopen(req, timeout=600).read())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\urllib\request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\urllib\request.py", line 519, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\urllib\request.py", line 536, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\urllib\request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "C:\Python311\Lib\urllib\request.py", line 1377, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\urllib\request.py", line 1352, in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\http\client.py", line 1395, in getresponse
+    response.begin()
+  File "C:\Python311\Lib\http\client.py", line 325, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\http\client.py", line 286, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\socket.py", line 706, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
