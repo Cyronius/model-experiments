@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>titler: a 4 MB title model</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%232f5fd0%22/%3E%3Cpath d=%22M9 10h14M16 10v13%22 stroke=%22white%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<meta name="description" content="A 4 MB model that turns a prompt into a short title. It runs in your browser; nothing is sent anywhere.">
+<style>
+  :root {
+    --bg: #fafaf8; --card: #ffffff; --ink: #1d1d1b; --muted: #6b6b66; --line: #e4e3de; --accent: #2f5fd0; --accent-ink: #ffffff;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #151514; --card: #1e1e1c; --ink: #ecebe6; --muted: #9a9a93; --line: #34342f; --accent: #7aa2ff; --accent-ink: #10131a; }
+  }
+  :root[data-theme="dark"] { --bg: #151514; --card: #1e1e1c; --ink: #ecebe6; --muted: #9a9a93; --line: #34342f; --accent: #7aa2ff; --accent-ink: #10131a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(--font); }
+  main { max-width: 680px; margin: 0 auto; padding: 48px 16px 64px; }
+  h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .lead { color: var(--muted); margin: 0 0 28px; }
+  .status { font-size: 13px; color: var(--muted); min-height: 20px; margin-bottom: 8px; }
+  textarea {
+    width: 100%; min-height: 150px; padding: 12px 14px; resize: vertical; font: inherit; color: var(--ink);
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  }
+  textarea:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+  button.go {
+    font: inherit; font-weight: 600; padding: 10px 20px; border: 0; border-radius: 8px; cursor: pointer;
+    background: var(--accent); color: var(--accent-ink);
+  }
+  button.go:disabled { opacity: 0.5; cursor: default; }
+  label { font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-left: auto; }
+  select { font: inherit; font-size: 14px; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; }
+  .examples { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0 0; }
+  .examples button {
+    font: inherit; font-size: 13px; color: var(--muted); background: transparent; border: 1px solid var(--line);
+    border-radius: 999px; padding: 4px 12px; cursor: pointer;
+  }
+  .examples button:hover { color: var(--ink); border-color: var(--muted); }
+  .result { margin-top: 28px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; min-height: 96px; }
+  .result .title { font-size: 26px; font-weight: 650; line-height: 1.25; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .result .meta { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .result .placeholder { color: var(--muted); }
+  .result .error { color: #c0392b; }
+  footer { margin-top: 40px; font-size: 14px; color: var(--muted); }
+  footer a { color: var(--accent); }
+  footer code { font-size: 13px; background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>titler</h1>
+  <p class="lead">A 4 MB model that turns a prompt into a short title. It runs in your browser. Nothing you type is sent anywhere.</p>
+
+  <div class="status" id="status" aria-live="polite">Loading the model (4 MB)…</div>
+  <textarea id="prompt" placeholder="Paste a prompt, a question or a message…" aria-label="Prompt"></textarea>
+
+  <div class="row">
+    <button class="go" id="go" disabled>Title it</button>
+    <span class="status" id="hint">Ctrl + Enter</span>
+    <label>Beams
+      <select id="beams" aria-label="Beam width">
+        <option value="1">1 (fastest)</option>
+        <option value="2">2</option>
+        <option value="4" selected>4 (best)</option>
+        <option value="6">6</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="examples" id="examples"></div>
+
+  <div class="result" id="result" aria-live="polite"><span class="placeholder">Your title appears here.</span></div>
+
+  <footer>
+    <p>The model has 5.8 million parameters and a 4 MB file (Llama architecture, 4-bit quantized). The browser runs it on the CPU through WebAssembly, with the same tokenizer and decoding code as the <code>titler</code> command-line tool.</p>
+    <p><a href="https://github.com/Cyronius/titler">Source, model and command-line tool on GitHub</a></p>
+  </footer>
+</main>
+
+<script type="module">
+  const $ = (id) => document.getElementById(id);
+  const EXAMPLES = [
+    "How do I sort a list of dictionaries by a key in Python?",
+    "Write a short dialog line for Nick Wilde from Zootopia where he greets Judy Hopps.",
+    "What's the difference between a Roth IRA and a traditional IRA, and which one is better if I'm 25?",
+    "My cat keeps throwing up after eating dry food. What could be going on?",
+    "Explain how the Apollo 13 crew used the lunar module as a lifeboat.",
+  ];
+
+  const worker = new Worker("./worker.js", { type: "module" });
+  let counter = 0;
+  let latest = 0;
+
+  for (const text of EXAMPLES) {
+    const b = document.createElement("button");
+    b.textContent = text.length > 44 ? text.slice(0, 41) + "…" : text;
+    b.title = text;
+    b.addEventListener("click", () => { $("prompt").value = text; run(); });
+    $("examples").append(b);
+  }
+
+  function show(html) { $("result").replaceChildren(...html); }
+  function node(tag, cls, text) { const n = document.createElement(tag); n.className = cls; n.textContent = text; return n; }
+
+  function run() {
+    const prompt = $("prompt").value.trim();
+    if (!prompt || $("go").disabled) return;
+    latest = ++counter;
+    worker.postMessage({ id: latest, prompt, beams: Number($("beams").value) });
+    $("go").disabled = true;
+    $("go").textContent = "Working…";
+  }
+
+  worker.onmessage = ({ data }) => {
+    if (data.type === "ready") {
+      $("status").textContent = "Model ready.";
+      $("go").disabled = false;
+    } else if (data.type === "title" && data.id === latest) {
+      const beams = $("beams").value;
+      show([node("div", "title", data.title || "(no title)"), node("div", "meta", `${Math.round(data.ms)} ms · ${beams} ${beams === "1" ? "beam" : "beams"} · in your browser`)]);
+    } else if (data.type === "error") {
+      show([node("div", "error", "Something went wrong: " + data.message)]);
+      $("status").textContent = "";
+    }
+    if (data.type === "title" || data.type === "error") {
+      $("go").disabled = data.type === "error" && data.id === undefined;
+      $("go").textContent = "Title it";
+    }
+  };
+  worker.onerror = (e) => { show([node("div", "error", "The model could not start: " + (e.message || "unknown error"))]); };
+
+  $("go").addEventListener("click", run);
+  $("prompt").addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+</script>
+</body>
+</html>

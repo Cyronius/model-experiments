@@ -1,0 +1,43 @@
+# plans stay local
+.claude/plans/
+
+# data artifacts (except small hand-made files, re-included below)
+data/*
+!data/hardcases.jsonl
+!data/bakeoff_prompts.jsonl
+!data/spike_pairs.jsonl
+
+# model artifacts (except the small, already-public web-serve export used by
+# the Railway deploy — see Dockerfile)
+model/*
+!model/titler-v15-scratch-web
+
+# auto-fetched llama.cpp conversion tooling (scripts/export_gguf.py)
+.cache/
+
+# stray debug logs from ad hoc runs
+*.log
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# node
+node_modules/
+
+# local llama.cpp build for GGUF checks
+.llama-build/
+
+# Rust build output
+app/target/
+app/website/dist/
+app/npm/pkg/
+app/npm/titler.gguf
+app/python/dist/
+app/python/build/
+app/python/*.egg-info/
+app/python/titler/*.dll
+app/python/titler/*.so
+app/python/titler/*.dylib
+app/python/titler/*.gguf

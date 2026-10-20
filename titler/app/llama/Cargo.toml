@@ -1,0 +1,12 @@
+[package]
+name = "titler-llama"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+titler-core = { path = "../core" }
+llama-cpp-2 = { version = "0.1.160", default-features = false }
+
+[dev-dependencies]
+serde_json = "1"

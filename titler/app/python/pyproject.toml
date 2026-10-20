@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "titler"
+version = "0.1.0"
+description = "A 4 MB model that turns a prompt into a short title. Runs on the CPU."
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["llm", "title", "gguf"]
+
+[project.urls]
+Source = "https://github.com/Cyronius/titler"
+
+[tool.setuptools]
+packages = ["titler"]
+
+[tool.setuptools.package-data]
+titler = ["*.dll", "*.so", "*.dylib", "*.gguf"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
