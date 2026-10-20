@@ -5,8 +5,8 @@ with no telemetry. Pick the way that fits your app:
 
 | Your app is | Use | Install |
 |---|---|---|
-| Rust | the `titler` crate | `titler = { git = "https://github.com/Cyronius/titler" }` |
-| C, C++, C#, Go, Swift, Java (anything that loads a DLL) | the C library | `titler-capi-<platform>.zip` from the [releases](https://github.com/Cyronius/titler/releases) |
+| Rust | the `titler` crate | `titler = { git = "https://github.com/Cyronius/model-experiments" }` |
+| C, C++, C#, Go, Swift, Java (anything that loads a DLL) | the C library | `titler-capi-<platform>.zip` from the [releases](https://github.com/Cyronius/model-experiments/releases) |
 | Python | the `titler` wheel | `pip install titler-0.1.0-py3-none-<platform>.whl` from the releases |
 | A web page or Node | `titler-wasm` | `npm install titler-wasm-0.1.0.tgz` from the releases |
 | A script or shell | the `titler` command | `titler-<platform>` from the releases |

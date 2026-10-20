@@ -46,5 +46,5 @@ cargo install wasm-bindgen-cli --version <version in Cargo.lock>
 python -m http.server -d website/dist 8000
 ```
 
-GitHub Actions publishes the site to GitHub Pages when you push a tag that starts with `v` (`.github/workflows/pages.yml`).
+GitHub Actions publishes the site to GitHub Pages when you push a tag that starts with `titler-v`, for example `titler-v0.2.0` (`.github/workflows/titler-pages.yml` at the repository root).
 The same tag builds the `titler` binaries for Linux, Windows and macOS and attaches them to a release.

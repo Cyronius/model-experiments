@@ -4,7 +4,7 @@ A tiny model that turns a prompt into a short title.
 
 > **New: titler v2** is a standard Llama-architecture GGUF (5.8M parameters, **4 MB**) that runs on the CPU in 15-100 ms. It wins about
 > 65% of the head-to-head pairs against the v1.5 model described below.
-> Try it in your browser: **https://cyronius.github.io/titler/** (runs locally with WebAssembly, nothing is sent anywhere).
+> Try it in your browser: **https://cyronius.github.io/model-experiments/** (runs locally with WebAssembly, nothing is sent anywhere).
 > Use it in your own app (Rust, C, Python, JavaScript, command line): [app/EMBEDDING.md](app/EMBEDDING.md).
 > Code and model: [app/](app/). Training and evaluation scripts are in [scripts/](scripts/). The sections below describe v1.5.
 

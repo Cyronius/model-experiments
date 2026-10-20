@@ -1,8 +1,8 @@
-name: Website
+name: titler website
 
 on:
   push:
-    tags: ["v*"]
+    tags: ["titler-v*"]
   workflow_dispatch:
 
 permissions:
@@ -24,15 +24,15 @@ jobs:
           targets: wasm32-unknown-unknown
       - uses: Swatinem/rust-cache@v2
         with:
-          workspaces: app
+          workspaces: titler/app
       - uses: taiki-e/install-action@v2
         with:
           tool: wasm-pack
       - name: Build the WebAssembly module
-        working-directory: app
+        working-directory: titler/app
         run: wasm-pack build wasm --target web --release --out-dir ../website/dist/pkg --out-name titler_wasm
       - name: Assemble the site
-        working-directory: app
+        working-directory: titler/app
         run: |
           cp website/index.html website/worker.js website/dist/
           cp model/titler-v3-q4_k_m.gguf website/dist/titler.gguf
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: app/website/dist
+          path: titler/app/website/dist
 
   deploy:
     needs: build

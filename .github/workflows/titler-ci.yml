@@ -1,9 +1,11 @@
-name: CI
+name: titler CI
 
 on:
   push:
     branches: [main]
+    paths: ["titler/**", ".github/workflows/titler-*.yml"]
   pull_request:
+    paths: ["titler/**", ".github/workflows/titler-*.yml"]
 
 jobs:
   rust:
@@ -15,12 +17,12 @@ jobs:
           targets: wasm32-unknown-unknown
       - uses: Swatinem/rust-cache@v2
         with:
-          workspaces: app
+          workspaces: titler/app
       - name: Core tests (golden files from the Python code)
-        working-directory: app
+        working-directory: titler/app
         run: cargo test -p titler-core
       - name: WebAssembly build
-        working-directory: app
+        working-directory: titler/app
         run: cargo build --release -p titler-wasm --target wasm32-unknown-unknown
 
   bindings:
@@ -32,7 +34,7 @@ jobs:
           targets: wasm32-unknown-unknown
       - uses: Swatinem/rust-cache@v2
         with:
-          workspaces: app
+          workspaces: titler/app
       - uses: taiki-e/install-action@v2
         with:
           tool: wasm-pack
@@ -43,18 +45,18 @@ jobs:
         with:
           python-version: "3.12"
       - name: Rust API tests
-        working-directory: app
+        working-directory: titler/app
         run: cargo test --release -p titler
       - name: C API smoke test
-        working-directory: app
+        working-directory: titler/app
         run: ./capi/tests/run-smoke.sh
       - name: Python package tests
-        working-directory: app/python
+        working-directory: titler/app/python
         run: |
           pip install pytest
-          TITLER_LIB="$GITHUB_WORKSPACE/app/target/release/libtitler_c.so" python -m pytest tests -q
+          TITLER_LIB="$GITHUB_WORKSPACE/titler/app/target/release/libtitler_c.so" python -m pytest tests -q
       - name: npm package tests
-        working-directory: app
+        working-directory: titler/app
         run: |
           wasm-pack build wasm --target web --release --out-dir ../npm/pkg --out-name titler_wasm
           cp model/titler-v3-q4_k_m.gguf npm/titler.gguf
