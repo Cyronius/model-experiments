@@ -155,6 +155,6 @@ The repository is the place to look if you want to reproduce the model, fine-tun
 
 ## License
 
-Model weights and code are released under **Apache 2.0**.
+Model weights and code are dual-licensed: use them under either the **MIT License** or the **Apache License 2.0**, at your option (the metadata above lists Apache-2.0, one of the two). Copyright (c) 2026 Cyrus Attoun.
 
 Training data comes from WildChat, OpenAssistant, Chatbot Arena, LMSYS-Chat-1M, and synthetic task-specific examples. See the GitHub repository for the full training-data and licensing notes.
