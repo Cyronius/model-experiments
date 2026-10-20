@@ -21,6 +21,7 @@ One folder per experiment.
 | [`qwen38-flash-next-ngram/`](qwen38-flash-next-ngram/) | Qwen3.8-Flash-Next n-gram table prune: `surgery_qwen38.py`, model card, [write-up](qwen38-flash-next-ngram/qwen38-flash-next-131b-a6b.md) |
 | [`ternary/`](ternary/) | ternary quantization investigation (fingerprint, layer error, perplexity) |
 | [`asd-ste100/`](asd-ste100/) | a tiny iterative editor that rewrites English into ASD-STE100 Simplified Technical English (lexicon, checker, data pipeline, pod scripts) |
+| [`sprite-diffusion/`](sprite-diffusion/) | a 24M pixel-art sprite DiT (32×32 RGBA, 8 categories) and its port to the AMD XDNA2 NPU: 64-sprite sheet in ~5 s |
 | [`bench/`](bench/) | shared benchmark harness (tools / GSM8K / MMLU / perplexity), pod orchestration, result logs for both Qwen campaigns |
 
 Model weights, adapter checkpoints, and quantized builds aren't in this repo — see the Hugging Face links above.
