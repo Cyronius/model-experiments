@@ -200,6 +200,28 @@ several of those were already garbled mid-word cutoffs from hitting the generati
 not real content. Verified no regression to training-data filtering: re-ran the split script
 against the existing data pool and diffed the output — byte-identical.
 
+## v2: a Llama model that fits in 4 MB
+
+*Built 2026-10-16 to 2026-10-20. This section is a timeline from the commit history and the specs. It does not record the failed runs: those notes were not kept in the repository.*
+
+**Goal.** v1.5 was the best T5 model, but it was 10 MB and took 160-220 ms. v2 asked for a smaller file that runs in a browser and in any app, with titles at least as good.
+
+**What changed**
+
+- **Architecture.** A decoder-only Llama (5.84M parameters, 8 layers) in place of the T5. Prompt and title share one sequence: `<s>{prompt}<sep>{title}</s>`. A standard Llama GGUF loads in llama.cpp, and the pure-Rust backend runs the same file in a browser.
+- **Tokenizer.** A new Unigram tokenizer with 4,352 tokens, smaller than v1.5's 8,192. The Rust tokenizer matches the training one on every test string (`TITLE-TOKENIZE-PARITY`).
+- **Two training stages.** First next-token training on raw prompts and FineWeb-Edu text, so a from-scratch model learns English. Then title training with loss on the title tokens only.
+- **Titles without Title Case.** Training titles have the first letter of each ordinary word lowercased. `clean_title` restores the case afterward (`TITLE-DECASE-ROUNDTRIP`).
+- **More data, cleaner titles.** WildChat-4.8M and synthetic hard cases were added. Titles were rewritten by Qwen3-14B, and by OpenAI's gpt-6-luna where Qwen3-14B failed. Titles that narrate ("User asks...") or open with filler were dropped. Rows about sexual content with minors were scrubbed. Apostrophes and inner capitals are kept.
+- **Decoding.** 4-beam search, a ban on repeated tokens inside the title, and a penalty on the words "request" and "inquiry" (`TITLE-DECODE`). A decode test compared sample-and-pick modes before 4 beams became the default.
+- **Quantization.** The shipped file is Q4_K_M (4.1 MB). A ternary quantization-aware training mode was added to the trainer. The shipped model is not ternary.
+
+**How it was judged.** A fixed evaluation set and a blind pairwise judge. The judge reads each pair in both orders and counts only verdicts that survive the swap. People also read blind sheets of v2 against v1.5. The v2 title wins about **65%** of the pairs that have a winner.
+
+**Then it became an engine.** A Rust workspace (tokenizer, beam search and title cleanup, with a test that matches Hugging Face generation), a llama.cpp backend, a pure-Rust CPU backend, a WebAssembly demo, a C library, a Python package and an npm package. See [app/](app/).
+
+**Known limits** (from `specs/title/spec.md`). English only. A dropped apostrophe in a possessive in 1 of 1,064 evaluation titles. Pasted logs and vague one-liners give weaker titles. A hard-input evaluation set exists to track this.
+
 ## Lessons that generalized across versions
 
 - **Data beat depth, every time it was tested.** A 2.75× architecture scale-up bought +0.004

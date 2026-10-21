@@ -46,7 +46,7 @@ Commands run from this folder with `uv run`.
 6. **Export.** `scripts/export_llama_gguf.py` writes the GGUF with a Unigram tokenizer that matches the training one.
 7. **Rust parity.** `scripts/24_make_app_golden.py` writes the golden files that `cargo test -p titler-core` compares the Rust code against.
 
-The history of v1.0 to v1.5 is in [EXPERIMENTS.md](EXPERIMENTS.md). It does not yet cover v2.
+The history of v1.0 to v1.5 and a timeline of v2 are in [EXPERIMENTS.md](EXPERIMENTS.md).
 
 ## v1.5 (legacy)
 
@@ -136,7 +136,7 @@ examples/      v1.5 inference examples (Python, Node, browser)
 hf-release/    the Hugging Face model card
 notebooks/     v1.5 training notebook
 data/          dataset build outputs
-EXPERIMENTS.md history of v1.0 to v1.5: what was tried and rejected
+EXPERIMENTS.md history of v1.0 to v2: what was tried and rejected
 ```
 
 ## License
