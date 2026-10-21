@@ -1,0 +1,379 @@
+<title>Residual Stream Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+/* Layout: an instrument panel. A fixed-width rail of readouts and explainers beside a full-height 3D scope; stacks scope-first on phones. */
+:root {
+  --bg: #f2f3f6;
+  --surface: #ffffff;
+  --line: #d9dce5;
+  --ink: #1a1e29;
+  --muted: #5b6173;
+  --accent: #a65f00;
+  --gdn: #3d6fd6;
+  --attn: #b2463b;
+  --prose: #3d6fd6;
+  --code: #0f8f6a;
+  --math: #a65f00;
+  --chat: #9b3fa0;
+  --copy: #c9372c;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f121a; --surface: #161a25; --line: #262c3b; --ink: #e6e2d6; --muted: #8d93a6; --accent: #e9a23b;
+    --gdn: #7aa7ff; --attn: #ff8a7a; --prose: #7aa7ff; --code: #4fd1a5; --math: #e9a23b; --chat: #d98ad3; --copy: #ff6b5e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f121a; --surface: #161a25; --line: #262c3b; --ink: #e6e2d6; --muted: #8d93a6; --accent: #e9a23b;
+  --gdn: #7aa7ff; --attn: #ff8a7a; --prose: #7aa7ff; --code: #4fd1a5; --math: #e9a23b; --chat: #d98ad3; --copy: #ff6b5e;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
+.app { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; height: 100%; }
+.rail {
+  overflow-y: auto; border-right: 1px solid var(--line); background: var(--surface);
+  padding-block: 20px 28px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 20px;
+  display: flex; flex-direction: column; gap: 18px; min-width: 0;
+}
+.scope { position: relative; min-width: 0; min-height: 0; }
+#plot { position: absolute; inset: 0; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: 22px; letter-spacing: 0.01em; margin: 0; text-wrap: balance; }
+.sub { color: var(--muted); margin: 4px 0 0; font-size: 13px; }
+.eyebrow { font-family: var(--font-display); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.readout { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.readout .big { font-family: var(--font-display); font-weight: 600; font-size: 28px; line-height: 1.1; }
+.chip { font-family: var(--font-mono); font-size: 11.5px; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; }
+.chip.gdn { color: var(--gdn); } .chip.attn { color: var(--attn); } .chip.final { color: var(--accent); }
+.strip { display: grid; grid-template-columns: repeat(49, 1fr); gap: 2px; height: 26px; cursor: pointer; }
+.strip button { border: 0; padding: 0; border-radius: 2px; opacity: 0.45; cursor: pointer; }
+.strip button.gdn { background: var(--gdn); } .strip button.attn { background: var(--attn); } .strip button.final { background: var(--accent); }
+.strip button.mid { opacity: 0.25; }
+.strip button.on { opacity: 1; outline: 2px solid var(--ink); outline-offset: 1px; }
+.strip-key { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+.nav { display: flex; gap: 8px; align-items: center; }
+.nav input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.btn {
+  font: 500 13px var(--font-body); color: var(--ink); background: transparent; border: 1px solid var(--line);
+  border-radius: 6px; padding: 5px 10px; cursor: pointer;
+}
+.btn:hover { border-color: var(--muted); }
+.btn:focus-visible, .strip button:focus-visible, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg button { font: 500 12.5px var(--font-body); background: transparent; color: var(--muted); border: 0; padding: 5px 10px; cursor: pointer; }
+.seg button[aria-pressed=true] { background: var(--ink); color: var(--surface); }
+.controls { display: flex; flex-direction: column; gap: 10px; }
+.controls .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.controls label { color: var(--muted); font-size: 13px; }
+.explain p { margin: 0 0 8px; max-width: 62ch; }
+.stats { display: grid; grid-template-columns: 1fr auto; gap: 7px 14px; margin: 0; }
+.stats dt { color: var(--muted); font-size: 13px; }
+.stats dd { margin: 0; font-family: var(--font-mono); font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; }
+.stats .note { grid-column: 1 / -1; color: var(--muted); font-size: 12px; margin-top: -4px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+details { border-top: 1px solid var(--line); padding-top: 12px; }
+summary { font-family: var(--font-display); font-weight: 600; font-size: 15px; cursor: pointer; }
+details p { margin: 8px 0 0; max-width: 62ch; }
+.foot { color: var(--muted); font-size: 12px; }
+.hint {
+  position: absolute; left: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); font-size: 12px; color: var(--muted);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; pointer-events: none;
+}
+@media (max-width: 760px) {
+  .app { grid-template-columns: 1fr; grid-template-rows: 62vh auto; height: auto; }
+  .scope { order: -1; min-height: 360px; }
+  .rail { border-right: 0; border-top: 1px solid var(--line); overflow: visible; padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="app">
+  <aside class="rail">
+    <header>
+      <h1>Residual Stream Explorer</h1>
+      <p class="sub">The shape of Qwen3.5-0.8B's internal state, layer by layer. Every dot is one token.</p>
+    </header>
+
+    <section aria-labelledby="where">
+      <p class="eyebrow" id="where">You are looking at</p>
+      <div class="readout"><span class="big" id="siteTitle">Layer 0</span><span class="chip" id="siteChip">DeltaNet</span></div>
+      <p class="sub" id="siteSub"></p>
+    </section>
+
+    <section aria-label="Depth">
+      <div class="strip" id="strip" role="group" aria-label="Jump to a point in the model"></div>
+      <div class="strip-key"><span>embedding</span><span>layer 12</span><span>output</span></div>
+      <div class="nav" style="margin-top:10px">
+        <button class="btn" id="prev" aria-label="Previous point">◀</button>
+        <input type="range" id="site" min="0" max="48" value="0" aria-label="Point in the model">
+        <button class="btn" id="next" aria-label="Next point">▶</button>
+        <button class="btn" id="play">Play</button>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="View options">
+      <div class="row"><label>View</label>
+        <div class="seg" id="viewSeg"><button aria-pressed="true" data-v="cloud">Cloud at this point</button><button aria-pressed="false" data-v="paths">Paths through depth</button></div>
+      </div>
+      <div class="row"><label>Fitted sheet</label>
+        <div class="seg" id="sheetSeg"><button aria-pressed="true" data-s="on">Show</button><button aria-pressed="false" data-s="off">Hide</button></div>
+      </div>
+      <div class="row"><label>Color by</label>
+        <div class="seg" id="colorSeg"><button aria-pressed="true" data-c="domain">Text type</button><button aria-pressed="false" data-c="pos">Position in text</button></div>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+
+    <section class="explain" aria-labelledby="whatH">
+      <p class="eyebrow" id="whatH">What happens here</p>
+      <div id="explain"></div>
+    </section>
+
+    <section aria-labelledby="numH">
+      <p class="eyebrow" id="numH">Measured at this point</p>
+      <dl class="stats" id="stats"></dl>
+    </section>
+
+    <details open>
+      <summary>How to read this</summary>
+      <p>Inside the model, each token is a list of 1,024 numbers, a point in a 1,024-dimensional space. You can't draw that, so the view picks the 3 directions along which the tokens differ most at this point (principal components) and plots each token's position along them.</p>
+      <p><strong>This is a shadow.</strong> Those 3 directions hold only about an eighth of the real spread; reaching 90% takes around 500 of the 1,024 directions. Clumps and arms you see are real, but points that look close may be far apart in directions you can't see.</p>
+      <p><strong>Why it's a cloud, not a surface.</strong> A smooth sheet is 2-dimensional. This manifold is about 10 to 16 dimensional (see "Intrinsic dimension"), curved through 1,024 dimensions. The shadow of something that thick fills in like a solid, the way the shadow of a crumpled paper ball is filled even though the paper is thin.</p>
+      <p><strong>The fitted sheet</strong> is a smooth surface that predicts direction 3 from directions 1 and 2, estimated from the dots. It is the curve-approximation idea in miniature: guess a dropped direction from the kept ones. The readout says how much of direction 3 it explains. High means the cloud really is sheet-like here; low means the sheet is mostly fiction.</p>
+      <p>The cloud is rotated at each step to line up with the step before, so as you move through the layers the motion you see is the representation changing, not the camera spinning.</p>
+      <p><strong>Paths through depth</strong> follows 40 tokens through all 49 points on one shared set of axes. Each line is one token's journey from its embedding to the output; the bright dots mark where they are at the selected point.</p>
+    </details>
+
+    <details>
+      <summary>Why this matters</summary>
+      <p>This view comes from an experiment on shrinking models. If the tokens only used a few directions, you could cut the model's width almost for free. They don't: the spread is wide. But it isn't random either. The measurements below show that part of what a width cut throws away can be predicted from what it keeps, because the cloud is curved rather than flat. That predictable part is the "curve" a smaller model would need to learn.</p>
+    </details>
+
+    <p class="foot">Qwen3.5-0.8B, 33,726 tokens of encyclopedia text, Python, grade-school maths, tool-calling chat, and a code-recall task. 1,500 tokens shown, the same ones at every point.</p>
+  </aside>
+  <main class="scope">
+    <div id="plot" role="img" aria-label="3D scatter of token states"></div>
+    <div class="hint">Drag to rotate · scroll to zoom · right-drag to pan · hover a dot</div>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.33.0/plotly.min.js"></script>
+<script id="viz-data" type="application/json">/*__DATA__*/</script>
+<script>
+const D = JSON.parse(document.getElementById("viz-data").textContent);
+const N_SITES = D.sites.length;
+const DOMS = ["prose", "code", "math", "chat", "copy"];
+const DOM_NAMES = { prose: "Encyclopedia text", code: "Python code", math: "Maths word problems", chat: "Tool-calling chat", copy: "Code-recall task" };
+const state = { site: 0, view: "cloud", color: "domain", sheet: "on", playing: null };
+const sheetCache = {};
+
+// Kernel-smoothed surface z = f(x, y) on a grid, plus leave-one-out R² of predicting z at the points.
+function fitSheet(s) {
+  if (sheetCache[s]) return sheetCache[s];
+  const xyz = D.sites[s].xyz, n = xyz.length, h2 = 2 * 0.35 * 0.35, G = 46, R = 3.0;
+  const gx = Array.from({ length: G }, (_, i) => -R + (2 * R * i) / (G - 1));
+  const z = gx.map(() => new Array(G).fill(null));
+  for (let a = 0; a < G; a++) for (let b = 0; b < G; b++) {
+    let sw = 0, sz = 0;
+    for (let k = 0; k < n; k++) {
+      const dx = xyz[k][0] - gx[b], dy = xyz[k][1] - gx[a];
+      const w = Math.exp(-(dx * dx + dy * dy) / h2);
+      sw += w; sz += w * xyz[k][2];
+    }
+    z[a][b] = sw > 1.5 ? sz / sw : null;
+  }
+  let ss = 0, st = 0, mz = 0;
+  for (const p of xyz) mz += p[2] / n;
+  for (let k = 0; k < n; k++) {
+    let sw = 0, sz = 0;
+    for (let j = 0; j < n; j++) {
+      if (j === k) continue;
+      const dx = xyz[j][0] - xyz[k][0], dy = xyz[j][1] - xyz[k][1];
+      const w = Math.exp(-(dx * dx + dy * dy) / h2);
+      sw += w; sz += w * xyz[j][2];
+    }
+    const pred = sw > 1e-9 ? sz / sw : mz;
+    ss += (xyz[k][2] - pred) ** 2; st += (xyz[k][2] - mz) ** 2;
+  }
+  return (sheetCache[s] = { x: gx, y: gx, z, r2: 1 - ss / st });
+}
+
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+function parseSite(s) {
+  const name = D.sites[s].name;
+  if (name === "final") return { layer: 24, phase: "final", type: "final" };
+  const m = name.match(/^L(\d+)\.(in|mid)\((gdn|attn)\)$/);
+  return { layer: +m[1], phase: m[2], type: m[3] };
+}
+
+function pct(x) { return (100 * x).toFixed(1) + "%"; }
+
+function siteText(s) {
+  const p = parseSite(s);
+  const mixer = p.type === "attn" ? "full attention" : "a DeltaNet mixer";
+  if (p.type === "final") return {
+    title: "Output", chip: "Final", sub: "After all 24 layers",
+    body: ["This is the state after all 24 layers, just before the output layer turns it into probabilities for the next token.",
+           "Notice how the cloud spreads out again here: the model needs room to separate the many different words it could say next."] };
+  if (s === 0) return {
+    title: "Layer 0 · start", chip: "DeltaNet", sub: "The raw token embedding",
+    body: ["This is where every token starts: a fixed list of numbers looked up from a table, one row per word piece. No context has been mixed in yet, so the same word always lands on the same spot.",
+           "Next, layer 0's DeltaNet mixer reads it and starts blending in what came earlier in the text."] };
+  const typeName = p.type === "attn" ? "Attention" : "DeltaNet";
+  if (p.phase === "in") return {
+    title: `Layer ${p.layer} · before mixer`, chip: typeName, sub: `Entering layer ${p.layer} of 24`,
+    body: [`This is the state as it enters layer ${p.layer}. The model's layers come in a repeating pattern: three DeltaNet layers, then one attention layer.`,
+           p.type === "attn"
+             ? "Next, full attention reads it. Attention can look back at every earlier token directly, which is how the model copies exact details like a name or a number from far back."
+             : "Next, a DeltaNet mixer reads it. DeltaNet keeps a fixed-size running memory of the text so far and blends some of it into each token. It's cheaper than attention, but it compresses the past."] };
+  return {
+    title: `Layer ${p.layer} · after mixer`, chip: typeName, sub: `Halfway through layer ${p.layer}`,
+    body: [`This is the state after layer ${p.layer}'s ${mixer} has added its update, just before the layer's MLP.`,
+           "The MLP works on each token on its own, with no view of the other tokens. It's where most of the model's stored knowledge lives: thousands of small pattern detectors that each nudge the state."] };
+}
+
+function statRows(s) {
+  const site = D.sites[s], st = site.stats || {};
+  const rows = [
+    ["Spread shown by these 3 directions", pct(site.var3), "The rest is in directions this view can't draw."],
+    ["Direction 3 explained by the fitted sheet", pct(Math.max(0, fitSheet(s).r2)), "How sheet-like the cloud is in this view. Measured on dots left out of the fit."],
+    ["Directions for 90% of the spread", `${site.k90} of ${D.d}`, null],
+    ["Directions for 99%", `${site.k99} of ${D.d}`, null],
+    ["Typical size of the state", site.norm.toFixed(2), "The stream grows as layers add to it."],
+  ];
+  if (st.idim !== undefined) rows.push(["Intrinsic dimension (estimate)", st.idim, "How many numbers the cloud locally needs. A rough lower bound."]);
+  if (st.kl_quarter !== undefined) rows.push(["Cost of squeezing to 1/4 width here", st.kl_quarter.toFixed(3) + " nats", "Damage to next-token predictions (KL) if only this point is squeezed. Under 0.05 is hard to notice."]);
+  if (st.kl_half !== undefined) rows.push(["Cost of squeezing to 1/2 width here", st.kl_half.toFixed(3) + " nats", null]);
+  if (st.pull_off !== undefined) rows.push(["Error left at the output (off / along the cloud)", `${st.pull_off} / ${st.pull_on}`, "Nudge the state 10% here and see what fraction survives to the end. Below 1 means later layers pull it back."]);
+  if (st.own_r2 !== undefined) rows.push([`Layer ${parseSite(s).layer} mixer predictable from the token alone`, pct(st.own_r2), "How much of the mixer's update you could guess without looking at other tokens."]);
+  if (st.sub_kl !== undefined) rows.push(["Replace mixer with that guess / delete it", `${st.sub_kl.toFixed(3)} / ${st.drop_kl.toFixed(3)}`, "KL in nats. The guess is far cheaper than deleting the layer."]);
+  if (st.copy_p99 !== undefined && !Number.isNaN(st.copy_p99)) rows.push(["Worst-case damage to code recall", st.copy_p99.toFixed(3), "Worst 1% of recall answers when the mixer is replaced. High means this layer carries long-range copying."]);
+  return rows;
+}
+
+function render() {
+  const s = state.site, t = siteText(s), p = parseSite(s);
+  document.getElementById("siteTitle").textContent = t.title;
+  const chip = document.getElementById("siteChip");
+  chip.textContent = t.chip; chip.className = "chip " + p.type;
+  document.getElementById("siteSub").textContent = t.sub;
+  document.getElementById("explain").innerHTML = t.body.map(x => `<p>${x}</p>`).join("");
+  document.getElementById("stats").innerHTML = statRows(s).map(([k, v, n]) =>
+    `<dt>${k}</dt><dd>${v}</dd>` + (n ? `<span class="note">${n}</span>` : "")).join("");
+  document.getElementById("site").value = s;
+  document.querySelectorAll("#strip button").forEach((b, i) => b.classList.toggle("on", i === s));
+  renderLegend();
+  draw();
+}
+
+function renderLegend() {
+  const el = document.getElementById("legend");
+  if (state.color === "domain") el.innerHTML = DOMS.map(d => `<span><i style="background:var(--${d})"></i>${DOM_NAMES[d]}</span>`).join("");
+  else el.innerHTML = `<span><i style="background:var(--gdn)"></i>start of text</span><span><i style="background:var(--accent)"></i>end of text (token 511)</span>`;
+}
+
+function hoverText(i) {
+  const l = D.labels[i];
+  const esc = x => x.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  return `<b>${esc(l.t)}</b><br>…${esc(l.c)}<b>${esc(l.t)}</b><br>${DOM_NAMES[l.d]} · token ${l.p}`;
+}
+
+function markerColors() {
+  if (state.color === "domain") return { color: D.labels.map(l => css("--" + l.d)) };
+  return { color: D.labels.map(l => l.p), colorscale: [[0, css("--gdn")], [1, css("--accent")]], cmin: 1, cmax: 511 };
+}
+
+function sceneLayout(range) {
+  const ax = (title) => ({ title: { text: title, font: { color: css("--muted"), size: 11 } }, showticklabels: false,
+    gridcolor: css("--line"), zerolinecolor: css("--line"), showbackground: false, range: [-range, range] });
+  return { xaxis: ax("direction 1"), yaxis: ax("direction 2"), zaxis: ax("direction 3"), aspectmode: "cube", bgcolor: css("--bg") };
+}
+
+const hovers = D.labels.map((_, i) => hoverText(i));
+
+function draw() {
+  const ink = css("--ink"), bg = css("--bg");
+  const layout = {
+    paper_bgcolor: bg, plot_bgcolor: bg, margin: { l: 0, r: 0, t: 0, b: 0 }, showlegend: false, uirevision: state.view,
+    hoverlabel: { bgcolor: css("--surface"), bordercolor: css("--line"), font: { family: "IBM Plex Mono, monospace", color: ink, size: 12 } },
+    font: { family: "IBM Plex Sans, sans-serif", color: ink },
+  };
+  let traces;
+  if (state.view === "cloud") {
+    const xyz = D.sites[state.site].xyz;
+    traces = [{
+      type: "scatter3d", mode: "markers",
+      x: xyz.map(p => p[0]), y: xyz.map(p => p[1]), z: xyz.map(p => p[2]),
+      text: hovers, hovertemplate: "%{text}<extra></extra>",
+      marker: { size: 2.6, opacity: 0.85, ...markerColors() },
+    }];
+    if (state.sheet === "on") {
+      const sh = fitSheet(state.site), acc = css("--accent");
+      traces.unshift({ type: "surface", x: sh.x, y: sh.y, z: sh.z, opacity: 0.32, showscale: false, hoverinfo: "skip",
+        colorscale: [[0, acc], [1, acc]], contours: { z: { show: true, usecolormap: false, color: css("--muted"), width: 1 } },
+        lighting: { ambient: 0.9, diffuse: 0.4, specular: 0.05 } });
+    }
+    layout.scene = sceneLayout(3.2);
+  } else {
+    traces = D.paths.map((path, j) => {
+      const i = D.tracks[j];
+      const col = state.color === "domain" ? css("--" + D.labels[i].d) : css("--muted");
+      return { type: "scatter3d", mode: "lines", x: path.map(p => p[0]), y: path.map(p => p[1]), z: path.map(p => p[2]),
+               line: { color: col, width: 2.5 }, opacity: 0.55, hoverinfo: "skip" };
+    });
+    const at = D.paths.map(p => p[state.site]);
+    traces.push({ type: "scatter3d", mode: "markers", x: at.map(p => p[0]), y: at.map(p => p[1]), z: at.map(p => p[2]),
+      text: D.tracks.map(i => hovers[i]), hovertemplate: "%{text}<extra></extra>",
+      marker: { size: 5, color: css("--accent"), line: { color: ink, width: 0.5 } } });
+    layout.scene = sceneLayout(2.6);
+  }
+  Plotly.react("plot", traces, layout, { responsive: true, displaylogo: false, modeBarButtonsToRemove: ["toImage", "resetCameraLastSave3d"] });
+}
+
+function setSite(s) { state.site = Math.max(0, Math.min(N_SITES - 1, s)); render(); }
+
+const strip = document.getElementById("strip");
+D.sites.forEach((site, i) => {
+  const p = parseSite(i), b = document.createElement("button");
+  b.className = `${p.type} ${p.phase}`;
+  b.title = siteText(i).title;
+  b.setAttribute("aria-label", siteText(i).title);
+  b.onclick = () => setSite(i);
+  strip.appendChild(b);
+});
+document.getElementById("site").addEventListener("input", e => setSite(+e.target.value));
+document.getElementById("prev").onclick = () => setSite(state.site - 1);
+document.getElementById("next").onclick = () => setSite(state.site + 1);
+document.getElementById("play").onclick = (e) => {
+  if (state.playing) { clearInterval(state.playing); state.playing = null; e.target.textContent = "Play"; return; }
+  e.target.textContent = "Pause";
+  state.playing = setInterval(() => setSite(state.site >= N_SITES - 1 ? 0 : state.site + 1), 450);
+};
+function segment(id, key, attr) {
+  document.querySelectorAll(`#${id} button`).forEach(b => b.onclick = () => {
+    document.querySelectorAll(`#${id} button`).forEach(x => x.setAttribute("aria-pressed", x === b));
+    state[key] = b.dataset[attr]; render();
+  });
+}
+segment("viewSeg", "view", "v");
+segment("colorSeg", "color", "c");
+segment("sheetSeg", "sheet", "s");
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT") return;
+  if (e.key === "ArrowRight") setSite(state.site + 1);
+  if (e.key === "ArrowLeft") setSite(state.site - 1);
+});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+render();
+</script>

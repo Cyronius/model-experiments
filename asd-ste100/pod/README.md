@@ -5,15 +5,17 @@ not train a model: the student code is not written yet. Training is a later, che
 
 ## What you do
 
-1. Rent one GPU pod with an image that has the CUDA toolkit (`nvcc` must exist). A 24 GB
-   card is probably enough for the 16.5 GB teacher at Q4_K_M. A 48 GB card is safe. Read
-   the price per hour off the pod page.
+1. Rent one GPU pod with an image that has the CUDA toolkit (`nvcc` must exist), for example
+   `runpod/pytorch:1.0.3-cu1281-torch291-ubuntu2404`. The teacher is Qwen3.6-35B-A3B-FP8 (35 GB)
+   on vLLM, so use a 48 GB card with FP8 support (L40S, RTX 6000 Ada) or an H100. Ask for a
+   driver with CUDA 12.8 or later (`--min-cuda-version 12.8`). Use a volume of 100 GB. Read the
+   price per hour off the pod page.
 2. Open a shell on the pod and run:
 
    ```
-   git clone --depth 1 --branch ccr-822a92e7-k01v1x https://github.com/Cyronius/model-experiments /workspace/repo
+   git clone --depth 1 --branch main https://github.com/Cyronius/model-experiments /workspace/repo
    cd /workspace/repo/asd-ste100/pod
-   RATE=<price per hour> BUDGET=2 bash pod_smoke.sh      # about 20 to 30 minutes
+   RATE=<price per hour> BUDGET=2 bash pod_smoke.sh      # about 25 minutes, about $0.45 on an L40S
    ```
 
 3. Read the last lines. They give measured tokens per second, success rate, and an hours
@@ -38,10 +40,9 @@ not train a model: the student code is not written yet. Training is a later, che
 - Phases are flag-gated and the generators resume, so a stopped run can continue later.
 - The pod bills until you stop it. The script cannot do that for you unless `AUTOSTOP=1`.
 
-## Not verified
+## Known problems
 
-- The model files are found by glob (`*Q4_K_M*`, `*mxfp4*`). The Hugging Face repos were
-  unreachable from where this was written. If a glob matches nothing, the script says so and
-  stops. Fix the glob in `common.sh`.
-- llama.cpp tag `b10673` is copied from `bench/pod_bench.sh`. Newer tags may be needed.
-- Every time estimate is a guess until the smoke session runs.
+- RunPod's nginx listens on port 8081, so the judge uses port 18081.
+- vLLM needs `ninja` and the CUDA toolkit at startup. `phase_vllm` installs ninja into the venv.
+- vLLM fails to start if the judge's `llama-server` still holds GPU memory.
+- `pod_run.sh` has not had a full run yet. Its time estimates come from the smoke session.

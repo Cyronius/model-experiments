@@ -1,0 +1,13 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<01:10,  4.51it/s]Loading weights:  66%|######6   | 212/320 [00:00<00:00, 822.59it/s]Loading weights: 100%|##########| 320/320 [00:00<00:00, 668.31it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    29s] L6: drop-MLP KL 0.1052
+[    55s] L6 k=full random     m=   64: R2 0.036  KL 0.0475
+[    81s] L6 k=full importance m=   64: R2 0.161  KL 0.0391
+[   109s] L6 k=full omp        m=   64: R2 0.157  KL 0.0409
+[   138s] L6 k=full omp_mixed  m=   64: R2 0.150  KL 0.0425  (61/64 teacher)
+[   169s] L6 k=512 random     m=   64: R2 0.055  KL 0.0471
+[   202s] L6 k=512 importance m=   64: R2 0.157  KL 0.0396
+[   233s] L6 k=512 omp        m=   64: R2 0.154  KL 0.0389
+[   267s] L6 k=512 omp_mixed  m=   64: R2 0.151  KL 0.0401  (61/64 teacher)
+[   267s] done

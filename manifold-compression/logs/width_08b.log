@@ -1,0 +1,27 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<00:53,  5.95it/s]Loading weights:  42%|####1     | 133/320 [00:00<00:00, 595.80it/s]Loading weights:  65%|######5   | 208/320 [00:00<00:00, 621.66it/s]Loading weights:  87%|########7 | 279/320 [00:00<00:00, 645.66it/s]Loading weights: 100%|##########| 320/320 [00:00<00:00, 591.83it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    38s] pca done
+[    93s] eval cache built
+[   228s] all-sites k=256: KL 2.7091  shared 5.3234
+[   397s] all-sites k=512: KL 1.3408  shared 2.2399
+[   559s] all-sites k=768: KL 0.4066  shared 0.4652
+[   797s] single L0.in(gdn): k=256:0.4329  k=512:0.1131  k=768:0.0252
+[   988s] single L3.in(attn): k=256:0.1477  k=512:0.0383  k=768:0.0101
+[  1143s] single L6.in(gdn): k=256:0.1138  k=512:0.0233  k=768:0.0065
+[  1288s] single L9.in(gdn): k=256:0.1249  k=512:0.0235  k=768:0.0055
+[  1457s] single L12.in(gdn): k=256:0.1388  k=512:0.0264  k=768:0.0060
+[  1602s] single L15.in(attn): k=256:0.2302  k=512:0.0462  k=768:0.0103
+[  1714s] single L18.in(gdn): k=256:0.3098  k=512:0.0711  k=768:0.0177
+[  1821s] single L21.in(gdn): k=256:0.4458  k=512:0.1000  k=768:0.0231
+[  1892s] single final: k=256:0.6444  k=512:0.1556  k=768:0.0320
+[  3034s] decoders k=256: median val R2 of the cut part -0.044
+[  3108s] mlp all-sites k=256: KL 2.5579
+[  3471s] mlp single k=256: 0:0.3328  6:0.1124  12:0.1138  18:0.1249  24:0.1388  30:0.2302  36:0.3098  42:0.4458  48:0.6444
+[  4235s] decoders k=512: median val R2 of the cut part -0.152
+[  4277s] mlp all-sites k=512: KL 1.3408
+[  4619s] mlp single k=512: 0:0.1131  6:0.0383  12:0.0233  18:0.0235  24:0.0264  30:0.0462  36:0.0711  42:0.1000  48:0.1556
+[  5374s] decoders k=768: median val R2 of the cut part -0.230
+[  5412s] mlp all-sites k=768: KL 0.4066
+[  5617s] mlp single k=768: 0:0.0252  6:0.0101  12:0.0065  18:0.0055  24:0.0060  30:0.0103  36:0.0177  42:0.0231  48:0.0320
+[  5617s] done

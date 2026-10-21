@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model experiments</title>
+<meta name="description" content="Small, cheap language-model experiments: two Qwen prunes on Hugging Face and a 4 MB title model.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%232f5fd0%22/%3E%3Cpath d=%22M9 22l5-6 4 4 5-9%22 stroke=%22white%22 stroke-width=%223%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #fafaf8; --card: #ffffff; --ink: #1d1d1b; --muted: #6b6b66; --line: #e4e3de; --accent: #2f5fd0;
+    --ok: #2e7d4f; --wip: #a86b12; --fail: #b3412f;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #151514; --card: #1e1e1c; --ink: #ecebe6; --muted: #9a9a93; --line: #34342f; --accent: #7aa2ff; --ok: #6cc28f; --wip: #e0a84e; --fail: #ef8a78; }
+  }
+  :root[data-theme="dark"] { --bg: #151514; --card: #1e1e1c; --ink: #ecebe6; --muted: #9a9a93; --line: #34342f; --accent: #7aa2ff; --ok: #6cc28f; --wip: #e0a84e; --fail: #ef8a78; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--font); }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 16px 64px; }
+  h1 { font-size: 30px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; margin: 44px 0 14px; display: flex; align-items: center; gap: 8px; }
+  h2::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--dot); }
+  .ok { --dot: var(--ok); } .wip { --dot: var(--wip); } .fail { --dot: var(--fail); }
+  .lead { color: var(--muted); margin: 0; }
+  a { color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 4px; font-size: 19px; }
+  .card p { margin: 6px 0 0; }
+  .stats { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+  .stats li { font-size: 13px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; color: var(--muted); }
+  .stats b { color: var(--ink); font-weight: 600; }
+  .links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 14px; font-size: 14px; font-weight: 500; }
+  .note { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
+  .list { border-top: 1px solid var(--line); }
+  .item { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .item h3 { margin: 0; font-size: 16px; }
+  .item p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+  code { font-size: 0.92em; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Model experiments</h1>
+  <p class="lead">Small, cheap experiments with language models, mostly aimed at shared-memory hardware: CPU and iGPU boxes with no discrete GPU. Failures are written up as carefully as the wins.</p>
+
+  <h2 class="ok">Successful experiments</h2>
+
+  <div class="card">
+    <h3>Qwen3.6-27B-A2.8B</h3>
+    <p>Qwen3.6-35B-A3B with 10 of its 40 layers removed, then healed with a LoRA run. The heal recovered the quality the cut lost. It keeps the multi-token-prediction (MTP) draft head for speculative decoding.</p>
+    <ul class="stats">
+      <li><b>16.5 / 12 GB</b> GGUF, from 22.9 GB Q4</li>
+      <li><b>$53</b> LoRA heal</li>
+      <li><b>~$80</b> total cloud spend</li>
+    </ul>
+    <div class="links">
+      <a href="https://github.com/Cyronius/model-experiments/blob/main/qwen36-moe/qwen36-27b-a2.8b.md">Write-up</a>
+      <a href="https://github.com/Cyronius/model-experiments/tree/main/qwen36-moe">Code</a>
+      <a href="https://huggingface.co/Cyronius/Qwen3.6-27B-A2.8B">Hugging Face</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Qwen3.8-Flash-Next-131B-A6B</h3>
+    <p>Qwen3.8-Flash-Next spends 51B of its 176B parameters on a hash table of bigrams and trigrams. Removing 87.5% of that table, and nothing else, keeps tool use, GSM8K and MMLU at parity with the full 90 GB quant. No training at all.</p>
+    <ul class="stats">
+      <li><b>64.8 GB</b> GGUF, from 90 GB Q3</li>
+      <li><b>0</b> training steps</li>
+      <li><b>$8</b> total cloud spend</li>
+    </ul>
+    <div class="links">
+      <a href="https://github.com/Cyronius/model-experiments/blob/main/qwen38-flash-next-ngram/qwen38-flash-next-131b-a6b.md">Write-up</a>
+      <a href="https://github.com/Cyronius/model-experiments/tree/main/qwen38-flash-next-ngram">Code</a>
+      <a href="https://huggingface.co/Cyronius/Qwen3.8-Flash-Next-131B-A6B-GGUF">Hugging Face</a>
+    </div>
+  </div>
+
+  <p class="note">The two prunes reached nearly opposite conclusions one model generation apart. On Qwen3.6, layer pruning was survivable and cheap healing recovered it. On Qwen3.8, the same layer cut was fatal without healing, but most of the n-gram table came out for free.</p>
+
+  <div class="card">
+    <h3>titler</h3>
+    <p>A tiny model that turns a prompt into a short title, so a chat app does not need a general-purpose LLM for the job. It is a standard Llama-architecture GGUF with a Rust engine and C, Python, npm and WebAssembly packages.</p>
+    <ul class="stats">
+      <li><b>4 MB</b> GGUF</li>
+      <li><b>5.8M</b> parameters</li>
+      <li><b>15–100 ms</b> on a CPU</li>
+    </ul>
+    <div class="links">
+      <a href="titler/">Try it in your browser</a>
+      <a href="https://github.com/Cyronius/model-experiments/tree/main/titler">Code and write-up</a>
+      <a href="https://github.com/Cyronius/model-experiments/blob/main/titler/app/EMBEDDING.md">Use it in your app</a>
+      <a href="https://huggingface.co/Cyronius/titler">Hugging Face</a>
+    </div>
+  </div>
+
+  <h2 class="wip">In progress</h2>
+  <div class="list">
+    <div class="item">
+      <h3><a href="https://github.com/Cyronius/model-experiments/tree/main/manifold-compression">Manifold compression</a></h3>
+      <p>Project a big model's activations onto a smaller architecture. A Qwen3.5 2B → 0.8B projection beats the stock 0.8B on perplexity, but it loops in open-ended generation.</p>
+    </div>
+    <div class="item">
+      <h3><a href="https://github.com/Cyronius/model-experiments/tree/main/asd-ste100">ASD-STE100 rewriter</a></h3>
+      <p>A tiny editor model that rewrites English into Simplified Technical English. The lexicon, checker and training data are done. The model is not built yet.</p>
+    </div>
+    <div class="item">
+      <h3><a href="https://github.com/Cyronius/model-experiments/tree/main/ternary-embedder">Ternary embedder</a></h3>
+      <p>A text-embedding model with ternary weights, sized for the Strix NPU. It matches all-MiniLM-L6-v2 on STS and trails it on retrieval.</p>
+    </div>
+    <div class="item">
+      <h3><a href="https://github.com/Cyronius/model-experiments/tree/main/npu-kernel-coder">NPU kernel coder</a></h3>
+      <p>Fine-tune a small open MoE to write AMD XDNA2 NPU kernels. Scoping only.</p>
+    </div>
+  </div>
+
+  <h2 class="fail">Failed experiments</h2>
+  <div class="list">
+    <div class="item">
+      <h3><a href="https://github.com/Cyronius/model-experiments/tree/main/mow-nested-width">Mixture of Widths</a></h3>
+      <p>Nested variable-width MLPs with a router did not beat a plain fixed width at any compute level. Mixture-of-experts was not beaten either.</p>
+    </div>
+    <div class="item">
+      <h3><a href="https://github.com/Cyronius/model-experiments/tree/main/ternary">Post-training ternary quantization</a></h3>
+      <p>Every post-training method tried on Qwen3-1.7B collapsed the model. Prism's Ternary-Bonsai keeps its quality because it was fine-tuned, not rounded.</p>
+    </div>
+  </div>
+
+  <footer>
+    <a href="https://github.com/Cyronius/model-experiments">github.com/Cyronius/model-experiments</a> · Code is Apache-2.0.
+  </footer>
+</main>
+</body>
+</html>

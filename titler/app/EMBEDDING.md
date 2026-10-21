@@ -11,13 +11,13 @@ with no telemetry. Pick the way that fits your app:
 | A web page or Node | `titler-wasm` | `npm install titler-wasm-0.1.0.tgz` from the releases |
 | A script or shell | the `titler` command | `titler-<platform>` from the releases |
 
-The model file is `titler-v3-q4_k_m.gguf` in each release and in `app/model/`. The wheel, the npm package and the
+The model file is `titler-v2-q4_k_m.gguf` in each release and in `app/model/`. The wheel, the npm package and the
 command-line tool already contain it.
 
 ## Rust
 
 ```rust
-let titler = titler::Titler::from_path("titler-v3-q4_k_m.gguf")?;   // load once
+let titler = titler::Titler::from_path("titler-v2-q4_k_m.gguf")?;   // load once
 let title = titler.title("how do I sort a list of dicts by a key in python")?;
 ```
 
@@ -29,7 +29,7 @@ the fast setting. For a faster native build, use `titler-llama` (llama.cpp, need
 Header: `capi/include/titler.h`. Library: `titler_c.dll`, `libtitler_c.so` or `libtitler_c.dylib` (and a static library).
 
 ```c
-titler_t *t = titler_new_from_file("titler-v3-q4_k_m.gguf");
+titler_t *t = titler_new_from_file("titler-v2-q4_k_m.gguf");
 char out[256];
 int64_t n = titler_title(t, "how do I sort a list of dicts by a key in python", 0 /* default beams */, out, sizeof out);
 if (n < 0) fprintf(stderr, "%s\n", titler_last_error());

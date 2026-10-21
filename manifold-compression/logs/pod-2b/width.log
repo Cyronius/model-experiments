@@ -1,0 +1,34 @@
+/usr/local/lib/python3.12/dist-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<02:50,  1.87it/s]Loading weights:  34%|███▍      | 110/320 [00:00<00:00, 230.90it/s]Loading weights:  54%|█████▍    | 174/320 [00:01<00:00, 195.50it/s]Loading weights:  68%|██████▊   | 217/320 [00:01<00:00, 199.99it/s]Loading weights:  78%|███████▊  | 251/320 [00:01<00:00, 192.27it/s]Loading weights:  87%|████████▋ | 279/320 [00:01<00:00, 176.35it/s]Loading weights:  95%|█████████▌| 305/320 [00:01<00:00, 189.28it/s]Loading weights: 100%|██████████| 320/320 [00:01<00:00, 175.44it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    52s] pca done
+[    80s] eval cache built; unedited rerun KL 5.76e-07 (storage noise floor)
+[    95s] all-sites k=512: KL 3.1835  shared 4.9152
+[   110s] all-sites k=1024: KL 1.6886  shared 2.0690
+[   126s] all-sites k=1536: KL 0.6881  shared 0.5138
+[   154s] single L0.in(gdn): k=512:0.6206  k=1024:0.3339  k=1536:0.2023
+[   180s] single L2.in(gdn): k=512:0.1922  k=1024:0.0311  k=1536:0.0071
+[   204s] single L4.in(gdn): k=512:0.1699  k=1024:0.0304  k=1536:0.0072
+[   227s] single L6.in(gdn): k=512:0.1620  k=1024:0.0310  k=1536:0.0072
+[   246s] single L8.in(gdn): k=512:0.1326  k=1024:0.0299  k=1536:0.0071
+[   265s] single L10.in(gdn): k=512:0.1273  k=1024:0.0315  k=1536:0.0076
+[   282s] single L12.in(gdn): k=512:0.1322  k=1024:0.0325  k=1536:0.0082
+[   298s] single L14.in(gdn): k=512:0.3063  k=1024:0.0353  k=1536:0.0084
+[   313s] single L16.in(gdn): k=512:0.2364  k=1024:0.0480  k=1536:0.0114
+[   326s] single L18.in(gdn): k=512:0.3233  k=1024:0.0691  k=1536:0.0164
+[   339s] single L20.in(gdn): k=512:0.3855  k=1024:0.0842  k=1536:0.0192
+[   350s] single L22.in(gdn): k=512:0.4589  k=1024:0.1000  k=1536:0.0227
+[   359s] single final: k=512:0.7272  k=1024:0.1786  k=1536:0.0353
+[   659s] decoders k=512: median val R2 of the cut part 0.152
+[   674s] mlp all-sites k=512: KL 2.3982
+[   758s] mlp single k=512: 0:0.4141  4:0.0988  8:0.0815  12:0.0814  16:0.0754  20:0.0817  24:0.0879  28:0.2021  32:0.1362  36:0.2086  40:0.2639  44:0.3314  48:0.5610
+[  1092s] decoders k=1024: median val R2 of the cut part 0.064
+[  1104s] mlp all-sites k=1024: KL 1.2677
+[  1177s] mlp single k=1024: 0:0.2978  4:0.0222  8:0.0220  12:0.0224  16:0.0218  20:0.0240  24:0.0253  28:0.0278  32:0.0376  36:0.0540  40:0.0663  44:0.0833  48:0.1476
+[  1563s] decoders k=1536: median val R2 of the cut part -0.004
+[  1574s] mlp all-sites k=1536: KL 0.4755
+[  1658s] mlp single k=1536: 0:0.0423  4:0.0056  8:0.0058  12:0.0057  16:0.0058  20:0.0076  24:0.0082  28:0.0084  32:0.0094  36:0.0164  40:0.0192  44:0.0227  48:0.0353
+[  1658s] done
+[W1018 13:13:36.752624382 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

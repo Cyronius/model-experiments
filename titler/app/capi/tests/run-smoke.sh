@@ -10,11 +10,11 @@ case "$(uname -s)" in
     # Needs a Visual Studio developer shell (cl.exe and the Windows headers on the path).
     cl -nologo -Icapi/include -DTITLER_DLL_IMPORT capi/tests/smoke.c target/release/titler_c.dll.lib -Fe:"$out/smoke.exe" -Fo:"$out/"
     cp target/release/titler_c.dll "$out/"
-    "$out/smoke.exe" model/titler-v3-q4_k_m.gguf ;;
+    "$out/smoke.exe" model/titler-v2-q4_k_m.gguf ;;
   Darwin)
     cc -Icapi/include capi/tests/smoke.c -Ltarget/release -ltitler_c -o "$out/smoke"
-    DYLD_LIBRARY_PATH=target/release "$out/smoke" model/titler-v3-q4_k_m.gguf ;;
+    DYLD_LIBRARY_PATH=target/release "$out/smoke" model/titler-v2-q4_k_m.gguf ;;
   *)
     cc -Icapi/include capi/tests/smoke.c -Ltarget/release -ltitler_c -o "$out/smoke"
-    LD_LIBRARY_PATH=target/release "$out/smoke" model/titler-v3-q4_k_m.gguf ;;
+    LD_LIBRARY_PATH=target/release "$out/smoke" model/titler-v2-q4_k_m.gguf ;;
 esac

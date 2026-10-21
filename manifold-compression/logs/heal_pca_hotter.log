@@ -1,0 +1,63 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<00:38,  8.38it/s]Loading weights:  47%|████▋     | 151/320 [00:00<00:00, 555.69it/s]Loading weights:  62%|██████▏   | 199/320 [00:00<00:00, 526.14it/s]Loading weights:  77%|███████▋  | 247/320 [00:00<00:00, 500.68it/s]Loading weights:  92%|█████████▏| 294/320 [00:00<00:00, 488.28it/s]Loading weights: 100%|██████████| 320/320 [00:00<00:00, 446.98it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+320 fit sequences, T=512, d=1024, k=256, warp=False
+pass 1: fit the compressors on the teacher stream
+  site 1 fitted  0s
+  site 9 fitted  2s
+  site 17 fitted  4s
+  site 25 fitted  6s
+  site 33 fitted  8s
+  site 41 fitted  10s
+before healing: KL 3.4495  copy 2.7796
+pass 2: heal
+half-layer 0: loss 0.424 -> 0.314  65s
+half-layer 1: loss 0.372 -> 0.237  89s  KL after layer 0: 0.5810
+half-layer 2: loss 0.337 -> 0.363  146s
+half-layer 3: loss 0.330 -> 0.305  170s  KL after layer 1: 0.6854
+half-layer 4: loss 0.366 -> 0.286  229s
+half-layer 5: loss 0.339 -> 0.320  253s  KL after layer 2: 0.7659
+half-layer 6: loss 0.386 -> 0.326  298s
+half-layer 7: loss 0.409 -> 0.403  323s  KL after layer 3: 1.0837
+half-layer 8: loss 0.382 -> 0.323  383s
+half-layer 9: loss 0.371 -> 0.296  407s  KL after layer 4: 0.8984
+half-layer 10: loss 0.345 -> 0.328  466s
+half-layer 11: loss 0.312 -> 0.312  491s  KL after layer 5: 0.9446
+half-layer 12: loss 0.360 -> 0.302  550s
+half-layer 13: loss 0.323 -> 0.291  575s  KL after layer 6: 0.9553
+half-layer 14: loss 0.310 -> 0.307  621s
+half-layer 15: loss 0.305 -> 0.294  645s  KL after layer 7: 0.8033
+half-layer 16: loss 0.317 -> 0.287  704s
+half-layer 17: loss 0.288 -> 0.289  728s  KL after layer 8: 0.8221
+half-layer 18: loss 0.302 -> 0.281  786s
+half-layer 19: loss 0.297 -> 0.261  811s  KL after layer 9: 0.8282
+half-layer 20: loss 0.319 -> 0.297  869s
+half-layer 21: loss 0.247 -> 0.268  892s  KL after layer 10: 0.8431
+half-layer 22: loss 0.304 -> 0.299  938s
+half-layer 23: loss 0.295 -> 0.285  962s  KL after layer 11: 0.8527
+half-layer 24: loss 0.305 -> 0.276  1021s
+half-layer 25: loss 0.315 -> 0.272  1046s  KL after layer 12: 0.9046
+half-layer 26: loss 0.333 -> 0.311  1104s
+half-layer 27: loss 0.331 -> 0.270  1129s  KL after layer 13: 0.9829
+half-layer 28: loss 0.305 -> 0.309  1187s
+half-layer 29: loss 0.326 -> 0.280  1212s  KL after layer 14: 1.1037
+half-layer 30: loss 0.356 -> 0.318  1257s
+half-layer 31: loss 0.370 -> 0.314  1280s  KL after layer 15: 1.1626
+half-layer 32: loss 0.325 -> 0.315  1339s
+half-layer 33: loss 0.325 -> 0.310  1363s  KL after layer 16: 1.2586
+half-layer 34: loss 0.351 -> 0.350  1420s
+half-layer 35: loss 0.314 -> 0.348  1444s  KL after layer 17: 1.3475
+half-layer 36: loss 0.341 -> 0.319  1502s
+half-layer 37: loss 0.333 -> 0.337  1526s  KL after layer 18: 1.4025
+half-layer 38: loss 0.414 -> 0.323  1572s
+half-layer 39: loss 0.357 -> 0.368  1596s  KL after layer 19: 1.5181
+half-layer 40: loss 0.359 -> 0.298  1654s
+half-layer 41: loss 0.333 -> 0.357  1678s  KL after layer 20: 1.6539
+half-layer 42: loss 0.400 -> 0.316  1736s
+half-layer 43: loss 0.357 -> 0.336  1760s  KL after layer 21: 1.6322
+half-layer 44: loss 0.378 -> 0.334  1818s
+half-layer 45: loss 0.382 -> 0.526  1842s  KL after layer 22: 1.9655
+half-layer 46: loss 0.660 -> 0.388  1888s
+half-layer 47: loss 0.421 -> 0.445  1912s  KL after layer 23: 2.4250
+ALL SITES after healing: KL 2.4250  prose 1.6500  code 3.3198  math 1.7887  chat 3.1774  copy 0.5400
+before healing:          KL 3.4495  prose 2.3323  code 4.5257  math 2.5379  chat 4.4860  copy 2.7796

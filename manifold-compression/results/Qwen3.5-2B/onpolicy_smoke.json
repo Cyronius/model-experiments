@@ -1,0 +1,56 @@
+{
+ "args": {
+  "model": "Qwen/Qwen3.5-2B",
+  "n_fit": 1,
+  "n_eval": 1,
+  "n_eval_copy": 1,
+  "rich": false,
+  "stride": 16,
+  "bs": 2,
+  "threads": 12,
+  "student": "Qwen/Qwen3.5-0.8B",
+  "tokens": 60.0,
+  "rollouts": 2,
+  "max_new": 24,
+  "micro": 2,
+  "lr": 1e-05,
+  "think_frac": 0.3,
+  "checkpoints": "30",
+  "n_check": 2,
+  "check_max": 24,
+  "out": "C:/Users/josha/AppData/Local/Temp/claude/c--code-model-experiments/a8f8b3fb-8091-4461-806b-0d4461e0f94d/scratchpad/op_smoke",
+  "tag": "_smoke"
+ },
+ "health": [
+  {
+   "tokens": 0,
+   "cap_rate": 1.0,
+   "loop_rate": 0.0,
+   "kl": 0.27896931767463684,
+   "sample": "Subject: Re: Application for [Job Title] \u2013 [Your Name]\n\nDear [Hiring Manager's Name],"
+  },
+  {
+   "tokens": 48,
+   "cap_rate": 1.0,
+   "loop_rate": 0.0,
+   "kl": 0.290067195892334,
+   "sample": "**Subject:** Follow-Up: Application for [Job Title] \u2013 [Your Name]\n\nDear [Hiring Manager's"
+  }
+ ],
+ "steps": [
+  {
+   "step": 1,
+   "tokens": 48,
+   "kl": 0.7422041296958923,
+   "think": false,
+   "mean_len": 24.0
+  },
+  {
+   "step": 2,
+   "tokens": 96,
+   "kl": 0.03329698368906975,
+   "think": true,
+   "mean_len": 24.0
+  }
+ ]
+}

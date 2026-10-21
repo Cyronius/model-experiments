@@ -1,0 +1,47 @@
+/usr/local/lib/python3.12/dist-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<04:44,  1.12it/s]Loading weights:  37%|███▋      | 119/320 [00:00<00:01, 163.51it/s]Loading weights:  58%|█████▊    | 187/320 [00:01<00:00, 150.13it/s]Loading weights:  72%|███████▏  | 231/320 [00:01<00:00, 164.05it/s]Loading weights:  83%|████████▎ | 266/320 [00:01<00:00, 149.48it/s]Loading weights:  92%|█████████▏| 293/320 [00:02<00:00, 164.33it/s]Loading weights: 100%|██████████| 320/320 [00:02<00:00, 158.92it/s]Loading weights: 100%|██████████| 320/320 [00:02<00:00, 139.76it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    26s] eval cache built
+[    63s] L0 linear  R2 lin 0.859 mlp 0.866  KL predict 0.1026 drop 8.0761  copy p99 predict 0.805
+[   100s] L1 linear  R2 lin 0.458 mlp 0.537  KL predict 0.0492 drop 0.1233  copy p99 predict 0.446
+[   139s] L2 linear  R2 lin 0.521 mlp 0.586  KL predict 0.0304 drop 0.2117  copy p99 predict 0.288
+[   172s] L3 full_a  R2 lin 0.525 mlp 0.590  KL predict 0.0176 drop 0.0725  copy p99 predict 0.249
+[   208s] L4 linear  R2 lin 0.461 mlp 0.524  KL predict 0.0174 drop 0.0446  copy p99 predict 0.143
+[   241s] L5 linear  R2 lin 0.439 mlp 0.498  KL predict 0.0185 drop 0.0483  copy p99 predict 0.157
+[   273s] L6 linear  R2 lin 0.421 mlp 0.468  KL predict 0.0201 drop 0.0605  copy p99 predict 0.188
+[   303s] L7 full_a  R2 lin 0.544 mlp 0.573  KL predict 0.0136 drop 0.0444  copy p99 predict 0.093
+[   335s] L8 linear  R2 lin 0.434 mlp 0.466  KL predict 0.0113 drop 0.0235  copy p99 predict 0.113
+[   364s] L9 linear  R2 lin 0.465 mlp 0.492  KL predict 0.0123 drop 0.0301  copy p99 predict 0.079
+[   396s] L10 linear  R2 lin 0.448 mlp 0.468  KL predict 0.0184 drop 0.0476  copy p99 predict 0.206
+[   423s] L11 full_a  R2 lin 0.469 mlp 0.503  KL predict 0.0148 drop 0.0375  copy p99 predict 0.847
+[   448s] L12 linear  R2 lin 0.493 mlp 0.540  KL predict 0.0141 drop 0.0363  copy p99 predict 0.077
+[   472s] L13 linear  R2 lin 0.459 mlp 0.509  KL predict 0.0187 drop 0.0416  copy p99 predict 0.089
+[   497s] L14 linear  R2 lin 0.482 mlp 0.532  KL predict 0.0192 drop 0.0466  copy p99 predict 0.396
+[   522s] L15 full_a  R2 lin 0.375 mlp 0.428  KL predict 0.0458 drop 0.1028  copy p99 predict 0.428
+[   547s] L16 linear  R2 lin 0.581 mlp 0.663  KL predict 0.0233 drop 0.0591  copy p99 predict 0.090
+[   574s] L17 linear  R2 lin 0.506 mlp 0.615  KL predict 0.0155 drop 0.0434  copy p99 predict 0.069
+[   599s] L18 linear  R2 lin 0.503 mlp 0.614  KL predict 0.0162 drop 0.0401  copy p99 predict 0.041
+[   625s] L19 full_a  R2 lin 0.346 mlp 0.386  KL predict 0.0371 drop 0.0692  copy p99 predict 0.235
+[   651s] L20 linear  R2 lin 0.576 mlp 0.662  KL predict 0.0130 drop 0.0374  copy p99 predict 0.263
+[   676s] L21 linear  R2 lin 0.585 mlp 0.672  KL predict 0.0111 drop 0.0449  copy p99 predict 0.353
+[   699s] L22 linear  R2 lin 0.617 mlp 0.694  KL predict 0.1373 drop 0.1456  copy p99 predict 0.196
+[   729s] L23 full_a  R2 lin 0.813 mlp 0.854  KL predict 0.0156 drop 0.1903  copy p99 predict 0.138
+[   754s] greedy +L21 (linear): 1 substituted, KL 0.0111  copy p99 0.352
+[   778s] greedy +L8 (linear): 2 substituted, KL 0.0225  copy p99 0.465
+[   800s] greedy +L20 (linear): 3 substituted, KL 0.0367  copy p99 0.597
+[   821s] greedy +L7 (full_a): 4 substituted, KL 0.0520  copy p99 0.745
+[   843s] greedy +L9 (linear): 5 substituted, KL 0.0706  copy p99 1.018
+[   866s] greedy +L12 (linear): 6 substituted, KL 0.0944  copy p99 1.152
+[   888s] greedy +L23 (full_a): 7 substituted, KL 0.1153  copy p99 1.223
+[   910s] greedy +L18 (linear): 8 substituted, KL 0.1405  copy p99 1.251
+[   933s] greedy +L4 (linear): 9 substituted, KL 0.1691  copy p99 1.463
+[   956s] greedy +L17 (linear): 10 substituted, KL 0.2059  copy p99 1.705
+[   980s] greedy +L11 (full_a): 11 substituted, KL 0.2464  copy p99 2.522
+[  1002s] greedy +L5 (linear): 12 substituted, KL 0.2984  copy p99 2.639
+[  1026s] greedy +L10 (linear): 13 substituted, KL 0.3598  copy p99 2.851
+[  1050s] greedy +L3 (full_a): 14 substituted, KL 0.4370  copy p99 4.275
+[  1076s] greedy +L13 (linear): 15 substituted, KL 0.5387  copy p99 5.171
+[  1076s] done
+[W1018 13:32:03.642715080 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

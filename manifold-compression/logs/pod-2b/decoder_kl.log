@@ -1,0 +1,12 @@
+/usr/local/lib/python3.12/dist-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<04:33,  1.17it/s]Loading weights:  42%|████▏     | 134/320 [00:01<00:01, 168.83it/s]Loading weights:  55%|█████▍    | 175/320 [00:01<00:00, 157.45it/s]Loading weights:  64%|██████▍   | 204/320 [00:01<00:00, 154.83it/s]Loading weights:  71%|███████▏  | 228/320 [00:01<00:00, 165.89it/s]Loading weights:  78%|███████▊  | 251/320 [00:01<00:00, 176.67it/s]Loading weights:  86%|████████▌ | 274/320 [00:01<00:00, 157.71it/s]Loading weights:  92%|█████████▏| 294/320 [00:02<00:00, 165.65it/s]Loading weights: 100%|██████████| 320/320 [00:02<00:00, 148.77it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+L6.in(gdn) k=512: KL PCA 0.1610  PCA+decoder 0.0892  (45% lower)
+L6.in(gdn) k=1024: KL PCA 0.0313  PCA+decoder 0.0235  (25% lower)
+L15.in(attn) k=512: KL PCA 0.4082  PCA+decoder 0.3582  (12% lower)
+L15.in(attn) k=1024: KL PCA 0.0613  PCA+decoder 0.0458  (25% lower)
+L20.in(gdn) k=512: KL PCA 0.3812  PCA+decoder 0.2789  (27% lower)
+L20.in(gdn) k=1024: KL PCA 0.0832  PCA+decoder 0.0689  (17% lower)
+[W1018 13:51:22.166024946 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

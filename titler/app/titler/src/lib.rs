@@ -1,7 +1,7 @@
 //! Short titles for prompts, from a 4 MB model that runs on the CPU.
 //!
 //! ```no_run
-//! let titler = titler::Titler::from_path("titler-v3-q4_k_m.gguf")?;
+//! let titler = titler::Titler::from_path("titler-v2-q4_k_m.gguf")?;
 //! println!("{}", titler.title("how do I sort a list of dicts by a key in python")?);
 //! # Ok::<(), titler::Error>(())
 //! ```

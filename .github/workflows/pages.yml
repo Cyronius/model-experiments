@@ -1,8 +1,10 @@
-name: titler website
+name: website
 
 on:
   push:
     tags: ["titler-v*"]
+    branches: [main]
+    paths: ["site/**", ".github/workflows/pages.yml"]
   workflow_dispatch:
 
 permissions:
@@ -28,19 +30,19 @@ jobs:
       - uses: taiki-e/install-action@v2
         with:
           tool: wasm-pack
-      - name: Build the WebAssembly module
+      - name: Build the titler WebAssembly module
         working-directory: titler/app
-        run: wasm-pack build wasm --target web --release --out-dir ../website/dist/pkg --out-name titler_wasm
+        run: wasm-pack build wasm --target web --release --out-dir "$GITHUB_WORKSPACE/_site/titler/pkg" --out-name titler_wasm
       - name: Assemble the site
-        working-directory: titler/app
         run: |
-          cp website/index.html website/worker.js website/dist/
-          cp model/titler-v3-q4_k_m.gguf website/dist/titler.gguf
-          rm -f website/dist/pkg/.gitignore website/dist/pkg/package.json
+          cp site/index.html _site/
+          cp titler/app/website/index.html titler/app/website/worker.js _site/titler/
+          cp titler/app/model/titler-v2-q4_k_m.gguf _site/titler/titler.gguf
+          rm -f _site/titler/pkg/.gitignore _site/titler/pkg/package.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: titler/app/website/dist
+          path: _site
 
   deploy:
     needs: build

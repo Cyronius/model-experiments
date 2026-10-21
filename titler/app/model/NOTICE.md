@@ -1,4 +1,4 @@
-# titler-v3-q4_k_m.gguf
+# titler-v2-q4_k_m.gguf
 
 A 5.84M-parameter Llama model (8 layers, 4,352-token vocabulary), quantized to Q4_K_M. It turns a prompt into a short title.
 

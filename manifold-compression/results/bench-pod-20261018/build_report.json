@@ -1,0 +1,61 @@
+{
+ "model": "Qwen/Qwen3.5-2B",
+ "keep": 0.75,
+ "before": {
+  "prose_ppl": 18.51087760925293,
+  "samples": {
+   "Give me three tips for writing a clear email.": "Here are three essential tips for writing a clear and effective email:\n\n1.  **Be Concise and Get to the Point**\n    Start with a clear subject line that summarizes the purpose of the email. In the body, avoid unnecessary fluff, long-winded introductions, or \"silly\" questions. Get straight to the core message or ask the question you need answered. If you need to provide context, do so briefly at the beginning or end, rather than burying it in a long paragraph.\n\n2.  **Use Clear Structure and Formatting**\n    Break your email down into logical sections using bullet points, numbered lists, or bold text to highlight key information. This makes it much easier for the recipient to scan and digest the content quickly. Ensure there is a",
+   "Write a Python function that checks whether a string is a palindrome.": "```python\ndef is_palindrome(s: str) -> bool:\n    \"\"\"\n    Check whether a string is a palindrome.\n\n    A palindrome reads the same forwards and backwards.\n    This function ignores case and non-alphanumeric characters.\n\n    Parameters\n    ----------\n    s : str\n        The string to check.\n\n    Returns\n    -------\n    bool\n        True if the string is a palindrome (ignoring case and non-alphanumeric),\n        False otherwise.\n    \"\"\"\n    # Normalize: convert to lowercase and keep only alphanumeric characters\n    cleaned = ''.join(ch.lower() for ch in s if ch.isalnum())\n\n    # Compare with its reverse\n    return cleaned == cleaned[::-1]\n\n\n# Example usage:\nif __name__",
+   "A train travels 60 miles in 1.5 hours. What is its average speed? Explain briefly.": "To find the average speed, we use the standard formula:\n\n$$ \\text{Average Speed} = \\frac{\\text{Total Distance}}{\\text{Total Time}} $$\n\n**Step-by-step Calculation:**\n\n1.  **Identify the given values:**\n    *   Total Distance = $60$ miles\n    *   Total Time = $1.5$ hours\n\n2.  **Substitute the values into the formula:**\n    $$ \\text{Average Speed} = \\frac{60}{1.5} $$\n\n3.  **Perform the division:**\n    $$ \\frac{60}{1.5} = \\frac{600}{15} = 40 $$\n\n**Answer:**\nThe average speed of",
+   "What causes the seasons on Earth?": "The primary cause of the seasons on Earth is the **tilt of the Earth's axis** combined with its **revolution around the Sun**.\n\nHere is how this process works:\n\n1.  **The Tilt**: The Earth's axis is tilted at an angle of approximately **23.5 degrees** relative to the plane of its orbit around the Sun. This tilt remains fixed in space as the Earth orbits the Sun.\n2.  **The Orbit**: As the Earth travels along its elliptical orbit, the angle at which sunlight hits different parts of the planet changes throughout the year.\n3.  **The Mechanism**:\n    *   When the Northern Hemisphere is tilted **toward** the Sun (around June 21), it receives more direct sunlight and longer"
+  }
+ },
+ "after": {
+  "kl": {
+   "prose": {
+    "mean": 0.12252890318632126,
+    "p95": 0.4087599515914917,
+    "p99": 1.076661229133606,
+    "n": 4088
+   },
+   "code": {
+    "mean": 0.18040603399276733,
+    "p95": 0.9075730443000793,
+    "p99": 2.275172472000122,
+    "n": 4088
+   },
+   "math": {
+    "mean": 0.07499906420707703,
+    "p95": 0.31463488936424255,
+    "p99": 0.8004162311553955,
+    "n": 4088
+   },
+   "chat": {
+    "mean": 0.28862547874450684,
+    "p95": 1.0642608404159546,
+    "p99": 2.3532652854919434,
+    "n": 4088
+   },
+   "copy": {
+    "mean": 0.050618793815374374,
+    "p95": 0.30110666155815125,
+    "p99": 0.6867562532424927,
+    "n": 512
+   },
+   "all": {
+    "mean": 0.1631173938512802,
+    "p95": 0.6813766956329346,
+    "p99": 1.736899971961975,
+    "n": 16864
+   }
+  },
+  "prose_ppl": 20.709400177001953,
+  "samples": {
+   "Give me three tips for writing a clear email.": "Here are three tips for writing a clear and effective email:\n\n1.  **Keep it Concise and Direct**\n    Avoid overly long paragraphs or complex sentences. Summarize your message quickly so readers can focus on the main point without feeling overwhelmed. Use bullet points or short sentences to make the content easy to read.\n\n2.  **Be Polite and Professional**\n    Maintain a neutral and respectful tone throughout the communication. When addressing a subject, be polite and professional. When addressing a reader, be polite and professional. When addressing a colleague, be polite and professional. When addressing a client, be polite and professional. When addressing a friend, be polite and professional. When addressing a stranger, be polite and professional. When addressing a boss, be polite and professional. When",
+   "Write a Python function that checks whether a string is a palindrome.": "```python\ndef is_palindrome(s):\n    \"\"\"\n    Check whether a string is a palindrome.\n\n    A palindrome is a string that reads the same forwards and backwards.\n    The function handles strings with both letters and numbers.\n\n    Args:\n        s (str): A string to check.\n\n    Returns:\n        bool: True if the string is a palindrome, False otherwise.\n    \"\"\"\n    s = s.lower()\n    return s == s[::-1]\n```\n\n**Example usage:**\n\n```python\nprint(is_palindrome(\"A man, a man, a man, a woman?\"))  # True\nprint(is_palindrome(\"A man, a man, a man, a woman?\"))  # True\nprint(is_pal",
+   "A train travels 60 miles in 1.5 hours. What is its average speed? Explain briefly.": "To find the average speed, we need to divide the distance traveled by the time taken.\n\n**Formula:**\n$$ \\text{Average Speed} = \\frac{\\text{Distance}}{\\text{Time}} $$\n\n**Calculation:**\n$$ \\text{Average Speed} = \\frac{60 \\text{ miles}}{1.5 \\text{ hours}} = 40 \\text{ miles per hour} $$\n\n**Explanation:**\nThe train travels 60 miles in 1.5 hours, which means it covers 40 miles every hour. Therefore, its average speed is 40 mph.\n",
+   "What causes the seasons on Earth?": "The seasons on Earth are caused by the **rotation of the Earth relative to the Sun** and the **angle at which sunlight hits the Earth's surface**.\n\nHere is a breakdown of how this happens:\n\n1.  **Rotation of the Earth**\n    The Earth rotates on its axis, which means that the Earth rotates on its axis. This rotation is caused by the Earth rotating on its axis.\n\n2.  **Angle of Sunlight**\n    The angle at which sunlight hits the Earth's surface is caused by the angle at which sunlight hits the Earth's surface.\n\n3.  **Seasons**\n    The seasons on Earth are caused by the rotation of the Earth relative to the Sun.\n\n4.  **Sunlight**\n    Sunlight is caused by"
+  }
+ },
+ "params": 1655332672
+}

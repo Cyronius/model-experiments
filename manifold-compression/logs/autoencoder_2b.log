@@ -1,0 +1,12 @@
+/usr/local/lib/python3.12/dist-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<03:36,  1.48it/s]Loading weights:  47%|████▋     | 151/320 [00:00<00:00, 261.77it/s]Loading weights:  75%|███████▍  | 239/320 [00:01<00:00, 243.17it/s]Loading weights:  93%|█████████▎| 297/320 [00:01<00:00, 253.88it/s]Loading weights: 100%|██████████| 320/320 [00:01<00:00, 217.21it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+L6.in(gdn) k=128: KL PCA 1.4004  PCA+decoder 0.6474  decoder2x 0.5156  warp 0.2542
+L6.in(gdn) k=512: KL PCA 0.1610  PCA+decoder 0.0875  decoder2x 0.0672  warp 0.0307
+L15.in(attn) k=128: KL PCA 1.8949  PCA+decoder 1.0779  decoder2x 0.9248  warp 0.6092
+L15.in(attn) k=512: KL PCA 0.4082  PCA+decoder 0.3527  decoder2x 0.3255  warp 0.1757
+L20.in(gdn) k=128: KL PCA 2.0436  PCA+decoder 1.3688  decoder2x 1.2198  warp 0.8543
+L20.in(gdn) k=512: KL PCA 0.3812  PCA+decoder 0.2751  decoder2x 0.2340  warp 0.0929
+[W1018 17:25:03.980123451 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

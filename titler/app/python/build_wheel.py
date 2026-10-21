@@ -13,7 +13,7 @@ from pathlib import Path
 HERE = Path(__file__).parent
 TARGET = HERE.parent / "target" / "release"
 LIBS = {"win32": "titler_c.dll", "darwin": "libtitler_c.dylib"}
-MODEL = HERE.parent / "model" / "titler-v3-q4_k_m.gguf"
+MODEL = HERE.parent / "model" / "titler-v2-q4_k_m.gguf"
 
 
 def main() -> None:

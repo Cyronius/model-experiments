@@ -1,0 +1,61 @@
+{
+ "model": "Qwen/Qwen3.5-2B",
+ "keep": 0.5,
+ "before": {
+  "prose_ppl": 18.51087760925293,
+  "samples": {
+   "Give me three tips for writing a clear email.": "Here are three essential tips for writing a clear and effective email:\n\n1.  **Be Concise and Get to the Point**\n    Start with a clear subject line that summarizes the purpose of the email. In the body, avoid unnecessary fluff, long-winded introductions, or \"silly\" questions. Get straight to the core message or ask the question you need answered. If you need to provide context, do so briefly at the beginning or end, rather than burying it in a long paragraph.\n\n2.  **Use Clear Structure and Formatting**\n    Break your email down into logical sections using bullet points, numbered lists, or bold text to highlight key information. This makes it much easier for the recipient to scan and digest the content quickly. Ensure there is a",
+   "Write a Python function that checks whether a string is a palindrome.": "```python\ndef is_palindrome(s: str) -> bool:\n    \"\"\"\n    Check whether a string is a palindrome.\n\n    A palindrome reads the same forwards and backwards.\n    This function ignores case and non-alphanumeric characters.\n\n    Parameters\n    ----------\n    s : str\n        The string to check.\n\n    Returns\n    -------\n    bool\n        True if the string is a palindrome (ignoring case and non-alphanumeric),\n        False otherwise.\n    \"\"\"\n    # Normalize: convert to lowercase and keep only alphanumeric characters\n    cleaned = ''.join(ch.lower() for ch in s if ch.isalnum())\n\n    # Compare with its reverse\n    return cleaned == cleaned[::-1]\n\n\n# Example usage:\nif __name__",
+   "A train travels 60 miles in 1.5 hours. What is its average speed? Explain briefly.": "To find the average speed, we use the standard formula:\n\n$$ \\text{Average Speed} = \\frac{\\text{Total Distance}}{\\text{Total Time}} $$\n\n**Step-by-step Calculation:**\n\n1.  **Identify the given values:**\n    *   Total Distance = $60$ miles\n    *   Total Time = $1.5$ hours\n\n2.  **Substitute the values into the formula:**\n    $$ \\text{Average Speed} = \\frac{60}{1.5} $$\n\n3.  **Perform the division:**\n    $$ \\frac{60}{1.5} = \\frac{600}{15} = 40 $$\n\n**Answer:**\nThe average speed of",
+   "What causes the seasons on Earth?": "The primary cause of the seasons on Earth is the **tilt of the Earth's axis** combined with its **revolution around the Sun**.\n\nHere is how this process works:\n\n1.  **The Tilt**: The Earth's axis is tilted at an angle of approximately **23.5 degrees** relative to the plane of its orbit around the Sun. This tilt remains fixed in space as the Earth orbits the Sun.\n2.  **The Orbit**: As the Earth travels along its elliptical orbit, the angle at which sunlight hits different parts of the planet changes throughout the year.\n3.  **The Mechanism**:\n    *   When the Northern Hemisphere is tilted **toward** the Sun (around June 21), it receives more direct sunlight and longer"
+  }
+ },
+ "after": {
+  "kl": {
+   "prose": {
+    "mean": 0.48979589343070984,
+    "p95": 1.5453161001205444,
+    "p99": 2.7603259086608887,
+    "n": 4088
+   },
+   "code": {
+    "mean": 0.4394124150276184,
+    "p95": 1.705889105796814,
+    "p99": 3.1645054817199707,
+    "n": 4088
+   },
+   "math": {
+    "mean": 0.30985915660858154,
+    "p95": 1.2702035903930664,
+    "p99": 2.6029088497161865,
+    "n": 4088
+   },
+   "chat": {
+    "mean": 0.7560267448425293,
+    "p95": 2.569643259048462,
+    "p99": 4.531098365783691,
+    "n": 4088
+   },
+   "copy": {
+    "mean": 0.1089690625667572,
+    "p95": 0.5941591262817383,
+    "p99": 1.806409239768982,
+    "n": 512
+   },
+   "all": {
+    "mean": 0.4869388937950134,
+    "p95": 1.8058273792266846,
+    "p99": 3.4636752605438232,
+    "n": 16864
+   }
+  },
+  "prose_ppl": 30.47881317138672,
+  "samples": {
+   "Give me three tips for writing a clear email.": "Here are three tips for writing a clear email:\n\n1.  **Keep it concise and scannable**\n    Avoid long paragraphs or complex sentences. Use bullet points, bold headers, and clear language to make the message easy to read. Ensure the reader understands exactly what you are asking or offering.\n\n2.  **Be direct and specific**\n    Clearly state the purpose of your email. Instead of vague details, specify the action, deadline, or feedback you need immediately. Use \"I\" or \"We\" to make the communication personal and actionable.\n\n3.  **End with a strong closing**\n    Conclude your email with a clear call to action or a summary of the next steps. Don't end abruptly; instead, provide a clear next step or resource",
+   "Write a Python function that checks whether a string is a palindrome.": "Here is a Python function that checks whether a string is a palindrome:\n\n```python\ndef is_palindrome(s):\n    \"\"\"\n    Checks whether a string is a palindrome.\n    \n    Args:\n        s (str): A string containing palindromes.\n    \"\"\"\n    if s == s[::-1]:\n        return True\n    return False\n```\n\n### Explanation:\n- **Palindrome Definition**: A palindrome is a string that reads itself as a palindrome. For example, \"A\" is a palindrome, and \"A\" is a palindrome.\n- **Function**: The function checks whether the string is a palindrome by comparing the string with itself reversed.\n- **Example**:\n  - `is_palindrome(\"A\")` returns `True`",
+   "A train travels 60 miles in 1.5 hours. What is its average speed? Explain briefly.": "To calculate the average speed, we need to determine the distance covered and the time elapsed.\n\n**Average Speed Calculation:**\n*   Distance: 60 miles\n*   Time: 1.5 hours\n*   Calculation: $60 \\text{ miles} \\div 1.5 \\text{ hours} = 40 \\text{ miles/hour}$\n\n**Average Speed:**\nThe average speed is **40 miles per hour**.\n\n**Brief Explanation:**\nThe average speed is calculated by dividing the distance traveled by the duration of the journey. Since the train covers 60 miles in 1.5 hours, the speed is divided by the time interval, resulting in a rate of 40 miles per hour.\n",
+   "What causes the seasons on Earth?": "The \"seasons\" on Earth refer to the distinct climatic conditions that occur during the winter, summer, and spring periods. These are not merely biological phenomena but fundamental drivers of human life, economics, and social organization.\n\n### 1. The Economic and Social Driver\nThe primary cause behind these seasons is the **transition of the economy**.\n*   **Labor and Production**: In the winter and summer, the workforce shifts. Workers begin their jobs, often in the heat, while production facilities are completed.\n*   **Labor and Production**: In the winter and summer, the workforce begins their jobs, often in the heat, while production facilities are completed.\n*   **Labor and Production**: In the winter and summer, the workforce begins their jobs, often in the heat,"
+  }
+ },
+ "params": 1428840256
+}

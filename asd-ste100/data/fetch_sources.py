@@ -3,7 +3,8 @@
   python fetch_sources.py --out out/sources.jsonl --n 20000 --md-dir ../..
 
 Needs `datasets` and network for the dolly part; skips it with a warning otherwise.
-Each row: id, text (one sentence up to six), mode (PROC for instructions, DESC otherwise).
+Each row: id, text (one to three sentences, at most 60 words), mode (PROC for instructions, DESC otherwise).
+Short sources match the 64 and 128 token buckets, and the model sees long text split into pieces this size.
 """
 import argparse, hashlib, json, random, re
 from pathlib import Path
@@ -15,7 +16,7 @@ def chunk(text: str, rng: random.Random):
     sents = [s.strip() for s in SENT.split(re.sub(r"\s+", " ", text)) if len(s.split()) >= 4]
     i = 0
     while i < len(sents):
-        k = rng.choice([1, 1, 2, 3, 4, 6])
+        k = rng.choice([1, 1, 1, 2, 2, 3])
         yield " ".join(sents[i:i + k]); i += k
 
 
@@ -25,7 +26,7 @@ def main():
     a = ap.parse_args(); rng = random.Random(a.seed); rows = []
     def add(text, mode):
         text = text.strip()
-        if 5 <= len(text.split()) <= 160:
+        if 5 <= len(text.split()) <= 60:
             rows.append({"id": hashlib.md5(text.encode()).hexdigest()[:12], "text": text, "mode": mode})
     try:
         from datasets import load_dataset

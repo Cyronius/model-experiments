@@ -5,7 +5,7 @@ use std::thread;
 use titler::Titler;
 
 fn model() -> Titler {
-    Titler::from_path(PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../model/titler-v3-q4_k_m.gguf")).unwrap()
+    Titler::from_path(PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../model/titler-v2-q4_k_m.gguf")).unwrap()
 }
 
 #[test]

@@ -1,0 +1,44 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<03:01,  1.76it/s]Loading weights:  57%|#####6    | 181/320 [00:00<00:00, 359.24it/s]Loading weights:  88%|########8 | 283/320 [00:00<00:00, 436.41it/s]Loading weights: 100%|##########| 320/320 [00:00<00:00, 353.55it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (297054 > 262144). Running this sequence through the model will result in indexing errors
+[    35s] eval cache built
+[   202s] L0 linear  R2 lin 0.826 mlp 0.831  KL predict 0.0865 drop 7.6039  copy p99 predict 0.261
+[   416s] L1 linear  R2 lin 0.393 mlp 0.423  KL predict 0.0464 drop 0.1659  copy p99 predict 0.111
+[   627s] L2 linear  R2 lin 0.401 mlp 0.438  KL predict 0.0361 drop 0.2552  copy p99 predict 0.045
+[   830s] L3 full_a  R2 lin 0.496 mlp 0.525  KL predict 0.0216 drop 0.1199  copy p99 predict 0.126
+[  1032s] L4 linear  R2 lin 0.418 mlp 0.437  KL predict 0.0199 drop 0.0480  copy p99 predict 0.071
+[  1229s] L5 linear  R2 lin 0.405 mlp 0.422  KL predict 0.0226 drop 0.0617  copy p99 predict 0.075
+[  1419s] L6 linear  R2 lin 0.348 mlp 0.355  KL predict 0.0256 drop 0.0631  copy p99 predict 0.082
+[  1604s] L7 full_a  R2 lin 0.531 mlp 0.534  KL predict 0.0172 drop 0.0481  copy p99 predict 0.019
+[  1782s] L8 linear  R2 lin 0.432 mlp 0.431  KL predict 0.0122 drop 0.0287  copy p99 predict 0.022
+[  1953s] L9 linear  R2 lin 0.456 mlp 0.455  KL predict 0.0121 drop 0.0384  copy p99 predict 0.048
+[  2093s] L10 linear  R2 lin 0.452 mlp 0.448  KL predict 0.0195 drop 0.1005  copy p99 predict 0.051
+[  2255s] L11 full_a  R2 lin 0.445 mlp 0.455  KL predict 0.0180 drop 0.0482  copy p99 predict 0.036
+[  2422s] L12 linear  R2 lin 0.489 mlp 0.492  KL predict 0.0099 drop 0.0252  copy p99 predict 0.010
+[  2586s] L13 linear  R2 lin 0.461 mlp 0.475  KL predict 0.0157 drop 0.0374  copy p99 predict 0.020
+[  2749s] L14 linear  R2 lin 0.445 mlp 0.461  KL predict 0.0259 drop 0.0701  copy p99 predict 0.121
+[  2908s] L15 full_a  R2 lin 0.359 mlp 0.387  KL predict 0.0624 drop 0.1169  copy p99 predict 0.334
+[  3063s] L16 linear  R2 lin 0.561 mlp 0.618  KL predict 0.0191 drop 0.0591  copy p99 predict 0.018
+[  3209s] L17 linear  R2 lin 0.451 mlp 0.513  KL predict 0.0171 drop 0.0572  copy p99 predict 0.010
+[  3351s] L18 linear  R2 lin 0.494 mlp 0.550  KL predict 0.0159 drop 0.0548  copy p99 predict 0.014
+[  3487s] L19 full_a  R2 lin 0.326 mlp 0.344  KL predict 0.0673 drop 0.1099  copy p99 predict 0.230
+[  3632s] L20 linear  R2 lin 0.554 mlp 0.608  KL predict 0.0167 drop 0.0468  copy p99 predict 0.097
+[  3773s] L21 linear  R2 lin 0.462 mlp 0.531  KL predict 0.0152 drop 0.0533  copy p99 predict 0.125
+[  3906s] L22 linear  R2 lin 0.553 mlp 0.620  KL predict 0.0137 drop 0.0898  copy p99 predict 0.088
+[  4030s] L23 full_a  R2 lin 0.807 mlp 0.832  KL predict 0.0308 drop 0.1833  copy p99 predict 0.306
+[  4137s] greedy +L12 (linear): 1 substituted, KL 0.0099
+[  4254s] greedy +L9 (linear): 2 substituted, KL 0.0253
+[  4367s] greedy +L22 (linear): 3 substituted, KL 0.0402
+[  4523s] greedy +L21 (linear): 4 substituted, KL 0.0596
+[  4664s] greedy +L8 (linear): 5 substituted, KL 0.0802
+[  4776s] greedy +L18 (linear): 6 substituted, KL 0.1001
+[  4891s] greedy +L20 (linear): 7 substituted, KL 0.1337
+[  5005s] greedy +L17 (linear): 8 substituted, KL 0.1722
+[  5117s] greedy +L7 (full_a): 9 substituted, KL 0.2008
+[  5203s] greedy +L11 (full_a): 10 substituted, KL 0.2376
+[  5325s] greedy +L13 (linear): 11 substituted, KL 0.2822
+[  5453s] greedy +L10 (linear): 12 substituted, KL 0.3282
+[  5556s] greedy +L4 (linear): 13 substituted, KL 0.3696
+[  5659s] greedy +L3 (full_a): 14 substituted, KL 0.4204
+[  5766s] greedy +L5 (linear): 15 substituted, KL 0.5043
+[  5767s] done

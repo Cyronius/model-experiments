@@ -6,17 +6,19 @@ set -uo pipefail
 : "${RATE:?set RATE to the pod price in dollars per hour, for example RATE=0.79}"
 BUDGET=${BUDGET:-5}
 W=${W:-/workspace}
-BRANCH=${BRANCH:-ccr-822a92e7-k01v1x}
+BRANCH=${BRANCH:-main}
 REPO_URL=https://github.com/Cyronius/model-experiments
 LLAMA_TAG=b10673                      # same tag bench/pod_bench.sh uses
-VOL_REPO=Cyronius/Qwen3.6-27B-A2.8B   # volume and hard-case teacher
-JUDGE_REPO=ggml-org/gpt-oss-20b-GGUF  # judge, a different lineage
-SLOTS=${SLOTS:-16}
+TEACHER=${TEACHER:-Qwen/Qwen3.6-35B-A3B-FP8}  # volume and hard-case teacher, served by vLLM
+JUDGE_REPO=ggml-org/gpt-oss-20b-GGUF  # judge, a different lineage, served by llama.cpp
+SLOTS=${SLOTS:-16}                    # llama.cpp judge slots
+VSLOTS=${VSLOTS:-64}                  # vLLM concurrent requests
 LOG=$W/run.log
 OUT=$W/ste-out
 mkdir -p "$W/flags" "$OUT"
 [ -f "$W/t0" ] || date +%s > "$W/t0"        # survives a rerun, so cost keeps adding up
 export HF_HUB_ENABLE_HF_TRANSFER=1
+export HF_HOME=$W/hf                  # the volume disk, not the container disk
 export PATH=/usr/local/cuda/bin:$PATH
 
 log(){ echo "[$(date -u +%H:%M:%S)] $*" | tee -a "$LOG"; }
@@ -56,7 +58,7 @@ phase_env(){
   apt-get install -y -qq cmake ccache psmisc > /dev/null 2>&1 || true
   [ -d "$W/repo" ] || git clone -q --depth 1 --branch "$BRANCH" "$REPO_URL" "$W/repo" || fail env
   python3 -I "$W/repo/asd-ste100/lexicon/build_lexicon.py" --fetch | tee -a "$LOG" || fail env
-  [ -d "$W/llama.cpp" ] || git clone -q --depth 1 --branch "$LLAMA_TAG" https://github.com/ggml-org/llama.cpp || fail env
+  [ -d "$W/llama.cpp" ] || git clone -q --depth 1 --branch "$LLAMA_TAG" https://github.com/ggml-org/llama.cpp "$W/llama.cpp" || fail env
   cmake -S "$W/llama.cpp" -B "$W/llama.cpp/build" -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=native \
         -DLLAMA_CURL=OFF -DCMAKE_BUILD_TYPE=Release > /dev/null 2>&1 || fail env
   cmake --build "$W/llama.cpp/build" -j "$(nproc)" --target llama-server 2>&1 | tail -1 || fail env
@@ -77,12 +79,38 @@ fetch_model(){
   log "model file: $MODEL_PATH"
 }
 
-start_server(){   # start_server <model> <port>
-  pkill -f llama-server 2>/dev/null; sleep 2
+phase_vllm(){
+  done_flag vllm && return 0
+  log "=== vllm install ==="
+  pip install -q --break-system-packages uv 2>&1 | tail -1
+  [ -d "$W/venv" ] || uv venv -q "$W/venv" || return 1
+  uv pip install -q --python "$W/venv/bin/python" -U vllm ninja --torch-backend=auto 2>&1 | tail -2
+  "$W/venv/bin/vllm" --version 2>&1 | tail -1 | tee -a "$LOG" || return 1
+  mark vllm
+}
+
+start_vllm(){   # start_vllm <hf repo> <port>
+  # vLLM compiles some kernels at startup and needs ninja and the CUDA toolkit for that.
+  export PATH="$W/venv/bin:$PATH" CUDA_HOME=/usr/local/cuda
+  local extra=""
+  "$W/venv/bin/vllm" serve --help=all 2>/dev/null | grep -q -- "--language-model-only" && extra="--language-model-only"
+  nohup "$W/venv/bin/vllm" serve "$1" --port "$2" --served-model-name x --max-model-len 4096 \
+        --gpu-memory-utilization 0.92 --max-num-seqs "$VSLOTS" --enable-prefix-caching $extra > "$W/vllm-$2.log" 2>&1 &
+  echo $! > "$W/vllm.pid"
+  for _ in $(seq 1 360); do
+    curl -sf "http://127.0.0.1:$2/health" > /dev/null && { log "vllm up on $2 ($1)"; return 0; }
+    kill -0 "$(cat "$W/vllm.pid")" 2>/dev/null || break; sleep 5
+  done
+  log "vllm did not come up; tail of its log:"; tail -15 "$W/vllm-$2.log" | tee -a "$LOG"; return 1
+}
+stop_vllm(){ [ -f "$W/vllm.pid" ] && kill "$(cat "$W/vllm.pid")" 2>/dev/null; sleep 15; true; }
+
+start_server(){   # start_server <model> <port>; RunPod proxies listen on 8081, so use a high port
+  pkill -x llama-server 2>/dev/null; sleep 2
   nohup "$W/llama.cpp/build/bin/llama-server" -m "$1" --port "$2" -ngl 99 -np "$SLOTS" -c $((SLOTS*3072)) \
         --cont-batching > "$W/server-$2.log" 2>&1 &
   for _ in $(seq 1 180); do
-    curl -sf "http://127.0.0.1:$2/health" > /dev/null && { log "server up on $2"; return 0; }; sleep 5
+    curl -sf "http://127.0.0.1:$2/health" | grep -q ok && { log "server up on $2"; return 0; }; sleep 5
   done
   log "server did not come up; tail of its log:"; tail -5 "$W/server-$2.log" | tee -a "$LOG"; return 1
 }
