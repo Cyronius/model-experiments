@@ -45,3 +45,36 @@ opaque alpha.
 - Any input in [-1, 1] of shape (4, 32, 32) gives at most 16 distinct RGB values among
   opaque pixels.
 - Every output alpha is 0 or 255.
+
+### SPRITE-AUGMENT: palette variants preserve sprite structure
+**Applies to:** `sprite-train/augment.py` and `sprite-train/train.py`
+**Verification:** test (`spec/tests/test_augmentation.py`) and preview
+
+Category-only training can vary palettes for weapon, food, structure and nature on the
+fly. It keeps original examples and does not count augmented copies as new designs.
+
+**Acceptance criteria:**
+- Alpha, fully transparent RGB, near-neutral colours and dark outlines are unchanged.
+- Luminance changes by at most uint8 rounding precision (0.501/255).
+- The transform is one palette mapping per sprite: equal RGB values stay equal, and the
+  number of palette colours cannot increase.
+- Non-target categories and probability-zero calls are unchanged; fixed generators
+  reproduce results.
+- The transform runs before conditioning dropout. Caption-conditioned training defaults
+  to no palette swaps and refuses explicit nonzero swaps, to preserve colour labels.
+
+### SPRITE-SAMPLING: training exposure is explicit and reproducible
+**Applies to:** `sprite-train/sampling.py` and `sprite-train/train.py`
+**Verification:** test (`spec/tests/test_sampling.py`), metadata audit and CPU smoke run
+
+- Uniform mode is uniform over images, regardless of category size.
+- Category mode assigns equal labelled mass to populated categories and a configurable
+  unlabelled share (default 10%). Without unlabelled images, labelled mass is normalized.
+- Category-subtype mode divides creature mass equally among populated human, monster,
+  unknown pools. It never infers a known subtype or changes category annotations.
+- Absent categories are skipped; invalid labels and impossible distributions fail.
+- Fixed seed and sampler state reproduce draws, including after checkpoint restoration.
+- Training writes the pool sizes/probabilities and refuses incompatible sampling changes
+  on resume. `--init-from` uses model/EMA weights in a separate run with fresh optimizer
+  and step; subsequent slices resume that run without reinitializing it.
+- Metadata audits are exposure measurements, not unseen validation or design counts.

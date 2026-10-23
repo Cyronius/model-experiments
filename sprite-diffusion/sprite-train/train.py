@@ -3,6 +3,8 @@ import argparse, json, math, os, re, sys, time
 from collections import Counter
 import numpy as np, torch, torch.nn.functional as F
 import dit
+from augment import palette_swap
+from sampling import SpriteSampler
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sprite-data'))
 try:
     from dibsutil import gpu_wanted
@@ -14,6 +16,11 @@ ap = argparse.ArgumentParser()
 ap.add_argument('--data', default='C:/dev/sprite-data/trainset.npz')
 ap.add_argument('--out', required=True)
 ap.add_argument('--device', default='cuda')
+ap.add_argument('--sampling', choices=['uniform', 'category', 'category-subtype'], default='uniform')
+ap.add_argument('--unlabelled-prob', type=float, default=0.1,
+                help='unlabelled image share in balanced modes, before independent CFG dropout')
+ap.add_argument('--sampling-seed', type=int, default=0)
+ap.add_argument('--init-from', help='model and EMA weights for a NEW run; resets optimizer and step')
 ap.add_argument('--hidden', type=int, default=384)
 ap.add_argument('--depth', type=int, default=10)
 ap.add_argument('--patch', type=int, default=2)
@@ -30,7 +37,21 @@ ap.add_argument('--yield-gpu', action='store_true', help='checkpoint and exit 75
 ap.add_argument('--text', action='store_true', help='also condition on the caption words in the training set')
 ap.add_argument('--vocab-min', type=int, default=20)
 ap.add_argument('--max-words', type=int, default=12)
+ap.add_argument('--palette-prob', type=float, default=None,
+                help='palette augmentation chance for weapon/food/structure/nature (default: 0.5; 0 with --text)')
+ap.add_argument('--palette-hue', type=float, default=25.0, help='maximum palette hue rotation in degrees')
 args = ap.parse_args()
+if args.palette_prob is None:
+    args.palette_prob = 0.0 if args.text else 0.5
+if not 0 <= args.palette_prob <= 1 or not 0 <= args.palette_hue <= 180:
+    ap.error('--palette-prob must be in [0,1] and --palette-hue in [0,180]')
+if args.text and args.palette_prob:
+    ap.error('palette swaps contradict caption colour words; use --palette-prob 0 with --text')
+if not 0 <= args.unlabelled_prob <= 1:
+    ap.error('--unlabelled-prob must be in [0,1]')
+if args.init_from and args.text:
+    ap.error('--init-from only supports category-only training')
+
 dev = args.device
 os.makedirs(args.out, exist_ok=True)
 NCAT, NFP = dit.NCAT, dit.NFP
@@ -76,6 +97,12 @@ X = torch.from_numpy(d['sprites'][keep]).permute(0, 3, 1, 2).contiguous().to(dev
 C = torch.from_numpy(d['cat'][keep].astype(np.int64)).to(dev)
 FP = torch.from_numpy(d['fp'][keep].astype(np.int64)).to(dev)
 C[C < 0] = NCAT
+sampler = SpriteSampler(d['cat'][keep], mode=args.sampling,
+                        subtypes=d['creature_subtype'][keep] if 'creature_subtype' in d else None,
+                        unlabelled_prob=args.unlabelled_prob, device=dev, seed=args.sampling_seed)
+sampling_report = dict(mode=args.sampling, seed=args.sampling_seed,
+                       unlabelled_prob=args.unlabelled_prob, pools=sampler.report)
+print('sampling: ' + json.dumps(sampling_report), flush=True)
 T = None
 if args.text:
     allcaps = [re.split(r'[^a-z0-9]+', c.lower()) for c in d['caption']]
@@ -89,6 +116,7 @@ if args.text:
     T = torch.from_numpy(ids[keep].astype(np.int64)).to(dev)
     print(f'caption vocabulary {len(vocab)} words, {float((T > 0).any(1).float().mean()) * 100:.0f}% of sprites have text', flush=True)
 print(f'{len(X)} sprites ({args.frac:.0%} of {len(keep)}), labelled {int((C < NCAT).sum())}', flush=True)
+print(f'palette augmentation: probability {args.palette_prob:g}, hue +/-{args.palette_hue:g} degrees; weapon/food/structure/nature', flush=True)
 
 V = len(vocab) + 1 if args.text else 0
 model = DiT(args.hidden, args.depth, args.patch, V).to(dev)
@@ -101,21 +129,38 @@ step, ck = 0, f'{args.out}/ckpt.pt'
 
 
 def save():
-    torch.save(dict(model=model.state_dict(), ema=ema.state_dict(), opt=opt.state_dict(), step=step, args=vars(args)), ck + '.tmp')
+    torch.save(dict(model=model.state_dict(), ema=ema.state_dict(), opt=opt.state_dict(), step=step, args=vars(args), sampling=sampling_report, sampler_state=sampler.get_state()), ck + '.tmp')
     os.replace(ck + '.tmp', ck)
 
 
 if os.path.exists(ck):
     s = torch.load(ck, map_location=dev)
+    if args.init_from and s.get('args', {}).get('init_from') != args.init_from:
+        ap.error('output checkpoint belongs to a different initialization; choose a fresh output directory')
+    if s.get('sampling', dict(mode='uniform')) != sampling_report:
+        # Legacy checkpoints used uniform draws and did not record sampler state.
+        if 'sampling' in s or args.sampling != 'uniform':
+            ap.error('sampling changed on resume; use --init-from with a fresh output directory')
+    if 'sampler_state' in s:
+        sampler.set_state(s['sampler_state'])
     model.load_state_dict(s['model']); ema.load_state_dict(s['ema']); opt.load_state_dict(s['opt']); step = s['step']
     print(f'resumed at step {step}', flush=True)
+elif args.init_from:
+    s = torch.load(args.init_from, map_location=dev)
+    if s.get('args', {}).get('text', False):
+        ap.error('--init-from only supports category-only checkpoints')
+    model.load_state_dict(s['model']); ema.load_state_dict(s['ema'])
+    print(f'initialized weights from {args.init_from} (source step {s.get("step", "unknown")}); new optimizer, step 0', flush=True)
+with open(f'{args.out}/sampling.json', 'w') as sampling_file:
+    json.dump(sampling_report, sampling_file, indent=2)
 
 def prompts(per_cat, seed):
     # Real captions of random training sprites per category (+ unlabelled), so the prompts are in-distribution.
     g = np.random.default_rng(seed); cats = C.cpu().numpy(); ix = []
     for c in range(NCAT + 1):
         pool = np.nonzero(cats == c)[0]
-        ix += list(g.choice(pool, per_cat, replace=len(pool) < per_cat))
+        if len(pool):
+            ix += list(g.choice(pool, per_cat, replace=len(pool) < per_cat))
     ix = torch.tensor(ix, device=dev)
     return C[ix], torch.full_like(ix, NFP), (T[ix] if T is not None else None)
 
@@ -125,10 +170,12 @@ log = open(f'{args.out}/log.txt', 'a')
 t0, acc = time.time(), torch.zeros((), device=dev)
 start_step = step
 while step < args.steps:
-    idx = torch.randint(len(X), (args.batch,), device=dev)
+    idx = sampler.draw(args.batch)
     x = X[idx].float() / 127.5 - 1
     flip = torch.rand(args.batch, device=dev) < 0.5
     x = torch.where(flip[:, None, None, None], x.flip(-1), x)
+    if args.palette_prob:
+        x = palette_swap(x, C[idx], probability=args.palette_prob, hue_degrees=args.palette_hue)
     cat, fp = C[idx], FP[idx]
     txt = None if T is None else torch.where(torch.rand(args.batch, 1, device=dev) < 0.1, 0, T[idx])
     cat = torch.where(torch.rand(args.batch, device=dev) < 0.1, NCAT, cat)

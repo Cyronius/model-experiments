@@ -1,5 +1,81 @@
 # Sprite diffusion: a tiny 32×32 pixel-art model on the NPU
 
+## Latest work (2026-10-23)
+
+- The October 20 handoff below is historical: the move to model-experiments completed in
+  `9a034e3`, local branch `sprite-diffusion`, worktree `C:\code\model-experiments-sprite`.
+- Owner sampling choice after same-seed 8/16/32/256-step sheets: **16 normal, 8 fast**.
+  Some sprites improved dramatically at 32; the 256-step sheets were worse overall.
+- Existing dataset verified: 383,103 sprites, 165,184 labelled, 217,919 unlabelled.
+  Weak-category labels: structure 4,925, nature 5,244, food 6,309, weapon 7,608.
+- Owner priority: fill those four categories with more good designs. Horizontal flips
+  already run with probability 0.5. Palette swaps approved as additional augmentation.
+- Owner also notes that generated `creature` sheets are almost all people, not monsters.
+  Treat monster coverage as weak too. Keep the single output category, but audit and
+  track human / monster / unknown subtypes separately for acquisition and later sampling;
+  the 100,133 combined creature labels must not be treated as evidence of monster coverage.
+- Added on-the-fly, luminance-preserving palette variation for those four categories:
+  probability 0.5, hue +/-25 degrees, saturation 0.9-1.1. Outlines, neutrals, highlights,
+  alpha and geometry are protected. Text training defaults to no swaps because colour
+  captions must stay correct. Preview command: `sprite-train/preview_augmentation.py`.
+- Augmented variants are **not new distinct designs**. Keep targeted source collection
+  focused on structure/furniture, plants/rocks, actual foods as well as potions, and a
+  wider selection of weapon shapes, plus nonhuman monsters. Previous no-AI exclusions
+  stay in effect. The real-data palette preview also exposes questionable structure and
+  nature labels; clean labels matter alongside count and variety.
+- Training code previously sampled uniformly over all sprites; category/subtype modes
+  are now implemented and tested (see the update below). Acquire genuinely unseen
+  validation packs before the next controlled continuation.
+- Best checkpoint remains `C:\dev\sprite-data\runs\q-p2-cat\ckpt.pt` at 100k training
+  steps. This change does not retrain or replace it.
+- First targeted recovery pass produced a separate pool of **1,056 candidate images**
+  absent from the canonical dataset after exact/horizontal-mirror deduplication:
+  structure 294, nature 35, food 116, weapon 247, monster/animal creatures 364. The
+  filename-family counts are only a design proxy, not verified distinct-design counts.
+  Most came from already-downloaded Dungeon Crawl and food archives: the old global
+  500-per-pack cap had left out many useful native sprites. Kenney's 16px grid also
+  yielded whole 32px trees and beds when its gutters were removed and the authored
+  adjacent cells joined.
+- Source archive provenance, per-image metadata, complete review galleries and the
+  separate NPZ are in `C:\code\model-experiments\artifacts\sprite-data-expansion`.
+  New creature rows retain `creature_subtype=monster`; 84 existing monster images also
+  have subtype annotations. 442 existing-image label repair **candidates** are recorded,
+  not applied. The original pool has not been overwritten or used for new training. Source groups overlap
+  the old dataset, so these packs are not a genuinely unseen validation set.
+- Quality audit: OGA `trees-13` contains 111 original tree PNGs, all larger than 32px
+  (smallest maximum dimension 377px). The old cutter turned that pack into 500 small
+  fragments: 147 labelled nature, 89 creature, 264 unlabelled in the raw shard. Proposed
+  quarantine for the next build is recorded in `proposed-exclusions.json`; the canonical
+  data remains unchanged. New collection excludes masks/shadows, flat auxiliaries,
+  oversized images and ambiguous categories. Nature remains the biggest acquisition gap.
+- Prepared a separate `trainset-expanded.npz` in that artifact directory: 383,660
+  images = 383,103 originals - 499 verified images from the quarantined tree-fragment
+  source group + 1,056 recovered images. Removed labels: nature 147, creature 89,
+  unlabelled 263. The original `C:\dev\sprite-data\trainset.npz` is unchanged.
+- Expanded data retains trusted creature subtypes from pack labels and the new named
+  monster sources: human 1,634, monster 2,144, unknown 96,630. Unknown is deliberate;
+  generated human bias does not establish the subtype of every training sprite.
+  `prepare_training_data.py` and `dataset-preparation.json` record the process.
+
+
+- Continuation tooling update: explicit `uniform` (compatibility default), `category`,
+  and experimental `category-subtype` samplers. Balanced modes allocate 10% unlabelled
+  by default and split the remaining mass equally over populated categories. Subtype
+  mode splits creature mass over populated trusted human / monster / unknown pools,
+  keeping unknowns unknown. No change to the model's single creature output category.
+- Real expanded-data audit: 200k draws per mode, structure/nature each ~11.25% versus
+  ~1.3% under uniform sampling; trusted monster exposure ~3.75% versus 0.56% in subtype
+  mode. This is exposure, not quality or additional designs. Small trusted subtype pools
+  may overfit; compare a matched uniform control with the same augmentation settings.
+- `--init-from` starts a separate category-only run with existing model/EMA weights and
+  fresh optimizer/step; sliced runs resume their own checkpoint. Sampler distribution
+  and RNG state are saved; incompatible sampling changes on resume are rejected.
+- Statistical tests and CPU initialization/resume smoke checks pass. Audit and smoke
+  outputs: `C:\code\model-experiments\artifacts\sprite-training-next`. No real model
+  training has been launched. Unseen validation source acquisition remains outstanding.
+
+---
+
 Status (2026-10-05):
 - Phase 1d is done on branch `feat/sprite-diffusion` (uncommitted): the labeller bake-off
   and the self-training experiment, which was negative.
