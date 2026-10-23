@@ -52,3 +52,25 @@ asd-ste100/pod-out*/
 manifold-compression/results/pod-proj-*/
 manifold-compression/results/pod-onpolicy-*/
 ternary-embedder/tern-embed/
+
+# Local previews, staging copies, smoke fixtures and experiment data exports
+/artifacts/
+.pytest_cache/
+
+# Download caches and compiler logs (source and result summaries stay visible)
+/ternary-embedder/**/cache/
+/ternary-embedder/**/build*.log
+
+# Live pod metadata, process state and runtime/conversion logs
+/manifold-compression/logs/
+/manifold-compression/**/*.log
+/manifold-compression/smoke/*serial-partial*
+
+# Resumable per-case IFEval responses; retain manifests and aggregate results
+/manifold-compression/results/*/*/ifeval/
+
+# Regenerable judge request batches; retain responses, keys, ratings and tallies
+/manifold-compression/smoke/judge/*/coherence_[0-9].json
+/manifold-compression/smoke/judge/*/coherence_[0-9][0-9].json
+/manifold-compression/smoke/judge/*/agreement_[0-9].json
+/manifold-compression/smoke/judge/*/agreement_[0-9][0-9].json
