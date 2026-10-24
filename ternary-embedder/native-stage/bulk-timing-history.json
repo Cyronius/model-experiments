@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-23",
+  "scope": "Full-corpus encoding on a shared machine, tokenizer batch 100, encoder batch 1, cap 128, two CPU threads. First two passes precede the padding isolation fix.",
+  "conditions": "NPU leased with dibs. Whole-machine CPU quietness was not enforced. Background CPU load was 38% after the second pass.",
+  "passes": [
+    {
+      "name": "initial full evaluation",
+      "SciFact_embeddings_per_second": 471.4385818061437,
+      "NFCorpus_embeddings_per_second": 484.3909130173997,
+      "provenance": "Recorded from the first evaluation's report and printed summary before the provenance refresh replaced that report."
+    },
+    {
+      "name": "provenance refresh",
+      "SciFact_embeddings_per_second": 368.0587661032567,
+      "NFCorpus_embeddings_per_second": 361.35237679845693,
+      "provenance": "Full timing profiles and vector hashes retained in fused-retrieval.json. Both retrieval scores reproduced exactly."
+    },
+    {
+      "name": "final padding-isolated build",
+      "build_sha256": {
+        "final.xclbin": "e7e44f5b6b34dde4694f04aa967e89cee01d874aa7c92a79fdc5f9f304988175",
+        "insts.bin": "729fdb9fa3327d7d467a391b289bd7b273ee382c58d4b904a970446e7795c5a7"
+      },
+      "SciFact_embeddings_per_second": 332.83512271926384,
+      "NFCorpus_embeddings_per_second": 326.1493685950895,
+      "provenance": "Full timing profiles retained in final fused-retrieval.json."
+    }
+  ]
+}

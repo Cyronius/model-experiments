@@ -1,0 +1,162 @@
+{
+  "utc": "2026-10-23T20:41:23.790789+00:00",
+  "scope": "Complete hybrid encoder: 12 NPU ternary projections, CPU attention/nonlinear ops/pooling",
+  "checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+  "runtime_dll": "C:\\code\\.oflm-retired-worktrees\\files\\openflowlm-tiny\\open_kernels\\designs\\tiny_planner\\host\\out\\td_npu.dll",
+  "runtime_sha256": "ee63246dbed9bfeacff726f5735a5ce2a099a1953fcf7b5e6df818be0fd53996",
+  "threads": 2,
+  "builds": {
+    "(384, 384)": {
+      "k": 384,
+      "n": 384,
+      "rows": 128,
+      "groups": 1,
+      "weight_residency": "streamed from host for each dispatch",
+      "mlir_aie": "1.4.2",
+      "llvm_aie": "21.0.0.2026080301+c9c5ecb7",
+      "source_sha256": {
+        "projection.cc": "f0dc49f7986f6b343a227354ef101ff0bf264213c9fa47caddbe0e627aa405ed",
+        "array_design.py": "43523c51fa0dedf77ee53bc6163e45e9b6426bbb7eab8ce2dae6fa12cf950e75"
+      },
+      "artifact_sha256": {
+        "final.xclbin": "3c4351626951b9c56e6a52d5ad8d606af24d4c75bd27aa85122bce78c95b924a",
+        "insts.bin": "5db6ab99871c1b6828019159b46f1608a91a832b850aaa3da5ecd45e3020ca81"
+      },
+      "resources": {
+        "cores": 32,
+        "program_text_bytes": 1408,
+        "stack_bytes_per_core": 4096,
+        "activation_buffer_bytes": 1536,
+        "weight_buffer_bytes": 3072,
+        "output_buffer_bytes": 512,
+        "memtile_buffer_bytes_per_column": 8192,
+        "shim_mm2s_channels": 9,
+        "shim_s2mm_channels": 8
+      },
+      "build_seconds": 9.428913399999146
+    },
+    "(384, 1536)": {
+      "k": 384,
+      "n": 1536,
+      "rows": 128,
+      "groups": 1,
+      "weight_residency": "streamed from host for each dispatch",
+      "mlir_aie": "1.4.2",
+      "llvm_aie": "21.0.0.2026080301+c9c5ecb7",
+      "source_sha256": {
+        "projection.cc": "f0dc49f7986f6b343a227354ef101ff0bf264213c9fa47caddbe0e627aa405ed",
+        "array_design.py": "43523c51fa0dedf77ee53bc6163e45e9b6426bbb7eab8ce2dae6fa12cf950e75"
+      },
+      "artifact_sha256": {
+        "final.xclbin": "7a3044e466072329ea9fe4ce763210461f2071c06b30f88e7ec5194e1448bef8",
+        "insts.bin": "ab092f15e4e51a124d45eee464419cb54a08b92b92af7836e1c0e00f50512c5a"
+      },
+      "resources": {
+        "cores": 32,
+        "program_text_bytes": 976,
+        "stack_bytes_per_core": 4096,
+        "activation_buffer_bytes": 1536,
+        "weight_buffer_bytes": 3072,
+        "output_buffer_bytes": 512,
+        "memtile_buffer_bytes_per_column": 8192,
+        "shim_mm2s_channels": 9,
+        "shim_s2mm_channels": 8
+      },
+      "build_seconds": 7.255333199998859
+    },
+    "(1536, 384)": {
+      "k": 1536,
+      "n": 384,
+      "rows": 128,
+      "groups": 6,
+      "weight_residency": "streamed from host for each dispatch",
+      "mlir_aie": "1.4.2",
+      "llvm_aie": "21.0.0.2026080301+c9c5ecb7",
+      "source_sha256": {
+        "projection.cc": "f0dc49f7986f6b343a227354ef101ff0bf264213c9fa47caddbe0e627aa405ed",
+        "array_design.py": "43523c51fa0dedf77ee53bc6163e45e9b6426bbb7eab8ce2dae6fa12cf950e75"
+      },
+      "artifact_sha256": {
+        "final.xclbin": "9c4a8b09fc84d2af37942d0f6c7112d15f7f15e360405e903eb464e456be5ad6",
+        "insts.bin": "82c404d51266f04148497a9b024523a43b1cc4dcea030c19e5ba9fef1a3fad70"
+      },
+      "resources": {
+        "cores": 32,
+        "program_text_bytes": 1504,
+        "stack_bytes_per_core": 4096,
+        "activation_buffer_bytes": 6144,
+        "weight_buffer_bytes": 12288,
+        "output_buffer_bytes": 3072,
+        "memtile_buffer_bytes_per_column": 36864,
+        "shim_mm2s_channels": 9,
+        "shim_s2mm_channels": 8
+      },
+      "build_seconds": 7.750053100000514
+    }
+  },
+  "verification": {
+    "cap8": {
+      "texts": 4,
+      "token_rows": 32,
+      "max_vector_abs_error": 5.960464477539063e-08,
+      "min_cosine": 1.0,
+      "max_state_abs_errors": [
+        0.0,
+        4.76837158203125e-07,
+        4.76837158203125e-07
+      ]
+    },
+    "cap32": {
+      "texts": 4,
+      "token_rows": 128,
+      "max_vector_abs_error": 5.960464477539063e-08,
+      "min_cosine": 1.0,
+      "max_state_abs_errors": [
+        0.0,
+        7.152557373046875e-07,
+        4.76837158203125e-07
+      ]
+    },
+    "cap128": {
+      "texts": 4,
+      "token_rows": 512,
+      "max_vector_abs_error": 8.535571396350861e-07,
+      "min_cosine": 0.9999998807907104,
+      "max_state_abs_errors": [
+        0.0,
+        9.5367431640625e-07,
+        0.00018918514251708984
+      ]
+    }
+  },
+  "benchmarks": [],
+  "verification_profile": {
+    "(384, 384)": {
+      "dispatches": 48,
+      "dispatch_sum_ms": 36.937299999999986,
+      "host_phase_seconds": {
+        "quantize_pack": 0.01046820000919979,
+        "transfer_dispatch": 0.03828240001894301,
+        "dequantize": 0.008992999992187833
+      }
+    },
+    "(384, 1536)": {
+      "dispatches": 12,
+      "dispatch_sum_ms": 28.637400000000003,
+      "host_phase_seconds": {
+        "quantize_pack": 0.0018010999956459273,
+        "transfer_dispatch": 0.02912520000973018,
+        "dequantize": 0.010103100004926091
+      }
+    },
+    "(1536, 384)": {
+      "dispatches": 12,
+      "dispatch_sum_ms": 29.206599999999998,
+      "host_phase_seconds": {
+        "quantize_pack": 0.0052424999958020635,
+        "transfer_dispatch": 0.02988780000305269,
+        "dequantize": 0.022490200000902405
+      }
+    }
+  }
+}

@@ -1,0 +1,1024 @@
+{
+  "geometry": {
+    "SciFact": {
+      "minilm": {
+        "mean_pairwise_cosine": 0.10112015903998225,
+        "centered_effective_rank": 152.773553594683,
+        "centered_variance": 0.8987064106908399,
+        "norm_min": 0.9999998594075126,
+        "norm_max": 1.0000001350516685
+      },
+      "float75_float": {
+        "mean_pairwise_cosine": 0.6640067906492949,
+        "centered_effective_rank": 159.76459333671875,
+        "centered_variance": 0.3359283833202629,
+        "norm_min": 0.9999998702789615,
+        "norm_max": 1.0000001288211788
+      },
+      "float75_quant": {
+        "mean_pairwise_cosine": 0.875674451264883,
+        "centered_effective_rank": 78.45488171620241,
+        "centered_variance": 0.12430156361021913,
+        "norm_min": 0.9999998799010578,
+        "norm_max": 1.0000001556754703
+      },
+      "qat150_quant": {
+        "mean_pairwise_cosine": 0.6895813332013789,
+        "centered_effective_rank": 142.81386908393984,
+        "centered_variance": 0.3103587774168541,
+        "norm_min": 0.9999998785634283,
+        "norm_max": 1.0000001433589976
+      },
+      "qat150_float": {
+        "mean_pairwise_cosine": 0.7165848041060616,
+        "centered_effective_rank": 102.85263619798513,
+        "centered_variance": 0.28336051406942886,
+        "norm_min": 0.9999998685040574,
+        "norm_max": 1.0000001231058435
+      },
+      "qat150_weights": {
+        "mean_pairwise_cosine": 0.6903614720974534,
+        "centered_effective_rank": 142.7927215029846,
+        "centered_variance": 0.3095787866179786,
+        "norm_min": 0.9999998775033123,
+        "norm_max": 1.0000001247202268
+      },
+      "qat150_activations": {
+        "mean_pairwise_cosine": 0.7121934116025738,
+        "centered_effective_rank": 104.29879892383265,
+        "centered_variance": 0.2877510585717781,
+        "norm_min": 0.9999998744789121,
+        "norm_max": 1.0000001379456587
+      },
+      "float150_float": {
+        "mean_pairwise_cosine": 0.659038775736514,
+        "centered_effective_rank": 162.40421610339007,
+        "centered_variance": 0.3408954399659675,
+        "norm_min": 0.9999998629660088,
+        "norm_max": 1.00000015181356
+      }
+    },
+    "NFCorpus": {
+      "minilm": {
+        "mean_pairwise_cosine": 0.17788942894176493,
+        "centered_effective_rank": 134.64221771304597,
+        "centered_variance": 0.8218842818507412,
+        "norm_min": 0.9999998614203478,
+        "norm_max": 1.0000001161004606
+      },
+      "float75_float": {
+        "mean_pairwise_cosine": 0.673599203013528,
+        "centered_effective_rank": 160.57548441673134,
+        "centered_variance": 0.3263109542619123,
+        "norm_min": 0.999999883211417,
+        "norm_max": 1.0000001298302794
+      },
+      "float75_quant": {
+        "mean_pairwise_cosine": 0.8809174761284602,
+        "centered_effective_rank": 78.34538370146055,
+        "centered_variance": 0.1190497470784958,
+        "norm_min": 0.999999865349972,
+        "norm_max": 1.0000001227555928
+      },
+      "qat150_quant": {
+        "mean_pairwise_cosine": 0.6950111532232626,
+        "centered_effective_rank": 142.20101217537007,
+        "centered_variance": 0.30490489761837913,
+        "norm_min": 0.9999998712925433,
+        "norm_max": 1.0000001436379338
+      },
+      "qat150_float": {
+        "mean_pairwise_cosine": 0.7290548381569505,
+        "centered_effective_rank": 108.21389134589487,
+        "centered_variance": 0.27087058136716996,
+        "norm_min": 0.9999998685266521,
+        "norm_max": 1.000000142287042
+      },
+      "qat150_weights": {
+        "mean_pairwise_cosine": 0.69567307348598,
+        "centered_effective_rank": 142.18582371724568,
+        "centered_variance": 0.30424315873976243,
+        "norm_min": 0.9999998573880753,
+        "norm_max": 1.0000001172723125
+      },
+      "qat150_activations": {
+        "mean_pairwise_cosine": 0.724201266827236,
+        "centered_effective_rank": 109.71875773122271,
+        "centered_variance": 0.2757228194111974,
+        "norm_min": 0.9999998713290134,
+        "norm_max": 1.000000117608168
+      },
+      "float150_float": {
+        "mean_pairwise_cosine": 0.6682922965255831,
+        "centered_effective_rank": 161.26424113051237,
+        "centered_variance": 0.33161639994326453,
+        "norm_min": 0.99999986273593,
+        "norm_max": 1.0000001249666566
+      }
+    }
+  },
+  "examples": {
+    "SciFact": [
+      {
+        "query_id": "700",
+        "query": "Localization of PIN1 in the Arabidopsis embryo does not require VPS9a",
+        "baseline_relevant_id": "4350400",
+        "baseline_relevant_preview": "Generation of cell polarity in plants links endocytosis, auxin distribution and cell fate decisions Dynamically polarized membrane proteins define different",
+        "student_competitor_id": "4254064",
+        "student_competitor_preview": "Para-aortic splanchnopleura from early mouse embryos contains B1a cell progenitors DEFINITIVE erythropoiesis in birds originates from stem cells that emerge",
+        "models": {
+          "minilm": {
+            "ndcg10": 1.0,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.045749664306640625
+          },
+          "float75_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 12,
+            "best_relevant_margin": -0.01630038022994995
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 265,
+            "best_relevant_margin": -0.03846144676208496
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 253,
+            "best_relevant_margin": -0.06373322010040283
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 668,
+            "best_relevant_margin": -0.11686885356903076
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 237,
+            "best_relevant_margin": -0.062394917011260986
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 743,
+            "best_relevant_margin": -0.11847466230392456
+          },
+          "float150_float": {
+            "ndcg10": 0.3010299956639812,
+            "first_relevant_rank": 9,
+            "best_relevant_margin": -0.01097571849822998
+          }
+        }
+      },
+      {
+        "query_id": "702",
+        "query": "Localization of PIN1 in the roots of Arabidopsis does not require VPS9a",
+        "baseline_relevant_id": "4350400",
+        "baseline_relevant_preview": "Generation of cell polarity in plants links endocytosis, auxin distribution and cell fate decisions Dynamically polarized membrane proteins define different",
+        "student_competitor_id": "20868160",
+        "student_competitor_preview": "TRICHOME BIREFRINGENCE and its homolog AT5G01360 encode plant-specific DUF231 proteins required for cellulose biosynthesis in Arabidopsis. The Arabidopsis (Arabidopsis thaliana)",
+        "models": {
+          "minilm": {
+            "ndcg10": 1.0,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.013935267925262451
+          },
+          "float75_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 16,
+            "best_relevant_margin": -0.048069775104522705
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 434,
+            "best_relevant_margin": -0.03782987594604492
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 198,
+            "best_relevant_margin": -0.09320992231369019
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 209,
+            "best_relevant_margin": -0.11701518297195435
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 209,
+            "best_relevant_margin": -0.0920678973197937
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 199,
+            "best_relevant_margin": -0.11505860090255737
+          },
+          "float150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 11,
+            "best_relevant_margin": -0.04138106107711792
+          }
+        }
+      },
+      {
+        "query_id": "72",
+        "query": "Activator-inhibitor pairs are provided dorsally by Admpchordin.",
+        "baseline_relevant_id": "6076903",
+        "baseline_relevant_preview": "Regulation of ADMP and BMP2/4/7 at Opposite Embryonic Poles Generates a Self-Regulating Morphogenetic Field Embryos have the ability to self-regulate",
+        "student_competitor_id": "8997410",
+        "student_competitor_preview": "Arp2/3 complex inhibition radically alters lamellipodial actin architecture, suspended cell shape, and the cell spreading process Recent studies have investigated",
+        "models": {
+          "minilm": {
+            "ndcg10": 1.0,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.0054250359535217285
+          },
+          "float75_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 132,
+            "best_relevant_margin": -0.046392202377319336
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 655,
+            "best_relevant_margin": -0.04122602939605713
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 185,
+            "best_relevant_margin": -0.05025458335876465
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 1528,
+            "best_relevant_margin": -0.13858360052108765
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 197,
+            "best_relevant_margin": -0.05014389753341675
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 1601,
+            "best_relevant_margin": -0.1383049488067627
+          },
+          "float150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 138,
+            "best_relevant_margin": -0.04837876558303833
+          }
+        }
+      },
+      {
+        "query_id": "578",
+        "query": "In mouse models, the loss of CSF1R facilitates MOZ-TIF2-induced leuekmogenesis.",
+        "baseline_relevant_id": "8764879",
+        "baseline_relevant_preview": "PU.1-mediated upregulation of CSF1R is crucial for leukemia stem cell potential induced by MOZ-TIF2 Leukemias and other cancers possess self-renewing",
+        "student_competitor_id": "31882215",
+        "student_competitor_preview": "Autophagy and mTORC1 regulate the stochastic phase of somatic cell reprogramming We describe robust induction of autophagy during the reprogramming",
+        "models": {
+          "minilm": {
+            "ndcg10": 1.0,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.06080126762390137
+          },
+          "float75_float": {
+            "ndcg10": 0.5,
+            "first_relevant_rank": 3,
+            "best_relevant_margin": -0.02451646327972412
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 103,
+            "best_relevant_margin": -0.029731154441833496
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 52,
+            "best_relevant_margin": -0.04211699962615967
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 100,
+            "best_relevant_margin": -0.06326264142990112
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 56,
+            "best_relevant_margin": -0.04433786869049072
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 200,
+            "best_relevant_margin": -0.07583177089691162
+          },
+          "float150_float": {
+            "ndcg10": 0.6309297535714575,
+            "first_relevant_rank": 2,
+            "best_relevant_margin": -0.016544222831726074
+          }
+        }
+      },
+      {
+        "query_id": "535",
+        "query": "Hypertension is frequently observed in type 1 diabetes patients.",
+        "baseline_relevant_id": "39368721",
+        "baseline_relevant_preview": "Glucose tolerance and blood pressure: long term follow up in middle aged men. OBJECTIVE to investigate the role of glucose",
+        "student_competitor_id": "27449472",
+        "student_competitor_preview": "Metabolic syndrome as a risk factor for diabetes. The metabolic syndrome was initially described as an insulin-resistance syndrome characterized by",
+        "models": {
+          "minilm": {
+            "ndcg10": 1.0,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.005148649215698242
+          },
+          "float75_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 13,
+            "best_relevant_margin": -0.04194360971450806
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 32,
+            "best_relevant_margin": -0.035708725452423096
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 44,
+            "best_relevant_margin": -0.08205205202102661
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 165,
+            "best_relevant_margin": -0.0866803526878357
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 47,
+            "best_relevant_margin": -0.08383691310882568
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 159,
+            "best_relevant_margin": -0.08716094493865967
+          },
+          "float150_float": {
+            "ndcg10": 0.2890648263178879,
+            "first_relevant_rank": 10,
+            "best_relevant_margin": -0.03483706712722778
+          }
+        }
+      },
+      {
+        "query_id": "1282",
+        "query": "Therapeutic use of the drug Dapsone to treat pyoderma gangrenous is based on anecdotal evidence.",
+        "baseline_relevant_id": "23649163",
+        "baseline_relevant_preview": "Clinical features and treatment of peristomal pyoderma gangrenosum. CONTEXT Peristomal pyoderma gangrenosum (PPG), an unusual variant of pyoderma gangrenosum, has",
+        "student_competitor_id": "25543207",
+        "student_competitor_preview": "Pharmacokinetic, pharmacodynamic and clinical profile of novel antiplatelet drugs targeting vascular diseases. Platelet inhibitors are the mainstay treatment for patients",
+        "models": {
+          "minilm": {
+            "ndcg10": 1.0,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.1184358298778534
+          },
+          "float75_float": {
+            "ndcg10": 0.3333333333333333,
+            "first_relevant_rank": 7,
+            "best_relevant_margin": -0.034342944622039795
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 65,
+            "best_relevant_margin": -0.035841941833496094
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 27,
+            "best_relevant_margin": -0.032081425189971924
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 3045,
+            "best_relevant_margin": -0.17828369140625
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 28,
+            "best_relevant_margin": -0.03294479846954346
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 3311,
+            "best_relevant_margin": -0.18637269735336304
+          },
+          "float150_float": {
+            "ndcg10": 0.3562071871080222,
+            "first_relevant_rank": 6,
+            "best_relevant_margin": -0.02661287784576416
+          }
+        }
+      },
+      {
+        "query_id": "327",
+        "query": "Deletion of \u03b1v\u03b28 does not result in a spontaneous inflammatory phenotype.",
+        "baseline_relevant_id": "17997584",
+        "baseline_relevant_preview": "Integrin \u03b1v\u03b28-Mediated TGF-\u03b2 Activation by Effector Regulatory T Cells Is Essential for Suppression of T-Cell-Mediated Inflammation Regulatory T (Treg) cells",
+        "student_competitor_id": "8083310",
+        "student_competitor_preview": "Rps14 haploinsufficiency causes a block in erythroid differentiation mediated by S100A8 and S100A9 Impaired erythropoiesis in the deletion 5q (del(5q))",
+        "models": {
+          "minilm": {
+            "ndcg10": 1.0,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.05790475010871887
+          },
+          "float75_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 39,
+            "best_relevant_margin": -0.03854966163635254
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 1248,
+            "best_relevant_margin": -0.04782623052597046
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 26,
+            "best_relevant_margin": -0.03074169158935547
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 4503,
+            "best_relevant_margin": -0.2697502374649048
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 27,
+            "best_relevant_margin": -0.031155288219451904
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 4405,
+            "best_relevant_margin": -0.2549014687538147
+          },
+          "float150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 24,
+            "best_relevant_margin": -0.03534197807312012
+          }
+        }
+      },
+      {
+        "query_id": "811",
+        "query": "Mutant mice lacking SVCT2 have greatly increased ascorbic acid levels in both brain and adrenals.",
+        "baseline_relevant_id": "19799455",
+        "baseline_relevant_preview": "Ascorbic-acid transporter Slc23a1 is essential for vitamin C transport into the brain and for perinatal survival The only proven requirement",
+        "student_competitor_id": "41644178",
+        "student_competitor_preview": "Increased dendritic complexity and axonal length in cultured mouse cortical neurons overexpressing methyl-CpG-binding protein MeCP2 Rett syndrome is caused by",
+        "models": {
+          "minilm": {
+            "ndcg10": 1.0,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.10973572731018066
+          },
+          "float75_float": {
+            "ndcg10": 0.43067655807339306,
+            "first_relevant_rank": 4,
+            "best_relevant_margin": -0.005859434604644775
+          },
+          "float75_quant": {
+            "ndcg10": 0.43067655807339306,
+            "first_relevant_rank": 4,
+            "best_relevant_margin": -0.0054572224617004395
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 26,
+            "best_relevant_margin": -0.023545265197753906
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 672,
+            "best_relevant_margin": -0.17933368682861328
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 24,
+            "best_relevant_margin": -0.023370802402496338
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 631,
+            "best_relevant_margin": -0.17478537559509277
+          },
+          "float150_float": {
+            "ndcg10": 0.5,
+            "first_relevant_rank": 3,
+            "best_relevant_margin": -0.01584702730178833
+          }
+        }
+      }
+    ],
+    "NFCorpus": [
+      {
+        "query_id": "PLAIN-1772",
+        "query": "organotins",
+        "baseline_relevant_id": "MED-4727",
+        "baseline_relevant_preview": "Dietary intake of organotin compounds in Finland: a market-basket study. The objective of this study was to estimate the intake",
+        "student_competitor_id": "MED-4729",
+        "student_competitor_preview": "Do Organohalogen Contaminants Contribute to Histopathology in Liver from East Greenland Polar Bears (Ursus maritimus)? In East Greenland polar bears",
+        "models": {
+          "minilm": {
+            "ndcg10": 0.8175295903539445,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.11030060052871704
+          },
+          "float75_float": {
+            "ndcg10": 0.6131471927654584,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.00804048776626587
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 255,
+            "best_relevant_margin": -0.04051494598388672
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 31,
+            "best_relevant_margin": -0.03864586353302002
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 422,
+            "best_relevant_margin": -0.07985937595367432
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 30,
+            "best_relevant_margin": -0.03729742765426636
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 443,
+            "best_relevant_margin": -0.09450650215148926
+          },
+          "float150_float": {
+            "ndcg10": 0.7977228895450266,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.019833683967590332
+          }
+        }
+      },
+      {
+        "query_id": "PLAIN-3241",
+        "query": "Apthous Ulcer Mystery Solved",
+        "baseline_relevant_id": "MED-4841",
+        "baseline_relevant_preview": "Humoral immunity to cow's milk proteins and gliadin within the etiology of recurrent aphthous ulcers? OBJECTIVES: The goal of this",
+        "student_competitor_id": "MED-3809",
+        "student_competitor_preview": "Toxicological and mutagenic analysis of Artemisia dracunculus (tarragon) extract. Mutagenicity and liver toxicity of the herb tarragon (Artemisia dracunculus) were",
+        "models": {
+          "minilm": {
+            "ndcg10": 0.3607790370815594,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.10889998078346252
+          },
+          "float75_float": {
+            "ndcg10": 0.113813114479808,
+            "first_relevant_rank": 8,
+            "best_relevant_margin": -0.031880080699920654
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 37,
+            "best_relevant_margin": -0.03748953342437744
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 26,
+            "best_relevant_margin": -0.029379546642303467
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 479,
+            "best_relevant_margin": -0.10559689998626709
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 27,
+            "best_relevant_margin": -0.029257655143737793
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 494,
+            "best_relevant_margin": -0.09993618726730347
+          },
+          "float150_float": {
+            "ndcg10": 0.13956838328637605,
+            "first_relevant_rank": 5,
+            "best_relevant_margin": -0.02161860466003418
+          }
+        }
+      },
+      {
+        "query_id": "PLAIN-2301",
+        "query": "uterine health",
+        "baseline_relevant_id": "MED-4941",
+        "baseline_relevant_preview": "Dioxin May Promote Inflammation-Related Development of Endometriosis Laboratory and population-based studies suggest that exposure to environmental toxicants may be one",
+        "student_competitor_id": "MED-5086",
+        "student_competitor_preview": "A prospective study of dietary acrylamide intake and the risk of endometrial, ovarian, and breast cancer. BACKGROUND: Acrylamide, a probable",
+        "models": {
+          "minilm": {
+            "ndcg10": 0.424926013816671,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.011287719011306763
+          },
+          "float75_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 15,
+            "best_relevant_margin": -0.018693745136260986
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 430,
+            "best_relevant_margin": -0.039838552474975586
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 25,
+            "best_relevant_margin": -0.02691936492919922
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 377,
+            "best_relevant_margin": -0.09715008735656738
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 23,
+            "best_relevant_margin": -0.025671303272247314
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 396,
+            "best_relevant_margin": -0.09698432683944702
+          },
+          "float150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 18,
+            "best_relevant_margin": -0.020656824111938477
+          }
+        }
+      },
+      {
+        "query_id": "PLAIN-2490",
+        "query": "The Actual Benefit of Diet vs. Drugs",
+        "baseline_relevant_id": "MED-2112",
+        "baseline_relevant_preview": "How evidence-based medicine biases physicians against nutrition. Medical students in the United States are taught little about nutrition and dietetics.",
+        "student_competitor_id": "MED-2220",
+        "student_competitor_preview": "Position of the academy of nutrition and dietetics: total diet approach to healthy eating. It is the position of the",
+        "models": {
+          "minilm": {
+            "ndcg10": 0.13347537859706934,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.04938095808029175
+          },
+          "float75_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 25,
+            "best_relevant_margin": -0.034514784812927246
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 23,
+            "best_relevant_margin": -0.01930224895477295
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 14,
+            "best_relevant_margin": -0.023519814014434814
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 14,
+            "best_relevant_margin": -0.04495173692703247
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 12,
+            "best_relevant_margin": -0.02204674482345581
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 12,
+            "best_relevant_margin": -0.033593833446502686
+          },
+          "float150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 40,
+            "best_relevant_margin": -0.04123443365097046
+          }
+        }
+      },
+      {
+        "query_id": "PLAIN-2460",
+        "query": "Diabetes as a Disease of Fat Toxicity",
+        "baseline_relevant_id": "MED-1238",
+        "baseline_relevant_preview": "Relationship of dietary fat to glucose metabolism. The relationship between dietary fat and glucose metabolism has been recognized for at",
+        "student_competitor_id": "MED-1062",
+        "student_competitor_preview": "Fatty acids and glucolipotoxicity in the pathogenesis of Type 2 diabetes. The prevalence of Type 2 diabetes is increasing dramatically",
+        "models": {
+          "minilm": {
+            "ndcg10": 0.2669507571941387,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.04831963777542114
+          },
+          "float75_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 20,
+            "best_relevant_margin": -0.045390963554382324
+          },
+          "float75_quant": {
+            "ndcg10": 0.20395301901483728,
+            "first_relevant_rank": 4,
+            "best_relevant_margin": -0.01624089479446411
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 13,
+            "best_relevant_margin": -0.047061383724212646
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 41,
+            "best_relevant_margin": -0.08597010374069214
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 13,
+            "best_relevant_margin": -0.046787142753601074
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 56,
+            "best_relevant_margin": -0.09032946825027466
+          },
+          "float150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 20,
+            "best_relevant_margin": -0.04245567321777344
+          }
+        }
+      },
+      {
+        "query_id": "PLAIN-123",
+        "query": "How Citrus Might Help Keep Your Hands Warm",
+        "baseline_relevant_id": "MED-3483",
+        "baseline_relevant_preview": "Neuroprotective effects of citrus flavonoids. Recent attention has been given to the influence of dietary factors on health and mental",
+        "student_competitor_id": "MED-2713",
+        "student_competitor_preview": "Effect of sweet orange aroma on experimental anxiety in humans. OBJECTIVES: The objective of this study was to evaluate the",
+        "models": {
+          "minilm": {
+            "ndcg10": 0.207808723593793,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.029216349124908447
+          },
+          "float75_float": {
+            "ndcg10": 0.04929175392995458,
+            "first_relevant_rank": 5,
+            "best_relevant_margin": -0.01929265260696411
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 83,
+            "best_relevant_margin": -0.033367931842803955
+          },
+          "qat150_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 12,
+            "best_relevant_margin": -0.024711966514587402
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 44,
+            "best_relevant_margin": -0.08520364761352539
+          },
+          "qat150_weights": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 12,
+            "best_relevant_margin": -0.023843765258789062
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 46,
+            "best_relevant_margin": -0.0742027759552002
+          },
+          "float150_float": {
+            "ndcg10": 0.04538697066857469,
+            "first_relevant_rank": 6,
+            "best_relevant_margin": -0.02280116081237793
+          }
+        }
+      },
+      {
+        "query_id": "PLAIN-3281",
+        "query": "Aluminum in Vaccines vs. Food",
+        "baseline_relevant_id": "MED-4909",
+        "baseline_relevant_preview": "Aluminum bioavailability from basic sodium aluminum phosphate, an approved food additive emulsifying agent, incorporated in cheese Oral aluminum (Al) bioavailability",
+        "student_competitor_id": "MED-4429",
+        "student_competitor_preview": "Cross-contamination versus undercooking of poultry meat or eggs - which risks need to be managed first? Epidemiological studies show that",
+        "models": {
+          "minilm": {
+            "ndcg10": 0.3239134396887189,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.045569658279418945
+          },
+          "float75_float": {
+            "ndcg10": 0.20436662668128655,
+            "first_relevant_rank": 2,
+            "best_relevant_margin": -0.011386632919311523
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 27,
+            "best_relevant_margin": -0.020720839500427246
+          },
+          "qat150_quant": {
+            "ndcg10": 0.12530682344457728,
+            "first_relevant_rank": 5,
+            "best_relevant_margin": -0.005451619625091553
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 200,
+            "best_relevant_margin": -0.0810667872428894
+          },
+          "qat150_weights": {
+            "ndcg10": 0.12530682344457728,
+            "first_relevant_rank": 5,
+            "best_relevant_margin": -0.005716264247894287
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 354,
+            "best_relevant_margin": -0.08767968416213989
+          },
+          "float150_float": {
+            "ndcg10": 0.20436662668128655,
+            "first_relevant_rank": 2,
+            "best_relevant_margin": -0.01246023178100586
+          }
+        }
+      },
+      {
+        "query_id": "PLAIN-3342",
+        "query": "Is Coconut Milk Good For You?",
+        "baseline_relevant_id": "MED-5014",
+        "baseline_relevant_preview": "Dietary intake and the risk of coronary heart disease among the coconut-consuming Minangkabau in West Sumatra, Indonesia. Several nutrition and",
+        "student_competitor_id": "MED-2227",
+        "student_competitor_preview": "Chocolate--guilty pleasure or healthy supplement? Dark chocolate and other cocoa products are popular in the population as a whole, but",
+        "models": {
+          "minilm": {
+            "ndcg10": 0.7653606369886217,
+            "first_relevant_rank": 1,
+            "best_relevant_margin": 0.023575186729431152
+          },
+          "float75_float": {
+            "ndcg10": 0.39106560501896365,
+            "first_relevant_rank": 3,
+            "best_relevant_margin": -0.02399742603302002
+          },
+          "float75_quant": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 812,
+            "best_relevant_margin": -0.06450378894805908
+          },
+          "qat150_quant": {
+            "ndcg10": 0.3379680345449381,
+            "first_relevant_rank": 5,
+            "best_relevant_margin": -0.024803638458251953
+          },
+          "qat150_float": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 1930,
+            "best_relevant_margin": -0.18507236242294312
+          },
+          "qat150_weights": {
+            "ndcg10": 0.3379680345449381,
+            "first_relevant_rank": 5,
+            "best_relevant_margin": -0.025557994842529297
+          },
+          "qat150_activations": {
+            "ndcg10": 0.0,
+            "first_relevant_rank": 1782,
+            "best_relevant_margin": -0.16480302810668945
+          },
+          "float150_float": {
+            "ndcg10": 0.4367467095119258,
+            "first_relevant_rank": 3,
+            "best_relevant_margin": -0.007620871067047119
+          }
+        }
+      }
+    ]
+  },
+  "embedding_agreement": {
+    "SciFact": {
+      "float75_float -> float75_quant": {
+        "mean_query_cosine": 0.7162784934043884,
+        "mean_document_cosine": 0.7260377407073975,
+        "p10_document_cosine": 0.6994704604148865
+      },
+      "qat150_float -> qat150_quant": {
+        "mean_query_cosine": 0.491597443819046,
+        "mean_document_cosine": 0.49736452102661133,
+        "p10_document_cosine": 0.40392500162124634
+      }
+    },
+    "NFCorpus": {
+      "float75_float -> float75_quant": {
+        "mean_query_cosine": 0.730130672454834,
+        "mean_document_cosine": 0.729388952255249,
+        "p10_document_cosine": 0.6993080973625183
+      },
+      "qat150_float -> qat150_quant": {
+        "mean_query_cosine": 0.5325390100479126,
+        "mean_document_cosine": 0.527221143245697,
+        "p10_document_cosine": 0.44206318259239197
+      }
+    }
+  },
+  "mean_comparisons": {
+    "minilm -> qat150_quant": {
+      "mean_ndcg10_delta_right_minus_left": -4.787475981160441,
+      "paired_bootstrap_95_ci": [
+        -6.791661837479808,
+        -2.840432268279942
+      ]
+    },
+    "float75_float -> float75_quant": {
+      "mean_ndcg10_delta_right_minus_left": -18.427705289725694,
+      "paired_bootstrap_95_ci": [
+        -20.700342845644315,
+        -16.17913682237327
+      ]
+    },
+    "qat150_float -> qat150_quant": {
+      "mean_ndcg10_delta_right_minus_left": 40.73053921963465,
+      "paired_bootstrap_95_ci": [
+        37.84345811513768,
+        43.67038113263994
+      ]
+    },
+    "float75_float -> qat150_quant": {
+      "mean_ndcg10_delta_right_minus_left": -1.6645676767137259,
+      "paired_bootstrap_95_ci": [
+        -2.603072961802236,
+        -0.7169260256884845
+      ]
+    },
+    "qat150_float -> qat150_weights": {
+      "mean_ndcg10_delta_right_minus_left": 40.58930322024505,
+      "paired_bootstrap_95_ci": [
+        37.741471621811534,
+        43.49696940050367
+      ]
+    },
+    "qat150_float -> qat150_activations": {
+      "mean_ndcg10_delta_right_minus_left": -0.020928622621276545,
+      "paired_bootstrap_95_ci": [
+        -0.22213639231131938,
+        0.18687720369070335
+      ]
+    },
+    "qat150_weights -> qat150_quant": {
+      "mean_ndcg10_delta_right_minus_left": 0.14123599938959883,
+      "paired_bootstrap_95_ci": [
+        -0.04440097792364799,
+        0.37190097534787875
+      ]
+    },
+    "float150_float -> qat150_quant": {
+      "mean_ndcg10_delta_right_minus_left": -2.303922865328939,
+      "paired_bootstrap_95_ci": [
+        -3.2773401556589383,
+        -1.3199453075360574
+      ]
+    },
+    "minilm -> float150_float": {
+      "mean_ndcg10_delta_right_minus_left": -2.4835531158315027,
+      "paired_bootstrap_95_ci": [
+        -4.142044998986503,
+        -0.7645453264975238
+      ]
+    },
+    "float75_float -> float150_float": {
+      "mean_ndcg10_delta_right_minus_left": 0.6393551886152125,
+      "paired_bootstrap_95_ci": [
+        0.10909323705590071,
+        1.1559895279311507
+      ]
+    }
+  }
+}
