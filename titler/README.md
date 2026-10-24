@@ -34,6 +34,17 @@ Judged by a blind pairwise judge against v1.5, the v2 title wins about **65%** o
 
 It reads the first 256 tokens of the input, uses about 25 MB of memory, and supports **English only**. Known limits: it sometimes drops an apostrophe in a possessive, and hard inputs such as pasted logs give weaker titles. See [specs/title/spec.md](specs/title/spec.md) for the title rules and the measured limits.
 
+### Download and use v2
+
+[Download the v2 GGUF from Hugging Face](https://huggingface.co/Cyronius/titler/resolve/main/titler-v2-q4_k_m.gguf).
+It contains the weights and vocabulary. Load it in a runtime that supports Llama GGUF models, such as llama.cpp;
+no titler Python or npm package is required. To try it without installing anything, use the browser demo above.
+
+The model was trained on `<s>{prompt}<sep>{title}</s>`, rather than a chat template. The titler engine handles
+that input format, limits the prompt to 256 tokens, runs 4-beam decoding and cleans up the title. These are the
+settings used for the reported quality and speed; a runtime's default generation can give different results.
+For those settings or language bindings, see [app/EMBEDDING.md](app/EMBEDDING.md).
+
 ### How v2 was built
 
 Commands run from this folder with `uv run`.

@@ -68,23 +68,18 @@ Judged pairwise against v1.5, the v2 title wins about **65%** of the pairs that 
 
 ### How to use it
 
-The titler engine is in the GitHub repository. See [EMBEDDING.md](https://github.com/Cyronius/model-experiments/blob/main/titler/app/EMBEDDING.md) for every option. The quick versions:
+[Download the v2 GGUF](https://huggingface.co/Cyronius/titler/resolve/main/titler-v2-q4_k_m.gguf)
+and load it in a runtime that supports Llama GGUF models, such as llama.cpp. The file contains the weights and
+vocabulary; no titler Python or npm package is required.
 
-| your app is | use |
-|---|---|
-| Rust | the `titler` crate |
-| C, C++, C#, Go, Swift, Java | the C library, from the [releases](https://github.com/Cyronius/model-experiments/releases) |
-| Python | the `titler` wheel, from the releases |
-| A web page or Node | the `titler-wasm` npm package, from the releases |
-| A shell | the `titler` command, from the releases |
+The trained sequence is `<s>{prompt}<sep>{title}</s>`, rather than a chat template. The optional titler engine
+handles that input format, the 256-token prompt limit, beam search and title cleanup used for the reported
+results. Default runtime generation can give different titles.
 
-```python
-from titler import Titler
-t = Titler()   # the model is inside the wheel; or Titler("titler-v2-q4_k_m.gguf")
-print(t.title("how do I sort a list of dicts by a key in python"))
-```
-
-To use the GGUF file directly, you must write your own tokenization and cleanup. The vocabulary is in the GGUF. Without the titler engine, expect titles that differ from the ones measured above.
+For Rust, C, Python, JavaScript and CLI integration, see
+[EMBEDDING.md](https://github.com/Cyronius/model-experiments/blob/main/titler/app/EMBEDDING.md).
+These bindings can be built from source; prebuilt packages are not currently published in this repository's
+GitHub releases.
 
 ### Limits
 
