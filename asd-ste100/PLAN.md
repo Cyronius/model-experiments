@@ -331,16 +331,19 @@ Deterministic scoring everywhere the checker can do it, as in `bench/`. The judg
 
 Roughly two and a half to three months for one person. The laptop does everything except the pod session. Training a 25M parameter model on 1M to 2M short pairs is under an hour on an H200, so the pod bill is dominated by teacher generation and model downloads, not training.
 
-**Built so far (October 2026).**
+**Built so far (October 23, 2026).**
 
 | piece | state |
 |---|---|
 | `lexicon/build_lexicon.py` | done; converts both PyPI packages: 2,200 rows, 1,838 aligned pairs, 66 rules |
 | `checker/checker.py` | tier A subset only: rejected words and phrases, forms of be, contractions, sentence and paragraph length, semicolons, perfect tense, passive in `PROC`. No noun clusters, no instruction counting, no article check |
 | checker accuracy | on the dictionary's own pairs: 93.7 percent of STE sentences pass with no errors, and 81.5 percent of non-STE sentences get at least one error. About 6 percent of good STE is falsely rejected, mostly nouns spelled like rejected verbs |
-| `data/gen.py`, `fetch_sources.py`, `judge.py` | done; tested against a fake teacher: retry with feedback, resume, back-translation, judging. Not yet run against a real model |
-| `pod/` | smoke and full session scripts; budget guard tested with a fake clock; model downloads and the llama.cpp build unverified |
-| noiser, pair builder, model code, GGUF writer | not started |
+| `data/gen.py`, `fetch_sources.py`, `judge.py` | real full run complete: 11,464 clean rewrites, 8,587 rated 5, 8,587 messy back-translations; see `HANDOFF.md` |
+| `pod/` | smoke and full data runs verified on secure-cloud L40S; full data run cost $1.71 |
+| `data/noise_rules.py`, `build_pairs.py`, `text_utils.py`, `validate_pairs.py` | corrected teacher-target build `pairs-v2`: 28,381 filtered pairs; 25,523 train, 1,367 dev, 1,491 test; all audited; see `data/README.md` |
+| free local expansion | 1,000,000 checker-only rule-noised pairs from 403,989 distinct targets; 906,045 train, 48,332 dev, 45,623 test; full audit passed; no teacher/judge calls or new pod spend; article restoration dominates, so hard rewrites remain a data gap; see `data/LOCAL_CORPUS.md` |
+| model tokenizer/slotter | implemented locally: 2,568 output / 9,458 input IDs with byte BPE, source-only copy slots, strict restoration, ID export and bucket checks; 13,414 teacher-corpus and 610,642 checker-only local pairs retained, all ID-audited; see `tokenizer/README.md` |
+| joint training splits, gold set, real-input meaning check, model code, GGUF writer | still outstanding; strict vocabulary/copy gates reject much of the surface corpus, and original teacher rewrites remain scarce |
 
 **First week, concretely.**
 1. `pip download` both packages into a scratch directory. Add the derived files to `.gitignore` before writing the converter.

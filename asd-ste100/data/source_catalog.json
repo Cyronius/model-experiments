@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "datasets": [
+    {
+      "key": "magicoder",
+      "repo": "ise-uiuc/Magicoder-OSS-Instruct-75K",
+      "revision": "5f839b1f368a76b161028bb9edff055db34022b2",
+      "license": "mit",
+      "card": "https://huggingface.co/datasets/ise-uiuc/Magicoder-OSS-Instruct-75K",
+      "patterns": ["data-oss_instruct-decontaminated.jsonl"],
+      "format": "magicoder",
+      "domain": "software",
+      "export_weight": 4
+    },
+    {
+      "key": "agentinstruct",
+      "repo": "microsoft/orca-agentinstruct-1M-v1",
+      "revision": "86d609183249ff8037eae33d76ebca3af9390ea8",
+      "license": "cdla-permissive-2.0",
+      "card": "https://huggingface.co/datasets/microsoft/orca-agentinstruct-1M-v1",
+      "patterns": ["data/code_-*.parquet", "data/tool_use-*.parquet", "data/webagent_flow-*.parquet", "data/text_modification-*.parquet", "data/text_extraction-*.parquet", "data/struct2text_flow-*.parquet"],
+      "format": "messages",
+      "domain": "mixed-technical",
+      "export_weight": 4
+    },
+    {
+      "key": "smoltalk",
+      "repo": "HuggingFaceTB/smoltalk",
+      "revision": "5feaf2fd3ffca7c237fc38d1861bc30365d48ffa",
+      "license": "apache-2.0",
+      "license_scope": "Only the four newly generated subsets listed in patterns; the mixed all subset is excluded.",
+      "card": "https://huggingface.co/datasets/HuggingFaceTB/smoltalk",
+      "patterns": ["data/smol-magpie-ultra/train-*.parquet", "data/smol-constraints/train-*.parquet", "data/smol-rewrite/train-*.parquet", "data/smol-summarize/train-*.parquet"],
+      "format": "messages",
+      "domain": "general-instructions",
+      "export_weight": 2
+    }
+  ]
+}
