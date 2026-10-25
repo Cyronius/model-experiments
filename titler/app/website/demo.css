@@ -1,0 +1,25 @@
+.titler-demo { min-width: 0; }
+.titler-demo label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.titler-demo textarea {
+  display: block; width: 100%; min-height: 132px; resize: vertical; padding: 12px 14px;
+  font: inherit; line-height: 1.5; color: var(--ink); caret-color: var(--accent);
+  background: var(--card); border: 1px solid var(--muted); border-radius: 5px;
+}
+.titler-demo textarea::placeholder { color: var(--muted); opacity: 1; }
+.titler-demo textarea:read-only { color: var(--muted); }
+.titler-demo :is(textarea, button):focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.titler-actions { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+.titler-demo button { min-height: 44px; padding: 10px 18px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 5px; }
+.titler-submit { color: var(--bg); background: var(--accent); border: 1px solid var(--accent); }
+.titler-submit:hover:not(:disabled) { background: var(--ink); border-color: var(--ink); }
+.titler-submit:disabled { cursor: wait; opacity: .65; }
+.titler-cancel { color: var(--ink); background: transparent; border: 1px solid var(--muted); }
+.titler-cancel:hover { border-color: var(--ink); background: var(--card); }
+.titler-demo [hidden] { display: none; }
+.titler-demo output { display: block; margin-top: 22px; font-size: 24px; line-height: 1.35; font-weight: 600; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.titler-demo output:empty { margin-top: 0; }
+.titler-demo .titler-status { margin: 12px 0 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.titler-demo .titler-status[data-error] { color: var(--fail); }
+
+.titler-shortcut { margin-left: auto; color: var(--muted); font-size: 12px; }
+@media (max-width: 600px), (pointer: coarse) { .titler-shortcut { display: none; } }
