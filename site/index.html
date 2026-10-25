@@ -6,6 +6,7 @@
 <title>Model experiments</title>
 <meta name="description" content="Small, cheap language-model experiments: two Qwen prunes on Hugging Face and a 4 MB title model.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%232f5fd0%22/%3E%3Cpath d=%22M9 22l5-6 4 4 5-9%22 stroke=%22white%22 stroke-width=%223%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="titler/demo.css">
 <style>
   :root {
     color-scheme: light dark;
@@ -18,7 +19,7 @@
   }
   :root[data-theme="dark"] { --bg: #151514; --card: #1e1e1c; --ink: #ecebe6; --muted: #aaa99f; --line: #3e3e38; --accent: #8aafff; --ok: #6cc28f; --wip: #e0a84e; --fail: #ef8a78; }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 24px; scrollbar-color: var(--muted) var(--bg); }
+  html { scroll-padding-top: 24px; scrollbar-color: var(--muted) var(--bg); }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); }
   ::selection { background: var(--accent); color: var(--bg); }
   a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: .22em; }
@@ -36,6 +37,8 @@
   .jump-links { margin: 0 0 50px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; gap: 28px; font-size: 14px; }
   .jump-links a { text-decoration: none; color: var(--ink); display: flex; align-items: center; gap: 9px; }
   .jump-links a::before, h2::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--dot); flex: none; }
+  .jump-links .demo-link { color: var(--accent); }
+  .jump-links .demo-link::before { content: none; }
   .ok { --dot: var(--ok); } .wip { --dot: var(--wip); } .fail { --dot: var(--fail); }
   h2 { font-size: 20px; line-height: 1.3; font-weight: 650; letter-spacing: -.015em; margin: 0; display: flex; align-items: center; gap: 12px; }
   .section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; border-bottom: 1px solid var(--ink); padding-bottom: 18px; }
@@ -57,16 +60,8 @@
   .stats { display: flex; flex-wrap: wrap; gap: 12px 22px; margin: 20px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--muted); }
   .stats b { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
   .note { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 74ch; margin: 26px 0 38px; }
-  .titler { padding: 32px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
-  .titler h3 { font-size: 44px; letter-spacing: -.035em; }
-  .title-example { margin: 0; align-self: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 20px 0; }
-  .title-example figcaption { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
-  .title-example blockquote { margin: 0; font-size: 15px; color: var(--muted); }
-  .title-example .result { display: flex; gap: 12px; align-items: center; color: var(--accent); font-size: 25px; font-weight: 600; line-height: 1.3; margin-top: 20px; letter-spacing: -.02em; }
-  .arrow { width: 24px; height: 24px; flex: none; }
-  .primary-link { color: var(--bg); background: var(--accent); border: 1px solid var(--accent); border-radius: 5px; padding: 10px 14px; display: inline-flex; align-items: center; gap: 12px; }
-  .links .primary-link:hover { text-decoration: none; background: var(--bg); color: var(--accent); }
-  .titler .links { align-items: center; }
+  .titler { padding: 32px 0; align-items: start; }
+  .titler h3 { font-size: 36px; letter-spacing: -.035em; }
   .research { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 50px; margin-top: 76px; }
   .research h2 { align-self: start; padding-top: 20px; border-top: 1px solid var(--ink); }
   .list { border-top: 1px solid var(--ink); }
@@ -79,11 +74,6 @@
   code { font-size: .92em; }
   footer { margin-top: 80px; border-top: 1px solid var(--ink); padding: 24px 0; color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
   footer a { color: var(--ink); }
-  @media (prefers-reduced-motion: no-preference) {
-    .primary-link { transition: background 180ms ease-out, color 180ms ease-out; }
-    .title-example .result { animation: resolve-title 700ms cubic-bezier(.16,1,.3,1) both; }
-    @keyframes resolve-title { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
-  }
   @media (max-width: 850px) {
     main { padding-inline: 26px; }
     .hero { gap: 30px; grid-template-columns: 1fr; padding: 44px 0 32px; }
@@ -104,9 +94,8 @@
     .section-heading > span { display: none; }
     .experiment { grid-template-columns: 1fr; gap: 26px; padding: 28px 0; }
     .comparison { width: 100%; max-width: 420px; }
-    .titler { padding: 24px; margin-top: 30px; }
-    .titler h3 { font-size: 38px; }
-    .title-example .result { font-size: 23px; }
+    .titler { padding: 28px 0; }
+    .titler h3 { font-size: 32px; }
     .links { gap: 12px 20px; }
     .research { grid-template-columns: 1fr; gap: 20px; margin-top: 48px; }
     .research h2 { border-top: 0; padding-top: 0; }
@@ -124,7 +113,7 @@
     <h1>Model <span>experiments</span></h1>
     <p class="lead">Small, cheap experiments with language models, mostly aimed at shared-memory hardware: CPU and iGPU boxes with no discrete GPU. Failures are written up as carefully as the wins.</p>
   </div>
-  <nav class="jump-links" aria-label="Experiments"><a class="ok" href="#successful">Successful experiments</a><a class="wip" href="#in-progress">In progress</a><a class="fail" href="#failed">Failed experiments</a></nav>
+  <nav class="jump-links" aria-label="Experiments"><a class="ok" href="#successful">Successful experiments</a><a class="wip" href="#in-progress">In progress</a><a class="fail" href="#failed">Failed experiments</a><a class="demo-link" href="#titler">Try titler</a></nav>
   <section aria-labelledby="successful">
   <div class="section-heading"><h2 class="ok" id="successful">Successful experiments</h2><span>Models, measurements, and what worked.</span></div>
 
@@ -173,7 +162,7 @@
 
   <p class="note">The two prunes reached nearly opposite conclusions one model generation apart. On Qwen3.6, layer pruning was survivable and cheap healing recovered it. On Qwen3.8, the same layer cut was fatal without healing, but most of the n-gram table came out for free.</p>
 
-  <article class="experiment titler">
+  <article class="experiment titler" id="titler">
     <div>
     <h3>titler</h3>
     <p>A tiny model that turns a prompt into a short title, so a chat app does not need a general-purpose LLM for the job. It is a standard Llama-architecture GGUF with a Rust engine and C, Python, npm and WebAssembly packages.</p>
@@ -183,17 +172,23 @@
       <li><b>15–100 ms</b> on a CPU</li>
     </ul>
     <div class="links">
-      <a class="primary-link" href="titler/">Try it in your browser <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
       <a href="https://github.com/Cyronius/model-experiments/tree/main/titler">Code and write-up</a>
       <a href="https://github.com/Cyronius/model-experiments/blob/main/titler/app/EMBEDDING.md">Use it in your app</a>
       <a href="https://huggingface.co/Cyronius/titler">Hugging Face</a>
     </div>
     </div>
-    <figure class="title-example">
-      <figcaption>From prompt to title, locally.</figcaption>
-      <blockquote>how do I sort a list of dicts by a key in python</blockquote>
-      <div class="result"><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg><span>Sorting Dicts By Key in Python</span></div>
-    </figure>
+    <form class="titler-demo" data-titler data-worker="titler/worker.js">
+      <label for="titler-prompt">Try a prompt</label>
+      <textarea id="titler-prompt" rows="4" required aria-describedby="titler-status" placeholder="How do I sort a list of dictionaries by a key in Python?"></textarea>
+      <div class="titler-actions">
+        <button class="titler-submit" type="submit" disabled>Title it</button>
+        <button class="titler-cancel" type="button" data-cancel hidden>Cancel</button>
+        <span class="titler-shortcut">Ctrl / Cmd + Enter</span>
+      </div>
+      <output for="titler-prompt" aria-label="Generated title" aria-live="polite"></output>
+      <p class="titler-status" id="titler-status" role="status">Runs locally. The 4 MB model downloads on your first request.</p>
+      <noscript><p>Enable JavaScript to try the demo.</p></noscript>
+    </form>
   </article>
   </section>
 
@@ -239,5 +234,6 @@
     <a href="https://github.com/Cyronius/model-experiments">github.com/Cyronius/model-experiments</a><span>Code is Apache-2.0.</span>
   </footer>
 </main>
+<script type="module" src="titler/demo.js"></script>
 </body>
 </html>

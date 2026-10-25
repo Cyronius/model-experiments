@@ -6,6 +6,6 @@ cargo build --release -p titler-wasm --target wasm32-unknown-unknown
 rm -rf website/dist
 mkdir -p website/dist
 wasm-bindgen --target web --out-dir website/dist/pkg --out-name titler_wasm target/wasm32-unknown-unknown/release/titler_wasm.wasm
-cp website/index.html website/worker.js website/dist/
+cp website/index.html website/worker.js website/demo.js website/demo.css website/dist/
 cp model/titler-v2-q4_k_m.gguf website/dist/titler.gguf
 echo "site ready in app/website/dist"
