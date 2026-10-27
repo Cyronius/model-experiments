@@ -36,6 +36,7 @@ jobs:
       - name: Assemble the site
         run: |
           cp site/index.html _site/
+          cp -R site/sprite-diffusion _site/
           cp titler/app/website/index.html titler/app/website/worker.js titler/app/website/demo.js titler/app/website/demo.css _site/titler/
           cp titler/app/model/titler-v2-q4_k_m.gguf _site/titler/titler.gguf
           rm -f _site/titler/pkg/.gitignore _site/titler/pkg/package.json
