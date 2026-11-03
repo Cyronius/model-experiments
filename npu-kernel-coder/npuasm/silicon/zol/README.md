@@ -20,6 +20,8 @@ Strix Halo (`NPU Strix Halo`, aie2p, 6x8), NPU firmware 1.1.2.65 (the same firmw
   2. rebuilds the CDOs, PDI and `insts.bin` with npuasm (cores assembled by `npuasm-core`);
   3. packages an xclbin with `xclbinutil` exactly as aiecc does, under a fresh PDI UUID (the firmware skips a PDI load it has just done).
 
+Reserve the NPU with dibs first (shared machine): wrap each `run.py` call as `dibs run npu --label "zol probe" --eta 5m -- python3 run.py ...`. The runs recorded below were made without a hold, while the NPU was free.
+
 ```sh
 cd ~/code/openflowlm-next/open_kernels && ../ironvenv/bin/python build_design.py \
     ~/code/model-experiments/npu-kernel-coder/npuasm/silicon/zol/zol.py \
