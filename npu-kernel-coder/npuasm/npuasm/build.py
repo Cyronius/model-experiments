@@ -4,7 +4,9 @@ and compare every artifact byte for byte.
 Lifted directory:
     manifest.json        sources, hashes, PDI revoke word, core table
     core_cCrR.s          one per distinct core program (identical programs
-                         share one file; manifest maps every core to it)
+                         share one file; manifest maps every core to it). A
+                         near-copy of an earlier program is a patch on it
+                         (`.base core_cXrY` + line edits, patch.py)
     elfs.cdo, init.cdo, enable.cdo
                          declarative CDO text (decl.py): aie-rt register and
                          field names; a program-memory write whose payload is
@@ -24,7 +26,7 @@ import struct
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import cdo, core, decl, pdi, txn
+from . import cdo, core, decl, patch, pdi, txn, txndecl
 
 CORE_DIR = re.compile(r"^elfs_(.+)_core_(\d+)_(\d+)$")
 
@@ -118,6 +120,21 @@ def lift(prj: Path, out: Path | None, rep: Report | None = None) -> tuple[dict, 
             code_words[name] = list(struct.unpack(f"<{len(seg.data) // 4}I", seg.data))
         manifest["cores"][f"c{c}r{r}"] = name
 
+    # Near-copies: a program within a few edits of an earlier one is written
+    # as a patch on it (patch.py), when that is under half its size.
+    full: dict[str, list[str]] = {}
+    for name in list(code_words):
+        lines = texts[f"{name}.s"].splitlines()
+        best = None
+        for prev in list(full)[-6:]:
+            script = patch.make(full[prev], lines, prev)
+            if best is None or patch.size(script) < patch.size(best):
+                best = script
+        full[name] = lines
+        if best is not None and patch.size(best) < len(texts[f"{name}.s"]) // 2:
+            assert patch.apply(full[patch.base_of(best[0]) or ""], best) == lines
+            texts[f"{name}.s"] = "\n".join(best) + "\n"
+
     # CDOs: text, with program-memory payloads replaced by core references.
     words_to_core = {tuple(w): n for n, w in code_words.items()}
     for part, path in f.cdos.items():
@@ -141,7 +158,7 @@ def lift(prj: Path, out: Path | None, rep: Report | None = None) -> tuple[dict, 
         ib = f.insts.read_bytes()
         rep.sizes["insts"] = len(ib)
         h, ops = txn.parse(ib)
-        texts["insts.txn"] = txn.to_text(h, ops)
+        texts["insts.txn"] = txndecl.to_text(h, ops)
         manifest["hashes"]["insts"] = sha(ib)
     if f.xclbin:
         xb = f.xclbin.read_bytes()
@@ -162,9 +179,19 @@ def rebuild(manifest: dict, texts: dict[str, str]) -> dict[str, bytes]:
     """Artifacts from lifted text: cdo_elfs/init/enable, pdi, insts."""
     out: dict[str, bytes] = {}
     code: dict[str, list[int]] = {}
+    full: dict[str, str] = {}
+
+    def text_of(name: str) -> str:
+        if name not in full:
+            t = texts[f"{name}.s"]
+            base = patch.base_of(t)
+            if base:
+                t = "\n".join(patch.apply(text_of(base).splitlines(), t.splitlines())) + "\n"
+            full[name] = t
+        return full[name]
+
     for name in sorted(set(manifest["cores"].values())):
-        lst_text = texts[f"{name}.s"]
-        b = core.assemble(lst_text)
+        b = core.assemble(text_of(name))
         code[name] = list(struct.unpack(f"<{len(b) // 4}I", b))
 
     def resolve(ref: str) -> list[int]:
@@ -178,7 +205,7 @@ def rebuild(manifest: dict, texts: dict[str, str]) -> dict[str, bytes]:
         parts.append(b)
     out["pdi"] = pdi.build(pdi.merge(parts), revoke_id=manifest["pdi_revoke_word"])
     if "insts.txn" in texts:
-        h, ops = txn.from_text(texts["insts.txn"])
+        h, ops = txndecl.from_text(texts["insts.txn"])
         out["insts"] = txn.serialize(h, ops)
     return out
 

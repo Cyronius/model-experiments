@@ -26,7 +26,7 @@ from __future__ import annotations
 
 import re
 
-from . import cdo, regs
+from . import cdo, loops, regs
 from .cdo import DMA_WRITE, MASK_POLL64, MASK_WRITE64, NOP, WRITE64, CdoError, Op
 
 LOCK = re.compile(r"^LOCK(\d+)_VALUE$")
@@ -148,7 +148,7 @@ def to_text(ops: list[Op]) -> str:
             else:
                 lines.append(cdo.to_text([op]).rstrip("\n"))
         i += 1
-    return "\n".join(_reuse_segments(lines)) + "\n"
+    return "\n".join(loops.fold(_reuse_segments(lines))) + "\n"
 
 
 def _reuse_segments(lines: list[str]) -> list[str]:
@@ -256,7 +256,7 @@ def from_text(text: str, *, resolve=None) -> list[Op]:
             raise CdoError(f"no register {name} in a {kind} tile")
         return base | off
 
-    for line in _expand_segments(text):
+    for line in _expand_segments("\n".join(loops.unfold(text.splitlines()))):
         s = line.split(";", 1)[0].rstrip()
         if not s.strip():
             continue

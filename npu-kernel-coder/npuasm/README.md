@@ -1,17 +1,37 @@
 # npuasm: a lossless text form for XDNA2 build artifacts
 
-npuasm turns a finished aiecc build (`final.prj/` plus `insts.bin`) into text, then rebuilds the binaries from that text. It covers the first two gates in [the revised plan](../plan.md#revision-2026-11-03-direct-emission): a text form that loses nothing (gate A), rebuilt to the exact bytes without the vendor toolchain (gate B).
+npuasm turns a finished aiecc build (`final.prj/` plus `insts.bin`) into text, then rebuilds the binaries from that text. It covers the first three gates in [the revised plan](../plan.md#revision-2026-11-03-direct-emission): a text form that loses nothing (gate A), rebuilt to the exact bytes without the vendor toolchain (gate B), and made compact enough to read and write (gate C).
 
-**Result, 2026-11-03: both gates pass on every build on this machine.** All 1,863 builds rebuild from text with every artifact byte-identical. Only `npuasm-core` and Python run; there is no Peano, bootgen, mlir-aie or XRT in the loop. Details are in [Results](#results).
+**Result, 2026-11-03: all three pass on every build on this machine.** All 1,873 builds rebuild from text with every artifact byte-identical. Only `npuasm-core` and Python run; there is no Peano, bootgen, mlir-aie or XRT in the loop. A median build is 57,818 Qwen tokens of text, down from 127,406 for the first raw text. Details are in [Results](#results).
 
 ## What it covers
 
 | Artifact | Text form | Rebuilt by |
 |---|---|---|
-| Core programs (`elfs_*_core_C_R/*.elf`, code segment) | `core_cCrR.s`: AIE2P assembly in llvm-objdump syntax, one bundle per line. Each distinct program is stored once. | [`rust/`](rust/) `npuasm-core asm`: our text parser over hipfire's encoder tables |
-| CDOs (`*_aie_cdo_{elfs,init,enable}.bin`) | `elfs.cdo`, `init.cdo`, `enable.cdo`: one command per line, addresses as `cCrR+offset`. A program-memory write becomes `dmawrite c0r2+0x20000 @core_c0r2`. | `npuasm.cdo` (Python, no dependencies) |
+| Core programs (`elfs_*_core_C_R/*.elf`, code segment) | `core_cCrR.s`: AIE2P assembly in llvm-objdump syntax, one bundle per line, with labels for branch and hardware-loop targets. Each distinct program is stored once. A near-copy of an earlier program is a patch on it (`.base core_cXrY` + line edits, `patch.py`). | [`rust/`](rust/) `npuasm-core asm`: our text parser over hipfire's encoder tables, two-pass for labels |
+| CDOs (`*_aie_cdo_{elfs,init,enable}.bin`) | `elfs.cdo`, `init.cdo`, `enable.cdo` in the declarative form (`decl.py`, below). A program-memory write becomes `dmawrite c0r2+0x20000 @core_c0r2`. | `npuasm.decl` + `npuasm.cdo` (Python, no dependencies) |
 | PDI (`*.pdi`) | Nothing extra: built from the three CDOs, plus one junk word kept in `manifest.json` | `npuasm.pdi` |
-| Transaction stream (`insts.bin`) | `insts.txn` | `npuasm.txn` |
+| Transaction stream (`insts.bin`) | `insts.txn` in the same declarative form (`txndecl.py`) | `npuasm.txndecl` + `npuasm.txn` |
+
+### The declarative form
+
+Register writes use aie-rt's register and field names (`xaie2pgbl_params.h`, via `regs.py`). Only non-zero fields are printed. Four more lossless steps:
+- **Tile context:** an `@cCrR` line sets the tile for the lines after it.
+- **Lock runs:** `locks 0: 0*14,2,1` writes `LOCK0_VALUE` onward in order.
+- **Segment reuse:** `@c1r2 =c0r2` replays the last segment written for c0r2.
+- **Loops** (`loops.py`): an unrolled run of 3 or more copies whose varying numbers step by a constant folds into `repeat N i { … {start+step i} … }`, nesting as `i`, `j`, `k`.
+
+Anything that can't be named keeps the raw line form, which the parsers still read. Data payloads print runs of 3 or more equal words as `00000000*12`.
+
+```
+@c0r0
+block DMA_BD0_0 [BUFFER_LENGTH=0x800] [] [] [] [BURST_LENGTH=3] [AXCACHE=2] [] [VALID_BD=1]
+ddr_patch DMA_BD0_1 arg=1 plus=0x0
+repeat 8 i {
+@c{0+1i}r0
+write DMA_MM2S_0_TASK_QUEUE ENABLE_TOKEN_ISSUE=1 START_BD_ID={0+1i}
+}
+```
 | xclbin | Not rebuilt. The check confirms it embeds the PDI unchanged. | — |
 
 Lifting a core uses `npuasm-core lift`, hipfire's decoder plus one extension. Its text matches llvm-objdump's exactly on all 5.5M bundles of the 2,267 distinct programs here. Peano is kept as an oracle: `NPUASM_BACKEND=peano` lifts with its `llvm-objdump` and assembles with its `clang -c`, falling back to `.byte` for the instructions that assembler rejects.
@@ -39,27 +59,30 @@ rust/target/release/npuasm-core rules CORE.elf...   # hipfire's silicon rules, f
 
 Measured on 2026-11-03 on the Ryzen AI MAX+ 395 box. The builds came from whatever toolchain each project used when it built them.
 
+**Gate C: size in tokens** ([tokens.md](results/tokens.md), the first raw text in [tokens-v1.md](results/tokens-v1.md); Qwen3.5 tokenizer, the same 248k vocabulary as Qwen3.8; 118 design families, one build each, the one with the most core code):
+
+| Part | Median | p90 | Max | Total change |
+|---|---:|---:|---:|---:|
+| Core assembly | 17,014 → 16,832 | 316,000 → 82,060 | 1,651,891 → 188,888 | −72.9% |
+| CDOs | 73,914 → 16,359 | 82,994 → 25,716 | 349,954 → 25,799 | −75.9% |
+| `insts.txn` | 20,547 → 8,662 | 108,821 → 85,120 | 899,296 → 221,076 | −48.6% |
+| Whole build | 127,406 → 57,818 | 490,286 → 154,700 | 2,019,124 → 281,565 | −68.0% |
+
+Where the assembly savings came from, and what's left:
+- **Patches:** most of the cut is near-copy programs written as patches. The 32 `trit_embed` programs differ in about four lines each (the core's own function label, one constant, one jump), so 1.66M tokens become 77k.
+- **What's left:** NOPs are 7.7% of assembly tokens, comments 2.3% and labels 1.3%; the rest is real instructions, about 3.3 tokens per code byte.
+- **Not used:** loop folding would save only 5% on the assembly, so it isn't applied there.
+
+Getting much smaller than this needs a higher layer that isn't lossless. For example, the model could write a runtime sequence as loops in its own terms, or only the parts of a build that change.
+
 **Gate B: no vendor toolchain** ([corpus.md](results/corpus.md); per-build rows in `results/corpus.jsonl`, untracked and regenerated by `corpus`):
 
-- 1,863 builds. Every artifact is identical in all of them: 5,919 programs (each build's distinct cores, summed), all three CDOs, the PDI and `insts.bin`. No bundle needs `.byte`.
+- 1,863 builds then (1,873 now, with the gate C form). Every artifact is identical in all of them: 5,919 programs (each build's distinct cores, summed), all three CDOs, the PDI and `insts.bin`. No bundle needs `.byte`.
 - 426 CPU-seconds in total, a median of 0.061 s per build. A subprocess log of one build shows `npuasm-core` as the only program run.
 - `npuasm-core check` over the 2,267 programs that are distinct across the corpus (5,501,116 bundles): every bundle decodes, re-encodes and assembles from its text to its exact bytes. No bundle text matched more than one encoding.
 - Lifted text equals Peano llvm-objdump's text for every one of those bundles.
 
 **Gate A: lossless text, with Peano's assembler** (the first run): 1,849 builds, every artifact identical. Peano llvm-aie 21.0.0.2026080301+c9c5ecb7 rejects 38,176 of 11,828,654 bundles (0.32%), which it carried as `.byte`: `vinsert.32` (33,284), `event` (4,886) and `vinsert.16` (6). No operand spelling assembles. In hipfire's tables, `vinsert.32 $dst, $s1, #0, $src` has a literal `#0` in its syntax rather than an operand; npuasm-core assembles all three.
-
-**Size in tokens** ([tokens.md](results/tokens.md); Qwen3.5 tokenizer, the same 248k vocabulary as Qwen3.8; one build per design family, the one with the most core code):
-
-| Part | Median | p90 | Max |
-|---|---:|---:|---:|
-| Core assembly (distinct programs) | 17,014 | 316,000 | 1,651,891 |
-| CDOs | 73,914 | 82,994 | 349,954 |
-| `insts.txn` | 20,547 | 108,821 | 899,296 |
-| Whole build | 127,406 | 490,286 | 2,019,124 |
-
-Assembly costs about 3.3 tokens per code byte, so a full 16 KB core is about 54k tokens. A 32-tile design spends about 83k tokens on CDOs that are mostly buffer-descriptor, lock and stream-switch register writes.
-
-This text is lossless, not compact. It is the target for converting existing builds and the reference that a model-facing form must reproduce exactly. It is not yet the form a model should write. The next layer down is a declarative CDO (named BD fields, locks, routes), which should shrink the 74k-token median the most.
 
 ## What the round trip showed about the formats
 
@@ -72,7 +95,7 @@ This text is lossless, not compact. It is the target for converting existing bui
 
 ## Not covered yet
 
-- Symbolic labels: the text keeps absolute branch targets and addresses, so it reassembles in place but isn't yet editable.
+- Data addresses (`movxm p1, #0x71800`) and DMA buffer addresses stay numeric. Branch and loop targets are labels, so code can be inserted, but moving data buffers means editing numbers.
 - `insts.elf` (full-ELF flow, `aiebu-asm`), xclbin writing, and the raw-ioctl loader.
 - FastFlowLM's closed xclbins have no `final.prj`, so they are out of scope.
 - Running anything on the NPU: everything here is byte comparison.
