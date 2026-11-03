@@ -1,0 +1,13 @@
+[package]
+name = "npuasm-core"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "AIE2P core program text <-> bytes for npuasm, built on hipfire's peacemaker-npu tables"
+publish = false
+
+[dependencies]
+# hipfire (Apache-2.0; tables Apache-2.0 WITH LLVM-exception), pinned checkout efa8fbb.
+peacemaker-npu = { path = "../../../../hipfire/crates/peacemaker-npu" }
+
+[workspace]
