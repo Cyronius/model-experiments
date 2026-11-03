@@ -127,6 +127,8 @@ def text_symbols(data: bytes) -> dict[int, list[str]]:
     return {a: sorted(v) for a, v in out.items()}
 
 
+TARGET = re.compile(r"^(?:(?:j|jl|jz|jnz)\s+(?:[^#]*,\s*)?|movxm\s+(?:ls|le),\s*)#(0x[0-9a-f]+)$")
+LABEL = re.compile(r"^[A-Za-z_.$][A-Za-z0-9_.$]*$")
 LINE = re.compile(r"^\s*([0-9a-f]+): ((?:[0-9a-f]{2} ?)+?) *\t(.*)$")
 SYM = re.compile(r"^([0-9a-f]{8}) <(.+)>:$")
 
@@ -145,18 +147,61 @@ class Listing:
     insns: list[Insn]
     symbols: dict[int, list[str]]  # addr -> names
 
-    def render(self, raw_lines: set[int] = frozenset()) -> str:
+    def labels(self) -> dict[int, str]:
+        """A name for every code address a branch (`j`, `jl`, `jz`, `jnz`) or
+        hardware-loop bound (`movxm ls/le`) points at, when that address
+        starts a bundle (or is the end of the program)."""
+        starts = {ins.addr for ins in self.insns}
+        if self.insns:
+            starts.add(self.insns[-1].addr + len(self.insns[-1].raw))
+        targets = set()
+        for ins in self.insns:
+            for slot in ins.text.split(";"):
+                m = TARGET.match(slot.strip())
+                if m and int(m.group(1), 16) in starts:
+                    targets.add(int(m.group(1), 16))
+        count: dict[str, int] = {}
+        for names in self.symbols.values():
+            for n in names:
+                count[n] = count.get(n, 0) + 1
+        out = {}
+        for a in sorted(targets):
+            good = [n for n in self.symbols.get(a, ()) if count[n] == 1 and LABEL.match(n) and not n.startswith(".L")]
+            out[a] = good[0] if good else f".L{a:x}"
+        return out
+
+    def render(self, raw_lines: set[int] = frozenset(), *, labels: bool = False) -> str:
         """Assembly text. Instructions whose index is in `raw_lines` are
         written as `.byte` with their text as a comment (the assembler can't
-        parse everything the disassembler prints)."""
+        parse everything the disassembler prints). With `labels`, branch and
+        loop-bound targets become `name:` lines and `#name` operands (only
+        npuasm-core assembles those)."""
+        names = self.labels() if labels else {}
+
+        def relabel(text: str) -> str:
+            slots = []
+            for slot in text.split(";"):
+                m = TARGET.match(slot.strip())
+                if m and int(m.group(1), 16) in names:
+                    slot = slot.replace("#" + m.group(1), "#" + names[int(m.group(1), 16)])
+                slots.append(slot)
+            return ";".join(slots)
+
         out = ["\t.text"]
         for i, ins in enumerate(self.insns):
             for name in self.symbols.get(ins.addr, ()):
-                out.append(f"// {name} @ {ins.addr:#x}")
+                if names.get(ins.addr) != name:
+                    out.append(f"// {name} @ {ins.addr:#x}")
+            if ins.addr in names:
+                out.append(f"{names[ins.addr]}:")
             if i in raw_lines:
                 out.append("\t.byte " + ",".join(f"{b:#04x}" for b in ins.raw) + "  // " + ins.text)
             else:
-                out.append("\t" + ins.text)
+                out.append("\t" + (relabel(ins.text) if names else ins.text))
+        if self.insns:
+            end = self.insns[-1].addr + len(self.insns[-1].raw)
+            if end in names:
+                out.append(f"{names[end]}:")
         return "\n".join(out) + "\n"
 
     def line_of(self) -> dict[int, int]:
@@ -272,7 +317,7 @@ def assemble_listing(lst: Listing, *, peano: Path | None = None, max_rounds: int
     is (slot text at the error column, message). The core backend needs
     no fallback."""
     if peano is None and backend() == "core":
-        return _asm_core(lst.render()), set(), []
+        return _asm_core(lst.render(labels=True)), set(), []
     peano = peano or peano_bin()
     raw: set[int] = set()
     seen: list[tuple[str, str]] = []

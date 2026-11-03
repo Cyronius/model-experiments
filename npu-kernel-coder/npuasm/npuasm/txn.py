@@ -11,6 +11,8 @@ from __future__ import annotations
 import struct
 from dataclasses import dataclass, field
 
+from . import cdo
+
 WRITE, BLOCKWRITE, MASKWRITE, MASKPOLL, PREEMPT, LOADPDI = 0, 1, 3, 4, 6, 8
 TCT, DDR_PATCH = 0x80, 0x81
 
@@ -196,8 +198,9 @@ def to_text(h: Header, ops: list[Op]) -> str:
             if (f["col"], f["row"]) != (a >> 25, (a >> 20) & 0x1F):
                 tile = f" tile=c{f['col']}r{f['row']}"
             lines.append(f"blockwrite {_tile(a)} {len(op.data)}{tile}")
-            for j in range(0, len(op.data), 8):
-                lines.append("  " + " ".join(f"{x:08x}" for x in op.data[j : j + 8]))
+            items = cdo._runs(op.data)
+            for j in range(0, len(items), 8):
+                lines.append("  " + " ".join(items[j : j + 8]))
         elif op.kind == "sync":
             lines.append(
                 "sync c{col}r{row} dir={dir} chan={chan} ncol={ncol} nrow={nrow}".format(**f)
@@ -234,7 +237,7 @@ def from_text(text: str) -> tuple[Header, list[Op]]:
         if line.startswith("  "):
             if want <= 0:
                 raise TxnError("unexpected data line")
-            vals = [int(x, 16) for x in line.split()]
+            vals = cdo._unruns(line.split())
             ops[-1].data += vals
             want -= len(vals)
             continue

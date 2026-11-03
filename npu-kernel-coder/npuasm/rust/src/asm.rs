@@ -260,10 +260,47 @@ pub fn assemble(text: &str, stats: &mut Stats) -> Result<Vec<u8>, String> {
     all.into_iter().next().ok_or_else(|| format!("no format fits `{text}`"))
 }
 
-/// Assemble an npuasm `.s` file: `.text`, `// comments`, `.byte` lines and
-/// one bundle per line. Returns the section bytes.
+fn is_label_char(c: char) -> bool {
+    c.is_ascii_alphanumeric() || c == '_' || c == '.' || c == '$'
+}
+
+/// Replace `#name` references with `#0x<addr>`. Numeric immediates (`#0x..`,
+/// `#-..`, `#12`) are left alone.
+fn substitute(line: &str, labels: &HashMap<String, u64>, fill: Option<u64>) -> Result<String, String> {
+    let mut out = String::with_capacity(line.len());
+    let mut rest = line;
+    while let Some(i) = rest.find('#') {
+        out.push_str(&rest[..=i]);
+        rest = &rest[i + 1..];
+        let first = rest.chars().next().unwrap_or(' ');
+        if first.is_ascii_digit() || first == '-' || !is_label_char(first) {
+            continue;
+        }
+        let end = rest.find(|c: char| !is_label_char(c)).unwrap_or(rest.len());
+        let name = &rest[..end];
+        let v = match fill {
+            Some(v) => v,
+            None => *labels.get(name).ok_or_else(|| format!("undefined label `{name}`"))?,
+        };
+        out.push_str(&format!("{v:#x}"));
+        rest = &rest[end..];
+    }
+    out.push_str(rest);
+    Ok(out)
+}
+
+enum Item<'a> {
+    Bytes(Vec<u8>),
+    Bundle(usize, &'a str),
+    Label(&'a str),
+}
+
+/// Assemble an npuasm `.s` file: `.text`, `// comments`, `name:` labels,
+/// `.byte` lines and one bundle per line, where an immediate may be `#label`.
+/// Two passes: sizes with every label at 0, then real addresses; a bundle
+/// whose size changed between the passes is an error. Returns section bytes.
 pub fn assemble_file(src: &str, stats: &mut Stats) -> Result<Vec<u8>, String> {
-    let mut out = Vec::new();
+    let mut items = Vec::new();
     for (n, raw) in src.lines().enumerate() {
         let line = match raw.find("//") {
             Some(i) => &raw[..i],
@@ -274,15 +311,57 @@ pub fn assemble_file(src: &str, stats: &mut Stats) -> Result<Vec<u8>, String> {
             continue;
         }
         if let Some(rest) = line.strip_prefix(".byte") {
+            let mut b = Vec::new();
             for t in rest.split(',') {
                 let t = t.trim();
-                let v = u8::from_str_radix(t.trim_start_matches("0x"), 16).map_err(|_| format!("line {}: bad byte {t}", n + 1))?;
-                out.push(v);
+                b.push(u8::from_str_radix(t.trim_start_matches("0x"), 16).map_err(|_| format!("line {}: bad byte {t}", n + 1))?);
             }
-            continue;
+            items.push(Item::Bytes(b));
+        } else if let Some(name) = line.strip_suffix(':').filter(|s| s.chars().all(is_label_char)) {
+            items.push(Item::Label(name));
+        } else {
+            items.push(Item::Bundle(n + 1, line));
         }
-        let b = assemble(line, stats).map_err(|e| format!("line {}: {e}", n + 1))?;
-        out.extend_from_slice(&b);
+    }
+    // Pass 1: sizes and label addresses.
+    let none = HashMap::new();
+    let mut labels: HashMap<String, u64> = HashMap::new();
+    let mut sizes = Vec::new();
+    let mut pc = 0u64;
+    let mut scratch = Stats::default();
+    for it in &items {
+        match it {
+            Item::Bytes(b) => pc += b.len() as u64,
+            Item::Label(name) => {
+                if labels.insert(name.to_string(), pc).is_some() {
+                    return Err(format!("label `{name}` defined twice"));
+                }
+            }
+            Item::Bundle(n, line) => {
+                let t = substitute(line, &none, Some(0))?;
+                let b = assemble(&t, &mut scratch).map_err(|e| format!("line {n}: {e}"))?;
+                sizes.push(b.len());
+                pc += b.len() as u64;
+            }
+        }
+    }
+    // Pass 2: real addresses.
+    let mut out = Vec::new();
+    let mut k = 0;
+    for it in &items {
+        match it {
+            Item::Bytes(b) => out.extend_from_slice(b),
+            Item::Label(_) => {}
+            Item::Bundle(n, line) => {
+                let t = substitute(line, &labels, None).map_err(|e| format!("line {n}: {e}"))?;
+                let b = assemble(&t, stats).map_err(|e| format!("line {n}: {e}"))?;
+                if b.len() != sizes[k] {
+                    return Err(format!("line {n}: bundle size changed once labels resolved"));
+                }
+                k += 1;
+                out.extend_from_slice(&b);
+            }
+        }
     }
     Ok(out)
 }

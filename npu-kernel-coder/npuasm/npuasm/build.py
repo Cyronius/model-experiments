@@ -6,8 +6,9 @@ Lifted directory:
     core_cCrR.s          one per distinct core program (identical programs
                          share one file; manifest maps every core to it)
     elfs.cdo, init.cdo, enable.cdo
-                         CDO text; a program-memory write whose payload is a
-                         core's code segment becomes `dmawrite ... @core_cCrR`
+                         declarative CDO text (decl.py): aie-rt register and
+                         field names; a program-memory write whose payload is
+                         a core's code segment becomes `dmawrite ... @core_cCrR`
     insts.txn            transaction stream text (if insts.bin exists)
 
 Rebuild order: assemble cores -> expand CDO references -> write the three
@@ -23,7 +24,7 @@ import struct
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import cdo, core, pdi, txn
+from . import cdo, core, decl, pdi, txn
 
 CORE_DIR = re.compile(r"^elfs_(.+)_core_(\d+)_(\d+)$")
 
@@ -110,7 +111,7 @@ def lift(prj: Path, out: Path | None, rep: Report | None = None) -> tuple[dict, 
             for slot, e in seen:
                 key = f"{e}: {slot.split()[0] if slot else '?'}"
                 rep.asm_errors[key] = rep.asm_errors.get(key, 0) + 1
-            texts[f"{name}.s"] = lst.render(raw)
+            texts[f"{name}.s"] = lst.render(raw, labels=core.backend() == "core")
             rep.distinct_cores += 1
             if len(seg.data) % 4:
                 raise core.CoreError(f"{elf_path}: code size not a word multiple")
@@ -128,7 +129,7 @@ def lift(prj: Path, out: Path | None, rep: Report | None = None) -> tuple[dict, 
                 n = words_to_core.get(tuple(op.args[2:]))
                 if n:
                     op.ref = n
-        texts[f"{part}.cdo"] = cdo.to_text(ops)
+        texts[f"{part}.cdo"] = decl.to_text(ops)
         manifest["hashes"][f"cdo_{part}"] = sha(data)
 
     pdata = f.pdi.read_bytes()
@@ -171,7 +172,7 @@ def rebuild(manifest: dict, texts: dict[str, str]) -> dict[str, bytes]:
 
     parts = []
     for part in ("elfs", "init", "enable"):
-        ops = cdo.from_text(texts[f"{part}.cdo"], resolve=resolve)
+        ops = decl.from_text(texts[f"{part}.cdo"], resolve=resolve)
         b = cdo.serialize(ops)
         out[f"cdo_{part}"] = b
         parts.append(b)

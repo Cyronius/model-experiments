@@ -52,6 +52,52 @@ def name(addr: int) -> str | None:
     return table()[kind(addr)].get(addr & 0xFFFFF)
 
 
+FIELD = re.compile(r"^#define XAIE2PGBL_([A-Z0-9_]+)_(LSB|WIDTH)\s+(\d+)U?\s*$")
+
+
+@lru_cache(maxsize=1)
+def fields_table() -> dict[str, dict[int, list[tuple[str, int, int]]]]:
+    """kind -> register offset -> [(field, lsb, width)], ordered high bit first
+    (the order aie-rt lists them)."""
+    path = Path(os.environ.get("NPUASM_REGS_HEADER", DEFAULT_HEADER))
+    regs_by_kind = {k: {v: o for o, v in t.items()} for k, t in table().items()}
+    raw: dict[str, dict[str, int]] = {}
+    for line in path.read_text().splitlines():
+        m = FIELD.match(line)
+        if m:
+            raw.setdefault(m.group(1), {})[m.group(2)] = int(m.group(3))
+    out: dict[str, dict[int, list[tuple[str, int, int]]]] = {k: {} for k in MODULES}
+    for full, lw in raw.items():
+        if "LSB" not in lw or "WIDTH" not in lw:
+            continue
+        for k, prefixes in MODULES.items():
+            for p in prefixes:
+                if not full.startswith(p):
+                    continue
+                rest = full[len(p):]
+                # Longest register name that is a prefix of REG_FIELD.
+                best = None
+                for reg, off in regs_by_kind[k].items():
+                    if rest.startswith(reg + "_") and (best is None or len(reg) > len(best[0])):
+                        best = (reg, off)
+                if best:
+                    out[k].setdefault(best[1], []).append((rest[len(best[0]) + 1:], lw["LSB"], lw["WIDTH"]))
+    for k in out:
+        for off in out[k]:
+            out[k][off].sort(key=lambda f: -f[1])
+    return out
+
+
+def fields(addr: int) -> list[tuple[str, int, int]]:
+    return fields_table()[kind(addr)].get(addr & 0xFFFFF, [])
+
+
+@lru_cache(maxsize=1)
+def offsets() -> dict[str, dict[str, int]]:
+    """kind -> register name -> offset."""
+    return {k: {v: o for o, v in t.items()} for k, t in table().items()}
+
+
 _DIGITS = re.compile(r"\d+")
 
 

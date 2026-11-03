@@ -3,6 +3,7 @@
 //!   npuasm-core lift  CORE.elf        one line per bundle: addr <TAB> hex <TAB> text
 //!   npuasm-core asm   CORE.s OUT.bin  assemble an npuasm listing to raw .text bytes
 //!   npuasm-core check CORE.elf...     decode -> text -> assemble, compare bytes
+//!   npuasm-core dis   CODE.bin        decode raw program bytes (from address 0)
 //!
 //! Decoding and byte encoding are hipfire's `peacemaker-npu` (Apache-2.0; its
 //! generated tables are Apache-2.0 WITH LLVM-exception, derived from llvm-aie
@@ -126,6 +127,17 @@ fn main() -> ExitCode {
             std::fs::write(&args[2], out).map_err(|e| e.to_string())?;
             if st.ambiguous > 0 {
                 eprintln!("{} bundles had more than one encoding; used the shortest", st.ambiguous);
+            }
+            Ok(())
+        })(),
+        Some("dis") if args.len() == 2 => (|| {
+            let text = std::fs::read(&args[1]).map_err(|e| e.to_string())?;
+            let mut pc = 0;
+            while pc < text.len() {
+                let b = decode(&text[pc..], pc as u64)?;
+                let hex: String = text[pc..pc + b.len].iter().map(|x| format!("{x:02x}")).collect();
+                println!("{pc:x}\t{hex}\t{}", b.assembly());
+                pc += b.len;
             }
             Ok(())
         })(),

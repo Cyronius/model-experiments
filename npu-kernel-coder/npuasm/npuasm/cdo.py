@@ -210,14 +210,39 @@ def to_text(ops: list[Op], *, names=None) -> str:
                 continue
             line = f"dmawrite {_tile(a[1])} {len(data)}"
             lines.append(line + _comment(names, addr))
-            for j in range(0, len(data), 8):
-                lines.append("  " + " ".join(f"{x:08x}" for x in data[j : j + 8]))
+            items = _runs(data)
+            for j in range(0, len(items), 8):
+                lines.append("  " + " ".join(items[j : j + 8]))
             continue
         else:
             line = f"{op.name} " + " ".join(f"{x:#x}" for x in a)
             addr = None
         lines.append(line + _comment(names, addr))
     return "\n".join(lines) + "\n"
+
+
+def _runs(data: list[int]) -> list[str]:
+    """Data words as items; a run of 3 or more equal words is `XXXXXXXX*N`."""
+    items, i = [], 0
+    while i < len(data):
+        j = i
+        while j < len(data) and data[j] == data[i]:
+            j += 1
+        n = j - i
+        if n >= 3:
+            items.append(f"{data[i]:08x}*{n}")
+        else:
+            items.extend(f"{data[i]:08x}" for _ in range(n))
+        i = j
+    return items
+
+
+def _unruns(items: list[str]) -> list[int]:
+    out = []
+    for t in items:
+        v, _, n = t.partition("*")
+        out += [int(v, 16)] * (int(n) if n else 1)
+    return out
 
 
 def _comment(names, addr) -> str:
@@ -253,7 +278,7 @@ def from_text(text: str, *, resolve=None) -> list[Op]:
         if not line.strip():
             continue
         if raw.startswith("  ") and pending is not None:
-            vals = [int(x, 16) for x in line.split()]
+            vals = _unruns(line.split())
             pending.args += vals
             want -= len(vals)
             if want < 0:
