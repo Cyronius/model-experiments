@@ -112,3 +112,75 @@ def test_core_backend_assembles_peano_gaps(monkeypatch):
     )
     out = core.assemble(asm)
     assert out == bytes.fromhex("02b0388401b0a3f8" "f670d00c030b952828ba4dff")
+
+
+# ---------------------------------------------------------------- rule gate
+
+from npuasm import rules  # noqa: E402
+from npuasm.core import Insn  # noqa: E402
+
+
+def _prog(texts, size=16):
+    return [Insn(size * i, b"\0" * size, t) for i, t in enumerate(texts)]
+
+
+NOP5 = ["nop"] * 5
+
+
+def test_rules_accept_clean_program():
+    p = _prog(["mova r0, #0x0", "jl #0x80", *NOP5, "acq #0x30, r1", "nop", "nop", "nop", "rel #0x31, r1"])
+    assert rules.check_core(p) == []
+
+
+def test_rules_catch_each_core_violation():
+    def hit(p):
+        return {v.rule for v in rules.check_core(p)}
+
+    assert "size" in hit(_prog(["nop"] * 1025))  # 1025 x 16 B > 16 KiB
+    # target 0x18 is mid-line after a real instruction
+    p = [Insn(0, b"\0" * 8, "jl #0x18"), Insn(8, b"\0" * 8, "mova r0, #0x1"), Insn(16, b"\0" * 8, "mova r1, #0x2"), Insn(24, b"\0" * 8, "nop")]
+    p += [Insn(32 + 8 * i, b"\0" * 8, "nop") for i in range(5)]
+    assert "branch-target" in hit(p)
+    assert "delay-slots" in hit(_prog(["jl #0x0", "jl #0x0", *NOP5]))  # branch in a delay slot
+    assert "delay-slots" in hit(_prog(["jl #0x0", "nop", "done", "nop", "nop", "nop"]))
+    assert "delay-slots" in hit(_prog(["jl #0x0", "nop"]))  # too few bundles after
+    assert "lock-spacing" in hit(_prog(["acq #0x30, r1", "nop", "rel #0x31, r1"]))
+
+
+def test_rules_allow_peano_hardware_loop_and_locks_in_delay_slots():
+    p = _prog(["movxm ls, #0x40", "movxm le, #0x40", "add.nc lc, r2, #-0x1", "nop", "nop", "jl #0x0", "acq #0x30, r1", *NOP5])
+    assert rules.check_core(p) == []
+
+
+def test_rules_catch_bd_violations():
+    core_bd = (2 << 25) | (3 << 20) | 0x1D000
+    valid = 1 << 25  # DMA_BD0_5 VALID_BD
+    v = rules.check_bd(core_bd, [0, 0, 0, 0, 0, valid], "t")
+    assert [x.rule for x in v] == ["zero-length-bd"]
+    assert rules.check_bd(core_bd, [16, 0, 0, 0, 0, valid], "t") == []
+    shim_bd = 0x1D000
+    axqos15 = 15 << 20  # DMA_BD0_5 AXQOS, bits 23:20
+    v = rules.check_bd(shim_bd, [64, 0, 0, 0, 0, axqos15, 0, 1 << 25], "t")
+    assert "shim-axqos-15" in [x.rule for x in v]
+
+
+# ------------------------------------------------------------------ xclbin
+
+from npuasm import xclbin  # noqa: E402
+
+PROBE = Path(__file__).resolve().parents[1] / "silicon/zol/build/final.xclbin"
+
+
+@pytest.mark.skipif(not PROBE.exists(), reason="needs the zol probe build")
+def test_xclbin_roundtrip_and_build():
+    data = PROBE.read_bytes()
+    x = xclbin.parse(data)
+    assert xclbin.serialize(x) == data
+    part = next(s for s in x.sections if s.kind == xclbin.AIE_PARTITION)
+    p = xclbin.parse_partition(part.data)
+    assert xclbin.serialize_partition(p) == part.data
+    new = xclbin.build(data, p.pdis[0].image, pdi_uuid=b"\1" * 16, xclbin_uuid=b"\2" * 16, timestamp=0)
+    y = xclbin.parse(new)
+    assert y.tail == b"" and y.uuid == b"\2" * 16
+    q = xclbin.parse_partition(next(s for s in y.sections if s.kind == xclbin.AIE_PARTITION).data)
+    assert q.pdis[0].uuid == b"\1" * 16 and q.pdis[0].image == p.pdis[0].image

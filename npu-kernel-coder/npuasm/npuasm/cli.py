@@ -4,6 +4,9 @@
   python -m npuasm lift   <final.prj> <out_dir>   write the text form
   python -m npuasm build  <lifted_dir> <out_dir>  rebuild artifacts from text
   python -m npuasm corpus <root>... --out results.jsonl [--jobs N]
+  python -m npuasm rules  <lifted_dir>            the rule gate; exit 1 on violations
+  python -m npuasm package <pdi> <template.xclbin> <out.xclbin>
+                                                  new xclbin around a PDI
 """
 
 from __future__ import annotations
@@ -17,7 +20,7 @@ from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
-from . import build
+from . import build, xclbin
 
 
 def _find_prjs(roots: list[Path]) -> list[Path]:
@@ -87,6 +90,13 @@ def main(argv=None) -> int:
     b = sub.add_parser("build")
     b.add_argument("lifted", type=Path)
     b.add_argument("out", type=Path)
+    ru = sub.add_parser("rules")
+    ru.add_argument("lifted", type=Path)
+    pk = sub.add_parser("package")
+    pk.add_argument("pdi", type=Path)
+    pk.add_argument("template", type=Path)
+    pk.add_argument("out", type=Path)
+    pk.add_argument("--keep-mirror", action="store_true")
     k = sub.add_parser("corpus")
     k.add_argument("roots", type=Path, nargs="+")
     k.add_argument("--out", type=Path, required=True)
@@ -109,8 +119,22 @@ def main(argv=None) -> int:
         names = {"cdo_elfs": "aie_cdo_elfs.bin", "cdo_init": "aie_cdo_init.bin", "cdo_enable": "aie_cdo_enable.bin",
                  "pdi": f"{manifest['device']}.pdi", "insts": "insts.bin"}
         for key, data in out.items():
-            (a.out / names[key]).write_bytes(data)
+            if key in names:
+                (a.out / names[key]).write_bytes(data)
         print(f"wrote {len(out)} artifacts to {a.out}")
+        return 0
+    if a.cmd == "rules":
+        manifest = json.loads((a.lifted / "manifest.json").read_text())
+        texts = {p.name: p.read_text() for p in a.lifted.iterdir() if p.suffix in (".s", ".cdo", ".txn")}
+        vs = build.check_rules(manifest, texts)
+        for v in vs:
+            print(f"{v.rule}: {v.where}: {v.detail}")
+        print(f"{len(vs)} violations" if vs else "rule gate: pass")
+        return 1 if vs else 0
+    if a.cmd == "package":
+        data = xclbin.build(a.template.read_bytes(), a.pdi.read_bytes(), keep_mirror=a.keep_mirror)
+        a.out.write_bytes(data)
+        print(f"wrote {a.out} ({len(data)} bytes)")
         return 0
     if a.cmd == "corpus":
         prjs = _find_prjs(a.roots)

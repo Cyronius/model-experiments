@@ -1,8 +1,12 @@
 # npuasm: a lossless text form for XDNA2 build artifacts
 
-npuasm turns a finished aiecc build (`final.prj/` plus `insts.bin`) into text, then rebuilds the binaries from that text. It covers the first three gates in [the revised plan](../plan.md#revision-2026-11-03-direct-emission): a text form that loses nothing (gate A), rebuilt to the exact bytes without the vendor toolchain (gate B), and made compact enough to read and write (gate C).
+npuasm turns a finished aiecc build (`final.prj/` plus `insts.bin`) into text, then rebuilds the binaries from that text. It covers the first four gates in [the revised plan](../plan.md#revision-2026-11-03-direct-emission):
+- **A:** a text form that loses nothing;
+- **B:** rebuilt to the exact bytes without the vendor toolchain;
+- **C:** compact enough to read and write;
+- **D:** a run path for edited programs, with a rule gate before anything reaches the NPU.
 
-**Result, 2026-11-03: all three pass on every build on this machine.** All 1,873 builds rebuild from text with every artifact byte-identical. Only `npuasm-core` and Python run; there is no Peano, bootgen, mlir-aie or XRT in the loop. A median build is 57,818 Qwen tokens of text, down from 127,406 for the first raw text. Details are in [Results](#results).
+**Result, 2026-11-03: all four pass on every build on this machine.** All 1,873 builds rebuild from text with every artifact byte-identical. Only `npuasm-core` and Python run; there is no Peano, bootgen, mlir-aie or XRT in the loop. A median build is 57,818 Qwen tokens of text, down from 127,406 for the first raw text. Details are in [Results](#results).
 
 ## What it covers
 
@@ -32,7 +36,7 @@ repeat 8 i {
 write DMA_MM2S_0_TASK_QUEUE ENABLE_TOKEN_ISSUE=1 START_BD_ID={0+1i}
 }
 ```
-| xclbin | Not rebuilt. The check confirms it embeds the PDI unchanged. | — |
+| xclbin | Not part of the text. `xclbin.py` parses and rewrites it exactly (all 1,873 local xclbins). `package` builds a new one around a PDI from a template's other sections, with fresh UUIDs and without xclbinutil's JSON copy. | `npuasm.xclbin` |
 
 Lifting a core uses `npuasm-core lift`, hipfire's decoder plus one extension. Its text matches llvm-objdump's exactly on all 5.5M bundles of the 2,267 distinct programs here. Peano is kept as an oracle: `NPUASM_BACKEND=peano` lifts with its `llvm-objdump` and assembles with its `clang -c`, falling back to `.byte` for the instructions that assembler rejects.
 
@@ -47,6 +51,8 @@ python3 -m npuasm lift   <build>/final.prj <dir>    # write the text form
 python3 -m npuasm build  <dir> <out>                # rebuild the binaries from text
 python3 -m npuasm corpus ~/code --out results/corpus.jsonl --jobs 12
 
+python3 -m npuasm rules  <dir>                      # rule gate on lifted/edited text; exit 1 on violations
+python3 -m npuasm package <pdi> <template.xclbin> <out.xclbin>   # xclbin without xclbinutil
 rust/target/release/npuasm-core check CORE.elf...   # decode -> text -> assemble, per bundle
 rust/target/release/npuasm-core rules CORE.elf...   # hipfire's silicon rules, first violation per program
 
@@ -58,6 +64,11 @@ rust/target/release/npuasm-core rules CORE.elf...   # hipfire's silicon rules, f
 ## Results
 
 Measured on 2026-11-03 on the Ryzen AI MAX+ 395 box. The builds came from whatever toolchain each project used when it built them.
+
+**Gate D: run path and rule gate.**
+- **Run path:** `silicon/zol/edit_build.sh` edits a core program as text, runs the rule gate, rebuilds with npuasm, and packages with `npuasm package`. No vendor tool is involved; running still uses XRT's runtime. The multiplier-7 edit gave 1,024/1,024 correct words in 3 runs ([silicon/zol](silicon/zol/README.md)). XRT accepts an xclbin without xclbinutil's JSON copy.
+- **Rule gate:** `rules.py` checks program size, branch-target alignment, delay slots, lock spacing, zero-length valid descriptors and shim AxQoS 15. Over all 1,873 builds it finds no violations, and each rule fires on its unit-test case.
+- **Calibration:** the corpus showed that hipfire's ban on lock requests in delay slots was too strict. Peano puts `acq`/`rel` in call delay slots in every build, so that part was dropped.
 
 **Gate C: size in tokens** ([tokens.md](results/tokens.md), the first raw text in [tokens-v1.md](results/tokens-v1.md); Qwen3.5 tokenizer, the same 248k vocabulary as Qwen3.8; 118 design families, one build each, the one with the most core code):
 
@@ -96,9 +107,9 @@ Getting much smaller than this needs a higher layer that isn't lossless. For exa
 ## Not covered yet
 
 - Data addresses (`movxm p1, #0x71800`) and DMA buffer addresses stay numeric. Branch and loop targets are labels, so code can be inserted, but moving data buffers means editing numbers.
-- `insts.elf` (full-ELF flow, `aiebu-asm`), xclbin writing, and the raw-ioctl loader.
+- `insts.elf` (full-ELF flow, `aiebu-asm`) and a raw-ioctl loader to replace XRT's runtime (hipfire has one).
 - FastFlowLM's closed xclbins have no `final.prj`, so they are out of scope.
-- Running anything on the NPU: everything here is byte comparison.
+- The rule gate covers the core-program and descriptor rules above. Not yet covered: routing and lock-protocol deadlock, queue depth (F-0001), memory-tile lane rules.
 
 ## Sources
 

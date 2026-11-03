@@ -261,6 +261,21 @@ def _lift_core(elf_path: Path) -> Listing:
     return Listing(insns, text_symbols(Path(elf_path).read_bytes()))
 
 
+def lift_bytes(code: bytes) -> Listing:
+    """Decode raw program bytes (from address 0) with npuasm-core."""
+    with tempfile.TemporaryDirectory(prefix="npuasm-") as d:
+        b = Path(d, "code.bin")
+        b.write_bytes(code)
+        r = subprocess.run([str(core_bin()), "dis", str(b)], capture_output=True, text=True)
+        if r.returncode:
+            raise CoreError(r.stderr.strip())
+    insns = []
+    for line in r.stdout.splitlines():
+        a, hx, text = line.split("\t", 2)
+        insns.append(Insn(int(a, 16), bytes.fromhex(hx), re.sub(r"\s+", " ", text).replace(" ;", ";").strip()))
+    return Listing(insns, {})
+
+
 def lift_text(elf_path: Path, *, peano: Path | None = None) -> str:
     return lift(elf_path, peano=peano).render()
 

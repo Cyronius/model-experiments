@@ -26,7 +26,7 @@ import struct
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import cdo, core, decl, patch, pdi, txn, txndecl
+from . import cdo, core, decl, patch, pdi, rules, txn, txndecl
 
 CORE_DIR = re.compile(r"^elfs_(.+)_core_(\d+)_(\d+)$")
 
@@ -175,7 +175,21 @@ def lift(prj: Path, out: Path | None, rep: Report | None = None) -> tuple[dict, 
     return manifest, texts, rep
 
 
-def rebuild(manifest: dict, texts: dict[str, str]) -> dict[str, bytes]:
+def check_rules(manifest: dict, texts: dict[str, str]) -> list[rules.Violation]:
+    """The rule gate on lifted (or edited) text: cores are assembled and
+    decoded back, so the check sees what would run."""
+    out = []
+    built = rebuild(manifest, texts, keep_code=True)
+    for name, code in built["_code"].items():
+        out += rules.check_core(core.lift_bytes(code).insns, name)
+    for part in ("elfs", "init", "enable"):
+        out += rules.check_cdo(cdo.parse(built[f"cdo_{part}"]), f"{part}.cdo")
+    if "insts" in built:
+        out += rules.check_txn(txn.parse(built["insts"])[1], "insts.txn")
+    return out
+
+
+def rebuild(manifest: dict, texts: dict[str, str], *, keep_code: bool = False) -> dict[str, bytes]:
     """Artifacts from lifted text: cdo_elfs/init/enable, pdi, insts."""
     out: dict[str, bytes] = {}
     code: dict[str, list[int]] = {}
@@ -192,7 +206,14 @@ def rebuild(manifest: dict, texts: dict[str, str]) -> dict[str, bytes]:
 
     for name in sorted(set(manifest["cores"].values())):
         b = core.assemble(text_of(name))
+        # An edited program can end on any even size; program memory is
+        # written in words, and Peano pads code to 16 bytes with NOPs.
+        # Vendor programs already are, so the lossless round trip is unchanged.
+        if len(b) % 16:
+            b += b"\0\0" * ((16 - len(b) % 16) // 2)  # 2-byte `nop` bundles
         code[name] = list(struct.unpack(f"<{len(b) // 4}I", b))
+        if keep_code:
+            out.setdefault("_code", {})[name] = b
 
     def resolve(ref: str) -> list[int]:
         return code[ref]
