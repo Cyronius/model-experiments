@@ -261,6 +261,25 @@ def _lift_core(elf_path: Path) -> Listing:
     return Listing(insns, text_symbols(Path(elf_path).read_bytes()))
 
 
+TARGET_REF = re.compile(r"(?:^|;)\s*(?:(?:j|jl|jz|jnz)\s+(?:[^#;]*,\s*)?|movxm\s+(?:ls|le),\s*)#([A-Za-z_.$][A-Za-z0-9_.$]*)")
+
+
+def align_targets(text: str) -> str:
+    """Repair for edited programs: put `.p2align 4` before every label that a
+    branch or hardware-loop bound refers to, so targets sit on 16-byte
+    boundaries (F-0288) the way Peano lays them out. Not used for lossless
+    round trips: Peano sometimes leaves a target unaligned behind NOP-only
+    bytes, and padding would change those bytes."""
+    lines = text.split("\n")
+    names = {m.group(1) for l in lines if not l.lstrip().startswith("//") for m in TARGET_REF.finditer(l.strip())}
+    out = []
+    for l in lines:
+        if l.endswith(":") and l[:-1] in names:
+            out.append("\t.p2align 4")
+        out.append(l)
+    return "\n".join(out)
+
+
 def lift_bytes(code: bytes) -> Listing:
     """Decode raw program bytes (from address 0) with npuasm-core."""
     with tempfile.TemporaryDirectory(prefix="npuasm-") as d:

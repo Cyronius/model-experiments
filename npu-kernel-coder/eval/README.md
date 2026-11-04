@@ -25,6 +25,7 @@ The prompt (`prompt.py`) is a one-page primer on the npuasm format, the request,
 | `gap_closed` | 1 − d(answer, B) / d(A, B), with d counting changed lines: 1 is exact, 0 no progress, below 0 worse than A |
 | `builds` | npuasm rebuilds the answer (every core assembles) |
 | `rules_pass` | the rule gate finds no violation |
+| `rules_pass_aligned` | it passes once branch-target labels are padded to 16 bytes (the repair runs only when alignment was the sole problem) |
 | `bytes_match` | the rebuilt CDOs and `insts.bin` equal B's vendor binaries |
 
 `check_harness.py tasks` is the oracle check. difflib's own A→B diff must be exact and byte-identical, and an empty answer must close no gap. Both hold on all 77 tasks.
@@ -38,7 +39,7 @@ Exact match is the wrong bar when a port changes the core code, because Peano re
 4. The answer runs once, rebuilt by npuasm and packaged with B's xclbin as template.
 5. Every buffer is compared, so stray writes outside the outputs show up too.
 
-Verdicts: `equal` (bitwise), `close` (float buffers within 1e-2 of their scale), `differs`, `hang`. Each run is its own process (`npu_exec.py`, pyxrt, 20 s timeout). After a hang, B is rerun as a health check, and the session stops if it fails. Run it under a dibs NPU hold:
+Verdicts: `equal` (bitwise), `close` (float buffers within 1e-2 of their scale), `differs`, `hang`, `vacuous` (B wrote nothing, so the task isn't scored). Answers that fail the rule gate only on branch alignment are checked after the alignment repair (`rules_pass_aligned`). `--recheck-equal --seed N --out-name npu_seedN.json` reruns the equal/close answers with another seed. Each run is its own process (`npu_exec.py`, pyxrt, 20 s timeout). After a hang, B is rerun as a health check, and the session stops if it fails. Run it under a dibs NPU hold:
 
 ```sh
 dibs run npu --label "npu-kernel-coder differential check" --eta 30m -- \

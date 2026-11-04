@@ -37,7 +37,7 @@ from npuasm import build, xclbin  # noqa: E402
 
 SEQ = re.compile(r"runtime_sequence\s*(?:@\w+)?\s*\(([^)]*)\)")
 ARG = re.compile(r"memref<(\d+)x(\w+)>")
-SEED = 20261104
+SEED = 20261104  # default; --seed overrides
 
 
 def signature(prj: str) -> list[list]:
@@ -91,18 +91,28 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("runs", nargs="+", type=Path)
     ap.add_argument("--only-inexact", action="store_true", help="skip exact answers (they are byte-identical to B)")
+    ap.add_argument("--seed", type=int, default=SEED)
+    ap.add_argument("--out-name", default="npu.json", help="per-task result file (e.g. npu_seed2.json)")
+    ap.add_argument("--recheck-equal", action="store_true",
+                    help="only answers whose npu.json verdict is equal/close (second-seed recheck)")
     a = ap.parse_args()
+    globals()["SEED"] = a.seed
     for run in a.runs:
         summary = {}
         for rp in sorted(run.glob("*/result.json")):
             res = json.loads(rp.read_text())
             s = res["score"]
             td = HERE / "tasks" / res["id"]
-            out_json = rp.parent / "npu.json"
+            out_json = rp.parent / a.out_name
+            if a.recheck_equal:
+                first = rp.parent / "npu.json"
+                if not first.exists() or json.loads(first.read_text())["verdict"] not in ("equal", "close"):
+                    continue
             if out_json.exists():
                 summary[res["id"]] = json.loads(out_json.read_text())["verdict"]
                 continue
-            if not (s["builds"] and s["rules_pass"]):
+            aligned = not s["rules_pass"]
+            if not (s["builds"] and (s["rules_pass"] or s.get("rules_pass_aligned"))):
                 continue
             if a.only_inexact and s["exact"]:
                 continue
@@ -118,7 +128,7 @@ def main() -> None:
             else:
                 with tempfile.TemporaryDirectory(prefix="nkc-npu-") as d:
                     d = Path(d)
-                    built = build.rebuild(manifest, pred)
+                    built = build.rebuild(manifest, pred, align_targets=aligned)
                     bdir = Path(res["b_prj"]).parent
                     (d / "sig.json").write_text(json.dumps(sig))
                     (d / "ans.xclbin").write_bytes(xclbin.build((bdir / "final.xclbin").read_bytes(), built["pdi"]))
@@ -143,15 +153,16 @@ def main() -> None:
                                 v, rows = compare(d / "b1.npz", d / "ans.npz", sig)
                                 result = {"verdict": v, "buffers": rows, "b_ms": r1.get("ms"), "answer_ms": ra.get("ms"),
                                           "b_changed_bytes": r1.get("changed_bytes"), "answer_changed_bytes": ra.get("changed_bytes")}
-            result.update(exact=s["exact"], gap_closed=s["gap_closed"], difficulty=res["difficulty"])
+            result.update(exact=s["exact"], gap_closed=s["gap_closed"], difficulty=res["difficulty"],
+                          aligned=aligned, seed=a.seed)
             out_json.write_text(json.dumps(result, indent=1) + "\n")
             summary[res["id"]] = result["verdict"]
             print(f"{run.name} {res['id']} {res['difficulty']:6s} exact={s['exact']} gap={s['gap_closed']} -> {result['verdict']}", flush=True)
             if result["verdict"] == "hang" and not result.get("health_after", {}).get("ok"):
                 print("NPU health check failed after a hang; stopping", flush=True)
-                (run / "npu_summary.json").write_text(json.dumps(summary, indent=1) + "\n")
+                (run / a.out_name.replace(".json", "_summary.json")).write_text(json.dumps(summary, indent=1) + "\n")
                 return
-        (run / "npu_summary.json").write_text(json.dumps(summary, indent=1) + "\n")
+        (run / a.out_name.replace(".json", "_summary.json")).write_text(json.dumps(summary, indent=1) + "\n")
         counts = {}
         for v in summary.values():
             counts[v] = counts.get(v, 0) + 1

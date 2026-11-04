@@ -293,6 +293,12 @@ enum Item<'a> {
     Bytes(Vec<u8>),
     Bundle(usize, &'a str),
     Label(&'a str),
+    /// `.p2align N`: pad with 2-byte `nop` bundles to a 2^N-byte boundary.
+    Align(u64),
+}
+
+fn pad(pc: u64, to: u64) -> u64 {
+    (to - pc % to) % to
 }
 
 /// Assemble an npuasm `.s` file: `.text`, `// comments`, `name:` labels,
@@ -317,6 +323,12 @@ pub fn assemble_file(src: &str, stats: &mut Stats) -> Result<Vec<u8>, String> {
                 b.push(u8::from_str_radix(t.trim_start_matches("0x"), 16).map_err(|_| format!("line {}: bad byte {t}", n + 1))?);
             }
             items.push(Item::Bytes(b));
+        } else if let Some(arg) = line.strip_prefix(".p2align") {
+            let p: u32 = arg.trim().parse().map_err(|_| format!("line {}: bad .p2align", n + 1))?;
+            if !(1..=6).contains(&p) {
+                return Err(format!("line {}: .p2align {p} out of range", n + 1));
+            }
+            items.push(Item::Align(1u64 << p));
         } else if let Some(name) = line.strip_suffix(':').filter(|s| s.chars().all(is_label_char)) {
             items.push(Item::Label(name));
         } else {
@@ -332,6 +344,7 @@ pub fn assemble_file(src: &str, stats: &mut Stats) -> Result<Vec<u8>, String> {
     for it in &items {
         match it {
             Item::Bytes(b) => pc += b.len() as u64,
+            Item::Align(to) => pc += pad(pc, *to),
             Item::Label(name) => {
                 if labels.insert(name.to_string(), pc).is_some() {
                     return Err(format!("label `{name}` defined twice"));
@@ -351,6 +364,13 @@ pub fn assemble_file(src: &str, stats: &mut Stats) -> Result<Vec<u8>, String> {
     for it in &items {
         match it {
             Item::Bytes(b) => out.extend_from_slice(b),
+            Item::Align(to) => {
+                let n = pad(out.len() as u64, *to);
+                if n % 2 != 0 {
+                    return Err("odd alignment padding".into());
+                }
+                out.extend(std::iter::repeat(0u8).take(n as usize)); // `nop` = 00 00
+            }
             Item::Label(_) => {}
             Item::Bundle(n, line) => {
                 let t = substitute(line, &labels, None).map_err(|e| format!("line {n}: {e}"))?;

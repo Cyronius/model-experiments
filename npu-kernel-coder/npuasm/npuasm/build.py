@@ -175,11 +175,11 @@ def lift(prj: Path, out: Path | None, rep: Report | None = None) -> tuple[dict, 
     return manifest, texts, rep
 
 
-def check_rules(manifest: dict, texts: dict[str, str]) -> list[rules.Violation]:
+def check_rules(manifest: dict, texts: dict[str, str], *, align_targets: bool = False) -> list[rules.Violation]:
     """The rule gate on lifted (or edited) text: cores are assembled and
     decoded back, so the check sees what would run."""
     out = []
-    built = rebuild(manifest, texts, keep_code=True)
+    built = rebuild(manifest, texts, keep_code=True, align_targets=align_targets)
     for name, code in built["_code"].items():
         out += rules.check_core(core.lift_bytes(code).insns, name)
     for part in ("elfs", "init", "enable"):
@@ -189,7 +189,8 @@ def check_rules(manifest: dict, texts: dict[str, str]) -> list[rules.Violation]:
     return out
 
 
-def rebuild(manifest: dict, texts: dict[str, str], *, keep_code: bool = False) -> dict[str, bytes]:
+def rebuild(manifest: dict, texts: dict[str, str], *, keep_code: bool = False,
+            align_targets: bool = False) -> dict[str, bytes]:
     """Artifacts from lifted text: cdo_elfs/init/enable, pdi, insts."""
     out: dict[str, bytes] = {}
     code: dict[str, list[int]] = {}
@@ -205,7 +206,8 @@ def rebuild(manifest: dict, texts: dict[str, str], *, keep_code: bool = False) -
         return full[name]
 
     for name in sorted(set(manifest["cores"].values())):
-        b = core.assemble(text_of(name))
+        src = text_of(name)
+        b = core.assemble(core.align_targets(src) if align_targets else src)
         # An edited program can end on any even size; program memory is
         # written in words, and Peano pads code to 16 bytes with NOPs.
         # Vendor programs already are, so the lossless round trip is unchanged.

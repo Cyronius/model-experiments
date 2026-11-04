@@ -10,6 +10,8 @@ Metrics per task:
                 exact, 0 is no progress, below 0 is worse than A
   builds        npuasm rebuilds the answer (assembles every core)
   rules_pass    and the rule gate finds no violation
+  rules_pass_aligned  passes once branch targets are padded to 16 bytes
+                (the repair applies only when alignment was the sole problem)
   bytes_match   the rebuilt artifacts equal B's vendor binaries
 """
 
@@ -117,8 +119,17 @@ def score(task_dir: Path, answer: str) -> dict:
         vs = build.check_rules(manifest, pred)
         res["rules_pass"] = not vs
         res["rule_violations"] = [f"{v.rule}: {v.detail}" for v in vs[:5]]
+        # Repair: when the only problem is branch-target alignment, pad the
+        # targets to 16 bytes as Peano does (core.align_targets) and recheck.
+        res["rules_pass_aligned"] = res["rules_pass"]
+        if vs and all(v.rule == "branch-target" for v in vs):
+            try:
+                res["rules_pass_aligned"] = not build.check_rules(manifest, pred, align_targets=True)
+            except Exception as e:
+                res["align_error"] = f"{type(e).__name__}: {str(e)[:200]}"
         h = manifest["hashes"]
         res["bytes_match"] = all(build.sha(out[k]) == h[k] for k in ("cdo_elfs", "cdo_init", "cdo_enable", "insts") if k in h and k in out)
     except Exception as e:  # unparseable or unassemblable answer
-        res.update(builds=False, rules_pass=False, bytes_match=False, build_error=f"{type(e).__name__}: {str(e)[:200]}")
+        res.update(builds=False, rules_pass=False, rules_pass_aligned=False, bytes_match=False,
+                   build_error=f"{type(e).__name__}: {str(e)[:200]}")
     return res

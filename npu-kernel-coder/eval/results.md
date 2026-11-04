@@ -65,6 +65,24 @@ On the 45 tasks with a worked example: 31 functionally correct without the examp
 
 **Hangs:** 6 answers that passed the rule gate hung, across 3 tasks and 3 runs. Every one ended at the 20 s timeout, and B ran correctly right after, so the NPU recovered each time. A typical cause is attention `r128 → r1`: the model fixed the host DMA length but not the core's data volume, so the core waits on a lock forever. A static dataflow-balance check would catch this; the timeout already makes it safe.
 
+## Alignment repair and a second input seed (2026-11-04)
+
+**Alignment repair.** When the rule gate rejects an answer *only* for branch-target alignment, `score.py` pads the referenced labels to 16 bytes (`core.align_targets`, the `.p2align 4` directive in npuasm-core, as Peano lays code out) and rechecks. That recovered every rule-gate rejection: sol 64 → 71 of 77, sol with example 38 → 44 of 45, astra 8 → 11 of 12. On the NPU the 16 repaired answers gave 4 `equal`, 3 `differs` and 9 hangs. So misalignment was usually a symptom of a broader wrong edit to the core.
+
+**Second seed.** All 95 `equal`/`close` verdicts at the first seed reproduced at a second seed (7), including all 25 inexact answers.
+
+**Functionally correct** (exact, byte-identical, or NPU `equal`/`close` after repair), gpt-6.1-sol, medium effort:
+
+| Run | Easy | Medium | Hard | All | Failures |
+|---|---:|---:|---:|---:|---|
+| 77 tasks | 12/12 | 28/33 | 12/32 | **52/77** | 14 wrong values, 6 don't build, 5 hang |
+| 45 tasks, no example | 5/5 | 21/25 | 6/15 | 32/45 | 5 wrong values, 4 don't build, 4 hang |
+| Same 45, with example | 5/5 | 24/25 | 7/15 | **36/45** | 7 hang, 1 wrong value, 1 doesn't build |
+
+With the worked example, hangs are most of what's left. Hangs remain cheap and safe: across 25 hung answer runs (seed 1, including repaired answers), every one ended in `ERT_CMD_STATE_TIMEOUT` after about 2 s, and the vendor build ran correctly right after.
+
+**Checking for deadlocks before the NPU is not done.** hipfire's CPU simulator (`peacemaker-npu sim`) loads exact PDI and TXN bytes, but it does not support packet-switched streams, memtile DMA, non-contiguous DMA or most bf16/float vector instructions. All 77 tasks use packet streams and float vector code, so it cannot run them yet. A pre-check would need either a "control skeleton" mode in that simulator (locks, DMA, scalar loop control, with vector math as no-ops, plus packet streams) or a configuration-level stream-volume check with route tracing, which cannot see the core's loop counts. Both are real projects; the runtime timeout covers the risk meanwhile.
+
 ## What the pilot shows
 
 - Both models get every easy port exact (1–4 changed lines) and half the medium ones. Neither gets a hard port, and the two models land on the same tasks.
@@ -74,8 +92,8 @@ On the 45 tasks with a worked example: 31 functionally correct without the examp
 
 ## Next
 
-- Let npuasm pad branch targets to 16 bytes (as Peano does), so alignment slips stop costing otherwise-correct ports; rerun the rule-gate failures.
-- A second input seed for the functionally-equal answers.
-- A dataflow-balance check in the rule gate (DMA volume vs. what the core consumes) for the hangs.
+- A deadlock pre-check: a control-skeleton mode for hipfire's simulator, or a stream-volume check with route tracing (see above).
+- A deterministic baseline: fit how each number in a design moves with its shape parameters from two builds, and apply that to the target shape. A model has to beat it.
+- Qwen3.5-27B (queued under a dibs GPU hold).
 - Run Qwen3.5-27B under a dibs GPU hold once the GPU is free.
 - Check answers that build and pass the rule gate on the NPU against a CPU reference, so correct non-identical ports also count.
