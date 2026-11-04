@@ -29,6 +29,22 @@ The prompt (`prompt.py`) is a one-page primer on the npuasm format, the request,
 
 `check_harness.py tasks` is the oracle check. difflib's own A→B diff must be exact and byte-identical, and an empty answer must close no gap. Both hold on all 77 tasks.
 
+## Functional check on the NPU
+
+Exact match is the wrong bar when a port changes the core code, because Peano reschedules it. `npu_check.py` therefore checks answers that build and pass the rule gate differentially, with the real build B as the oracle on the NPU, so no CPU reference is needed:
+1. B's runtime-sequence signature (buffer sizes and element types, from its `aie.mlir`) sizes every buffer.
+2. All buffers are filled from one seed: floats N(0, 0.5), integer bytes uniform.
+3. B's vendor xclbin runs twice; if the two runs disagree, the task is not scored.
+4. The answer runs once, rebuilt by npuasm and packaged with B's xclbin as template.
+5. Every buffer is compared, so stray writes outside the outputs show up too.
+
+Verdicts: `equal` (bitwise), `close` (float buffers within 1e-2 of their scale), `differs`, `hang`. Each run is its own process (`npu_exec.py`, pyxrt, 20 s timeout). After a hang, B is rerun as a health check, and the session stops if it fails. Run it under a dibs NPU hold:
+
+```sh
+dibs run npu --label "npu-kernel-coder differential check" --eta 30m -- \
+    python3 npu_check.py --only-inexact runs/<tag>
+```
+
 ## Running
 
 ```sh
