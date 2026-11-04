@@ -26,6 +26,23 @@ Per task (gap closed; `x` = exact, `B` = does not build, `R` = fails the rule ga
 | T4469398b3c | hard | projections | bf16_n256_k2560 → bf16_n2560_k256 | 245 | R 0.3102 | R 0.302 |
 | T65ca8bff72 | hard | projections | bf16_n256_k1536 → bf16_n1536_k256 | 217 | R 0.3502 | R 0.3548 |
 
+## A worked example from the same design (45 tasks, gpt-6.1-sol, medium effort)
+
+`add_examples.py` gives 45 of the 77 tasks a second pair of builds from the same design, shown as its unified diff. That pair never includes B; preferred is a pair where the same name positions change. The other 32 tasks come from designs with only two builds. The same 45 tasks were run with and without the example (`--variant ex1`); `compare.py` pairs them.
+
+| difficulty | n | exact gpt-6.1-sol-medium | exact gpt-6.1-sol-medium-ex1 | gap median | gap median | gap better / same / worse |
+|---|---:|---:|---:|---:|---:|---|
+| easy | 5 | 5 | 5 | 1.000 | 1.000 | 0 / 5 / 0 |
+| medium | 25 | 20 | 23 | 1.000 | 1.000 | 4 / 21 / 0 |
+| hard | 15 | 0 | 1 | 0.090 | 0.152 | 5 / 6 / 4 |
+| all | 45 | 25 | 29 | 1.000 | 1.000 | 9 / 32 / 4 |
+
+- **Exact:** 25 → 29 of 45, and no task lost exactness. Answers that rebuild: 41 → 44; the rule gate passes 38 in both runs.
+- **Medium tasks:** the example supplies what the names don't carry. In `lm_head_q4` 100352 → 65536 it shows how the core's buffer addresses and the chunk count move with the vocabulary, and the port becomes exact.
+- **Hard tasks:** they barely move (0 → 1 exact; median gap closed 0.09 → 0.15). Of the 2,731 lines a hard port must change, 2,490 (91%) are core assembly. Even with the example, the answers leave 2,049 of those wrong. They leave 13 of 50 CDO lines and 80 of 191 `insts.txn` lines wrong.
+
+When a shape changes enough, Peano reschedules the core: trip counts, unrolling, register allocation and addresses all move. Matching that output line for line is the wrong bar for hard ports, because a correct core scheduled differently should count. Scoring hard tasks needs an NPU run against a CPU reference.
+
 ## What the pilot shows
 
 - Both models get every easy port exact (1–4 changed lines) and half the medium ones. Neither gets a hard port, and the two models land on the same tasks.
@@ -35,6 +52,6 @@ Per task (gap closed; `x` = exact, `B` = does not build, `R` = fails the rule ga
 
 ## Next
 
-- Give the model a second pair from the same design in the prompt (a worked example of how the design's numbers move), and/or the selected findings. Measure the change on the same pilot, then on all 77 tasks.
+- Functional scoring for hard tasks: run answers that build and pass the rule gate on the NPU (under `dibs run npu`) against a CPU reference for each design family, starting with the families whose generators already ship `make_test.py`/`compare.py`.
 - Run Qwen3.5-27B under a dibs GPU hold once the GPU is free.
 - Check answers that build and pass the rule gate on the NPU against a CPU reference, so correct non-identical ports also count.

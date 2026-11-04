@@ -54,9 +54,23 @@ def order(name: str) -> tuple[int, str]:
     return ({"init.cdo": 0, "enable.cdo": 1, "elfs.cdo": 2, "insts.txn": 3}.get(name, 4), name)
 
 
-def build(task_dir: Path) -> str:
+EXAMPLE = """\
+## Worked example from the same design
+
+The same design built as `{c_name}` and as `{d_name}` differs like this
+(unified diff from `{c_name}` to `{d_name}`). Use it to see which lines
+depend on which shape parameter.
+
+{diff}
+"""
+
+
+def build(task_dir: Path, *, example: bool = False) -> str:
     meta = json.loads((task_dir / "task.json").read_text())
     parts = [PRIMER, REQUEST.format(**meta)]
+    if example:
+        ex = json.loads((task_dir / "example.json").read_text())
+        parts.append(EXAMPLE.format(diff=(task_dir / "example.diff").read_text(), **ex))
     for f in sorted((p.name for p in (task_dir / "a").iterdir()), key=order):
         parts.append(f"=== FILE: {f} ===\n{(task_dir / 'a' / f).read_text()}=== END FILE: {f} ===\n")
     parts.append(f"Now the unified diff from `{meta['a_name']}` to `{meta['b_name']}`:\n")

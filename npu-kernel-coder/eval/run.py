@@ -78,7 +78,8 @@ def main() -> None:
     ap.add_argument("--effort", default="medium")
     ap.add_argument("--url", default="http://127.0.0.1:8091")
     ap.add_argument("--max-tokens", type=int, default=12000)
-    ap.add_argument("--tasks", default="pilot", help="pilot | all | dev | test | comma-separated ids")
+    ap.add_argument("--tasks", default="pilot", help="pilot | all | dev | test | with-example | comma-separated ids")
+    ap.add_argument("--variant", choices=["base", "ex1"], default="base", help="ex1: add a worked example pair from the same design")
     ap.add_argument("--tag")
     ap.add_argument("--timeout", type=int, default=3600)
     a = ap.parse_args()
@@ -87,12 +88,18 @@ def main() -> None:
         chosen = pilot(index)
     elif a.tasks == "all":
         chosen = index
+    elif a.tasks == "with-example":
+        chosen = [m for m in index if (HERE / "tasks" / m["id"] / "example.json").exists()]
     elif a.tasks in ("dev", "test"):
         chosen = [m for m in index if m["split"] == a.tasks]
     else:
         ids = set(a.tasks.split(","))
         chosen = [m for m in index if m["id"] in ids]
+    if a.variant == "ex1":
+        chosen = [m for m in chosen if (HERE / "tasks" / m["id"] / "example.json").exists()]
     tag = a.tag or (f"{a.model}-{a.effort}" if a.backend == "codex" else a.model)
+    if a.variant != "base":
+        tag += f"-{a.variant}"
     root = HERE / "runs" / tag
     root.mkdir(parents=True, exist_ok=True)
     for k, m in enumerate(chosen):
@@ -101,7 +108,7 @@ def main() -> None:
         if (rd / "result.json").exists():
             continue
         rd.mkdir(parents=True, exist_ok=True)
-        text = prompt.build(td)
+        text = prompt.build(td, example=a.variant == "ex1")
         (rd / "prompt.txt").write_text(text)
         try:
             if a.backend == "codex":
