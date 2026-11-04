@@ -43,6 +43,28 @@ Per task (gap closed; `x` = exact, `B` = does not build, `R` = fails the rule ga
 
 When a shape changes enough, Peano reschedules the core: trip counts, unrolling, register allocation and addresses all move. Matching that output line for line is the wrong bar for hard ports, because a correct core scheduled differently should count. Scoring hard tasks needs an NPU run against a CPU reference.
 
+## Functional check on the NPU (differential, against the real build B)
+
+`npu_check.py` ran under `dibs run npu` on 2026-11-04 (Strix Halo, firmware 1.1.2.65, XRT 2.27.0). It checked every answer that builds and passes the rule gate.
+
+- **Controls:** all 6 exact answers in the astra pilot came back `equal`, which confirms the harness and npuasm's xclbin packaging against the vendor builds.
+- **No vacuous passes:** B wrote at least one buffer in every scored task (128 B to 1.8 MB), so no verdict was empty agreement.
+- **Different code, same result:** 12 distinct inexact answers whose binaries differ from B gave B's output bit for bit. Their core code was 8–295 lines away from B's. They port the shape correctly with A's code structure where Peano generated new code.
+- **Caveat:** these are equal on one seeded input per task, which is strong evidence but not proof.
+
+**Functionally correct** means exact text, or byte-identical rebuild, or NPU `equal`/`close`:
+
+| gpt-6.1-sol, medium effort | Tasks | Exact text | Functionally correct | Why the rest fail |
+|---|---:|---:|---:|---|
+| Easy | 12 | 12 | 12 | |
+| Medium | 33 | 23 | 28 | 3 don't build, 2 compute wrong values |
+| Hard | 32 | 0 | **11** | 9 wrong values, 7 rule gate, 3 don't build, 2 hang |
+| All | 77 | 35 | **51** | |
+
+On the 45 tasks with a worked example: 31 functionally correct without the example, 34 with it (medium 21 → 24, hard 5 → 5). With the example, wrong values fall from 5 to 1, but rule-gate rejections rise from 3 to 6. The model makes bolder core edits, and most rejections are branch targets knocked off 16-byte alignment, which Peano pads automatically.
+
+**Hangs:** 6 answers that passed the rule gate hung, across 3 tasks and 3 runs. Every one ended at the 20 s timeout, and B ran correctly right after, so the NPU recovered each time. A typical cause is attention `r128 → r1`: the model fixed the host DMA length but not the core's data volume, so the core waits on a lock forever. A static dataflow-balance check would catch this; the timeout already makes it safe.
+
 ## What the pilot shows
 
 - Both models get every easy port exact (1–4 changed lines) and half the medium ones. Neither gets a hard port, and the two models land on the same tasks.
@@ -52,6 +74,8 @@ When a shape changes enough, Peano reschedules the core: trip counts, unrolling,
 
 ## Next
 
-- Functional scoring for hard tasks: run answers that build and pass the rule gate on the NPU (under `dibs run npu`) against a CPU reference for each design family, starting with the families whose generators already ship `make_test.py`/`compare.py`.
+- Let npuasm pad branch targets to 16 bytes (as Peano does), so alignment slips stop costing otherwise-correct ports; rerun the rule-gate failures.
+- A second input seed for the functionally-equal answers.
+- A dataflow-balance check in the rule gate (DMA volume vs. what the core consumes) for the hangs.
 - Run Qwen3.5-27B under a dibs GPU hold once the GPU is free.
 - Check answers that build and pass the rule gate on the NPU against a CPU reference, so correct non-identical ports also count.
