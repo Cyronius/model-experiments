@@ -83,6 +83,27 @@ With the worked example, hangs are most of what's left. Hangs remain cheap and s
 
 **Checking for deadlocks before the NPU is not done.** hipfire's CPU simulator (`peacemaker-npu sim`) loads exact PDI and TXN bytes, but it does not support packet-switched streams, memtile DMA, non-contiguous DMA or most bf16/float vector instructions. All 77 tasks use packet streams and float vector code, so it cannot run them yet. A pre-check would need either a "control skeleton" mode in that simulator (locks, DMA, scalar loop control, with vector math as no-ops, plus packet streams) or a configuration-level stream-volume check with route tracing, which cannot see the core's loop counts. Both are real projects; the runtime timeout covers the risk meanwhile.
 
+## Deterministic baseline: rescale A's numbers (`baseline_scale.py`, no model)
+
+For every number in A's text, predict its value at B's shape parameters (the numbers in the build name):
+- **BL1, fitted (46 tasks):** the design's other builds (never B; up to 16 nearest in shape) are aligned with A line by line, with numbers masked. Each number position gets the simplest exact relation consistent with all of them: constant; a·P + b in one parameter; a·log₂P + b; a·P·Q + b or a·P/Q + b. Ambiguous or non-integer fits keep A's value.
+- **BL0, guess (31 tasks with no other build):** a number equal to c·P or c·P ± 1 for a changed parameter P, with c round (2^k, 3, 5, 6, 12), is rescaled. Only size-like configuration fields and immediates of movs into general registers are touched. A first version without that restriction also rescaled stack offsets and base addresses that matched by coincidence.
+- **Both:** a 32-bit immediate whose fp32 value is exactly f(P) for f ∈ {P, 1/P, √P, 1/√P} is re-evaluated at B. Example: `0x3ca1e89b` = 1/√2560 → `0x3cd105ec` = 1/√1536.
+- **Labels** are never rewritten.
+
+Results: exact text 24/77 (BL1 22: 5/5 easy, 17/25 medium, 0/16 hard; BL0 2). 72 answers build and pass the rule gate. On the NPU its 48 inexact answers gave 5 `equal`, 23 `differs` and 20 hangs. It rescales host DMA sizes but cannot restructure the core, which is exactly the volume mismatch that deadlocks. All 20 hangs again recovered.
+
+**Functionally correct**, baseline vs gpt-6.1-sol (medium effort):
+
+| Difficulty | Tasks | Baseline | sol | Both | Baseline only | sol only |
+|---|---:|---:|---:|---:|---:|---:|
+| Easy | 12 | 9 | 12 | 9 | 0 | 3 |
+| Medium | 33 | 17 | 28 | 17 | 0 | 11 |
+| Hard | 32 | 3 | 12 | 2 | 1 | 10 |
+| All | 77 | **29** | **52** | 28 | 1 | 24 |
+
+The baseline's correct set is nearly a subset of sol's (28 of 29). The model adds 23 tasks, mostly where code must change rather than numbers. That's the bar for any trained model, including an edit-diffusion one.
+
 ## What the pilot shows
 
 - Both models get every easy port exact (1–4 changed lines) and half the medium ones. Neither gets a hard port, and the two models land on the same tasks.
@@ -93,7 +114,6 @@ With the worked example, hangs are most of what's left. Hangs remain cheap and s
 ## Next
 
 - A deadlock pre-check: a control-skeleton mode for hipfire's simulator, or a stream-volume check with route tracing (see above).
-- A deterministic baseline: fit how each number in a design moves with its shape parameters from two builds, and apply that to the target shape. A model has to beat it.
-- Qwen3.5-27B (queued under a dibs GPU hold).
+- Qwen3.5-27B: not run. The GPU stayed busy with the manifold healing jobs all afternoon, and my queued run would have expired before it freed. Run it in a free GPU window with the dibs command in README.md.
 - Run Qwen3.5-27B under a dibs GPU hold once the GPU is free.
 - Check answers that build and pass the rule gate on the NPU against a CPU reference, so correct non-identical ports also count.

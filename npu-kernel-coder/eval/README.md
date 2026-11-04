@@ -46,6 +46,10 @@ dibs run npu --label "npu-kernel-coder differential check" --eta 30m -- \
     python3 npu_check.py --only-inexact runs/<tag>
 ```
 
+## Deterministic baseline
+
+`baseline_scale.py ../npuasm/results/corpus.jsonl` writes `runs/baseline-scale/`. It needs no model: it rescales A's numbers to B's shape, fitted from the design's other builds where they exist and guessed from round multiples otherwise. It goes through the same scorer and NPU check as model runs. See [results.md](results.md).
+
 ## Running
 
 ```sh
