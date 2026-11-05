@@ -1,11 +1,20 @@
 """Run a model on shape-port tasks and score the answers.
 
     python3 run.py --backend codex --model gpt-6.1-sol --effort medium --tasks pilot
+    python3 run.py --backend claude --model claude-opus-5-5 --effort xhigh --tasks all --jobs 4
     python3 run.py --backend llama --model qwen3.5-27b-q4km --url http://127.0.0.1:8091 --tasks pilot
 
+`claude` uses the Claude Code CLI signed in with the user's claude.ai
+subscription (no API billing; --bare is avoided because it only takes an API
+key): one `claude -p` per task in an empty temp directory, prompt on stdin,
+all tools off (`--tools ""`), no MCP servers, no settings files, a one-line
+system prompt. ~/.claude/CLAUDE.md still loads (a few hundred tokens of
+unrelated notes), as ~/.codex/AGENTS.md does for codex.
 `codex` uses the Codex CLI signed in with the user's ChatGPT account (no API
 billing): one `codex exec` per task in an empty read-only sandbox, prompt on
-stdin, told to use no tools. `llama` posts to an OpenAI-compatible
+stdin, told to use no tools. `null` answers every task with no edit (A unchanged): the control for
+`npu_check.py`, since a task where A itself matches B can't score answers.
+`llama` posts to an OpenAI-compatible
 llama-server with thinking off. Results go to runs/<tag>/<task>/ and a
 summary to runs/<tag>/summary.json. Finished tasks are skipped on rerun.
 """
@@ -14,11 +23,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import statistics
 import subprocess
 import tempfile
 import time
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import prompt
@@ -59,6 +70,32 @@ def run_codex(text: str, model: str, effort: str, timeout: int) -> dict:
                 "exit": r.returncode, "usage": usage, "tool_items": tools, "stderr_tail": r.stderr[-400:] if r.returncode else ""}
 
 
+CLAUDE_SYSTEM = "You are an expert assistant. Answer the user's request directly in your reply."
+
+
+def run_claude(text: str, model: str, effort: str, timeout: int) -> dict:
+    env = {k: v for k, v in os.environ.items() if not (k == "CLAUDECODE" or k.startswith("CLAUDE_CODE_"))}
+    with tempfile.TemporaryDirectory(prefix="nkc-claude-") as d:
+        t0 = time.time()
+        r = subprocess.run(
+            ["claude", "-p", "--model", model, "--effort", effort, "--tools", "", "--strict-mcp-config",
+             "--setting-sources", "", "--no-session-persistence", "--system-prompt", CLAUDE_SYSTEM,
+             "--output-format", "json"],
+            input=text, capture_output=True, text=True, timeout=timeout, cwd=d, env=env,
+        )
+        try:
+            j = json.loads(r.stdout)
+        except json.JSONDecodeError:
+            j = {}
+        u = j.get("usage", {})
+        usage = {k: u.get(k) for k in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens", "output_tokens")}
+        usage["thinking_tokens"] = (u.get("output_tokens_details") or {}).get("thinking_tokens")
+        return {"answer": j.get("result", "") if not j.get("is_error") else "", "seconds": round(time.time() - t0, 1),
+                "exit": r.returncode, "usage": usage, "stop_reason": j.get("stop_reason"), "num_turns": j.get("num_turns"),
+                "list_cost_usd": j.get("total_cost_usd"), "is_error": j.get("is_error"),
+                "stderr_tail": (r.stderr[-400:] or r.stdout[-400:]) if (r.returncode or not j) else ""}
+
+
 def run_llama(text: str, url: str, model: str, max_tokens: int, timeout: int) -> dict:
     body = {"model": model, "messages": [{"role": "user", "content": text}], "temperature": 0,
             "max_tokens": max_tokens, "chat_template_kwargs": {"enable_thinking": False}}
@@ -73,7 +110,7 @@ def run_llama(text: str, url: str, model: str, max_tokens: int, timeout: int) ->
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--backend", choices=["codex", "llama"], required=True)
+    ap.add_argument("--backend", choices=["codex", "claude", "llama", "null"], required=True)
     ap.add_argument("--model", required=True)
     ap.add_argument("--effort", default="medium")
     ap.add_argument("--url", default="http://127.0.0.1:8091")
@@ -82,6 +119,7 @@ def main() -> None:
     ap.add_argument("--variant", choices=["base", "ex1"], default="base", help="ex1: add a worked example pair from the same design")
     ap.add_argument("--tag")
     ap.add_argument("--timeout", type=int, default=3600)
+    ap.add_argument("--jobs", type=int, default=1, help="tasks in flight at once")
     a = ap.parse_args()
     index = json.loads((HERE / "tasks/index.json").read_text())
     if a.tasks == "pilot":
@@ -97,22 +135,27 @@ def main() -> None:
         chosen = [m for m in index if m["id"] in ids]
     if a.variant == "ex1":
         chosen = [m for m in chosen if (HERE / "tasks" / m["id"] / "example.json").exists()]
-    tag = a.tag or (f"{a.model}-{a.effort}" if a.backend == "codex" else a.model)
+    tag = a.tag or (f"{a.model}-{a.effort}" if a.backend in ("codex", "claude") else a.model)
     if a.variant != "base":
         tag += f"-{a.variant}"
     root = HERE / "runs" / tag
     root.mkdir(parents=True, exist_ok=True)
-    for k, m in enumerate(chosen):
+    todo = [(k, m) for k, m in enumerate(chosen) if not (root / m["id"] / "result.json").exists()]
+
+    def one(km):
+        k, m = km
         td = HERE / "tasks" / m["id"]
         rd = root / m["id"]
-        if (rd / "result.json").exists():
-            continue
         rd.mkdir(parents=True, exist_ok=True)
         text = prompt.build(td, example=a.variant == "ex1")
         (rd / "prompt.txt").write_text(text)
         try:
             if a.backend == "codex":
                 out = run_codex(text, a.model, a.effort, a.timeout)
+            elif a.backend == "claude":
+                out = run_claude(text, a.model, a.effort, a.timeout)
+            elif a.backend == "null":  # control: answer with no edits, i.e. A unchanged
+                out = {"answer": "", "seconds": 0}
             else:
                 out = run_llama(text, a.url, a.model, a.max_tokens, a.timeout)
         except Exception as e:
@@ -123,7 +166,11 @@ def main() -> None:
         s = res["score"]
         print(f"[{k + 1}/{len(chosen)}] {m['id']} {m['difficulty']:6s} exact={s['exact']} gap={s['gap_closed']} "
               f"hunks={s['hunks_ok']}/{s['hunks_total']} builds={s['builds']} rules={s['rules_pass']} "
-              f"bytes={s['bytes_match']} {out.get('seconds', '?')}s", flush=True)
+              f"bytes={s['bytes_match']} {out.get('seconds', '?')}s{' ERR ' + str(out.get('error') or out.get('stderr_tail'))[:120] if not out.get('answer') else ''}",
+              flush=True)
+
+    with ThreadPoolExecutor(max(1, a.jobs)) as ex:
+        list(ex.map(one, todo))
     summarize(root)
 
 

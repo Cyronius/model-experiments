@@ -12,6 +12,9 @@ Verdicts: `equal` (bitwise), `close` (float buffers within 1e-2 relative to
 their scale, integer buffers equal), `differs`, `hang` (no completion),
 `b_nondeterministic` (B disagrees with itself; not scored), `vacuous` (B
 changed no buffer, so agreement would prove nothing; not scored).
+--guard N (bytes after every buffer, see npu_exec.py) also catches answers
+that write past the end of B's buffers: any guard byte that B leaves alone
+but the answer changes makes the verdict `differs`.
 Each run is its own process with a timeout. After any hang, B is rerun as a
 health check and the session stops if that fails too.
 Results: runs/<tag>/<task>/npu.json and runs/<tag>/npu_summary.json.
@@ -48,10 +51,14 @@ def signature(prj: str) -> list[list]:
     return [[int(n), dt] for n, dt in ARG.findall(m.group(1))]
 
 
+GUARD = 0  # --guard overrides
+
+
 def exec_run(x: Path, insts: Path, sig: Path, out: Path, timeout_ms: int = 20000) -> dict:
     try:
         r = subprocess.run([sys.executable, str(HERE / "npu_exec.py"), str(x), str(insts), str(sig), str(SEED), str(out),
-                            "--timeout-ms", str(timeout_ms)], capture_output=True, text=True, timeout=timeout_ms / 1000 + 60)
+                            "--timeout-ms", str(timeout_ms), "--guard", str(GUARD)],
+                           capture_output=True, text=True, timeout=timeout_ms / 1000 + 60)
     except subprocess.TimeoutExpired:
         return {"ok": False, "state": "process timeout"}
     info = {"ok": r.returncode == 0}
@@ -84,6 +91,12 @@ def compare(p: Path, q: Path, sig) -> tuple[str, list[dict]]:
                 row["words_differ"] = int(np.sum(x != y))
                 verdict = "differs"
         rows.append(row)
+    for i in range(len(sig)):
+        if f"g_{i}" in a.files and f"g_{i}" in b.files:
+            n_diff = int(np.count_nonzero(a[f"g_{i}"] != b[f"g_{i}"]))
+            if n_diff:
+                rows.append({"arg": i, "guard_bytes_differ": n_diff})
+                verdict = "differs"
     return verdict, rows
 
 
@@ -92,11 +105,13 @@ def main() -> None:
     ap.add_argument("runs", nargs="+", type=Path)
     ap.add_argument("--only-inexact", action="store_true", help="skip exact answers (they are byte-identical to B)")
     ap.add_argument("--seed", type=int, default=SEED)
+    ap.add_argument("--guard", type=int, default=0, help="guard bytes after every buffer (catches out-of-bounds writes)")
     ap.add_argument("--out-name", default="npu.json", help="per-task result file (e.g. npu_seed2.json)")
     ap.add_argument("--recheck-equal", action="store_true",
                     help="only answers whose npu.json verdict is equal/close (second-seed recheck)")
     a = ap.parse_args()
     globals()["SEED"] = a.seed
+    globals()["GUARD"] = a.guard
     for run in a.runs:
         summary = {}
         for rp in sorted(run.glob("*/result.json")):
@@ -152,9 +167,11 @@ def main() -> None:
                             else:
                                 v, rows = compare(d / "b1.npz", d / "ans.npz", sig)
                                 result = {"verdict": v, "buffers": rows, "b_ms": r1.get("ms"), "answer_ms": ra.get("ms"),
-                                          "b_changed_bytes": r1.get("changed_bytes"), "answer_changed_bytes": ra.get("changed_bytes")}
+                                          "b_changed_bytes": r1.get("changed_bytes"), "answer_changed_bytes": ra.get("changed_bytes"),
+                                          "b_guard_changed": r1.get("guard_changed_bytes"),
+                                          "answer_guard_changed": ra.get("guard_changed_bytes")}
             result.update(exact=s["exact"], gap_closed=s["gap_closed"], difficulty=res["difficulty"],
-                          aligned=aligned, seed=a.seed)
+                          aligned=aligned, seed=a.seed, guard=a.guard)
             out_json.write_text(json.dumps(result, indent=1) + "\n")
             summary[res["id"]] = result["verdict"]
             print(f"{run.name} {res['id']} {res['difficulty']:6s} exact={s['exact']} gap={s['gap_closed']} -> {result['verdict']}", flush=True)

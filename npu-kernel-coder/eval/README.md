@@ -39,12 +39,16 @@ Exact match is the wrong bar when a port changes the core code, because Peano re
 4. The answer runs once, rebuilt by npuasm and packaged with B's xclbin as template.
 5. Every buffer is compared, so stray writes outside the outputs show up too.
 
-Verdicts: `equal` (bitwise), `close` (float buffers within 1e-2 of their scale), `differs`, `hang`, `vacuous` (B wrote nothing, so the task isn't scored). Answers that fail the rule gate only on branch alignment are checked after the alignment repair (`rules_pass_aligned`). `--recheck-equal --seed N --out-name npu_seedN.json` reruns the equal/close answers with another seed. Each run is its own process (`npu_exec.py`, pyxrt, 20 s timeout). After a hang, B is rerun as a health check, and the session stops if it fails. Run it under a dibs NPU hold:
+Verdicts: `equal` (bitwise), `close` (float buffers within 1e-2 of their scale), `differs`, `hang`, `vacuous` (B wrote nothing, so the task isn't scored). `--guard N` appends N bytes after every buffer, filled from a separate RNG so the buffers themselves don't change. B never writes them, so an answer that writes past the end of B's buffers (one still sized for a larger A) comes out `differs`. Answers that fail the rule gate only on branch alignment are checked after the alignment repair (`rules_pass_aligned`). `--recheck-equal --seed N --out-name npu_seedN.json` reruns the equal/close answers with another seed. Each run is its own process (`npu_exec.py`, pyxrt, 20 s timeout). After a hang, B is rerun as a health check, and the session stops if it fails. Run it under a dibs NPU hold:
 
 ```sh
 dibs run npu --label "npu-kernel-coder differential check" --eta 30m -- \
-    python3 npu_check.py --only-inexact runs/<tag>
+    python3 npu_check.py --only-inexact --guard 1048576 runs/<tag>
 ```
+
+**Control.** `run.py --backend null --model null-a --tasks all` answers every task with no edit (A unchanged). Where A itself passes the NPU check, the check can't tell a port from no port. `functional.py` uses `runs/null-a` to count NPU-only passes on those tasks as "unverifiable". With 1 MB guards that leaves 10 of 77 tasks; see [results.md](results.md).
+
+`functional.py runs/<tag> [runs/<tag> ...]` counts functionally correct answers per difficulty: exact text, a byte-identical rebuild, or an NPU `equal`/`close` (the guarded verdict when there is one). It also prints a paired comparison of consecutive runs.
 
 ## Deterministic baseline
 
@@ -60,6 +64,9 @@ python3 check_harness.py tasks
 python3 run.py --backend codex --model gpt-6.1-sol --effort medium --tasks pilot
 python3 run.py --backend codex --model gpt-6-astra --effort medium --tasks pilot
 
+# Claude via Claude Code signed in with claude.ai (subscription, not API billing):
+python3 run.py --backend claude --model claude-opus-5-5 --effort xhigh --tasks all --jobs 4
+
 # Local Qwen3.5-27B Q4_K_M through llama.cpp. The GPU is shared: reserve it with dibs.
 dibs run gpu --label "npu-kernel-coder stage-0 Qwen pilot" --eta 3h -- sh -c '
   /var/cache/lemonade/bin/llamacpp/vulkan/llama-server -m ../../models/claim-curation/teacher-qwen35-27b/Qwen3.5-27B-Q4_K_M.gguf \
@@ -69,7 +76,7 @@ dibs run gpu --label "npu-kernel-coder stage-0 Qwen pilot" --eta 3h -- sh -c '
   kill $S'
 ```
 
-`--tasks pilot` is a fixed stratified subset of 12 tasks: 4 per difficulty, test split first. Codex runs in an empty read-only sandbox with the prompt on stdin. It loads the user's `~/.codex/AGENTS.md`, about 17k tokens of overhead per call, mostly cached.
+`--tasks pilot` is a fixed stratified subset of 12 tasks: 4 per difficulty, test split first. Codex runs in an empty read-only sandbox with the prompt on stdin. It loads the user's `~/.codex/AGENTS.md`, about 17k tokens of overhead per call, mostly cached. `claude` runs `claude -p` in an empty temp directory with all tools off (`--tools ""`), no MCP servers, no settings files and a one-line system prompt; `~/.claude/CLAUDE.md` still loads (about 600 tokens). `--bare` would skip it but accepts only an API key. `--jobs N` runs N tasks at once.
 
 ## Results
 

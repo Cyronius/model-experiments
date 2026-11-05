@@ -75,7 +75,7 @@ On the 45 tasks with a worked example: 31 functionally correct without the examp
 
 | Run | Easy | Medium | Hard | All | Failures |
 |---|---:|---:|---:|---:|---|
-| 77 tasks | 12/12 | 28/33 | 12/32 | **52/77** | 14 wrong values, 6 don't build, 5 hang |
+| 77 tasks | 12/12 | 28/33 | 12/32 | **52/77** (51 after the null control below) | 14 wrong values, 6 don't build, 5 hang |
 | 45 tasks, no example | 5/5 | 21/25 | 6/15 | 32/45 | 5 wrong values, 4 don't build, 4 hang |
 | Same 45, with example | 5/5 | 24/25 | 7/15 | **36/45** | 7 hang, 1 wrong value, 1 doesn't build |
 
@@ -102,7 +102,62 @@ Results: exact text 24/77 (BL1 22: 5/5 easy, 17/25 medium, 0/16 hard; BL0 2). 72
 | Hard | 32 | 3 | 12 | 2 | 1 | 10 |
 | All | 77 | **29** | **52** | 28 | 1 | 24 |
 
+After the null-answer control and guard regions (below), the baseline is 28/77 (9/17/2) and sol 51/77.
+
 The baseline's correct set is nearly a subset of sol's (28 of 29). The model adds 23 tasks, mostly where code must change rather than numbers. That's the bar for any trained model, including an edit-diffusion one.
+
+## Null-answer control and guard regions (2026-11-04)
+
+**Control.** `run.py --backend null` answers every task with no edit, i.e. build A unchanged. If A itself passes the NPU check, that task's check can't tell a port from no port. At seed 1, A unchanged passed 16 of 77 tasks (10 `equal`, 6 `close`). There were two causes:
+
+1. **Shrinking ports (6 tasks).** These are gelu 15360 → 12288 and 12288 → 6144, silu 4096 → 1024 (twice), gptoss gemv b90 → b1, and rope e4b → e2b. A does more work than B. Inside B's buffers it writes exactly what B writes, and the rest went past the end of each buffer, which was never compared. Fix: `--guard N` (`npu_exec.py`, `npu_check.py`) appends N bytes after every buffer, filled from a separate RNG. B never writes them, so an out-of-bounds write makes the verdict `differs`. With a 1 MB guard, all 6 tasks discriminate.
+2. **Runtime parameters (10 tasks).** A unchanged still passes these at both seeds, even with guards. They are the attention capacity ports (`attention_d512_r128 → r512`, `r1024 → r512`, `r128 → r1`, `d256_r128 → r512`, `gemma4-attention-512-1024 → 512`, `vision_online_attn_472x64 → 1024x64`), `ple_input` h2560 → h1536 (token and context variants), `vision_pos_add` v2 → v3 and `gptoss-rope` v3 → v2. The 6 attention ports take a ui8 parameter buffer, and with random bytes in it the changed capacity is apparently never exercised. Scoring them needs real parameter values. For the other 4 the reason is not known: `pos_add` v2 → v3 may simply compute the same function.
+
+**Scoring from here on:** an NPU-only pass on one of those 10 tasks counts as "unverifiable", not correct; exact text and byte-identical rebuilds still count (`functional.py`). Every `equal`/`close` verdict of every model run (Opus, sol, sol with example, astra) was rechecked with a 1 MB guard, and none flipped. One baseline answer did: it writes past the end of a buffer. Revised totals: sol 52 → 51, sol with example 36/45 unchanged, baseline 29 → 28.
+
+## Claude Opus 5.5 at `xhigh` effort vs gpt-6.1-sol (2026-11-04)
+
+**Setup.**
+- Claude Code 2.1.318 `claude -p`, signed in with the claude.ai Max subscription: `--model claude-opus-5-5 --effort xhigh`.
+- All tools off, no MCP servers or settings files, a one-line system prompt.
+- The same prompts as sol, on stdin, in an empty temp directory, 4 tasks at a time.
+
+Effort is not matched: sol ran at `medium`.
+
+| 77 tasks | sol, medium | Opus 5.5, xhigh |
+|---|---:|---:|
+| Exact text (easy / medium / hard) | 35 (12 / 23 / 0) | 37 (10 / 23 / **4**) |
+| Byte-identical rebuild | 38 | 39 |
+| Builds | 71 | 74 |
+| Rule gate (after alignment repair) | 64 (71) | 70 (74) |
+| Gap closed, median: all / hard | 0.627 / 0.048 | 0.724 / 0.207 |
+| Seconds per task, median: all / hard | 47 / 52 | 126 / 368 |
+| Output tokens per task, median: all / hard | 2,017 / 2,334 | 15,046 / 42,548 |
+
+**Functionally correct** (exact, byte-identical, or NPU `equal`/`close` with 1 MB guards; null control applied):
+
+| Run | Easy | Medium | Hard | All | Failures |
+|---|---:|---:|---:|---:|---|
+| gpt-6.1-sol, medium | 12/12 | 27/33 | 12/32 | **51/77** | 14 wrong values, 6 don't build, 5 hang, 1 unverifiable |
+| Claude Opus 5.5, xhigh | 10/12 | 28/33 | **23/32** | **61/77** | 6 hang, 6 wrong values, 3 don't build, 1 unverifiable |
+| Baseline (no model) | 9/12 | 17/33 | 2/32 | 28/77 | 24 wrong values, 20 hang, 5 don't build |
+
+| Paired | Tasks | sol | Opus | Both | sol only | Opus only |
+|---|---:|---:|---:|---:|---:|---:|
+| Easy | 12 | 12 | 10 | 10 | 2 | 0 |
+| Medium | 33 | 27 | 28 | 27 | 0 | 1 |
+| Hard | 32 | 12 | 23 | 10 | 2 | 13 |
+| All | 77 | **51** | **61** | 47 | 4 | 14 |
+
+- **Opus wins on hard ports.** It gets 4 exact (sol none) and 23 functionally correct against sol's 12. On the 14 tasks only Opus solves, sol's answer computes wrong values on 7, hangs on 4 and doesn't build on 3. Opus's 25 inexact `equal` answers all reproduce at a second seed and with guards.
+- **Opus's losses are all hangs.** Every task only sol solves is one where Opus's answer hangs. Two of them are easy ports:
+  - **`vision_online_attn_472x64 → 1024x64`:** Opus rewrote `movx r1, #0x3ff` as `mova r1, #0x3ff`. The encoding is the same size and valid, and the value fits (`mova` takes a signed 11-bit immediate). The answer still hangs. The same swap in build A, at A's own value `0x1d7`, hangs too, so `mova` and `movx` are not interchangeable at that point in the schedule. LLVM's itineraries (hipfire `sched.rs`) give both a 1-cycle result, and the cause is not known. Neither the assembler nor the rule gate catches it.
+  - **`1024x64 → 472x64`:** the DMA length came out as `0x3b00`, half of the right `0x7600`.
+- **Cost.**
+  - **Thinking:** Opus thinks a lot. Its median output is 15k tokens, about 10k of them thinking, against sol's 2k. One hard task used 127,975 output tokens of the 128k cap, and its answer was correct.
+  - **Time:** the run took 4.95 hours of model time, about 1.4 hours of wall-clock time 4 at a time.
+  - **Billing:** it was billed to the subscription, about $53 at API list prices.
+- **Next:** an effort-matched comparison (sol at `xhigh`).
 
 ## What the pilot shows
 
@@ -113,6 +168,9 @@ The baseline's correct set is nearly a subset of sol's (28 of 29). The model add
 
 ## Next
 
+- An effort-matched comparison: sol at `xhigh` against Opus 5.5 at `xhigh`.
+- Real runtime parameters for the 6 attention tasks whose NPU check A unchanged passes, and a look at the other 4 (`ple_input`, `pos_add`, `rope`), so they can be scored functionally.
+- Find out why `mova` can't replace `movx` before an `ltu` that reads the register, and add a check to the rule gate.
 - A deadlock pre-check: a control-skeleton mode for hipfire's simulator, or a stream-volume check with route tracing (see above).
 - Qwen3.5-27B: not run. The GPU stayed busy with the manifold healing jobs all afternoon, and my queued run would have expired before it freed. Run it in a free GPU window with the dibs command in README.md.
 - Run Qwen3.5-27B under a dibs GPU hold once the GPU is free.

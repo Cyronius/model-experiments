@@ -7,6 +7,10 @@ arguments (from the build's aie.mlir). Every buffer is filled from SEED:
 floats with N(0, 0.5), integer bytes uniformly. So inputs and outputs start
 identical in every run, and words nobody writes compare equal. After the run
 every buffer is saved, so out-of-place writes show up too.
+--guard N appends N bytes to every buffer, filled from a separate RNG
+(SEED + 1000003, so the buffers themselves match runs without a guard), and
+saves them as g_<i>: a program that writes past the end of a buffer (an
+answer still sized for a larger A) changes its guard, which B never does.
 Exit 0 on ERT_CMD_STATE_COMPLETED, 2 on any other state (timeout, error).
 """
 
@@ -43,6 +47,7 @@ def main() -> int:
     ap.add_argument("seed", type=int)
     ap.add_argument("out")
     ap.add_argument("--timeout-ms", type=int, default=20000)
+    ap.add_argument("--guard", type=int, default=0, help="bytes of guard after every buffer")
     a = ap.parse_args()
     sig = json.load(open(a.signature))
     dev = pyxrt.device(0)
@@ -55,25 +60,35 @@ def main() -> int:
     instr.write(words.tobytes(), 0)
     instr.sync(TO_DEV, words.nbytes, 0)
     rng = np.random.default_rng(a.seed)
-    bos, hosts, initial = [], [], []
+    grng = np.random.default_rng(a.seed + 1000003)
+    bos, hosts, guards, initial, ginitial = [], [], [], [], []
     for i, (n, dt) in enumerate(sig):
         data = fill(rng, n, dt)
+        gdata = grng.integers(0, 256, a.guard, dtype=np.uint8)
         initial.append(data.view(np.uint8).copy())
-        bo = pyxrt.bo(dev, data.nbytes, pyxrt.bo.host_only, k.group_id(3 + i))
-        h = np.frombuffer(bo.map(), dtype=data.dtype, count=data.size)
+        ginitial.append(gdata.copy())
+        bo = pyxrt.bo(dev, data.nbytes + a.guard, pyxrt.bo.host_only, k.group_id(3 + i))
+        mem = bo.map()
+        h = np.frombuffer(mem, dtype=data.dtype, count=data.size)
+        g = np.frombuffer(mem, dtype=np.uint8, count=a.guard, offset=data.nbytes)
         h[:] = data
-        bo.sync(TO_DEV, data.nbytes, 0)
+        g[:] = gdata
+        bo.sync(TO_DEV, data.nbytes + a.guard, 0)
         bos.append(bo)
         hosts.append(h)
+        guards.append(g)
     t0 = time.perf_counter()
     state = k(3, instr, int(words.size), *bos).wait(a.timeout_ms)
     ms = (time.perf_counter() - t0) * 1e3
     for bo, h in zip(bos, hosts):
-        bo.sync(FROM_DEV, h.nbytes, 0)
-    np.savez(a.out, *[h.copy() for h in hosts])
+        bo.sync(FROM_DEV, h.nbytes + a.guard, 0)
+    np.savez(a.out, *[h.copy() for h in hosts], **{f"g_{i}": g.copy() for i, g in enumerate(guards)})
     ok = "COMPLETED" in str(state)
     changed = [int(np.count_nonzero(h.view(np.uint8) != i0)) for h, i0 in zip(hosts, initial)]
-    print(json.dumps({"state": str(state), "ms": round(ms, 3), "changed_bytes": changed}))
+    info = {"state": str(state), "ms": round(ms, 3), "changed_bytes": changed}
+    if a.guard:
+        info["guard_changed_bytes"] = [int(np.count_nonzero(g != g0)) for g, g0 in zip(guards, ginitial)]
+    print(json.dumps(info))
     return 0 if ok else 2
 
 
