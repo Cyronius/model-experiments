@@ -159,6 +159,40 @@ Effort is not matched: sol ran at `medium`.
   - **Billing:** it was billed to the subscription, about $53 at API list prices.
 - **Next:** an effort-matched comparison (sol at `xhigh`).
 
+## gpt-6.1-sol at `xhigh`, and what the three runs give together (2026-11-05)
+
+sol was run again at `xhigh` effort to match Opus's: Codex CLI on the ChatGPT subscription, 4 tasks at a time, with the NPU check using 1 MB guards and a second seed. All 19 inexact `equal` answers reproduced at seed 7.
+
+| 77 tasks | sol, medium | sol, xhigh | Opus 5.5, xhigh |
+|---|---:|---:|---:|
+| Exact text (easy / medium / hard) | 35 (12 / 23 / 0) | 36 (12 / 24 / 0) | 37 (10 / 23 / 4) |
+| Gap closed, median: all / hard | 0.627 / 0.048 | 0.681 / 0.106 | 0.724 / 0.207 |
+| Seconds per task, median | 47 | 98 | 126 |
+| Output tokens per task, median | 2,017 | 4,506 | 15,046 |
+| **Functionally correct** (easy / medium / hard) | 51 (12 / 27 / 12) | 55 (12 / 27 / 16) | **61** (10 / 28 / 23) |
+| Failures | 14 wrong values, 6 don't build, 5 hang, 1 unverifiable | 9 wrong values, 8 hang, 5 don't build | 6 hang, 6 wrong values, 3 don't build, 1 unverifiable |
+
+**More effort helps sol a little, all of it on hard ports:** 12 → 16 correct. With bolder edits, wrong values fall (14 → 9) and hangs rise (5 → 8). At matched effort Opus still leads by 6: it solves 10 tasks sol `xhigh` doesn't (9 of them hard, where sol mostly hangs), and sol solves 4 Opus doesn't (the 2 easy Opus hangs and 2 hard).
+
+**Together** (`ensemble.py`; selection by the NPU check, which needs B or a CPU reference):
+
+| Difficulty | Tasks | sol medium | sol xhigh | Opus xhigh | Any of the three | All three |
+|---|---:|---:|---:|---:|---:|---:|
+| Easy | 12 | 12 | 12 | 10 | 12 | 10 |
+| Medium | 33 | 27 | 27 | 28 | 28 | 27 |
+| Hard | 32 | 12 | 16 | 23 | 26 | 9 |
+| All | 77 | 51 | 55 | 61 | **66** | 46 |
+
+Opus with either sol run covers 65, and the third run adds 1. Eleven tasks nobody solves. Two of them sit among the 10 unverifiable tasks, where only exact text counts.
+
+**Variety among correct answers.**
+- On 16 of the 55 tasks that two or more runs solve, the correct answers differ: 72 distinct correct texts in all.
+- 28 of them are programs whose bytes differ from B's: different code, same output on the NPU at two seeds. All but 4 are on hard ports.
+- Across all three runs, 50 correct answers are programs different from B. They are small edits: on hard ports the median answer changes 37 lines of A, while Peano's A → B changes 209. The ratio is 0.25 on medium and hard alike.
+- So for most ports a working edit about a quarter the size of the compiler's rescheduled output exists, and the models find it.
+
+**Labelled failures.** The three runs also give 62 wrong answers with a hardware-verified failure (wrong values, hang, doesn't build, rule gate). 20 tasks have both a correct and a wrong answer, which makes 40 correct-vs-wrong pairs for the same prompt.
+
 ## What the pilot shows
 
 - Both models get every easy port exact (1–4 changed lines) and half the medium ones. Neither gets a hard port, and the two models land on the same tasks.
@@ -168,7 +202,6 @@ Effort is not matched: sol ran at `medium`.
 
 ## Next
 
-- An effort-matched comparison: sol at `xhigh` against Opus 5.5 at `xhigh`.
 - Real runtime parameters for the 6 attention tasks whose NPU check A unchanged passes, and a look at the other 4 (`ple_input`, `pos_add`, `rope`), so they can be scored functionally.
 - Find out why `mova` can't replace `movx` before an `ltu` that reads the register, and add a check to the rule gate.
 - A deadlock pre-check: a control-skeleton mode for hipfire's simulator, or a stream-volume check with route tracing (see above).
