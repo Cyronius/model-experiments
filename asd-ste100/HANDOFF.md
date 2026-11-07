@@ -536,3 +536,29 @@ Facts checked 2026-11-06:
   Upstream has it (`LLM_ARCH_LFM3`); release b12177 is current. A newer build
   is needed for GGUF inference.
 - No zero-shot or training run has been done yet.
+
+## November 7: LFM few-shot baseline on the doc dev pairs (running)
+
+- Committed the Oct 24 – Nov 6 work (8089510) after the tests passed: tokenizer 15, data 34,
+  tagger 32, canvas 8, doc pilot 68 (unittest, `data/out/.venv/bin/python`).
+- `model_lm/doc_pairs.py` exports the 7,794 training-ready doc pairs as surface text with the
+  tagger's split: `data/out/lm-doc-v1/` train 6,897 / dev 679 / test 218. The dev ids equal
+  `id-doc-v5` dev.
+- Models downloaded to `data/out/lfm/` (LFM3-1.7B 3.3 GB, LFM2.5-350M 0.7 GB; both are the
+  post-trained chat models, no separate -Instruct repo). LFM3's remote code needs a newer
+  transformers than `target/manifold-rocm/env` has (5.14.1 lacks
+  `use_kernel_func_from_hub_with_fallback`); `data/out/lm-overlay/` holds transformers 5.22.2 +
+  tokenizers 0.23 (`PYTHONPATH=data/out/lm-overlay`). 5.22.2 still has no native `lfm3`.
+- LFM3 with `enable_thinking=False` writes its answer, then `</think>`, then the answer again;
+  `generate.py` suppresses the `<think>`/`</think>` tokens.
+- `model_lm/ste_constraint.py`: character-level constraint on the top-k candidates. Every
+  finished word must be an STE output word (fixes-v2 vocabulary, any case) or a source word that
+  the checker accepts on its own (code, names, numbers, unlisted words; a rejected word such as
+  "additional" cannot be copied). Punctuation and spacing are free. 4 unit tests.
+- `model_lm/generate.py`: 4-shot (fixed train pairs), system prompt in plain STE, greedy,
+  fp32 on the GPU. Rewrites each dev source and each reference (to count clean references
+  changed). `model_lm/score.py`: the tagger probe's numbers (exact, unchanged, closer, farther,
+  clean changed) plus checker-clean outputs, protected values kept, mean word similarity.
+- `model_lm/run_zero_shot.sh` (detached, `dibs gpu`): LFM3 and LFM2.5, constrained and free,
+  then a 24-row CPU canary against the GPU outputs (silent GPU faults since Nov 5), then
+  scores. Output and `ALL.done` in `data/out/lm-zeroshot-v1/`. Bar: 88 of 679 exact.
