@@ -58,7 +58,9 @@ def parse_diff(text: str) -> dict[str, list[tuple[int, list[str]]]]:
     return files
 
 
-def apply(lines: list[str], hunks) -> tuple[list[str], int]:
+def apply(lines: list[str], hunks, failed: list | None = None) -> tuple[list[str], int]:
+    """Apply hunks in order; hunks that can't be placed are skipped (and
+    appended to `failed` as (stated line, hunk lines) when a list is given)."""
     out = list(lines)
     ok = 0
     shift = 0
@@ -81,6 +83,8 @@ def apply(lines: list[str], hunks) -> tuple[list[str], int]:
                 found = min(cands, key=lambda i: abs(i - hint))
                 break
         if found is None:
+            if failed is not None:
+                failed.append((start, h))
             continue
         out[found : found + len(old)] = new
         shift += len(new) - len(old)
@@ -104,12 +108,16 @@ def score(task_dir: Path, answer: str) -> dict:
     res = {"parsed": bool(files), "hunks_total": sum(len(h) for h in files.values()), "hunks_ok": 0,
            "unknown_files": sorted(set(files) - set(a))}
     pred = dict(a)
+    failed: list[str] = []
     for f, hunks in files.items():
         if f not in a:
             continue
-        new, ok = apply(a[f].splitlines(), hunks)
+        miss: list = []
+        new, ok = apply(a[f].splitlines(), hunks, miss)
+        failed += [f"{f} @@ -{start}: " + next((l[1:] for l in h if l[0] in " -"), "").strip()[:100] for start, h in miss]
         res["hunks_ok"] += ok
         pred[f] = "\n".join(new) + "\n"
+    res["failed_hunks"] = failed[:8]
     d0, d1 = dist(a, b), dist(pred, b)
     res.update(exact=pred == b, d_a_b=d0, d_answer_b=d1, gap_closed=round(1 - d1 / d0, 4) if d0 else None)
     manifest = json.loads((task_dir / "manifest_b.json").read_text())

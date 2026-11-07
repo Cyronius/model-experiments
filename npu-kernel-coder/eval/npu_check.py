@@ -15,8 +15,11 @@ changed no buffer, so agreement would prove nothing; not scored).
 --guard N (bytes after every buffer, see npu_exec.py) also catches answers
 that write past the end of B's buffers: any guard byte that B leaves alone
 but the answer changes makes the verdict `differs`.
-Each run is its own process with a timeout. After any hang, B is rerun as a
-health check and the session stops if that fails too.
+Each run is its own process with a timeout. A hang stops the whole session
+(no health-check run, no next answer) and writes runs/.npu_hang_lock; later
+sessions refuse to start while a lock younger than 30 minutes exists. On
+2026-11-05, 6 hangs within 23 s froze this machine and needed a hard reset,
+so hangs are not treated as cheap.
 Results: runs/<tag>/<task>/npu.json and runs/<tag>/npu_summary.json.
 """
 
@@ -100,7 +103,17 @@ def compare(p: Path, q: Path, sig) -> tuple[str, list[dict]]:
     return verdict, rows
 
 
+LOCK = HERE / "runs" / ".npu_hang_lock"
+COOLDOWN_S = 1800
+
+
 def main() -> None:
+    import time
+    stop = HERE / "runs" / ".npu_disabled"
+    if stop.exists():
+        sys.exit(f"refusing: NPU checks disabled by {stop}: {stop.read_text().strip()}")
+    if LOCK.exists() and time.time() - LOCK.stat().st_mtime < COOLDOWN_S:
+        sys.exit(f"refusing: an answer hung the NPU at {time.ctime(LOCK.stat().st_mtime)}; wait 30 min or inspect first")
     ap = argparse.ArgumentParser()
     ap.add_argument("runs", nargs="+", type=Path)
     ap.add_argument("--only-inexact", action="store_true", help="skip exact answers (they are byte-identical to B)")
@@ -162,8 +175,6 @@ def main() -> None:
                             ra = exec_run(d / "ans.xclbin", d / "ans.insts", d / "sig.json", d / "ans.npz")
                             if not ra["ok"]:
                                 result = {"verdict": "hang", "answer_run": ra}
-                                health = exec_run(bdir / "final.xclbin", bdir / "insts.bin", d / "sig.json", d / "h.npz")
-                                result["health_after"] = health
                             else:
                                 v, rows = compare(d / "b1.npz", d / "ans.npz", sig)
                                 result = {"verdict": v, "buffers": rows, "b_ms": r1.get("ms"), "answer_ms": ra.get("ms"),
@@ -175,8 +186,9 @@ def main() -> None:
             out_json.write_text(json.dumps(result, indent=1) + "\n")
             summary[res["id"]] = result["verdict"]
             print(f"{run.name} {res['id']} {res['difficulty']:6s} exact={s['exact']} gap={s['gap_closed']} -> {result['verdict']}", flush=True)
-            if result["verdict"] == "hang" and not result.get("health_after", {}).get("ok"):
-                print("NPU health check failed after a hang; stopping", flush=True)
+            if result["verdict"] == "hang":
+                LOCK.write_text(f"{run.name} {res['id']}\n")
+                print("answer hung the NPU; stopping the session (see runs/.npu_hang_lock)", flush=True)
                 (run / a.out_name.replace(".json", "_summary.json")).write_text(json.dumps(summary, indent=1) + "\n")
                 return
         (run / a.out_name.replace(".json", "_summary.json")).write_text(json.dumps(summary, indent=1) + "\n")

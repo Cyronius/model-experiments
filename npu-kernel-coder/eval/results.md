@@ -193,18 +193,40 @@ Opus with either sol run covers 65, and the third run adds 1. Eleven tasks nobod
 
 **Labelled failures.** The three runs also give 62 wrong answers with a hardware-verified failure (wrong values, hang, doesn't build, rule gate). 20 tasks have both a correct and a wrong answer, which makes 40 correct-vs-wrong pairs for the same prompt.
 
+## Local base models, zero-shot (2026-11-06/07, in progress)
+
+Which local model to fine-tune? `bakeoff.sh` serves each GGUF with llama.cpp build 12060 (Vulkan, a pinned copy of the binary) under a dibs GPU hold and runs the 12 pilot tasks: thinking off, temperature 0, 8,192 output tokens, 40,960 context. Model rows are in `bakeoff_models.tsv`; the tables come from `bakeoff_report.py`. Scores are text-only: model answers are not checked on the NPU (`runs/.npu_disabled`, after the 2026-11-05 freeze), so only exact text and byte-identical rebuilds count as correct.
+
+| Model | Correct | Easy / medium / hard | Builds | Rule gate | Hunks applied | Gap closed, median | Hit 8k cap | Decode tok/s | Seconds, median |
+|---|---:|---|---:|---:|---:|---:|---:|---:|---:|
+| Qwen3-Coder-30B-A3B Q4_K_M | **0** | 0 / 0 / 0 | 8 | 8 | 51% | -0.024 | 5 | 18.7 | 327 |
+| AREX-2 (Qwen3.8-27B) Q4_K_M | **0** | 0 / 0 / 0 | 11 | 11 | 90% | -0.034 | 4 | 5.0 | 1217 |
+| Clover-35B-A3B Q4_K_M | **0** | 0 / 0 / 0 | 7 | 7 | 74% | -0.422 | 6 | 12.0 | 623 |
+| *gpt-6.1-sol, medium* | 6 | 4 / 2 / 0 | 11 | 11 | 100% | 0.675 | 0 | – | 47 |
+| *Claude Opus 5.5, xhigh* | 6 | 3 / 2 / 1 | 11 | 11 | 100% | 0.605 | 0 | – | 112 |
+| *Rescale baseline (no model)* | 4 | 2 / 2 / 0 | 10 | 10 | 100% | 0.090 | 0 | – | 0 |
+
+- **No local model gets a single task, not even the easy ones.** The easy ports change 1–4 lines, and the frontier models get all four.
+- **The answers mostly make A worse.** Of 36 answers, 28 move further from B than A is (gap below 0). 4 change nothing that matters and only 4 close any of the gap. Qwen3-Coder emits hunks that replace a line with itself. AREX-2 and Clover rewrite lock and DMA tables that the port leaves alone.
+- **The key edit is arithmetic, not pattern copying.** On `ple_input` h2560 → h1536 the whole port is one float constant in the core program: `movxm r2, #0x3ca1e89b` (1/√2560) → `#0x3cd105ec` (1/√1536). sol makes exactly that edit. No local model finds the line.
+- **Answers run long.** 15 of 36 answers stop at the 8k output cap, partway through a diff (median output 6.5–8.2k tokens).
+- **Runtime fixes made on the way.** Build 12060 with flash attention on degenerates (`GGGG…`, `3333…`) on prompts over about 16k tokens. This happened on qwen3moe, clover_moe and qwen35moe, so every row now runs `-fa off`; the flash-attention runs are in `runs/_superseded/`. Flint always reasons, and a 16k thinking budget ran out before the answer, so it uses `--reasoning-budget 0`.
+- **Not run yet:** flint (the chain was waiting for the GPU when the machine went down on 2026-11-07 at about 02:05; `runs/bakeoff-flint/` is empty), Apex-35B, Qwen3.8-27B, Bonsai-2-27B Q2_0, Qwen3.6-35B-A3B (its flash-attention run was superseded), and the `r3` (toolchain-feedback retries) and `ex1` (one worked example) rows.
+- **Caveat:** since 2026-11-05 some processes on this GPU compute wrong values without any error when several sessions share it. That was seen with ROCm. The bakeoff uses Vulkan and its server logs show no errors, but a faulty decode can't be ruled out completely.
+
+So far, zero-shot score can't separate the local models. The choice will have to rest on how trainable each model is (tokenizer, architecture, licence, whether a training stack exists) and on decode speed, unless a model still to run scores above 0.
+
 ## What the pilot shows
 
 - Both models get every easy port exact (1–4 changed lines) and half the medium ones. Neither gets a hard port, and the two models land on the same tasks.
 - Shape ports need the compiler's tiling and memory-layout choices, which the build names don't carry. In `lm_head_q4` 100352 → 65536 both models scaled DMA lengths in proportion (`0x5be000 → 0x3c0000`). The real build retiles: `0x300000`, a chunk of `0x400` instead of `0x500`, and 112 changed lines in the core program as its data-memory addresses move. Neither model touched those core lines.
 - The rule gate caught real defects: misaligned branch targets in 2 of sol's and 3 of astra's hard answers, which is the F-0288 hang condition. The assembler rejected a bundle no VLIW format can encode (`padda [p0], #0x200; mov dj0, r1`).
-- Local Qwen3.5-27B Q4_K_M has not run: the GPU is reserved in dibs by the manifold healing job until about 02:11. A first attempt was stopped after a few minutes when that hold was noticed.
+- Local base models zero-shot (see the bakeoff section above): 0 of 12 so far for Qwen3-Coder-30B-A3B, AREX-2 and Clover-35B-A3B, easy ports included.
 
 ## Next
 
+- Finish the base bakeoff rows for flint, Apex-35B and Qwen3.8-27B. Run `r3`/`ex1` only if a model scores above 0. Then pick the model to fine-tune on trainability and decode speed.
+- Re-enable NPU checks of model answers only after the user approves safeguards. Until then every local score is text-only.
 - Real runtime parameters for the 6 attention tasks whose NPU check A unchanged passes, and a look at the other 4 (`ple_input`, `pos_add`, `rope`), so they can be scored functionally.
 - Find out why `mova` can't replace `movx` before an `ltu` that reads the register, and add a check to the rule gate.
 - A deadlock pre-check: a control-skeleton mode for hipfire's simulator, or a stream-volume check with route tracing (see above).
-- Qwen3.5-27B: not run. The GPU stayed busy with the manifold healing jobs all afternoon, and my queued run would have expired before it freed. Run it in a free GPU window with the dibs command in README.md.
-- Run Qwen3.5-27B under a dibs GPU hold once the GPU is free.
-- Check answers that build and pass the rule gate on the NPU against a CPU reference, so correct non-identical ports also count.
