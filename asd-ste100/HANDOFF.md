@@ -585,3 +585,15 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
 - `model_lm/finetune.py` + `run_finetune.sh` (queued, waits for the GPU): full fine-tune, 3 epochs,
   LR 3e-5 (350M) / 1e-5 (1.7B), epoch picked on 4% held-out train documents, zero-shot prompt,
   constrained and free dev rewrites, CPU canary, `data/out/lm-ft-v1/scores.json`, `ALL.done`.
+- Fine-tuned LFM2.5-350M (epoch 2 of 3 by held-out loss 0.182; epoch 3 0.225), 679 doc dev, zero-shot
+  prompt: **173 exact constrained (v1), 174 free** (tagger 88); checker-clean 661 / 639; protected kept
+  661 / 673; clean refs changed 179 / 159; closer 563, farther 93. Misses are mostly one-word or
+  split differences; meaning slips exist ("declaring section" -> "section that calls it", a merged
+  two-field sentence, "not as portable" -> "not portable", a dropped "(").
+- Constraint v1 blocked rejected words inside code literals (`BEGIN` -> `BINARY`, `INTERSECT` ->
+  `INTERPRETER`; 12 rows). Constraint v2 (`--constraint v2`) copies protected-span words, drops the 20
+  STE output words the checker rejects alone (incl. should), and blocks the 50 rejected phrases.
+  `model_lm/run_constraint_v2.sh` scores v2 for both fine-tuned models after the fine-tune round.
+- The LFM3-1.7B fine-tune hit a non-finite loss at epoch 1 step 15 while another session's
+  heal_sessions check shared the GPU without dibs. The same batch on CPU with base weights is
+  finite in fp32 and bf16 autocast, so it is taken as a GPU fault; `run_finetune.sh` now retries.

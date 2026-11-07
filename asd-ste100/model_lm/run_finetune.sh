@@ -13,9 +13,15 @@ VPY=data/out/.venv/bin/python
 O=data/out/lm-ft-v1
 mkdir -p $O
 until [ -e data/out/lm-zeroshot-v1/ALL.done ]; do sleep 60; done
-ft() {  # name model lr
-  [ -e $O/$1/FT.done ] && return 0
-  dibs run gpu --label "asd-ste100 LM fine-tune $1" --eta 3h -- $PY model_lm/finetune.py --model $2 --out $O/$1 --lr $3 --epochs 3
+ft() {  # name model lr; retried: a non-finite loss from a GPU fault stops finetune.py, which resumes after the last saved epoch
+  local try
+  for try in 1 2 3; do
+    [ -e $O/$1/FT.done ] && return 0
+    dibs run gpu --label "asd-ste100 LM fine-tune $1" --eta 3h -- $PY model_lm/finetune.py --model $2 --out $O/$1 --lr $3 --epochs 3 \
+      && return 0
+    echo "fine-tune $1 attempt $try failed" >&2
+  done
+  return 1
 }
 gen() {  # name model flags...
   local name=$1 model=$2; shift 2
