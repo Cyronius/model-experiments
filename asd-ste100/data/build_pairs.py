@@ -18,6 +18,7 @@ import sys
 
 from noise_rules import Noiser, ROOT
 from text_utils import normalized, protected_values, tokenize
+from quality_gates import target_issues
 
 sys.path.insert(0, str(ROOT / 'checker'))
 from checker import Lexicon, check, errors  # noqa: E402
@@ -159,6 +160,10 @@ def build(run_dir: Path, out_dir: Path, rule_variants: int = 2, seed: int = 0,
         if PREAMBLE.search(target):
             reject('target', origin, 'preamble')
             continue
+        hard_quality = [i['rule'] for i in target_issues(target) if i['action'] == 'exclude']
+        if hard_quality:
+            reject('target', origin, 'quality_' + hard_quality[0])
+            continue
         names = {w.lower() for w in re.findall(r'(?<=[a-z,] )[A-Z][a-z]+', source)}
         violations = [v for para in re.split(r'\n\s*\n', target) for v in errors(check(para, lex, mode, extra_allowed=names))]
         if violations:
@@ -260,7 +265,7 @@ def build(run_dir: Path, out_dir: Path, rule_variants: int = 2, seed: int = 0,
         'rejections': dict(sorted(counts.items())),
         'input_sha256': {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs if path.exists()},
         'code_sha256': {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in
-                        (Path(__file__), ROOT / 'data/noise_rules.py', ROOT / 'data/text_utils.py', ROOT / 'checker/checker.py')},
+                        (Path(__file__), ROOT / 'data/noise_rules.py', ROOT / 'data/text_utils.py', ROOT / 'data/quality_gates.py', ROOT / 'checker/checker.py')},
         'limits': ['checker covers a subset of STE', 'surface tokens are not final model vocabulary IDs',
                    'messy back-translations and rule noise have no meaning judge score',
                    'protected-span heuristics do not detect every proper name or unit'],

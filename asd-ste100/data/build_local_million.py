@@ -19,6 +19,7 @@ import sqlite3
 from build_pairs import BUCKETS, Groups, PREAMBLE, ROOT, align, digest, read_jsonl
 from checker import Lexicon, check
 from harvest_sources import IMPERATIVE, TECHNICAL, chunks, records, sha256, texts
+from quality_gates import target_issues
 from noise_rules import Noiser
 from text_utils import normalized, protected_values, tokenize
 
@@ -85,6 +86,9 @@ def align_fast(source, target):
 
 
 def target_quality(text, mode, lex, max_unknown=.2):
+    for issue in target_issues(text):
+        if issue['action'] == 'exclude':
+            return 'quality_' + issue['rule']
     if PREAMBLE.search(text):
         return 'preamble'
     tokens = tokenize(text)
@@ -114,7 +118,7 @@ def initialize_stage(source_dir, output, seed, variants, max_unknown, exclude):
               'variants': variants, 'max_unknown': max_unknown, 'safe_operations': sorted(SAFE_OPERATIONS),
               'source_directory': str(source_dir.resolve()), 'source_mode': 'stream_pinned_raw',
               'lexicon_sha256': sha256(ROOT / 'lexicon/lexicon.jsonl'),
-              'code_sha256': {p.name: sha256(p) for p in [Path(__file__), ROOT / 'data/noise_rules.py', ROOT / 'data/text_utils.py', ROOT / 'checker/checker.py']},
+              'code_sha256': {p.name: sha256(p) for p in [Path(__file__), ROOT / 'data/noise_rules.py', ROOT / 'data/text_utils.py', ROOT / 'data/quality_gates.py', ROOT / 'data/harvest_sources.py', ROOT / 'checker/checker.py']},
               'exclude': str(exclude.resolve()) if exclude else None}
     config_path = output / 'build_config.json'
     if config_path.exists() and json.loads(config_path.read_text(encoding='utf-8')) != config:

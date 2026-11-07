@@ -1,0 +1,51 @@
+{
+  "review_status": "assistant_reviewed_owner_pending",
+  "purpose": [
+    "Run `sync_job` to keep the file.",
+    "Open `manifest` to read the list.",
+    "Use `reader` to check the file.",
+    "Stop `worker` to close the pipe.",
+    "Call `flush()` to keep the data.",
+    "Keep `backup` to restore the file."
+  ],
+  "before": [
+    "Close `handle` before shutdown.",
+    "Copy `config` before the update.",
+    "Check `result` before the next step.",
+    "Stop `worker` before the transfer.",
+    "Read `manifest` before the install.",
+    "Open `log` before the test."
+  ],
+  "after": [
+    "Read `log` after the test.",
+    "Open `report` after the transfer.",
+    "Stop `worker` after the update.",
+    "Check `result` after shutdown.",
+    "Close `handle` after the test.",
+    "Use `copy` after the update."
+  ],
+  "conditional": [
+    "If `ready` is false, stop the worker.",
+    "If `result` is missing, return an empty list.",
+    "If `status` is false, do not delete the file.",
+    "If `ready` is true, open the file.",
+    "If `result` is missing, read the log.",
+    "If `status` is false, keep the copy."
+  ],
+  "because": [
+    "Stop the worker because `status` is false.",
+    "Keep the copy because `result` is missing.",
+    "Read the log because `status` is false.",
+    "Close the file because `ready` is false.",
+    "Use the copy because `result` is missing.",
+    "Do not delete the file because `ready` is false."
+  ],
+  "now": [
+    "Read `log` at this time.",
+    "Open `manifest` at this time.",
+    "Stop `worker` at this time.",
+    "Copy `config` at this time.",
+    "Close `handle` at this time.",
+    "Check `result` at this time."
+  ]
+}

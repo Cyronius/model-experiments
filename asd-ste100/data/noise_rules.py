@@ -14,6 +14,7 @@ import re
 import sys
 
 from text_utils import match_case, normalized, protected_values, replace, tokenize
+from quality_gates import unsafe_changes, bad_merge_marker
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'checker'))
@@ -166,7 +167,9 @@ class Noiser:
                     if past.endswith('ed') and values[i + 1] == past:
                         aux = 'has' if values[i] in {'he', 'she', 'it'} else 'have'
                         edits.append(('perfect_tense', replace(text, toks[i + 1].start, toks[i + 1].end, aux + ' ' + past)))
-        return edits
+        return [(operation, noisy) for operation, noisy in edits
+                if not unsafe_changes(noisy, text)
+                and not bad_merge_marker(noisy, text, operation)]
 
     def variants(self, text: str, mode: str, count: int = 2, seed: int = 0,
                  allowed_operations: set[str] | None = None) -> list[dict]:

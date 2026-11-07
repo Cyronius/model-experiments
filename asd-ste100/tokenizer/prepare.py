@@ -9,7 +9,7 @@ import io
 import json
 from pathlib import Path
 
-from ste_tokenizer import ROOT, SteTokenizer, EncodingError, build_vocabulary, sha256, model_tokens
+from ste_tokenizer import ROOT, SteTokenizer, EncodingError, article_a, build_vocabulary, sha256, model_tokens
 
 
 def dump(path, value):
@@ -84,7 +84,7 @@ def export(pairs, vocab, output, probability=.7, seed=0, workers=1, limit=None, 
     if not 0 <= probability <= 1 or workers < 1 or shard_size < 1 or (limit is not None and limit < 1):
         raise ValueError('invalid export parameters')
     inputs = list(input_paths(pairs))
-    fingerprints = {name: sha256(Path(__file__).parent / name) for name in ('prepare.py', 'ste_tokenizer.py')}
+    fingerprints = {name: sha256(Path(__file__).parent / name) for name in ('prepare.py', 'ste_tokenizer.py', 'protected_regions.py', '../data/quality_gates.py', '../data/text_utils.py')}
     if output.resolve() in (pairs.resolve(), vocab.resolve()):
         raise ValueError('output must differ from input/vocabulary directories')
     if output.exists() and any(output.iterdir()):
@@ -210,7 +210,8 @@ def validate(output, vocab):
             tokens = model_tokens(row['src'])
             assert len(row['source_spans']) == len(tokens)
             previous = 0
-            for (start, end, left, right), token in zip(row['source_spans'], tokens):
+            articles = {i for i in range(len(tokens)) if article_a(tokens, i)}
+            for index, ((start, end, left, right), token) in enumerate(zip(row['source_spans'], tokens)):
                 assert start == previous and start < end <= len(source)
                 assert (left, right) == (token.start, token.end)
                 pieces = source[start:end]
@@ -226,7 +227,8 @@ def validate(output, vocab):
                     case = cases[start]
                     text = text[:1].upper() + text[1:] if case == 1 else text.upper() if case == 2 else text
                 assert text == token.text, ('source roundtrip', key, token.text)
-                expected_ref = next((sid for sid, slot in table.items() if slot['surface'] == token.text), -1)
+                expected_ref = -1 if index in articles else next(
+                    (sid for sid, slot in table.items() if slot['surface'] == token.text), -1)
                 assert refs[start:end] == [expected_ref] * (end - start)
                 if expected_ref >= 0:
                     observed_slots[expected_ref] += 1

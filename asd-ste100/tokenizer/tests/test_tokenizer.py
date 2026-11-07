@@ -117,6 +117,26 @@ class TokenizerTests(unittest.TestCase):
         with self.assertRaisesRegex(EncodingError, 'slot_overflow_PROTECT'):
             self.tok.encode_source(' '.join(f'var_{i}' for i in range(17)))
 
+    def test_grammar_words_are_input_only(self):
+        # Contractions, been/being and -ing forms of approved verbs can be removed, never written.
+        for word in ("don't", 'been', 'using', 'opening'):
+            self.assertIn(word, self.tok.input_ids)
+            self.assertNotIn(word, self.tok.output_ids)
+        row = self.pair("Don't open the file.", 'Do not open the file.')
+        self.assertEqual(row['slots'], [])
+        with self.assertRaisesRegex(EncodingError, 'target_outside_vocabulary'):
+            self.pair('Use the file.', 'Using the file.')
+
+    def test_sentence_initial_article(self):
+        row = self.pair('A file. Set A to 12.', 'A file. Set A to 12.')
+        self.assertEqual([s['surface'] for s in row['slots']], ['A', '12'])
+        self.assertEqual([s['count'] for s in row['slots']], [1, 1])
+        self.assertEqual(self.tok.detokenize(row['target_ids'], row['slots'], row['target_case']), 'A file. Set A to 12.')
+        row = self.pair('Use the file.', 'A file. Use the file.')
+        self.assertEqual(row['slots'], [])
+        with self.assertRaisesRegex(EncodingError, 'target_unseen_slot'):
+            self.pair('Use the file.', 'A. Use the file.')
+
     def test_bucket_rechecked_after_raw_fallback(self):
         src = ' '.join(['Use'] * 20 + ['`' + 'z' * 40 + '`'])
         row = self.pair(src, src, probability=0)

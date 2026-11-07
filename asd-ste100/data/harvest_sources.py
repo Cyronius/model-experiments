@@ -140,6 +140,18 @@ def texts(row: dict, fmt: str):
 def chunks(text: str, max_words: int = 60):
     """Whole-sentence chunks; fenced code is skipped rather than cut into fragments."""
     text = re.sub(r'```[\s\S]*?```', '\n\n', text)
+    # Keep code opaque while stripping HTML and normalizing prose. In particular,
+    # an inline HTML example must not turn into an empty backtick pair.
+    from quality_gates import code_spans
+    literals = {}
+    for index, (start, end) in reversed(list(enumerate(code_spans(text)))):
+        key = f'\x00STE_LITERAL_{index}\x00'
+        literals[key] = text[start:end]
+        text = text[:start] + key + text[end:]
+    def restore(value):
+        for key, literal in literals.items():
+            value = value.replace(key, literal)
+        return value
     text = re.sub(r'<[^>\n]+>', ' ', text)
     for paragraph in re.split(r'\n\s*\n|\n(?=\s*(?:[-*+] |\d+[.)] ))', text):
         paragraph = re.sub(r'^\s*(?:#{1,6}\s+|[-*+]\s+|\d+[.)]\s+)', '', paragraph.strip())
@@ -150,6 +162,7 @@ def chunks(text: str, max_words: int = 60):
         sentences = re.split(r'(?<=[.!?])\s+(?=[A-Z0-9`"(])', paragraph)
         pending = []
         for sentence in sentences:
+            sentence = restore(sentence)
             words = len(sentence.split())
             if words > max_words:
                 if pending:

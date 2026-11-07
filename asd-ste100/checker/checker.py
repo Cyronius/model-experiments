@@ -113,8 +113,11 @@ def check(text: str, lex: Lexicon, mode: str = "PROC", allow_technical: bool = T
                 vs.append(Violation("R3.1", i, t, suggestion="use is, are, was, or were")); continue
             if t in lex.allowed or t in extra or (allow_technical and t in lex.technical): continue
             sug = lex.suggest(t)
-            # A rejected verb right after a determiner is probably a technical noun (R1.5).
-            noun_like = j > 0 and low[j - 1] in DET and lex.rejected_pos.get(t.rstrip("s")) == "v"
+            # A rejected verb right after a determiner is probably a technical noun (R1.5),
+            # but not an -s form after "this": "this happens" is a verb. ("that" stays: the
+            # worked examples keep "a program that rotates log files" in the software sense.)
+            noun_like = (j > 0 and low[j - 1] in DET and lex.rejected_pos.get(t.rstrip("s")) == "v"
+                         and not (low[j - 1] == "this" and t.endswith("s")))
             vs.append(Violation("R1.1", i, t, severity="error" if sug and not noun_like else "info", suggestion=sug))
         for j in range(len(low) - 1):
             nxt = low[j + 1]

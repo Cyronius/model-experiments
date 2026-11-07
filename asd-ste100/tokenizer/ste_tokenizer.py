@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'data'))
 from build_pairs import align, BUCKETS
 from text_utils import Token, tokenize
+from protected_regions import tokenize_protected
 
 CONTROLS = ['PAD', 'NULL', 'SEP', 'PROC', 'DESC']
 SLOTS = [f'{kind}_{i}' for kind, count in [('TN', 32), ('TV', 16), ('NUM', 16), ('PROTECT', 16)]
@@ -32,6 +33,50 @@ shall should will would and or but nor so yet if unless because although though
 whether while as than when where why how not of to in on at by for from with without
 about above below under over between among through across along around before after
 until since during into onto out up down off per'''.split())
+# Words the model reads but never writes, so that it can learn to remove them:
+# contractions, "been"/"being"/"am", and the -ing forms of approved and software
+# verbs. STE allows none of them. Technical -ing nouns ("UTF-8 encoding", "error
+# logging") stay copyable spans, as other words the dictionary does not list.
+CONTRACTIONS = set("""don't doesn't didn't isn't aren't wasn't weren't can't couldn't won't
+wouldn't shouldn't mustn't hasn't haven't hadn't needn't shan't mightn't it's that's there's
+here's what's who's where's let's he's she's you're we're they're you'll we'll they'll it'll
+that'll i'll he'll she'll you've we've they've i've you'd we'd they'd i'd he'd she'd it'd
+i'm""".split())
+BE_FORMS = {'been', 'being', 'am'}
+TECHNICAL_GERUNDS = set("""binding blocking buffering caching casting counting debugging decoding
+embedding encoding escaping formatting handling hashing indexing linking locking logging
+mapping matching monitoring naming nesting networking operating ordering packaging padding
+paging parsing partitioning pooling profiling programming pruning quoting rendering rounding
+routing sampling scheduling scripting setting sharding sorting spooling streaming string testing
+threading timing tracing versioning""".split())
+
+
+def ing_forms(verb):
+    if verb.endswith('ie'):
+        return {verb[:-2] + 'ying'}
+    if verb.endswith('e') and not verb.endswith(('ee', 'ye', 'oe')):
+        return {verb[:-1] + 'ing'}
+    forms = {verb + 'ing'}
+    if re.search(r'[^aeiou][aeiou][bdgklmnprtv]$', verb):
+        forms.add(verb + verb[-1] + 'ing')    # run -> running, set -> setting
+    return forms
+
+
+def grammar_input_words(lex_dir: Path):
+    """Input-only grammar words: see CONTRACTIONS above."""
+    rows = [json.loads(line) for line in (lex_dir / 'lexicon.jsonl').read_text(encoding='utf-8').splitlines() if line]
+    verbs = {row['lemma'] for row in rows if row['pos'] == 'v' and row['status'] == 'approved'
+             and re.fullmatch('[a-z]+', row['lemma'])}
+    section = None
+    path = lex_dir / 'tech_words.txt'
+    for line in (path.read_text(encoding='utf-8').splitlines() if path.exists() else []):
+        if line.startswith('#'):
+            section = line[1:].strip() if line[1:].strip() in ('verbs', 'nouns', 'adjectives') else section
+        elif line.split() and section == 'verbs':
+            verbs.add(line.split()[0])
+    return (CONTRACTIONS | BE_FORMS | {form for verb in verbs for form in ing_forms(verb)}) - TECHNICAL_GERUNDS
+
+
 NUMBER = re.compile(r'\d+(?:[.,:]\d+)*(?:%)?')
 NAME_WORD = re.compile(r'(?:[A-Z][a-z]+(?:-[A-Za-z]+)*|[A-Z]{2,})')
 UNITS = set('mm cm m km mg g kg lb lbs oz ms s min h Hz kHz MHz GHz V mV kV A mA '
@@ -44,7 +89,7 @@ Copy Move Save Load Return Print Show List Make Keep Start Stop Please'''.split(
 
 def model_tokens(text):
     """Add conservative name and number/unit spans to the shared surface detector."""
-    raw, result, i = tokenize(text), [], 0
+    raw, result, i = tokenize_protected(text), [], 0
     while i < len(raw):
         token = raw[i]
         start, end, stop = token.start, token.end, i + 1
@@ -74,6 +119,17 @@ def model_tokens(text):
             result.append(token)
         i = stop
     return result
+
+
+def article_a(tokens, index):
+    """A sentence-initial "A" before a lowercase word is the article, not a variable name."""
+    token = tokens[index]
+    if token.text != 'A' or token.protected or index + 1 >= len(tokens):
+        return False
+    nxt = tokens[index + 1]
+    if nxt.protected or not nxt.text.isalpha() or not nxt.text.islower():
+        return False
+    return index == 0 or tokens[index - 1].text in {'.', '!', '?', ':'}
 
 
 def align_ids(source, target):
@@ -149,6 +205,7 @@ def build_vocabulary(lex_dir: Path, training_texts, output: Path, bpe_size=4096)
             rejected.add(word[:-1] + 'ing' if word.endswith('e') and not word.endswith('ee') else word + 'ing')
             if word.endswith('y') and len(word) > 1 and word[-2] not in 'aeiou':
                 rejected.add(word[:-1] + 'ied')
+    rejected |= grammar_input_words(lex_dir) - allowed
     out_tokens = CONTROLS + SLOTS + sorted(set(PUNCTUATION) | allowed)
     in_tokens = out_tokens + sorted(rejected - set(out_tokens))
     bpe = Tokenizer(models.BPE())
@@ -202,14 +259,17 @@ class SteTokenizer:
             raise EncodingError('fallback_roundtrip')
         return ids
 
-    def slot_kind(self, token):
+    def slot_kind(self, token, article=False):
+        if article:
+            return None
         if token.protected:
             if re.match(r'^[+\-$£€]?\d', token.text):
                 return 'NUM' if NUMBER.fullmatch(token.text) or ' ' in token.text or token.text[:1] in '+-$£€' else 'PROTECT'
             if len(token.text.split()) > 1 and all(NAME_WORD.fullmatch(word) for word in token.text.split()):
                 return 'TN'
             return 'PROTECT'
-        # A capital letter can denote a variable, including the article "A".
+        # A capital letter can denote a variable; a sentence-initial "A" before a
+        # lowercase word is the article (the caller passes article=True).
         if len(token.text) == 1 and token.text.isupper():
             if token.text != 'I':
                 return 'PROTECT'
@@ -227,8 +287,9 @@ class SteTokenizer:
             raise EncodingError('empty_source')
         # Build this table exclusively from input, before inspecting any target.
         table, kinds, counts = {}, Counter(), Counter()
-        for token in tokens:
-            kind = self.slot_kind(token)
+        articles = {i for i in range(len(tokens)) if article_a(tokens, i)}
+        for i, token in enumerate(tokens):
+            kind = self.slot_kind(token, i in articles)
             if kind:
                 if token.text not in table:
                     kinds[kind] += 1
@@ -240,7 +301,7 @@ class SteTokenizer:
         slots = [Slot(name, surface, counts[surface]) for surface, name in table.items()]
         ids, cases, refs, spans = [], [], [], []
         for index, token in enumerate(tokens):
-            slot = table.get(token.text)
+            slot = None if index in articles else table.get(token.text)
             ref = self.output_ids[slot] if slot else -1
             key = f'{seed}\0{text}\0{index}'.encode('utf-8')
             selected = int.from_bytes(hashlib.sha256(key).digest()[:8], 'big') / 2**64 < slot_probability
@@ -267,8 +328,11 @@ class SteTokenizer:
         encoded = self.encode_source(row['src'], row['mode'], slot_probability, seed)
         table = {slot['surface']: self.output_ids[slot['token']] for slot in encoded['slots']}
         target, cases = [], []
-        for token in model_tokens(row['ste']):
-            if token.text in table:
+        tokens = model_tokens(row['ste'])
+        for index, token in enumerate(tokens):
+            if article_a(tokens, index):
+                value = self.output_ids['a']
+            elif token.text in table:
                 value = table[token.text]
             elif self.slot_kind(token):
                 raise EncodingError('target_unseen_slot')
@@ -281,7 +345,7 @@ class SteTokenizer:
         if not target:
             raise EncodingError('empty_target')
         restored = self.restore_tokens(target, encoded['slots'], cases)
-        if restored != [token.text for token in model_tokens(row['ste'])]:
+        if restored != [token.text for token in tokens]:
             raise EncodingError('target_roundtrip')
         edits, positions, required = align_ids(encoded['source_ids'], target)
         bucket = next((size for size in BUCKETS if size >= required), None)
