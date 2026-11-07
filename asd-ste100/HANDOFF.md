@@ -564,3 +564,24 @@ Facts checked 2026-11-06:
 - `model_lm/run_zero_shot.sh` (detached, `dibs gpu`): LFM3 and LFM2.5, constrained and free,
   then a 24-row CPU canary against the GPU outputs (silent GPU faults since Nov 5), then
   scores. Output and `ALL.done` in `data/out/lm-zeroshot-v1/`. Bar: 88 of 679 exact.
+
+Few-shot results (679 doc dev pairs; bar: doc-only tagger 88 exact / 23 clean references changed).
+CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/scores.json`.
+
+| 4-shot | exact | checker-clean | clean refs changed | protected kept | unchanged |
+|---|---|---|---|---|---|
+| LFM3-1.7B constrained | 32 | 432 | 400 | 595 | 34 |
+| LFM3-1.7B free | 10 | 81 | 462 | 626 | 162 |
+| LFM2.5-350M constrained | 3 | 542 | 642 | 533 | 5 |
+| LFM2.5-350M free | 1 | 247 | 649 | 559 | 17 |
+
+- The constraint makes LFM3 replace words (exact 10 -> 32, checker-clean 81 -> 432); free, it copies
+  162 sources unchanged. Few-shot rewrites mostly keep the meaning in a 6-row look but reword
+  freely, rarely split sentences, and change most clean references.
+- Gap: the constraint uses the student output vocabulary, which holds words the checker rejects
+  (may, any, either, should, every, would), and it cannot see rejected phrases (such as, according
+  to, have to). R1.1 is 218 of the constrained LFM3 run's checker errors, R6.3 (sentence length) 62.
+  Left unchanged so the fine-tune runs compare with these; a stricter constraint is a later rescore.
+- `model_lm/finetune.py` + `run_finetune.sh` (queued, waits for the GPU): full fine-tune, 3 epochs,
+  LR 3e-5 (350M) / 1e-5 (1.7B), epoch picked on 4% held-out train documents, zero-shot prompt,
+  constrained and free dev rewrites, CPU canary, `data/out/lm-ft-v1/scores.json`, `ALL.done`.
