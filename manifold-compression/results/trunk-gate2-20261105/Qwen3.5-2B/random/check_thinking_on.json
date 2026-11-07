@@ -1,0 +1,43 @@
+{
+ "trunk": "Qwen3.5-2B",
+ "arm": "random",
+ "thinking": "on",
+ "decoding": "sampled",
+ "sampling": {
+  "temperature": 1.0,
+  "top_p": 0.95,
+  "top_k": 20,
+  "presence_penalty": 1.5,
+  "source": "Qwen3.5-9B model card, thinking mode for general tasks (as opd_long_rules.json)"
+ },
+ "max_new_tokens": 4096,
+ "seed": 26103103,
+ "summary": {
+  "prompts": 96,
+  "correct": 52,
+  "finished": 68,
+  "mean_length": 2634.5,
+  "loops": 9,
+  "looping": [
+   "gsm8k-test-21",
+   "gsm8k-test-26",
+   "gsm8k-test-37",
+   "gsm8k-test-58",
+   "gsm8k-test-61",
+   "gsm8k-test-62",
+   "gsm8k-test-65",
+   "gsm8k-test-70",
+   "gsm8k-test-97"
+  ],
+  "finished_median_length": 1773.5
+ },
+ "at_2048": {
+  "prompts": 96,
+  "correct": 45,
+  "finished": 38,
+  "mean_length": 1691.53125,
+  "loops": 0,
+  "finished_median_length": 1079.0
+ },
+ "seconds": 1310.3379020690918
+}
