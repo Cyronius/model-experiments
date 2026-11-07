@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from ste_constraint import Allowed, extends_ok, tail_word  # noqa: E402
+from ste_constraint import Allowed, ends_phrase, extends_ok, tail_word  # noqa: E402
 
 STE = {'the', 'must', 'send', 'data', 'if', 'it', 'is', 'not', 'a', 'message', 'change'}
 SRC = 'The frontend must now send copy-in data (if not prepared, send a CopyFail message to modify it).'
@@ -35,6 +35,20 @@ class ConstraintTests(unittest.TestCase):
         self.assertFalse(extends_ok(a, '', ' modify'))
         self.assertFalse(extends_ok(a, '', ' now'))
         self.assertTrue(extends_ok(a, '', ' CopyFail'))
+
+    def test_protected_span_words_are_copyable(self):
+        a = Allowed(sorted(STE), STE, 'Run `BEGIN` first.', copy_ok=lambda w: w != 'BEGIN',
+                    protected=['`BEGIN`'])
+        self.assertTrue(extends_ok(a, '', ' `BEGIN`'))
+        b = Allowed(sorted(STE), STE, 'Run `BEGIN` first.', copy_ok=lambda w: w != 'BEGIN')
+        self.assertFalse(extends_ok(b, '', ' `BEGIN`'))
+
+    def test_rejected_phrases(self):
+        phrases = {('such', 'as'), ('according', 'to')}
+        self.assertTrue(ends_phrase(['use', 'such'], ['as'], phrases, 2))
+        self.assertTrue(ends_phrase(['use'], ['such', 'as'], phrases, 2))
+        self.assertFalse(ends_phrase(['such', 'a'], ['file'], phrases, 2))
+        self.assertFalse(ends_phrase([], ['as'], phrases, 2))
 
     def test_tail_word(self):
         self.assertEqual(tail_word('send copy'), 'copy')

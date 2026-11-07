@@ -8,6 +8,11 @@ such as "additional" cannot. Characters outside words (spaces,
 punctuation, backticks) are free. The check is on characters, so it does not depend on how the LM
 tokenizes a word.
 
+Constraint v2 (generate.py --constraint v2) adds three things: words inside the source's protected spans
+(code, paths, identifiers) can always be copied; STE output words that the checker rejects on their own
+(may, any, should, ...) are left out by the caller; and a word may not complete a rejected multiword
+phrase (such as, according to, have to).
+
 At each step only the top-k candidates are checked (then a wider top-k); every other token is masked.
 """
 from __future__ import annotations
@@ -39,12 +44,15 @@ def case_variants(word: str) -> set[str]:
 class Allowed:
     """The allowed words for one request: the STE set (case-free) plus source words (case-kept)."""
 
-    def __init__(self, ste_sorted: list[str], ste_set: set[str], source: str, copy_ok=None):
+    def __init__(self, ste_sorted: list[str], ste_set: set[str], source: str, copy_ok=None,
+                 protected: list[str] = ()):
         self.ste_sorted, self.ste_set = ste_sorted, ste_set
         self.source = set()
         for w in WORD_CHARS.findall(source):
             if copy_ok is None or w.lower() in ste_set or copy_ok(w):
                 self.source |= case_variants(w)
+        for span in protected:
+            self.source |= set(WORD_CHARS.findall(span))
         self.source_sorted = sorted(self.source)
 
     def complete(self, w: str) -> bool:
@@ -65,47 +73,78 @@ def tail_word(text: str) -> str:
     return m.group() if m else ''
 
 
-def extends_ok(allowed: Allowed, partial: str, piece: str) -> bool:
-    """Can `piece` follow text whose unfinished last word is `partial`?"""
+def completed_words(allowed: Allowed, partial: str, piece: str) -> list[str] | None:
+    """The words that `piece` finishes after unfinished word `partial`, or None if it cannot follow."""
     s = partial + piece
     runs = list(WORD_CHARS.finditer(s))
+    done = []
     for j, m in enumerate(runs):
         last_open = j == len(runs) - 1 and m.end() == len(s)
         if last_open:
             if not allowed.prefix(m.group()):
-                return False
+                return None
         elif not allowed.complete(m.group()):
-            return False
-    return True
+            return None
+        else:
+            done.append(m.group())
+    return done
+
+
+def extends_ok(allowed: Allowed, partial: str, piece: str) -> bool:
+    """Can `piece` follow text whose unfinished last word is `partial`?"""
+    return completed_words(allowed, partial, piece) is not None
+
+
+def ends_phrase(before: list[str], done: list[str], phrases: set[tuple[str, ...]], longest: int) -> bool:
+    """Does one of the newly completed words `done` (after words `before`) end a rejected phrase?"""
+    seq = [w.lower() for w in before[-longest:] + done]
+    for end in range(len(seq) - len(done) + 1, len(seq) + 1):
+        for n in range(2, longest + 1):
+            if end - n >= 0 and tuple(seq[end - n:end]) in phrases:
+                return True
+    return False
 
 
 class SteLogitsProcessor:
     """HF LogitsProcessor. `sources[i]` is the source text of batch row i; prompts are left-padded to prompt_len."""
 
     def __init__(self, tokenizer, ste: set[str], sources: list[str], prompt_len: int, stop_ids: list[int],
-                 k: int = 64, wide_k: int = 2048, copy_ok=None):
+                 k: int = 64, wide_k: int = 2048, copy_ok=None, protected: list[list[str]] | None = None,
+                 phrases: set[tuple[str, ...]] | None = None):
         self.tok_text = token_texts(tokenizer)
         # added tokens (<think>, </think>, tool and media markers) are never text
         self.special = set(tokenizer.all_special_ids) | set(tokenizer.added_tokens_decoder)
         ste_sorted = sorted(ste)
-        self.allowed = [Allowed(ste_sorted, ste, s, copy_ok) for s in sources]
+        self.allowed = [Allowed(ste_sorted, ste, s, copy_ok, protected[n] if protected else ())
+                        for n, s in enumerate(sources)]
+        self.phrases = phrases or set()
+        self.longest = max((len(p) for p in self.phrases), default=0)
         self.text = [''] * len(sources)
         self.prompt_len, self.stop_ids, self.k, self.wide_k = prompt_len, list(stop_ids), k, wide_k
         self.seen = prompt_len
         self.fallbacks = [0] * len(sources)
 
+    def _fits(self, i: int, partial: str, piece: str) -> bool:
+        done = completed_words(self.allowed[i], partial, piece)
+        if done is None:
+            return False
+        if done and self.phrases:
+            before = WORD_CHARS.findall(self.text[i][:len(self.text[i]) - len(partial)])
+            return not ends_phrase(before, done, self.phrases, self.longest)
+        return True
+
     def _ok(self, i: int, partial: str, t: int) -> bool:
         if t in self.stop_ids:
             if t in self.special:
-                return partial == '' or self.allowed[i].complete(partial)
+                return self._fits(i, partial, ' ')
             # a line-break token ends the answer: what comes before the break must still fit
-            return extends_ok(self.allowed[i], partial, self.tok_text[t].split('\n')[0] + ' ')
+            return self._fits(i, partial, self.tok_text[t].split('\n')[0] + ' ')
         if t in self.special:
             return False
         piece = self.tok_text[t]
         if not piece or '�' in piece:
             return False
-        return extends_ok(self.allowed[i], partial, piece)
+        return self._fits(i, partial, piece)
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor) -> torch.FloatTensor:
         length = input_ids.shape[1]

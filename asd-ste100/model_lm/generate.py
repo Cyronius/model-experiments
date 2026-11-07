@@ -21,8 +21,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'model_lm'))
 sys.path.insert(0, str(ROOT / 'checker'))
+sys.path.insert(0, str(ROOT / 'data'))
 from ste_constraint import SteLogitsProcessor, ste_words  # noqa: E402
 from checker import Lexicon, check, errors  # noqa: E402
+from text_utils import tokenize as surface_tokens  # noqa: E402
 
 DATA = ROOT / 'data/out/lm-doc-v1'
 VOCAB = ROOT / 'data/out/fixes-v2/vocabulary'
@@ -66,6 +68,8 @@ def main():
     ap.add_argument('--model', required=True)
     ap.add_argument('--out', required=True, type=Path)
     ap.add_argument('--constrained', action='store_true')
+    ap.add_argument('--constraint', default='v1', choices=['v1', 'v2'],
+                    help='v2: copy protected-span words, drop checker-rejected STE words, block rejected phrases')
     ap.add_argument('--shots', type=int, default=4)
     ap.add_argument('--limit', type=int, default=0)
     ap.add_argument('--batch', type=int, default=16)
@@ -84,6 +88,10 @@ def main():
 
     def copy_ok(word):
         return not errors(check(word, lex, 'DESC'))
+    phrases = None
+    if args.constraint == 'v2':
+        ste = {w for w in ste if copy_ok(w)}
+        phrases = {tuple(p.split()) for p in lex.phrases}
     # LFM3 with thinking off writes its answer, then `</think>`, then more; with `</think>` suppressed it goes
     # on to think aloud after the answer. The answer is the text before `</think>` or the first line break
     # (no source or reference has one), so both stop generation. `<think>` is suppressed.
@@ -104,7 +112,7 @@ def main():
     # similar lengths together keeps padding small
     jobs.sort(key=lambda j: len(j[0][j[1]]))
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    meta = dict(model=args.model, constrained=args.constrained, shots=[e['id'] for e in examples], device=args.device,
+    meta = dict(model=args.model, constrained=args.constrained, constraint=args.constraint if args.constrained else None, shots=[e['id'] for e in examples], device=args.device,
                 dtype=args.dtype, system=SYSTEM, suppressed=suppress, stop_count=len(stop_ids))
     (args.out.with_suffix('.meta.json')).write_text(json.dumps(meta, indent=2))
     t0 = time.time()
@@ -119,7 +127,10 @@ def main():
             proc = None
             kw = {}
             if args.constrained:
-                proc = SteLogitsProcessor(tok, ste, [r[w] for r, w in batch], plen, stop_ids, copy_ok=copy_ok)
+                prot = ([[t.text for t in surface_tokens(r[w]) if t.protected] for r, w in batch]
+                        if args.constraint == 'v2' else None)
+                proc = SteLogitsProcessor(tok, ste, [r[w] for r, w in batch], plen, stop_ids, copy_ok=copy_ok,
+                                          protected=prot, phrases=phrases)
                 kw['logits_processor'] = [proc]
             with torch.no_grad():
                 out = model.generate(**enc, max_new_tokens=2 * src_len + 40, do_sample=False, temperature=None,
