@@ -96,7 +96,10 @@ class SteLogitsProcessor:
 
     def _ok(self, i: int, partial: str, t: int) -> bool:
         if t in self.stop_ids:
-            return partial == '' or self.allowed[i].complete(partial)
+            if t in self.special:
+                return partial == '' or self.allowed[i].complete(partial)
+            # a line-break token ends the answer: what comes before the break must still fit
+            return extends_ok(self.allowed[i], partial, self.tok_text[t].split('\n')[0] + ' ')
         if t in self.special:
             return False
         piece = self.tok_text[t]

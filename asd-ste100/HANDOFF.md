@@ -549,8 +549,10 @@ Facts checked 2026-11-06:
   transformers than `target/manifold-rocm/env` has (5.14.1 lacks
   `use_kernel_func_from_hub_with_fallback`); `data/out/lm-overlay/` holds transformers 5.22.2 +
   tokenizers 0.23 (`PYTHONPATH=data/out/lm-overlay`). 5.22.2 still has no native `lfm3`.
-- LFM3 with `enable_thinking=False` writes its answer, then `</think>`, then the answer again;
-  `generate.py` suppresses the `<think>`/`</think>` tokens.
+- LFM3 with `enable_thinking=False` writes its answer, then `</think>`, then the answer again.
+  Suppressing `</think>` made it think aloud after the answer instead (a first run, stopped at 512
+  of 1,358: 55 of 247 sources hit the token cap). `generate.py` now stops at `</think>` or at the
+  first line break (no doc source or reference has one) and keeps the text before it.
 - `model_lm/ste_constraint.py`: character-level constraint on the top-k candidates. Every
   finished word must be an STE output word (fixes-v2 vocabulary, any case) or a source word that
   the checker accepts on its own (code, names, numbers, unlisted words; a rejected word such as

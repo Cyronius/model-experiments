@@ -82,8 +82,14 @@ def main():
 
     def copy_ok(word):
         return not errors(check(word, lex, 'DESC'))
-    # LFM3 with thinking off still closes a think block after its answer and repeats it; never emit think tags
-    suppress = [i for i in (tok.convert_tokens_to_ids(t) for t in ('<think>', '</think>')) if i is not None and i != tok.unk_token_id]
+    # LFM3 with thinking off writes its answer, then `</think>`, then more; with `</think>` suppressed it goes
+    # on to think aloud after the answer. The answer is the text before `</think>` or the first line break
+    # (no source or reference has one), so both stop generation. `<think>` is suppressed.
+    think = {t: tok.convert_tokens_to_ids(t) for t in ('<think>', '</think>')}
+    think = {t: i for t, i in think.items() if i is not None and i != tok.unk_token_id}
+    suppress = [think['<think>']] if '<think>' in think else []
+    stop_ids = sorted(set(stop_ids) | ({think['</think>']} if '</think>' in think else set())
+                      | {i for i in range(len(tok)) if '\n' in tok.decode([i])})
     examples = shots(args.shots)
     dev = [json.loads(l) for l in (DATA / 'dev.jsonl').open()]
     if args.limit:
@@ -97,7 +103,7 @@ def main():
     jobs.sort(key=lambda j: len(j[0][j[1]]))
     args.out.parent.mkdir(parents=True, exist_ok=True)
     meta = dict(model=args.model, constrained=args.constrained, shots=[e['id'] for e in examples], device=args.device,
-                dtype=args.dtype, system=SYSTEM, suppressed=suppress)
+                dtype=args.dtype, system=SYSTEM, suppressed=suppress, stop_count=len(stop_ids))
     (args.out.with_suffix('.meta.json')).write_text(json.dumps(meta, indent=2))
     t0 = time.time()
     with args.out.open('a') as f:
@@ -120,7 +126,9 @@ def main():
             for i, (r, w) in enumerate(batch):
                 gen = out[i, plen:].tolist()
                 hit_stop = any(t in stop_ids for t in gen)
-                text = tok.decode(gen, skip_special_tokens=True).strip()
+                text = tok.decode(gen, skip_special_tokens=False)
+                text = text.split('</think>')[0].split('\n')[0]
+                text = tok.decode(tok.encode(text, add_special_tokens=False), skip_special_tokens=True).strip()
                 f.write(json.dumps(dict(id=r['id'], input=w, output=text, stopped=hit_stop,
                                         fallbacks=proc.fallbacks[i] if proc else 0), ensure_ascii=False) + '\n')
             f.flush()
