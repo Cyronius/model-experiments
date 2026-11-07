@@ -50,6 +50,16 @@ class ConstraintTests(unittest.TestCase):
         self.assertFalse(ends_phrase(['such', 'a'], ['file'], phrases, 2))
         self.assertFalse(ends_phrase([], ['as'], phrases, 2))
 
+    def test_strict_case(self):
+        a = Allowed(sorted(STE | {'qualities'}), STE | {'qualities'}, 'schema-qualified', strict_case=True)
+        for w in (' qualities', ' Qualities', ' QUALITIES'):
+            self.assertTrue(extends_ok(a, '', w), w)
+        self.assertFalse(extends_ok(a, 'quali', 'tIeS'))
+        self.assertFalse(extends_ok(a, '', ' qUal'))
+        self.assertTrue(extends_ok(a, '', ' schema-qualified'))  # source words keep their case rule
+        self.assertFalse(extends_ok(allowed(), 'quali', 'tIeS'))  # not an STE word here at all
+        self.assertTrue(extends_ok(Allowed(sorted(STE), STE, SRC), '', ' mUst'))  # v1 stays case-free
+
     def test_tail_word(self):
         self.assertEqual(tail_word('send copy'), 'copy')
         self.assertEqual(tail_word('send copy.'), '')

@@ -69,7 +69,8 @@ def main():
     ap.add_argument('--out', required=True, type=Path)
     ap.add_argument('--constrained', action='store_true')
     ap.add_argument('--constraint', default='v1', choices=['v1', 'v2'],
-                    help='v2: copy protected-span words, drop checker-rejected STE words, block rejected phrases')
+                    help='v2: copy protected-span words, drop checker-rejected STE words, block rejected phrases, '
+                         'STE words only in lower, Title or UPPER case')
     ap.add_argument('--shots', type=int, default=4)
     ap.add_argument('--limit', type=int, default=0)
     ap.add_argument('--batch', type=int, default=16)
@@ -130,7 +131,7 @@ def main():
                 prot = ([[t.text for t in surface_tokens(r[w]) if t.protected] for r, w in batch]
                         if args.constraint == 'v2' else None)
                 proc = SteLogitsProcessor(tok, ste, [r[w] for r, w in batch], plen, stop_ids, copy_ok=copy_ok,
-                                          protected=prot, phrases=phrases)
+                                          protected=prot, phrases=phrases, strict_case=args.constraint == 'v2')
                 kw['logits_processor'] = [proc]
             with torch.no_grad():
                 out = model.generate(**enc, max_new_tokens=2 * src_len + 40, do_sample=False, temperature=None,

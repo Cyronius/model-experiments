@@ -537,7 +537,7 @@ Facts checked 2026-11-06:
   is needed for GGUF inference.
 - No zero-shot or training run has been done yet.
 
-## November 7: LFM few-shot baseline on the doc dev pairs (running)
+## November 7: LFM few-shot baseline and fine-tune on the doc dev pairs
 
 - Committed the Oct 24 – Nov 6 work (8089510) after the tests passed: tokenizer 15, data 34,
   tagger 32, canvas 8, doc pilot 68 (unittest, `data/out/.venv/bin/python`).
@@ -597,3 +597,28 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
 - The LFM3-1.7B fine-tune hit a non-finite loss at epoch 1 step 15 while another session's
   heal_sessions check shared the GPU without dibs. The same batch on CPU with base weights is
   finite in fp32 and bf16 autocast, so it is taken as a GPU fault; `run_finetune.sh` now retries.
+- The retry ran clean. LFM3-1.7B held-out loss: base 0.603, epochs 0.128 / 0.132 / 0.185 (epoch 1 kept).
+  CPU canary over the fine-tuned runs: 0 of 24 rows differ. `data/out/lm-ft-v1/scores.json`:
+
+| fine-tuned, zero-shot prompt | exact | closer / farther | checker-clean | protected kept | clean refs changed | similarity |
+|---|---|---|---|---|---|---|
+| LFM3-1.7B constrained (v1) | **191** | 559 / 102 | 655 | 665 | 161 | 0.902 |
+| LFM3-1.7B free | 189 | 559 / 95 | 609 | 677 | 145 | 0.904 |
+| LFM2.5-350M constrained (v1) | 173 | 563 / 93 | 661 | 661 | 179 | 0.897 |
+| LFM2.5-350M free | 174 | 563 / 88 | 639 | 673 | 159 | 0.901 |
+
+- Meaning review, 30 random dev rows (seed 7), constrained runs, read by the assistant. 1.7B: 12 exact,
+  3 clear slips ("schema-qualified" -> "schema-qualitIeS", a confusing repeated sentence, "otherwise
+  (false or null)" -> "also true if false or null"), 3 small ones (successful -> satisfactory, "major"
+  dropped, "this name" -> "them"). 350M: 11 exact, 4 clear slips, all on long or hard sentences ("You
+  must do curl to do it", "This is not exist as of this write", "This is i.e., ...", "schema-quality"),
+  1 small. Same on easy rows; the 1.7B holds up better on hard ones.
+- After fine-tuning the constraint adds little exact (191 vs 189) but 30-45 checker-clean rows, and v1
+  loses 12 protected values (the code-literal bug). "qualitIeS" came from v1 matching STE words in any
+  case mix; v2 now also takes STE words only in lower, Title or UPPER case (added before the v2 run
+  started; 7 unit tests).
+- v2 run (`run_constraint_v2.sh`) is queued on `dibs gpu` behind other sessions; results go to
+  `data/out/lm-ft-v1/scores-v2.json` and `V2.done`.
+- Open owner questions: v2 drops "should" because the checker rejects it alone, which presumes the
+  open `should` policy; which model to carry forward (1.7B is better, 350M is 5x smaller); GGUF needs
+  llama.cpp b12177+ for lfm3.

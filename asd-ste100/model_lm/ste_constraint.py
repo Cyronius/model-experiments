@@ -8,10 +8,11 @@ such as "additional" cannot. Characters outside words (spaces,
 punctuation, backticks) are free. The check is on characters, so it does not depend on how the LM
 tokenizes a word.
 
-Constraint v2 (generate.py --constraint v2) adds three things: words inside the source's protected spans
+Constraint v2 (generate.py --constraint v2) adds four things: words inside the source's protected spans
 (code, paths, identifiers) can always be copied; STE output words that the checker rejects on their own
-(may, any, should, ...) are left out by the caller; and a word may not complete a rejected multiword
-phrase (such as, according to, have to).
+(may, any, should, ...) are left out by the caller; a word may not complete a rejected multiword
+phrase (such as, according to, have to); and STE words must be lower case, Title case or UPPER case
+(`strict_case`; v1 took any mix, so "qualitIeS" passed as "qualities").
 
 At each step only the top-k candidates are checked (then a wider top-k); every other token is masked.
 """
@@ -33,6 +34,11 @@ def ste_words(vocab_dir: Path) -> set[str]:
     return {w.lower() for w in out if not SPECIAL.match(w) and WORD_CHARS.fullmatch(w)}
 
 
+def case_ok(w: str) -> bool:
+    """Is w (a word or the start of one) lower case, Title case or UPPER case?"""
+    return w == w.lower() or w == w.upper() or w == w[:1].upper() + w[1:].lower()
+
+
 def case_variants(word: str) -> set[str]:
     v = {word}
     if word[:1].isalpha():
@@ -45,8 +51,8 @@ class Allowed:
     """The allowed words for one request: the STE set (case-free) plus source words (case-kept)."""
 
     def __init__(self, ste_sorted: list[str], ste_set: set[str], source: str, copy_ok=None,
-                 protected: list[str] = ()):
-        self.ste_sorted, self.ste_set = ste_sorted, ste_set
+                 protected: list[str] = (), strict_case: bool = False):
+        self.ste_sorted, self.ste_set, self.strict_case = ste_sorted, ste_set, strict_case
         self.source = set()
         for w in WORD_CHARS.findall(source):
             if copy_ok is None or w.lower() in ste_set or copy_ok(w):
@@ -56,12 +62,13 @@ class Allowed:
         self.source_sorted = sorted(self.source)
 
     def complete(self, w: str) -> bool:
-        return w.lower() in self.ste_set or w in self.source
+        return (w.lower() in self.ste_set and (not self.strict_case or case_ok(w))) or w in self.source
 
     def prefix(self, p: str) -> bool:
         low = p.lower()
         i = bisect.bisect_left(self.ste_sorted, low)
-        if i < len(self.ste_sorted) and self.ste_sorted[i].startswith(low):
+        if (i < len(self.ste_sorted) and self.ste_sorted[i].startswith(low)
+                and (not self.strict_case or case_ok(p))):
             return True
         i = bisect.bisect_left(self.source_sorted, p)
         return i < len(self.source_sorted) and self.source_sorted[i].startswith(p)
@@ -110,12 +117,12 @@ class SteLogitsProcessor:
 
     def __init__(self, tokenizer, ste: set[str], sources: list[str], prompt_len: int, stop_ids: list[int],
                  k: int = 64, wide_k: int = 2048, copy_ok=None, protected: list[list[str]] | None = None,
-                 phrases: set[tuple[str, ...]] | None = None):
+                 phrases: set[tuple[str, ...]] | None = None, strict_case: bool = False):
         self.tok_text = token_texts(tokenizer)
         # added tokens (<think>, </think>, tool and media markers) are never text
         self.special = set(tokenizer.all_special_ids) | set(tokenizer.added_tokens_decoder)
         ste_sorted = sorted(ste)
-        self.allowed = [Allowed(ste_sorted, ste, s, copy_ok, protected[n] if protected else ())
+        self.allowed = [Allowed(ste_sorted, ste, s, copy_ok, protected[n] if protected else (), strict_case)
                         for n, s in enumerate(sources)]
         self.phrases = phrases or set()
         self.longest = max((len(p) for p in self.phrases), default=0)
