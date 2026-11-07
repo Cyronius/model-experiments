@@ -43,6 +43,8 @@ def user_msg(mode: str, text: str) -> str:
 
 
 def shots(n: int, seed: int = 0) -> list[dict]:
+    if n == 0:
+        return []
     rows = [json.loads(l) for l in (DATA / 'train.jsonl').open()]
     rows = [r for r in rows if 12 <= len(r['src'].split()) <= 35 and r['src'] != r['ste']]
     rng = random.Random(seed)
