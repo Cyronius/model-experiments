@@ -7,6 +7,10 @@ fp32 weights and AdamW, bf16 autocast. Each epoch is saved (bf16, with the token
 under --out/epoch-N; --out/best points at the epoch with the lowest held-out loss. A rerun resumes after
 the last saved epoch (fresh optimizer state; the LR schedule continues).
 
+--identity adds, for every training pair, its reference rewritten to itself (src = ste = the reference),
+so the model also learns to leave text that is already STE unchanged. Held-out documents get the same
+rows; the epoch is picked on the held-out loss over both kinds, and the edit-only loss is logged beside it.
+
 Run with target/manifold-rocm/env/bin/python and PYTHONPATH=data/out/lm-overlay.
 """
 from __future__ import annotations
@@ -88,8 +92,11 @@ def loss_on(model, items, size, pad, device):
 def save(model, tok, src: Path, dest: Path):
     tmp = dest.with_name(dest.name + '.tmp')
     shutil.rmtree(tmp, ignore_errors=True)
+    # keep the fp32 master weights: a bf16 round trip would round them for the epochs after this one
+    master = {k: v.detach().to('cpu', copy=True) for k, v in model.state_dict().items()}
     model.to(torch.bfloat16).save_pretrained(tmp)
     model.to(torch.float32)
+    model.load_state_dict(master)
     tok.save_pretrained(tmp)
     for f in list(src.glob('*.py')) + list(src.glob('chat_template.jinja')) + [src / 'generation_config.json']:
         if f.exists() and not (tmp / f.name).exists():
@@ -110,6 +117,7 @@ def main():
     ap.add_argument('--device', default='cuda')
     ap.add_argument('--seed', type=int, default=0)
     ap.add_argument('--limit', type=int, default=0, help='smoke test: first N training rows')
+    ap.add_argument('--identity', action='store_true', help='add each reference rewritten to itself')
     args = ap.parse_args()
     torch.manual_seed(args.seed)
     args.out.mkdir(parents=True, exist_ok=True)
@@ -118,8 +126,10 @@ def main():
     rows = [json.loads(l) for l in (DATA / 'train.jsonl').open()]
     if args.limit:
         rows = rows[:args.limit]
-    train = [encode(tok, r, args.max_len) for r in rows if not held_out(r['group'])]
-    val = [encode(tok, r, args.max_len) for r in rows if held_out(r['group'])]
+    same = [dict(r, src=r['ste']) for r in rows] if args.identity else []
+    train = [encode(tok, r, args.max_len) for r in rows + same if not held_out(r['group'])]
+    val_edit = [encode(tok, r, args.max_len) for r in rows if held_out(r['group'])]
+    val = val_edit + [encode(tok, r, args.max_len) for r in same if held_out(r['group'])]
     steps_per_epoch = math.ceil(len(train) / args.batch)
     total = steps_per_epoch * args.epochs
     warm = max(1, int(total * args.warmup))
@@ -139,14 +149,16 @@ def main():
         opt, lambda s: min(1.0, (s + 1) / warm) * 0.5 * (1 + math.cos(math.pi * min(1.0, s / total))))
     for _ in range(start * steps_per_epoch):
         sched.step()
-    meta = dict(model=str(args.model), train=len(train), heldout=len(val), epochs=args.epochs, lr=args.lr,
+    meta = dict(model=str(args.model), identity=args.identity, train=len(train), heldout=len(val),
+                epochs=args.epochs, lr=args.lr,
                 batch=args.batch, steps_per_epoch=steps_per_epoch, max_len=args.max_len,
                 truncated=sum(len(a) == args.max_len for a, _ in train))
     (args.out / 'meta.json').write_text(json.dumps(meta, indent=2))
     print(meta, flush=True)
     if not history:
         base = loss_on(model, val, args.batch, tok.pad_token_id, args.device)
-        history.append(dict(epoch=0, heldout_loss=base))
+        history.append(dict(epoch=0, heldout_loss=base,
+                            heldout_edit_loss=loss_on(model, val_edit, args.batch, tok.pad_token_id, args.device)))
         log_path.write_text(json.dumps(history[0]) + '\n')
         print('epoch 0 held-out loss', round(base, 4), flush=True)
     t0 = time.time()
@@ -173,7 +185,8 @@ def main():
                 run, n = 0.0, 0
         vl = loss_on(model, val, args.batch, tok.pad_token_id, args.device)
         save(model, tok, args.model, args.out / f'epoch-{epoch}')
-        history.append(dict(epoch=epoch, heldout_loss=vl, seconds=round(time.time() - t0)))
+        history.append(dict(epoch=epoch, heldout_loss=vl, seconds=round(time.time() - t0),
+                            heldout_edit_loss=loss_on(model, val_edit, args.batch, tok.pad_token_id, args.device)))
         with log_path.open('a') as f:
             f.write(json.dumps(history[-1]) + '\n')
         print(f'epoch {epoch} held-out loss {vl:.4f}', flush=True)
