@@ -118,12 +118,13 @@ def main():
     ap.add_argument('--seed', type=int, default=0)
     ap.add_argument('--limit', type=int, default=0, help='smoke test: first N training rows')
     ap.add_argument('--identity', action='store_true', help='add each reference rewritten to itself')
+    ap.add_argument('--data', type=Path, default=DATA, help='directory with train.jsonl (default lm-doc-v1)')
     args = ap.parse_args()
     torch.manual_seed(args.seed)
     args.out.mkdir(parents=True, exist_ok=True)
 
     tok = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
-    rows = [json.loads(l) for l in (DATA / 'train.jsonl').open()]
+    rows = [json.loads(l) for l in (args.data / 'train.jsonl').open()]
     if args.limit:
         rows = rows[:args.limit]
     same = [dict(r, src=r['ste']) for r in rows] if args.identity else []
@@ -149,7 +150,7 @@ def main():
         opt, lambda s: min(1.0, (s + 1) / warm) * 0.5 * (1 + math.cos(math.pi * min(1.0, s / total))))
     for _ in range(start * steps_per_epoch):
         sched.step()
-    meta = dict(model=str(args.model), identity=args.identity, train=len(train), heldout=len(val),
+    meta = dict(model=str(args.model), data=str(args.data), identity=args.identity, train=len(train), heldout=len(val),
                 epochs=args.epochs, lr=args.lr,
                 batch=args.batch, steps_per_epoch=steps_per_epoch, max_len=args.max_len,
                 truncated=sum(len(a) == args.max_len for a, _ in train))
