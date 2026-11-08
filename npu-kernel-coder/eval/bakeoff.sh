@@ -41,17 +41,20 @@ grep -v '^#' "$MODELS" | while IFS="$(printf '\t')" read tag gguf ctx thinking m
   dibs wait --pressure >/dev/null 2>&1  # don't load a 20 GB model while the machine is short of RAM or CPU
   dibs run gpu --label "npu-kernel-coder bakeoff $name" --eta 60m -- sh -c "
     dibs extend gpu --eta 60m >/dev/null 2>&1  # the ETA above counts from queueing, not from getting the GPU
+    # Keep renewing: on 2026-11-07 a 27B row outlived its ETA and dibs gave the GPU to a ROCm fine-tune mid-run.
+    ( while sleep 1200; do dibs extend gpu --eta 45m >/dev/null 2>&1; done ) &
+    K=\$!
     LD_LIBRARY_PATH='$BIN' '$BIN/llama-server' -m '$gguf' -c $ctx -ngl 99 --jinja -np 1 $sargs \
       --host 127.0.0.1 --port $PORT >> '$out/server.log' 2>&1 &
     S=\$!
     t=0
     until curl -sf http://127.0.0.1:$PORT/health >/dev/null; do
       sleep 3; t=\$((t+3))
-      if ! kill -0 \$S 2>/dev/null || [ \$t -gt 900 ]; then echo 'server failed to start'; tail -5 '$out/server.log'; kill \$S 2>/dev/null; exit 1; fi
+      if ! kill -0 \$S 2>/dev/null || [ \$t -gt 900 ]; then echo 'server failed to start'; tail -5 '$out/server.log'; kill \$S \$K 2>/dev/null; exit 1; fi
     done
     echo \"loaded in \${t}s\"
     cd '$HERE' && '$PY' run.py --backend llama --model '$tag' --tag 'bakeoff-$tag' --url http://127.0.0.1:$PORT \
       --tasks $TASKS --variant $pvar --rounds $rounds --thinking $thinking --max-tokens $maxtok --temperature $temp
-    kill \$S; wait \$S 2>/dev/null
+    kill \$S \$K 2>/dev/null; wait \$S 2>/dev/null
   " < /dev/null 2>&1 | grep --line-buffered -v '^dibs: waiting'
 done

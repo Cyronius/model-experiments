@@ -2,6 +2,7 @@
 # -fa off everywhere: build 12060 with flash attention degenerates ('GGGG...', '3333...') on prompts over ~16k tokens (seen on qwen3moe, clover_moe and Apex's qwen35moe)
 # flint always reasons; --reasoning-budget 0 is its thinking-off setting (a 16k budget ran out before answering)
 # arex-2: BAAI AREX-2 (Qwen3.8-27B fine-tuned to revise over test-time rounds), bartowski Q4_K_M imatrix
+# bonsai-2-27b-q2: ternary Q2_0 of Qwen3.8-27B; run it only if qwen3.8-27b scores above 0
 # rN rows: the same prompt, then up to N-1 retries with toolchain feedback (failed hunks, assembler error, rule violations)
 qwen3-coder-30b-a3b	/home/cyrus/.cache/model-experiments/nkc-bakeoff/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf	40960	off	8192	0	base	-fa off
 arex-2	/home/cyrus/.cache/model-experiments/nkc-bakeoff/BAAI_AREX-2-Q4_K_M.gguf	40960	off	8192	0	base	-fa off
