@@ -660,3 +660,10 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
   Of the round-1 exact rows that round 2 misses, most are equally valid in a 5-row look ("is taken as"
   repeated, "then" dropped); 2 lose meaning ("can still be used" -> "can be used", "column drawing style"
   -> "column that draws").
+- Owner decision (Nov 8): carry LFM2.5-350M forward; the round-2 LFM3-1.7B fine-tune was stopped in
+  epoch 1 (nothing saved; `run_finetune_v2.sh` stopped before its 1.7B steps). Round-1 1.7B checkpoints
+  stay in `data/out/lm-ft-v1/lfm3-1.7b/` as a possible teacher.
+- More data exists for the LM: of the 11,360 unflagged teacher pairs, 3,566 were left out only because the
+  tagger vocabulary could not encode them (target words outside it 2,020, a copied word it cannot slot
+  888, slot fidelity 651). The LM has no such limit. In the train split and checker-clean, excluding slot
+  fidelity: about 2,480 pairs (+36%).
