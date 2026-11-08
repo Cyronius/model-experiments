@@ -622,3 +622,19 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
 - Open owner questions: v2 drops "should" because the checker rejects it alone, which presumes the
   open `should` policy; which model to carry forward (1.7B is better, 350M is 5x smaller); GGUF needs
   llama.cpp b12177+ for lfm3.
+- v2 results (`data/out/lm-ft-v1/scores-v2.json`; CPU canary `model_lm/canary_v2.sh`: 0 of 24 rows differ):
+
+| fine-tuned, zero-shot prompt | exact | closer / farther | checker-clean | protected kept | clean refs changed |
+|---|---|---|---|---|---|
+| LFM3-1.7B v2 | **197** | 559 / 102 | 656 | 676 | 159 |
+| LFM3-1.7B v1 | 191 | 559 / 102 | 655 | 665 | 161 |
+| LFM2.5-350M v2 | 176 | 567 / 89 | 663 | 672 | 177 |
+| LFM2.5-350M v1 | 173 | 563 / 93 | 661 | 661 | 179 |
+
+- v2 keeps protected values about as well as free decoding (676 vs 677) and keeps the checker-clean gain.
+  Remaining checker errors are nearly all R6.3 sentence length (16-18 per run), which a word constraint
+  cannot see. Only 6 dev references use a word v2 drops; 5 outputs rephrase ("should hold" -> "must
+  hold"), 1 loops ("That is, that is, ..." where the reference has "would"). Loops are 1-2 per run.
+- Main weakness left: about 160 of 679 already-STE references get changed (tagger: 23).
+- Recommendation: LFM3-1.7B with constraint v2. Owner to decide: model choice, `should`, next step
+  (GGUF with llama.cpp b12177+, move to /home/cyrus/models, or work on leaving clean text alone).
