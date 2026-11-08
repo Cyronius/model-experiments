@@ -638,3 +638,25 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
 - Main weakness left: about 160 of 679 already-STE references get changed (tagger: 23).
 - Recommendation: LFM3-1.7B with constraint v2. Owner to decide: model choice, `should`, next step
   (GGUF with llama.cpp b12177+, move to /home/cyrus/models, or work on leaving clean text alone).
+
+## November 8: fine-tune round 2 with identity pairs (running)
+
+- Owner asked for a second fine-tune round for both models. Round 1 trained on 0 pairs where the text is
+  already STE, so the models changed 159-177 of 679 clean references (tagger: 23). Round 2
+  (`model_lm/run_finetune_v2.sh`, `finetune.py --identity`) adds each reference rewritten to itself;
+  recipe otherwise as round 1. Output `data/out/lm-ft-v2/`, `ALL.done` when finished.
+- Fixed in `finetune.py`: the per-epoch bf16 save rounded the fp32 master weights for the epochs after it
+  (round 1's epochs 2-3 were affected); the save now restores them exactly (checked).
+- LFM2.5-350M round 2: epoch 2 again (held-out edit-only loss 0.205; round 1 0.182). CPU canary 0 of 24.
+
+| 350M, 679 doc dev | exact | closer / farther | checker-clean | protected kept | clean refs changed |
+|---|---|---|---|---|---|
+| round 2 v2 | 173 | 543 / 104 | 659 | 670 | **78** |
+| round 1 v2 | 176 | 567 / 89 | 663 | 672 | 177 |
+| round 2 free | 171 | 553 / 92 | 645 | 670 | **59** |
+| round 1 free | 174 | 563 / 88 | 639 | 673 | 159 |
+
+- Clean references changed fall by more than half (38 of the 78 left are 1-2 word changes); exact drops 3.
+  Of the round-1 exact rows that round 2 misses, most are equally valid in a 5-row look ("is taken as"
+  repeated, "then" dropped); 2 lose meaning ("can still be used" -> "can be used", "column drawing style"
+  -> "column that draws").
