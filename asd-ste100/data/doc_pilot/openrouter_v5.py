@@ -4,7 +4,8 @@
 the parsed {"id": ...} entries. `rewrite_blocks` and `judge_blocks` build the blocks; a
 retry block carries the previous rewrite and the checks it failed, so a batch can mix
 first attempts and retries. Costs come back in the usage of each reply.
-The key is read from OPENROUTER_API_KEY.
+The key is read from OPENROUTER_API_KEY. TEACHER_URL points the calls at another OpenAI-compatible
+server instead (a local llama-server: no key needed, and OpenRouter-only fields are left out).
 """
 
 from __future__ import annotations
@@ -15,7 +16,8 @@ import time
 import urllib.error
 import urllib.request
 
-URL = "https://openrouter.ai/api/v1/chat/completions"
+URL = os.environ.get("TEACHER_URL", "https://openrouter.ai/api/v1/chat/completions")
+LOCAL = "openrouter.ai" not in URL
 
 REWRITE_BATCH = """BATCH. The user message gives many passages. Each starts with a line "### id: <id>" and has its own mode, checker findings and text. Some also give your previous rewrite of that passage and the checks it failed: fix every point for that passage. Rewrite each passage by itself, with the rules above; the literal markers of a passage ([[L0]], [[L1]], ...) belong to that passage only. Reply with one JSON object only, with one entry for each passage, in the same order: {"rewrites": [{"id": "<id>", "rewrite": "...", "uncertain": false}, ...]}"""
 
@@ -28,12 +30,18 @@ def ask_batch(model: str, system: str, blocks: list[tuple[str, str]], key_name: 
     user = "\n\n".join(f"### id: {i}\n{text}" for i, text in blocks) + "\n\nReply with the JSON object only."
     body = {"model": model, "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
             "temperature": 0.0, "seed": 42, "max_tokens": max_tokens, "usage": {"include": True}}
-    if reasoning == "off":
+    if LOCAL:
+        del body["usage"]
+        if reasoning == "off":
+            body["chat_template_kwargs"] = {"enable_thinking": False}
+    elif reasoning == "off":
         body["reasoning"] = {"enabled": False}
     elif reasoning != "none":
         body["reasoning"] = {"effort": reasoning, "exclude": True}
-    req = urllib.request.Request(URL, data=json.dumps(body).encode(), headers={
-        "Content-Type": "application/json", "Authorization": f"Bearer {os.environ['OPENROUTER_API_KEY']}"})
+    headers = {"Content-Type": "application/json"}
+    if not LOCAL:
+        headers["Authorization"] = f"Bearer {os.environ['OPENROUTER_API_KEY']}"
+    req = urllib.request.Request(URL, data=json.dumps(body).encode(), headers=headers)
     last = None
     for attempt in range(retries):
         t0 = time.time()
