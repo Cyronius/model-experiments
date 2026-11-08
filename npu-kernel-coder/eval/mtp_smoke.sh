@@ -7,7 +7,7 @@
 set -u
 HERE=$(cd "$(dirname "$0")" && pwd)
 BIN=${BIN:-/home/cyrus/.cache/model-experiments/nkc-bakeoff/llama-bin}
-GGUF=${GGUF:-/home/cyrus/.cache/model-experiments/memdraft-qwen36/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf}
+GGUF=${GGUF:-/home/cyrus/models/qwen3.6-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf}
 PROMPT=${PROMPT:-$HERE/runs/bakeoff-qwen3.6-35b-a3b/T314bc26723/prompt.txt}
 PORT=${PORT:-8092}
 OUT=${OUT:-$HERE/runs/mtp-smoke}

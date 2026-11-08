@@ -13,7 +13,7 @@
 # (blk.40.nextn.*): UD-Q4_K_M does, UD-Q4_K_XL does not.
 set -u
 BIN=${BIN:-/home/cyrus/.cache/model-experiments/nkc-bakeoff/llama-bin}
-GGUF=${GGUF:-/home/cyrus/.cache/model-experiments/memdraft-qwen36/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf}
+GGUF=${GGUF:-/home/cyrus/models/qwen3.6-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf}
 PORT=${PORT:-8093}
 exec dibs run gpu --label "npu-kernel-coder coder model server" --eta "${ETA:-2h}" -- sh -c "
   ( while sleep 1200; do dibs extend gpu --eta 45m; done ) </dev/null >/dev/null 2>&1 &
