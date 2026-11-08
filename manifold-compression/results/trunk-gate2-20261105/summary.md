@@ -97,6 +97,8 @@ About the local machine:
 - `Qwen3.5-*/fold.json`: the layer pairing and input R² per pair.
 - `Qwen3.5-*/<arm>/train.json`: config, steps, tokens, training-time held-out KL.
 - `Qwen3.5-*/<arm>/held_out_cpu.json`: CPU held-out KL and CE.
-- `Qwen3.5-*/<arm>/check_thinking_{off,on}.json`: GSM8K summaries (generations in `gen_*.jsonl`, not committed).
+- `Qwen3.5-*/<arm>/check_thinking_{off,on}.json`: GSM8K summaries.
 - `Qwen3.5-*/<arm>/bench.json`: CPU multiple-choice bench with per-item log-probs.
 - `run_*.sh`: the detached drivers, in the order they ran.
+
+Deleted on 2026-11-08, when the line closed: the trained adapters (`state.pt`), the folded experts (`fold.pt`), the GSM8K generations (`gen_*.jsonl`), the discarded GPU bench outputs, and the gate 1 scratch folder `trunk-gate1-20261105/` at the repo root (activation captures, data, a copy of the Qwen3.5-0.8B snapshot). A rerun needs gate 1's captures again, and `trunk_gate1.py` still has Windows paths.

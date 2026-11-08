@@ -331,6 +331,17 @@ Method: `m_part_swap.py`, GGUF through llama.cpp Vulkan, greedy, thinking off, 4
 - Our all-ours build (2.02) is better than any mix. Mixed parts do worse than parts that were fitted together.
 - Conclusion: the part-swap does not localize the damage. A swap needs a near-exact basis map. Our maps are not.
 
+## Grafting 9B experts onto a small trunk: failed, closed (2026-11-05 to 11-07)
+
+Full write-up: [results/trunk-gate2-20261105/summary.md](results/trunk-gate2-20261105/summary.md). Code `trunk_gate1.py`, `trunk_gate2.py`.
+
+The S0_K24 experts of the Qwen3.5-9B were folded onto a frozen stock 0.8B or 2B through ridge maps between the two models' streams, and trained for about 1.1M tokens against a random-expert control of the same shapes and norms. Pre-registered rule: fail if not better than the control.
+
+- **The 9B experts were worth no more than random weights.** Held-out KL to the 9B: 0.8B stock 0.5061, 9B experts 0.4891, random 0.4901; 2B 0.3218, 0.3120, 0.3128. The control gets 91-95% of the gain. On the multiple-choice bench (MMLU, ARC, HellaSwag; 2,735 items) the 0.8B with random experts beat the one with 9B experts by 0.8 points (paired z 2.3). GSM8K differences were within noise.
+- **Expert weights do not carry over between models through a linear map.** Gate 1 had warned: single 9B neurons were readable from the trunk stream at R² 0.2-0.4. Carve a model's own MLPs; don't graft another model's.
+- **Without the random control this would have read as a win:** KL down 2-3%, bench up, the 2B at or above its stock GSM8K. All of it came from added capacity trained against the teacher.
+- Decision (owner): grafting is a failed experiment; the focus is carving the dense model directly.
+
 ## Open ideas
 
 See [`../.claude/plans/manifold-compression-ideas.md`](../.claude/plans/manifold-compression-ideas.md). The cheap gates, in order: the shaped and self-chat bench, FFN activation concentration on the 2B, and the routing count on an existing MoE.
