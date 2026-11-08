@@ -2,9 +2,38 @@
 
 A 24M-parameter rectified-flow DiT that draws 32×32 RGBA pixel-art sprites by category (creature, item, weapon, food, effect, terrain, structure, nature), and runs on the AMD XDNA2 NPU as a sprite-sheet generator.
 
-Status (2026-10-20): the patch-2 model (256 tokens per sprite, 100k steps) generates a 64-sprite sheet in about 5 s on the NPU at 8 steps. The full history, decisions and measurements are in [PLAN.md](PLAN.md) (written while the work lived in OpenFlowLM, so its paths say `utilities/sprite-*`; here they are `sprite-*`).
+Status (2026-10-26): version-one training is complete. Keep the original 100k checkpoint and the 150k continuation: neither won every category in the same-seed visual review. **32 sampling steps is the owner's preferred default; 16 and 8 are useful balanced and fast options.** This is a category-conditioned generator, not a free-text prompt model.
 
-Model weights are not published: the training data includes ripped game sprites.
+The original patch-2 checkpoint generated a 64-sprite sheet on the AMD XDNA2 NPU in approximately **5.0 seconds at 8 steps** and **9.9 seconds at 16 steps** in the October 20 measurements. The 150k continuation and 32-step setting have not been revalidated or timed on the NPU. The full historical record is in [PLAN.md](PLAN.md); old `utilities/sprite-*` paths correspond to `sprite-*` here.
+
+## What it makes
+
+32×32 RGBA sprites conditioned on one of eight categories: creature, item, weapon, food, effect, terrain, structure and nature. Choose a category and seed, generate alternatives, then keep useful designs. Outputs can contain broken silhouettes, detached pixels, smooth colour ramps or partial structures. Creature output still favors people; food includes many potions. The model does not guarantee seamless terrain, coherent animations, production-ready assets, or freedom from resemblance to its training material.
+
+## Completed training and comparison
+
+| Checkpoint | Training | Practical observation |
+|---|---|---|
+| 100k | Original category-conditioned patch-2 model | Useful reference; more character variety in the inspected seeds |
+| 110k | 10k-update continuation | Mixed changes; no clear overall advantage |
+| 150k | Another 40k updates, resuming the continuation | More varied nature designs in the inspected seeds; no universal quality win |
+
+The continuation used the expanded 383,660-sprite dataset, category/subtype-balanced sampling, a 3e-5 learning rate and palette augmentation. The original optimizer was reset for the first continuation; the next 40k resumed the pilot's full training state. The two successful jobs took about 48 and 184 minutes on an RTX 4090, with estimated GPU charges of $0.71 and $2.73. These exclude the earlier run whose results remain inaccessible on its stopped host and exclude persistent storage charges.
+
+The comparison generated 64 sprites per setting across all eight categories, using the same initial noise for 100k/110k/150k at **1, 2, 4, 8, 12, 16, 32 and 64 steps** (1,536 sprites total). It used EMA weights, CFG 3, uniform Euler integration, null footprint conditioning and no palette snapping. The two seed sets were 17 and 93, with four samples per category each. One conversational vision review inspected all sheets; it was not an independent blinded benchmark. No held-out quality metric, matched uniform control or new copying analysis was completed.
+
+- 1–2 steps: severely underdeveloped.
+- 4 steps: rough drafting.
+- 8, 16 and 32 steps: useful operating choices; the owner prefers 32.
+- 64 steps: mixed changes and visible regressions in some samples.
+
+Training is finished for this version. Further progress should be driven by specific quality goals and better data, rather than additional updates alone.
+
+Model weights and code are licensed under **Apache 2.0**. All training data is excluded from this release.
+
+- Browser generator: https://cyronius.github.io/model-experiments/sprite-diffusion/
+- Inference-only weights: https://huggingface.co/Cyronius/sprite-diffusion
+
 
 | folder | what's there |
 |---|---|
@@ -34,11 +63,7 @@ Preview real training examples before a run:
 python sprite-train/preview_augmentation.py --data C:/dev/sprite-data/trainset.npz --out palette-preview
 ```
 
-Sampling choice (2026-10-23): 16 steps normally, 8 steps for fast mode. More training and
-targeted new designs for structure, nature, food, weapon and nonhuman monsters are next.
-Human and monster coverage needs separate tracking within `creature`; its combined count
-does not establish monster coverage. No new training run has been launched by adding
-augmentation.
+Sampling choice (2026-10-25): **32 default, 16 balanced, 8 fast**. Palette augmentation ran during the 110k and 150k continuations. It increases colour variation, not distinct designs. Human and monster coverage still needs separate tracking within `creature`.
 
 ## NPU sheet
 
@@ -81,10 +106,4 @@ directory, resetting optimizer and step. Subsequent slices resume that directory
 including when `--init-from` remains on the wrapper command. `--steps` then counts new
 updates. Existing output checkpoints from other initializations are rejected.
 
-Example configuration for a future pilot (not launched): use the expanded data, a new
-output directory, `--init-from C:/dev/sprite-data/runs/q-p2-cat/ckpt.pt`,
-`--sampling category-subtype --lr 3e-5 --steps 10000 --sample-steps 16` with `train_dibs.ps1`.
-The pilot still needs genuinely unseen validation packs and a matched uniform control;
-the recovered source packs overlap the old training set. Keep palette probability equal
-between controls to isolate the sampling change. The best 100k-step checkpoint remains
-unchanged. CPU smoke runs verify execution and resume, not image quality or iGPU speed.
+The planned 10k pilot and subsequent 40k continuation are now complete. The 100k original was preserved, and both completed continuation checkpoints were recovered locally before their pods stopped. The expanded pool overlaps the original training sources: genuinely unseen validation packs and a matched uniform control remain outstanding. Sampling audits establish exposure, not image quality; these runs do not isolate augmentation from sampling or additional training.
