@@ -639,7 +639,7 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
 - Recommendation: LFM3-1.7B with constraint v2. Owner to decide: model choice, `should`, next step
   (GGUF with llama.cpp b12177+, move to /home/cyrus/models, or work on leaving clean text alone).
 
-## November 8: fine-tune round 2 with identity pairs (running)
+## November 8: fine-tune round 2 with identity pairs
 
 - Owner asked for a second fine-tune round for both models. Round 1 trained on 0 pairs where the text is
   already STE, so the models changed 159-177 of 679 clean references (tagger: 23). Round 2
@@ -667,3 +667,36 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
   tagger vocabulary could not encode them (target words outside it 2,020, a copied word it cannot slot
   888, slot fidelity 651). The LM has no such limit. In the train split and checker-clean, excluding slot
   fidelity: about 2,480 pairs (+36%).
+
+## November 8 (later): round 3 with the extra pairs; doc pool v6; local teacher plan
+
+- Round 3 (`model_lm/run_finetune_v3.sh`): LFM2.5-350M only, identity pairs on, training data
+  `data/out/lm-doc-v2/` (`model_lm/doc_pairs_v2.py`: lm-doc-v1 train 6,897 + the 2,480 extra pairs;
+  dev and test unchanged). Best epoch 2 (held-out loss 0.128, edit-only 0.249; not comparable with
+  round 2 because the held-out set grew). CPU canary 0 of 24. Output `data/out/lm-ft-v3/`.
+
+| 350M, 679 doc dev | exact | closer / farther | checker-clean | protected kept | clean refs changed |
+|---|---|---|---|---|---|
+| round 3 v2 | **178** | 547 / 100 | 652 | 674 | **66** |
+| round 2 v2 | 173 | 543 / 104 | 659 | 670 | 78 |
+| round 1 v2 | 176 | 567 / 89 | 663 | 672 | 177 |
+| round 3 free | **180** | 554 / 93 | 632 | 677 | **50** |
+| round 2 free | 171 | 553 / 92 | 645 | 670 | 59 |
+| round 1 free | 174 | 563 / 88 | 639 | 673 | 159 |
+
+- Round 3 is the best 350M so far: most exact, fewest clean references changed, most protected spans
+  kept. Checker-clean drops 7 (constrained) and 13 (free) against round 2. Not yet looked at row by row.
+  Tagger bar for comparison: 88 exact, 23 clean refs changed.
+- Doc pool v6 (`data/doc_pilot/build_pool_v6.py`, pinned commits, licences in `files.json`): FreeBSD
+  Handbook, Kubernetes tasks, Django how-to/intro/topics, Cargo Book. Keeps list items and numbered
+  steps (the v5 pool dropped them). `data/out/doc-pool-v6/pool.jsonl`: 8,811 checker-flagged passages
+  (PROC 413; freebsd 3,382, k8s 2,558, django 1,816, cargo 1,055). `clean.jsonl`: 2,895 passages that
+  already pass the checker (PROC 381), usable as real identity pairs without a teacher. Mode detection
+  is heuristic; some PROC passages are descriptions.
+- Also available: 8,617 v5 pool passages the paid teacher never got accepted.
+- Owner decision (Nov 8): no paid run for the new pool; run the teacher locally on the "trashcan" Mac
+  (tailscale `trashcan`, 100.87.93.68). `openrouter_v5.py` now takes `TEACHER_URL` for any
+  OpenAI-compatible server (no auth header, thinking off). Blocked: trashcan answers ping but refuses
+  SSH and Tailscale SSH is not enabled; owner needs to run `sudo tailscale set --ssh` (or start sshd).
+  Then: check hardware, pick a teacher and a judge from a different family if both fit, start
+  llama-server detached, run `pipeline_v5.py` on pool v6.
