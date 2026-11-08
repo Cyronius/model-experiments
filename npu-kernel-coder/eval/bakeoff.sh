@@ -42,7 +42,7 @@ grep -v '^#' "$MODELS" | while IFS="$(printf '\t')" read tag gguf ctx thinking m
   dibs run gpu --label "npu-kernel-coder bakeoff $name" --eta 60m -- sh -c "
     dibs extend gpu --eta 60m >/dev/null 2>&1  # the ETA above counts from queueing, not from getting the GPU
     # Keep renewing: on 2026-11-07 a 27B row outlived its ETA and dibs gave the GPU to a ROCm fine-tune mid-run.
-    ( while sleep 1200; do dibs extend gpu --eta 45m >/dev/null 2>&1; done ) &
+    ( while sleep 1200; do dibs extend gpu --eta 45m; done ) </dev/null >/dev/null 2>&1 &  # detached from the log pipe, or its sleep holds the pipe open after the row
     K=\$!
     LD_LIBRARY_PATH='$BIN' '$BIN/llama-server' -m '$gguf' -c $ctx -ngl 99 --jinja -np 1 $sargs \
       --host 127.0.0.1 --port $PORT >> '$out/server.log' 2>&1 &

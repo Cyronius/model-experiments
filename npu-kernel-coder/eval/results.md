@@ -233,6 +233,28 @@ Zero-shot score can't separate the local models: all get 0 of 12, and the partia
 
 Qwen3.8-27B stays the fallback if the MoE plateaus after fine-tuning, or if MoE training on this machine's ROCm stack proves impractical; that has not been tried yet and is the first thing to check. Qwen3-Coder-30B-A3B is the other MoE option, but it scores below Qwen3.6 on every partial-credit column. The others are out: Clover and Apex break most of their answers, AREX-2 adds nothing over its Qwen3.8 base at a slower speed, and flint can't answer without reasoning past the output cap.
 
+## Runtime settings for Qwen3.6-35B-A3B (2026-11-08)
+
+How fast can the coder model run on this machine without losing answer quality? Same 12 pilot tasks, thinking off, temperature 0, llama.cpp build 12060 (Vulkan). The MTP head needs a GGUF that keeps it: unsloth's `UD-Q4_K_M` has `blk.40.nextn.*`, while the `UD-Q4_K_XL` used in the bakeoff does not. `mtp_smoke.sh` tried each setting on one prompt; `runtime_models.tsv` holds the 12-task rows (`MODELS=runtime_models.tsv ./bakeoff.sh`). Decode and prefill are totals over all 12 tasks (tokens / server time).
+
+| Settings (UD-Q4_K_M) | Builds | Hunks applied | Gap closed, median | Hit 8k cap | MTP drafts accepted | Decode tok/s | Prefill tok/s |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| plain: flash attention off, f16 KV | 9 | 93% | -0.044 | 2 | – | 41.1 | 992 |
+| **MTP 3, flash attention, f16 KV** | 7 | 94% | -0.033 | 3 | 96.2% | **92.5** | **1155** |
+| MTP 3, flash attention, q8_0 KV | 9 | 86% | -0.074 | 3 | 96.3% | 89.4 | 1130 |
+| MTP 3, flash attention, q4_0 KV | 9 | 92% | -0.065 | 4 | 96.4% | 90.0 | 1003 |
+| MTP 4, flash attention, q4_0 KV | 9 | 90% | -0.069 | 6 | 94.3% | 92.9 | 1067 |
+| `ngram-mod` + MTP 3, flash attention, q4_0 KV | 9 | 88% | -0.029 | 5 | 58.4% | 85.1 | 1061 |
+
+All rows get 0 of 12 correct, like the plain row; the bakeoff's UD-Q4_K_XL file scored 8 builds and a median gap of -0.011.
+
+- **MTP more than doubles decode speed** (41 → 92.5 tok/s). The model's own MTP head drafts 3 tokens, and 96% of them are accepted on this workload. Drafting 4 adds about 3% at lower acceptance, so 3 is the setting.
+- **The KV cache stays f16.** A quantized cache is no faster, q4_0 or q8_0, and q4_0 slows prefill. Only 1 layer in 4 keeps a KV cache, so at 40k context it is small and reading it isn't the bottleneck. A quantized V cache also requires flash attention in llama.cpp (`quantized V cache requires flash_attn to be enabled`).
+- **Flash attention is safe on Qwen3.6 in this build.** The `GGGG…` degeneration seen on Qwen3-Coder, Clover and Apex didn't appear in any Qwen3.6 run, with flash attention on, at prompts up to 18.6k tokens. That includes the bakeoff's superseded flash-attention run.
+- **Drafting from the prompt doesn't help.** `ngram-mod` proposes many more tokens (82k against 48k), but only 58% are accepted, so it loses to MTP alone. The context lines a diff copies are short and scattered.
+- **Quality is within noise of plain decoding.** MTP output isn't bit-identical to plain decoding (the four smoke-test settings differ within the first 1,500 characters), so builds, gap and cap hits move by a task or two between rows. No setting is consistently worse.
+- `serve_coder.sh` starts the server with the chosen settings under a dibs GPU hold: `-fa on --spec-type draft-mtp --spec-draft-n-max 3`.
+
 ## What the pilot shows
 
 - Both models get every easy port exact (1–4 changed lines) and half the medium ones. Neither gets a hard port, and the two models land on the same tasks.

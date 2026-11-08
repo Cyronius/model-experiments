@@ -1,0 +1,9 @@
+# Qwen3.6-35B-A3B runtime tuning on the 12 pilot tasks (bakeoff.sh rows; MODELS=runtime_models.tsv ./bakeoff.sh)
+# UD-Q4_K_M keeps the MTP layer (blk.40.nextn.*); the bakeoff's UD-Q4_K_XL file does not.
+# Quantized V cache requires flash attention in llama.cpp; flash attention does not degenerate on qwen3.6 here (smoke test 2026-11-08).
+q36m-base	/home/cyrus/.cache/model-experiments/memdraft-qwen36/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf	40960	off	8192	0	base	-fa off
+q36m-fa-kvq4-mtp3	/home/cyrus/.cache/model-experiments/memdraft-qwen36/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf	40960	off	8192	0	base	-fa on -ctk q4_0 -ctv q4_0 --spec-type draft-mtp --spec-draft-n-max 3
+q36m-fa-mtp3	/home/cyrus/.cache/model-experiments/memdraft-qwen36/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf	40960	off	8192	0	base	-fa on --spec-type draft-mtp --spec-draft-n-max 3
+q36m-fa-kvq4-mtp4	/home/cyrus/.cache/model-experiments/memdraft-qwen36/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf	40960	off	8192	0	base	-fa on -ctk q4_0 -ctv q4_0 --spec-type draft-mtp --spec-draft-n-max 4
+q36m-fa-kvq4-ngram-mtp3	/home/cyrus/.cache/model-experiments/memdraft-qwen36/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf	40960	off	8192	0	base	-fa on -ctk q4_0 -ctv q4_0 --spec-type ngram-mod,draft-mtp --spec-draft-n-max 3
+q36m-fa-kvq8-mtp3	/home/cyrus/.cache/model-experiments/memdraft-qwen36/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf	40960	off	8192	0	base	-fa on -ctk q8_0 -ctv q8_0 --spec-type draft-mtp --spec-draft-n-max 3
