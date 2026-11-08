@@ -31,6 +31,7 @@ Total cloud spend: about $80 for Qwen3.6 and $8 for Qwen3.8.
 | folder | question | result |
 |---|---|---|
 | [`mow-nested-width/`](mow-nested-width/) | Do nested variable-width MLPs with a router ("Mixture of Widths") beat mixture-of-experts at matched cost? | No. Routed MoW is worse than a plain fixed width at every compute level, and the specialization predictions were refuted. One side result held: one nested weight matrix matches four separately trained dense widths. See [README](mow-nested-width/README.md). |
+| [`memdraft/`](memdraft/) | Can a retained-continuation cache (MemDraft) in front of DFlash2 make speculative decoding faster? | No. On new requests it barely changed accepted tokens per proposal and the one timed test was 4% slower; on Qwen3.6-35B-A3B it gave fewer tokens per step than DFlash2 alone (4.48 vs 4.69). Only exact repeats got faster. Code deleted; see [README](memdraft/README.md). |
 | [`ternary/`](ternary/) | Can post-training ternary quantization reproduce Prism's Ternary-Bonsai-1.7B from Qwen3-1.7B? | No. Every post-training method collapses the model (wikitext perplexity 63k–297k against 16.8 for the parent). Bonsai keeps 18.3, so its weights came from fine-tuning, not rounding. See [results/summary.md](ternary/results/summary.md). |
 
 ## Shared tools
