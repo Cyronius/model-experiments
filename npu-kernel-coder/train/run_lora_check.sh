@@ -9,5 +9,5 @@ exec dibs run gpu --label "npu-kernel-coder LoRA feasibility (Qwen3.6-35B-A3B, 4
   ( while sleep 1200; do dibs extend gpu --eta 45m; done ) </dev/null >/dev/null 2>&1 &
   K=\$!
   trap 'kill \$K 2>/dev/null' EXIT
-  .venv/bin/python lora_check.py '$MODEL' data/train.jsonl data/val.jsonl $*
+  PYTHONPATH=.fla .venv/bin/python lora_check.py '$MODEL' data/train.jsonl data/val.jsonl $*
 "

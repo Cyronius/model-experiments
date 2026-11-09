@@ -13,8 +13,11 @@ system RAM everyone shares, and the bf16 load exhausted it (2026-11-08). So:
            fills it tensor by tensor from the converted shards straight onto the GPU.
 
 Q4Experts keeps the packed weights as frozen buffers. Its forward dequantizes the layer's
-experts to bf16 (1.6 GB, transient; recomputed under gradient checkpointing) and runs the
-same per-expert computation as transformers' eager Qwen3_5MoeExperts. LoRA goes on the bf16
+experts to bf16 with a Triton kernel (1.6 GB, transient; recomputed under gradient
+checkpointing) and computes the same function as transformers' eager Qwen3_5MoeExperts, as two
+grouped matmuls over tokens sorted by expert. The linear-attention layers get a
+channel-contiguous causal conv in place of MIOpen's; run with PYTHONPATH=.fla so they also use
+flash-linear-attention's Triton delta-rule kernel. LoRA goes on the bf16
 linear layers only; experts and router stay frozen.
 
     python3 q4moe.py convert SRC_DIR DST_DIR          (CPU only)
@@ -51,7 +54,43 @@ def quantize(w: torch.Tensor, group: int = GROUP) -> dict[str, torch.Tensor]:
     return {"q": packed.contiguous(), "s": scale.squeeze(-1).to(torch.bfloat16), "m": lo.squeeze(-1).to(torch.bfloat16)}
 
 
+try:
+    import triton
+    import triton.language as tl
+
+    @triton.jit
+    def _dequant_kernel(q_ptr, s_ptr, m_ptr, o_ptr, HALF: tl.constexpr, NG: tl.constexpr,
+                        GHALF: tl.constexpr, BLOCK: tl.constexpr):
+        row = tl.program_id(0).to(tl.int64)
+        offs = tl.program_id(1) * BLOCK + tl.arange(0, BLOCK)
+        mask = offs < HALF
+        b = tl.load(q_ptr + row * HALF + offs, mask=mask, other=0).to(tl.int32)
+        g = offs // GHALF
+        sc = tl.load(s_ptr + row * NG + g, mask=mask, other=0).to(tl.float32)
+        mn = tl.load(m_ptr + row * NG + g, mask=mask, other=0).to(tl.float32)
+        lo = (b & 15).to(tl.float32) * sc + mn
+        hi = (b >> 4).to(tl.float32) * sc + mn
+        out = tl.interleave(lo, hi).to(tl.bfloat16)
+        o = tl.program_id(1) * (2 * BLOCK) + tl.arange(0, 2 * BLOCK)
+        tl.store(o_ptr + row * (2 * HALF) + o, out, mask=o < 2 * HALF)
+except ImportError:  # CPU-only environments
+    triton = None
+
+
 def dequantize(q: torch.Tensor, s: torch.Tensor, m: torch.Tensor, group: int = GROUP) -> torch.Tensor:
+    """Packed 4-bit -> bf16. One Triton pass on the GPU; plain torch elsewhere."""
+    if triton is not None and q.is_cuda:
+        *lead, o, half = q.shape
+        rows = q.numel() // half
+        out = torch.empty(*lead, o, 2 * half, dtype=torch.bfloat16, device=q.device)
+        block = min(1024, triton.next_power_of_2(half))
+        _dequant_kernel[(rows, triton.cdiv(half, block))](q, s, m, out, HALF=half, NG=2 * half // group,
+                                                           GHALF=group // 2, BLOCK=block)
+        return out
+    return dequantize_torch(q, s, m, group)
+
+
+def dequantize_torch(q: torch.Tensor, s: torch.Tensor, m: torch.Tensor, group: int = GROUP) -> torch.Tensor:
     *lead, o, half = q.shape
     i = half * 2
     x = torch.stack((q & 15, q >> 4), dim=-1).reshape(*lead, o, i // group, group).to(torch.bfloat16)
@@ -71,28 +110,53 @@ class Q4Experts(nn.Module):
             self.register_buffer(f"{name}_m", torch.empty(num_experts, o, i // group, dtype=torch.bfloat16, device=device))
 
     def forward(self, hidden_states: torch.Tensor, top_k_index: torch.Tensor, top_k_weights: torch.Tensor) -> torch.Tensor:
-        out = torch.zeros_like(hidden_states)
+        """Tokens sorted by expert, then one grouped matmul per projection (torch._grouped_mm with
+        per-expert offsets). A zero-padded [E, max count, H] batch was faster on uniform routing
+        but real routing is skewed: one hot expert made the padding 12.6 GB at 16k tokens."""
         k = top_k_index.shape[-1]
         flat_e = top_k_index.reshape(-1)
         order = torch.argsort(flat_e, stable=True)
         token = order // k
-        weight = top_k_weights.reshape(-1)[order]
-        counts = torch.bincount(flat_e, minlength=self.num_experts).tolist()
-        hit = [e for e, c in enumerate(counts) if c]
-        idx = torch.tensor(hit, device=hidden_states.device)
-        # Dequantize only the experts that got tokens, one layer at a time.
-        w_gu = dequantize(self.gate_up_q[idx], self.gate_up_s[idx], self.gate_up_m[idx], self.group)
-        w_d = dequantize(self.down_q[idx], self.down_s[idx], self.down_m[idx], self.group)
-        start = 0
-        for j, e in enumerate(hit):
-            n = counts[e]
-            t = token[start:start + n]
-            x = hidden_states[t]
-            gate, up = nn.functional.linear(x, w_gu[j]).chunk(2, dim=-1)
-            h = nn.functional.linear(self.act_fn(gate) * up, w_d[j])
-            out.index_add_(0, t, (h * weight[start:start + n, None]).to(out.dtype))
-            start += n
-        return out
+        offs = torch.cumsum(torch.bincount(flat_e, minlength=self.num_experts), 0).to(torch.int32)
+        w_gu = dequantize(self.gate_up_q, self.gate_up_s, self.gate_up_m, self.group)
+        w_d = dequantize(self.down_q, self.down_s, self.down_m, self.group)
+        gate, up = torch._grouped_mm(hidden_states[token], w_gu.transpose(1, 2), offs=offs).chunk(2, dim=-1)
+        y = torch._grouped_mm(self.act_fn(gate) * up, w_d.transpose(1, 2), offs=offs)
+        contrib = y * top_k_weights.reshape(-1)[order, None].to(y.dtype)
+        return torch.zeros_like(hidden_states).index_add(0, token, contrib.to(hidden_states.dtype))
+
+
+def causal_conv1d_btc(x, weight, bias=None, activation="silu", seq_idx=None):
+    """Drop-in for causal_conv1d_fn (the depthwise 4-tap conv of the linear-attention layers).
+    transformers' fallback nn.Conv1d goes through MIOpen, which is slow here (390 ms forward at
+    16k tokens). x arrives as a transposed view of a contiguous [B, T, C] tensor, so this shifts
+    along T in that layout, channels contiguous: 29 ms (bench_linattn.py)."""
+    xt = x.transpose(1, 2)
+    k, t = weight.shape[1], xt.shape[1]
+    xp = torch.nn.functional.pad(xt, (0, 0, k - 1, 0))
+    w = weight.t()
+    y = xp[:, k - 1:k - 1 + t] * w[k - 1]
+    for i in range(k - 1):
+        y = y + xp[:, i:i + t] * w[i]
+    if bias is not None:
+        y = y + bias
+    y = torch.nn.functional.silu(y) if activation in ("silu", "swish") else y
+    return y.transpose(1, 2)
+
+
+def causal_sdpa(module, query, key, value, attention_mask=None, dropout=0.0, scaling=None, **kwargs):
+    """Full attention for single unpadded sequences (batch 1, as training runs): SDPA with
+    is_causal and no mask tensor, so ROCm's flash kernel runs (head_dim 256 works here: 1.6 s
+    fwd+bwd at 16k tokens, 1.3 GB). Transformers' sdpa path passed a mask and fell back to the
+    math kernel, which needed 12.8 GB at 16k and ran out of memory."""
+    assert query.shape[0] == 1, "causal_sdpa assumes one unpadded sequence"
+    rep = query.shape[1] // key.shape[1]
+    if rep > 1:
+        key = key.repeat_interleave(rep, dim=1)
+        value = value.repeat_interleave(rep, dim=1)
+    out = torch.nn.functional.scaled_dot_product_attention(query, key, value, is_causal=query.shape[2] > 1,
+                                                           scale=scaling)
+    return out.transpose(1, 2).contiguous(), None
 
 
 # ---------------------------------------------------------------- conversion
@@ -155,7 +219,7 @@ def convert(src: Path, dst: Path) -> None:
     text["q4moe"] = {"group": GROUP, "format": "asymmetric uint4, scale+min bf16 per group, low nibble first",
                      "source": str(src)}
     (dst / "config.json").write_text(json.dumps(text, indent=1) + "\n")
-    for f in ("tokenizer.json", "tokenizer_config.json", "vocab.json", "merges.txt", "chat_template.jinja",
+    for f in ("LICENSE", "tokenizer.json", "tokenizer_config.json", "vocab.json", "merges.txt", "chat_template.jinja",
               "generation_config.json"):
         if (src / f).exists():
             shutil.copy2(src / f, dst / f)
@@ -164,12 +228,14 @@ def convert(src: Path, dst: Path) -> None:
 
 # ---------------------------------------------------------------- loading
 
-def load(path: Path, device: str = "cuda", attn: str = "sdpa"):
+def load(path: Path, device: str = "cuda", attn: str = "causal_sdpa"):
     """The text-only CausalLM with Q4Experts, filled from the converted shards onto `device`."""
     from safetensors import safe_open
     from transformers import Qwen3_5MoeForCausalLM, Qwen3_5MoeTextConfig
     from transformers.models.qwen3_5_moe import modeling_qwen3_5_moe as mq
 
+    from transformers import AttentionInterface
+    AttentionInterface.register("causal_sdpa", causal_sdpa)
     config = Qwen3_5MoeTextConfig.from_pretrained(path)
     group = config.q4moe["group"] if hasattr(config, "q4moe") else GROUP
     with torch.device("meta"):
@@ -194,6 +260,9 @@ def load(path: Path, device: str = "cuda", attn: str = "sdpa"):
                     params[k].copy_(t)
                     loaded.add(k)
                     del t
+    for layer in model.model.layers:
+        if hasattr(layer, "linear_attn") and layer.linear_attn.causal_conv1d_fn is None:
+            layer.linear_attn.causal_conv1d_fn = causal_conv1d_btc
     # Non-persistent buffers (rotary frequencies) aren't in the checkpoint: rebuild them.
     model.model.rotary_emb = mq.Qwen3_5MoeTextRotaryEmbedding(config=config, device=device)
     missing = {n for n in want - loaded if "rotary_emb" not in n}

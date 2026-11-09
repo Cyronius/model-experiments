@@ -27,8 +27,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("model", type=Path)
     ap.add_argument("data", type=Path, nargs="+")
-    ap.add_argument("--lengths", default="8000,16000,24000,32000")
-    ap.add_argument("--steps", type=int, default=4)
+    ap.add_argument("--lengths", default="4000,8000,16000,24000,32000")
+    ap.add_argument("--steps", type=int, default=3)
     ap.add_argument("--rank", type=int, default=16)
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--out", type=Path, default=Path("runs/lora-check.json"))
@@ -45,6 +45,7 @@ def main() -> None:
     from transformers import AutoTokenizer
     from transformers.utils.import_utils import is_flash_linear_attention_available
     import q4moe
+    from sft_loss import answer_loss
 
     report = {"model": str(a.model), "torch": torch.__version__, "hip": torch.version.hip,
               "transformers": transformers.__version__, "device": torch.cuda.get_device_name(0),
@@ -61,6 +62,21 @@ def main() -> None:
     tok = AutoTokenizer.from_pretrained(a.model)
     t0 = time.time()
     model = q4moe.load(a.model)
+    ex0 = model.model.layers[0].mlp.experts
+    d_tri = q4moe.dequantize(ex0.gate_up_q[:8], ex0.gate_up_s[:8], ex0.gate_up_m[:8]).float()
+    ref = ((torch.stack((ex0.gate_up_q[:8] & 15, ex0.gate_up_q[:8] >> 4), -1).reshape(8, d_tri.shape[1], -1, q4moe.GROUP).float()
+            * ex0.gate_up_s[:8].float().unsqueeze(-1) + ex0.gate_up_m[:8].float().unsqueeze(-1)).reshape(d_tri.shape))
+    report["triton_dequant_max_rel_diff"] = float(((d_tri - ref).abs().max() / ref.abs().max()).item())
+    print("triton dequant vs fp32 reference, max rel diff", report["triton_dequant_max_rel_diff"], flush=True)
+    with torch.no_grad():  # the training attention must match transformers' own sdpa path
+        probe = torch.randint(1000, 100000, (1, 512), device="cuda")
+        a_out = model(input_ids=probe).logits.float()
+        model.set_attn_implementation("sdpa")
+        b_out = model(input_ids=probe).logits.float()
+        model.set_attn_implementation("causal_sdpa")
+        report["causal_sdpa_vs_sdpa_rel_diff"] = float(((a_out - b_out).norm() / b_out.norm()).item())
+        print("causal_sdpa vs sdpa logits rel diff", report["causal_sdpa_vs_sdpa_rel_diff"], flush=True)
+        del a_out, b_out
     report["load_seconds"] = round(time.time() - t0, 1)
     report["mem_after_load_gb"] = round(torch.cuda.memory_allocated() / 2**30, 1)
     print("loaded", report["load_seconds"], "s", report["mem_after_load_gb"], "GB", flush=True)
@@ -105,7 +121,7 @@ def main() -> None:
             for step in range(a.steps):
                 torch.cuda.synchronize()
                 t = time.time()
-                loss = model(input_ids=x, labels=y).loss
+                loss = answer_loss(model, x, run["answer_tokens"])
                 loss.backward()
                 opt.step()
                 opt.zero_grad(set_to_none=True)
@@ -119,8 +135,11 @@ def main() -> None:
             later = [s["seconds"] for s in run["steps"][1:]] or [run["steps"][0]["seconds"]]
             run["tokens_per_second"] = round(len(ids) / (sum(later) / len(later)), 1)
         except torch.OutOfMemoryError as err:
+            import traceback
+            tb = traceback.format_exc()
             run["error"] = f"OOM: {str(err)[:300]}"
-            print("OOM at", len(ids), flush=True)
+            run["traceback"] = tb[-3000:]
+            print("OOM at", len(ids), "\n" + tb[-3000:], flush=True)
             save()
             break
         except Exception as err:  # record and stop; the report says how far it got
