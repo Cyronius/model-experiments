@@ -717,3 +717,14 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
 - Caveats: writer and checker are the same model (independent contexts). The checker subagents were not
   consistent on should -> must (some flag it, some follow the prompt's MODAL WORDS rules). Not yet
   reviewed by hand beyond a 5-pair spot check, and not yet in a training set.
+
+## November 8 (night): fine-tune round 4 launched
+
+- Owner approved round 4 (LFM2.5-350M, round 3's recipe). Data `data/out/lm-doc-v3/`
+  (`model_lm/doc_pairs_v3.py`): lm-doc-v2 train (9,377) + 1,990 Claude subagent pairs (311 with a
+  dropped-word flag, 35 not checker-clean, 1 with a line break left out) + 2,895 real checker-clean
+  pool-v6 passages as identity rows: 11,367 edit rows, 25,629 training rows with identity copies.
+- `finetune.py`: rows that already have src == ste count as identity rows and are not copied again
+  (no change for lm-doc-v1/v2, which have none).
+- `model_lm/run_finetune_v4.sh`, output `data/out/lm-ft-v4/`, `ALL.done` when finished; scores beside
+  rounds 1-3. Launched 21:47; it waited for the GPU (dibs, npu-kernel-coder until about 22:46).

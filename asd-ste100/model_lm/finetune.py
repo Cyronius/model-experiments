@@ -10,6 +10,8 @@ the last saved epoch (fresh optimizer state; the LR schedule continues).
 --identity adds, for every training pair, its reference rewritten to itself (src = ste = the reference),
 so the model also learns to leave text that is already STE unchanged. Held-out documents get the same
 rows; the epoch is picked on the held-out loss over both kinds, and the edit-only loss is logged beside it.
+Rows of the data that already have src == ste (real text that passes the checker) count as identity rows,
+with or without --identity, and are not copied again.
 
 Run with target/manifold-rocm/env/bin/python and PYTHONPATH=data/out/lm-overlay.
 """
@@ -127,9 +129,10 @@ def main():
     rows = [json.loads(l) for l in (args.data / 'train.jsonl').open()]
     if args.limit:
         rows = rows[:args.limit]
-    same = [dict(r, src=r['ste']) for r in rows] if args.identity else []
-    train = [encode(tok, r, args.max_len) for r in rows + same if not held_out(r['group'])]
-    val_edit = [encode(tok, r, args.max_len) for r in rows if held_out(r['group'])]
+    edit = [r for r in rows if r['src'] != r['ste']]   # rows already src == ste are identity rows as they are
+    same = ([dict(r, src=r['ste']) for r in edit] if args.identity else []) + [r for r in rows if r['src'] == r['ste']]
+    train = [encode(tok, r, args.max_len) for r in edit + same if not held_out(r['group'])]
+    val_edit = [encode(tok, r, args.max_len) for r in edit if held_out(r['group'])]
     val = val_edit + [encode(tok, r, args.max_len) for r in same if held_out(r['group'])]
     steps_per_epoch = math.ceil(len(train) / args.batch)
     total = steps_per_epoch * args.epochs
