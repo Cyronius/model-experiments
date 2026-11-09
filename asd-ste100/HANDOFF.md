@@ -718,7 +718,7 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
   consistent on should -> must (some flag it, some follow the prompt's MODAL WORDS rules). Not yet
   reviewed by hand beyond a 5-pair spot check, and not yet in a training set.
 
-## November 8 (night): fine-tune round 4 launched
+## November 8 (night): fine-tune round 4
 
 - Owner approved round 4 (LFM2.5-350M, round 3's recipe). Data `data/out/lm-doc-v3/`
   (`model_lm/doc_pairs_v3.py`): lm-doc-v2 train (9,377) + 1,990 Claude subagent pairs (311 with a
@@ -728,3 +728,17 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
   (no change for lm-doc-v1/v2, which have none).
 - `model_lm/run_finetune_v4.sh`, output `data/out/lm-ft-v4/`, `ALL.done` when finished; scores beside
   rounds 1-3. Launched 21:47; it waited for the GPU (dibs, npu-kernel-coder until about 22:46).
+- Result: best epoch 2 (held-out 0.128, edit-only 0.265). CPU canary 0 of 24.
+
+| 350M, 679 doc dev | exact | closer / farther | unchanged | checker-clean | protected kept | clean refs changed |
+|---|---|---|---|---|---|---|
+| round 4 v2 | **179** | 538 / 106 | 9 | 652 | 674 | **45** |
+| round 3 v2 | 178 | 547 / 100 | 1 | 652 | 674 | 66 |
+| round 1 v2 | 176 | 567 / 89 | 1 | 663 | 672 | 177 |
+| round 4 free | 170 | 534 / 94 | 22 | 633 | 677 | **24** |
+| round 3 free | 180 | 554 / 93 | 7 | 632 | 677 | 50 |
+| round 1 free | 174 | 563 / 88 | 6 | 639 | 673 | 159 |
+
+- Round 4 changes clean text least (free 24, about the tagger's 23) but edits less overall: more inputs come
+  back unchanged (9 and 22) and fewer outputs move closer to the reference. Exact is flat (constrained +1, free
+  -10). The new pairs are from other document families than dev, so dev measures transfer only.
