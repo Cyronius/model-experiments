@@ -39,13 +39,16 @@ import score
 HERE = Path(__file__).parent
 
 
-def pilot(index: list[dict], n_per: int = 4) -> list[dict]:
-    """A fixed stratified subset: n easy, n medium, n hard, test split first."""
-    out = []
-    for diff in ("easy", "medium", "hard"):
-        pool = sorted((m for m in index if m["difficulty"] == diff), key=lambda m: (m["split"] != "test", m["id"]))
-        out += pool[:n_per]
-    return out
+# The pilot is pinned to the 12 tasks chosen on 2026-11-03 (4 per difficulty, test split first
+# under the old directory split), so results stay comparable after the 2026-11-08 resplit.
+PILOT = ("T0fce3ac302", "T314bc26723", "Te5806288ba", "T0671b5da8d", "T17a0bce0c8", "T1f1b254ef9",
+         "T22b849941a", "T4c508e607b", "T0b5e0497b9", "T4394ba3d4b", "T4469398b3c", "T65ca8bff72")
+
+
+def pilot(index: list[dict]) -> list[dict]:
+    """The fixed 12-task pilot, in PILOT order."""
+    by_id = {m["id"]: m for m in index}
+    return [by_id[i] for i in PILOT]
 
 
 def run_codex(text: str, model: str, effort: str, timeout: int) -> dict:

@@ -11,7 +11,7 @@ The first model-side eval for [npu-kernel-coder](../plan.md). Each task asks a m
 - A's text is under 80k characters and the A→B difference is 1–300 changed lines;
 - the two shapes are neighbours, at most one pair per name template, with duplicates across projects dropped.
 
-The current set is 77 tasks from 33 design families: 12 easy (≤10 changed lines), 33 medium, 32 hard (>80). Prompts are 5k–23k Qwen tokens (median 14.8k). The split is by design family: dev 48, test 29, for a later training set to hold out whole families. `tasks/` and `runs/` are generated and not tracked.
+The current set is 77 tasks from 33 design families: 12 easy (≤10 changed lines), 33 medium, 32 hard (>80). Prompts are 5k–23k Qwen tokens (median 14.8k). The split is by generator script (`generators.py`, since 2026-11-08): test 48 tasks from the generators that never enter training (gemma4 text kernels, gemma4 multimodal ops, lm_head), dev 29 from generators trained on at other shapes (attention GEMM, gemma4 projections, layer norm, gpt-oss). The first split held out design directories, but one generator writes into many directories, so test tasks had near-twins in dev. `python3 generators.py tasks` relabels an existing task set. The pilot stays pinned to its original 12 tasks (`run.PILOT`). `tasks/` and `runs/` are generated and not tracked.
 
 The prompt (`prompt.py`) is a one-page primer on the npuasm format, the request, and A's files. Models are asked for a unified diff whose hunks are located by their context, so line numbers can be approximate. They are told to answer with the diff only and to use no tools.
 
@@ -76,7 +76,7 @@ dibs run gpu --label "npu-kernel-coder stage-0 Qwen pilot" --eta 3h -- sh -c '
   kill $S'
 ```
 
-`--tasks pilot` is a fixed stratified subset of 12 tasks: 4 per difficulty, test split first. Codex runs in an empty read-only sandbox with the prompt on stdin. It loads the user's `~/.codex/AGENTS.md`, about 17k tokens of overhead per call, mostly cached. `claude` runs `claude -p` in an empty temp directory with all tools off (`--tools ""`), no MCP servers, no settings files and a one-line system prompt; `~/.claude/CLAUDE.md` still loads (about 600 tokens). `--bare` would skip it but accepts only an API key. `--jobs N` runs N tasks at once.
+`--tasks pilot` is a fixed stratified subset of 12 tasks: 4 per difficulty, chosen test split first under the original split and pinned since. Codex runs in an empty read-only sandbox with the prompt on stdin. It loads the user's `~/.codex/AGENTS.md`, about 17k tokens of overhead per call, mostly cached. `claude` runs `claude -p` in an empty temp directory with all tools off (`--tools ""`), no MCP servers, no settings files and a one-line system prompt; `~/.claude/CLAUDE.md` still loads (about 600 tokens). `--bare` would skip it but accepts only an API key. `--jobs N` runs N tasks at once.
 
 ## Results
 

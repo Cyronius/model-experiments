@@ -65,13 +65,21 @@ depend on which shape parameter.
 """
 
 
-def build(task_dir: Path, *, example: bool = False) -> str:
-    meta = json.loads((task_dir / "task.json").read_text())
+def render(meta: dict, a_files: dict[str, str], example: tuple[dict, str] | None = None) -> str:
+    """The prompt from task metadata (design, a_name, b_name), A's files and an optional (example.json, diff)."""
     parts = [PRIMER, REQUEST.format(**meta)]
     if example:
-        ex = json.loads((task_dir / "example.json").read_text())
-        parts.append(EXAMPLE.format(diff=(task_dir / "example.diff").read_text(), **ex))
-    for f in sorted((p.name for p in (task_dir / "a").iterdir()), key=order):
-        parts.append(f"=== FILE: {f} ===\n{(task_dir / 'a' / f).read_text()}=== END FILE: {f} ===\n")
+        parts.append(EXAMPLE.format(diff=example[1], **example[0]))
+    for f in sorted(a_files, key=order):
+        parts.append(f"=== FILE: {f} ===\n{a_files[f]}=== END FILE: {f} ===\n")
     parts.append(f"Now the unified diff from `{meta['a_name']}` to `{meta['b_name']}`:\n")
     return "\n".join(parts)
+
+
+def build(task_dir: Path, *, example: bool = False) -> str:
+    meta = json.loads((task_dir / "task.json").read_text())
+    a_files = {p.name: p.read_text() for p in (task_dir / "a").iterdir()}
+    ex = None
+    if example:
+        ex = (json.loads((task_dir / "example.json").read_text()), (task_dir / "example.diff").read_text())
+    return render(meta, a_files, ex)

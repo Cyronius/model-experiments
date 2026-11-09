@@ -9,8 +9,8 @@ lifted text (the compiler's output) is the reference.
     python3 make_tasks.py ../npuasm/results/corpus.jsonl tasks/ [--max-chars 80000]
 
 Each task directory holds `task.json`, `a/` (input files), `b/` (the
-reference) and both builds' npuasm manifests. The split is by design family (the directory holding the
-builds), so a later training set can hold out whole families.
+reference) and both builds' npuasm manifests. The split is by generator script (generators.py), so a training set can hold
+out every build a test generator made, in any directory.
 """
 
 from __future__ import annotations
@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "npuasm"))
 
 from npuasm import build  # noqa: E402
+import generators  # noqa: E402
 
 HASH = re.compile(r"_[0-9a-f]{8}$")
 
@@ -102,8 +103,6 @@ def main() -> None:
 
     a.out.mkdir(parents=True, exist_ok=True)
     families = sorted({t[0] for t in tasks})
-    rng.shuffle(families)
-    test = set(families[: len(families) // 2])
     index = []
     for design, tmpl, ra, rb, ta, tb, d, key, ma, mb in tasks:
         tid = f"T{key[:10]}"
@@ -125,7 +124,8 @@ def main() -> None:
             "a_chars": sum(len(t) for t in ta.values()),
             "diff_lines": d,
             "difficulty": "easy" if d <= 10 else "medium" if d <= 80 else "hard",
-            "split": "test" if design in test else "dev",
+            "generator": generators.generator(design, tmpl),
+            "split": generators.split(design, tmpl),
         }
         (td / "task.json").write_text(json.dumps(meta, indent=1) + "\n")
         index.append(meta)
