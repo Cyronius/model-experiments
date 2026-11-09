@@ -742,3 +742,17 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
 - Round 4 changes clean text least (free 24, about the tagger's 23) but edits less overall: more inputs come
   back unchanged (9 and 22) and fewer outputs move closer to the reference. Exact is flat (constrained +1, free
   -10). The new pairs are from other document families than dev, so dev measures transfer only.
+
+## November 9: independent meaning review of round 4 (constrained), all 679 dev rows
+
+- `model_lm/meaning_review.py` + a workflow: two Claude Opus 5.5 checkers review every row blind to each
+  other (v5 traps meaning-check rules; the reference is not shown; code is not masked), a third rules on
+  every row either flags. Output `data/out/lm-ft-v4/meaning-review/` (review.jsonl, summary.json).
+- Verdicts: ok 400, awkward 143 (meaning kept), not rewritten 16, **meaning change 88, garbled 27,
+  literal damage 5: 120 errors (17.7%), 42 major**. Checkers agreed on 131 of 146 flagged rows; the third
+  upheld 117 of the 131 and 3 of the 15 single flags. Usable (ok/awkward, checker-clean, changed): 527 (78%).
+- Errors rise with length: 15% of 15-25-word sources, 24% of 25-35. 66 of the 88 meaning changes are minor.
+- 81 of the 120 errors are the same with free decoding (the model's own); in 39 the constrained output
+  differs from the free one. The constraint changes only 92 rows in all, so where it steps in it often
+  forces a wrong word (breadth -> "broad...", blanks -> blocks, effort -> error) or cuts the output short.
+- Round-1 review (30 rows, assistant) had found about 4 clear slips in 30; this is consistent.
