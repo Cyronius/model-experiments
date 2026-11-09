@@ -700,3 +700,20 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
   SSH and Tailscale SSH is not enabled; owner needs to run `sudo tailscale set --ssh` (or start sshd).
   Then: check hardware, pick a teacher and a judge from a different family if both fit, start
   llama-server detached, run `pipeline_v5.py` on pool v6.
+
+## November 8 (evening): Claude Opus 5.5 subagents as the teacher on pool v6
+
+- Owner asked for subagent-generated data until 9pm instead of the local trashcan teacher (on hold: the
+  owner is evaluating Granite there; `data/doc_pilot/trashcan_teacher.sh` is written but not running).
+- `data/doc_pilot/claude_teacher.py`: chunks of 15 pool-v6 passages (all PROC first, then a family mix by
+  id hash). A writer subagent uses the v5 traps rewrite prompt and fixes gate failures (verify_v4,
+  markers) for up to 3 rounds; a separate subagent does the traps meaning check. Records are in the
+  pipeline_v5 format, teacher `claude-opus-5-5 (subagent)`.
+- 179 of 200 prepared chunks finished (2,685 passages, about 18 minutes in two workflows):
+  **2,337 accepted** (PROC 348, DESC 1,989; freebsd 883, k8s 731, django 463, cargo 260) in
+  `data/out/doc-teacher-claude/accepted.jsonl`. Rejected 348: meaning check 291, checker 46, writer
+  unsure 34, unchanged 34. 311 accepted pairs carry a dropped-word review flag. Chunks 179-199 are
+  prepared but not run; the rest of the pool (from passage 3,000) is not chunked.
+- Caveats: writer and checker are the same model (independent contexts). The checker subagents were not
+  consistent on should -> must (some flag it, some follow the prompt's MODAL WORDS rules). Not yet
+  reviewed by hand beyond a 5-pair spot check, and not yet in a training set.
