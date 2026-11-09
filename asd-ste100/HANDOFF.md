@@ -756,3 +756,28 @@ CPU canary: 0 of 24 rows differ from the GPU run. `data/out/lm-zeroshot-v1/score
   differs from the free one. The constraint changes only 92 rows in all, so where it steps in it often
   forces a wrong word (breadth -> "broad...", blanks -> blocks, effort -> error) or cuts the output short.
 - Round-1 review (30 rows, assistant) had found about 4 clear slips in 30; this is consistent.
+
+## November 9 (later): plan review, asked for by the owner (no decision yet)
+
+- Fallback check (`meaning_review.py gates`, round 4 constrained): the deterministic gates (verify_v4, with
+  the checker) catch 22 of the 120 errors (13 of the 42 major). Falling back to the source on a gate
+  failure: 625 delivered, 98 errors, 29 major. Also falling back on the 92 rows that the word constraint
+  changed: 550 delivered, 73 errors (13%), 12 major (2%). No cheap check gets near the plan's 1% target;
+  the errors left are word-sense swaps and lost qualifiers, which need a judge as strong as the teacher.
+- What the dev set measures: 667 of 679 rows are DESC, no source is under 15 words, and the rows come from
+  the 7,794 of 21,380 pool-v5 passages (36%) where the teacher passed every gate and check and the tagger
+  vocabulary could encode the pair. Prompts and instructions (the plan's first use) are 12 rows. The 18%
+  error rate is for the easier part of documentation text.
+- Against PLAN.md section 4: meaning changed at most 1% (measured 13%, plus 4% garbled); protected spans
+  100% (674 of 679); compliance about 4 unclean outputs per 100; downstream equivalence never measured;
+  gold set never built; size and latency suspended. The plan has no test that STE helps the model that
+  reads it; "equivalence" would only show no harm.
+- Trend: exact 176, 173, 178, 179 over four rounds while the edit pairs grew from 6,897 to 11,367. The
+  1.7B (round 1) had 3 clear and 3 small slips in 30 rows against the 350M's 4 and 1. Data volume and
+  model size are not what limits it.
+- Assistant's recommendation: stop the fine-tune rounds and the teacher runs for the small model. Before
+  any more model work, test the premise with the teacher pairs that exist (the same questions answered by
+  small local models from the original passage and from its accepted STE rewrite, graded blind). If STE
+  does not help the reader, close the model work and keep the checker and the teacher pipeline. If it
+  helps, the tool for text that is written once (system prompts, tool descriptions, documentation) is the
+  teacher pipeline itself; a small model matters only for rewriting messages as they are sent.

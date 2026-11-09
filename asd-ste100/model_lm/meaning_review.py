@@ -8,7 +8,7 @@ The reference is not shown: the question is whether the rewrite keeps the source
 matches the teacher.
 
     python model_lm/meaning_review.py prep RUN.jsonl OUTDIR [SIZE]
-    python model_lm/meaning_review.py flags OUTDIR NN | collect OUTDIR
+    python model_lm/meaning_review.py flags OUTDIR NN | collect OUTDIR | gates OUTDIR [FREE_RUN.jsonl]
 Run with data/out/.venv/bin/python and PYTHONPATH=checker.
 """
 import json
@@ -116,5 +116,24 @@ def collect(outdir):
     print(json.dumps(summary, indent=2))
 
 
+def gates(outdir, free=None):
+    """Cross the verdicts with the deterministic gates (verify_v4, which includes the checker): the errors left if
+    every gate failure fell back to the source, and (with the free-decoding run) if every row that the word
+    constraint changed fell back too."""
+    from gates_v4 import verify_v4
+    lex, rows = Lexicon(), load(Path(outdir) / 'review.jsonl')
+    same = {j['id']: j['output'].strip() for j in load(free) if j['input'] == 'src'} if free else {}
+
+    def count(part):
+        bad = [r for r in part if r['verdict'] in BAD]
+        return dict(delivered=len(part), errors=len(bad),
+                    major=sum((r['verify'] or {}).get('severity') == 'major' for r in bad))
+    passed = [r for r in rows if not verify_v4(r['src'], r['out'], r['mode'], lex, False, proper_names(r['src']))]
+    out = dict(all=count(rows), gates_pass=count(passed))
+    if free:
+        out['gates_pass_and_same_as_free'] = count([r for r in passed if same.get(r['id']) == r['out'].strip()])
+    print(json.dumps(out, indent=2))
+
+
 if __name__ == '__main__':
-    {'prep': prep, 'flags': flags, 'collect': collect}[sys.argv[1]](*sys.argv[2:])
+    {'prep': prep, 'flags': flags, 'collect': collect, 'gates': gates}[sys.argv[1]](*sys.argv[2:])
