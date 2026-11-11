@@ -49,6 +49,9 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=20261108)
     ap.add_argument("--mem-floor-gb", type=float, default=12.0)
     ap.add_argument("--mem-cap-gb", type=float, default=60.0)
+    ap.add_argument("--yield-every", type=float, default=0, metavar="MIN",
+                    help="also hand the GPU over at the first optimizer-step boundary after MIN minutes "
+                         "(low priority: lets waiters in even when dibs doesn't ask; 0 = only when asked)")
     a = ap.parse_args()
 
     import memguard
@@ -101,6 +104,7 @@ def main() -> None:
         return a.lr * (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * p)))
 
     t0 = time.time()
+    t_start = t0
     model = q4moe.load(a.model)
     model.config.use_cache = False
     model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
@@ -151,7 +155,19 @@ def main() -> None:
 
     def yield_requested():
         f = os.environ.get("DIBS_YIELD_FILE")
-        return bool(f) and os.path.exists(f)
+        if not f:
+            return False
+        if os.path.exists(f):
+            return True
+        # dibs 0.4.0 has been seen granting the GPU to a waiter without the yield file ever
+        # appearing (2026-11-09, sft1), so also yield when the GPU hold is no longer ours.
+        import subprocess
+        try:
+            status = subprocess.run(["dibs", "status"], capture_output=True, text=True, timeout=30).stdout
+        except Exception:
+            return False
+        gpu = next((l for l in status.splitlines() if l.split()[:1] == ["gpu"]), "")
+        return bool(gpu) and "free" not in gpu.split()[1:2] and os.environ.get("NKC_LABEL", "LoRA SFT") not in gpu
 
     def hand_over():
         save(with_grads=True)
@@ -210,7 +226,9 @@ def main() -> None:
                 save(with_grads=False)
             elif yield_requested():
                 hand_over()
-            if st["micro"] == 0 and yield_requested():
+            if st["micro"] == 0 and (yield_requested() or
+                                     (a.yield_every and time.time() - t_start > 60 * a.yield_every
+                                      and st["pos"] < len(order))):
                 hand_over()
         st["epoch"] += 1
         st["pos"] = 0
