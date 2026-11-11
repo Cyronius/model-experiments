@@ -4,6 +4,7 @@
 //!   npuasm-core asm   CORE.s OUT.bin  assemble an npuasm listing to raw .text bytes
 //!   npuasm-core check CORE.elf...     decode -> text -> assemble, compare bytes
 //!   npuasm-core dis   CODE.bin        decode raw program bytes (from address 0)
+//!   npuasm-core bundles < LINES       assemble one bundle per line: ok <TAB> hex | err <TAB> reason
 //!
 //! Decoding and byte encoding are hipfire's `peacemaker-npu` (Apache-2.0; its
 //! generated tables are Apache-2.0 WITH LLVM-exception, derived from llvm-aie
@@ -127,6 +128,24 @@ fn main() -> ExitCode {
             std::fs::write(&args[2], out).map_err(|e| e.to_string())?;
             if st.ambiguous > 0 {
                 eprintln!("{} bundles had more than one encoding; used the shortest", st.ambiguous);
+            }
+            Ok(())
+        })(),
+        Some("bundles") if args.len() == 1 => (|| {
+            // One bundle per stdin line -> "ok <TAB> hex" (shortest encoding) or "err <TAB> reason".
+            // Branch targets must be numbers: there are no labels here.
+            use std::io::{BufRead, Write};
+            let mut out = std::io::BufWriter::new(std::io::stdout().lock());
+            for line in std::io::stdin().lock().lines() {
+                let line = line.map_err(|e| e.to_string())?;
+                let r = match asm::assemble_all(line.trim()) {
+                    Ok(all) if !all.is_empty() => {
+                        format!("ok\t{}", all[0].iter().map(|x| format!("{x:02x}")).collect::<String>())
+                    }
+                    Ok(_) => format!("err\tno format fits `{}`", line.trim()),
+                    Err(e) => format!("err\t{e}"),
+                };
+                writeln!(out, "{r}").map_err(|e| e.to_string())?;
             }
             Ok(())
         })(),
