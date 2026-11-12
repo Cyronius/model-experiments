@@ -9,9 +9,10 @@ Every answer is computed, not written by a model, so each task is exact-match gr
 - fim     a masked span of 1-16 lines in a core/CDO/txn file, with the lines around it
 - unroll  a `repeat` block -> its expansion (loops.unfold);  fold: the reverse (loops.fold)
 - regs    declarative CDO/txn lines -> raw register writes (decl/txndecl -> cdo/txn raw form)
-- port    one file of build A at shape a -> unified diff to the same file at shape b; each
-          is tagged with whether the template inducer (template_fit.py) already gets it exact;
-          port_window: the same for a ~160-line window around a change, when the file is too long
+- port    one file of build A at shape a, lines numbered -> edit list (edits.py) to the same file
+          at shape b; each is tagged with whether the template inducer (template_fit.py) already
+          gets it exact; port_window: the same for a ~160-line window around a change, when the
+          file is too long. Sources come from the target's own split (val ports: val builds only).
 
 Held out (val.jsonl / test.jsonl, never in train.jsonl):
 - val: every build of ~10% of design families (all task kinds drawn from those builds);
@@ -43,6 +44,7 @@ from npuasm import cdo, decl, loops, txn, txndecl  # noqa: E402
 from npuasm.core import core_bin  # noqa: E402
 from make_tasks import HASH  # noqa: E402
 import template_fit as tf  # noqa: E402
+import edits  # noqa: E402
 
 TOKENIZER = next(Path.home().glob(".cache/huggingface/hub/models--Qwen--Qwen3.5-2B/snapshots/*/tokenizer.json"), None)
 SYSTEM = "You are an expert in AMD XDNA2 (AIE2P) NPU programs written in npuasm. Answer with exactly what is asked."
@@ -265,8 +267,9 @@ def regs_tasks(b: dict, sp: str, rng: random.Random, n: int) -> list[dict]:
 
 # ---------------------------------------------------------------- ports
 
-def unified(a: str, b: str, f: str) -> str:
-    return "".join(difflib.unified_diff(a.splitlines(True), b.splitlines(True), f"a/{f}", f"b/{f}", n=3))
+EDIT_FORMAT = ("Answer with the edits only, in line order: for each changed region a line `@@ N` (N: the first "
+               "source line it touches), then the removed source lines each prefixed with `-`, then the new lines "
+               "each prefixed with `+`.")
 
 
 def windows(a: str, b: str, rng: random.Random, n: int, size: int = 160):
@@ -299,7 +302,7 @@ def windows(a: str, b: str, rng: random.Random, n: int, size: int = 160):
 
 
 def port_tasks(builds: list[dict], where: dict[str, str], rng: random.Random, per_target: int,
-               per_group: int, window_chars: int = 30000) -> list[dict]:
+               per_group: int, windows_per_pair: int, window_chars: int = 30000) -> list[dict]:
     groups = collections.defaultdict(list)
     for b in builds:
         if params(b["name"]):
@@ -312,9 +315,13 @@ def port_tasks(builds: list[dict], where: dict[str, str], rng: random.Random, pe
         keys = set.intersection(*(set(p) for p in ps.values()))
         if not keys:
             continue
-        train_b = [b for b in g if where[b["prj"]] == "train"]
-        # Template inducer's verdict for each (target build, file), fitted on training builds only
-        # (minus the target itself), so `template_exact` says whether a model adds anything there.
+        # Sources and the template fit come from training builds, or, for a val target (held-out
+        # family), from the other val builds of its group: val ports never see a training build's
+        # file of that family, and training never sees a val build.
+        # Template inducer's verdict for each (target build, file), fitted on those builds (minus
+        # the target itself), so `template_exact` says whether a model adds anything there.
+        pool_of = {sp: [b for b in g if where[b["prj"]] == ("val" if sp == "val" else "train")]
+                   for sp in ("train", "val", "test")}
         tm_cache = {}
 
         def tmpl_of(b, f):
@@ -329,6 +336,7 @@ def port_tasks(builds: list[dict], where: dict[str, str], rng: random.Random, pe
         mine = []
         for tgt in g:
             sp = where[tgt["prj"]]
+            train_b = pool_of[sp]
             srcs = [b for b in train_b if b is not tgt and set(b["texts"]) == set(tgt["texts"])]
             if not srcs:
                 continue
@@ -351,19 +359,20 @@ def port_tasks(builds: list[dict], where: dict[str, str], rng: random.Random, pe
                     pb = ", ".join(f"{k}={ps[tgt['prj']][k]}" for k in sorted(keys))
                     meta = dict(design=design, file=f, template_exact=verdict == "exact", template=verdict,
                                 src=src["name"], dst=tgt["name"])
-                    if len(a) + 2 * len(unified(a, bt, f)) <= window_chars:
+                    ans = edits.edits(a, bt)
+                    if len(a) + 2 * len(ans) <= window_chars:
                         user = (f"Design `{design}` ({tmpl}). Port file `{f}` from the build at {pa} (`{src['name']}`) to "
-                                f"{pb}. Answer with a unified diff (3 context lines) from the file below.\n```\n{a}```")
-                        mine.append(task("port", sp, user, unified(a, bt, f), **meta))
+                                f"{pb}. The file is below with its lines numbered. {EDIT_FORMAT}\n```\n{edits.number(a)}```")
+                        mine.append(task("port", sp, user, ans, **meta))
                         continue
                     # Too long whole: port windows of it instead, each around a changed region.
-                    for (i, j), (k, l) in windows(a, bt, rng, 2 if sp == "train" else 1):
+                    for (i, j), (k, l) in windows(a, bt, rng, windows_per_pair if sp == "train" else 1):
                         wa = "\n".join(a.splitlines()[i:j]) + "\n"
                         wb = "\n".join(bt.splitlines()[k:l]) + "\n"
                         user = (f"Design `{design}` ({tmpl}). Port lines {i + 1}-{j} of file `{f}` from the build at {pa} "
-                                f"(`{src['name']}`) to {pb}. Answer with a unified diff (3 context lines) from the "
-                                f"lines below.\n```\n{wa}```")
-                        mine.append(task("port_window", sp, user, unified(wa, wb, f), **meta, lines=[i, j]))
+                                f"(`{src['name']}`) to {pb}. The lines are below, numbered as in the file. "
+                                f"{EDIT_FORMAT}\n```\n{edits.number(wa, i + 1)}```")
+                        mine.append(task("port_window", sp, user, edits.edits(wa, wb, i + 1), **meta, lines=[i, j]))
         # Many-core designs repeat near-identical per-core ports: cap each group, per split.
         for sp in ("train", "val", "test"):
             es = [e for e in mine if e["split"] == sp]
@@ -384,10 +393,13 @@ def main() -> None:
     ap.add_argument("--fim-per-build", type=int, default=6)
     ap.add_argument("--loops-per-file", type=int, default=2)
     ap.add_argument("--regs-per-file", type=int, default=2)
-    ap.add_argument("--ports-per-target", type=int, default=2)
-    ap.add_argument("--ports-per-group", type=int, default=160)
+    ap.add_argument("--ports-per-target", type=int, default=4)
+    ap.add_argument("--ports-per-group", type=int, default=640)
+    ap.add_argument("--windows-per-pair", type=int, default=3)
+    ap.add_argument("--replay-share", type=float, default=1.0,
+                    help="share of non-port train examples kept (the rest is dropped, e.g. when continuing from a checkpoint)")
     ap.add_argument("--port-max-tokens", type=int, default=12288)
-    ap.add_argument("--easy-port-keep", type=float, default=0.25, help="share of template-solved train ports kept")
+    ap.add_argument("--easy-port-keep", type=float, default=0.5, help="share of template-solved train ports kept")
     ap.add_argument("--seed", type=int, default=20261111)
     a = ap.parse_args()
     rng = random.Random(a.seed)
@@ -405,13 +417,16 @@ def main() -> None:
         examples += fim(b, sp, rng, a.fim_per_build)
         examples += loop_tasks(b, sp, rng, a.loops_per_file)
         examples += regs_tasks(b, sp, rng, a.regs_per_file)
-    examples += port_tasks(builds, where, rng, a.ports_per_target, a.ports_per_group)
+    examples += port_tasks(builds, where, rng, a.ports_per_target, a.ports_per_group, a.windows_per_pair)
 
     drop = collections.Counter()
     kept = collections.defaultdict(list)
     for e in examples:
         if e["kind"].startswith("port") and e["split"] == "train" and e["meta"]["template_exact"] and rng.random() > a.easy_port_keep:
             drop["port solved by template"] += 1
+            continue
+        if not e["kind"].startswith("port") and e["split"] == "train" and rng.random() >= a.replay_share:
+            drop[f"{e['kind']} not replayed"] += 1
             continue
         n = sum(len(tok.encode(m["content"], add_special_tokens=False).ids) for m in e["messages"]) + 16
         cap = a.port_max_tokens if e["kind"].startswith("port") else a.max_tokens

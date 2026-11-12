@@ -18,11 +18,15 @@ env/bin/python -c "import torch, fla, transformers; print(torch.__version__, tra
   >> $O/gpu.txt 2>&1 || fail import
 
 stage download
-env/bin/hf download Qwen/Qwen3.5-0.8B --revision 2fc06364715b967f1860aea9cf38778875588b17 --local-dir model \
-  > $O/download.log 2>&1 || fail download
+if [ -f init/model.safetensors ]; then
+  mv init model  # continue from the uploaded checkpoint
+else
+  env/bin/hf download Qwen/Qwen3.5-0.8B --revision 2fc06364715b967f1860aea9cf38778875588b17 --local-dir model \
+    > $O/download.log 2>&1 || fail download
+fi
 gunzip -f data/train.jsonl.gz data/val.jsonl.gz || fail data
 
 stage train
 env/bin/python -u train_small.py model data/train.jsonl data/val.jsonl --out $O/run --require-fla \
-  --time-budget-h "$TIME_BUDGET_H" --save-min 1e9 --mem-floor-gb 4 > $O/train.log 2>&1 || fail train
+  --time-budget-h "$TIME_BUDGET_H" ${TRAIN_ARGS:-} --save-min 1e9 --mem-floor-gb 4 > $O/train.log 2>&1 || fail train
 stage complete

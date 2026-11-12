@@ -4,7 +4,8 @@
 
 URL is an OpenAI-compatible server (llama-server). Greedy, thinking off. Per kind: exact-match
 rate, and line accuracy for the line-per-item kinds (enc, dec, legal). Ports are scored by applying
-the answer diff to the source file (the eval's own hunk matcher): exact file, and, split by whether
+the answer to the source file (edit lists: edits.apply; unified diffs: the eval's own hunk
+matcher): exact file, and, split by whether
 the template inducer already gets that file exact, so the model's added value shows separately.
 """
 
@@ -22,6 +23,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "eval"))
 import score  # noqa: E402
+import edits  # noqa: E402
 
 LINE_KINDS = {"enc", "dec", "legal"}
 
@@ -56,9 +58,13 @@ def grade(e: dict, ans: str) -> dict:
         g, p = gold.strip().splitlines(), ans.splitlines()
         r["lines"] = sum(x.strip() == y.strip() for x, y in zip(g, p)) / len(g)
     if e["kind"].startswith("port"):
-        src, f = source_of(e["messages"][1]["content"]), e["meta"]["file"]
-        want = apply(src, gold, f)
-        got = apply(src, ans, f)
+        user, f = e["messages"][1]["content"], e["meta"]["file"]
+        src = source_of(user)
+        if "numbered" in user:  # edit-list ports (edits.py)
+            lines, start = edits.unnumber(src)
+            want, got = edits.apply(lines, gold, start), edits.apply(lines, ans, start)
+        else:  # unified-diff ports
+            want, got = apply(src, gold, f), apply(src, ans, f)
         r.update(exact=got is not None and got == want, applies=got is not None,
                  template_exact=e["meta"]["template_exact"], file=f)
     return r

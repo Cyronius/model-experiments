@@ -3,6 +3,11 @@ result back, and delete the pod.
 
     python3 pod/pod_small.py --quote            price check only (free)
     python3 pod/pod_small.py --execute NAME     paid run; output in runs/NAME/
+      [--ledger FILE] [--data DIR] [--init MODEL_DIR] [--hours H] [--train-hours H]
+      --init starts from a local checkpoint (uploaded with the bundle) instead of the base model.
+
+Every paid run needs its own user approval, recorded in a ledger file whose total_cap_usd and
+status gate the launch (the ledger named below is the first run's).
 
 The user approved this retrain on RunPod on 2026-11-12 ("yeah use runpod. you're allowed to use
 cheaper/slower if it will lower the cost. i don't mind waiting as much as 5 hours"), against the
@@ -53,6 +58,7 @@ JOB_CAP = (RATE + DISK_RATE) * HOURS
 CODE = {"train_small.py": TRAIN / "train_small.py", "memguard.py": TRAIN / "memguard.py",
         "worker.sh": HERE / "worker.sh"}
 DATA = {"data/train.jsonl.gz": TRAIN / "data/tasks/train.jsonl", "data/val.jsonl.gz": TRAIN / "data/tasks/val.jsonl"}
+INIT = None  # local checkpoint dir to start from (--init)
 
 
 def sha(path: Path) -> str:
@@ -92,6 +98,9 @@ def bundle(job: Path) -> Path:
             with src.open("rb") as i, gzip.open(gz, "wb") as o:
                 shutil.copyfileobj(i, o)
             tar.add(gz, arcname=name)
+        if INIT:
+            for f in sorted(INIT.iterdir()):
+                tar.add(f, arcname=f"init/{f.name}")
     write_json({"files": {n: sha(p) for n, p in {**CODE, **DATA}.items()}, "bundle_sha256": sha(path)},
                job / "bundle.json")
     return path
@@ -123,8 +132,9 @@ def execute(run_name: str) -> None:
     with (JOBS / "launch.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         ledger = json.loads(LEDGER.read_text())
-        if ledger["total_cap_usd"] != CAP or ledger["status"] not in ("authorized_not_launched", "terminated"):
+        if ledger["status"] not in ("authorized_not_launched", "terminated"):
             raise ValueError("ledger does not allow a launch")
+        CAP = ledger["total_cap_usd"]
         if ledger.get("spent_usd", 0) + JOB_CAP > CAP + 1e-6:
             raise ValueError("job could exceed the remaining budget")
         checked = quote()
@@ -233,7 +243,7 @@ def execute(run_name: str) -> None:
                 raise TimeoutError("pod not reachable within 15 minutes")
             cmd, host = remote
             with archive.open("rb") as f:
-                subprocess.run([*cmd, host, "tar xf - -C /workspace/nkc"], stdin=f, timeout=600, check=True)
+                subprocess.run([*cmd, host, "tar xf - -C /workspace/nkc"], stdin=f, timeout=2400, check=True)
             # Only the backgrounded command may hold the session's fds, or ssh waits for it to exit.
             launch = ("cd /workspace/nkc || exit 1; TIME_BUDGET_H=" + str(round(train_hours, 2)) +
                       " setsid nohup bash worker.sh > launch.log 2>&1 < /dev/null &")
@@ -284,7 +294,17 @@ if __name__ == "__main__":
     ap.add_argument("--quote", action="store_true")
     ap.add_argument("--execute", metavar="NAME")
     ap.add_argument("--watchdog", type=Path)
+    ap.add_argument("--ledger", type=Path, default=LEDGER)
+    ap.add_argument("--data", type=Path, default=TRAIN / "data/tasks")
+    ap.add_argument("--init", type=Path)
+    ap.add_argument("--hours", type=float, default=HOURS, help="pod lifetime (the cost bound)")
+    ap.add_argument("--train-hours", type=float, default=TRAIN_HOURS)
     a = ap.parse_args()
+    LEDGER, INIT, HOURS, TRAIN_HOURS = a.ledger.resolve(), a.init, a.hours, a.train_hours
+    JOB_CAP = (RATE + DISK_RATE) * HOURS
+    DATA = {"data/train.jsonl.gz": a.data / "train.jsonl", "data/val.jsonl.gz": a.data / "val.jsonl"}
+    assert TRAIN_HOURS < HOURS - 0.5 and all(p.exists() for p in DATA.values())
+    assert INIT is None or (INIT / "model.safetensors").exists()
     if a.watchdog:
         watchdog(a.watchdog)
     elif a.execute:
