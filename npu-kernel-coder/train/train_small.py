@@ -62,6 +62,9 @@ def main() -> None:
     ap.add_argument("--eval-every", type=int, default=100)
     ap.add_argument("--save-min", type=float, default=30)
     ap.add_argument("--max-steps", type=int, default=0, help="stop after this many steps (throughput pilot)")
+    ap.add_argument("--time-budget-h", type=float, default=0,
+                    help="training hours; the schedule runs on max(step, time) progress, so it ends in time")
+    ap.add_argument("--require-fla", action="store_true", help="fail unless fla's GatedDeltaNet kernels load")
     ap.add_argument("--seed", type=int, default=20261111)
     ap.add_argument("--mem-floor-gb", type=float, default=12.0)
     ap.add_argument("--mem-cap-gb", type=float, default=40.0)
@@ -135,16 +138,27 @@ def main() -> None:
         total_steps = min(total_steps, a.max_steps)
     warmup = max(1, round(a.warmup * total_steps))
 
+    def progress():
+        p = st["step"] / total_steps
+        if a.time_budget_h:
+            p = max(p, st.get("train_seconds", 0) / (3600 * a.time_budget_h))
+        return p
+
     def lr_at(step):
         if step < warmup:
             return a.lr * (step + 1) / warmup
-        p = (step - warmup) / max(1, total_steps - warmup)
+        # Past warmup, decay on progress (steps or the time budget, whichever is further along).
+        w = warmup / total_steps
+        p = min(1.0, max(0.0, (progress() - w) / max(1e-9, 1 - w)))
         return a.lr * (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * p)))
 
     state_dir, new_dir, old_dir = out / "state", out / "state.new", out / "state.old"
     if not state_dir.exists() and old_dir.exists():
         old_dir.rename(state_dir)
     src = state_dir / "model" if state_dir.exists() else a.model
+    if a.require_fla:
+        import transformers.models.qwen3_5.modeling_qwen3_5 as qm
+        assert qm.chunk_gated_delta_rule is not None, "fla kernels missing (torch fallback is ~50x slower)"
     model = AutoModelForCausalLM.from_pretrained(src, dtype=torch.float32).cuda()
     # Without the causal-conv1d package the GatedDeltaNet layers fall back to nn.Conv1d, which on
     # ROCm goes to MIOpen: a kernel search and compile for every new sequence length, and a slow
@@ -236,7 +250,8 @@ def main() -> None:
 
     model.train()
     epoch_batches = batches(a.seed)
-    while st["step"] < total_steps:
+    mark = time.time()
+    while st["step"] < total_steps and progress() < 1:
         if st["micro"] == 0 and st["evaluated"] < st["step"] and st["step"] % a.eval_every == 0:
             ev = evaluate()
             st["evaluated"] = st["step"]
@@ -252,6 +267,8 @@ def main() -> None:
         st["batch"] += 1
         st["micro"] += 1
         st["tokens"] += sum(len(enc_train[i][0]) for i in bl)
+        st["train_seconds"] = st.get("train_seconds", 0) + time.time() - mark  # wall, evals included
+        mark = time.time()
         if st["micro"] == a.accum:
             lr = lr_at(st["step"])
             for g in opt.param_groups:
@@ -272,9 +289,10 @@ def main() -> None:
 
     ev = evaluate()
     log(event="eval", step=st["step"], **ev)
-    model.save_pretrained(out / "model", safe_serialization=True)
+    if a.save_min < 1e6:
+        save()
+    model.to(torch.bfloat16).save_pretrained(out / "model", safe_serialization=True)  # released dtype
     tok.save_pretrained(out / "model")
-    save()
     evals = [json.loads(l) for l in (out / "log.jsonl").open()]
     (out / "summary.json").write_text(json.dumps({
         "steps": st["step"], "tokens": st["tokens"], "train_examples": len(train),
