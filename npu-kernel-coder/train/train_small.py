@@ -29,6 +29,21 @@ import time
 from pathlib import Path
 
 YIELD_STATUS = 75
+PAD_TO = 128  # batch lengths round up to this, so kernels see few distinct shapes
+
+
+def causal_conv(x, weight, bias=None, activation=None, seq_idx=None):
+    """causal_conv1d_fn's contract: x [B, C, T], weight [C, K]; depthwise, left-padded."""
+    import torch.nn.functional as F
+    assert seq_idx is None
+    K, T = weight.shape[1], x.shape[-1]
+    xp = F.pad(x, (K - 1, 0))
+    y = xp[..., 0:T] * weight[:, 0, None]
+    for k in range(1, K):
+        y = y + xp[..., k:k + T] * weight[:, k, None]
+    if bias is not None:
+        y = y + bias[:, None]
+    return F.silu(y) if activation in ("silu", "swish") else y
 
 
 def main() -> None:
@@ -103,7 +118,7 @@ def main() -> None:
         idx = sorted(range(len(train)), key=lambda i: (len(enc_train[i][0]), i))
         out_b, cur, cur_max = [], [], 0
         for i in idx:
-            n = len(enc_train[i][0])
+            n = -(-len(enc_train[i][0]) // PAD_TO) * PAD_TO
             if cur and max(cur_max, n) * (len(cur) + 1) > a.batch_tokens:
                 out_b.append(cur)
                 cur, cur_max = [], 0
@@ -131,6 +146,14 @@ def main() -> None:
         old_dir.rename(state_dir)
     src = state_dir / "model" if state_dir.exists() else a.model
     model = AutoModelForCausalLM.from_pretrained(src, dtype=torch.float32).cuda()
+    # Without the causal-conv1d package the GatedDeltaNet layers fall back to nn.Conv1d, which on
+    # ROCm goes to MIOpen: a kernel search and compile for every new sequence length, and a slow
+    # depthwise backward. K shifted multiply-adds compute the same thing.
+    patched = 0
+    for mod in model.modules():
+        if hasattr(mod, "causal_conv1d_fn") and mod.causal_conv1d_fn is None:
+            mod.causal_conv1d_fn = causal_conv
+            patched += 1
     model.config.use_cache = False
     model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
     params = [p for p in model.parameters() if p.requires_grad]
@@ -142,7 +165,8 @@ def main() -> None:
         log(event="resume", **st)
     else:
         log(event="start", args={k: str(v) for k, v in vars(a).items()}, train=len(train), val=len(val),
-            batches=n_batches, steps=total_steps, warmup=warmup, params=sum(p.numel() for p in params))
+            batches=n_batches, steps=total_steps, warmup=warmup, params=sum(p.numel() for p in params),
+            conv_patched=patched)
     log(event="loaded", seconds=round(time.time() - t0, 1), gb=round(torch.cuda.memory_allocated() / 2**30, 1))
     last_save = time.time()
 
@@ -173,7 +197,7 @@ def main() -> None:
 
     def loss_of(items):
         """items: [(ids, n_answer)] -> (sum of answer-token losses, answer tokens)."""
-        T = max(len(ids) for ids, _ in items)
+        T = -(-max(len(ids) for ids, _ in items) // PAD_TO) * PAD_TO
         inp = torch.full((len(items), T), tok.pad_token_id or 0, dtype=torch.long)
         tgt = torch.full((len(items), T), -100, dtype=torch.long)
         att = torch.zeros((len(items), T), dtype=torch.long)
