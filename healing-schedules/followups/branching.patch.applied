@@ -1,0 +1,267 @@
+--- a/run.py
++++ b/run.py
+@@ -1,6 +1,11 @@
+ """One independent healing arm; restart from the verified damaged checkpoint.
+ 
+ Run under Dibs. This script never provisions compute or downloads checkpoints.
++
++Follow-up (branching) experiment: a trunk run saves a checkpoint the first time validation
++closes each fraction in --checkpoint-gaps; a branch run (--init-from) restarts from one, with
++the trunk's weights, Adam state, per-group update counts and data position, under its own
++budget and a fresh schedule. Branches from one checkpoint compare strategies phase by phase.
+ """
+ import argparse
+ import json
+@@ -79,6 +84,10 @@
+     ap.add_argument('--max-seconds', type=int, default=3600)
+     ap.add_argument('--canary', type=Path, help='CPU FP32 canary reference (required on a GPU)')
+     ap.add_argument('--canary-gpu', type=Path, help='GPU canary reference; written on the first pass')
++    ap.add_argument('--checkpoint-gaps', type=lambda v: [float(x) for x in v.split(',')], default=[],
++                    help='Comma list of gap fractions (e.g. 0.25,0.5,0.75): save a branch checkpoint at the first '
++                         'evaluation after step 0 whose validation closes at least that fraction')
++    ap.add_argument('--init-from', type=Path, help='Branch checkpoint directory (a trunk run\'s checkpoints/gapNN)')
+     args = ap.parse_args()
+     if str(args.device).startswith('cuda') and args.canary is None:
+         raise ValueError('GPU runs need --canary (the local GPU can compute wrong values silently)')
+@@ -135,6 +144,21 @@
+     optimizer = torch.optim.AdamW([dict(params=group, name=name) for name, group in groups], lr=args.lr,
+                                   betas=(.9, .999), eps=1e-8, weight_decay=0., foreach=False)
+     updates = {name: 0 for name, _ in groups}
++    branch = None
++    if args.init_from is not None:
++        meta = json.loads((args.init_from / 'checkpoint.json').read_text())
++        if meta['damaged_manifest_sha256'] != sha256(args.damaged / 'pruning.json') or \
++                meta['data_manifest_sha256'] != sha256(args.data / 'manifest.json'):
++            raise ValueError('Branch checkpoint was made from another damaged model or dataset')
++        if meta['target_ce'] != args.target_ce:
++            raise ValueError('Branch checkpoint was made against another target')
++        state = torch.load(args.init_from / 'state.pt', map_location=args.device, weights_only=False)
++        if sha256(args.init_from / 'state.pt') != meta['state_sha256']:
++            raise ValueError('Branch checkpoint state does not match its record')
++        student.load_state_dict(state['model'])
++        optimizer.load_state_dict(state['optimizer'])
++        updates = dict(state['updates'])
++        branch = dict(checkpoint=str(args.init_from), checkpoint_sha256=meta['state_sha256'], **meta['trunk'])
+     picks = np.unique(np.linspace(0, len(arrays['controller']) - 1, args.controller_sequences).round().astype(int))
+     decision_rows = arrays['controller'][picks]
+     schedule = Schedule(args.strategy, student.config.num_hidden_layers)
+@@ -149,12 +173,20 @@
+                       device_name=torch.cuda.get_device_name() if amp else platform.processor(),
+                       cuda=torch.version.cuda, hip=torch.version.hip,
+                       precision='FP32 trainable weights/Adam states; BF16 autocast' if amp else 'FP32',
+-                      controller_rows=picks.tolist(),
++                      controller_rows=picks.tolist(), branch=branch,
+                       profile=profile, target_ce=args.target_ce, canary_start=canary.get('start'),
+                       timing_isolation='Use Dibs --measure for timing claims; ordinary runs are observational')
+     save_json(args.output / 'provenance.json', provenance)
+     consumed = eval_flops = decision_flops = steps = tokens = 0
+     history, hits = [], []
++    rng = np.random.default_rng(args.seed)
++    order = rng.permutation(len(train))
++    cursor = 0  # rows drawn so far, counting the trunk's when branching
++    if branch is not None:
++        rng.bit_generator.state = state['data']['rng']
++        order, cursor = np.asarray(state['data']['order']), state['data']['cursor']
++        del state
++    saved = set()
+     synchronize(args.device)
+     start = time.monotonic()
+ 
+@@ -177,6 +209,28 @@
+             hits.append(len(history) - 1)
+         save_json(args.output / 'curve.json', history)
+         print(json.dumps(row), flush=True)
++        start_ce = branch['start_validation_ce'] if branch else history[0]['validation']['ce']
++        for fraction in args.checkpoint_gaps:
++            if steps and fraction not in saved and validation['ce'] <= start_ce - fraction * (start_ce - args.target_ce):
++                save_checkpoint(fraction, row, start_ce)
++                saved.add(fraction)
++
++    def save_checkpoint(fraction, row, start_ce):
++        folder = args.output / 'checkpoints' / f'gap{round(fraction * 100)}'
++        folder.mkdir(parents=True)
++        torch.save(dict(model=student.state_dict(), optimizer=optimizer.state_dict(), updates=dict(updates),
++                        data=dict(rng=rng.bit_generator.state, order=order.tolist(), cursor=cursor)),
++                   folder / 'state.pt')
++        trunk = dict(trunk_run=str(args.output), trunk_strategy=args.strategy, trunk_seed=args.seed,
++                     trunk_branch=branch, gap_fraction=fraction, start_validation_ce=start_ce,
++                     checkpoint_validation_ce=row['validation']['ce'], trunk_step=steps, trunk_tokens=tokens,
++                     trunk_training_flops=consumed, trunk_decision_flops=decision_flops,
++                     trunk_elapsed_seconds=row['elapsed_seconds'])
++        save_json(folder / 'checkpoint.json', dict(
++            trunk=trunk, target_ce=args.target_ce, state_sha256=sha256(folder / 'state.pt'),
++            damaged_manifest_sha256=sha256(args.damaged / 'pruning.json'),
++            data_manifest_sha256=sha256(args.data / 'manifest.json'),
++            rule='first evaluation after step 0 at or below the gap threshold (one evaluation, not confirmed)'))
+ 
+     def decide():
+         nonlocal decision_flops
+@@ -187,8 +241,6 @@
+     milestone()
+     if schedule.adaptive:
+         decide()
+-    rng = np.random.default_rng(args.seed)
+-    order = rng.permutation(len(train))
+     next_eval = args.budget_flops / args.eval_points
+     decision_every = args.budget_flops / args.controller_points
+     next_decision = decision_every
+@@ -203,9 +255,9 @@
+             if steps >= args.max_steps or time.monotonic() - start >= args.max_seconds:
+                 stop = 'step_limit' if steps >= args.max_steps else 'time_limit'
+                 break
+-            if steps and steps % len(train) == 0:
++            if cursor and cursor % len(train) == 0:
+                 order = rng.permutation(len(train))
+-            ids = torch.tensor(train[order[steps % len(train)]][None], device=args.device, dtype=torch.long)
++            ids = torch.tensor(train[order[cursor % len(train)]][None], device=args.device, dtype=torch.long)
+             optimizer.zero_grad(set_to_none=True)
+ 
+             def backward():
+@@ -226,6 +278,7 @@
+                                              if args.warmup_updates else 1.0)
+             optimizer.step()
+             steps += 1
++            cursor += 1
+             consumed += actual
+             tokens += ids.numel()
+             log.write(json.dumps(dict(step=steps, window=list(window), loss=float(loss.detach()),
+--- a/report.py
++++ b/report.py
+@@ -4,6 +4,10 @@
+ fraction of the damaged-to-target validation gap it closes, at the end of its budget and on a
+ ladder of thresholds (25/50/75/100% of the gap; 100% is stock 0.8B quality). Tokens, FLOPs and
+ wall time to each rung give an efficiency comparison even when no arm reaches stock 0.8B.
++
++Branch runs (follow-up experiment, run.py --init-from) are scored against the trunk's damaged
++start, so their rungs are the same thresholds as the independent arms'. Only branches from one
++checkpoint are compared with each other.
+ """
+ import argparse
+ import csv
+@@ -27,9 +31,9 @@
+     return (start - ce) / (start - target)
+ 
+ 
+-def ladder(history, target):
++def ladder(history, target, start=None):
+     """First confirmed evaluation (two consecutive at or below) for each gap fraction."""
+-    start = history[0]['validation']['ce']
++    start = history[0]['validation']['ce'] if start is None else start
+     out = {}
+     for fraction in LADDER:
+         hit = first_confirmed(history, start - fraction * (start - target))
+@@ -45,12 +49,14 @@
+         s = json.loads(path.read_text())
+         p = json.loads((path.parent / 'provenance.json').read_text())
+         signatures.add((p['damaged_manifest_sha256'], p['data_manifest_sha256'],
+-                        p['arguments']['budget_flops'], p['target_ce'], json.dumps(p['source_sha256'], sort_keys=True)))
++                        p['arguments']['budget_flops'], p['target_ce'], json.dumps(p['source_sha256'], sort_keys=True),
++                        (p.get('branch') or {}).get('checkpoint_sha256')))
+         history = json.loads((path.parent / 'curve.json').read_text())
+         hit = s['first_confirmed_target']
+         second = first_confirmed(history, p['target_ce'] + secondary_offset)
+-        start = history[0]['validation']['ce']
+-        rungs = ladder(history, p['target_ce'])
++        branch = p.get('branch')
++        start = branch['start_validation_ce'] if branch else history[0]['validation']['ce']
++        rungs = ladder(history, p['target_ce'], start)
+         flat = {f'{k}_{field}': (v or {}).get(field) for k, v in rungs.items()
+                 for field in ('tokens', 'training_flops', 'elapsed_seconds')}
+         rows.append(dict(run=path.parent.name, strategy=p['arguments']['strategy'], seed=p['arguments']['seed'],
+@@ -58,6 +64,7 @@
+                          total_accounted_flops=s['total_accounted_flops'], tokens=s['tokens'], steps=s['steps'],
+                          validation_ce=history[-1]['validation']['ce'], test_ce=s['final_test']['ce'],
+                          start_validation_ce=start,
++                         branch_gap=(branch or {}).get('gap_fraction'), trunk_strategy=(branch or {}).get('trunk_strategy'),
+                          gap_closed_final=gap_closed(start, history[-1]['validation']['ce'], p['target_ce']),
+                          best_validation_ce=min(h['validation']['ce'] for h in history),
+                          decision_flops=s.get('decision_flops', 0), **flat,
+@@ -73,7 +80,7 @@
+                          elapsed_seconds=s['elapsed_seconds'], peak_host_rss_bytes=s['peak_host_rss_bytes'],
+                          peak_device_allocated_bytes=s['peak_device_allocated_bytes']))
+     if len(signatures) > 1:
+-        raise ValueError('Runs differ in damage, data, budget, target, or code; analyze separately')
++        raise ValueError('Runs differ in damage, data, budget, target, code or branch point; analyze separately')
+     return rows
+ 
+ 
+--- a/test_experiment.py
++++ b/test_experiment.py
+@@ -323,3 +323,52 @@
+     assert rungs['gap25']['step'] == 2 and rungs['gap50']['step'] == 3
+     assert rungs['gap75']['step'] == 5 and rungs['gap100']['step'] == 6
+     assert ladder(history[:5], 3.0)['gap100'] is None
++
++
++def test_branch_resume_matches_uninterrupted_run(models, tmp_path, monkeypatch):
++    """A trunk checkpoint plus a branch reproduces an uninterrupted run exactly (CPU, joint)."""
++    import numpy as np
++    from safetensors.torch import load_file
++    import run
++    from pruning import sha256
++    teacher, damaged, manifest = models
++    teacher_dir, damaged_dir, data_dir = [tmp_path / x for x in ('teacher', 'damaged', 'data')]
++    teacher.save_pretrained(teacher_dir)
++    damaged.save_pretrained(damaged_dir)
++    record = copy.deepcopy(manifest)
++    record['source_sha256'] = {p.name: sha256(p) for p in teacher_dir.glob('*.safetensors')}
++    record['artifact_sha256'] = {p.name: sha256(p) for p in damaged_dir.iterdir() if p.is_file()}
++    (damaged_dir / 'pruning.json').write_text(json.dumps(record))
++    data_dir.mkdir()
++    arrays = {name: (np.arange(1, 9 * 3 + 1, dtype=np.int32).reshape(3, 9)[:, :8] + 8 * i) % 60 + 1
++              for i, name in enumerate(('train', 'calibration', 'controller', 'validation', 'test'))}
++    np.savez(data_dir / 'tokens.npz', **arrays)
++    (data_dir / 'manifest.json').write_text(json.dumps({'files_sha256': {'tokens.npz': sha256(data_dir / 'tokens.npz')}}))
++
++    def launch(out, budget, *extra):
++        monkeypatch.setattr('sys.argv', ['run.py', '--teacher', str(teacher_dir), '--damaged', str(damaged_dir),
++                                         '--data', str(data_dir), '--output', str(out), '--strategy', 'joint',
++                                         '--device', 'cpu', '--budget-flops', str(budget), '--target-ce', '1',
++                                         '--eval-points', '2', '--eval-sequences', '1', '--warmup-updates', '3',
++                                         *extra])
++        run.main()
++
++    probe = tmp_path / 'probe'
++    launch(probe, 10 ** 12, '--max-steps', '1')
++    cost = json.loads((probe / 'steps.jsonl').read_text().splitlines()[0])['step_flops']
++    # Four steps over three training rows, so the data order reshuffles inside the branch.
++    full, trunk, branch = tmp_path / 'full', tmp_path / 'trunk', tmp_path / 'branch'
++    launch(full, 4 * cost)
++    # A fraction this negative is met at the first evaluation after step 0 (here after step 2).
++    launch(trunk, 4 * cost, '--checkpoint-gaps', '-100')
++    point = trunk / 'checkpoints' / 'gap-10000'
++    meta = json.loads((point / 'checkpoint.json').read_text())
++    assert meta['trunk']['trunk_step'] == 2 and meta['trunk']['trunk_strategy'] == 'joint'
++    launch(branch, 2 * cost, '--init-from', str(point))
++    assert json.loads((branch / 'summary.json').read_text())['steps'] == 2
++    a, b = [load_file(next((x / 'final').glob('*.safetensors'))) for x in (full, branch)]
++    assert a.keys() == b.keys() and all(torch.equal(a[k], b[k]) for k in a)
++    provenance = json.loads((branch / 'provenance.json').read_text())
++    assert provenance['branch']['gap_fraction'] == -100
++    curve = json.loads((branch / 'curve.json').read_text())
++    assert curve[0]['validation']['ce'] == pytest.approx(meta['trunk']['checkpoint_validation_ce'])
+--- a/protocol.json
++++ b/protocol.json
+@@ -126,5 +126,22 @@
+     "training_flops_per_arm": 2000000000000000,
+     "runs": "runs/pilot-mix-2048",
+     "result": "no arm reached the target; best final test CE 6.33 (overlap) from damaged 8.94"
++  },
++  "followup_branching": {
++    "status": "planned follow-up; runs only after the main seven-arm comparison",
++    "question": "Does the best schedule depend on the healing phase (early, mid, late)?",
++    "why_branching": "Independent arms spread their plan over the whole budget, so what an arm does in a phase depends on its budget, and its speed in a phase mixes schedule quality with the state the schedule left behind. Branching from one shared checkpoint removes both confounds.",
++    "design": [
++      "One trunk run saves checkpoints at the first evaluation closing 25%, 50% and 75% of the validation gap (--checkpoint-gaps).",
++      "From each checkpoint, all seven schedules continue with equal budgets and fresh schedules (--init-from); a checkpoint carries weights, Adam state, per-group update counts and the data position.",
++      "Score each branch on the same ladder as the main arms (thresholds from the trunk's damaged start): FLOPs and tokens to the next rung, and gap closed at the end of its budget.",
++      "Then race a composite (best early -> best mid -> best late) against the best single schedule run end to end, over several seeds."
++    ],
++    "open_choices": [
++      "trunk schedule (proposed: the main study's best single schedule)",
++      "branch budget per phase",
++      "seeds per branch point"
++    ],
++    "tested": "test_branch_resume_matches_uninterrupted_run: trunk checkpoint + branch equals an uninterrupted run bit for bit on CPU"
+   }
+ }

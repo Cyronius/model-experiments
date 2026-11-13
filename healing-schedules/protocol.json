@@ -1,0 +1,260 @@
+{
+  "version": 3,
+  "primary_question": "Which of the seven healing schedules work, which heal best (quality at equal budget) and which heal most efficiently (tokens/FLOPs/wall time). Producing a model, reaching stock 0.8B quality, and the damage operator are secondary: they serve the schedule comparison.",
+  "primary_metrics": "headline (user, 2026-11-11): training FLOPs (plus decision FLOPs for adaptive arms) to the confirmed 25% gap rung. Also reported: fraction of the gap closed at equal training FLOPs; FLOPs, tokens and wall time to the 25/50/75/100% rungs; final test CE and downstream scores. Tokens are secondary because arms spend very different FLOPs per token.",
+  "status": "light-student comparison complete (2026-11-13, one seed); write-up in findings.md. Heavy v3 pilot done (runs/pilot-v2, reports/pilot-v2).",
+  "teacher": "Qwen/Qwen3.5-2B",
+  "teacher_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "native": "Qwen/Qwen3.5-0.8B",
+  "native_revision": "2fc06364715b967f1860aea9cf38778875588b17",
+  "primary": {
+    "total_parameters": 752393024,
+    "layers": 24,
+    "hidden_size": 1024,
+    "intermediate_size": 3584,
+    "artifact": "artifacts/damaged-v2-0.8b",
+    "selection": "activation (Minitron-style) on teacher calibration statistics; optional RMSNorm gain rescale kept only if it lowers probe controller CE"
+  },
+  "second_severity": {
+    "total_parameters": 999361600,
+    "layers": 24,
+    "hidden_size": 1280,
+    "intermediate_size": 4224
+  },
+  "strategies": [
+    "layerwise",
+    "fixed",
+    "hierarchical",
+    "overlap",
+    "joint",
+    "adaptive_error",
+    "adaptive_plateau"
+  ],
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "sequence_length": 2048,
+  "batch_sequences": 1,
+  "pilot_training_flops_per_arm": 6000000000000000,
+  "full_study_budget": null,
+  "flop_convention": "PyTorch registered matmul/attention/convolution forward+backward; excludes elementwise, normalization, optimizer; not exact total arithmetic",
+  "target_rule": "native Qwen3.5-0.8B validation CE (held-out biomed+argument), frozen before the first healing arm; two consecutive validation evaluations at or below it. Secondary threshold native + 0.10 nats derived from the same curves.",
+  "controller": {
+    "blocks": "fixed width-4 aligned blocks",
+    "decisions_per_budget": 24,
+    "sequences_per_decision": 3,
+    "decision_flops": "count against the training budget",
+    "adaptive_error": "block with largest added discrepancy sum(max(0, e_i - e_{i-1}))",
+    "adaptive_plateau": "blocks in order, wrapping; move when relative endpoint improvement < 0.01 between decisions or after 2x equal budget share",
+    "min_relative_improvement": 0.01,
+    "max_block_share": 2.0,
+    "adaptive_error_cap": "v3 (2026-11-09): a block that has received max_block_share (2) x its equal share of the budget in total is not eligible; the heavy pilot (no cap) spent ~90% on layers 0-3"
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "lr": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0,
+    "clip_norm": 1.0,
+    "state_policy": "persist per parameter across window changes",
+    "warmup": "linear over each parameter group's first 32 updates (embedding, final norm, each layer)"
+  },
+  "precision": "FP32 trainable weights (decoder layers, tied embedding/head, final norm) and optimizer states; BF16 autocast; teacher BF16",
+  "loss": {
+    "endpoint_relative_mse": 1.0,
+    "final_endpoint_teacher_kl": 1.0,
+    "final_endpoint_ce": 0.1
+  },
+  "trainable_parameters": "all decoder layers; tied embedding/output head when a window touches either end of the stack; final norm when a window ends at the last layer",
+  "evaluation": {
+    "points_per_budget": 10,
+    "pilot_points": 6,
+    "pilot_sequences_per_split": 16,
+    "report_sequences_per_split": 32,
+    "corpus_splits": [
+      "validation (held-out domains, stopping rule)",
+      "test (held-out domains, read after training)",
+      "controller (in-mix unseen items, adaptive controllers)",
+      "test_in_domain (in-mix unseen items, report only)"
+    ],
+    "downstream": {
+      "arc_easy": "validation, all",
+      "arc_challenge": "validation, all",
+      "mmlu": "test, 5 per subject (285)",
+      "gsm8k": "test, fixed hashed order, first 128, greedy, thinking off, 1024 new tokens (v2 baselines used 384)"
+    }
+  },
+  "spending_authorized": false,
+  "data": {
+    "builder": "prepare_data.py",
+    "in_mix": [
+      "chat (UltraChat)",
+      "instruction (K2-Horizon SFT-Reasoning sample, Instruction/Reasoning/Response only)",
+      "math (MATH train)",
+      "math_word (GSM8K train)",
+      "reasoning (OpenThoughts-114k)",
+      "wiki (Wikipedia 20231101.en)",
+      "science (arXiv abstracts)",
+      "code (Python stdlib)",
+      "code_cpp (mlir-aie C++)"
+    ],
+    "held_out": [
+      "biomed (TREC-COVID corpus)",
+      "argument (Touche-2020 corpus)"
+    ],
+    "format": "chat domains through the teacher chat template; instruction/math/math_word/reasoning with non-empty <think> blocks closing into the answer and <|im_end|>",
+    "train_tokens": 12000000,
+    "shares": "equal per in-mix domain; a short domain's shortfall spread over the others",
+    "splits": "item-level salted hash; in-mix 3% controller, 3% test_in_domain, 1% calibration, rest train; held-out domains half validation, half test",
+    "contamination": "items sharing a 13-word n-gram with (or containing a whole 8-12-word) GSM8K test, ARC validation/test or MMLU test question are dropped",
+    "replaces": "WikiText-2 (version 1): too far from what an instruction/thinking chat model is for, and train/validation shared a domain with the stopping rule"
+  },
+  "canary": "every GPU job checks the untouched teacher per-sequence CE on 4 calibration sequences against a CPU FP32 reference (0.05 nats) and the first passing GPU result (0.01 nats), at start and end; failures exit 3 and are rerun in a fresh process",
+  "superseded_primary_v1": {
+    "total_parameters": 799578944,
+    "intermediate_size": 4224,
+    "artifact": "artifacts/damaged-0.8b",
+    "selection": "data-free weight norms",
+    "validation_ce": 8.936
+  },
+  "pilot_v2": {
+    "training_flops_per_arm": 2000000000000000,
+    "runs": "runs/pilot-mix-2048",
+    "result": "no arm reached the target; best final test CE 6.33 (overlap) from damaged 8.94"
+  },
+  "followup_branching": {
+    "status": "planned follow-up; runs only after the main seven-arm comparison",
+    "question": "Does the best schedule depend on the healing phase (early, mid, late)?",
+    "why_branching": "Independent arms spread their plan over the whole budget, so what an arm does in a phase depends on its budget, and its speed in a phase mixes schedule quality with the state the schedule left behind. Branching from one shared checkpoint removes both confounds.",
+    "design": [
+      "One trunk run saves checkpoints at the first evaluation closing 25%, 50% and 75% of the validation gap (--checkpoint-gaps).",
+      "From each checkpoint, all seven schedules continue with equal budgets and fresh schedules (--init-from); a checkpoint carries weights, Adam state, per-group update counts and the data position.",
+      "Score each branch on the same ladder as the main arms (thresholds from the trunk's damaged start): FLOPs and tokens to the next rung, and gap closed at the end of its budget.",
+      "Then race a composite (best early -> best mid -> best late) against the best single schedule run end to end, over several seeds."
+    ],
+    "open_choices": [
+      "trunk schedule (proposed: the main study's best single schedule)",
+      "branch budget per phase",
+      "seeds per branch point"
+    ],
+    "tested": "test_branch_resume_matches_uninterrupted_run: trunk checkpoint + branch equals an uninterrupted run bit for bit on CPU"
+  },
+  "followup_light_damage": {
+    "status": "now the main line of work (user, 2026-11-09): one-seed pilot running via drivers/pilot-light.sh",
+    "question": "Do the schedules rank the same in the fine-tuning end of the gap (the last ~25%), which the heavily damaged 0.8B student cannot reach on a practical budget?",
+    "design": [
+      "Prune the same teacher by at most 25% of non-embedding parameters (user rule, 2026-11-09), with the same activation-based selection and norm rescale. CPU-probed candidates: hidden 1792/FFN 4800 (25.1%), hidden 1792/FFN 5376 (19.7%), hidden 1920/FFN 5248 (15.3%).",
+      "Choose the cut from CPU start-CE probes. One option is to match the heavy student's late-stage loss, so a fresh light cut can be compared with a heavily damaged model healed to the same loss.",
+      "No stock model exists at these sizes, so the 100% rung is the 2B teacher's validation CE (2.55). The gap ladder and efficiency metrics are otherwise unchanged.",
+      "Same seven schedules, same FLOP accounting, seeds as in the main study."
+    ],
+    "relation_to_branching": "Complementary. Branching from a 75% checkpoint studies the late phase of the same heavily damaged model (the residual error left after healing). A light cut studies fresh, diffuse pruning damage of small size.",
+    "note": "Parameter counts include the 248k-token tied embedding.",
+    "chosen_cut": {
+      "hidden_size": 1792,
+      "intermediate_size": 4800,
+      "total_parameters": 1473244736,
+      "non_embedding_cut": 0.251,
+      "artifact": "artifacts/damaged-light-h1792-n1473244736",
+      "note": "user chose ~25% and skipped the size sweep to keep exploration quick"
+    },
+    "target": "2B teacher validation CE (baselines/mix-2048/target-light.json)",
+    "pilot": {
+      "training_flops_per_arm": 6000000000000000.0,
+      "eval_points": 8,
+      "eval_sequences": 32,
+      "optimizer_check": "joint at batch 1/lr 1e-4, batch 1/lr 3e-5, batch 4/lr 1e-4; lowest final controller CE sets batch and lr for all seven arms; that check run is reused as the joint arm",
+      "why_32_sequences": "on the heavy pilot, 16- vs 32-sequence validation CE for the fixed arm differed by 0.2, as large as gaps between arms"
+    }
+  },
+  "followup_local_global": {
+    "status": "running (user, 2026-11-10): drivers/followup-local-global.sh; the remaining 1M-token pilot evaluations are paused",
+    "question": "Light-pilot joint gained fastest early then drifted; fixed was slow but steady. Do combinations of global (whole-network) and local (fixed-block) training beat fixed, and does feeding each block the teacher's stream (no student prefix) heal more per FLOP?",
+    "student": "artifacts/damaged-light-h1792-n1473244736 (light pilot student)",
+    "settings": "as the light pilot: seed 17, 6e15 training FLOPs, lr 3e-5, batch 1, 8 evaluations of 32 sequences; compared with runs/pilot-light/fixed-seed17 and joint-seed17",
+    "arms": {
+      "global_fixed": "schedules.global_fixed: whole network for the first of 7 equal FLOP shares, then the six 4-layer blocks bottom to top",
+      "alternating": "schedules.alternating: fixed sweep; the last 20% of each of 24 equal FLOP slices trains the whole network (about 80/20 local/global by FLOPs)",
+      "fixed-teacher": "fixed, --window-inputs teacher: each block reads the teacher's residual stream after its previous layer, restricted to the student's residual coordinates, and the student prefix is not run (its FLOPs are not spent)",
+      "fixed-ramp": "fixed, --window-inputs ramp: teacher-fed with probability 1 - (position inside the block's FLOP share), so each block starts teacher-fed and ends on its own prefix (BERT-of-Theseus-style progressive replacement applied to window inputs)"
+    },
+    "teacher_inputs_note": "Each training row is used once at this budget, so caching teacher activations would not save teacher FLOPs here; computing them per step is equivalent. The saving measured is the skipped student prefix.",
+    "evaluation": "Always the student's own full stream (cumulative replacement), plus the baseline-format evaluation (evaluate.py, GSM8K at 1024 tokens) of each final model."
+  },
+  "followup_random": {
+    "status": "complete 2026-11-12 (training 2026-11-11/12, evaluations 2026-11-12; all canaries passed)",
+    "question": "Do random windows (every step, or kept until their own loss gains or stalls), a decaying learning rate for joint, or a coarse-to-fine hierarchy beat fixed and joint on training FLOPs to the 25% rung?",
+    "student": "damaged-light-h1792-n1473244736",
+    "settings": "seed 17, 6e15 training FLOPs, lr 3e-5, batch 1, 24 evaluation points (every 0.25e15; includes the pilot's 8)",
+    "arms": {
+      "joint-cosine": "joint, lr cosine-decayed to 0 over the budget",
+      "random": "new random window every step: width uniform 1..24, start uniform",
+      "random_dwell": "random window kept until EMA(0.9) of its training loss is 5% under the mean of its first 5 losses (gain), no 1% new best for 15 steps (stall), or 60 steps (cap); flips logged in controller-decisions.json",
+      "coarse_to_fine": "hierarchical reversed: 6 equal stages of widths 24, 16, 8, 4, 2, 1, each swept bottom to top"
+    },
+    "notes": "coarse_to_fine's first sixth is plain joint, which crosses 25% before it switches, so it ties joint on FLOPs to 25%; it is run for later rungs and final quality (briefly dropped and restored by the user, 2026-11-11). Per-step training loss varies 10-30% at batch 1, so random_dwell triggers are noisy by construction.",
+    "results": {
+      "flops_to_25pct": {
+        "random": "0.50e15",
+        "random_dwell": "0.51e15",
+        "joint-cosine": "0.53e15",
+        "coarse_to_fine": "0.53e15"
+      },
+      "flops_to_40pct": {
+        "joint-cosine": "0.76e15",
+        "coarse_to_fine": "0.76e15",
+        "random": null,
+        "random_dwell": null
+      },
+      "final_validation_ce": {
+        "joint-cosine": 3.142,
+        "random_dwell": 3.282,
+        "random": 3.293,
+        "coarse_to_fine": 3.299
+      },
+      "downstream": {
+        "joint-cosine": {
+          "arc_easy": 0.539,
+          "arc_challenge": 0.314,
+          "mmlu": 0.312,
+          "gsm8k": 0.25,
+          "gsm8k_finished": 82
+        },
+        "random": {
+          "arc_easy": 0.482,
+          "arc_challenge": 0.321,
+          "mmlu": 0.274,
+          "gsm8k": 0.055,
+          "gsm8k_finished": 60
+        },
+        "random_dwell": {
+          "arc_easy": 0.456,
+          "arc_challenge": 0.314,
+          "mmlu": 0.316,
+          "gsm8k": 0.016,
+          "gsm8k_finished": 0
+        },
+        "coarse_to_fine": {
+          "arc_easy": 0.451,
+          "arc_challenge": 0.278,
+          "mmlu": 0.288,
+          "gsm8k": 0.062,
+          "gsm8k_finished": 84
+        }
+      }
+    },
+    "findings": "joint-cosine is the best light-student arm: first to 40% (0.76e15), lowest final loss (3.142, 46.7% of the gap), best ARC-E and GSM8K; plain joint's drift was its constant learning rate. Global-first arms reach 25% by ~0.5e15, block-local arms need >=2.25e15. Narrowing to local windows after global training hurts (coarse_to_fine jumped from 3.187 to 3.331 at the width-16 switch and never recovered). Random windows reach 25% fast but plateau and never reach 40%. One seed; the 25% rung is resolution-limited. Full table in README 'Light-student results'."
+  },
+  "pilot_v3_heavy": {
+    "runs": "runs/pilot-v2",
+    "report": "reports/pilot-v2",
+    "settings": "seed 17, 6e15 training FLOPs, lr 1e-4, batch 1, 6 evaluations of 16 sequences",
+    "result": "best final validation CE adaptive_plateau 4.445 and fixed 4.454 (61% of the gap to stock 0.8B) from 7.055; joint fastest at the first evaluation (5.38) then flat at 4.8-4.95"
+  }
+}

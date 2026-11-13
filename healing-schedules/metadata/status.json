@@ -1,0 +1,22 @@
+{
+ "date": "2026-11-08",
+ "checkpoint_verification": "complete; four official configurations and revisions archived",
+ "primary_damaged_checkpoint": "v3 artifacts/damaged-v2-0.8b (752,393,024, activation selection) being built; v1 damaged-0.8b superseded",
+ "seven_schedule_implementation": "present",
+ "latest_completed_test_run": {
+  "passed": 20,
+  "failed": 0
+ },
+ "additional_tests_pending": [],
+ "native_reference_download": "complete; pinned Qwen3.5-0.8B artifact downloaded and hashed",
+ "dataset_preparation": "complete; data/mix-2048 (protocol v2 corpus)",
+ "real_baselines": "mix-2048 teacher/native/damaged complete (GSM8K 384); GSM8K-1024 reruns queued",
+ "real_healing_runs": 7,
+ "scientific_findings": "v2 pilot: v1 damage (CE 8.94) left too little to heal; no arm near target 2.78 after 2e15 FLOPs",
+ "blocker": "v3 driver drivers/pilot-v2.sh: CPU pruning running, GPU work queued behind other sessions",
+ "spending": 0,
+ "pending_test_command": null,
+ "corpus": "rebuilt (protocol v2): nine in-mix domains incl. K2-Horizon instruction, held-out biomed+argument, 12.0M train tokens at 2048; data/mix-2048",
+ "canary": "CPU FP32 reference + first-pass GPU reference; every GPU job checks at start and end",
+ "target_rule": "native validation CE (no +0.10); secondary +0.10 derived in report.py"
+}
