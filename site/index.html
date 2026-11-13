@@ -202,6 +202,10 @@
   <h2 class="wip" id="in-progress">In progress</h2>
   <div class="list">
     <div class="item">
+      <h3><a href="https://github.com/Cyronius/model-experiments/tree/main/healing-schedules">Healing schedules</a></h3>
+      <p>After pruning Qwen3.5-2B, which way of healing it recovers the most per unit of compute? Of 15 schedules, training the whole network with a decaying learning rate won; healing a few layers at a time took 4–7× the compute to close a quarter of the gap. <a href="https://github.com/Cyronius/model-experiments/blob/main/healing-schedules/findings.md">Findings</a>.</p>
+    </div>
+    <div class="item">
       <h3><a href="https://github.com/Cyronius/model-experiments/tree/main/manifold-compression">Manifold compression</a></h3>
       <p>Project a big model's activations onto a smaller architecture. A Qwen3.5 2B → 0.8B projection beats the stock 0.8B on perplexity, but it loops in open-ended generation.</p>
     </div>
