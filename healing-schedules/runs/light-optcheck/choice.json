@@ -1,0 +1,33 @@
+{
+ "chosen": {
+  "run": "joint-b1-lr3e-5-seed17",
+  "controller_ce": 1.9109879415482283,
+  "validation_ce": 3.3099940419197083,
+  "batch_sequences": 1,
+  "lr": 3e-05
+ },
+ "candidates": [
+  {
+   "run": "joint-b1-lr1e-4-seed17",
+   "controller_ce": 2.7044905312359333,
+   "validation_ce": 4.234203971922398,
+   "batch_sequences": 1,
+   "lr": 0.0001
+  },
+  {
+   "run": "joint-b1-lr3e-5-seed17",
+   "controller_ce": 1.9109879415482283,
+   "validation_ce": 3.3099940419197083,
+   "batch_sequences": 1,
+   "lr": 3e-05
+  },
+  {
+   "run": "joint-b4-lr1e-4-seed17",
+   "controller_ce": 2.044102381914854,
+   "validation_ce": 3.708599328994751,
+   "batch_sequences": 4,
+   "lr": 0.0001
+  }
+ ],
+ "rule": "lowest final controller CE (in-mix held-out); validation is reported, not used"
+}
