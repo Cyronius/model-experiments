@@ -1,0 +1,632 @@
+{
+ "args": {
+  "shards": [
+   "manifold-compression/results/heal-shards-pod-20261105/mc-shard-ec420510e5b4/shards/shard_000",
+   "manifold-compression/results/heal-shards-pod-20261105/mc-shard-d65446e1cd6b/shards/shard_001",
+   "manifold-compression/results/heal-shards-pod-20261105/mc-shard-1135ab4d74a4/shards/shard_002"
+  ],
+  "out": "memdraft/results/study-9b-math-to-chat.json",
+  "K": 6,
+  "n_max": 8,
+  "pad_to": 0,
+  "cost": null,
+  "labels": [
+   "top"
+  ],
+  "modes": [
+   "greedy"
+  ],
+  "policies": [
+   "static",
+   "both"
+  ],
+  "fractions": [
+   1.0
+  ],
+  "min_counts": [
+   1
+  ],
+  "train_sources": [
+   "gsm8k",
+   "math",
+   "openthoughts"
+  ],
+  "test_sources": [
+   "chat"
+  ],
+  "limit": null,
+  "cache": "target/memdraft/cache"
+ },
+ "configs": {
+  "top@8.9M static greedy": {
+   "train_tokens": 8853839,
+   "labels": "top",
+   "policy": "static",
+   "mode": "greedy",
+   "min_count": 1,
+   "entries_total": 13113905,
+   "entries_kept": {
+    "0.1": 12790654,
+    "0.3": 8506204,
+    "0.5": 1185105
+   },
+   "by_cost": {
+    "b0.0": {
+     "rule": [
+      "tau",
+      0.02
+     ],
+     "cost": {
+      "beta": 0.0,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1743183599389515,
+      "tokens_per_step": 1.1743183599389515,
+      "drafted_per_step": 1.5685680937299962,
+      "acceptance": 0.11114336040813325,
+      "rejected_per_step": 0.8124811896828561,
+      "reshaped_per_step": 0.6568684965954281,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.1222695929842423,
+       "tokens_per_step": 1.1222695929842423,
+       "drafted_per_step": 1.4812515908091723,
+       "acceptance": 0.08255747653879349,
+       "rejected_per_step": 0.8113502788254622,
+       "reshaped_per_step": 0.6510704699539533,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.23258803529507,
+       "tokens_per_step": 1.23258803529507,
+       "drafted_per_step": 1.6663207318060391,
+       "acceptance": 0.13959150915805726,
+       "rejected_per_step": 0.813747267870153,
+       "reshaped_per_step": 0.6633595078118676,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.05": {
+     "rule": [
+      "tau",
+      0.1
+     ],
+     "cost": {
+      "beta": 0.05,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1040581836650485,
+      "tokens_per_step": 1.14572601416613,
+      "drafted_per_step": 0.7548122212682741,
+      "acceptance": 0.19308531488416777,
+      "rejected_per_step": 0.45532690610765303,
+      "reshaped_per_step": 0.577134160883356,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0635010519645258,
+       "tokens_per_step": 1.0993360221108746,
+       "drafted_per_step": 0.6739056831237419,
+       "acceptance": 0.1474307768631177,
+       "rejected_per_step": 0.4392014699028329,
+       "reshaped_per_step": 0.5650682748332972,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.148711281854317,
+       "tokens_per_step": 1.1972228119422232,
+       "drafted_per_step": 0.8446252919114005,
+       "acceptance": 0.23352194126529296,
+       "rejected_per_step": 0.4732274982504973,
+       "reshaped_per_step": 0.590528310491512,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.071511016170879,
+      "tokens_per_step": 1.1133573097373846,
+      "drafted_per_step": 0.39053535553975155,
+      "acceptance": 0.29030026777832996,
+      "rejected_per_step": 0.21131632196361244,
+      "reshaped_per_step": 0.39068744106685827,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0377527290525244,
+       "tokens_per_step": 1.0712680427172028,
+       "drafted_per_step": 0.3229604965267424,
+       "acceptance": 0.22072237657619148,
+       "rejected_per_step": 0.19272714221029497,
+       "reshaped_per_step": 0.3587864029420535,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.1082594962414487,
+       "tokens_per_step": 1.159805609299066,
+       "drafted_per_step": 0.4651086973080849,
+       "acceptance": 0.343617139750149,
+       "rejected_per_step": 0.23183071555887327,
+       "reshaped_per_step": 0.4258923538642007,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.15": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.15,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.051745726076764,
+      "tokens_per_step": 1.1133573097373846,
+      "drafted_per_step": 0.39053535553975155,
+      "acceptance": 0.29030026777832996,
+      "rejected_per_step": 0.21131632196361244,
+      "reshaped_per_step": 0.39068744106685827,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0217693711984905,
+       "tokens_per_step": 1.0712680427172028,
+       "drafted_per_step": 0.3229604965267424,
+       "acceptance": 0.22072237657619148,
+       "rejected_per_step": 0.19272714221029497,
+       "reshaped_per_step": 0.3587864029420535,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.084167265613062,
+       "tokens_per_step": 1.159805609299066,
+       "drafted_per_step": 0.4651086973080849,
+       "acceptance": 0.343617139750149,
+       "rejected_per_step": 0.23183071555887327,
+       "reshaped_per_step": 0.4258923538642007,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.2": {
+     "rule": [
+      "tau",
+      0.4
+     ],
+     "cost": {
+      "beta": 0.2,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.039334069434157,
+      "tokens_per_step": 1.075543534534627,
+      "drafted_per_step": 0.17419550732221964,
+      "acceptance": 0.4336790020322428,
+      "rejected_per_step": 0.08121255285626733,
+      "reshaped_per_step": 0.1815072326683215,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0170607991658198,
+       "tokens_per_step": 1.0438332541957491,
+       "drafted_per_step": 0.13161678757006368,
+       "acceptance": 0.33305739514348787,
+       "rejected_per_step": 0.07187620639978694,
+       "reshaped_per_step": 0.1544474201371748,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.0630646380633186,
+       "tokens_per_step": 1.109912715386847,
+       "drafted_per_step": 0.22034444400707373,
+       "acceptance": 0.49882226839047755,
+       "rejected_per_step": 0.09133175005139106,
+       "reshaped_per_step": 0.21083600493937313,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.3": {
+     "rule": [
+      "tau",
+      0.6
+     ],
+     "cost": {
+      "beta": 0.3,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.030741014022011,
+      "tokens_per_step": 1.0528707072256678,
+      "drafted_per_step": 0.07156564356001666,
+      "acceptance": 0.7387721900569405,
+      "rejected_per_step": 0.013495392184794758,
+      "reshaped_per_step": 0.07945878717482303,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.016626035319861,
+       "tokens_per_step": 1.02982576973046,
+       "drafted_per_step": 0.04327954741799738,
+       "acceptance": 0.68914236654095,
+       "rejected_per_step": 0.010092323862075555,
+       "reshaped_per_step": 0.05394914424259797,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.0455378949600467,
+       "tokens_per_step": 1.0774471578083316,
+       "drafted_per_step": 0.10173156803498518,
+       "acceptance": 0.7612893352995187,
+       "rejected_per_step": 0.017124620533976804,
+       "reshaped_per_step": 0.10666374180034957,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.5": {
+     "rule": [
+      "tau",
+      0.7
+     ],
+     "cost": {
+      "beta": 0.5,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0172384359156579,
+      "tokens_per_step": 1.0448106283029948,
+      "drafted_per_step": 0.05420989104195211,
+      "acceptance": 0.8266135098540695,
+      "rejected_per_step": 0.007561547160783802,
+      "reshaped_per_step": 0.068666269763598,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0082968169873283,
+       "tokens_per_step": 1.0236232520653363,
+       "drafted_per_step": 0.030400641596393132,
+       "acceptance": 0.7770642599904543,
+       "rejected_per_step": 0.005513719003467839,
+       "reshaped_per_step": 0.045395846771374565,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.0265175290217714,
+       "tokens_per_step": 1.067329517176212,
+       "drafted_per_step": 0.07951542375186287,
+       "acceptance": 0.8467478886400903,
+       "rejected_per_step": 0.00973807030309148,
+       "reshaped_per_step": 0.09339911367577805,
+       "tokens": 761308
+      }
+     }
+    }
+   }
+  },
+  "top@8.9M both greedy": {
+   "train_tokens": 8853839,
+   "labels": "top",
+   "policy": "both",
+   "mode": "greedy",
+   "min_count": 1,
+   "entries_total": 13113905,
+   "entries_kept": {
+    "0.1": 12790654,
+    "0.3": 8506204,
+    "0.5": 1185105
+   },
+   "by_cost": {
+    "b0.0": {
+     "rule": [
+      "tau",
+      0.02
+     ],
+     "cost": {
+      "beta": 0.0,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.2704869056857315,
+      "tokens_per_step": 1.2704869056857315,
+      "drafted_per_step": 2.370996893462884,
+      "acceptance": 0.11409266375621956,
+      "rejected_per_step": 0.8620033073587493,
+      "reshaped_per_step": 0.7839316247792408,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.191097672348296,
+       "tokens_per_step": 1.191097672348296,
+       "drafted_per_step": 2.2421064749084825,
+       "acceptance": 0.08524842445675762,
+       "rejected_per_step": 0.8563701526442216,
+       "reshaped_per_step": 0.7845437173357482,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.3630956430814627,
+       "tokens_per_step": 1.3630956430814627,
+       "drafted_per_step": 2.521349509591523,
+       "acceptance": 0.14401342414371732,
+       "rejected_per_step": 0.8685744672470161,
+       "reshaped_per_step": 0.7832176095854356,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.05": {
+     "rule": [
+      "tau",
+      0.1
+     ],
+     "cost": {
+      "beta": 0.05,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1633879754954815,
+      "tokens_per_step": 1.2401480763227122,
+      "drafted_per_step": 1.3195959120092995,
+      "acceptance": 0.1820050225820571,
+      "rejected_per_step": 0.6592155246198264,
+      "reshaped_per_step": 0.7032076480823729,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.1021355582510226,
+       "tokens_per_step": 1.1670057822592166,
+       "drafted_per_step": 1.1771732346815247,
+       "acceptance": 0.14190084302210457,
+       "rejected_per_step": 0.6379538772717361,
+       "reshaped_per_step": 0.6951012459302369,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.2332516330935945,
+       "tokens_per_step": 1.3247834394239437,
+       "drafted_per_step": 1.4843978937330553,
+       "acceptance": 0.21880630643832066,
+       "rejected_per_step": 0.6838180786752653,
+       "reshaped_per_step": 0.7125878336285772,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1107836387147902,
+      "tokens_per_step": 1.2075349282191419,
+      "drafted_per_step": 0.8710183165489891,
+      "acceptance": 0.23829315999686176,
+      "rejected_per_step": 0.5187222480993409,
+      "reshaped_per_step": 0.6237052385848524,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0619733278447738,
+       "tokens_per_step": 1.1415840287860801,
+       "drafted_per_step": 0.7496487798132612,
+       "acceptance": 0.18891424691566375,
+       "rejected_per_step": 0.4940722858954386,
+       "reshaped_per_step": 0.6135165709729572,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.1653817446161552,
+       "tokens_per_step": 1.2830932790416256,
+       "drafted_per_step": 1.0100684601357068,
+       "acceptance": 0.28027972074645596,
+       "rejected_per_step": 0.5469631137732625,
+       "reshaped_per_step": 0.6353781487111899,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.15": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.15,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0840211094609404,
+      "tokens_per_step": 1.1469757447792708,
+      "drafted_per_step": 0.387167339386569,
+      "acceptance": 0.37962970100128723,
+      "rejected_per_step": 0.18122775734334082,
+      "reshaped_per_step": 0.33828385546842943,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0464582995366158,
+       "tokens_per_step": 1.0924414937946259,
+       "drafted_per_step": 0.292944906187355,
+       "acceptance": 0.31557853662287233,
+       "rejected_per_step": 0.15722486879744127,
+       "reshaped_per_step": 0.2947397909768678,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.1251904179654946,
+       "tokens_per_step": 1.208467597281175,
+       "drafted_per_step": 0.4934108810148926,
+       "acceptance": 0.42250947438858827,
+       "rejected_per_step": 0.2082929880091051,
+       "reshaped_per_step": 0.3873833689430425,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.2": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.2,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0645443816024802,
+      "tokens_per_step": 1.1469757447792708,
+      "drafted_per_step": 0.387167339386569,
+      "acceptance": 0.37962970100128723,
+      "rejected_per_step": 0.18122775734334082,
+      "reshaped_per_step": 0.33828385546842943,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0319789013084018,
+       "tokens_per_step": 1.0924414937946259,
+       "drafted_per_step": 0.292944906187355,
+       "acceptance": 0.31557853662287233,
+       "rejected_per_step": 0.15722486879744127,
+       "reshaped_per_step": 0.2947397909768678,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.099924640133521,
+       "tokens_per_step": 1.208467597281175,
+       "drafted_per_step": 0.4934108810148926,
+       "acceptance": 0.42250947438858827,
+       "rejected_per_step": 0.2082929880091051,
+       "reshaped_per_step": 0.3873833689430425,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.3": {
+     "rule": [
+      "tau",
+      0.5
+     ],
+     "cost": {
+      "beta": 0.3,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0425227199041163,
+      "tokens_per_step": 1.0997490499954217,
+      "drafted_per_step": 0.18297388631993408,
+      "acceptance": 0.5451545682371753,
+      "rejected_per_step": 0.07053354775203736,
+      "reshaped_per_step": 0.17578733060159327,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0219249168618836,
+       "tokens_per_step": 1.0595534413524832,
+       "drafted_per_step": 0.12273740751309734,
+       "acceptance": 0.48521019434216234,
+       "rejected_per_step": 0.05363728340075997,
+       "reshaped_per_step": 0.13293537283537296,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.064390993834063,
+       "tokens_per_step": 1.1439862837290586,
+       "drafted_per_step": 0.24926707809468854,
+       "acceptance": 0.5776385908225025,
+       "rejected_per_step": 0.08912871325811023,
+       "reshaped_per_step": 0.22294800649749733,
+       "tokens": 761308
+      }
+     }
+    },
+    "b0.5": {
+     "rule": [
+      "tau",
+      0.6
+     ],
+     "cost": {
+      "beta": 0.5,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0180464606216448,
+      "tokens_per_step": 1.0783742378626202,
+      "drafted_per_step": 0.11851674667998507,
+      "acceptance": 0.6612925182146937,
+      "rejected_per_step": 0.034881551295037304,
+      "reshaped_per_step": 0.11291558057121373,
+      "tokens": 1537326
+     },
+     "domains": {
+      "chat/plain": {
+       "speedup": 1.0082797859534032,
+       "tokens_per_step": 1.045957723261641,
+       "drafted_per_step": 0.07473706769319105,
+       "acceptance": 0.6149254269689264,
+       "rejected_per_step": 0.02542993121909206,
+       "reshaped_per_step": 0.08121349847220931,
+       "tokens": 776018
+      },
+      "chat/think": {
+       "speedup": 1.028198517346025,
+       "tokens_per_step": 1.1135524920466595,
+       "drafted_per_step": 0.1660262551651004,
+       "acceptance": 0.6839429819924587,
+       "rejected_per_step": 0.04513840640655282,
+       "reshaped_per_step": 0.1473185358540242,
+       "tokens": 761308
+      }
+     }
+    }
+   }
+  }
+ }
+}
