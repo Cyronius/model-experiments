@@ -78,6 +78,7 @@ def main() -> None:
     ap.add_argument("--per-kind", type=int, default=60)
     ap.add_argument("--jobs", type=int, default=8)
     ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--kinds", default="", help="comma list: score only these kinds (same sample as a full run)")
     a = ap.parse_args()
     rows = [json.loads(l) for l in a.tasks.open()]
     by = collections.defaultdict(list)
@@ -85,6 +86,8 @@ def main() -> None:
         by[e["kind"]].append(e)
     rng = random.Random(a.seed)
     pick = [e for k in sorted(by) for e in rng.sample(by[k], min(a.per_kind, len(by[k])))]
+    if a.kinds:
+        pick = [e for e in pick if e["kind"] in a.kinds.split(",")]
 
     def run(e):
         gold = e["messages"][-1]["content"]
@@ -97,7 +100,7 @@ def main() -> None:
     with ThreadPoolExecutor(a.jobs) as pool:
         res = list(pool.map(run, pick))
     summ = {}
-    for k in sorted(by):
+    for k in sorted({r["kind"] for r in res}):
         rs = [r for r in res if r["kind"] == k]
         if not rs:
             continue
