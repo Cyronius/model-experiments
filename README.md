@@ -26,6 +26,7 @@ Total cloud spend: about $80 for Qwen3.6 and $8 for Qwen3.8.
 | [`ternary-embedder/`](ternary-embedder/) | A text-embedding model with ternary weights and int8 activations, sized for the Strix NPU | The first training grid is done. The 2 × 384 model matches all-MiniLM-L6-v2 on STS and is 5.1 points lower on retrieval. No NPU engine yet. |
 | [`sprite-diffusion/`](sprite-diffusion/) | A 24M-parameter diffusion transformer for 32x32 RGBA pixel-art sprites on the AMD XDNA2 NPU | Generates 64-sprite sheets in about 5 seconds at 8 steps. Sampling defaults are 16 steps normally and 8 for fast mode; data coverage and balanced training are ongoing. Weights stay local. See [README](sprite-diffusion/README.md). |
 | [`npu-kernel-coder/`](npu-kernel-coder/) | Fine-tune a small open MoE to write AMD XDNA2 NPU kernels | Scoping only. See [plan.md](npu-kernel-coder/plan.md). |
+| [`flux-conditioning/`](flux-conditioning/) | Can a small encoder replace FLUX.2 Klein 4B's Qwen3-4B text encoder, with the image model frozen? | The teacher-target exporter matches the upstream pipeline exactly on 12/12 cases. A 5.6M-parameter enricher drew appended details on a toy set. No compact encoder is trained yet. See [README](flux-conditioning/README.md). |
 
 ## Failed experiments
 
