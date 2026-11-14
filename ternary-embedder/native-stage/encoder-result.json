@@ -1,0 +1,393 @@
+{
+  "utc": "2026-10-23T20:42:02.562078+00:00",
+  "scope": "Complete hybrid encoder: 12 NPU ternary projections, CPU attention/nonlinear ops/pooling",
+  "checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+  "runtime_dll": "C:\\code\\.oflm-retired-worktrees\\files\\openflowlm-tiny\\open_kernels\\designs\\tiny_planner\\host\\out\\td_npu.dll",
+  "runtime_sha256": "ee63246dbed9bfeacff726f5735a5ce2a099a1953fcf7b5e6df818be0fd53996",
+  "threads": 2,
+  "builds": {
+    "(384, 384)": {
+      "k": 384,
+      "n": 384,
+      "rows": 128,
+      "groups": 1,
+      "weight_residency": "streamed from host for each dispatch",
+      "mlir_aie": "1.4.2",
+      "llvm_aie": "21.0.0.2026080301+c9c5ecb7",
+      "source_sha256": {
+        "projection.cc": "f0dc49f7986f6b343a227354ef101ff0bf264213c9fa47caddbe0e627aa405ed",
+        "array_design.py": "43523c51fa0dedf77ee53bc6163e45e9b6426bbb7eab8ce2dae6fa12cf950e75"
+      },
+      "artifact_sha256": {
+        "final.xclbin": "3c4351626951b9c56e6a52d5ad8d606af24d4c75bd27aa85122bce78c95b924a",
+        "insts.bin": "5db6ab99871c1b6828019159b46f1608a91a832b850aaa3da5ecd45e3020ca81"
+      },
+      "resources": {
+        "cores": 32,
+        "program_text_bytes": 1408,
+        "stack_bytes_per_core": 4096,
+        "activation_buffer_bytes": 1536,
+        "weight_buffer_bytes": 3072,
+        "output_buffer_bytes": 512,
+        "memtile_buffer_bytes_per_column": 8192,
+        "shim_mm2s_channels": 9,
+        "shim_s2mm_channels": 8
+      },
+      "build_seconds": 9.428913399999146
+    },
+    "(384, 1536)": {
+      "k": 384,
+      "n": 1536,
+      "rows": 128,
+      "groups": 1,
+      "weight_residency": "streamed from host for each dispatch",
+      "mlir_aie": "1.4.2",
+      "llvm_aie": "21.0.0.2026080301+c9c5ecb7",
+      "source_sha256": {
+        "projection.cc": "f0dc49f7986f6b343a227354ef101ff0bf264213c9fa47caddbe0e627aa405ed",
+        "array_design.py": "43523c51fa0dedf77ee53bc6163e45e9b6426bbb7eab8ce2dae6fa12cf950e75"
+      },
+      "artifact_sha256": {
+        "final.xclbin": "7a3044e466072329ea9fe4ce763210461f2071c06b30f88e7ec5194e1448bef8",
+        "insts.bin": "ab092f15e4e51a124d45eee464419cb54a08b92b92af7836e1c0e00f50512c5a"
+      },
+      "resources": {
+        "cores": 32,
+        "program_text_bytes": 976,
+        "stack_bytes_per_core": 4096,
+        "activation_buffer_bytes": 1536,
+        "weight_buffer_bytes": 3072,
+        "output_buffer_bytes": 512,
+        "memtile_buffer_bytes_per_column": 8192,
+        "shim_mm2s_channels": 9,
+        "shim_s2mm_channels": 8
+      },
+      "build_seconds": 7.255333199998859
+    },
+    "(1536, 384)": {
+      "k": 1536,
+      "n": 384,
+      "rows": 128,
+      "groups": 6,
+      "weight_residency": "streamed from host for each dispatch",
+      "mlir_aie": "1.4.2",
+      "llvm_aie": "21.0.0.2026080301+c9c5ecb7",
+      "source_sha256": {
+        "projection.cc": "f0dc49f7986f6b343a227354ef101ff0bf264213c9fa47caddbe0e627aa405ed",
+        "array_design.py": "43523c51fa0dedf77ee53bc6163e45e9b6426bbb7eab8ce2dae6fa12cf950e75"
+      },
+      "artifact_sha256": {
+        "final.xclbin": "9c4a8b09fc84d2af37942d0f6c7112d15f7f15e360405e903eb464e456be5ad6",
+        "insts.bin": "82c404d51266f04148497a9b024523a43b1cc4dcea030c19e5ba9fef1a3fad70"
+      },
+      "resources": {
+        "cores": 32,
+        "program_text_bytes": 1504,
+        "stack_bytes_per_core": 4096,
+        "activation_buffer_bytes": 6144,
+        "weight_buffer_bytes": 12288,
+        "output_buffer_bytes": 3072,
+        "memtile_buffer_bytes_per_column": 36864,
+        "shim_mm2s_channels": 9,
+        "shim_s2mm_channels": 8
+      },
+      "build_seconds": 7.750053100000514
+    }
+  },
+  "verification": {
+    "cap8": {
+      "texts": 4,
+      "token_rows": 32,
+      "max_vector_abs_error": 5.960464477539063e-08,
+      "min_cosine": 1.0,
+      "max_state_abs_errors": [
+        0.0,
+        4.76837158203125e-07,
+        4.76837158203125e-07
+      ]
+    },
+    "cap32": {
+      "texts": 4,
+      "token_rows": 128,
+      "max_vector_abs_error": 5.960464477539063e-08,
+      "min_cosine": 1.0,
+      "max_state_abs_errors": [
+        0.0,
+        7.152557373046875e-07,
+        4.76837158203125e-07
+      ]
+    },
+    "cap128": {
+      "texts": 4,
+      "token_rows": 512,
+      "max_vector_abs_error": 8.535571396350861e-07,
+      "min_cosine": 0.9999998807907104,
+      "max_state_abs_errors": [
+        0.0,
+        9.5367431640625e-07,
+        0.00018918514251708984
+      ]
+    }
+  },
+  "benchmarks": [
+    {
+      "cap": 32,
+      "batch": 4,
+      "texts": 4,
+      "padding": "fixed max_length",
+      "npu_forward": {
+        "samples_ms": [
+          30.949500000133412,
+          30.24379999988014,
+          31.420700001035584,
+          30.19739999945159,
+          31.24050000042189,
+          30.14189999885275,
+          29.958999999507796,
+          30.28939999785507,
+          30.361500001163222
+        ],
+        "median_ms": 30.28939999785507,
+        "p95_ms": 31.348620000790106,
+        "embeddings_per_second": 132.05940032761487
+      },
+      "npu_profile": {
+        "(384, 384)": {
+          "dispatches": 80,
+          "dispatch_sum_ms": 62.7621,
+          "host_phase_seconds": {
+            "quantize_pack": 0.015869699989707442,
+            "transfer_dispatch": 0.06457369998679496,
+            "dequantize": 0.01498350000474602
+          }
+        },
+        "(384, 1536)": {
+          "dispatches": 20,
+          "dispatch_sum_ms": 47.5133,
+          "host_phase_seconds": {
+            "quantize_pack": 0.003192599990143208,
+            "transfer_dispatch": 0.0480193000039435,
+            "dequantize": 0.015930400000797817
+          }
+        },
+        "(1536, 384)": {
+          "dispatches": 20,
+          "dispatch_sum_ms": 48.462399999999995,
+          "host_phase_seconds": {
+            "quantize_pack": 0.009280699992814334,
+            "transfer_dispatch": 0.049255199995968724,
+            "dequantize": 0.04273190000458271
+          }
+        }
+      },
+      "npu_text_to_vector": {
+        "samples_ms": [
+          35.325500000908505,
+          36.056699998880504,
+          33.81230000013602,
+          34.5190999978513,
+          34.46030000122846,
+          34.62969999964116,
+          33.52120000272407,
+          36.57999999995809,
+          34.51919999861275
+        ],
+        "median_ms": 34.51919999861275,
+        "p95_ms": 36.370679999527056,
+        "embeddings_per_second": 115.87754061973486
+      },
+      "cpu_student_forward": {
+        "samples_ms": [
+          16.684199999872362,
+          16.541000000870554,
+          16.531599998415913,
+          16.375600000174018,
+          16.41380000000936,
+          16.253499998128973,
+          16.299399998388253,
+          16.17179999811924,
+          16.378199998143828
+        ],
+        "median_ms": 16.378199998143828,
+        "p95_ms": 16.62692000027164,
+        "embeddings_per_second": 244.22708236883952
+      },
+      "cpu_minilm_forward": {
+        "samples_ms": [
+          40.27309999946738,
+          40.13880000275094,
+          39.98839999985648,
+          40.20459999810555,
+          40.34310000133701,
+          40.32980000192765,
+          40.796099998260615,
+          40.3108999998949,
+          32.813900001201546
+        ],
+        "median_ms": 40.27309999946738,
+        "p95_ms": 40.61489999949117,
+        "embeddings_per_second": 99.32187986653376
+      },
+      "cpu_minilm_text_to_vector": {
+        "samples_ms": [
+          31.295200002205092,
+          44.604499998968095,
+          45.042099998681806,
+          45.24880000099074,
+          45.93319999912637,
+          34.85509999882197,
+          45.42249999940395,
+          45.73050000180956,
+          45.710299997153925
+        ],
+        "median_ms": 45.24880000099074,
+        "p95_ms": 45.85212000019965,
+        "embeddings_per_second": 88.40013436626869
+      }
+    },
+    {
+      "cap": 128,
+      "batch": 1,
+      "texts": 1,
+      "padding": "fixed max_length",
+      "npu_forward": {
+        "samples_ms": [
+          33.53359999891836,
+          34.084599999914644,
+          32.911099999182625,
+          33.32109999973909,
+          33.77539999928558,
+          33.66250000181026,
+          32.43049999946379,
+          33.6098999978276,
+          35.802499998681014
+        ],
+        "median_ms": 33.6098999978276,
+        "p95_ms": 35.115339999174466,
+        "embeddings_per_second": 29.753138214176055
+      },
+      "npu_profile": {
+        "(384, 384)": {
+          "dispatches": 80,
+          "dispatch_sum_ms": 65.2473,
+          "host_phase_seconds": {
+            "quantize_pack": 0.019589800001995172,
+            "transfer_dispatch": 0.06829089998427662,
+            "dequantize": 0.018880799987528007
+          }
+        },
+        "(384, 1536)": {
+          "dispatches": 20,
+          "dispatch_sum_ms": 47.471700000000006,
+          "host_phase_seconds": {
+            "quantize_pack": 0.004004300008091377,
+            "transfer_dispatch": 0.04823469999246299,
+            "dequantize": 0.017445800000132294
+          }
+        },
+        "(1536, 384)": {
+          "dispatches": 20,
+          "dispatch_sum_ms": 48.8021,
+          "host_phase_seconds": {
+            "quantize_pack": 0.010160899993934436,
+            "transfer_dispatch": 0.049852699990879046,
+            "dequantize": 0.04341460000068764
+          }
+        }
+      },
+      "npu_text_to_vector": {
+        "samples_ms": [
+          35.485699998389464,
+          35.90180000173859,
+          35.466000001179054,
+          35.35750000082771,
+          34.92259999984526,
+          33.58999999909429,
+          33.965500002523186,
+          35.48890000092797,
+          35.221899997850414
+        ],
+        "median_ms": 35.35750000082771,
+        "p95_ms": 35.736640001414344,
+        "embeddings_per_second": 28.282542599917704
+      },
+      "cpu_student_forward": {
+        "samples_ms": [
+          14.178400000673719,
+          14.761900001758477,
+          14.488199998595519,
+          14.408499999262858,
+          12.956400001712609,
+          13.002799998503178,
+          12.860199996794108,
+          13.449000001855893,
+          12.822600001527462
+        ],
+        "median_ms": 13.449000001855893,
+        "p95_ms": 14.652420000493294,
+        "embeddings_per_second": 74.354970619526
+      },
+      "cpu_minilm_forward": {
+        "samples_ms": [
+          38.3776000016951,
+          41.913699998985976,
+          33.99870000066585,
+          43.261200000415556,
+          45.08059999716352,
+          37.98340000139433,
+          60.488299997814465,
+          39.849600001616636,
+          38.52610000103596
+        ],
+        "median_ms": 39.849600001616636,
+        "p95_ms": 54.32521999755408,
+        "embeddings_per_second": 25.094354772932014
+      },
+      "cpu_minilm_text_to_vector": {
+        "samples_ms": [
+          45.380600000498816,
+          45.09939999843482,
+          46.109399998385925,
+          46.37849999926402,
+          45.719699999608565,
+          45.18199999802164,
+          45.89510000005248,
+          40.48019999754615,
+          32.62199999880977
+        ],
+        "median_ms": 45.380600000498816,
+        "p95_ms": 46.27085999891278,
+        "embeddings_per_second": 22.0358479171498
+      }
+    }
+  ],
+  "verification_profile": {
+    "(384, 384)": {
+      "dispatches": 80,
+      "dispatch_sum_ms": 63.7417,
+      "host_phase_seconds": {
+        "quantize_pack": 0.01889409999057534,
+        "transfer_dispatch": 0.06616969999231515,
+        "dequantize": 0.015975399994204054
+      }
+    },
+    "(384, 1536)": {
+      "dispatches": 20,
+      "dispatch_sum_ms": 48.798700000000004,
+      "host_phase_seconds": {
+        "quantize_pack": 0.003963399998610839,
+        "transfer_dispatch": 0.04952830000547692,
+        "dequantize": 0.01685640000141575
+      }
+    },
+    "(1536, 384)": {
+      "dispatches": 20,
+      "dispatch_sum_ms": 49.95290000000001,
+      "host_phase_seconds": {
+        "quantize_pack": 0.010980600010952912,
+        "transfer_dispatch": 0.051098899992211955,
+        "dequantize": 0.04443949999040342
+      }
+    }
+  }
+}

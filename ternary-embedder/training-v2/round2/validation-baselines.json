@@ -1,0 +1,73 @@
+{
+  "data_sha256": "710e362e2bdac67eb2087f87fe8f071b1cccd16f86ab4cb8e811f8b35bbe7216",
+  "train_rows": 47409,
+  "validation_rows": 2501,
+  "models": {
+    "original": {
+      "mrr": 0.8638433515482695,
+      "recall1": 0.7297081167532987,
+      "queries": 2501,
+      "by_source": {
+        "sentence-transformers/quora-duplicates": {
+          "mrr": 0.9797979797979798,
+          "recall1": 0.9595959595959596,
+          "queries": 594
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "mrr": 0.7547854344729344,
+          "recall1": 0.5120192307692307,
+          "queries": 1248
+        },
+        "sentence-transformers/all-nli": {
+          "mrr": 0.9658573596358119,
+          "recall1": 0.9347496206373292,
+          "queries": 659
+        }
+      }
+    },
+    "bge_micro": {
+      "mrr": 0.8498476932903163,
+      "recall1": 0.7069172331067572,
+      "queries": 2501,
+      "by_source": {
+        "sentence-transformers/quora-duplicates": {
+          "mrr": 0.9753086419753088,
+          "recall1": 0.9511784511784511,
+          "queries": 594
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "mrr": 0.7510471966601775,
+          "recall1": 0.5072115384615384,
+          "queries": 1248
+        },
+        "sentence-transformers/all-nli": {
+          "mrr": 0.9238677483366405,
+          "recall1": 0.8649468892261002,
+          "queries": 659
+        }
+      }
+    },
+    "minilm": {
+      "mrr": 0.9173713847794216,
+      "recall1": 0.8364654138344663,
+      "queries": 2501,
+      "by_source": {
+        "sentence-transformers/quora-duplicates": {
+          "mrr": 0.9907407407407407,
+          "recall1": 0.9814814814814815,
+          "queries": 594
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "mrr": 0.8562867254273504,
+          "recall1": 0.7139423076923077,
+          "queries": 1248
+        },
+        "sentence-transformers/all-nli": {
+          "mrr": 0.9669195751138089,
+          "recall1": 0.9377845220030349,
+          "queries": 659
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "utc": "2026-10-25T12:29:36.961006+00:00",
+  "pool_rows": 300000,
+  "warmup_steps": 100,
+  "retrieval_updates": 2008,
+  "aux_batch": 192,
+  "warmup_unique_pairs": 19200,
+  "encoder_pair_exposures": 385440,
+  "encoder_distinct_pairs": 287456,
+  "head_distinct_pairs": 300000,
+  "previous_encoder_distinct_pairs": 98176,
+  "encoder_distinct_increase_factor": 2.9279661016949152,
+  "correction": "The training-only classifier covers the full300k pool. Encoder supervision excludes warmup-only examples and sees the listed distinct count, not all300k. Nominal update*batch counts also overcount the partial last auxiliary batch by96. Original prepared job plans remain immutable; this erratum records actual sampler behavior.",
+  "verified_on_remote_runtime": {
+    "numpy": "2.1.2",
+    "encoder_distinct_pairs": 287456,
+    "encoder_pair_exposures": 385440,
+    "head_distinct_pairs": 300000
+  }
+}

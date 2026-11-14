@@ -1,0 +1,248 @@
+{
+  "arch": "qwen35",
+  "label": "corrected-after",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "```javascript\n{\n  \"city\":\"Oslo\",\n  \"count\":\"3\"\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 24,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "```html\n<!DOCTYPE html\n{\n  <link\n    src=\"https://www.w3.org/2000/1/2020/12/2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-2020-12-20",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": false,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.8914728682170543,
+      "loop_flag": true
+    },
+    {
+      "id": "multiply",
+      "answer": "457",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "-2, 0, 4, 9",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 12,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "250",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Yes.",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "TEAL",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "[\n\"beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans,beans",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.996031746031746,
+      "loop_flag": true
+    },
+    {
+      "id": "five-lines",
+      "answer": "red\nblue\ngreen\nyellow\npurple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 10,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "Soft as waterfalls,\nSilently washing the world clean,\nLike a gentle, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft, soft,",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": false,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.9529411764705882,
+      "loop_flag": true
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library has been closed for repairs, and it has been reopened Friday. The library has been closed for repairs.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 26,
+      "repeated_4gram_fraction": 0.16666666666666663,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "The code prints:\n```\n[5, 8]\n```\n\nBecause the variable `b` is a copy of `a`, modifying `b` does not affect `a`.",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 40,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it is less dense than water. This occurs because ice is a frozen state of water, and water molecules are arranged in a way that creates a thicker layer of ice than water itself.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 43,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. **Research**\n   Research the company thoroughly.\n2. **Professionalism**\n   Dress professionally.\n3. **Self-care**\n   Take care of yourself.\n4. **Politeness**\n   Be polite.\n5. **Availability**\n   Be available.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 63,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "When adopting a dog, consider the following factors:\n- **Age**: Choose a dog that is not too old.\n- **Size**: Ensure the dog is not too large.\n- **Health**: Check if the dog is healthy.\n- **Temperament**: Choose a dog that is not too aggressive.\n- **Price**: Ensure the dog is not too expensive.\n- **Location**: Ensure the dog is not too far away.\n- **Age**: Choose a dog that is not too old.\n- **Size**: Ensure the dog is not too large.\n- **Health**: Check if the dog is healthy.\n- **Temperament**: Choose a dog that is not too aggressive.\n- **Price**: Ensure the dog is not too expensive.\n- **Location**: Ensure the dog is not too far away.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 175,
+      "repeated_4gram_fraction": 0.5428571428571429,
+      "loop_flag": true
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table is a data structure that stores data in a key-value pair. It uses a hash algorithm to retrieve the associated value efficiently.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 29,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 7,
+    "completed": 13,
+    "loop_flags": 4,
+    "generated_tokens": 1972,
+    "elapsed_seconds": 589.8027154929987
+  },
+  "rubric_revision": 2
+}

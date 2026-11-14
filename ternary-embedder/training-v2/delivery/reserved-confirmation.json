@@ -1,0 +1,246 @@
+{
+  "scope": "Frozen-candidate reserved retrieval confirmation; not full MTEB",
+  "reserved_judgments_opened": true,
+  "activation": {
+    "activated_utc": "2026-10-25T18:28:06.809376+00:00",
+    "status": "Frozen before first extraction/read of reserved judgments",
+    "candidate": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/campaign-20261025/model-q8.pt",
+      "sha256": "38e400de8c984ec7e7dd9aa33e2163096b8dc3725b1e89fdf416fda0f6117d70",
+      "bytes": 53232203,
+      "precision": "q8",
+      "layers": 3,
+      "source_float_sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c",
+      "eligible_for_promotion": false,
+      "format": "Packed W4/W8 dense matrices, int8 activations, BF16 scales, group64; embeddings/output/bias/norm remain float32.",
+      "performance": "Dense reference loader for quality; native packed-kernel speed unmeasured."
+    },
+    "frozen_sha256": "3f3b45afde004ac1ae59c48d25816be438b41db51261613a7303054f57358ada",
+    "quality_sha256": "9fc8f81c7b07117fe5e79269515bfe72186227412e6e04b19aafbf51f9177139",
+    "references_sha256": "804a497e5ab5861cffc1dd26ca0a4dbdff46b232e17f5ba43706f1f7b6d4a4ef",
+    "gates": {
+      "bge_micro": {
+        "each_core": true,
+        "sts": true,
+        "mean12": true
+      },
+      "minilm": {
+        "each_core": true,
+        "sts": true,
+        "mean12": true
+      }
+    },
+    "candidate_development_metrics": {
+      "core_retrieval": 47.47543552350379,
+      "stsbenchmark": 83.97731956042958,
+      "mteb_12_mean": 72.02260833333334
+    },
+    "reference_revisions": {
+      "bge_micro": "/home/cyrus/code/model-experiments/ternary-embedder/cache/hub/models--TaylorAI--bge-micro-v2/snapshots/3edf6d7de0faa426b09780416fe61009f26ae589",
+      "minilm": "/home/cyrus/code/model-experiments/ternary-embedder/cache/hub/models--sentence-transformers--all-MiniLM-L6-v2/snapshots/1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+    },
+    "tasks": [
+      "FiQA",
+      "SCIDOCS"
+    ],
+    "protocol_sha256": "c60c3c616c73347f60afe182bc67eb125717345047f067a8a5262dca7eab7ae8",
+    "no_further_training_or_selection": true,
+    "token_cap": 128,
+    "query_instructions": false
+  },
+  "activation_sha256": "2abb0a30cdf6462724bf890479f1f50d898bccbff96ea12db52474c7fecd5934",
+  "models": {
+    "q8": {
+      "identity": {
+        "name": "q8",
+        "sha256": "38e400de8c984ec7e7dd9aa33e2163096b8dc3725b1e89fdf416fda0f6117d70",
+        "cap": 128
+      },
+      "activation_sha256": "2abb0a30cdf6462724bf890479f1f50d898bccbff96ea12db52474c7fecd5934",
+      "tasks": {
+        "FiQA": {
+          "ndcg10": 26.805382603105937,
+          "recall10": 33.085133316614794,
+          "top1_relevant_queries": 164,
+          "median_first_relevant_rank": 9.0,
+          "median_best_relevant_margin": -0.05923497676849365,
+          "queries": 648,
+          "judged_documents_absent_from_corpus": 0,
+          "source_sha256": {
+            "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+            "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+            "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+          }
+        },
+        "SCIDOCS": {
+          "ndcg10": 17.697156681998596,
+          "recall10": 18.28666666666667,
+          "top1_relevant_queries": 216,
+          "median_first_relevant_rank": 8.0,
+          "median_best_relevant_margin": -0.07124364376068115,
+          "queries": 1000,
+          "judged_documents_absent_from_corpus": 0,
+          "source_sha256": {
+            "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+            "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+            "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+          }
+        }
+      },
+      "token_cap": 128,
+      "mean_retrieval": 22.251269642552266
+    },
+    "bge_micro": {
+      "identity": {
+        "name": "bge_micro",
+        "revision": "3edf6d7de0faa426b09780416fe61009f26ae589",
+        "weights": {
+          "model.safetensors": "792472b64c3ca1c725e55f6a9d2a58143d4ce6b3ffde05bf55bc8427cb3733c8"
+        },
+        "pooling": "masked-mean-unit",
+        "cap": 128
+      },
+      "activation_sha256": "2abb0a30cdf6462724bf890479f1f50d898bccbff96ea12db52474c7fecd5934",
+      "tasks": {
+        "FiQA": {
+          "ndcg10": 23.523113752007443,
+          "recall10": 28.65991775713998,
+          "top1_relevant_queries": 145,
+          "median_first_relevant_rank": 15.0,
+          "median_best_relevant_margin": -0.045320063829422,
+          "queries": 648,
+          "judged_documents_absent_from_corpus": 0,
+          "source_sha256": {
+            "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+            "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+            "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+          }
+        },
+        "SCIDOCS": {
+          "ndcg10": 17.52083369347823,
+          "recall10": 18.158333333333335,
+          "top1_relevant_queries": 220,
+          "median_first_relevant_rank": 9.0,
+          "median_best_relevant_margin": -0.047648489475250244,
+          "queries": 1000,
+          "judged_documents_absent_from_corpus": 0,
+          "source_sha256": {
+            "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+            "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+            "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+          }
+        }
+      },
+      "token_cap": 128,
+      "mean_retrieval": 20.521973722742835
+    },
+    "minilm": {
+      "identity": {
+        "name": "minilm",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "weights": {
+          "model.safetensors": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db"
+        },
+        "pooling": "masked-mean-unit",
+        "cap": 128
+      },
+      "activation_sha256": "2abb0a30cdf6462724bf890479f1f50d898bccbff96ea12db52474c7fecd5934",
+      "tasks": {
+        "FiQA": {
+          "ndcg10": 36.62621799774156,
+          "recall10": 42.65347050069273,
+          "top1_relevant_queries": 230,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.047656744718551636,
+          "queries": 648,
+          "judged_documents_absent_from_corpus": 0,
+          "source_sha256": {
+            "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+            "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+            "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+          }
+        },
+        "SCIDOCS": {
+          "ndcg10": 21.71556418154812,
+          "recall10": 23.05666666666667,
+          "top1_relevant_queries": 255,
+          "median_first_relevant_rank": 5.0,
+          "median_best_relevant_margin": -0.07270747423171997,
+          "queries": 1000,
+          "judged_documents_absent_from_corpus": 0,
+          "source_sha256": {
+            "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+            "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+            "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+          }
+        }
+      },
+      "token_cap": 128,
+      "mean_retrieval": 29.17089108964484
+    }
+  },
+  "q8_minus_references": {
+    "bge_micro": {
+      "tasks": {
+        "FiQA": {
+          "delta_ndcg10": 3.2822688510984883,
+          "paired_query_bootstrap_95_ci": [
+            2.0795271847247694,
+            4.472212637695243
+          ]
+        },
+        "SCIDOCS": {
+          "delta_ndcg10": 0.17632298852036377,
+          "paired_query_bootstrap_95_ci": [
+            -0.32823718515631045,
+            0.6772866733641757
+          ]
+        }
+      },
+      "mean_delta_ndcg10": 1.729295919809426,
+      "paired_query_bootstrap_95_ci": [
+        1.0656418873796385,
+        2.3771421889037345
+      ],
+      "seed": 20261025,
+      "resamples": 5000,
+      "scope": "Query sampling within these two fixed datasets only; not domain or training-seed uncertainty"
+    },
+    "minilm": {
+      "tasks": {
+        "FiQA": {
+          "delta_ndcg10": -9.820835394635626,
+          "paired_query_bootstrap_95_ci": [
+            -11.681681764909026,
+            -8.069288960089208
+          ]
+        },
+        "SCIDOCS": {
+          "delta_ndcg10": -4.018407499549528,
+          "paired_query_bootstrap_95_ci": [
+            -4.862782061481295,
+            -3.1776030154402775
+          ]
+        }
+      },
+      "mean_delta_ndcg10": -6.919621447092577,
+      "paired_query_bootstrap_95_ci": [
+        -7.938750393967916,
+        -5.9204729678521595
+      ],
+      "seed": 20261025,
+      "resamples": 5000,
+      "scope": "Query sampling within these two fixed datasets only; not domain or training-seed uncertainty"
+    }
+  },
+  "beats_each_task": {
+    "bge_micro": true,
+    "minilm": false
+  },
+  "beats_mean": {
+    "bge_micro": true,
+    "minilm": false
+  },
+  "default_deployment_changed": false,
+  "further_selection_performed": false
+}

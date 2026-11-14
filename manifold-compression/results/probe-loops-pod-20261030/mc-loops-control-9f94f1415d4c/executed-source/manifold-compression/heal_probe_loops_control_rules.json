@@ -1,0 +1,31 @@
+{
+  "folder": "probe_loops_control",
+  "earlier": [],
+  "evaluate": {
+    "arms": [
+      "learned"
+    ],
+    "check": {
+      "kl": 0.01,
+      "bpb": 0.01
+    },
+    "max_hours": 0.1
+  },
+  "generate": {
+    "prompts": "probe_prompts_48.json",
+    "count": 48,
+    "max_hours": 2.1,
+    "arms": {
+      "learned": {
+        "router": "learned",
+        "state": "fp32"
+      }
+    }
+  },
+  "loop": {
+    "window": 20,
+    "last": 1000,
+    "threshold": 0.45
+  },
+  "note": "Check 7: one of six parallel pods; the reading and predictions for all six are in heal_probe_loops_rules.json, written before any of them launched."
+}

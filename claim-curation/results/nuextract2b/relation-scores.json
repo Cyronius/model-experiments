@@ -1,0 +1,100 @@
+{
+  "correct": 4,
+  "total": 10,
+  "valid": 10,
+  "contradiction_true_positives": 1,
+  "contradiction_predictions": 2,
+  "contradictions_in_gold": 3,
+  "pairs": [
+    {
+      "id": "same-run-different-result",
+      "synthetic": true,
+      "expected": "contradicts",
+      "actual": "contradicts",
+      "reason": "The same run has incompatible outcomes for the same device, compiler, and kernel.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "different-workload",
+      "synthetic": false,
+      "expected": "different_scope",
+      "actual": "different_scope",
+      "reason": "The claims are about different types of workers and tasks, with different units of measurement.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "different-versions",
+      "synthetic": true,
+      "expected": "different_scope",
+      "actual": "different_scope",
+      "reason": "The claims are about different compiler versions and stack addresses, indicating they are independent.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "unit-equivalence",
+      "synthetic": true,
+      "expected": "supports",
+      "actual": "different_scope",
+      "reason": "The claims are about different units of memory capacity, 64 KiB and 65536 bytes.",
+      "valid": true,
+      "correct": false
+    },
+    {
+      "id": "unknown-scope",
+      "synthetic": true,
+      "expected": "insufficient_information",
+      "actual": "different_scope",
+      "reason": "The claims are about different aspects of the same scenario: the successful execution of a worker with a specific stack and the NaN result of Granite attention workers with the same stack.",
+      "valid": true,
+      "correct": false
+    },
+    {
+      "id": "same-run-timing",
+      "synthetic": true,
+      "expected": "contradicts",
+      "actual": "different_scope",
+      "reason": "The two claims measure different aspects of the ROT13 path, with one focusing on the time and the other on the path itself.",
+      "valid": true,
+      "correct": false
+    },
+    {
+      "id": "different-paths",
+      "synthetic": false,
+      "expected": "different_scope",
+      "actual": "different_scope",
+      "reason": "The two claims are about different paths for ROT13, with different execution times.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "partial-versus-universal",
+      "synthetic": true,
+      "expected": "contradicts",
+      "actual": "different_scope",
+      "reason": "The scope of the tests and the result types are different for the two claims.",
+      "valid": true,
+      "correct": false
+    },
+    {
+      "id": "untested-not-failed",
+      "synthetic": true,
+      "expected": "insufficient_information",
+      "actual": "contradicts",
+      "reason": "The same compiler version has incompatible outcomes for the same kernel.",
+      "valid": true,
+      "correct": false
+    },
+    {
+      "id": "table-paraphrase",
+      "synthetic": false,
+      "expected": "supports",
+      "actual": "different_scope",
+      "reason": "The test outcomes are different for the same stack addresses, indicating a discrepancy in the Granite attention test.",
+      "valid": true,
+      "correct": false
+    }
+  ]
+}

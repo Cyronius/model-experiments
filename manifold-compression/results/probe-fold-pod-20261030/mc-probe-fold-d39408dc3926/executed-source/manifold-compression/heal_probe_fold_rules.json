@@ -1,0 +1,38 @@
+{
+  "folder": "probe_fold",
+  "earlier": ["probe", "probe_all", "probe_soft"],
+  "fold": {
+    "fit_per_domain": 30,
+    "held_per_domain": 10,
+    "group": 4,
+    "batch": 8,
+    "rhos": [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1.0],
+    "max_hours": 0.4
+  },
+  "evaluate": {
+    "arms": [
+      "learned",
+      {"name": "gain_shared", "router": "learned", "healed": true, "fold": "gain_shared"},
+      {"name": "gains", "router": "learned", "healed": true, "fold": "gains"},
+      {"name": "fold", "router": "learned", "healed": true, "fold": "fold"}
+    ],
+    "check": {"kl": 0.01, "bpb": 0.01},
+    "max_hours": 0.35
+  },
+  "generate": {
+    "arms": {
+      "fold": {"router": "learned", "state": "fp32", "fold": "fold"}
+    },
+    "max_hours": 0.7
+  },
+  "loop": {"window": 20, "last": 1000, "threshold": 0.45},
+  "reading": "The user's idea (2026-10-30): fold all experts into each expert, with some kind of averaging, but most preference to each expert's own neurons. Here, with no training, on the healed student at the same 25% budget: the output weights of the neurons the learned routers run change so that, on calibration text, they also add what the skipped neurons would have added, as far as the neurons that run predict it. A ridge penalty toward each neuron's own weights, its strength chosen per layer on held-out calibration text, is the preference for the existing neurons. The target is the healed student with every neuron, which never looped. The gain variants fit the same loss with one scale per expert, or one on the shared expert alone (the user's 'weigh it more'). 16 generations loop if at least 5 hit the cap stuck in a loop, are clean with at most 2, unclear in between. Fold clean: folding stops the loops; next is folding the carve before healing and healing it the same way. Fold looping, with at least a third of the lost output recovered: the skipped output is partly predictable but a fixed fold is not enough; next is training every neuron's output weights during healing, starting from the fold. Under a tenth recovered: the neurons that run cannot stand in for the skipped ones; next is a bigger shared expert at the same budget.",
+  "predictions": {
+    "reproduce": "With rebuilt low-rank factors and the saved adapter, the learned-router student reproduces the healing run's last milestone: KL within 0.01 of 0.612 and 64K bits per byte within 1% of 0.734.",
+    "recovered": "The fold recovers at least 20% of the lost MLP output on held-out calibration text, averaged over layers.",
+    "gains": "One gain per expert recovers under a quarter of what the fold recovers, and the shared-expert gain alone less still: a fixed scale cannot add what a token's skipped neurons would have.",
+    "kl_gains": "Neither gain variant lowers KL by more than 0.02.",
+    "kl_fold": "The fold lowers KL from 0.612 to under 0.56.",
+    "loops_fold": "With the fold, at least 5 of the 16 generations still loop: the perfect router (KL 0.517) looped in 10, so a partial recovery is not enough."
+  }
+}

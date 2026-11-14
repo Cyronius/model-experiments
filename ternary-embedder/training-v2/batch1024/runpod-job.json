@@ -1,0 +1,68 @@
+{
+  "status": "prepared locally; launch depends on depth analysis",
+  "resource": "one RTX 4090 24GB RunPod Secure Cloud pod",
+  "listed_rate_usd_per_hour": 0.89,
+  "maximum_gpu_rate_usd_per_hour": 0.9,
+  "maximum_elapsed_hours": 2.5,
+  "expected_elapsed_hours": [
+    1.5,
+    2.0
+  ],
+  "expected_total_usd": [
+    1.4,
+    1.9
+  ],
+  "proposed_total_cap_usd": 2.5,
+  "disk_gb": 60,
+  "retained_paid_volumes": false,
+  "work_deadline_minutes": 130,
+  "watchdog_delete_minutes": 140,
+  "training": {
+    "arms": [
+      "float-1e-5",
+      "float-4e-5",
+      "ternary-1e-5",
+      "ternary-4e-5",
+      "predata-float-4e-5",
+      "predata-ternary-4e-5"
+    ],
+    "initialization": "Selected two-layer data-first parents, shared with depth-job two-layer controls",
+    "parameters": 15467520,
+    "epochs_each": 2,
+    "batch": 1024,
+    "micro_batch": 128,
+    "learning_rates": [
+      1e-05,
+      4e-05
+    ],
+    "temperature": 0.05,
+    "amp": "bf16",
+    "teacher_targets": false,
+    "train_rows": 780743,
+    "dev_rows": 15929,
+    "token_cap": 128,
+    "selection": "Highest full held-source macro nDCG@10 with every source within two points of initialization; initialization eligible null control",
+    "comparison": "Same exposure and parents as depth3 two-layer batch128 controls. Batch1024 has eight times fewer optimizer updates; test fixed LR and a fourfold LR increase (between sqrt(8) and linear batch scaling). FP32 cached logits also differ from the old BF16 loss arithmetic.",
+    "gradients": "Exact representation-gradient replay, not independent microbatch contrastive losses",
+    "int4_int8": "Derived locally after frozen float selection",
+    "broader_quality_control": "Two extra arms restart from pre-data-first parents, avoiding accumulated generic-similarity losses. The 12-task suite showed predata float 71.403 versus data-first 70.668, predata ternary 70.156 versus data-first 69.491."
+  },
+  "recovery": {
+    "remote_save_every_steps": 500,
+    "remote_save_every_seconds": 120,
+    "local_backup_attempt_interval_seconds": 60,
+    "sha256_verified_local_copies": true,
+    "full_optimizer_rng_sampler_resume": true,
+    "remote_resume_copies_retained": 2
+  },
+  "pricing_source": "https://www.runpod.io/pricing",
+  "data_center_ids": [
+    "EU-RO-1"
+  ],
+  "cuda_versions": [
+    "13.2"
+  ],
+  "gpu_type_id": "NVIDIA GeForce RTX 4090",
+  "campaign_cap_usd": 10.0,
+  "resource_change": "A5000 did not allocate; using available 4090 within explicitly authorized $10 multi-experiment campaign"
+}

@@ -1,0 +1,248 @@
+{
+  "arch": "qwen35",
+  "label": "legacy-after",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "```\n{\n  \"city\":\"Oslo\",\n  \"count\":\"3\"\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "```\nA7x-P4q",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 9,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "49",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "9, -2, 4, 0",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 11,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "2.5 liters is equal to **2500 milliliters**.",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 17,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Yes.",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "TEAL",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "```\napple, bread, tea, and tea",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 11,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "red, blue, green, yellow, purple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 10,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "The heavy, silver threads\nof water\nlike liquid silk\nwinding through the\ndrenched,\ndrenched,\ndrenched\nstreet.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 32,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library is scheduled to reopen on Friday after being closed for repairs.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 17,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "The code prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list, otherwise it prints the value associated with the key `a` if it exists in the list",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.958041958041958,
+      "loop_flag": true
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it is less dense than water. This is due to the fact that water molecules are connected in a way that creates a hollowed-out structure called a **cavity**. This cavity reduces the overall density of the ice, making it lighter than water.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 56,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "Here are five essential tips to prepare for a job interview:\n\n1. **Research the Company**: Research the company's history, mission, and culture.\n2. **Prepare a Portfolio**: Prepare a portfolio that includes relevant experiences, achievements, and a resume.\n3. **Prepare a Cover Letter**: Write a cover letter explaining why you are applying for the job.\n4. **Prepare a List of Questions**: Prepare a list of questions about the job, such as salary, benefits, and responsibilities.\n5. **Prepare a Plan for Success**: Prepare a plan for success that includes a plan for the job, a plan for the job, and a plan for the job.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 140,
+      "repeated_4gram_fraction": 0.07920792079207917,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "When adopting a dog, consider the following critical factors to ensure a healthy and happy home:\n\n### **Health & Lifestyle**\n- **Age**: Choose a dog that fits your lifestyle.\n- **Size**: Pick a size that fits your home.\n- **Health**: Ensure the dog is healthy and has no known issues.\n- **Lifestyle**: Decide if you can handle the dog's needs.\n- **Cost**: Consider the cost of the dog and the cost of the house.\n- **Location**: Ensure the house is in a safe location.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**: Ensure the dog can be groomed.\n- **Grooming**:",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": false,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.6770428015564203,
+      "loop_flag": true
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table is a data structure that stores data in a way that allows for fast lookup. It uses a key-value pair mapping to retrieve the associated value quickly.\n\nHere are some key features:\n- **Fast Lookup**: Accessing a key in a hash table is generally very fast because the key is stored directly in the table.\n- **No Sorting**: Unlike a sorted list, a hash table does not sort its keys.\n- **No Duplicates**: It can store duplicate keys without raising a warning.\n- **No Order**: It does not maintain the order of keys.\n- **No Indexing**: It does not provide a unique index for each key.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 139,
+      "repeated_4gram_fraction": 0.009803921568627416,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 4,
+    "completed": 14,
+    "loop_flags": 2,
+    "generated_tokens": 1498,
+    "elapsed_seconds": 366.7222467520005
+  },
+  "rubric_revision": 2
+}

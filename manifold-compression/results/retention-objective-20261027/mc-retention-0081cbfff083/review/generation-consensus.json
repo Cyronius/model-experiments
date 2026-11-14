@@ -1,0 +1,367 @@
+{
+  "status": "jointly_reviewed",
+  "created_utc": "2026-10-27T00:46:56.823672+00:00",
+  "reviewer": "codex",
+  "scope": "Generation endpoints only; broad teacher-forced and historical-veto results still pending.",
+  "evidence_sha256": {
+    "dev-review.json": "e5efde9d84b6a4663c5db2547ec9e1272cb1f142d89ad4a3d42ed9c8a2e8526b",
+    "test-review.json": "2210da14c1fe70f559ec490dfaeeae81691f1eda436bc07e66ccacf36e212617",
+    "dev-paired-analysis.json": "4e9cfa50fa629846aaefe39fe511ba3de57a529908acbb1b7cf9071922786101",
+    "test-paired-analysis.json": "f1ee08d16b4c4c725940061e65cd5fd3cfd1d269fbd837dd85b65d0c614582a8",
+    "dev-science-codex.json": "701cf05d448ce3e05ca07b3c0e9db9b6a8586c238f33130bee82e7b2f4526816",
+    "dev-science-claude.json": "3ef4b04d848908ec2433dfa848d31f590d4687e4d0995375c20ad1f3f57a7a9d",
+    "dev-science-consensus.json": "432a3b5d7565bd0ac25ef14b17d5e4f762cd5aee942569ccc30dde807cd6de3f",
+    "test-science-codex.json": "07683373e87d1d05d651e42a2e714bbe7b8b4626e80b4b63626ce70830f97414",
+    "test-science-claude.json": "7d28f6223789c04c0a76b1fda2025762ade39528924e4dd8a873df4bb065ded0",
+    "test-science-consensus.json": "25df3a68165c53ab84736ae7afd8bded87db49c34189d30b904da18073ece2de"
+  },
+  "development_summary": {
+    "A0": {
+      "primary": {
+        "correct": 7,
+        "n": 64
+      },
+      "retention": {
+        "correct": 42,
+        "n": 56
+      },
+      "program": {
+        "correct": 2,
+        "n": 6
+      },
+      "science": {
+        "correct": 0,
+        "n": 4
+      },
+      "loops": 2,
+      "ended": 128
+    },
+    "A1": {
+      "primary": {
+        "correct": 21,
+        "n": 64
+      },
+      "retention": {
+        "correct": 52,
+        "n": 56
+      },
+      "program": {
+        "correct": 2,
+        "n": 6
+      },
+      "science": {
+        "correct": 0,
+        "n": 4
+      },
+      "loops": 0,
+      "ended": 130
+    },
+    "A2": {
+      "primary": {
+        "correct": 20,
+        "n": 64
+      },
+      "retention": {
+        "correct": 51,
+        "n": 56
+      },
+      "program": {
+        "correct": 3,
+        "n": 6
+      },
+      "science": {
+        "correct": 0,
+        "n": 4
+      },
+      "loops": 0,
+      "ended": 130
+    },
+    "S0": {
+      "primary": {
+        "correct": 16,
+        "n": 64
+      },
+      "retention": {
+        "correct": 50,
+        "n": 56
+      },
+      "program": {
+        "correct": 3,
+        "n": 6
+      },
+      "science": {
+        "correct": 3,
+        "n": 4
+      },
+      "loops": 1,
+      "ended": 121
+    },
+    "S1": {
+      "primary": {
+        "correct": 35,
+        "n": 64
+      },
+      "retention": {
+        "correct": 55,
+        "n": 56
+      },
+      "program": {
+        "correct": 3,
+        "n": 6
+      },
+      "science": {
+        "correct": 3,
+        "n": 4
+      },
+      "loops": 0,
+      "ended": 130
+    },
+    "S2": {
+      "primary": {
+        "correct": 34,
+        "n": 64
+      },
+      "retention": {
+        "correct": 53,
+        "n": 56
+      },
+      "program": {
+        "correct": 2,
+        "n": 6
+      },
+      "science": {
+        "correct": 2,
+        "n": 4
+      },
+      "loops": 0,
+      "ended": 130
+    }
+  },
+  "test_summary": {
+    "A0": {
+      "primary": {
+        "correct": 15,
+        "n": 128
+      },
+      "retention": {
+        "correct": 74,
+        "n": 112
+      },
+      "program": {
+        "correct": 5,
+        "n": 12
+      },
+      "science": {
+        "correct": 0,
+        "n": 8
+      },
+      "loops": 2,
+      "ended": 259
+    },
+    "A1": {
+      "primary": {
+        "correct": 49,
+        "n": 128
+      },
+      "retention": {
+        "correct": 101,
+        "n": 112
+      },
+      "program": {
+        "correct": 4,
+        "n": 12
+      },
+      "science": {
+        "correct": 0,
+        "n": 8
+      },
+      "loops": 0,
+      "ended": 260
+    },
+    "A2": {
+      "primary": {
+        "correct": 48,
+        "n": 128
+      },
+      "retention": {
+        "correct": 97,
+        "n": 112
+      },
+      "program": {
+        "correct": 5,
+        "n": 12
+      },
+      "science": {
+        "correct": 0,
+        "n": 8
+      },
+      "loops": 1,
+      "ended": 260
+    },
+    "S0": {
+      "primary": {
+        "correct": 51,
+        "n": 128
+      },
+      "retention": {
+        "correct": 96,
+        "n": 112
+      },
+      "program": {
+        "correct": 10,
+        "n": 12
+      },
+      "science": {
+        "correct": 4,
+        "n": 8
+      },
+      "loops": 0,
+      "ended": 242
+    },
+    "S1": {
+      "primary": {
+        "correct": 81,
+        "n": 128
+      },
+      "retention": {
+        "correct": 112,
+        "n": 112
+      },
+      "program": {
+        "correct": 8,
+        "n": 12
+      },
+      "science": {
+        "correct": 2,
+        "n": 8
+      },
+      "loops": 0,
+      "ended": 260
+    },
+    "S2": {
+      "primary": {
+        "correct": 75,
+        "n": 128
+      },
+      "retention": {
+        "correct": 106,
+        "n": 112
+      },
+      "program": {
+        "correct": 9,
+        "n": 12
+      },
+      "science": {
+        "correct": 2,
+        "n": 8
+      },
+      "loops": 0,
+      "ended": 260
+    }
+  },
+  "development_eligibility": {
+    "A1": {
+      "eligible": true,
+      "reasons": []
+    },
+    "A2": {
+      "eligible": true,
+      "reasons": []
+    },
+    "S1": {
+      "eligible": true,
+      "reasons": []
+    },
+    "S2": {
+      "eligible": false,
+      "reasons": [
+        "program:horizon_program correctness regressed",
+        "science:momentum correctness regressed"
+      ]
+    }
+  },
+  "test_descriptive_safeguards": {
+    "A1": {
+      "passed": false,
+      "reasons": [
+        "program:horizon_program correctness regressed"
+      ]
+    },
+    "A2": {
+      "passed": false,
+      "reasons": [
+        "too many new loop cases"
+      ]
+    },
+    "S1": {
+      "passed": false,
+      "reasons": [
+        "program:horizon_program correctness regressed",
+        "science:current-resistance correctness regressed",
+        "science:enzymes correctness regressed",
+        "science:energy correctness regressed"
+      ]
+    },
+    "S2": {
+      "passed": false,
+      "reasons": [
+        "program:horizon_program correctness regressed",
+        "science:current-resistance correctness regressed",
+        "science:enzymes correctness regressed",
+        "science:energy correctness regressed"
+      ]
+    }
+  },
+  "findings": [
+    "Continuing the projected parent with the revised recipe raises held-out math from 15/128 to 49/128 without KL and 48/128 with KL; replay-family correctness rises from 74/112 to 101/112 and 97/112.",
+    "The corresponding stock arms also improve math and replay-family correctness, but lose fresh program answers and strict science-rubric passes.",
+    "Adding replay-only forward KL shows no generation advantage overall in this single-seed pilot. Stock loses six replay-family answers versus CE alone; all six are in Python or sorting. Its item-resampled interval excludes zero, while family-cluster sensitivity reaches zero.",
+    "Projected science stays 0/8 on the strict factual explanation rubric. This does not mean every answer lacks every relevant fact.",
+    "A1 loses one net fresh program answer. A2 has no net program loss but loses the same regex case and gains another; it adds one repetition flag. No trained arm satisfies all descriptive test safeguards.",
+    "The new A2 repetition flag is a 60-token, EOS-terminated water explanation repeated before an Answer line. It is not an endless generation or failed termination.",
+    "All trained arms complete 260/260 test answers; stock completes 242/260 and projected parent 259/260 under the fixed token caps."
+  ],
+  "case_audits": {
+    "rh-test-program-8": {
+      "kind": "fresh parent-correct regex program",
+      "A0": "Correct re.findall for each string pattern",
+      "A1": "Incorrect re.search returns match objects",
+      "A2": "Incorrect .findall call on string patterns",
+      "approved_tests": 1,
+      "supplied_case_failure_in_both_trained_arms": true
+    },
+    "sci-test-water-polarity": {
+      "arm": "A2",
+      "generated_tokens": 60,
+      "ended": true,
+      "repeated_4gram_fraction": 0.45833333333333337,
+      "frozen_rule": "at least 40 words and repeated 4-gram fraction greater than 0.20, or 8 repeated lines",
+      "severity": "short repeated answer, not nontermination"
+    }
+  },
+  "limits": [
+    "One training seed and one fixed endpoint. Intervals are exploratory and uncorrected for multiple comparisons.",
+    "Math and replay tests use held-out instances of known task families, not novel-family generalization. Family-cluster sensitivity is reported separately.",
+    "Program sets have only 6 dev and 12 test source groups, including simple tasks; science has 4 dev and 8 test items with no interval reported.",
+    "Science uses every required proposition and no core factual contradictions; strict-rubric failures can include partially correct answers. Both original ratings and adjudications are retained.",
+    "A0-to-A1 combines continued training, rank expansion and a revised curriculum. This round cannot isolate which curriculum change helps, nor directly compare against the old recipe at equal dose.",
+    "A1-to-A2 and S1-to-S2 isolate the addition of replay-only forward KL. The projected and stock arms have different earlier training histories.",
+    "All test endpoints were fixed before generation; no test-based checkpoint search, threshold adjustment or promotion occurred.",
+    "Fresh program safeguards use net category correctness; historical program vetoes separately require no lost individual case.",
+    "Generation evidence does not settle broad distribution retention or alternate allocation quality."
+  ],
+  "decision": "Keep the current projected parent as default. Preserve all candidate adapters for analysis; do not promote a candidate from these results.",
+  "pending": [
+    "CUDA broad same-device teacher-forced comparisons",
+    "Historical individual program vetoes",
+    "Pod termination verification and elapsed cost estimate",
+    "Claude-owned local allocation pilot and CPU comparisons"
+  ],
+  "approved_by": [
+    "codex",
+    "claude"
+  ],
+  "peer_review_message": 142,
+  "peer_reviewed_content_sha256": "7760753fdb1b8d63e6d6d2f81ec99549bf0c93c335d0651fd0560d0c6650e1c8",
+  "reviewed_utc": "2026-10-27T01:01:40.964730+00:00"
+}

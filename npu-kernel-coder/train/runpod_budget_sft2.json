@@ -1,0 +1,87 @@
+{
+ "status": "terminated",
+ "session": "npu-kernel-coder small-model port-focused continuation (sft-small-2), 2026-11-12",
+ "proposal": "Continue from runs/sft-small-1/run/model on data/tasks-edits-r25 (all 5,721 port examples in the numbered edit-list format + 25% replay of the other kinds, 33.2M tokens). One 24-48 GB GPU at <= 0.89 USD/h, pod lifetime 4.5 h (training budget 3.4 h), deleted by the watchdog at the deadline. Expected ~2.7 h on an A40 at 0.59 USD/h, about $1.70.",
+ "user_authorization": {
+  "proposal": "sft-small-2: continue from sft-small-1 on data/tasks-edits-r25, expected ~$1.70, hard cap $4.10 (pod lifetime 4.5 h, <= 0.89 USD/h)",
+  "user": "yes",
+  "time": 1794529001.683268
+ },
+ "total_cap_usd": 4.1,
+ "spent_usd": 1.9298,
+ "attempts": [
+  {
+   "run": "sft-small-2",
+   "pod_id": "fef1auoey5s33t",
+   "gpu": "NVIDIA A40",
+   "rate": 0.59,
+   "result": "trained 699 steps / 33.3M tokens, stage complete 21:33, synced, deletion confirmed",
+   "cost_usd": 1.9298
+  }
+ ],
+ "restrictions": [
+  "Not a standing authorization for other jobs",
+  "Do not modify, resume or delete pre-existing unrelated pods"
+ ],
+ "active_job": "target/nkc-pod/nkc-small-aab17e0585/pod.json",
+ "reserved_job_max_usd": 0,
+ "fresh_quote": {
+  "gpu": "NVIDIA RTX A5000",
+  "gpus": [
+   "NVIDIA RTX A5000",
+   "NVIDIA L40",
+   "NVIDIA A40",
+   "NVIDIA RTX A6000",
+   "NVIDIA RTX 5000 Ada Generation",
+   "NVIDIA GeForce RTX 4090",
+   "NVIDIA GeForce RTX 3090 Ti",
+   "NVIDIA GeForce RTX 3090"
+  ],
+  "options": [
+   {
+    "gpu": "NVIDIA RTX A5000",
+    "rate": 0.27,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA L40",
+    "rate": 0.82,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "Low"
+   },
+   {
+    "gpu": "NVIDIA RTX A6000",
+    "rate": 0.69,
+    "stock_status": "Low"
+   },
+   {
+    "gpu": "NVIDIA RTX 5000 Ada Generation",
+    "rate": 0.83,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "rate": 0.89,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA GeForce RTX 3090 Ti",
+    "rate": 0.46,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "rate": 0.5,
+    "stock_status": null
+   }
+  ],
+  "checked_at": 1794529011.1254978
+ },
+ "pod_id": "fef1auoey5s33t",
+ "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+ "terminated_at": 1794540790.29318
+}

@@ -1,0 +1,30 @@
+{
+ "note": "Proof that vLLM can serve as the teacher for the next healing data (written 2026-11-04, before any run). The user approved the plan (generate with the dense 9B in vLLM, keep correct answers, prefer short ones, store the teacher's top-k log-probs, heal in time-boxed local and pod sessions) and added: 'we have to prove the vllm as well'. Three things must hold before any data is generated for training: vLLM's 9B answers as well as our HF dense model does; the log-probs it returns are the ones our HF teacher would give for the same tokens (the healing loss would use them in place of a teacher pass); and its speed is what the cost estimates assumed. One pod, no training.",
+ "model": "Qwen/Qwen3.5-9B at the pinned revision of every earlier pod (run_slim_pod.MODEL), bf16.",
+ "vllm": {
+  "version": "0.33.0",
+  "settings": "LLM(dtype bfloat16, max_model_len 8192, logprobs_mode raw_logprobs, max_logprobs 20, generation_config 'vllm', no images or video). The returned log-probs must be the model's own (raw, before temperature, penalties or top-k/top-p), which is what a teacher pass gives.",
+  "environment": "Its own virtual environment (vLLM pins torch 2.14.0 and transformers >= 5.16.1); the comparison runs in the bundle's usual environment (torch 2.14.1, transformers 5.14.1), the one healing uses."
+ },
+ "parts": {
+  "check": "The 96 GSM8K check prompts (probe_prompts_96.json) with thinking on and with thinking off, each sampled once with the model card's settings (temperature 1.0, top_p 0.95, top_k 20, presence penalty 1.5; seed 26103103 + prompt index), cap 4,096, top-20 log-probs kept.",
+  "throughput": "Train problems (vllm_proof_problems.jsonl: GSM8K train rows the corpus does not use, and MATH train), 4 samples each, thinking on, the same sampler and cap, in batches until 40 minutes have passed: generated tokens per second over the whole time, and the share answered correctly.",
+  "fidelity": "32 of the thinking-on check answers (the first 32 that finished), teacher-forced through the bundle's HF Qwen3.5-9B in bf16 (as healing's teacher runs): per generated position, the HF log-probability of the sampled token and of vLLM's top-20 tokens."
+ },
+ "predictions": {
+  "accuracy": "Thinking on, vLLM gets 64 to 82 of 96 right (HF dense 9B: 73, 78 finished, in section 18's pod check); thinking off, within 9 of dense_check's local HF figure if that has finished (else reported only).",
+  "logprobs": "Over all fidelity positions: the sampled token's log-probability differs from HF's by under 0.05 nats on average and under 0.5 at the 99th percentile; vLLM's top-1 token is HF's top-1 at 97% or more of positions; the KL between the two distributions renormalized over vLLM's top 20 averages under 0.02 nats.",
+  "throughput": "At least 1,000 generated tokens per second on the pod's 48 GB card (the cost estimates assumed 1,500 to 3,000 on faster cards); under 1,000 means the generation estimates were too low and are redone before any shard is bought.",
+  "vocab": "Under 1% of vLLM's top-20 probability mass falls on tokens outside the student's 64K vocabulary (reported; the healing loss renormalizes over the kept rows)."
+ },
+ "pass": "vLLM is used for teacher data only if accuracy and logprobs hold. If logprobs fails, generation may still use vLLM, but the healing teacher pass stays in HF.",
+ "budget": "A $5 cap (runpod_budget_vllm_proof_20261104.json), one 48 GB card at most $0.60/h, 3-hour deadline.",
+ "outcome": {
+  "written": "2026-11-04, after results/vllm-proof-pod-20261104/mc-vllm-966f214ad53d (second attempt; the first failed at vLLM startup because its FlashInfer sampler needs nvcc, which the image lacks; fixed with VLLM_USE_FLASHINFER_SAMPLER=0). Both attempts together cost about $0.87 of the $5 cap.",
+  "accuracy": "Held: thinking on 72/96 right, 79 finished, 0 loops (HF dense: 73 and 75 in two runs); thinking off 83/96, 96 finished (local HF dense_check: 83, 96).",
+  "logprobs": "Held, far inside the limits: over 55,156 positions of 32 answers, the sampled token's log-prob differs from HF bf16 by 0.0075 nats on average (0.113 at the 99th percentile), top-1 agreement 99.3%, top-20 KL 0.00026 nats.",
+  "throughput": "Held: 1,383 generated tokens/s over 63 minutes on one A40 (1,490 to 1,500/s within full batches; the time limit let the last batch run past 40 minutes), against 100 to 300 for our HF path. 2,048 samples of 512 train problems: 1,034 judged correct (MATH undercounted by exact match), 1,365 finished within 4,096 tokens.",
+  "vocab": "Held: 0.91% of the top-20 probability mass falls outside the student's 64K vocabulary.",
+  "reading": "vLLM 0.33.0 can stand in for the HF teacher: same accuracy, log-probs matching to within bf16 noise, so stored top-20 log-probs can replace the teacher pass in healing. Generation costs about $0.12 per million tokens on an A40 ($0.59/h), cheaper than estimated. With thinking on, a third of train-problem answers do not finish within 4,096 tokens; thinking off answers average 413 tokens and all finish."
+ }
+}

@@ -1,0 +1,125 @@
+{
+  "model": "Qwen/Qwen3.5-2B",
+  "source_manifest": {
+    "repo": "Qwen/Qwen3.5-2B",
+    "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+    "files": {
+      "chat_template.jinja": {
+        "size": 7755,
+        "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+      },
+      "config.json": {
+        "size": 2908,
+        "sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4"
+      },
+      "model.safetensors-00001-of-00001.safetensors": {
+        "size": 4548221488,
+        "sha256": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"
+      },
+      "tokenizer.json": {
+        "size": 12807982,
+        "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+      },
+      "tokenizer_config.json": {
+        "size": 16709,
+        "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c"
+      }
+    }
+  },
+  "device": "cpu",
+  "dtype": "float32",
+  "whole_model_healing": false,
+  "cloud_spend_usd": 0,
+  "data_sha256": "8f8e8ae2db90adb7a9682502bda7e251f7ca88c371ec3eea7b3ec60af3dc8026",
+  "calibration": {
+    "small": {
+      "rows": 36,
+      "tokens": 16486,
+      "max_length": 606
+    },
+    "large": {
+      "rows": 141,
+      "tokens": 65968,
+      "max_length": 634
+    },
+    "broad": {
+      "rows": 438,
+      "tokens": 65759,
+      "max_length": 1552
+    },
+    "validation": {
+      "rows": 16,
+      "tokens": 7755,
+      "max_length": 594
+    }
+  },
+  "plan": {
+    "model_type": "qwen3_5_text",
+    "source_width": 2048,
+    "source_parameters": 1881825088,
+    "source_bf16_weight_gb": 3.763650176,
+    "source_fp32_weight_gb": 7.527300352,
+    "arms": [
+      {
+        "target_fraction": 0.75,
+        "width": 1520,
+        "parameters": 1399093040,
+        "retained_fraction": 0.7434766647132722,
+        "bf16_weight_gb": 2.79818608,
+        "output_matrix_parameters": 2310400
+      }
+    ],
+    "fixed_parameters": 448320,
+    "parameters_per_residual_coordinate": 918641,
+    "count_scope": "text causal model, including embeddings, output head, and output adapter; no vision/MTP"
+  },
+  "global_width": 1520,
+  "local_matched_width": 1456,
+  "arms": [
+    "stock",
+    "shared-small",
+    "shared-large",
+    "shared-broad",
+    "layer-large-matched",
+    "layer-large-samewidth",
+    "shared-large-dynamic"
+  ],
+  "controls": "Fresh source load per arm. Shared and local bases use identical large calibration corpus. Same-width local arm explicitly exceeds shared storage. No selection on held-out generations.",
+  "rms_fit": "33 quadratic/linear features of retained coordinates; ridge 0.01; bounded by calibration quantiles. No model-loss training.",
+  "generation": {
+    "closed_cases": 56,
+    "code_cases": 4,
+    "explanations": 2,
+    "greedy": true,
+    "thinking": false,
+    "penalties": false,
+    "limits": "256 closed / 512 code / 1024 explanation; caps reported separately from repetition"
+  },
+  "scope": "Small mechanism screen; does not establish 27B transfer or broad intelligence parity.",
+  "calibration_precision": "CPU BF16 autocast; FP32 covariance accumulation; FP64 eigensolve. Projection construction and evaluation FP32.",
+  "sampled_states": "Up to 32 evenly spaced states per complete conversation for RMS fitting and decoder probes; RMS fitting is token-weighted. PCA covariance uses every token.",
+  "pre_result_amendment": "Enabled native CPU BF16 calibration before any activation packet or model result completed; all calibration arms use identical precision.",
+  "per_layer_transport": "Skip path maps P_i.T @ P_next before the MLP residual addition; the MLP writer projects directly to P_next. Initial whole-block transport implementation was corrected before any candidate answer evaluation; its numerical audits are archived.",
+  "additional_arms": [
+    "shared-extended",
+    "shared-extended-linear"
+  ],
+  "calibration_extension": "Added a nested 256k-token arm using the exact original three-tokenizer sampler; declared before any compressed candidate answer evaluation. Extends beyond the original 64k recipe.",
+  "grading_clarification": "After inspecting stock, before inspecting any compressed candidate answers: sorting content credit normalizes exact integer strings, with original strict type/format score retained. Uniform rule for every arm; no change to prompts or decoding.",
+  "supplemental_repetition": "Uniform post-run repeated-line scan (>=8 identical nonempty lines), reusing summarize_scale_probe.repeated_line_run. Detects punctuation/code-fence loops missed by the separately retained word-gram metric.",
+  "additional_decoder_probe": {
+    "data": "extended 256k calibration, sampled states",
+    "fixed_projection": "shared-large 64k basis",
+    "steps": [
+      400,
+      1600
+    ],
+    "purpose": "Separate limited samples/fitting from absence of useful nonlinear recovery; same held-out states, no language-model healing."
+  },
+  "linear_decoder_followup": {
+    "baseline": "shared-extended",
+    "fit": "Per-site standardized zero-intercept ridge 0.1 from all 262293 calibration tokens; same encoder, RMS scales and deployed parameter count",
+    "reason": "Post-diagnostic follow-up after larger-sample linear reconstruction recovered more dropped energy; answer evaluation held out and unchanged."
+  },
+  "program_requirement_review": "Report automated execution-test passes separately from manually reviewed full requirements. In particular, linear scanning does not satisfy the explicit binary-search instruction. No prompts, generations or execution tests changed."
+}

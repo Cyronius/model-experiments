@@ -1,0 +1,63 @@
+{
+ "note": "Repeat of geometry_check_rules.json at another sampling seed (26103103), written 2026-11-06 to measure the seed-to-seed spread of the sampled GSM8K check: session 2's copy scored 46/96 with thinking on against T3M's 57 at the first seed. Everything else is unchanged. GSM8K loop check of the two 1M-token local heals in heal_geometry_rules.json (c=128 no shared expert, S0_K24, against today's carve healed the same way, S1536_K9), written 2026-11-03 before either check. The user: 'let's check loops'. slim_opd.py's check stage run through heal_geometry.py check: the healed student is rebuilt and must reproduce its run's last milestone, then answers section 18's 96 prompts with a 4,096-token cap, greedy and sampled with the model card's settings and section 18's seeds. Local GPU, no pod. Decoding uses slim_opd.compact (added 2026-11-03): a row leaves the batch as soon as it stops, so steps cost only the rows still running. With no row stopping it reproduces generate token for token on the 9B (8 of 8 rows, dense and student, 48 tokens); once rows leave, the batch-size change alters rounding, so answers are compared by counts, as local runs already are with the pods.",
+ "folder": "check",
+ "eval": {
+  "prompts": "probe_prompts_96.json",
+  "count": 96,
+  "max_new_tokens": 4096,
+  "state": "fp32",
+  "sampling": {
+   "temperature": 1.0,
+   "top_p": 0.95,
+   "top_k": 20,
+   "presence_penalty": 1.5,
+   "source": "Qwen3.5-9B model card, thinking mode for general tasks (as opd_long_rules.json)"
+  },
+  "seed": 26103103,
+  "check": {
+   "kl": 0.01,
+   "bpb": 0.01
+  },
+  "also_at": 2048,
+  "arms": [
+   [
+    "healed",
+    "sampled"
+   ]
+  ],
+  "adapter": null,
+  "hours": 3.5,
+  "compact": true
+ },
+ "loop": {
+  "window": 20,
+  "last": 1000,
+  "threshold": 0.45
+ },
+ "references": "Pod counts at 4,096 tokens (section 18): dense greedy 60 right, 61 finished, 7 loops; dense sampled 73, 78, 0; healed 9 experts after 8.2M tokens, sampled 48, 88, 0. At 2,048 (section 17) the 8.2M-healed model looped in 36 of 96 greedy. These models were healed on 1M tokens, not 8.2M, so they should loop more than those.",
+ "predictions": {
+  "reproduce": "Each rebuilt student reproduces its run's 1M milestone within 0.01 KL (S0_K24 0.730, S1536_K9 0.776).",
+  "baseline_greedy": "S1536_K9 greedy at 4,096: 35 to 60 of 96 loop.",
+  "geometry_greedy": "S0_K24 loops in fewer greedy answers than S1536_K9, by at least 5.",
+  "sampled": "Sampled, neither repeats exactly (loops 0 to 3); S0_K24 gets at least as many right as S1536_K9.",
+  "noise": "Which prompts loop changes from run to run (section 14), so a difference under about 8 of 96 is not evidence by itself."
+ },
+ "criteria": "Paired by prompt: one-sided exact sign test on the prompts where one model loops and the other does not; p below 0.05 counts as fewer loops. Same for right answers.",
+ "outcome": {
+  "written": "2026-11-03, after both checks (heal_geometry/{S0_K24,S1536_K9}/check/check.json).",
+  "counts": "S0_K24 greedy 6 right, 1 finished, 88 loops (at 2,048: 9, 1, 88); sampled 14, 85, 0 (at 2,048: 14, 80, 0). S1536_K9 greedy 4, 4, 87 (at 2,048: 4, 4, 87); sampled 19, 90, 0 (at 2,048: 16, 79, 0).",
+  "reproduce": "Held: both rebuilt students reproduced their milestone exactly (KL 0.730 and 0.776, difference 0.0).",
+  "baseline_greedy": "Failed: S1536_K9 looped in 87 of 96, far above 35 to 60. 1M tokens of healing leave greedy decoding almost entirely in loops.",
+  "geometry_greedy": "Failed: 88 against 87. Discordant prompts 9 (S0_K24 only) against 8; p 0.69.",
+  "sampled": "Loops held (0 and 0); right answers failed: S0_K24 14 against 19, discordant 11 against 16, p (S0_K24 better) 0.88. Neither difference is evidence either way.",
+  "reading": "At 1M tokens both geometries are equally broken at generation: almost every greedy answer loops, and sampled answers finish but are mostly wrong (14 and 19 of 96, dense 73). The 0.047 KL advantage of c=128 does not show up in GSM8K. This check cannot separate the geometries at this healing budget; KL remains the only signal that does.",
+  "speed": "Compact decoding saved little on greedy because almost no row stopped (S0_K24 55 min, S1536_K9 59 min for 96 x 4,096); sampled took 18 and 17 min."
+ },
+ "suffix": "_seed2",
+ "copy": {
+  "path": "results/moe-carve-v2-20261029/heal_sessions/S0_K24_G2/decayed_75.pt",
+  "sha256": "d93d9e167d1bfd05cdf2e8e9defd817e310757c9837fcd8d5961f722a9dc5489",
+  "step": 75,
+  "check_rules": "geometry_check_rules_seed2.json"
+ }
+}

@@ -1,0 +1,138 @@
+| Model | State | Held-out KL | Checks | Completed | Repetition flags |
+|---|---|---:|---:|---:|---:|
+| qwen35 | stock | 0 (reference) | 13/16 | 16/16 | 0 |
+| qwen35 | legacy-before | 0.8016 | 10/16 | 15/16 | 1 |
+| qwen35 | legacy-after | 0.8361 | 4/16 | 14/16 | 2 |
+| qwen35 | corrected-before | 0.7122 | 10/16 | 16/16 | 1 |
+| qwen35 | corrected-after | 0.8202 | 7/16 | 13/16 | 4 |
+| qwen35 | recovered-500m | 0.4326 | 4/16 | 15/16 | 2 |
+| smollm2 | stock | 0 (reference) | 7/16 | 16/16 | 0 |
+| smollm2 | legacy-before | 0.9185 | 4/16 | 16/16 | 1 |
+| smollm2 | legacy-after | 0.5097 | 1/16 | 14/16 | 5 |
+| smollm2 | corrected-before | 0.5717 | 5/16 | 16/16 | 2 |
+| smollm2 | corrected-after | 0.4195 | 6/16 | 16/16 | 0 |
+{
+  "qwen35": {
+    "legacy": {
+      "check_improvements": [
+        "ice",
+        "hash-table"
+      ],
+      "check_regressions": [
+        "copy",
+        "multiply",
+        "sort",
+        "logic",
+        "five-lines",
+        "poem",
+        "summary",
+        "alias"
+      ],
+      "failed_after_while_stock_passes": [
+        "json",
+        "copy",
+        "multiply",
+        "sort",
+        "logic",
+        "five-lines",
+        "poem",
+        "summary",
+        "alias",
+        "dog"
+      ],
+      "loop_flags_after": [
+        "alias",
+        "dog"
+      ],
+      "capped_after": [
+        "alias",
+        "dog"
+      ]
+    },
+    "corrected": {
+      "check_improvements": [
+        "dog",
+        "hash-table"
+      ],
+      "check_regressions": [
+        "copy",
+        "multiply",
+        "logic",
+        "poem",
+        "summary"
+      ],
+      "failed_after_while_stock_passes": [
+        "json",
+        "copy",
+        "multiply",
+        "logic",
+        "poem",
+        "summary",
+        "alias"
+      ],
+      "loop_flags_after": [
+        "copy",
+        "multi-edit",
+        "poem",
+        "dog"
+      ],
+      "capped_after": [
+        "copy",
+        "multi-edit",
+        "poem"
+      ]
+    }
+  },
+  "smollm2": {
+    "legacy": {
+      "check_improvements": [
+        "interview"
+      ],
+      "check_regressions": [
+        "summary",
+        "ice",
+        "dog",
+        "hash-table"
+      ],
+      "failed_after_while_stock_passes": [
+        "copy",
+        "multiply",
+        "units",
+        "poem",
+        "summary",
+        "alias",
+        "ice"
+      ],
+      "loop_flags_after": [
+        "json",
+        "copy",
+        "poem",
+        "alias",
+        "dog"
+      ],
+      "capped_after": [
+        "copy",
+        "poem"
+      ]
+    },
+    "corrected": {
+      "check_improvements": [
+        "copy",
+        "logic",
+        "multi-memory"
+      ],
+      "check_regressions": [
+        "summary",
+        "hash-table"
+      ],
+      "failed_after_while_stock_passes": [
+        "multiply",
+        "units",
+        "summary",
+        "alias"
+      ],
+      "loop_flags_after": [],
+      "capped_after": []
+    }
+  }
+}

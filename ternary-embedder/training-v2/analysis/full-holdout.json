@@ -1,0 +1,181 @@
+{
+  "queries": 2501,
+  "documents": 4934,
+  "scope": "All heldout documents; multiple known positives accepted; not external acceptance",
+  "models": {
+    "teacher8_prompted": {
+      "mrr": 0.8510278759619008,
+      "by_source": {
+        "sentence-transformers/all-nli": {
+          "queries": 659,
+          "mrr": 0.7981844626979796,
+          "recall1": 0.7025796661608498,
+          "own_negative_ties_or_beats_positive": 0.0409711684370258,
+          "positive_mass": 0.3654119727333897,
+          "softmax_effective_candidates": 39.189070125314906
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "queries": 1248,
+          "mrr": 0.837244745654672,
+          "recall1": 0.6850961538461539,
+          "own_negative_ties_or_beats_positive": 0.3004807692307692,
+          "positive_mass": 0.575853321235522,
+          "softmax_effective_candidates": 3.9991593680322657
+        },
+        "sentence-transformers/quora-duplicates": {
+          "queries": 594,
+          "mrr": 0.9386123136123135,
+          "recall1": 0.8905723905723906,
+          "own_negative_ties_or_beats_positive": 0.02356902356902357,
+          "positive_mass": 0.7946960412401719,
+          "softmax_effective_candidates": 2.7428491852457166
+        }
+      }
+    },
+    "teacher8_plain": {
+      "mrr": 0.8296424727846393,
+      "by_source": {
+        "sentence-transformers/all-nli": {
+          "queries": 659,
+          "mrr": 0.8226110563482564,
+          "recall1": 0.7329286798179059,
+          "own_negative_ties_or_beats_positive": 0.025796661608497723,
+          "positive_mass": 0.39402338927975616,
+          "softmax_effective_candidates": 27.021104875039292
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "queries": 1248,
+          "mrr": 0.7775789035530568,
+          "recall1": 0.6001602564102564,
+          "own_negative_ties_or_beats_positive": 0.3661858974358974,
+          "positive_mass": 0.33433648474527755,
+          "softmax_effective_candidates": 47.94024777868746
+        },
+        "sentence-transformers/quora-duplicates": {
+          "queries": 594,
+          "mrr": 0.9468294051627386,
+          "recall1": 0.9040404040404041,
+          "own_negative_ties_or_beats_positive": 0.016835016835016835,
+          "positive_mass": 0.8162520659181229,
+          "softmax_effective_candidates": 2.4704899563917433
+        }
+      }
+    },
+    "teacher06_plain": {
+      "mrr": 0.8005117652388307,
+      "by_source": {
+        "sentence-transformers/all-nli": {
+          "queries": 659,
+          "mrr": 0.7749192303592152,
+          "recall1": 0.6813353566009105,
+          "own_negative_ties_or_beats_positive": 0.05007587253414264,
+          "positive_mass": 0.33350444665745366,
+          "softmax_effective_candidates": 37.435900472645585
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "queries": 1248,
+          "mrr": 0.7419994350262308,
+          "recall1": 0.5584935897435898,
+          "own_negative_ties_or_beats_positive": 0.3854166666666667,
+          "positive_mass": 0.25771798036261995,
+          "softmax_effective_candidates": 81.71908565302824
+        },
+        "sentence-transformers/quora-duplicates": {
+          "queries": 594,
+          "mrr": 0.9518398268398268,
+          "recall1": 0.9158249158249159,
+          "own_negative_ties_or_beats_positive": 0.011784511784511785,
+          "positive_mass": 0.7834495180709795,
+          "softmax_effective_candidates": 2.920236083067216
+        }
+      }
+    },
+    "original": {
+      "mrr": 0.785496048646611,
+      "by_source": {
+        "sentence-transformers/all-nli": {
+          "queries": 659,
+          "mrr": 0.7584509644598323,
+          "recall1": 0.6585735963581184,
+          "own_negative_ties_or_beats_positive": 0.054628224582701064,
+          "positive_mass": 0.1835008381349381,
+          "softmax_effective_candidates": 169.91229932656364
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "queries": 1248,
+          "mrr": 0.7236963932314194,
+          "recall1": 0.49038461538461536,
+          "own_negative_ties_or_beats_positive": 0.4855769230769231,
+          "positive_mass": 0.15343470185589234,
+          "softmax_effective_candidates": 316.58954140485645
+        },
+        "sentence-transformers/quora-duplicates": {
+          "queries": 594,
+          "mrr": 0.9453423120089787,
+          "recall1": 0.9057239057239057,
+          "own_negative_ties_or_beats_positive": 0.020202020202020204,
+          "positive_mass": 0.5488136193310522,
+          "softmax_effective_candidates": 22.236241355614492
+        }
+      }
+    },
+    "selected": {
+      "mrr": 0.8112287416360722,
+      "by_source": {
+        "sentence-transformers/all-nli": {
+          "queries": 659,
+          "mrr": 0.7447939305013599,
+          "recall1": 0.6418816388467374,
+          "own_negative_ties_or_beats_positive": 0.05614567526555387,
+          "positive_mass": 0.23477229722253504,
+          "softmax_effective_candidates": 90.77842166810409
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "queries": 1248,
+          "mrr": 0.7843059956982537,
+          "recall1": 0.6153846153846154,
+          "own_negative_ties_or_beats_positive": 0.3469551282051282,
+          "positive_mass": 0.2522844039622447,
+          "softmax_effective_candidates": 106.21082866980711
+        },
+        "sentence-transformers/quora-duplicates": {
+          "queries": 594,
+          "mrr": 0.9414983164983165,
+          "recall1": 0.9006734006734006,
+          "own_negative_ties_or_beats_positive": 0.015151515151515152,
+          "positive_mass": 0.6459754552497757,
+          "softmax_effective_candidates": 9.131278275863568
+        }
+      }
+    },
+    "gold_positive": {
+      "mrr": 0.8249213930761368,
+      "by_source": {
+        "sentence-transformers/all-nli": {
+          "queries": 659,
+          "mrr": 0.7526772366404114,
+          "recall1": 0.6555386949924128,
+          "own_negative_ties_or_beats_positive": 0.05614567526555387,
+          "positive_mass": 0.26365234208038346,
+          "softmax_effective_candidates": 68.70519814871226
+        },
+        "sentence-transformers/msmarco-bm25": {
+          "queries": 1248,
+          "mrr": 0.8053131184327352,
+          "recall1": 0.6466346153846154,
+          "own_negative_ties_or_beats_positive": 0.31650641025641024,
+          "positive_mass": 0.30319818816882943,
+          "softmax_effective_candidates": 61.89721317916418
+        },
+        "sentence-transformers/quora-duplicates": {
+          "queries": 594,
+          "mrr": 0.9462682379349044,
+          "recall1": 0.9040404040404041,
+          "own_negative_ties_or_beats_positive": 0.016835016835016835,
+          "positive_mass": 0.6906686431511936,
+          "softmax_effective_candidates": 6.394362005835457
+        }
+      }
+    }
+  }
+}

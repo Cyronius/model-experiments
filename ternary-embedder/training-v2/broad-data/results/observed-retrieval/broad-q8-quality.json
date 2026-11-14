@@ -1,0 +1,45 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/broad-data/results/families/broad/q8.pt",
+    "sha256": "8a7ef8215c3377d3da0e325e0f71dc4358cb7e656186f715e17342f1b5acc781",
+    "bytes": 53232203,
+    "source_sha256": "cc7f76ce0fb1cec38b73824fee123b5c4d54e451914430a8ae3dcac6fe76e352",
+    "bits": 8,
+    "precision": "q8",
+    "layers": 3,
+    "eligible_for_promotion": true
+  },
+  "token_cap": 128,
+  "query_instructions": false,
+  "scope": "Previously opened FiQA/SCIDOCS development judgments",
+  "tasks": {
+    "FiQA": {
+      "ndcg10": 26.92035133826306,
+      "recall10": 32.864619091470935,
+      "top1_relevant_queries": 165,
+      "median_first_relevant_rank": 9.0,
+      "median_best_relevant_margin": -0.07135885953903198,
+      "queries": 648,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+        "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+        "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+      }
+    },
+    "SCIDOCS": {
+      "ndcg10": 17.719859932660615,
+      "recall10": 18.671666666666663,
+      "top1_relevant_queries": 204,
+      "median_first_relevant_rank": 8.0,
+      "median_best_relevant_margin": -0.0872020572423935,
+      "queries": 1000,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+        "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+        "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+      }
+    }
+  }
+}

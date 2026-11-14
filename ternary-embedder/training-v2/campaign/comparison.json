@@ -1,0 +1,4389 @@
+{
+  "utc": "2026-10-25T18:30:48.253402+00:00",
+  "scope": "Observed development scores only; fixed12-task subset, not full MTEB. Selecting across experiments is model development; reserved labels and training-seed replication remain separate confirmation.",
+  "references": {
+    "bge_micro": {
+      "mean12": 70.904075,
+      "core": 46.21423155391609,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 61.330435853792345,
+          "recall10": 75.8888888888889,
+          "top1_relevant_queries": 146,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.00362202525138855,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.098027254039838,
+          "recall10": 14.471353525828368,
+          "top1_relevant_queries": 138,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.013639271259307861,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 51.80770730087352,
+          "recall10": 79.23186344238977,
+          "top1_relevant_queries": 391,
+          "median_first_relevant_rank": 3.0,
+          "median_best_relevant_margin": -0.025481224060058594,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      }
+    },
+    "minilm": {
+      "mean12": 71.48094166666667,
+      "core": 46.91967819969039,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 62.38596288000935,
+          "recall10": 77.43333333333334,
+          "top1_relevant_queries": 144,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.00760003924369812,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.45339351937142,
+          "recall10": 15.369212102238459,
+          "top1_relevant_queries": 139,
+          "median_first_relevant_rank": 3.0,
+          "median_best_relevant_margin": -0.033481717109680176,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 48.76415597965729,
+          "recall10": 76.67140825035563,
+          "top1_relevant_queries": 355,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.05216801166534424,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      }
+    }
+  },
+  "models": [
+    {
+      "name": "human-mix/float",
+      "precision": "float",
+      "layers": 3,
+      "core": 46.6295425965009,
+      "SciFact": 61.84216991846678,
+      "NFCorpus": 31.416915274535008,
+      "STSBenchmark": 83.91551766070339,
+      "mean12": 71.99235833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": true,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/human-mix-run/backups/human-mix-float/best.pt",
+        "sha256": "674d3d93303233a211d222ee87ce5362c47e54e9f130e90cdbb54d17de465e30",
+        "step": 726,
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9603190422058105,
+              "ndcg10": 96.93911075592041,
+              "recall10": 0.996769368648529
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9436852335929871,
+              "ndcg10": 95.6191897392273,
+              "recall10": 0.9942960739135742
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9862751364707947,
+              "ndcg10": 98.9425539970398,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9768575429916382,
+              "ndcg10": 98.13979268074036,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7346678972244263,
+              "ndcg10": 76.9465982913971,
+              "recall10": 0.8920547962188721
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9050920009613037,
+              "ndcg10": 91.40673875808716,
+              "recall10": 0.9459933042526245
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8919137716293335,
+              "ndcg10": 91.97816252708435,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7280164361000061,
+              "ndcg10": 77.2232711315155,
+              "recall10": 0.9218847155570984
+            },
+            "human-nli-triplets": {
+              "queries": 5189,
+              "documents": 10848,
+              "mrr": 0.8184261918067932,
+              "ndcg10": 84.07853245735168,
+              "recall10": 0.9338986277580261
+            }
+          },
+          "macro_ndcg10": 90.14155003759596,
+          "scope": "Each held source ranked against all held positives and audited explicit negatives from that source",
+          "step": 726,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 90.14155003759596,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 726,
+          "precision": "float",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "final-float-blends/float-50",
+      "precision": "float",
+      "layers": 3,
+      "core": 47.022064726894186,
+      "SciFact": 62.066797231068485,
+      "NFCorpus": 31.977332222719895,
+      "STSBenchmark": 83.98983108623752,
+      "mean12": 71.95616666666666,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": true,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/final-float-blends/float-50.pt",
+        "sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c",
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "child_fraction": 0.5,
+        "note": "Development blend; no new training or paid resource."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "delivery/float",
+      "precision": "float",
+      "layers": 3,
+      "core": 47.022064726894186,
+      "SciFact": 62.066797231068485,
+      "NFCorpus": 31.977332222719895,
+      "STSBenchmark": 83.98983108623752,
+      "mean12": 71.95616666666666,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": true,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/campaign-20261025/model-float.pt",
+        "sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c",
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "child_fraction": 0.5,
+        "note": "Development blend; no new training or paid resource.",
+        "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/final-float-blends/results/summary.json",
+        "source_arm": "float-50",
+        "source_summary_sha256": "42bf49a54d7b033dc37cac378b8148846b48820cd790e816592459f0141e404b",
+        "bytes": 68984193,
+        "parameters": 17241984,
+        "additional_query_parameters": 0,
+        "query_head": false
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "final-float-blends/float-25",
+      "precision": "float",
+      "layers": 3,
+      "core": 46.96271256265625,
+      "SciFact": 62.10007964607755,
+      "NFCorpus": 31.825345479234947,
+      "STSBenchmark": 83.97065472378617,
+      "mean12": 71.8515,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": true,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/final-float-blends/float-25.pt",
+        "sha256": "f6ec676255a863a34dc5939617cd671e58560f48e3c2dc8d11914e3746ef28ed",
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "child_fraction": 0.25,
+        "note": "Development blend; no new training or paid resource."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "float-blends/float-25",
+      "precision": "float",
+      "layers": 3,
+      "core": 47.021861429009924,
+      "SciFact": 62.133669069998746,
+      "NFCorpus": 31.910053788021102,
+      "STSBenchmark": 83.94242051033086,
+      "mean12": 71.77716666666666,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": true,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/float-blends/float-25.pt",
+        "sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6",
+          "trained_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Diagnostic blend; source/NLI training-selection guards and seed confirmation have not been established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "float-blends/float-50",
+      "precision": "float",
+      "layers": 3,
+      "core": 47.051286204160434,
+      "SciFact": 62.121293944596076,
+      "NFCorpus": 31.981278463724784,
+      "STSBenchmark": 83.77763147940252,
+      "mean12": 71.69731666666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": true,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/float-blends/float-50.pt",
+        "sha256": "2f9e26c9b664fddc64d8a63e230ea68eab8bfc1b6491a9c50174bea7b34c0464",
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6",
+          "trained_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+          "trained_fraction": 0.5
+        },
+        "eligibility_note": "Diagnostic blend; source/NLI training-selection guards and seed confirmation have not been established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "float-blends/float-75",
+      "precision": "float",
+      "layers": 3,
+      "core": 46.929810373348815,
+      "SciFact": 61.73868687848525,
+      "NFCorpus": 32.12093386821238,
+      "STSBenchmark": 83.37637693066762,
+      "mean12": 71.46416666666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/float-blends/float-75.pt",
+        "sha256": "9adb9654485bd7edf882288951bf9ee1c972b1ca7820e09af970c96e912c4b4e",
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6",
+          "trained_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+          "trained_fraction": 0.75
+        },
+        "eligibility_note": "Diagnostic blend; source/NLI training-selection guards and seed confirmation have not been established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "nli-aux/float-0.25",
+      "precision": "float",
+      "layers": 2,
+      "core": 45.3419271232471,
+      "SciFact": 59.33949444552217,
+      "NFCorpus": 31.344359800972033,
+      "STSBenchmark": 82.95700259353849,
+      "mean12": 71.14538333333334,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-float-0.25/best.pt",
+        "sha256": "dd8763660eeb43fa43765b8b378f5f3602adc726ae39781ebfc3d09efe0589ce",
+        "step": 1534,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9563037157058716,
+              "ndcg10": 96.57938480377197,
+              "recall10": 0.9946155548095703
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9341612458229065,
+              "ndcg10": 94.80844140052795,
+              "recall10": 0.9914441108703613
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.983597457408905,
+              "ndcg10": 98.70529770851135,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9612457752227783,
+              "ndcg10": 97.02165722846985,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7147331237792969,
+              "ndcg10": 74.54482316970825,
+              "recall10": 0.8557377457618713
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9224809408187866,
+              "ndcg10": 92.86556243896484,
+              "recall10": 0.9520547389984131
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8929842114448547,
+              "ndcg10": 92.05794334411621,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.712891161441803,
+              "ndcg10": 75.31225681304932,
+              "recall10": 0.8953846096992493
+            }
+          },
+          "macro_ndcg10": 90.23692086338997,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 68.54059100151062,
+            "macro_accuracy": 68.54131619135539,
+            "by_label": {
+              "0": 72.2959816455841,
+              "1": 63.686251640319824,
+              "2": 69.64171528816223
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1534,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.38911852737269,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "science-float/3-float-fresh",
+      "precision": "float",
+      "layers": 3,
+      "core": 46.670350513416224,
+      "SciFact": 61.867779820651904,
+      "NFCorpus": 31.472921206180548,
+      "STSBenchmark": 82.67704074142411,
+      "mean12": 71.11002500000001,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-float-run/backups/science-float-3-float-fresh/best.pt",
+        "sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+        "step": 2000,
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9590767025947571,
+              "ndcg10": 96.84780836105347,
+              "recall10": 0.996769368648529
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9479690790176392,
+              "ndcg10": 95.98291516304016,
+              "recall10": 0.9958516955375671
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9887354969978333,
+              "ndcg10": 99.12884831428528,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9717060923576355,
+              "ndcg10": 97.81476855278015,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7443113327026367,
+              "ndcg10": 77.92472243309021,
+              "recall10": 0.9008219242095947
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9142358303070068,
+              "ndcg10": 92.28489995002747,
+              "recall10": 0.9529995322227478
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8945817351341248,
+              "ndcg10": 92.17361807823181,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7226598858833313,
+              "ndcg10": 76.57862305641174,
+              "recall10": 0.9138251543045044
+            }
+          },
+          "macro_ndcg10": 91.09202548861504,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 68.2882308959961,
+            "macro_accuracy": 68.28759709993999,
+            "by_label": {
+              "0": 73.99611473083496,
+              "1": 60.329246520996094,
+              "2": 70.53743004798889
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 2000,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.68981129427752,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 2008,
+          "precision": "float",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "scales/float-low-lr",
+      "precision": "float",
+      "layers": 3,
+      "core": 46.43437752977599,
+      "SciFact": 61.49003037818551,
+      "NFCorpus": 31.37872468136648,
+      "STSBenchmark": 82.60986688486254,
+      "mean12": 71.08539166666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-float-low-lr/best.pt",
+        "sha256": "85d29410be0405f6d59c9ad093a2cc32697ce1b3d03f87e422a4faf8803fcce8",
+        "step": 1004,
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9591695070266724,
+              "ndcg10": 96.84969186782837,
+              "recall10": 0.9965539574623108
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9484027028083801,
+              "ndcg10": 96.00958824157715,
+              "recall10": 0.9955924153327942
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9887343645095825,
+              "ndcg10": 99.12884831428528,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9739463329315186,
+              "ndcg10": 97.98129796981812,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7442852258682251,
+              "ndcg10": 77.96663641929626,
+              "recall10": 0.9024657607078552
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9147231578826904,
+              "ndcg10": 92.34093427658081,
+              "recall10": 0.9537293910980225
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8943841457366943,
+              "ndcg10": 92.15816259384155,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.72400963306427,
+              "ndcg10": 76.73614025115967,
+              "recall10": 0.9156850576400757
+            }
+          },
+          "macro_ndcg10": 91.1464124917984,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 67.97680258750916,
+            "macro_accuracy": 67.97656615575154,
+            "by_label": {
+              "0": 72.32836484909058,
+              "1": 61.99160814285278,
+              "2": 69.60972547531128
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1004,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.56148932377496,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "float",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "nli-aux/float-0.1",
+      "precision": "float",
+      "layers": 2,
+      "core": 45.70824635473767,
+      "SciFact": 60.06100637092714,
+      "NFCorpus": 31.3554863385482,
+      "STSBenchmark": 82.9963515874982,
+      "mean12": 71.06116666666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-float-0.1/best.pt",
+        "sha256": "d2aadb2b13cbf9d2e63bd0c32b6f99f522d631a0cf566b22cbd88d9ee40be0cf",
+        "step": 1534,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9566341638565063,
+              "ndcg10": 96.61000967025757,
+              "recall10": 0.9948309659957886
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9348864555358887,
+              "ndcg10": 94.8863685131073,
+              "recall10": 0.9922218918800354
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.984969973564148,
+              "ndcg10": 98.80738854408264,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9602380990982056,
+              "ndcg10": 96.94980978965759,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7185088992118835,
+              "ndcg10": 74.91371035575867,
+              "recall10": 0.8590164184570312
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9238101840019226,
+              "ndcg10": 92.97629594802856,
+              "recall10": 0.9526255130767822
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8926548957824707,
+              "ndcg10": 92.03442335128784,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7177223563194275,
+              "ndcg10": 75.91210007667542,
+              "recall10": 0.9039999842643738
+            }
+          },
+          "macro_ndcg10": 90.38626328110695,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 66.60760641098022,
+            "macro_accuracy": 66.60620768864949,
+            "by_label": {
+              "0": 69.86722350120544,
+              "1": 61.717236042022705,
+              "2": 68.23416352272034
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1534,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 78.49623548487821,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "science-float/float-fresh",
+      "precision": "float",
+      "layers": 2,
+      "core": 45.98821468265822,
+      "SciFact": 60.92109843802148,
+      "NFCorpus": 31.05533092729495,
+      "STSBenchmark": 82.6466576077917,
+      "mean12": 70.85704166666666,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-float-run/backups/science-float-float-fresh/best.pt",
+        "sha256": "bb50d5a44b23132c4396f384bb9df2a54b071f1c79dc523f6e07de82aa305292",
+        "step": 2008,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9542235732078552,
+              "ndcg10": 96.42320275306702,
+              "recall10": 0.9946155548095703
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9332584738731384,
+              "ndcg10": 94.7206437587738,
+              "recall10": 0.9904070496559143
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9848091006278992,
+              "ndcg10": 98.79236817359924,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9595825672149658,
+              "ndcg10": 96.82894945144653,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7150022983551025,
+              "ndcg10": 74.56187009811401,
+              "recall10": 0.8558903932571411
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9071957468986511,
+              "ndcg10": 91.61705374717712,
+              "recall10": 0.9478908181190491
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8913373947143555,
+              "ndcg10": 91.93636775016785,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7192567586898804,
+              "ndcg10": 75.96928477287292,
+              "recall10": 0.9014259576797485
+            }
+          },
+          "macro_ndcg10": 90.10621756315231,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 67.96069741249084,
+            "macro_accuracy": 67.96005169550578,
+            "by_label": {
+              "0": 72.65220284461975,
+              "1": 61.3783061504364,
+              "2": 69.84964609146118
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 2008,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.03313462932906,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 2008,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "science-float/float-repeat",
+      "precision": "float",
+      "layers": 2,
+      "core": 45.18051386248631,
+      "SciFact": 59.49399306363655,
+      "NFCorpus": 30.867034661336056,
+      "STSBenchmark": 82.69765007938496,
+      "mean12": 70.65135,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-float-run/backups/science-float-float-repeat/best.pt",
+        "sha256": "fcdf9605642f5dc2383973896c9b12d0f0fc1b763feb330d0773b4e31f7610bd",
+        "step": 2008,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9536697864532471,
+              "ndcg10": 96.37088179588318,
+              "recall10": 0.9941847920417786
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9330794215202332,
+              "ndcg10": 94.71039175987244,
+              "recall10": 0.9906662702560425
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9835904836654663,
+              "ndcg10": 98.7052857875824,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9586221575737,
+              "ndcg10": 96.70578837394714,
+              "recall10": 0.9934354424476624
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7160966992378235,
+              "ndcg10": 74.64905977249146,
+              "recall10": 0.8558903932571411
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9026908278465271,
+              "ndcg10": 91.2111222743988,
+              "recall10": 0.9455553889274597
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8916667103767395,
+              "ndcg10": 91.95913076400757,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.718202531337738,
+              "ndcg10": 75.9186863899231,
+              "recall10": 0.9020459055900574
+            }
+          },
+          "macro_ndcg10": 90.02879336476326,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 67.95532703399658,
+            "macro_accuracy": 67.95282363891602,
+            "by_label": {
+              "0": 72.45789766311646,
+              "1": 61.007100343704224,
+              "2": 70.39347290992737
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 2008,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 78.99080850183964,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 2008,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "batch1024/float-1e-5",
+      "precision": "float",
+      "layers": 2,
+      "core": 45.7829030071104,
+      "SciFact": 60.05508887963277,
+      "NFCorpus": 31.510717134588027,
+      "STSBenchmark": 82.46500226797122,
+      "mean12": 70.64799166666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/batch1024-run/backups/batch1024-float-1e-5/best.pt",
+        "sha256": "323024fe1b47cc98dd9a3451ef87b87b9dcfad5a77e9088dcd9ffe42ad24a37b",
+        "step": 1000,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9569287300109863,
+              "ndcg10": 96.62540555000305,
+              "recall10": 0.9946155548095703
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9331744909286499,
+              "ndcg10": 94.71659660339355,
+              "recall10": 0.9906662702560425
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9824733138084412,
+              "ndcg10": 98.61974716186523,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.961804211139679,
+              "ndcg10": 97.06156849861145,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7195258140563965,
+              "ndcg10": 75.02033710479736,
+              "recall10": 0.8601093292236328
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9234448671340942,
+              "ndcg10": 92.97068119049072,
+              "recall10": 0.9531962871551514
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8936430215835571,
+              "ndcg10": 92.10735559463501,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7195952534675598,
+              "ndcg10": 76.0705828666687,
+              "recall10": 0.9039999842643738
+            }
+          },
+          "macro_ndcg10": 90.39903432130814,
+          "scope": "Each held source ranked against all held positives from that source",
+          "step": 1000,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "2a0fbcb6c8711fdb34c278890911377f321c5d173f72c5a89cb0e1c16ac901a9"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "batch1024/predata-float-4e-5",
+      "precision": "float",
+      "layers": 2,
+      "core": 46.03462231393783,
+      "SciFact": 60.235232879341325,
+      "NFCorpus": 31.83401174853434,
+      "STSBenchmark": 82.36621287285743,
+      "mean12": 70.59293333333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/batch1024-run/backups/batch1024-predata-float-4e-5/best.pt",
+        "sha256": "d918fa64ec8e009754b9cd586a018dc7cb328438aa5396f5ea28d0f9952848ac",
+        "step": 1534,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.957427978515625,
+              "ndcg10": 96.6703712940216,
+              "recall10": 0.9948309659957886
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9352838397026062,
+              "ndcg10": 94.90932822227478,
+              "recall10": 0.9919626116752625
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9849663972854614,
+              "ndcg10": 98.80739450454712,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9623263478279114,
+              "ndcg10": 97.10094332695007,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7202968597412109,
+              "ndcg10": 75.07482171058655,
+              "recall10": 0.8601093292236328
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9243789315223694,
+              "ndcg10": 93.05244088172913,
+              "recall10": 0.9537670612335205
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8933135867118835,
+              "ndcg10": 92.08382368087769,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7211054563522339,
+              "ndcg10": 76.23323202133179,
+              "recall10": 0.905846118927002
+            }
+          },
+          "macro_ndcg10": 90.49154445528984,
+          "scope": "Each held source ranked against all held positives from that source",
+          "step": 1534,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "nli-aux/float-0.0",
+      "precision": "float",
+      "layers": 2,
+      "core": 46.03462231393783,
+      "SciFact": 60.235232879341325,
+      "NFCorpus": 31.83401174853434,
+      "STSBenchmark": 82.36621287285743,
+      "mean12": 70.59293333333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-float-0.0/best.pt",
+        "sha256": "8e2e7b9143557c6e1764b9bc1a833f5ba59671ba568d4230c76b5819cc130bec",
+        "step": 1534,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.957427978515625,
+              "ndcg10": 96.6703712940216,
+              "recall10": 0.9948309659957886
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9352838397026062,
+              "ndcg10": 94.90932822227478,
+              "recall10": 0.9919626116752625
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9849663972854614,
+              "ndcg10": 98.80739450454712,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9623263478279114,
+              "ndcg10": 97.10094332695007,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7202968597412109,
+              "ndcg10": 75.07482171058655,
+              "recall10": 0.8601093292236328
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9243789315223694,
+              "ndcg10": 93.05244088172913,
+              "recall10": 0.9537670612335205
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8933135867118835,
+              "ndcg10": 92.08382368087769,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7211054563522339,
+              "ndcg10": 76.23323202133179,
+              "recall10": 0.905846118927002
+            }
+          },
+          "macro_ndcg10": 90.49154445528984,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 59.3427836894989,
+            "macro_accuracy": 59.32613015174866,
+            "by_label": {
+              "0": 56.670981645584106,
+              "1": 57.39186406135559,
+              "2": 63.915544748306274
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1534,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 74.90883730351925,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "hardneg/float-pairs",
+      "precision": "float",
+      "layers": 2,
+      "core": 46.03462231393783,
+      "SciFact": 60.235232879341325,
+      "NFCorpus": 31.83401174853434,
+      "STSBenchmark": 82.36621287285743,
+      "mean12": 70.59293333333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/hardneg-run/backups/hardneg-float-pairs/best.pt",
+        "sha256": "c0d166b5630393836ea154e3c821cf8f7985d7d14d8bfd0fc660d60580e5a61b",
+        "step": 1534,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 7383,
+              "mrr": 0.8233816027641296,
+              "ndcg10": 86.6564393043518,
+              "recall10": 0.9922463893890381
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9352838397026062,
+              "ndcg10": 94.90932822227478,
+              "recall10": 0.9919626116752625
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9849663972854614,
+              "ndcg10": 98.80739450454712,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9623263478279114,
+              "ndcg10": 97.10094332695007,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7202968597412109,
+              "ndcg10": 75.07482171058655,
+              "recall10": 0.8601093292236328
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9243789315223694,
+              "ndcg10": 93.05244088172913,
+              "recall10": 0.9537670612335205
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8933135867118835,
+              "ndcg10": 92.08382368087769,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7211054563522339,
+              "ndcg10": 76.23323202133179,
+              "recall10": 0.905846118927002
+            }
+          },
+          "macro_ndcg10": 89.23980295658112,
+          "scope": "Each held source ranked against all held positives and audited explicit negatives from that source",
+          "step": 1534,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 89.23980295658112,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "hardneg/float-hard",
+      "precision": "float",
+      "layers": 2,
+      "core": 45.230319884712245,
+      "SciFact": 59.43929656629611,
+      "NFCorpus": 31.021343203128378,
+      "STSBenchmark": 82.22120119203329,
+      "mean12": 70.4316,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/hardneg-run/backups/hardneg-float-hard/best.pt",
+        "sha256": "a2c036fc870dd9cfdc25cecc4ef5c9208e05f994bef915fde54880e94a61c652",
+        "step": 1534,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 7383,
+              "mrr": 0.876814067363739,
+              "ndcg10": 90.52431583404541,
+              "recall10": 0.9894465208053589
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9335002899169922,
+              "ndcg10": 94.78439688682556,
+              "recall10": 0.9922218918800354
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9820429086685181,
+              "ndcg10": 98.59473705291748,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9598502516746521,
+              "ndcg10": 96.91458344459534,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7203996181488037,
+              "ndcg10": 75.05273222923279,
+              "recall10": 0.8590164184570312
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9243232011795044,
+              "ndcg10": 93.06837916374207,
+              "recall10": 0.9543378353118896
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8931489586830139,
+              "ndcg10": 92.06854701042175,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7193742394447327,
+              "ndcg10": 76.0250985622406,
+              "recall10": 0.9033846259117126
+            }
+          },
+          "macro_ndcg10": 89.62909877300262,
+          "scope": "Each held source ranked against all held positives and audited explicit negatives from that source",
+          "step": 1534,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 89.62909877300262,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "batch1024/float-4e-5",
+      "precision": "float",
+      "layers": 2,
+      "core": 46.14378388823896,
+      "SciFact": 60.423542192621085,
+      "NFCorpus": 31.864025583856826,
+      "STSBenchmark": 82.06663516607907,
+      "mean12": 70.42333333333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/batch1024-run/backups/batch1024-float-4e-5/best.pt",
+        "sha256": "366f6ce0d90e980798d1d1e9a99e42eff3f54fc3be07dbeb8da5d1672fae165c",
+        "step": 1400,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9565715193748474,
+              "ndcg10": 96.60144448280334,
+              "recall10": 0.9946155548095703
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9357605576515198,
+              "ndcg10": 94.94261145591736,
+              "recall10": 0.9917033910751343
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9863085150718689,
+              "ndcg10": 98.90541434288025,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9611710906028748,
+              "ndcg10": 97.023606300354,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7222887277603149,
+              "ndcg10": 75.24569034576416,
+              "recall10": 0.8612022399902344
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9257426857948303,
+              "ndcg10": 93.21255087852478,
+              "recall10": 0.9560502171516418
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8931489586830139,
+              "ndcg10": 92.07088351249695,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7227973937988281,
+              "ndcg10": 76.48683786392212,
+              "recall10": 0.9101538062095642
+            }
+          },
+          "macro_ndcg10": 90.56112989783287,
+          "scope": "Each held source ranked against all held positives from that source",
+          "step": 1400,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "2a0fbcb6c8711fdb34c278890911377f321c5d173f72c5a89cb0e1c16ac901a9"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "depth3/2-float",
+      "precision": "float",
+      "layers": 2,
+      "core": 45.281613359022764,
+      "SciFact": 59.37974707442864,
+      "NFCorpus": 31.183479643616884,
+      "STSBenchmark": 82.28009649703588,
+      "mean12": 70.40515833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/depth3-run/backups/depth3-2-float/best.pt",
+        "sha256": "3df30ca38bba7c7a95ca4026538b8fb5c24b732f12552acfdd07937fc0d6358d",
+        "step": 12000,
+        "precision": "float",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9566656947135925,
+              "ndcg10": 96.60919904708862,
+              "recall10": 0.9946155548095703
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9326905608177185,
+              "ndcg10": 94.66481804847717,
+              "recall10": 0.9901477694511414
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9844440817832947,
+              "ndcg10": 98.76757860183716,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9639002084732056,
+              "ndcg10": 97.20993041992188,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7182000875473022,
+              "ndcg10": 74.77536797523499,
+              "recall10": 0.8551912903785706
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9228097200393677,
+              "ndcg10": 92.94406771659851,
+              "recall10": 0.9543378353118896
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8923254609107971,
+              "ndcg10": 92.00777411460876,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7214867472648621,
+              "ndcg10": 76.41581892967224,
+              "recall10": 0.9113845825195312
+            }
+          },
+          "macro_ndcg10": 90.42431935667992,
+          "scope": "Each held source ranked against every unique positive document from that source",
+          "step": 12000,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 12206,
+          "precision": "float",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "2a0fbcb6c8711fdb34c278890911377f321c5d173f72c5a89cb0e1c16ac901a9"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "depth3/3-float",
+      "precision": "float",
+      "layers": 3,
+      "core": 43.0551481809303,
+      "SciFact": 56.273028400985325,
+      "NFCorpus": 29.83726796087528,
+      "STSBenchmark": 81.85754782135884,
+      "mean12": 69.573125,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/depth3-run/backups/depth3-3-float/best.pt",
+        "sha256": "fc40a316a4ef8619fc71d257cc8a14975effc25a99d115b359b69fcf2cd25fbf",
+        "step": 12206,
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9502279162406921,
+              "ndcg10": 96.08624577522278,
+              "recall10": 0.9931079149246216
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.928555428981781,
+              "ndcg10": 94.34119462966919,
+              "recall10": 0.9898884892463684
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9787178039550781,
+              "ndcg10": 98.34480881690979,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9561775326728821,
+              "ndcg10": 96.57050371170044,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.7031415700912476,
+              "ndcg10": 73.52258563041687,
+              "recall10": 0.8508197069168091
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9127801060676575,
+              "ndcg10": 92.05290079116821,
+              "recall10": 0.9492008686065674
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8911232352256775,
+              "ndcg10": 91.91756844520569,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7059499621391296,
+              "ndcg10": 74.98767375946045,
+              "recall10": 0.9021538496017456
+            }
+          },
+          "macro_ndcg10": 89.72793519496918,
+          "scope": "Each held source ranked against every unique positive document from that source",
+          "step": 12206,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 12206,
+          "precision": "float",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "8f577e626db5e52bfe35cf1fce3e3000f9d2d43326347cc0da670c23af4dd96a"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "delivery/q4",
+      "precision": "q4",
+      "layers": 3,
+      "core": 46.669408521055814,
+      "SciFact": 61.32713642854276,
+      "NFCorpus": 32.01168061356888,
+      "STSBenchmark": 83.63944429808964,
+      "mean12": 71.667125,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": true,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/campaign-20261025/model-q4.pt",
+        "sha256": "bd11e6206949aab25cc7a60a751755ae39240ee22070b08f1b910caa12a3078e",
+        "bytes": 51075659,
+        "precision": "q4",
+        "layers": 3,
+        "source_float_sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c",
+        "eligible_for_promotion": false,
+        "format": "Packed W4/W8 dense matrices, int8 activations, BF16 scales, group16; embeddings/output/bias/norm remain float32.",
+        "performance": "Dense reference loader for quality; native packed-kernel speed unmeasured."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "q4-groups/q4-g16",
+      "precision": "q4",
+      "layers": 3,
+      "core": 46.42504269477438,
+      "SciFact": 60.91240606476425,
+      "NFCorpus": 31.93767932478452,
+      "STSBenchmark": 83.57743967004482,
+      "mean12": 71.46050833333334,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-groups/q4-g16.pt",
+        "sha256": "5694e57f47744de60eae46a5b6cd42b78d17ee2346a4ff26c5dc2c875666ff5f",
+        "bytes": 51075659,
+        "precision": "q4",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+        "bits": 4,
+        "activation_bits": 8,
+        "group_size": 16,
+        "note": "Four-bit dense codes; more BF16 scales, with embeddings/output still float. Packed accuracy/reference artifact; native kernel speed unmeasured."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "q4-groups/q4-g32",
+      "precision": "q4",
+      "layers": 3,
+      "core": 46.30906376801689,
+      "SciFact": 60.74005424405495,
+      "NFCorpus": 31.878073291978826,
+      "STSBenchmark": 83.555293491079,
+      "mean12": 71.45625833333334,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-groups/q4-g32.pt",
+        "sha256": "811787e7b3bb68569f9f289d1b1c5df195e4d8d84daec0b8a0d13b6633c1273c",
+        "bytes": 50743883,
+        "precision": "q4",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+        "bits": 4,
+        "activation_bits": 8,
+        "group_size": 32,
+        "note": "Four-bit dense codes; more BF16 scales, with embeddings/output still float. Packed accuracy/reference artifact; native kernel speed unmeasured."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "q4-mse/q4-mse",
+      "precision": "q4",
+      "layers": 3,
+      "core": 45.41196604231249,
+      "SciFact": 59.29957906141134,
+      "NFCorpus": 31.524353023213642,
+      "STSBenchmark": 83.5448450797032,
+      "mean12": 71.27738333333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-mse/model-q4-mse.pt",
+        "sha256": "1c260f0bf05cbec17fa82ef89665fa1095c63d74aa7eb5b71ad78ba3981cc1b4",
+        "precision": "q4",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+        "weight_scale_method": "Per-group minimum weight-MSE over21 BF16 scale candidates; includes original maxabs scale.",
+        "bits": 4,
+        "activation_bits": 8,
+        "group_size": 64,
+        "note": "Accuracy/reference packed artifact. No native packed-kernel speed claim; float parent is a development blend."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "delivery/q8",
+      "precision": "q8",
+      "layers": 3,
+      "core": 47.47543552350379,
+      "SciFact": 62.96718299194186,
+      "NFCorpus": 31.983688055065723,
+      "STSBenchmark": 83.97731956042958,
+      "mean12": 72.02260833333334,
+      "beats_both_refs_each_core": true,
+      "beats_both_refs_mean12": true,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/campaign-20261025/model-q8.pt",
+        "sha256": "38e400de8c984ec7e7dd9aa33e2163096b8dc3725b1e89fdf416fda0f6117d70",
+        "bytes": 53232203,
+        "precision": "q8",
+        "layers": 3,
+        "source_float_sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c",
+        "eligible_for_promotion": false,
+        "format": "Packed W4/W8 dense matrices, int8 activations, BF16 scales, group64; embeddings/output/bias/norm remain float32.",
+        "performance": "Dense reference loader for quality; native packed-kernel speed unmeasured."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "human-mix/ternary-low-lr",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 44.5375299635975,
+      "SciFact": 58.85026764195027,
+      "NFCorpus": 30.224792285244728,
+      "STSBenchmark": 82.68572186581919,
+      "mean12": 70.75335833333334,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/human-mix-run/backups/human-mix-ternary-low-lr/best.pt",
+        "sha256": "bdd73415c877b216934d643523f0fce2c1e4898e8140a5aa449ba14e4c0fe7ea",
+        "step": 726,
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9512868523597717,
+              "ndcg10": 96.20193839073181,
+              "recall10": 0.9948309659957886
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9302959442138672,
+              "ndcg10": 94.49957013130188,
+              "recall10": 0.9906662702560425
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9795948266983032,
+              "ndcg10": 98.44369292259216,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.967248260974884,
+              "ndcg10": 97.47939109802246,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.71750408411026,
+              "ndcg10": 74.88557696342468,
+              "recall10": 0.8630136847496033
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.8939377069473267,
+              "ndcg10": 90.42693376541138,
+              "recall10": 0.9407385587692261
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8925231099128723,
+              "ndcg10": 92.02165603637695,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.712411105632782,
+              "ndcg10": 75.76301097869873,
+              "recall10": 0.9119653105735779
+            },
+            "human-nli-triplets": {
+              "queries": 5189,
+              "documents": 10848,
+              "mrr": 0.8043192028999329,
+              "ndcg10": 82.78423547744751,
+              "recall10": 0.9255155324935913
+            }
+          },
+          "macro_ndcg10": 89.16733397377863,
+          "scope": "Each held source ranked against all held positives and audited explicit negatives from that source",
+          "step": 726,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 89.16733397377863,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 726,
+          "precision": "ternary",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "human-mix/ternary",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 43.70079006615896,
+      "SciFact": 57.54899485235919,
+      "NFCorpus": 29.852585279958717,
+      "STSBenchmark": 82.62487404908386,
+      "mean12": 70.560725,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/human-mix-run/backups/human-mix-ternary/best.pt",
+        "sha256": "4ca27283aab4c66e6def0da262e5331d142b6cc7307ac1a3046d298e9d69f24c",
+        "step": 600,
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.949506938457489,
+              "ndcg10": 96.06683254241943,
+              "recall10": 0.9946155548095703
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9280460476875305,
+              "ndcg10": 94.30828094482422,
+              "recall10": 0.9896292090415955
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9818835854530334,
+              "ndcg10": 98.61059188842773,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9662813544273376,
+              "ndcg10": 97.40865230560303,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7150668501853943,
+              "ndcg10": 74.73427057266235,
+              "recall10": 0.8635616302490234
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.8952573537826538,
+              "ndcg10": 90.48947095870972,
+              "recall10": 0.9395708441734314
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8924407958984375,
+              "ndcg10": 92.01480746269226,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7152324318885803,
+              "ndcg10": 75.94471573829651,
+              "recall10": 0.911345362663269
+            },
+            "human-nli-triplets": {
+              "queries": 5189,
+              "documents": 10848,
+              "mrr": 0.8073307871818542,
+              "ndcg10": 83.03440809249878,
+              "recall10": 0.9267681837081909
+            }
+          },
+          "macro_ndcg10": 89.17911450068156,
+          "scope": "Each held source ranked against all held positives and audited explicit negatives from that source",
+          "step": 600,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 89.17911450068156,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 726,
+          "precision": "ternary",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "ternary-blends/ternary-2-25",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.585566014540156,
+      "SciFact": 58.59528649340325,
+      "NFCorpus": 30.57584553567706,
+      "STSBenchmark": 81.08995220549522,
+      "mean12": 70.53109166666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-2-25.pt",
+        "sha256": "0f01828f2162bb7abc3d804762cc41d2b292e629b05941b7270078e0dbcecb8f",
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+          "trained_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "ternary-blends/ternary-3-25",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48115833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-25.pt",
+        "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "role-projection/shared-1",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48115833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-25.pt",
+        "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established.",
+        "step": 0,
+        "selected_identity": true,
+        "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json",
+        "source_arm": "ternary-3-25",
+        "source_summary_sha256": "0735b1902c479c7580ed733c2c0296e7918043cb047b35ee8822514786bc21ab",
+        "experiment_mode": "shared"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "role-projection/shared-10",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48115833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-25.pt",
+        "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established.",
+        "step": 0,
+        "selected_identity": true,
+        "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json",
+        "source_arm": "ternary-3-25",
+        "source_summary_sha256": "0735b1902c479c7580ed733c2c0296e7918043cb047b35ee8822514786bc21ab",
+        "experiment_mode": "shared"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "role-projection/query-1",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48115833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-25.pt",
+        "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established.",
+        "step": 0,
+        "selected_identity": true,
+        "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json",
+        "source_arm": "ternary-3-25",
+        "source_summary_sha256": "0735b1902c479c7580ed733c2c0296e7918043cb047b35ee8822514786bc21ab",
+        "experiment_mode": "query"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "role-projection/query-10",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48115833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-25.pt",
+        "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established.",
+        "step": 0,
+        "selected_identity": true,
+        "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json",
+        "source_arm": "ternary-3-25",
+        "source_summary_sha256": "0735b1902c479c7580ed733c2c0296e7918043cb047b35ee8822514786bc21ab",
+        "experiment_mode": "query"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "delivery/ternary",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48115833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/campaign-20261025/model-ternary.pt",
+        "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established.",
+        "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json",
+        "source_arm": "ternary-3-25",
+        "source_summary_sha256": "0735b1902c479c7580ed733c2c0296e7918043cb047b35ee8822514786bc21ab",
+        "bytes": 68984257,
+        "parameters": 17241984,
+        "additional_query_parameters": 0,
+        "query_head": false
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "projection-blend/projection-0.1",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48115,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection-blend/projection-0.1.pt",
+        "sha256": "e05afa655186b7337573e798f7e24b278339cd6870f2e16ac74db9ef0992f39a",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": 96.29395008087158,
+            "sentence-transformers/gooaq": 94.69783902168274,
+            "sentence-transformers/natural-questions": 98.5755205154419,
+            "sentence-transformers/squad": 97.63811230659485,
+            "sentence-transformers/stackexchange-duplicates": 75.09194016456604,
+            "sentence-transformers/s2orc": 89.83158469200134,
+            "sentence-transformers/quora-duplicates": 92.18280911445618,
+            "sentence-transformers/all-nli": 75.23126006126404,
+            "human-nli-triplets": 82.18626976013184
+          },
+          "macro_ndcg10": 89.0810317463345
+        },
+        "step": 0,
+        "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "regularizer": 0.1,
+        "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+        "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+        "matrix_condition_number": 1.0
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "projection-blend/projection-1",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48114166666666,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection-blend/projection-1.pt",
+        "sha256": "706852f85477584ec4ad92264fa613f346d8447a388f46a3a66f3e800ebc537a",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": 96.29395008087158,
+            "sentence-transformers/gooaq": 94.69783902168274,
+            "sentence-transformers/natural-questions": 98.5755205154419,
+            "sentence-transformers/squad": 97.63811230659485,
+            "sentence-transformers/stackexchange-duplicates": 75.09194016456604,
+            "sentence-transformers/s2orc": 89.83158469200134,
+            "sentence-transformers/quora-duplicates": 92.18280911445618,
+            "sentence-transformers/all-nli": 75.23126006126404,
+            "human-nli-triplets": 82.18626976013184
+          },
+          "macro_ndcg10": 89.0810317463345
+        },
+        "step": 0,
+        "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "regularizer": 1.0,
+        "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+        "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+        "matrix_condition_number": 1.0
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "projection-blend/projection-10",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.22703157203311,
+      "SciFact": 59.868276543475176,
+      "NFCorpus": 30.585786600591057,
+      "STSBenchmark": 82.4517793016043,
+      "mean12": 70.48113333333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection-blend/projection-10.pt",
+        "sha256": "d90eb0e60360fc53e3a142e64ceba302ee82bac5b8bcc36bb028bf4596d1b30f",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": 96.29395008087158,
+            "sentence-transformers/gooaq": 94.69783902168274,
+            "sentence-transformers/natural-questions": 98.5755205154419,
+            "sentence-transformers/squad": 97.63811230659485,
+            "sentence-transformers/stackexchange-duplicates": 75.09194016456604,
+            "sentence-transformers/s2orc": 89.83158469200134,
+            "sentence-transformers/quora-duplicates": 92.18280911445618,
+            "sentence-transformers/all-nli": 75.23126006126404,
+            "human-nli-triplets": 82.18626976013184
+          },
+          "macro_ndcg10": 89.0810317463345
+        },
+        "step": 0,
+        "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "regularizer": 10.0,
+        "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+        "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+        "matrix_condition_number": 1.0
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "ternary-blends/ternary-3-50",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 45.02200291643565,
+      "SciFact": 59.45879863509481,
+      "NFCorpus": 30.585207197776505,
+      "STSBenchmark": 82.41171266691036,
+      "mean12": 70.401725,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-50.pt",
+        "sha256": "db47d00c22f3c0e7e288fc1c006b7c75d4031704deabee8075291ef2f131ffcd",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.5
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "ternary-blends/ternary-2-50",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.52185661413876,
+      "SciFact": 58.34289960087887,
+      "NFCorpus": 30.700813627398656,
+      "STSBenchmark": 81.19695404462007,
+      "mean12": 70.3837,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-2-50.pt",
+        "sha256": "e80f1d131194a68eef38bfa28b9c5f7b0e67d2a65ec27e9196568a4986a0de9b",
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+          "trained_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7",
+          "trained_fraction": 0.5
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "ternary-blends/ternary-3-75",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 44.998606456372016,
+      "SciFact": 59.52016946324098,
+      "NFCorpus": 30.47704344950305,
+      "STSBenchmark": 82.1051322429576,
+      "mean12": 70.28855,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-75.pt",
+        "sha256": "bd98b0e403aea377bff5f278f72b58d6548cd96686255b5b96042bbbb50e2286",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.75
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "projection/projection-1",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 44.527213390758654,
+      "SciFact": 59.374073466272115,
+      "NFCorpus": 29.68035331524519,
+      "STSBenchmark": 82.26666089856559,
+      "mean12": 70.28696666666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection/projection-1.pt",
+        "sha256": "030d2479a65b0d43c4191567c7628ce117f3136bf198d48de837b8b98acd69ee",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": 96.13807797431946,
+            "sentence-transformers/gooaq": 94.544118642807,
+            "sentence-transformers/natural-questions": 98.65445494651794,
+            "sentence-transformers/squad": 97.63038158416748,
+            "sentence-transformers/stackexchange-duplicates": 75.20544528961182,
+            "sentence-transformers/s2orc": 91.24744534492493,
+            "sentence-transformers/quora-duplicates": 91.85656905174255,
+            "sentence-transformers/all-nli": 76.29708647727966,
+            "human-nli-triplets": 82.5630247592926
+          },
+          "macro_ndcg10": 89.34851156340704
+        },
+        "step": 239,
+        "initial_checkpoint_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+        "regularizer": 1.0,
+        "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+        "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+        "matrix_condition_number": 3.466057300567627
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "projection/projection-0.1",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 44.34451964914311,
+      "SciFact": 59.133984931393236,
+      "NFCorpus": 29.55505436689298,
+      "STSBenchmark": 82.30041184207361,
+      "mean12": 70.27404166666666,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection/projection-0.1.pt",
+        "sha256": "d1cf69a9f7917c6192c09b4121d9d9422a4b20d16d8ec9a682489107fed8bfbb",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": 96.18122577667236,
+            "sentence-transformers/gooaq": 94.56004500389099,
+            "sentence-transformers/natural-questions": 98.59625101089478,
+            "sentence-transformers/squad": 97.54002690315247,
+            "sentence-transformers/stackexchange-duplicates": 75.08386373519897,
+            "sentence-transformers/s2orc": 91.23350381851196,
+            "sentence-transformers/quora-duplicates": 91.86951518058777,
+            "sentence-transformers/all-nli": 76.38877630233765,
+            "human-nli-triplets": 82.55858421325684
+          },
+          "macro_ndcg10": 89.33464354938931
+        },
+        "step": 239,
+        "initial_checkpoint_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+        "regularizer": 0.1,
+        "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+        "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+        "matrix_condition_number": 4.749885082244873
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "ternary-blends/ternary-2-75",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.97764930341,
+      "SciFact": 59.31479385459757,
+      "NFCorpus": 30.64050475222243,
+      "STSBenchmark": 81.40787327449713,
+      "mean12": 70.27344166666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": false,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-2-75.pt",
+        "sha256": "40ade0575e3ed7b8ffa70c688eb3d762673f7019788e99285732db808ae739de",
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+          "trained_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7",
+          "trained_fraction": 0.75
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "projection/projection-10",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 44.6074992208228,
+      "SciFact": 59.41718905263599,
+      "NFCorpus": 29.797809389009615,
+      "STSBenchmark": 82.08019276555459,
+      "mean12": 70.220625,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection/projection-10.pt",
+        "sha256": "7a0a351e654a4f2d0f0a606f927c9a3286b82e63ffbfc47a9803f2af936dcf66",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": 96.15283012390137,
+            "sentence-transformers/gooaq": 94.58390474319458,
+            "sentence-transformers/natural-questions": 98.58134984970093,
+            "sentence-transformers/squad": 97.57542014122009,
+            "sentence-transformers/stackexchange-duplicates": 75.25104880332947,
+            "sentence-transformers/s2orc": 91.33520126342773,
+            "sentence-transformers/quora-duplicates": 91.84972047805786,
+            "sentence-transformers/all-nli": 76.11350417137146,
+            "human-nli-triplets": 82.350754737854
+          },
+          "macro_ndcg10": 89.31041492356195
+        },
+        "step": 478,
+        "initial_checkpoint_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+        "regularizer": 10.0,
+        "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+        "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+        "matrix_condition_number": 1.6663711071014404
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "science-ternary/3-ternary-fresh",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 44.67935832953894,
+      "SciFact": 59.33959441513726,
+      "NFCorpus": 30.019122243940622,
+      "STSBenchmark": 81.55194415848005,
+      "mean12": 70.08,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-ternary-run/backups/science-ternary-3-ternary-fresh/best.pt",
+        "sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+        "step": 2008,
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.950411319732666,
+              "ndcg10": 96.14667892456055,
+              "recall10": 0.9952617287635803
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9319427609443665,
+              "ndcg10": 94.64676976203918,
+              "recall10": 0.9911848306655884
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9837641716003418,
+              "ndcg10": 98.7549901008606,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9663202166557312,
+              "ndcg10": 97.35490679740906,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7182891368865967,
+              "ndcg10": 75.10104179382324,
+              "recall10": 0.8679451942443848
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9031826853752136,
+              "ndcg10": 91.29951596260071,
+              "recall10": 0.9475988745689392
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8900198936462402,
+              "ndcg10": 91.8336808681488,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7124631404876709,
+              "ndcg10": 75.55610537528992,
+              "recall10": 0.9051457047462463
+            }
+          },
+          "macro_ndcg10": 90.0867111980915,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 70.09235620498657,
+            "macro_accuracy": 70.10084390640259,
+            "by_label": {
+              "0": 75.24287104606628,
+              "1": 65.94577431678772,
+              "2": 69.11388635635376
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 2008,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 80.09377755224705,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 2008,
+          "precision": "ternary",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "scales/3-scales-only",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 44.73869044447807,
+      "SciFact": 59.51793988602606,
+      "NFCorpus": 29.95944100293007,
+      "STSBenchmark": 81.51181517590476,
+      "mean12": 70.07051666666666,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-3-scales-only/best.pt",
+        "sha256": "bb508072ce7a14ec3ac48fb4af4fa6877f295eb5d1f7ed4279f4b8ed191f7b13",
+        "step": 1000,
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9510693550109863,
+              "ndcg10": 96.19006514549255,
+              "recall10": 0.9950463175773621
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9324193000793457,
+              "ndcg10": 94.68056559562683,
+              "recall10": 0.9911848306655884
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9841381907463074,
+              "ndcg10": 98.78395199775696,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9680241346359253,
+              "ndcg10": 97.48619198799133,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7192769646644592,
+              "ndcg10": 75.23868083953857,
+              "recall10": 0.8701369762420654
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9037140607833862,
+              "ndcg10": 91.35151505470276,
+              "recall10": 0.948036789894104
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8902668356895447,
+              "ndcg10": 91.85270667076111,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.709125280380249,
+              "ndcg10": 75.26764869689941,
+              "recall10": 0.9039057493209839
+            }
+          },
+          "macro_ndcg10": 90.10641574859619,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.74871158599854,
+            "macro_accuracy": 69.750581185023,
+            "by_label": {
+              "0": 74.36851859092712,
+              "1": 64.10587430000305,
+              "2": 70.7773506641388
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1000,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.9284984668096,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "ternary",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "scales/fixed",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.72176797189406,
+      "SciFact": 59.24269116684386,
+      "NFCorpus": 30.20084477694426,
+      "STSBenchmark": 81.36490792803392,
+      "mean12": 70.06051666666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-fixed/best.pt",
+        "sha256": "d214b5ad5d5cab6712b563878a8c98e2cbfa03303c180606b477974993cb206a",
+        "step": 1000,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9453123211860657,
+              "ndcg10": 95.689857006073,
+              "recall10": 0.9924618005752563
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9199844002723694,
+              "ndcg10": 93.66333484649658,
+              "recall10": 0.9883328676223755
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9744613766670227,
+              "ndcg10": 98.05418252944946,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9570674300193787,
+              "ndcg10": 96.64753079414368,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.6881767511367798,
+              "ndcg10": 72.05292582511902,
+              "recall10": 0.8372603058815002
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.8972915410995483,
+              "ndcg10": 90.7564103603363,
+              "recall10": 0.9432199597358704
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8914526104927063,
+              "ndcg10": 91.93952083587646,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7031466364860535,
+              "ndcg10": 74.44451451301575,
+              "recall10": 0.8896466493606567
+            }
+          },
+          "macro_ndcg10": 89.15603458881378,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.25472617149353,
+            "macro_accuracy": 69.25082008043925,
+            "by_label": {
+              "0": 72.44170904159546,
+              "1": 63.6216938495636,
+              "2": 71.68905735015869
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1000,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.20342733462653,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "scales/3-learned",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 44.21471632977658,
+      "SciFact": 58.652599519131634,
+      "NFCorpus": 29.776833140421527,
+      "STSBenchmark": 81.4474820355905,
+      "mean12": 70.05796666666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-3-learned/best.pt",
+        "sha256": "2171918721b6110210db2233efc3aa75d8f39d8d9d72042c5024378318cbb343",
+        "step": 1000,
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9511262774467468,
+              "ndcg10": 96.20228409767151,
+              "recall10": 0.9952617287635803
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9332244396209717,
+              "ndcg10": 94.74590420722961,
+              "recall10": 0.9911848306655884
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9858802556991577,
+              "ndcg10": 98.91020655632019,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9662655591964722,
+              "ndcg10": 97.35332727432251,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7209955453872681,
+              "ndcg10": 75.26506185531616,
+              "recall10": 0.8673972487449646
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9041271209716797,
+              "ndcg10": 91.38004779815674,
+              "recall10": 0.9478908181190491
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8896904587745667,
+              "ndcg10": 91.81014895439148,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7076702117919922,
+              "ndcg10": 75.15954971313477,
+              "recall10": 0.9039057493209839
+            }
+          },
+          "macro_ndcg10": 90.10331630706787,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.94737982749939,
+            "macro_accuracy": 69.94638641675313,
+            "by_label": {
+              "0": 73.36463332176208,
+              "1": 64.97740745544434,
+              "2": 71.49711847305298
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1000,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 80.02485136191049,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "ternary",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "scales/learned",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.97437045045352,
+      "SciFact": 59.542734770907046,
+      "NFCorpus": 30.40600612999999,
+      "STSBenchmark": 81.33854591632755,
+      "mean12": 70.02248333333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-learned/best.pt",
+        "sha256": "0f57f520bce0c29c0aa6f7167e9b55beff5620acf16b610167bbc78f2528c25e",
+        "step": 1004,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9447131752967834,
+              "ndcg10": 95.64574956893921,
+              "recall10": 0.9924618005752563
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9195057153701782,
+              "ndcg10": 93.61498355865479,
+              "recall10": 0.9878143072128296
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9743486642837524,
+              "ndcg10": 98.0087161064148,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9531100988388062,
+              "ndcg10": 96.35370373725891,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.6904069781303406,
+              "ndcg10": 72.37467169761658,
+              "recall10": 0.8432876467704773
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.8983475565910339,
+              "ndcg10": 90.84885716438293,
+              "recall10": 0.9438037872314453
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8921114206314087,
+              "ndcg10": 91.98892712593079,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7024595141410828,
+              "ndcg10": 74.40841794013977,
+              "recall10": 0.8902665972709656
+            }
+          },
+          "macro_ndcg10": 89.15550336241722,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.39433217048645,
+            "macro_accuracy": 69.39213673273723,
+            "by_label": {
+              "0": 73.73704314231873,
+              "1": 62.76630163192749,
+              "2": 71.67306542396545
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1004,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.27382004757723,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "nli-aux/ternary-0.25",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.10359837410105,
+      "SciFact": 57.71266641429279,
+      "NFCorpus": 30.494530333909303,
+      "STSBenchmark": 81.59043619578458,
+      "mean12": 70.00875,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-ternary-0.25/best.pt",
+        "sha256": "2813c16eb81a9223e937a3aff49e1fb88afa11f544896a2852ef9c48a72c777a",
+        "step": 1534,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9479290246963501,
+              "ndcg10": 95.86259722709656,
+              "recall10": 0.9916002750396729
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.923138439655304,
+              "ndcg10": 93.90833377838135,
+              "recall10": 0.9885921478271484
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.971363365650177,
+              "ndcg10": 97.82284498214722,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9526326656341553,
+              "ndcg10": 96.25288248062134,
+              "recall10": 0.9934354424476624
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.694675087928772,
+              "ndcg10": 72.66278266906738,
+              "recall10": 0.8415300846099854
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9173732995986938,
+              "ndcg10": 92.42895841598511,
+              "recall10": 0.9492008686065674
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8937088847160339,
+              "ndcg10": 92.10460186004639,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7011634707450867,
+              "ndcg10": 74.30426478385925,
+              "recall10": 0.88984614610672
+            }
+          },
+          "macro_ndcg10": 89.41840827465057,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 68.34192276000977,
+            "macro_accuracy": 68.34350029627483,
+            "by_label": {
+              "0": 71.34067416191101,
+              "1": 64.79986906051636,
+              "2": 68.8899576663971
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1534,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 78.8809542854627,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "science-ternary/ternary-fresh",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.6293228830133,
+      "SciFact": 58.79447592538747,
+      "NFCorpus": 30.464169840639133,
+      "STSBenchmark": 81.4261960202815,
+      "mean12": 69.97131666666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-ternary-run/backups/science-ternary-ternary-fresh/best.pt",
+        "sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7",
+        "step": 2008,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9440832734107971,
+              "ndcg10": 95.59122323989868,
+              "recall10": 0.9922463893890381
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9202042818069458,
+              "ndcg10": 93.67089867591858,
+              "recall10": 0.9880735874176025
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9726682901382446,
+              "ndcg10": 97.84170985221863,
+              "recall10": 0.9960159659385681
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9542087912559509,
+              "ndcg10": 96.50340676307678,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.6904929876327515,
+              "ndcg10": 72.26016521453857,
+              "recall10": 0.8389041423797607
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.8964390158653259,
+              "ndcg10": 90.69051146507263,
+              "recall10": 0.9432199597358704
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8915350437164307,
+              "ndcg10": 91.94326400756836,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7073317170143127,
+              "ndcg10": 74.92566704750061,
+              "recall10": 0.8958462476730347
+            }
+          },
+          "macro_ndcg10": 89.1783557832241,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.29231286048889,
+            "macro_accuracy": 69.2975123723348,
+            "by_label": {
+              "0": 75.016188621521,
+              "1": 63.26662302017212,
+              "2": 69.60972547531128
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 2008,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.23793407777944,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 2008,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "nli-aux/ternary-0.1",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.19897752926537,
+      "SciFact": 58.008537371698424,
+      "NFCorpus": 30.389417686832314,
+      "STSBenchmark": 81.66112950758551,
+      "mean12": 69.80905833333334,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-ternary-0.1/best.pt",
+        "sha256": "8f0acb44504bc365f40bfb120174ffb211a5e8a2d7329497de9c4ed95f3ba19c",
+        "step": 1534,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9484817981719971,
+              "ndcg10": 95.89734673500061,
+              "recall10": 0.9913849234580994
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9218243360519409,
+              "ndcg10": 93.80714297294617,
+              "recall10": 0.9883328676223755
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9760714769363403,
+              "ndcg10": 98.13666939735413,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9548956751823425,
+              "ndcg10": 96.4945137500763,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6962981820106506,
+              "ndcg10": 72.75105118751526,
+              "recall10": 0.8404371738433838
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9167268872261047,
+              "ndcg10": 92.44873523712158,
+              "recall10": 0.951483964920044
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8917819857597351,
+              "ndcg10": 91.96540117263794,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.706121027469635,
+              "ndcg10": 74.79429244995117,
+              "recall10": 0.8941538333892822
+            }
+          },
+          "macro_ndcg10": 89.5368941128254,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 66.19415879249573,
+            "macro_accuracy": 66.19738737742107,
+            "by_label": {
+              "0": 69.98056769371033,
+              "1": 62.13686466217041,
+              "2": 66.47472977638245
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1534,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 77.86714074512324,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "science-ternary/ternary-repeat",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.36454337169688,
+      "SciFact": 58.66806955846139,
+      "NFCorpus": 30.061017184932382,
+      "STSBenchmark": 81.46246125308313,
+      "mean12": 69.770075,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-ternary-run/backups/science-ternary-ternary-repeat/best.pt",
+        "sha256": "28364146ff1b36835c2d99408cd551cd22b3c3d41aaeeed542e6eee79c151c21",
+        "step": 2008,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9430504441261292,
+              "ndcg10": 95.49010396003723,
+              "recall10": 0.9913849234580994
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9211305975914001,
+              "ndcg10": 93.70996356010437,
+              "recall10": 0.9870365262031555
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.971080482006073,
+              "ndcg10": 97.68344759941101,
+              "recall10": 0.9946879148483276
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9507480263710022,
+              "ndcg10": 96.12410068511963,
+              "recall10": 0.9934354424476624
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.6886104345321655,
+              "ndcg10": 71.9429612159729,
+              "recall10": 0.8317808508872986
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.8927380442619324,
+              "ndcg10": 90.33939838409424,
+              "recall10": 0.9405925869941711
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8919466733932495,
+              "ndcg10": 91.97832942008972,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7067915201187134,
+              "ndcg10": 74.86841678619385,
+              "recall10": 0.8958462476730347
+            }
+          },
+          "macro_ndcg10": 89.01709020137787,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.4372832775116,
+            "macro_accuracy": 69.43991184234619,
+            "by_label": {
+              "0": 74.28756356239319,
+              "1": 63.734668493270874,
+              "2": 70.29750347137451
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 2008,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.22850102186203,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 2008,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "depth3/2-ternary",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.3526717575923,
+      "SciFact": 58.12148188887445,
+      "NFCorpus": 30.583861626310142,
+      "STSBenchmark": 81.09008735770762,
+      "mean12": 69.39125,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/depth3-run/backups/depth3-2-ternary/best.pt",
+        "sha256": "477b227f43b5b66f1df551b3b6d961c3d99d55277c1ad715862d1f315399cdc4",
+        "step": 12206,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9474343061447144,
+              "ndcg10": 95.85567712783813,
+              "recall10": 0.9926771521568298
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9190399050712585,
+              "ndcg10": 93.59937310218811,
+              "recall10": 0.9885921478271484
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.972802996635437,
+              "ndcg10": 97.89454936981201,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.957195520401001,
+              "ndcg10": 96.72541618347168,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6898972988128662,
+              "ndcg10": 72.19834923744202,
+              "recall10": 0.8393442630767822
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9148517847061157,
+              "ndcg10": 92.33077764511108,
+              "recall10": 0.9531962871551514
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8902998566627502,
+              "ndcg10": 91.85054302215576,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7116056084632874,
+              "ndcg10": 75.52984952926636,
+              "recall10": 0.905846118927002
+            }
+          },
+          "macro_ndcg10": 89.49806690216064,
+          "scope": "Each held source ranked against every unique positive document from that source",
+          "step": 12206,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 12206,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "be60d47681d63a71c6c64412337d4a1ef7099065245e08eb5b425624a081d7b6"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "batch1024/ternary-1e-5",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.27637280874237,
+      "SciFact": 57.87454773481765,
+      "NFCorpus": 30.678197882667096,
+      "STSBenchmark": 81.061703789604,
+      "mean12": 69.38734166666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/batch1024-run/backups/batch1024-ternary-1e-5/best.pt",
+        "sha256": "9bba9ef2436e8ed6f90af2fc2ba548c5aa6af9a08668463c1962ecd90e371775",
+        "step": 1000,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9479423761367798,
+              "ndcg10": 95.90399265289307,
+              "recall10": 0.9931079149246216
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9195436239242554,
+              "ndcg10": 93.65127682685852,
+              "recall10": 0.9891107082366943
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9747128486633301,
+              "ndcg10": 98.07195663452148,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.955327033996582,
+              "ndcg10": 96.52759432792664,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6945218443870544,
+              "ndcg10": 72.54013419151306,
+              "recall10": 0.8382514119148254
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9164942502975464,
+              "ndcg10": 92.42826700210571,
+              "recall10": 0.951483964920044
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8913702368736267,
+              "ndcg10": 91.93190932273865,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7114272713661194,
+              "ndcg10": 75.20677447319031,
+              "recall10": 0.8947691917419434
+            }
+          },
+          "macro_ndcg10": 89.53273817896843,
+          "scope": "Each held source ranked against all held positives from that source",
+          "step": 1000,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "be60d47681d63a71c6c64412337d4a1ef7099065245e08eb5b425624a081d7b6"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "hardneg/ternary-pairs",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.793133815585485,
+      "SciFact": 58.35700311610016,
+      "NFCorpus": 31.22926451507081,
+      "STSBenchmark": 80.81965854706948,
+      "mean12": 69.375575,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/hardneg-run/backups/hardneg-ternary-pairs/best.pt",
+        "sha256": "cfe00c38088403dabd8ca533f5a5e4a62702527672aaed71227081f8d04b8c86",
+        "step": 1200,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 7383,
+              "mrr": 0.8040837049484253,
+              "ndcg10": 85.11481881141663,
+              "recall10": 0.9888003468513489
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9213443398475647,
+              "ndcg10": 93.7812864780426,
+              "recall10": 0.9888514280319214
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9745435118675232,
+              "ndcg10": 98.02672863006592,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9537339210510254,
+              "ndcg10": 96.40357494354248,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6984193325042725,
+              "ndcg10": 72.83219695091248,
+              "recall10": 0.8377049565315247
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9170197248458862,
+              "ndcg10": 92.5176739692688,
+              "recall10": 0.9531962871551514
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8908762335777283,
+              "ndcg10": 91.8913185596466,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7117580771446228,
+              "ndcg10": 75.429368019104,
+              "recall10": 0.9015384316444397
+            }
+          },
+          "macro_ndcg10": 88.24962079524994,
+          "scope": "Each held source ranked against all held positives and audited explicit negatives from that source",
+          "step": 1200,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 88.24962079524994,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "batch1024/ternary-4e-5",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.71756120820273,
+      "SciFact": 58.523139989224134,
+      "NFCorpus": 30.911982427181332,
+      "STSBenchmark": 80.9152042890858,
+      "mean12": 69.30454166666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/batch1024-run/backups/batch1024-ternary-4e-5/best.pt",
+        "sha256": "d28de798ef567c387088731bf65b19f9080e07910df58a1e24051bb39339557b",
+        "step": 1400,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9481513500213623,
+              "ndcg10": 95.91221809387207,
+              "recall10": 0.9928925633430481
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9215290546417236,
+              "ndcg10": 93.81707310676575,
+              "recall10": 0.9896292090415955
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9765032529830933,
+              "ndcg10": 98.20979833602905,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.960364043712616,
+              "ndcg10": 96.89591526985168,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6942905783653259,
+              "ndcg10": 72.61264324188232,
+              "recall10": 0.8409836292266846
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9160901308059692,
+              "ndcg10": 92.40807890892029,
+              "recall10": 0.9520547389984131
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8910902738571167,
+              "ndcg10": 91.91270470619202,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7125614285469055,
+              "ndcg10": 75.4961609840393,
+              "recall10": 0.9021538496017456
+            }
+          },
+          "macro_ndcg10": 89.65807408094406,
+          "scope": "Each held source ranked against all held positives from that source",
+          "step": 1400,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "be60d47681d63a71c6c64412337d4a1ef7099065245e08eb5b425624a081d7b6"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "hardneg/ternary-hard",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 43.75456516877626,
+      "SciFact": 57.37562977047751,
+      "NFCorpus": 30.13350056707501,
+      "STSBenchmark": 80.79467348442874,
+      "mean12": 69.24509166666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/hardneg-run/backups/hardneg-ternary-hard/best.pt",
+        "sha256": "3fb08c6761e48736a31b26a6c784ba87b84aaf56b94eddcf0785a4aa9474c153",
+        "step": 1200,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 7383,
+              "mrr": 0.8582345843315125,
+              "ndcg10": 89.08374309539795,
+              "recall10": 0.9877234697341919
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9215263724327087,
+              "ndcg10": 93.7623143196106,
+              "recall10": 0.9875550866127014
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9757346510887146,
+              "ndcg10": 98.1142520904541,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9579305052757263,
+              "ndcg10": 96.71235680580139,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6916173100471497,
+              "ndcg10": 72.31637239456177,
+              "recall10": 0.8371585011482239
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9146208167076111,
+              "ndcg10": 92.19164252281189,
+              "recall10": 0.9480593204498291
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8927289247512817,
+              "ndcg10": 92.0244812965393,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7033636569976807,
+              "ndcg10": 74.55702424049377,
+              "recall10": 0.8929230570793152
+            }
+          },
+          "macro_ndcg10": 88.59527334570885,
+          "scope": "Each held source ranked against all held positives and audited explicit negatives from that source",
+          "step": 1200,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 88.59527334570885,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "nli-aux/ternary-0.0",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.55916529661364,
+      "SciFact": 58.41246369026317,
+      "NFCorpus": 30.705866902964107,
+      "STSBenchmark": 80.84109391702677,
+      "mean12": 69.23435833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-ternary-0.0/best.pt",
+        "sha256": "6a9d905b99b21786f47ab08ef84b4f1c56283af6f4dc23fe8eb0510157fec12d",
+        "step": 1534,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9482340216636658,
+              "ndcg10": 95.8847165107727,
+              "recall10": 0.9916002750396729
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9223579168319702,
+              "ndcg10": 93.85177493095398,
+              "recall10": 0.9885921478271484
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9761567711830139,
+              "ndcg10": 98.1831967830658,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9548051357269287,
+              "ndcg10": 96.48302793502808,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6963176131248474,
+              "ndcg10": 72.83239960670471,
+              "recall10": 0.8431694507598877
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.915104866027832,
+              "ndcg10": 92.31882095336914,
+              "recall10": 0.951483964920044
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8921442627906799,
+              "ndcg10": 91.98758602142334,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7116292119026184,
+              "ndcg10": 75.32178163528442,
+              "recall10": 0.8984615206718445
+            }
+          },
+          "macro_ndcg10": 89.60791304707527,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 59.30519700050354,
+            "macro_accuracy": 59.29946303367615,
+            "by_label": {
+              "0": 59.94170904159546,
+              "1": 56.520336866378784,
+              "2": 61.4363431930542
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1534,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 74.45368804037571,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "batch1024/predata-ternary-4e-5",
+      "precision": "ternary",
+      "layers": 2,
+      "core": 44.55916529661364,
+      "SciFact": 58.41246369026317,
+      "NFCorpus": 30.705866902964107,
+      "STSBenchmark": 80.84109391702677,
+      "mean12": 69.23434166666667,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/batch1024-run/backups/batch1024-predata-ternary-4e-5/best.pt",
+        "sha256": "35184dbe48c3d33f3c928bc94aaa010c65356159cc92a42620bbee1e9a8ff847",
+        "step": 1534,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9482340216636658,
+              "ndcg10": 95.8847165107727,
+              "recall10": 0.9916002750396729
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9223579168319702,
+              "ndcg10": 93.85177493095398,
+              "recall10": 0.9885921478271484
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9761567711830139,
+              "ndcg10": 98.1831967830658,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9548051357269287,
+              "ndcg10": 96.48302793502808,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6963176131248474,
+              "ndcg10": 72.83239960670471,
+              "recall10": 0.8431694507598877
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.915104866027832,
+              "ndcg10": 92.31882095336914,
+              "recall10": 0.951483964920044
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8921442627906799,
+              "ndcg10": 91.98758602142334,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7116292119026184,
+              "ndcg10": 75.32178163528442,
+              "recall10": 0.8984615206718445
+            }
+          },
+          "macro_ndcg10": 89.60791304707527,
+          "scope": "Each held source ranked against all held positives from that source",
+          "step": 1534,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1534,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+      },
+      "fixed_subset_target_passed": false
+    },
+    {
+      "name": "depth3/3-ternary",
+      "precision": "ternary",
+      "layers": 3,
+      "core": 43.57704186132362,
+      "SciFact": 57.2657541656481,
+      "NFCorpus": 29.88832955699915,
+      "STSBenchmark": 80.9215039856842,
+      "mean12": 68.97950833333333,
+      "beats_both_refs_each_core": false,
+      "beats_both_refs_mean12": false,
+      "internal_guard_passed": true,
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/depth3-run/backups/depth3-3-ternary/best.pt",
+        "sha256": "71274f5e982bde1b4233e4d2d9bf4ef888dd48602b8035688922719ced4cf6e1",
+        "step": 12000,
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9441139698028564,
+              "ndcg10": 95.5642580986023,
+              "recall10": 0.9911695122718811
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9194428324699402,
+              "ndcg10": 93.61329078674316,
+              "recall10": 0.9880735874176025
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9739048480987549,
+              "ndcg10": 97.96709418296814,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.94705730676651,
+              "ndcg10": 95.88395953178406,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1830,
+              "documents": 1251,
+              "mrr": 0.6875725984573364,
+              "ndcg10": 71.80659770965576,
+              "recall10": 0.8311475515365601
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 1752,
+              "documents": 1751,
+              "mrr": 0.9102774262428284,
+              "ndcg10": 91.9813334941864,
+              "recall10": 0.9531962871551514
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8921937346458435,
+              "ndcg10": 91.98880195617676,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1625,
+              "documents": 1333,
+              "mrr": 0.7110008001327515,
+              "ndcg10": 75.40329098701477,
+              "recall10": 0.9033846259117126
+            }
+          },
+          "macro_ndcg10": 89.27607834339142,
+          "scope": "Each held source ranked against every unique positive document from that source",
+          "step": 12000,
+          "source_floor_passed": true,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 12206,
+          "precision": "ternary",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "09d9688b554ac55a4e42fc626f03b1f4e96dc53df0a2daf0be1229a9fc879b49"
+      },
+      "fixed_subset_target_passed": false
+    }
+  ],
+  "reserved_labels_opened_by_this_script": false
+}

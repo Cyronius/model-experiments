@@ -1,0 +1,38 @@
+{
+  "seed": 26102891,
+  "fetch": {
+    "math_configs": ["algebra", "counting_and_probability", "geometry", "intermediate_algebra",
+                     "number_theory", "prealgebra", "precalculus"],
+    "math_rows": 100,
+    "wiki_offsets": [0, 200000, 600000],
+    "wiki_rows_per_offset": 100
+  },
+  "corpus": {
+    "salt": "moe-carve-20261028",
+    "length": 512,
+    "min_item_tokens": 32,
+    "eval_every": 5,
+    "calib_docs": 40,
+    "eval_docs": 10,
+    "copy": {"docs": 16, "min_passage": 64, "max_passage": 128, "source": "biomed"}
+  },
+  "collect": {"threads": 16, "batch": 4, "rate_fraction": 0.25, "sample_tokens_per_doc": 32},
+  "budgets": ["0.5", "0.25", "0.125"],
+  "cluster": {"experts": 64, "shared_share": 0.5, "iterations": 20},
+  "evaluate": {"threads": 16, "max_hours": 6},
+  "report": {"primary_budget": "0.25", "draws": 10000, "seed": 26102892},
+  "predictions": {
+    "written": "2026-10-28, before any collection",
+    "static": "Whole-stack KL above 1 nat at 0.25 (a no-refit cut of three quarters of every MLP).",
+    "token_topk": "Far below static at every budget; under 0.3 nats at 0.25.",
+    "domain_doc": "Better than static but by less than half at 0.25, because most important neurons are shared across domains; French, Chinese and code gain the most.",
+    "domain_token": "Close to domain_doc: picking among eight domain sets per token adds little.",
+    "cluster_token": "Better than both domain arms at every budget: co-activation clusters with K-of-64 routing are finer than eight domain sets.",
+    "shared_core": "At 0.25, over half of each domain's set is shared by all eight domains."
+  },
+  "criteria": {
+    "primary": "At budget 0.25, domain_token minus cluster_token domain-equal KL, paired document bootstrap within domains: upper 95% bound below 0 means the domain carve beats the co-activation carve; lower bound above 0 means the co-activation carve wins; otherwise a tie.",
+    "secondary": "At budget 0.25, domain_doc's domain-equal KL as a fraction of static's. Under 0.5 means a document-level domain router recovers most of what a static prune loses.",
+    "tails": "Copy-span mean and p99 token KL reported beside every mean; no arm is called better if its copy p99 is worse by more than 25%."
+  }
+}

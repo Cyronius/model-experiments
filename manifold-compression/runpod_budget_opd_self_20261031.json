@@ -1,0 +1,24 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-31",
+  "user_authorization": "While the dense-teacher distillation (runpod_budget_opd_20261031.json) was still training and its halfway check showed no fewer loops, the user asked whether distilling from a dense model into an MoE was the problem and suggested a bigger MoE teacher (Qwen3.6-35B-A3B). I recommended the healed student with every neuron as the teacher instead, keeping only teacher answers that finish, about $5-6 on one A40: 'Do you want me to set up the every-neuron-teacher run after this one finishes, with the same $10 cap?' User: 'Actually start it now'.",
+  "scope": "One pod for on-policy distillation of the healed Qwen3.5-9B student at 25% of MLP neurons from the healed student with every neuron (slim_opd.py before, train and after with opd_self_rules.json; opd_self_worker.py; run_opd_self_pod.py): checks of the healed student and the every-neuron and dense references on 48 GSM8K prompts, about 7.5 hours of distillation (LoRA only), then the distilled student's checks. Runs alongside the dense-teacher pod, which keeps its own ledger and cap. Rules, predictions and reading in opd_self_rules.json (sha256 26f39bab607bfa10745d3a3cc5ec0de36d14255e58795d8463190b04a84b9bc9); training prompts opd_prompts.json (sha256 87f1e8bd00c522eaaaa315051ca262f7278ba9d0fc027d84f99bc2a38b9aaae2).",
+  "total_cap_usd": 10.0,
+  "spent_usd": 5.025141500456465,
+  "restrictions": [
+    "Not a standing authorization for other jobs; a longer distillation, a new carve or another healing run needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "active_job": "target/manifold-opd-self/mc-opds-d796db7ddab2/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "High",
+    "checked_at": 1793455645.5969381
+  },
+  "pod_id": "pij96do2lm1j4w",
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1793486307.4885287
+}

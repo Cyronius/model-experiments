@@ -1,0 +1,71 @@
+FREE: the machine
+dibs: CLEAN
+== check_bench (2 cores, cpus 0,1)
+32 i8 min cos vs torch ref 1.0
+32 p2 min cos vs torch ref 1.0
+32 i8v2 min cos vs torch ref 1.0
+32 p2v2 min cos vs torch ref 1.0
+128 i8 min cos vs torch ref 0.9999998211860657
+128 p2 min cos vs torch ref 0.9999998211860657
+128 i8v2 min cos vs torch ref 0.9999998211860657
+128 p2v2 min cos vs torch ref 0.9999998211860657
+32 dense_sim median ms 3.472
+32 i8 median ms 1.553
+32 p2 median ms 1.222
+32 i8v2 median ms 1.065
+32 p2v2 median ms 1.107
+128 dense_sim median ms 9.908
+128 i8 median ms 3.779
+128 p2 median ms 4.638
+128 i8v2 median ms 2.718
+128 p2v2 median ms 2.487
+== cpu batch, 2 threads
+2 threads ternary_p2v2 cap32 b1 0.69 ms 1450.2 emb/s
+2 threads ternary_p2v2 cap32 b64 45.755 ms 1398.8 emb/s
+2 threads ternary_p2v2 cap128 b1 2.531 ms 395.1 emb/s
+2 threads ternary_p2v2 cap128 b64 382.537 ms 167.3 emb/s
+2 threads bge_micro_float cap32 b1 2.905 ms 344.2 emb/s
+2 threads bge_micro_float cap32 b64 101.98 ms 627.6 emb/s
+2 threads bge_micro_float cap128 b1 7.91 ms 126.4 emb/s
+2 threads bge_micro_float cap128 b64 482.737 ms 132.6 emb/s
+== cpu batch, 8 threads
+8 threads ternary_p2v2 cap32 b1 0.504 ms 1985.0 emb/s
+8 threads ternary_p2v2 cap32 b64 33.319 ms 1920.8 emb/s
+8 threads ternary_p2v2 cap128 b1 1.384 ms 722.4 emb/s
+8 threads ternary_p2v2 cap128 b64 259.214 ms 246.9 emb/s
+8 threads bge_micro_float cap32 b1 1.278 ms 782.7 emb/s
+8 threads bge_micro_float cap32 b64 35.591 ms 1798.2 emb/s
+8 threads bge_micro_float cap128 b1 2.992 ms 334.2 emb/s
+8 threads bge_micro_float cap128 b64 318.029 ms 201.2 emb/s
+== igpu
+ternary-float32-cap32-b1 1.914 ms 522.5 emb/s
+ternary-float32-cap32-b64 10.359 ms 6178.2 emb/s
+ternary-float32-cap128-b1 2.268 ms 440.9 emb/s
+ternary-float32-cap128-b64 51.657 ms 1239.0 emb/s
+float-float32-cap32-b1 0.755 ms 1325.0 emb/s
+float-float32-cap32-b64 6.837 ms 9360.4 emb/s
+float-float32-cap128-b1 1.17 ms 854.8 emb/s
+float-float32-cap128-b64 33.896 ms 1888.1 emb/s
+float-bfloat16-cap32-b1 0.698 ms 1432.6 emb/s
+float-bfloat16-cap32-b64 4.733 ms 13520.7 emb/s
+float-bfloat16-cap128-b1 0.97 ms 1031.1 emb/s
+float-bfloat16-cap128-b64 18.901 ms 3386.0 emb/s
+  attn_output = torch.nn.functional.scaled_dot_product_attention(
+bge_micro-float32-cap32-b1 1.114 ms 897.6 emb/s
+bge_micro-float32-cap32-b64 7.204 ms 8883.4 emb/s
+  attn_output = torch.nn.functional.scaled_dot_product_attention(
+bge_micro-float32-cap128-b1 1.35 ms 740.9 emb/s
+bge_micro-float32-cap128-b64 33.849 ms 1890.8 emb/s
+bge_micro-bfloat16-cap32-b1 1.222 ms 818.2 emb/s
+bge_micro-bfloat16-cap32-b64 5.041 ms 12696.1 emb/s
+bge_micro-bfloat16-cap128-b1 1.308 ms 764.6 emb/s
+bge_micro-bfloat16-cap128-b64 24.94 ms 2566.1 emb/s
+minilm-float32-cap32-b1 1.652 ms 605.4 emb/s
+minilm-float32-cap32-b64 12.588 ms 5084.1 emb/s
+minilm-float32-cap128-b1 2.004 ms 499.0 emb/s
+minilm-float32-cap128-b64 58.738 ms 1089.6 emb/s
+minilm-bfloat16-cap32-b1 1.835 ms 545.1 emb/s
+minilm-bfloat16-cap32-b64 7.959 ms 8041.1 emb/s
+minilm-bfloat16-cap128-b1 1.915 ms 522.1 emb/s
+minilm-bfloat16-cap128-b64 43.897 ms 1458.0 emb/s
+dibs: NOISY after ['spice86:627969']

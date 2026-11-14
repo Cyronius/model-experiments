@@ -53,7 +53,7 @@ with torch.no_grad():
 before = student_kl()
 log(f"before polish: KL {before['all']['mean']:.4f}")
 
-params = [p for li in range(L - args.tail, L) for p in sr.lm.layers[li].parameters()] + [sr.lm.norm.weight]
+params = [p for li in range(L - args.tail, L) for p in sr.lm.layers[li].parameters()] + list(sr.lm.norm.parameters())
 for p in params:
     p.requires_grad_(True)
 opt = torch.optim.AdamW(params, lr=args.lr, weight_decay=0.0)

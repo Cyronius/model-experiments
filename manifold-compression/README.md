@@ -1,5 +1,133 @@
 # Manifold compression: can a model be projected into a smaller one?
 
+**2026-10-26 capacity versus projection:** A local matched stock/projected ×
+rank-16/rank-64 study identifies a training-path bottleneck. With 32,975 answer
+tokens per fresh arm, the projected model scores **5/39 at rank 16, 10/39 at
+rank 64, and 11/39 after compressing the trained rank-64 update back to rank 16**
+without further training. The full-rank reconstruction control matches all 47
+answers exactly. All projected variants still fail the four program tasks;
+truncation leaves one science loop. Stock itself regresses **19/39 → 14/39 or
+17/39**, so the healing curriculum also needs better skill retention. This does
+not prove the projection is lossless or justify replacing the earlier selected
+checkpoint. Nine tests, cache gates and independent reload checks pass; **$0
+cloud spend**. See the [controlled comparison and diagnostic](results/capacity-projection-20261026/README.md).
+
+**2026-10-26 expanded-curriculum continuation:** Local correctness healing raises
+original closed accuracy **43/56 → 45/56** and new closed accuracy **12/38 → 16/38**,
+but new arithmetic only moves **3/24 → 4/24**, and programs regress **1/4 → 0/4**
+(stock 4/4). Original repetition flags disappear while both science explanations
+remain false. Development selects total update 24; total update 32 ties on dev
+and loses previously sound science diagnostic answers. This is a mixed experimental
+checkpoint, not a general upgrade. Five tests and independent reconstruction pass;
+**$0 cloud spend**. See the [complete results and checkpoints](results/curriculum-healing-20261026/README.md).
+
+**2026-10-25 broad-projection healing:** A local 16-update correctness-only
+LoRA repair of the 64k broad Qwen2B projection improves the original closed
+score **24/56 → 43/56** (stock 51/56), and a fresh set **18/42 → 32/42**,
+with no lost previously correct answers in either set. Development selects
+update 16. Fresh loop flags fall 3 → 0, but both original science answers
+remain wrong and repetitive. No program meets all requirements; the one
+passing original I/O check still uses linear search. Arithmetic remains weak
+(1/8 original, 0/6 fresh). This supports further correctness healing with a
+richer verified curriculum, without claiming general reasoning or stock parity.
+Three tests, cache/adapter gates, and independent reconstruction of six answers
+including both long explanations pass. All work is local, **$0 cloud spend**.
+See the [results, adapter, and limitations](results/broad-healing-20261025/README.md).
+
+**2026-10-25 broader + more follow-up:** Extending the successful broad
+calibration mixture from 64k to 262,691 tokens changes Qwen2B's closed-answer
+score from **24/56 to 25/56**: two gains and one loss, at identical model size.
+Arithmetic, Python execution and JSON construction remain at zero. No program
+meets all requirements, and both science explanations remain wrong and
+repetitive; token-limit hits increase from one to four. More data improves
+energy retention and chat KL, but adds little task benefit here. The local
+run is complete with $0 cloud spend and no whole-model healing. See the
+[combined comparison and artifacts](results/broad-more-20261025/README.md).
+
+**2026-10-25 local projection ablations:** On Qwen3.5-2B at roughly 75%
+parameter retention, a broader 64k-token calibration mixture improves closed
+answer correctness from **8/56 to 24/56**, versus stock 51/56 (content score;
+strict type/format scores are separate). Increasing chat-only calibration to
+256k reaches 14/56. Per-layer bases score 1/56 both within the storage budget
+and with extra space for their bridges. Token-dependent RMS correction scores
+8/56; a fitted linear decoder scores 7/56 despite better reconstruction and KL.
+The small nonlinear decoder probe gives little additional held-out recovery.
+The broad arm still fails arithmetic, Python execution and full programming
+requirements, and both science explanations remain wrong. This supports
+broader activation calibration followed by correctness healing, without yet
+claiming transfer to 27B. Full-width/cache/reload checks and nine tests pass.
+All compute is local, with **$0 cloud spend** and no whole-model healing.
+See the [comparison, raw outputs and limitations](results/local-projection-20261025/README.md).
+
+**2026-10-25 correctness healing result:** The strongest 75% student
+(Qwen3.5-27B → 20.10B parameters) improved from 92/128 to 103/128 at update 16
+and **117/128 at update 32**, after one pass over verified Horizon targets with
+no teacher KL. Stock scored 121/128. Long-form loop flags fell from 3/6 to 1/6;
+photosynthesis still repeats, and interval-merging code remains invalid Python.
+Full-width projection lost zero stock-correct answers in this screen.
+Both H200 jobs are complete and their pods deleted, with **$11.93 estimated
+combined cost** under the approved $15 cap. The selected update-32 adapter and
+optimizer are saved and verified. This supports continued repair of the current
+projection; broader correctness and long-form evaluation are still needed.
+See the
+[results, limitations and frozen protocol](results/correctness-healing-20261025/README.md).
+
+**4,096-token follow-up:** The selected update-32 adapter reran eight previously
+flagged prompts with their original batch companions. Binary search finished at
+1,285 tokens, but its code remained invalid. Photosynthesis repeated through the
+4,096-token cutoff. Same-pod shorter-limit controls matched all 20 output
+prefixes; historical long outputs differed, so full-model reconstruction
+reproducibility needs a separate audit. The inference job is complete, the pod
+is deleted, and estimated cost is $2.24 under its $3.50 cap. Details are in the
+[healing report](results/correctness-healing-20261025/README.md).
+
+**2026-10-24 larger-model results:** The Qwen3.5-27B, Mistral Small 24B and
+Qwen2B projection screen is complete. Scale helped at 75% parameter retention,
+but neither large architecture reached stock parity; all half-size arms failed
+badly. Full-width numerical controls passed. Strict task/format checks were
+62→40→2 for Qwen27 and 47→23→2 for Mistral (stock/75%/50%); these are not general
+accuracy scores. An exact Mistral readout improved formatting but left content
+errors. The H200 pod is deleted, with estimated cost $3.58. See the
+[full comparison, limitations and next experiment](results/scale-probe-20261024/summary.md).
+
+**2026-10-24 healing pilot:** Four matched short repair runs are complete.
+Corrected SmolLM2 improved; both Qwen runs regressed. The legacy SmolLM2 arm
+improved KL while becoming more repetitive and less compliant, showing why KL
+alone cannot be the success criterion. The recovered 500M-token Qwen student
+also has better KL than the fresh Qwen initializations but much worse task
+checks. Keep the output correction and stabilize healing before scaling it.
+See the [full pilot comparison](results/healing-pilot-20261024/summary.md),
+including raw generations, saved checkpoints, and the $0 local compute result.
+
+**2026-10-24 audit:** Full-width PCA rotation preserves Qwen3.5-2B and
+SmolLM2-1.7B predictions when the final normalization is handled exactly. The
+builder's diagonal approximation introduces measurable error even without
+compression. Both checks ran locally in under 30 seconds each. See the
+[rotation audit](results/rotation-audit-20261024/summary.md). Later experiment
+history, including the completed 500M-token repair run, was recovered from the
+Windows machine in [recovered/findings-windows.md](recovered/findings-windows.md).
+
+**Output correction:** The builder now keeps the full projected final-norm
+matrix and multiplies by the measured RMS correction. The matrix stays small
+and preserves tied embeddings. See the paired Qwen/Llama width-cut experiment,
+checkpoint locations, limitations, and next gates in the
+[output-fix report](results/output-fix-20261024/summary.md).
+
+`build_projected.py --rotation-test` exercises a full-width PCA rotation without
+shrinkage or healing. `--output-norm legacy-diagonal` reproduces the old final
+norm for ablations; the default is `matrix`. The existing full builder and
+layer-by-layer runner are Qwen-specific; `probe_output_fix.py` handles both
+Qwen3.5 and Llama for the width-only experiment.
+
+Corrected HF checkpoints include `projection_models.py`. In-repo scripts use
+`projection_models.load_causal_model(path)`; external Hugging Face callers use
+`AutoModelForCausalLM.from_pretrained(path, trust_remote_code=True)` after
+reviewing the bundled module. The tested environment is pinned in
+`results/output-fix-20261024/requirements-lock.txt` (Transformers 5.14.1).
+For stock-model export, `export_projected_stock.py --model PATH --out NEW_PATH`
+folds the adapter into a separate output head. That duplicates the vocabulary
+weights and adds storage; it does not imply verified GGUF/runtime parity.
+
 The idea, in full, is in [`notes.md`](notes.md) §10. In short: treat each block of a model as a function on its activation manifold, not as a fixed set of weights. Then measure, before training anything, how much is lost when that manifold is projected to a smaller width, and which block boundaries a smaller model has to keep. Three pieces are combined:
 
 - **SliceGPT**: a linear projection of the residual stream, which is the free part.

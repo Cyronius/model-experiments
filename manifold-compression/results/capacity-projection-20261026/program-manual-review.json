@@ -1,0 +1,47 @@
+{
+  "stock-r16-step0": {
+    "correct": 4,
+    "total": 4,
+    "notes": "Dot uses scalar sum; Counter insertion order finds first unique character; current/max positive streak resets correctly; substring count advances one position and handles overlaps."
+  },
+  "projected-r16-step8": {
+    "correct": 0,
+    "total": 4,
+    "notes": {
+      "dot": "Product of sums, not sum of products.",
+      "unique": "Repeated per-letter checks, truncated before a valid function.",
+      "streak": "Returns count initialized to zero; no max-run update.",
+      "overlap": "Compares individual character to whole pattern."
+    }
+  },
+  "stock-r16-step8": {
+    "correct": 2,
+    "total": 4,
+    "notes": {
+      "dot": "Correct scalar sum.",
+      "unique": "Raises ValueError for nonempty strings with no unique character.",
+      "streak": "Passes original tests but returns 0 for [1] and isolated positive values; incorrect.",
+      "overlap": "Correct advancing-one-position substring comparison."
+    }
+  },
+  "projected-r64-step8": {
+    "correct": 0,
+    "total": 4,
+    "notes": {
+      "dot": "Returns vector of products instead of scalar sum.",
+      "unique": "Counts selected letters and returns count during first iteration.",
+      "streak": "Returns length of empty result list.",
+      "overlap": "Counts each character of pattern separately."
+    }
+  },
+  "stock-r64-step8": {
+    "correct": 3,
+    "total": 4,
+    "notes": {
+      "dot": "Correct scalar sum of pairwise products.",
+      "unique": "Correct Counter insertion-order traversal and None fallback.",
+      "streak": "Initial max_len=1 returns 1 even when no values are positive; incorrect.",
+      "overlap": "Correct advancing-one-position substring scan."
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "runs": {
+    "default": {
+      "isa": "avx512-vnni",
+      "python": "3.14.8",
+      "modules_torch": false,
+      "modules_transformers": false,
+      "torch_importable": false,
+      "modules_torch_after": false,
+      "modules_transformers_after": false
+    },
+    "avx2": {
+      "isa": "avx2",
+      "python": "3.14.8",
+      "modules_torch": false,
+      "modules_transformers": false,
+      "torch_importable": false,
+      "modules_torch_after": false,
+      "modules_transformers_after": false
+    }
+  },
+  "default_vs_reference": {
+    "min_cos": 0.9998071193695068,
+    "median_cos": 0.9999943971633911,
+    "pass": true
+  },
+  "avx2_vs_reference": {
+    "min_cos": 0.9998071193695068,
+    "median_cos": 0.9999943971633911,
+    "pass": true
+  },
+  "paths_agree": {
+    "min_cos": 0.9999997615814209,
+    "pass": true
+  },
+  "dev_TS": {
+    "SciFact": {
+      "reference": 64.12117357970854,
+      "default": 64.0254869841267,
+      "avx2": 64.0254869841267
+    },
+    "NFCorpus": {
+      "reference": 29.740309923826686,
+      "default": 29.77316423533865,
+      "avx2": 29.77316423533865
+    },
+    "ArguAna": {
+      "reference": 51.626380784939066,
+      "default": 51.516432717704475,
+      "avx2": 51.516432717704475
+    }
+  },
+  "token_ids_vs_transformers_on_contract_text": {
+    "mismatches": 0,
+    "pass": true
+  },
+  "contract_text_vs_shared_cut_first200": {
+    "mismatches": 0,
+    "pass": true
+  },
+  "dev_TS_core_diff_default": {
+    "diff": -0.03141614203493681,
+    "pass": true
+  },
+  "dev_TS_core_diff_avx2": {
+    "diff": -0.03141614203493681,
+    "pass": true
+  }
+}

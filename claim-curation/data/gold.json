@@ -1,0 +1,331 @@
+{
+  "core-dma": [
+    {
+      "id": "two-inputs",
+      "patterns": [
+        "(?:core|compute.?tile)",
+        "(?:2|two).{0,15}input"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "two-outputs",
+      "patterns": [
+        "(?:core|compute.?tile)",
+        "(?:2|two).{0,15}output"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "third-input",
+      "patterns": [
+        "(?:third|3).{0,25}input|input.{0,25}(?:third|3)",
+        "cannot|can't|not |unavailable|only"
+      ],
+      "scope_patterns": []
+    }
+  ],
+  "shim-wrap": [
+    {
+      "id": "wrap-64",
+      "patterns": [
+        "(?:outermost|outer).{0,30}dimension|dimension.{0,20}(?:outermost|outer)",
+        "wrap",
+        "64"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "split-hang",
+      "patterns": [
+        "split|several fills",
+        "hung|hang"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "middle-dimension",
+      "patterns": [
+        "(?:large|count)",
+        "middle",
+        "dimension"
+      ],
+      "scope_patterns": []
+    }
+  ],
+  "granite-stack": [
+    {
+      "id": "granite-nan",
+      "patterns": [
+        "0x1800",
+        "nan"
+      ],
+      "scope_patterns": [
+        "granite",
+        "(?:pos|position).{0,12}(?:>=|\u2265|at least|4|four)"
+      ]
+    },
+    {
+      "id": "granite-working",
+      "patterns": [
+        "0x3000",
+        "work|succeed|correct|resolve"
+      ],
+      "scope_patterns": [
+        "granite"
+      ]
+    },
+    {
+      "id": "tree-spill",
+      "patterns": [
+        "unrolled",
+        "tree",
+        "spill"
+      ],
+      "scope_patterns": []
+    }
+  ],
+  "softmax-stack": [
+    {
+      "id": "five-kb-frame",
+      "patterns": [
+        "5\\s*(?:kb|kilobyte)",
+        "frame"
+      ],
+      "scope_patterns": [
+        "four|4",
+        "exponential"
+      ]
+    },
+    {
+      "id": "four-kb-fault",
+      "patterns": [
+        "4\\s*(?:kb|kilobyte)",
+        "hang|hung|nan"
+      ],
+      "scope_patterns": [
+        "softmax|attn_fa"
+      ]
+    },
+    {
+      "id": "softmax-working",
+      "patterns": [
+        "0x2000",
+        "work|succeed|resolve"
+      ],
+      "scope_patterns": [
+        "softmax|attn_fa"
+      ]
+    }
+  ],
+  "transfer-size": [
+    {
+      "id": "small-transfer-zero",
+      "patterns": [
+        "128",
+        "(?:transfer|shim)",
+        "zero|empty"
+      ],
+      "scope_patterns": [
+        "attention|128"
+      ]
+    },
+    {
+      "id": "padding-fix",
+      "patterns": [
+        "1024",
+        "pad",
+        "fix|resolve|correct"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "gemv-exception",
+      "patterns": [
+        "gemv",
+        "exact|correct|work"
+      ],
+      "scope_patterns": [
+        "(?:whole|entire|full).{0,20}drain"
+      ]
+    },
+    {
+      "id": "transfer-not-element",
+      "patterns": [
+        "transfer",
+        "(?:not|rather than).{0,40}(?:element|objectfifo)"
+      ],
+      "scope_patterns": []
+    }
+  ],
+  "l1-budget": [
+    {
+      "id": "budget",
+      "patterns": [
+        "62208",
+        "budget|available|memory|64\\s*kb"
+      ],
+      "scope_patterns": [
+        "0xd00"
+      ]
+    },
+    {
+      "id": "batch-fit",
+      "patterns": [
+        "61952",
+        "built|ran|fit|work|succeed"
+      ],
+      "scope_patterns": [
+        "batch.{0,5}2"
+      ]
+    },
+    {
+      "id": "wrong-rule",
+      "patterns": [
+        "61184|63\\s*kb",
+        "reject|incorrect|wrong|would"
+      ],
+      "scope_patterns": [
+        "rule|budget"
+      ]
+    }
+  ],
+  "rot13": [
+    {
+      "id": "classic-time",
+      "patterns": [
+        "classic",
+        "0[.]602"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "elf-time",
+      "patterns": [
+        "elf",
+        "0[.]447"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "state-complete",
+      "patterns": [
+        "state.{0,6}4|4.{0,12}state",
+        "complet"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "byte-exact",
+      "patterns": [
+        "byte.exact"
+      ],
+      "scope_patterns": []
+    }
+  ],
+  "softmax-mask": [
+    {
+      "id": "lowest",
+      "patterns": [
+        "softmax|mask",
+        "bf16|bfloat16",
+        "lowest"
+      ],
+      "scope_patterns": [
+        "mask"
+      ]
+    },
+    {
+      "id": "avoid-infinity",
+      "patterns": [
+        "-inf|negative infinity",
+        "finite|not|avoid|cannot|should"
+      ],
+      "scope_patterns": []
+    }
+  ],
+  "rounding": [
+    {
+      "id": "default-floor",
+      "patterns": [
+        "floor",
+        "start|default"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "first-dispatch",
+      "patterns": [
+        "first.{0,35}dispatch",
+        "(?:2x|twice|2 times)|1[.]8e-4"
+      ],
+      "scope_patterns": [
+        "context|load"
+      ]
+    },
+    {
+      "id": "rounding-fix",
+      "patterns": [
+        "rounding",
+        "first",
+        "every|each"
+      ],
+      "scope_patterns": [
+        "kernel|dispatch"
+      ]
+    }
+  ],
+  "synthetic-negation": [
+    {
+      "id": "ash-latency",
+      "patterns": [
+        "ash",
+        "7\\s*ms"
+      ],
+      "scope_patterns": [
+        "cedar",
+        "1[.]2",
+        "batch.{0,5}2"
+      ]
+    },
+    {
+      "id": "firmware-unknown",
+      "patterns": [
+        "firmware",
+        "not.{0,20}recorded|unknown|unspecified"
+      ],
+      "scope_patterns": []
+    },
+    {
+      "id": "batch-limitation",
+      "patterns": [
+        "(?:not|cannot|unknown|unestablished)",
+        "other.{0,15}batch|batch.{0,15}(?:other|sizes)"
+      ],
+      "scope_patterns": []
+    }
+  ],
+  "synthetic-questions": [],
+  "synthetic-version-scope": [
+    {
+      "id": "version-only",
+      "patterns": [
+        "0x1800",
+        "sufficient|work"
+      ],
+      "scope_patterns": [
+        "birch",
+        "only",
+        "1[.]2"
+      ]
+    },
+    {
+      "id": "version-untested",
+      "patterns": [
+        "1[.]3",
+        "not.{0,20}test|untested"
+      ],
+      "scope_patterns": []
+    }
+  ]
+}

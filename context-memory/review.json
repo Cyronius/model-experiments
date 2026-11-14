@@ -1,0 +1,17 @@
+{
+  "method": "Manual review of raw generations against the fixed corpus; questions and regex patterns unchanged.",
+  "overrides": [
+    {
+      "condition": "latent",
+      "id": "mask-view",
+      "correct": false,
+      "reason": "Quotes the correct uint8 view, but explicitly and repeatedly says the view is unspecified. Contradictory answer; reject the automatic regex pass."
+    },
+    {
+      "condition": "latent",
+      "id": "missing-driver",
+      "correct": true,
+      "reason": "Explicitly says the notes do not specify the firmware version. The fixed regex misses the verb 'specify'. Counts as correct abstention, although unnecessary elaboration was truncated at the output cap."
+    }
+  ]
+}

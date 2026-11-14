@@ -1,0 +1,51 @@
+{
+ "note": "A quick multiple-choice benchmark of the healed student against the dense model (slim_bench.py), written 2026-11-01 before the run. The user: 'We should run a relatively quick benchmark of the healed moe vs the dense and see how smart the moe is'. So far the student has been judged on drift (KL, bits per byte) and GSM8K generations; this measures knowledge and reasoning on public tests. Local GPU (LOCAL_GPU.md), no pod.",
+ "folder": "bench",
+ "sets": [
+  {"name": "mmlu", "file": "mmlu.jsonl", "sha256": "8a361b460162b65753e66e34f6479ada7d7cdff5094bc07391b2710f19c142e4",
+   "style": "letter", "rule": "sum", "group": "subject"},
+  {"name": "arc-challenge", "file": "arc-challenge.jsonl", "sha256": "ad57daf9d3dd1236aafd222cad733aeb4f9afe6e97141d245bb5bf809e14ed90",
+   "style": "cloze", "rule": "per_char", "group": "item"},
+  {"name": "arc-easy", "file": "arc-easy.jsonl", "sha256": "82cba245ae8582f5a4059e8b4d80aa2a3c718789202ad9a85a0b06227f28fc14",
+   "style": "cloze", "rule": "per_char", "group": "item"},
+  {"name": "hellaswag", "file": "hellaswag.jsonl", "sha256": "c19116977be76e358b28ab442967750e432c313c7c4380fefdba48bda8622c95",
+   "style": "continue", "rule": "per_char", "group": "item"}
+ ],
+ "overlap_tokens": 13,
+ "adapter": {
+  "adapter": "opd_long/adapter.pt",
+  "record": "opd_long/train.json",
+  "note": "section 17's distilled student"
+ },
+ "references": {
+  "qwen3.5-2b": "models/manifold-audit/Qwen3.5-2B"
+ },
+ "arms": ["dense", "healed", "distilled", "every_neuron", "dense_full", "qwen3.5-2b"],
+ "pairs": [
+  ["dense", "healed"],
+  ["dense", "distilled"],
+  ["dense", "every_neuron"],
+  ["healed", "distilled"],
+  ["dense_full", "dense"],
+  ["qwen3.5-2b", "healed"],
+  ["qwen3.5-2b", "distilled"]
+ ],
+ "check": {"kl": 0.01, "bpb": 0.01},
+ "batch_tokens": 16384,
+ "hours": 4,
+ "draws": 10000,
+ "seed": 26110101,
+ "design": "Local GPU (Radeon 8060S, ROCm), through dibs. The sample is the one tf_metrics.py scored Qwen3.5-2B on (eval_data.py, seed 26102701): MMLU 1,140 test questions (20 from each of 57 subjects), ARC-Challenge 600 and ARC-Easy 400 test questions, HellaSwag 600 validation items. Items whose context and right answer share a 13-token window with the healing data are dropped first (prepare). Zero-shot, raw text, no chat template, no thinking: MMLU lists the four choices and scores ' A' to ' D' (pick by log-probability); ARC scores each answer after 'Question: ...\\nAnswer:' and HellaSwag each ending after the text, picking by log-probability per character (lm-evaluation-harness's acc_norm), so long answers are not penalized. Every sequence starts with <|endoftext|>, as the drift benchmark's do. The healed student is rebuilt from the cached factors and must first reproduce the healing run (KL within 0.01 of 0.612). Arms, in order: the dense model, the healed student (25% of MLP neurons, learned routers), section 17's distilled student, the healed student with every neuron (same adapter), all over the 64K vocabulary, renormalized, so they differ only in the model body; then the dense model as shipped (full tokenizer and head) and Qwen3.5-2B as shipped (same tokenizer; 24 layers, hidden 2,048, about 1.9B parameters with its tied embedding, against the student's 2.95B active per token). The model runs in bf16 as healed; log-probabilities are taken in fp32 from the final hidden states. Pairs are compared item by item: the difference in accuracy and the arm's share of the base's accuracy above chance, with 95% intervals from resampling whole items (MMLU: whole subjects), and McNemar's exact p. Across sets, the four sets' shares are averaged.",
+ "reading": "The headline is the healed student's share of the dense model's accuracy above chance, averaged over the four sets. At least 0.9: close to the dense model on these tests, so what it lost is mostly in long generation (the loops), not in what it knows. 0.7 to 0.9: clearly weaker, but most of the ability is there. Below 0.7: the 25% budget costs a large part of what the dense model can do, and later changes (such as a bigger shared expert) should be judged on this benchmark as well as on GSM8K. Qwen3.5-2B places the student on a size scale: if the student scores below it on average, the carve is worse than a smaller dense model that is cheaper to run; if above, the fair next comparison is a dense model of the student's active size (Qwen3.5-4B, not on this machine). MMLU against HellaSwag separates knowledge (facts stored in the MLPs, of which the student runs a quarter) from fluent continuation. The every-neuron arm splits the loss as in section 9: what is left with every neuron running is the cost of the other cuts and the adapter, and the rest is the 25% routing. dense against dense_full is the 64K vocabulary's own cost. A difference counts as real when its 95% interval excludes 0.",
+ "predictions": {
+  "reproduce": "The healed student reproduces the healing run's last milestone: KL within 0.01 of 0.612.",
+  "dense": "The dense model (64K) scores 68-82% on MMLU, 48-62% on ARC-Challenge, 72-85% on ARC-Easy and 72-82% on HellaSwag (Qwen3.5-2B on the same items with tf_metrics: 58.7, 41.5, 67.0, 66.0).",
+  "healed": "The healed student keeps 0.5 to 0.85 of the dense model's accuracy above chance, averaged over the four sets, and is significantly below the dense model on every set.",
+  "knowledge": "MMLU loses a larger share of its above-chance accuracy than HellaSwag.",
+  "distilled": "The distilled student is within 3 points of the healed student on every set, and no more than one set's difference has a 95% interval that excludes 0.",
+  "every_neuron": "The every-neuron model keeps at least 0.85 of the dense model's above-chance accuracy on average, and scores above the healed student on every set.",
+  "vocabulary": "dense and dense_full are within 1.5 points on every set.",
+  "size": "The healed student scores above Qwen3.5-2B on average over the four sets (mean difference above 0).",
+  "reference": "Qwen3.5-2B is within 3 points of its tf_metrics scores on every set (different device, precision and a leading <|endoftext|>)."
+ }
+}

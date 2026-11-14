@@ -1,0 +1,173 @@
+{
+  "declared_after": "Inspecting stock-r16 final code, before projected-r64 trained evaluations and stock-r64 launch.",
+  "trigger": "Stock-r16 positive-streak function passes four original tests but returns zero for [1]; manual inspection identified it.",
+  "scope": "Apply same extra tests to all four arms at baseline and fixed final update. Do not change primary scores, training or endpoints.",
+  "tests": {
+    "ctest-dot": [
+      [
+        {
+          "left": [
+            -2
+          ],
+          "right": [
+            3
+          ]
+        },
+        -6
+      ],
+      [
+        {
+          "left": [
+            0,
+            2,
+            4
+          ],
+          "right": [
+            4,
+            -3,
+            1
+          ]
+        },
+        -2
+      ],
+      [
+        {
+          "left": [],
+          "right": []
+        },
+        0
+      ]
+    ],
+    "ctest-unique": [
+      [
+        {
+          "text": "z"
+        },
+        "z"
+      ],
+      [
+        {
+          "text": "aabb"
+        },
+        null
+      ],
+      [
+        {
+          "text": "\u00f1\u00f1\u00f8"
+        },
+        "\u00f8"
+      ],
+      [
+        {
+          "text": "abacb"
+        },
+        "c"
+      ],
+      [
+        {
+          "text": ""
+        },
+        null
+      ]
+    ],
+    "ctest-streak": [
+      [
+        {
+          "values": [
+            1
+          ]
+        },
+        1
+      ],
+      [
+        {
+          "values": [
+            0,
+            1,
+            0
+          ]
+        },
+        1
+      ],
+      [
+        {
+          "values": [
+            -1,
+            2
+          ]
+        },
+        1
+      ],
+      [
+        {
+          "values": [
+            -1,
+            2,
+            0,
+            3,
+            4,
+            0,
+            5
+          ]
+        },
+        2
+      ],
+      [
+        {
+          "values": [
+            -3,
+            0,
+            -2
+          ]
+        },
+        0
+      ],
+      [
+        {
+          "values": [
+            1,
+            1
+          ]
+        },
+        2
+      ]
+    ],
+    "ctest-overlap": [
+      [
+        {
+          "text": "aaa",
+          "pattern": "aaaa"
+        },
+        0
+      ],
+      [
+        {
+          "text": "a",
+          "pattern": "a"
+        },
+        1
+      ],
+      [
+        {
+          "text": "banana",
+          "pattern": "ana"
+        },
+        2
+      ],
+      [
+        {
+          "text": "",
+          "pattern": "a"
+        },
+        0
+      ],
+      [
+        {
+          "text": "aaaa",
+          "pattern": "aa"
+        },
+        3
+      ]
+    ]
+  }
+}

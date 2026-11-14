@@ -1,0 +1,250 @@
+{
+  "arch": "qwen35",
+  "label": "stock",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "{\n  \"city\": \"Oslo\",\n  \"count\": 3\n}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 20,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "A7x-P4q",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 7,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "493",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "-2, 0, 4, 9",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 12,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "500",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Yes",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "original_check_pass": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Teal",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "original_check_pass": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "[\\\"apples\\\", \\\"cheese\\\", \\\"tea\\\"]",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "red\nblue\ngreen\nyellow\npurple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 10,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "Soft drops fall from the gray sky,\nWashing the world with a gentle cry.\nThe air grows heavy and cool,\nAs the clouds begin to dissolve.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 35,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library will reopen on Friday after being closed for repairs and the installation of fifteen new desks.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 22,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "The code prints `[5, 8, 13]`. This happens because `b = a` creates a reference to the same list object as `a`. When `b.append(13)` modifies the shared list, both variables point to the same updated data.",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 57,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it is less dense than liquid water. This occurs due to hydrogen bonding: when water freezes, molecules form a rigid, open hexagonal crystal lattice structure. This arrangement creates more space between molecules compared to the tightly packed liquid state, causing the mass to spread out over a larger volume. Consequently, the same mass occupies more space in ice, resulting in lower density and buoyancy.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 82,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. Research the company deeply to understand their mission, products, and recent news, allowing you to tailor your answers to their specific culture.\n2. Prepare a structured set of behavioral questions using the STAR method (Situation, Task, Action, Result) to demonstrate your problem-solving skills clearly.\n3. Practice answering common interview questions aloud to build confidence and ensure you can articulate your experiences concisely without filler words.\n4. Plan your logistics meticulously, including arriving early, testing your technology, and knowing the route to the interview location beforehand.\n5. Dress professionally and arrive early to show respect for the interviewer and create a calm, focused mindset for the conversation.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 138,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "When adopting a dog, prioritize these key considerations:\n\n1. **Health & History**: Verify the dog is microchipped, vaccinated, and spayed/neutered. Ask about their past medical issues and temperament.\n2. **Home Fit**: Ensure your living space is safe, secure, and has enough room for the dog's size and energy level.\n3. **Time Commitment**: Commit to at least 30 minutes of daily exercise and mental stimulation.\n4. **Financials**: Budget for food, vet care, grooming, and potential emergencies.\n5. **Legalities**: Check local laws regarding adoption fees, leash laws, and breed restrictions.\n6. **Trial Period**: Many shelters offer trial periods to test the bond before committing.\n7. **Preparation**: Gather supplies like a crate, leash, and toys before bringing the dog home.\n\nAdopting responsibly ensures a happy, healthy companion for you and your family.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 197,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table is a data structure that stores data in an array, but instead of using the index directly, it uses a mathematical function called a **hash function** to calculate a unique \"hash code\" for each item.\n\nThink of it like a digital filing cabinet. When you put a file in, the hash function generates a number (the hash code). This number acts as a key to open the correct drawer (bucket) in the array.\n\nHere is how it works:\n1.  **Input**: You provide a key (like a name or ID).\n2.  **Hashing**: The system runs the key through a hash function to get a number between 0 and the table size.\n3.  **Lookup**: The system checks the drawer at that number.\n    *   If the drawer is empty, the item is stored there.\n    *   If the drawer has an item, the system checks if the key already exists. If yes, it returns the existing value. If no, it updates the value.\n\n**Why use it?**\nHash tables are incredibly fast for **searching**, **inserting**, and **deleting** data. On average, they take constant time ($O(1)$) to access an item, regardless of how large the table gets. This makes them ideal for databases, caches, and any application requiring quick lookups.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 286,
+      "repeated_4gram_fraction": 0.0049261083743842304,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 13,
+    "completed": 16,
+    "loop_flags": 0,
+    "generated_tokens": 892,
+    "elapsed_seconds": 284.1038993990005
+  },
+  "rubric_revision": 2
+}

@@ -1,0 +1,128 @@
+{
+ "note": "Corpus v2, 2026-10-29: English, symbols and code only. French and Chinese are dropped; reasoning traces, science abstracts, C++ and word-problem math are added. Every other setting is copied from moe_carve_rules.json. Added 2026-10-29 before any v2 collection, for the separate slimming batch: depth (expert sizes by depth at the primary budget) and route (learned routers).",
+ "out": "results/moe-carve-v2-20261029",
+ "domains": [
+  "chat",
+  "code",
+  "code_cpp",
+  "math",
+  "math_word",
+  "wiki",
+  "biomed",
+  "argument",
+  "reasoning",
+  "science"
+ ],
+ "seed": 26102901,
+ "fetch": {
+  "math_configs": [
+   "algebra",
+   "counting_and_probability",
+   "geometry",
+   "intermediate_algebra",
+   "number_theory",
+   "prealgebra",
+   "precalculus"
+  ],
+  "math_rows": 100,
+  "wiki_offsets": [
+   0,
+   200000,
+   600000
+  ],
+  "wiki_rows_per_offset": 100,
+  "math_word_rows": 500,
+  "reasoning_windows": [
+   100000,
+   110000,
+   110600,
+   112100,
+   113100
+  ],
+  "reasoning_rows_per_window": 100,
+  "science_offsets": [
+   0,
+   500000,
+   1000000,
+   1500000,
+   1900000
+  ],
+  "science_rows_per_offset": 100
+ },
+ "corpus": {
+  "salt": "moe-carve-v2-20261029",
+  "length": 512,
+  "min_item_tokens": 32,
+  "eval_every": 5,
+  "calib_docs": 40,
+  "eval_docs": 10,
+  "copy": {
+   "docs": 16,
+   "min_passage": 64,
+   "max_passage": 128,
+   "source": "biomed"
+  }
+ },
+ "collect": {
+  "threads": 16,
+  "batch": 4,
+  "rate_fraction": 0.25,
+  "sample_tokens_per_doc": 32
+ },
+ "budgets": [
+  "0.5",
+  "0.25",
+  "0.125"
+ ],
+ "cluster": {
+  "experts": 64,
+  "shared_share": 0.5,
+  "iterations": 20
+ },
+ "evaluate": {
+  "threads": 16,
+  "max_hours": 6
+ },
+ "depth": {
+  "budget": "0.25",
+  "arms": [
+   "depth_shared",
+   "depth_budget"
+  ],
+  "step": 24,
+  "share_range": [
+   0.2,
+   0.8
+  ],
+  "floor": 0.5,
+  "cap": 3.0
+ },
+ "route": {
+  "budget": "0.25",
+  "epochs": 4,
+  "batch": 8,
+  "lr": 0.003,
+  "seed": 26102903,
+  "max_hours": 1
+ },
+ "report": {
+  "primary_budget": "0.25",
+  "draws": 10000,
+  "seed": 26102902
+ },
+ "predictions": {
+  "written": "2026-10-29, before any v2 collection, from the v1 result",
+  "static": "Whole-stack KL above 1 nat at 0.25 again (v1: 2.50).",
+  "cluster_token": "Better than both domain arms at every budget, as in v1.",
+  "domain_doc": "Recovers less than half of what static loses at 0.25 (v1 ratio 0.75); math, math_word, code and code_cpp gain the most.",
+  "shared_core": "At 0.25 the share of each domain set common to all domains is above v1's 0.30, because the two non-English domains are gone.",
+  "depth_shared": "Within 10% of uniform cluster_token KL at 0.25: the size of the shared expert matters less than which neurons share.",
+  "depth_budget": "At least 10% lower KL than uniform cluster_token at 0.25, at the same total active neurons.",
+  "route": "The learned linear router's KL at 0.25 is 1.2 to 2.5 times the perfect router's; it picks 50-75% of the perfect router's experts."
+ },
+ "criteria": {
+  "primary": "At budget 0.25, domain_token minus cluster_token domain-equal KL, paired document bootstrap within domains: upper 95% bound below 0 means the domain carve beats the co-activation carve; lower bound above 0 means the co-activation carve wins; otherwise a tie.",
+  "secondary": "At budget 0.25, domain_doc's domain-equal KL as a fraction of static's. Under 0.5 means a document-level domain router recovers most of what a static prune loses.",
+  "tails": "Copy-span mean and p99 token KL reported beside every mean; no arm is called better if its copy p99 is worse by more than 25%."
+ }
+}

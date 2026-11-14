@@ -1,0 +1,33 @@
+{
+  "folder": "probe_soft",
+  "earlier": ["probe", "probe_all"],
+  "soft": {"quantile": 0.5, "docs_per_domain": 2},
+  "evaluate": {
+    "arms": ["learned", "soft"],
+    "check": {"kl": 0.01, "bpb": 0.01},
+    "max_hours": 0.3
+  },
+  "generate": {
+    "arms": {
+      "soft": {"router": "soft", "state": "fp32"}
+    },
+    "max_hours": 0.6
+  },
+  "state": {
+    "arms": ["learned", "all", "soft"],
+    "docs_per_domain": 5,
+    "variants": ["fp32"],
+    "pairs": [["chunked", "fp32"]],
+    "seed": 26103001,
+    "max_hours": 0.35
+  },
+  "loop": {"window": 20, "last": 1000, "threshold": 0.45},
+  "reading": "The soft edge weights each of the learned router's K experts by min(1, (its score - the best score left out) / width), the width being each layer's median gap between the K-th and (K+1)-th score on calibration documents; the active budget does not change. 16 generations loop if at least 5 hit the cap stuck in a loop, are clean with at most 2, unclear in between. Clean: the switching causes the loops, and the next healing trains with the soft edge. Looping: the switching is not enough of the cause; next are the shared expert (larger at the same budget, or weighted more) and merging more neurons into each expert. Sensitivity is the KL between the chunked kernel and fp32 token by token; the dense model's is 6.2e-4, the healed learned router's 0.011.",
+  "predictions": {
+    "reproduce": "With rebuilt low-rank factors and the saved adapter, the learned-router student reproduces the healing run's last milestone: KL within 0.01 of 0.612 and 64K bits per byte within 1% of 0.734.",
+    "kl_soft": "The soft edge raises KL by under 0.05 over the learned router's 0.612: it turns down mostly the last expert chosen.",
+    "sensitivity_all": "With every neuron, the sensitivity falls to within 3 times the dense model's (under 1.9e-3): the expert switching is what makes the healed student sensitive.",
+    "sensitivity_soft": "The soft edge at least halves the learned router's sensitivity.",
+    "loops_soft": "With the soft edge, at least 5 of the 16 generations still loop: the switching is not the main cause; how much of the MLP each token loses is."
+  }
+}

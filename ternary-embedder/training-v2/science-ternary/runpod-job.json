@@ -1,0 +1,147 @@
+{
+  "status": "Finalized from completed fixed comparisons; package and reserve before launch",
+  "resource": "one RTX 4090 24GB RunPod Secure Cloud pod",
+  "listed_rate_usd_per_hour": 0.89,
+  "maximum_gpu_rate_usd_per_hour": 0.9,
+  "maximum_elapsed_hours": 1.9,
+  "expected_elapsed_hours": [
+    1.1,
+    1.65
+  ],
+  "expected_total_usd": [
+    0.99,
+    1.48
+  ],
+  "proposed_total_cap_usd": 1.75,
+  "disk_gb": 60,
+  "retained_paid_volumes": false,
+  "work_deadline_minutes": 100,
+  "watchdog_delete_minutes": 110,
+  "training": {
+    "arms": [
+      {
+        "id": "ternary-repeat",
+        "checkpoint": "training-v2/work/science-ternary/starts/ternary.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "data_key": "train_repeat",
+        "aux_encoder_weight": 0.25
+      },
+      {
+        "id": "ternary-fresh",
+        "checkpoint": "training-v2/work/science-ternary/starts/ternary.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "data_key": "train",
+        "aux_encoder_weight": 0.25
+      },
+      {
+        "id": "3-ternary-fresh",
+        "checkpoint": "training-v2/work/science-ternary/starts/3-ternary.pt",
+        "layers": 3,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "data_key": "train",
+        "aux_encoder_weight": 0.25
+      }
+    ],
+    "epochs_each": 2,
+    "seed": 29,
+    "eval_every": 250,
+    "save_every": 100,
+    "source_floor": 2.0,
+    "validation_negatives": false,
+    "teacher_targets": false,
+    "train_rows": 1023999,
+    "dev_rows": 21011,
+    "data_sha256": "efe619b2f333c32309c5225768455fac2a86fde4d0da54cac7606c6217d45e21",
+    "parent_selection": "Two-layer independent original float150/ternary parents, plus recovered pretrained3-layer r0 float8568 and ternary17134. Three-layer float saw75M tokens; two-layer float control150M. Recipe candidates, not a matched historical pretraining-depth causal comparison.",
+    "comparison": "Same total pair exposure and per-source counts. Clean base excludes newly observed legacy-test input overlaps. Repeat-control reuses244901 old science rows; fresh arm adds244901 novel science pairs; same expanded held corpus.",
+    "selection": "Maximize mean(held-source macro nDCG, held-out humanNLI classifier macro accuracy), with every retrieval source within2 points and NLI accuracy within1 of initialization. Null encoder control eligible. Freeze all six across both profiles before external scoring.",
+    "template_note": "Finalized: omit this tested BM25-hard-negative recipe, which lowered external retrieval in both precisions. Use floatNLI.1 / ternaryNLI.25;192 auxiliary pairs/update covers the full300k pool, unlike previous64/update.",
+    "global_freeze": "Both science-float and science-ternary pods must be deleted and all six completed arms frozen before any new external scoring.",
+    "auxiliary_nli": true,
+    "aux_batch": 192,
+    "aux_lr_multiplier": 25.0,
+    "aux_warmup_steps": 100,
+    "aux_train_rows": 300000,
+    "aux_dev_rows": 18624,
+    "aux_data_exposure": "2008 retrieval updates x192 human pairs =385536 encoder-supervised pairs, covering the entire300k pool; plus19200 frozen-encoder head warmup pairs. More human data than previous64-pair batches.",
+    "recipe_rationale": {
+      "float": "NLI.1 gains.468 mean12 for.326 retrieval cost; .25adds only.084 mean12 but another.366 retrieval cost.",
+      "ternary": "NLI.25 gains.774 mean12; versus.1 another.200 mean12 for only.095 additional retrieval cost. STSBenchmark within.071.",
+      "negative_control": "BM25hard reduces retrieval.804 float/1.039 ternary, both negative paired-query intervals. No negative loss in this data comparison.",
+      "increased_human_data": "192 rather than64 auxiliary examples/update increases exposure and covers the complete audited300k human-label pool. Repeat/fresh science arms share this recipe, isolating new science data from repetition within each precision."
+    },
+    "decision_inputs": {
+      "nli_results": "training-v2/nli-aux/results/summary.json",
+      "hardneg_results": "training-v2/hardneg/results/summary.json"
+    }
+  },
+  "recovery": {
+    "remote_save_every_steps": 500,
+    "remote_save_every_seconds": 120,
+    "local_backup_attempt_interval_seconds": 60,
+    "sha256_verified_local_copies": true,
+    "full_optimizer_rng_sampler_resume": true,
+    "remote_resume_copies_retained": 2
+  },
+  "pricing_source": "https://www.runpod.io/pricing",
+  "data_center_ids": [
+    "EU-RO-1",
+    "EUR-IS-1",
+    "EUR-IS-2",
+    "US-IL-1"
+  ],
+  "cuda_versions": [
+    "13.2"
+  ],
+  "gpu_type_id": "NVIDIA GeForce RTX 4090",
+  "campaign_cap_usd": 10.0,
+  "resource_change": "A5000 did not allocate; using available 4090 within explicitly authorized $10 multi-experiment campaign",
+  "profile": "science-ternary",
+  "data_inputs": {
+    "train": {
+      "path": "training-v2/work/science-mix-clean/train.jsonl",
+      "sha256": "efe619b2f333c32309c5225768455fac2a86fde4d0da54cac7606c6217d45e21"
+    },
+    "train_repeat": {
+      "path": "training-v2/work/science-mix-clean/train-repeat.jsonl",
+      "sha256": "98ada57d328c2540e990d6d04d6fe6b80a60278395858b362f42ff4c95fa9f8c"
+    },
+    "dev": {
+      "path": "training-v2/work/science-mix-clean/dev.jsonl",
+      "sha256": "e9b016967bbb96e38f0054fe63dbf249147c0ab867a7ea590c694ceaead2df98"
+    },
+    "aux_train": {
+      "path": "training-v2/work/nli-aux-global/train.jsonl",
+      "sha256": "8ba8c91dab77fe2c969a569351eb38e08379444b202b8491141333b94020fcd0"
+    },
+    "aux_dev": {
+      "path": "training-v2/work/nli-aux-global/dev.jsonl",
+      "sha256": "9b9bf1fe2ef257ef7b149125801e801fb5c0237957562626b85de24fd6e91895"
+    }
+  },
+  "data_audit_files": [
+    "training-v2/benchmark-clean/data-audit.json",
+    "training-v2/science-global/data-audit.json",
+    "training-v2/science-mix/clean-data-audit.json",
+    "training-v2/nli-aux/data-audit.json"
+  ],
+  "parallel_campaign": {
+    "profiles": [
+      "science-float",
+      "science-ternary"
+    ],
+    "combined_cap_usd": 3.25,
+    "resource": "Two independent one-RTX4090 pods, each deleted as soon as its3 arms finish. Independent watchdogs and separate states/reservations."
+  }
+}

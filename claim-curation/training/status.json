@@ -1,0 +1,46 @@
+{
+  "started_utc": "2026-10-25T12:28:45.841553+00:00",
+  "pid": 1794674,
+  "state": "complete",
+  "phase": "evaluate",
+  "completed_phases": [
+    "train",
+    "evaluate"
+  ],
+  "paid_compute_cost_usd": 0,
+  "protocol": "protocol.json",
+  "interpretation": "Pilot supervision remains proposed, not independently certified truth.",
+  "from_phase": "train",
+  "input_hashes": {
+    "protocol.json": "6ea25b7125f8c4dcf58ce82775da54922e23416e6da89796643d55f025ddd6db",
+    "data/manifest.json": "535eeffd7da42b97779c1c5f03b5ac3c3c67915c1284b26b83276645c6245a60",
+    "evaluate.py": "7df02586600cbf2fc80de142b38b6969a95e9ebcdb74bae4e55f59a182248819",
+    "finalize_annotations.py": "eef200b25bbf2f8f36363171120217addee8c37309aafcc4b30bc67e4cc8dace",
+    "pilot.py": "c2ff0153d3e4dd55b93ba0cfd16a4fc94af97e7f8a194970769d707ed06c26f5",
+    "prepare.py": "34402523192b91624930ca442a769cb3bcb39bc8034a2800ed3c60198b2905d2",
+    "run_all.py": "173a8786fc6bf172374e8d1f4e8fc97de10489bb1579a83592ba37ecccddf383",
+    "runtime.py": "da09f6e773ba413b91f10ddc17f32d982a6e7b7f5d07f738aa5cec633e8c5943",
+    "teacher.py": "14452b6951b77bd92f76c4947a55946c24b550b779b0cb05d598ce9053919d4e",
+    "test_distill.py": "a041a724ca806e1d7dedcc1ccc6e3f62aa661a6d6167ae37176e6677086b65c9",
+    "train_lora.py": "8269ce0e930ce61368ce211a0fb9d024ce9a1c9596a080301aee825b86dc6302",
+    "labels/labels.jsonl": "242e680187a08ae8246620b4f25af6c417c2a879784d186d18305c010c6024c9"
+  },
+  "phase_started_utc": "2026-10-25T12:31:39.615074+00:00",
+  "command": [
+    "dibs",
+    "run",
+    "gpu",
+    "--label",
+    "XDNA2 claim-distillation evaluate",
+    "--eta",
+    "90m",
+    "--",
+    "/home/cyrus/code/model-experiments/claim-curation/training/rocm-env/bin/python",
+    "/home/cyrus/code/model-experiments/claim-curation/training/pilot.py",
+    "evaluate",
+    "--device",
+    "cuda"
+  ],
+  "child_pid": 1803665,
+  "finished_utc": "2026-10-25T12:35:36.895935+00:00"
+}

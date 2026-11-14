@@ -1,0 +1,134 @@
+{
+  "scope": "Exploratory matched-operand diagnostic, first test item from each arithmetic family. Compare symbolic questions with the original word problems; not used for selection.",
+  "timing": "Declared after halfway development results, before final checkpoint/test inspection.",
+  "cases": [
+    {
+      "id": "symbolic-ctest-add_subtract-0",
+      "source_test_id": "ctest-add_subtract-0",
+      "family": "math_add_subtract",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Compute (28 + 3) - 12. Return only the final number or reduced fraction."
+        }
+      ],
+      "check": {
+        "kind": "numeric",
+        "expected": "19"
+      },
+      "max_new_tokens": 256
+    },
+    {
+      "id": "symbolic-ctest-multiply-3",
+      "source_test_id": "ctest-multiply-3",
+      "family": "math_multiply",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Calculate 12 times 14. Return only the final number or reduced fraction."
+        }
+      ],
+      "check": {
+        "kind": "numeric",
+        "expected": "168"
+      },
+      "max_new_tokens": 256
+    },
+    {
+      "id": "symbolic-ctest-divide-6",
+      "source_test_id": "ctest-divide-6",
+      "family": "math_divide",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Divide 207 by 9. Return only the final number or reduced fraction."
+        }
+      ],
+      "check": {
+        "kind": "numeric",
+        "expected": "23"
+      },
+      "max_new_tokens": 256
+    },
+    {
+      "id": "symbolic-ctest-fraction-9",
+      "source_test_id": "ctest-fraction-9",
+      "family": "math_fraction",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Add the fractions 9/7 and 10/4. Return only the final number or reduced fraction."
+        }
+      ],
+      "check": {
+        "kind": "numeric",
+        "expected": "53/14"
+      },
+      "max_new_tokens": 256
+    },
+    {
+      "id": "symbolic-ctest-percent-12",
+      "source_test_id": "ctest-percent-12",
+      "family": "math_percent",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Find 15% of 60. Return only the final number or reduced fraction."
+        }
+      ],
+      "check": {
+        "kind": "numeric",
+        "expected": "9"
+      },
+      "max_new_tokens": 256
+    },
+    {
+      "id": "symbolic-ctest-equation-15",
+      "source_test_id": "ctest-equation-15",
+      "family": "math_equation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Solve 29*x + 10 = -222 for x. Return only the final number or reduced fraction."
+        }
+      ],
+      "check": {
+        "kind": "numeric",
+        "expected": "-8"
+      },
+      "max_new_tokens": 256
+    },
+    {
+      "id": "symbolic-ctest-remainder-18",
+      "source_test_id": "ctest-remainder-18",
+      "family": "math_remainder",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is the remainder when 40 is divided by 26? Return only the final number or reduced fraction."
+        }
+      ],
+      "check": {
+        "kind": "numeric",
+        "expected": "14"
+      },
+      "max_new_tokens": 256
+    },
+    {
+      "id": "symbolic-ctest-multi_step-21",
+      "source_test_id": "ctest-multi_step-21",
+      "family": "math_multi_step",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Calculate 20*4 + 12. Return only the final number or reduced fraction."
+        }
+      ],
+      "check": {
+        "kind": "numeric",
+        "expected": "92"
+      },
+      "max_new_tokens": 256
+    }
+  ]
+}

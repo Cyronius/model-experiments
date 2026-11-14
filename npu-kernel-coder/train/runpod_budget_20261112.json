@@ -1,0 +1,109 @@
+{
+ "status": "terminated",
+ "session": "npu-kernel-coder small-model (Qwen3.5-0.8B) npuasm SFT, 2026-11-12",
+ "user_authorization": "Proposed: 'Rent a GPU on RunPod: under an hour on one H100, likely under $5 ... I'd only do it with your explicit OK and a hard cost cap.' User: 'yeah use runpod. you're allowed to use cheaper/slower if it will lower the cost. i don't mind waiting as much as 5 hours for this retrain'",
+ "scope": "One pod, one full fine-tune of Qwen3.5-0.8B on data/tasks/train.jsonl (pod/pod_small.py).",
+ "total_cap_usd": 5.0,
+ "spent_usd": 1.5827,
+ "restrictions": [
+  "Not a standing authorization for other jobs",
+  "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+  "Do not modify, resume or delete pre-existing unrelated pods"
+ ],
+ "active_job": "target/nkc-pod/nkc-small-6d33d55984/pod.json",
+ "reserved_job_max_usd": 0,
+ "fresh_quote": {
+  "gpu": "NVIDIA RTX A5000",
+  "gpus": [
+   "NVIDIA RTX A5000",
+   "NVIDIA L40",
+   "NVIDIA A40",
+   "NVIDIA RTX A6000",
+   "NVIDIA RTX 5000 Ada Generation",
+   "NVIDIA GeForce RTX 4090",
+   "NVIDIA GeForce RTX 3090 Ti",
+   "NVIDIA GeForce RTX 3090"
+  ],
+  "options": [
+   {
+    "gpu": "NVIDIA RTX A5000",
+    "rate": 0.27,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA L40",
+    "rate": 0.82,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "Low"
+   },
+   {
+    "gpu": "NVIDIA RTX A6000",
+    "rate": 0.59,
+    "stock_status": "Low"
+   },
+   {
+    "gpu": "NVIDIA RTX 5000 Ada Generation",
+    "rate": 0.83,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "rate": 0.89,
+    "stock_status": "Low"
+   },
+   {
+    "gpu": "NVIDIA GeForce RTX 3090 Ti",
+    "rate": 0.46,
+    "stock_status": null
+   },
+   {
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "rate": 0.5,
+    "stock_status": null
+   }
+  ],
+  "checked_at": 1794502700.3188756
+ },
+ "attempts": [
+  {
+   "job": "target/nkc-pod/nkc-small-a2f865b7ff",
+   "result": "POST /pods returned HTTP 500 (RTX A6000); no pod with the job name exists (checked via GET /pods); watchdog left running to the deadline in case of a late create",
+   "cost_usd": 0
+  },
+  {
+   "job": "target/nkc-pod/nkc-small-6df6a93a56",
+   "result": "create refused: no instances available (A40/A6000/4090); no pod exists",
+   "cost_usd": 0
+  },
+  {
+   "job": "target/nkc-pod/nkc-small-6df6a93a56",
+   "result": "no pod created (no instances / ledger refusal); verified none exists",
+   "cost_usd": 0
+  },
+  {
+   "job": "target/nkc-pod/nkc-small-ef14f15cea",
+   "result": "no pod created (no instances / ledger refusal); verified none exists",
+   "cost_usd": 0
+  },
+  {
+   "job": "target/nkc-pod/nkc-small-0c137b6b02",
+   "result": "creates refused (no instances), then HTTP 429 rate limit; no pod created; old watchdogs (GET /pods every 10 s) stopped after verifying no nkc pods exist",
+   "cost_usd": 0
+  },
+  {
+   "job": "target/nkc-pod/nkc-small-6d33d55984",
+   "pod_id": "hd0h0ydn006w8b",
+   "gpu": "NVIDIA A40",
+   "rate": 0.59,
+   "result": "trained 582 steps / 30.9M tokens, stage complete 13:34, outputs synced to runs/sft-small-1, deletion confirmed (GET /pods empty)",
+   "cost_usd": 1.5332
+  }
+ ],
+ "pod_id": "hd0h0ydn006w8b",
+ "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+ "terminated_at": 1794512058.3544466
+}

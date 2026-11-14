@@ -1,0 +1,112 @@
+{
+  "scope": "Manual science review; no selection or training changes.",
+  "projected-r16-step0": {
+    "correct": 0,
+    "total": 4,
+    "cases": {
+      "charge": "Wrong sign and falsely changes element identity.",
+      "current": "Wrong magnitude (1.25 rather than 3 A).",
+      "diffusion": "Denies evidence of molecular motion rather than explaining continued thermal motion.",
+      "friction": "Treats a physical sliding book as fictional; repeats false premise and hits cap."
+    }
+  },
+  "stock-r16-step0": {
+    "correct_core_conclusion": 4,
+    "coherent_without_material_error": 2,
+    "total": 4,
+    "cases": {
+      "charge": {
+        "core_conclusion": true,
+        "coherent": false,
+        "note": "Final -3e and same element are right, but intermediate total-charge formula Z-3 is false and contradictory."
+      },
+      "current": {
+        "core_conclusion": true,
+        "coherent": true,
+        "note": "3 A =12 C/4 s with correct definition."
+      },
+      "diffusion": {
+        "core_conclusion": true,
+        "coherent": false,
+        "note": "Correct continued random motion/no net flow at equilibrium, but falsely says ions cease crossing regions and net flow before equilibrium is zero. Capped."
+      },
+      "friction": {
+        "core_conclusion": true,
+        "coherent": true,
+        "note": "Correct conservation and transfer to internal/thermal energy of book/table, with sound; capped after answering core question."
+      }
+    }
+  },
+  "projected-r16-step8": {
+    "correct_core_conclusion": 0,
+    "coherent_without_material_error": 0,
+    "total": 4,
+    "cases": {
+      "charge": "Wrong +3/cation and distinct-element claims.",
+      "current": "Wrong units/magnitude; multiplies charge by time.",
+      "diffusion": "Only argues no evidence of stopping in the prompt; partial implication but does not explain continued random thermal motion.",
+      "friction": "Falsely says energy vanished and identifies floor without thermal-energy mechanism."
+    }
+  },
+  "stock-r16-step8": {
+    "correct_core_conclusion": 4,
+    "coherent_without_material_error": 4,
+    "total": 4,
+    "cases": {
+      "charge": "Correct -3 charge and unchanged proton count/element; corrected derivation.",
+      "current": "Starts with wrong 2.5 A but explicitly retracts it and gives 12/4=3 A; accept resolved self-correction.",
+      "diffusion": "Correct ongoing thermal motion and balanced exchange. Loose salt-molecule/Brownian-motion terminology; core mechanism correct.",
+      "friction": "Correct conservation and thermal/internal energy of book/table, sound and deformation."
+    },
+    "scope": "Core-question conceptual correctness; not a claim every incidental wording is exact."
+  },
+  "projected-r64-step0": {
+    "review_reused_from": "projected-r16-step0",
+    "reason": "All test-0 content-audit JSON identical across ranks."
+  },
+  "projected-r64-step8": {
+    "correct_core_conclusion": 2,
+    "coherent_without_material_error": 1,
+    "total": 4,
+    "cases": {
+      "charge": "Wrong +3 charge and element-change claims.",
+      "current": "Correct 3 C/s (=3 A), using 12/4.",
+      "diffusion": "Correct initial no, then nonsensical molecular-ratio explanation repeated until 512-token cap.",
+      "friction": "Wrong potential-energy mechanism, repeated until 512-token cap."
+    }
+  },
+  "stock-r64-step0": {
+    "review_reused_from": "stock-r16-step0",
+    "reason": "All test-0 content-audit JSON identical across ranks."
+  },
+  "rank16-truncated": {
+    "correct_core_conclusion": 2,
+    "coherent_without_material_error": 1,
+    "total": 4,
+    "cases": {
+      "charge": "Wrong charge sign and element identity; also falsely calls water a neutral atom.",
+      "current": "Correct 3 C/s from 12/4.",
+      "diffusion": "Correct no and describes molecular crossing; now finishes. Partial explanation: omits thermal motion and balanced exchange/no net concentration-driven flow required by the rubric.",
+      "friction": "False potential-energy mechanism; loops through cap."
+    },
+    "scope": "Full rubric score treats the incomplete diffusion explanation separately from a false headline conclusion.",
+    "review_refinement": {
+      "core_explanation_assessment": "Diffusion has the right conclusion and a plausible description of individual crossing; it omits a clear thermal-motion/balanced-exchange explanation. Treat as partial rather than falsely claiming its headline is wrong. Do not use a binary science total as the main study endpoint."
+    }
+  },
+  "full-rank-control": {
+    "review_reused_from": "projected-r64-step8",
+    "reason": "All 47 generated answers and termination/token-count/grade fields match exactly."
+  },
+  "stock-r64-step8": {
+    "correct_core_conclusion": 4,
+    "coherent_without_material_error": 3,
+    "total": 4,
+    "cases": {
+      "charge": "Correct -3 and unchanged element, but invents 10 protons and 10 neutrons as given facts.",
+      "current": "Correct 3 A =12/4.",
+      "diffusion": "Correct ongoing random motion and distinction between equal statistical concentration and individual motion.",
+      "friction": "Correct transfer to internal/thermal energy with conservation."
+    }
+  }
+}

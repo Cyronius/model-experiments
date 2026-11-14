@@ -1,0 +1,25 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-11-01",
+  "user_authorization": "After section 17 I offered: 'If you'd rather start with something cheaper, re-checking the sampled answers with a 4,096-token limit would show whether the 35 unfinished ones are just long or truly going in circles. That needs no training.' User: 'check with longer limit'. No amount was named; I capped it at $3, in line with the earlier check pods ($0.51 to $0.96).",
+  "scope": "One pod, no training: slim_opd.py check with opd_cap_rules.json. The healed student's reproduction check, then section 17's 96 check prompts with a 4,096-token cap: the distilled student (opd_long/adapter.pt) sampled and greedy, the healed control sampled, the dense model sampled and greedy, the every-neuron model sampled.",
+  "total_cap_usd": 3.0,
+  "spent_usd": 1.1348327192611163,
+  "restrictions": [
+    "Not a standing authorization for other jobs; a new carve, a healing run or more distillation needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "active_job": "target/manifold-opd-cap/mc-opdc-65f114564f20/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA RTX A6000",
+    "rate": 0.59,
+    "stock_status": "Low",
+    "checked_at": 1793536234.6726701
+  },
+  "pod_id": "r64lv4me6lq9lk",
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1793543159.0815017,
+  "outcome": "Check done on one RTX A6000 (mc-opdc-65f114564f20): reproduction +0.0002, six arms at 4,096 tokens, all 96 rows in one batch each, no splits. Outputs synced, checksums verified, pod deleted by the launcher. About $1.14 of the $3 cap. Results: README section 18."
+}

@@ -1,0 +1,32 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-11-04",
+  "user_authorization": "I proposed healing on the dense 9B's correct, short answers generated in vLLM, in time-boxed local and pod sessions, the first pod job a generation shard capped at about $5. User: 'yes, and we have to prove the vllm as well'.",
+  "scope": "One pod, no training: vllm_proof.py generate (vLLM 0.33.0: the 96 check prompts thinking on and off, 40 minutes of train problems) and compare (HF teacher-forced log-probs, scoring), per vllm_proof_rules.json.",
+  "total_cap_usd": 5.0,
+  "spent_usd": 0.8722290028466119,
+  "restrictions": [
+    "Not a standing authorization for other jobs; generation shards and healing sessions need their own ledger within the plan the user approved",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "attempts": [
+    {
+      "pod_id": "pkf5o22acsqocs",
+      "outcome": "Failed at vLLM startup: its FlashInfer sampler needs nvcc, which the image lacks (generate.log). Pod deleted by the launcher; about $0.09.",
+      "spent_usd": 0.09169752391576767
+    }
+  ],
+  "retry": "Second attempt within the same $5 cap, with VLLM_USE_FLASHINFER_SAMPLER=0 (vLLM's native top-k/top-p sampler). No other change.",
+  "active_job": "target/manifold-vllm-proof/mc-vllm-966f214ad53d/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "Medium",
+    "checked_at": 1793840428.2714572
+  },
+  "pod_id": "2kj2xh8flwvri3",
+  "terminated_at": 1793845190.840491
+}

@@ -1,0 +1,24 @@
+created 6owq4naouba68k NVIDIA A40 0.59 USD/h; deadline 15:49
+deletion confirmed: True spent so far (est.): 0.0495
+Traceback (most recent call last):
+  File "/home/cyrus/code/model-experiments/npu-kernel-coder/train/pod/pod_small.py", line 266, in <module>
+    execute(a.execute)
+    ~~~~~~~^^^^^^^^^^^
+  File "/home/cyrus/code/model-experiments/npu-kernel-coder/train/pod/pod_small.py", line 215, in execute
+    subprocess.run([*cmd, host, launch], timeout=30, check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/subprocess.py", line 2179, in _communicate
+    self.wait(timeout=self._remaining_time(endtime))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/subprocess.py", line 1279, in wait
+    return self._wait(timeout=timeout)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/subprocess.py", line 2076, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '['ssh', '-i', '/home/cyrus/code/model-experiments/target/nkc-pod/nkc-small-489c4ea4c5/ssh-key', '-o', 'BatchMode=yes', '-o', 'StrictHostKeyChecking=accept-new', '-o', 'UserKnownHostsFile=/home/cyrus/code/model-experiments/target/nkc-pod/nkc-small-489c4ea4c5/known_hosts', '-o', 'ConnectTimeout=10', '-o', 'ServerAliveInterval=10', '-o', 'ServerAliveCountMax=2', '-p', '22075', 'root@194.68.245.201', 'cd /workspace/nkc && TIME_BUDGET_H=3.9 nohup bash worker.sh > launch.log 2>&1 < /dev/null &']' timed out after 30 seconds

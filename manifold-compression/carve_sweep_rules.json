@@ -1,0 +1,190 @@
+{
+ "note": "Written 2026-11-01 before any build or evaluation. The user: 'the shared expert, while necessary, doesn't do much. more, smaller experts, and a smaller shared expert, and either 16 or 32 experts per token, may be something to try.' Co-firing carve of Qwen3.5-9B at the 25% active budget (3,072 of 12,288 neurons per layer, within 0.5% except the baseline's 3,048), varying the shared expert's size S, the routed expert size c, the expert count E and the experts run per token K. Same calibration statistics (stats.pt), corpus and held-out documents as results/moe-carve-v2-20261029; the baseline is that run's own set. Perfect router, no training, whole-stack KL from the dense model. A learned-router stage on the best configs follows only if this stage says so.",
+ "rules": "moe_carve_rules_v2.json",
+ "out": "results/moe-carve-v2-20261029/sweep",
+ "baseline": "S1536_K9",
+ "configs": {
+  "S1536_K9": {
+   "S": 1536,
+   "c": 168,
+   "E": 64,
+   "K": 9,
+   "note": "today's carve (taken from sets.pt, 3,048 active)"
+  },
+  "S24_K18": {
+   "S": 24,
+   "c": 168,
+   "E": 73,
+   "K": 18,
+   "note": "no real shared expert, same expert size as today, same 3,048 active"
+  },
+  "S768_K16": {
+   "S": 768,
+   "c": 144,
+   "E": 80,
+   "K": 16,
+   "note": "shared 25% of active"
+  },
+  "S318_K16": {
+   "S": 318,
+   "c": 171,
+   "E": 70,
+   "K": 16,
+   "note": "shared 10%, 3,054 active"
+  },
+  "S0_K16": {
+   "S": 0,
+   "c": 192,
+   "E": 64,
+   "K": 16,
+   "note": "no shared expert"
+  },
+  "S768_K32": {
+   "S": 768,
+   "c": 72,
+   "E": 160,
+   "K": 32,
+   "note": "shared 25% of active"
+  },
+  "S282_K32": {
+   "S": 282,
+   "c": 87,
+   "E": 138,
+   "K": 32,
+   "note": "shared 10%, 3,066 active"
+  },
+  "S0_K32": {
+   "S": 0,
+   "c": 96,
+   "E": 128,
+   "K": 32,
+   "note": "no shared expert"
+  },
+  "S334_K64": {
+   "S": 334,
+   "c": 43,
+   "E": 278,
+   "K": 64,
+   "note": "added 2026-11-01 after the first seven were evaluated; shared 11%, 3,086 active"
+  },
+  "S282_K96": {
+   "S": 282,
+   "c": 29,
+   "E": 414,
+   "K": 96,
+   "note": "added 2026-11-01 for the beyond-64 sweep, ~10% shared, active 3066"
+  },
+  "S254_K128": {
+   "S": 254,
+   "c": 22,
+   "E": 547,
+   "K": 128,
+   "note": "added 2026-11-01 for the beyond-64 sweep, ~10% shared, active 3070"
+  },
+  "S374_K192": {
+   "S": 374,
+   "c": 14,
+   "E": 851,
+   "K": 192,
+   "note": "added 2026-11-01 for the beyond-64 sweep, ~10% shared, active 3062"
+  },
+  "S265_K256": {
+   "S": 265,
+   "c": 11,
+   "E": 1093,
+   "K": 256,
+   "note": "added 2026-11-01 for the beyond-64 sweep, ~10% shared, active 3081"
+  },
+  "S0_K24": {
+   "S": 0,
+   "c": 128,
+   "E": 96,
+   "K": 24,
+   "note": "added 2026-11-02, hardware-sized experts, no shared, active 3072"
+  },
+  "S0_K12": {
+   "S": 0,
+   "c": 256,
+   "E": 48,
+   "K": 12,
+   "note": "added 2026-11-02, hardware-sized experts, no shared, active 3072"
+  },
+  "S0_K8": {
+   "S": 0,
+   "c": 384,
+   "E": 32,
+   "K": 8,
+   "note": "added 2026-11-02, hardware-sized experts, no shared, active 3072"
+  },
+  "S384_K21": {
+   "S": 384,
+   "c": 128,
+   "E": 93,
+   "K": 21,
+   "note": "added 2026-11-02, followup4: c=128 with a 12.5% shared expert, active 3072"
+  },
+  "S768_K18": {
+   "S": 768,
+   "c": 128,
+   "E": 90,
+   "K": 18,
+   "note": "added 2026-11-02, followup4: c=128 with a 25% shared expert, active 3072"
+  }
+ },
+ "report": {
+  "draws": 10000,
+  "seed": 26110101
+ },
+ "predictions": {
+  "baseline": "Reproduces v2's cluster_token@0.25: 0.82 domain-equal KL.",
+  "shared_matters": "Removing the shared expert costs: S0_K16 is at least 15% worse than S768_K16, and S0_K32 at least 15% worse than S768_K32 (the user's hunch is that it costs little).",
+  "finer_helps": "More, smaller experts help at the same budget: S768_K16 and S768_K32 are both below the baseline, S768_K32 the lowest of the shared-768 pair.",
+  "smaller_shared": "A 10% shared expert is within 10% of the 25% one at the same K.",
+  "S24_K18": "Dropping the shared expert at today's expert size is worse than the baseline by at least 15%."
+ },
+ "criteria": "Paired document bootstrap within domains (as moe_carve.py), config minus baseline: upper 95% bound below 0 means better than today's carve, lower bound above 0 means worse, otherwise a tie. The shared-expert predictions are read from the same-K pairs. A config goes to the learned-router stage only if it beats the baseline by this rule.",
+ "followup": {
+  "written": "2026-11-01, after the first sweep, before S334_K64 was built",
+  "user": "I think we should try 32 and 64 experts with the 10% shared router",
+  "reading": "32 and 64 routed experts per token at a ~10% shared expert: 32 is S282_K32, already measured; 64 is the new S334_K64 (278 experts of 43 neurons). Also learned routers for both (route stage, moe_carve_rules_v2.json's route settings).",
+  "predictions": {
+   "perfect_64": "S334_K64 perfect-router KL is below S282_K32's 0.684 (finer keeps helping), by at least 0.03.",
+   "learned_gap": "Learned-router KL is more than 1.5x the perfect router's for S334_K64 (the v2 64-expert router was 1.57x), and the learned-router order of S282_K32 and S334_K64 may differ from the perfect-router order."
+  }
+ },
+ "followup2": {
+  "written": "2026-11-01, after S334_K64 (perfect 0.579, learned 0.936), before the four configs above were built",
+  "user": "should we try higher numbers than 64? Can you do a sweep?",
+  "predictions": {
+   "perfect": "Perfect-router KL keeps falling with K but with diminishing returns: S282_K96 below 0.579, S265_K256 above the token_topk bound (about 0.08-0.1) and below 0.40; each doubling gains less than the 32 -> 64 step (0.106).",
+   "learned": "The learned router gets relatively worse as experts get tinier: learned/perfect ratio above 1.61 at K=256, so learned KL bottoms out between K=64 and K=256 (a minimum at K=96 or 128)."
+  }
+ },
+ "followup3": {
+  "written": "2026-11-02, before S0_K24, S0_K12 and S0_K8 were built",
+  "user": "c=11 seems ridiculously small; even 168 seems small. Proposed c=256, then: 'let's try c=128 and c=384 as well. no shared expert on those -- if the shared expert looks better then we will rerun with the best geometry and a shared expert'",
+  "reading": "Hardware-sized experts with no shared expert, all exactly 25% active: c=128 (E=96, K=24), c=256 (E=48, K=12), c=384 (E=32, K=8). Perfect router for all three, learned routers for all three (route stage), local GPU, no healing. The shared-expert rerun at the best c is a separate config added afterwards.",
+  "configs": ["S0_K24", "S0_K12", "S0_K8"],
+  "predictions": {
+   "perfect_order": "Perfect-router KL rises with expert size: S0_K24 < S0_K12 < S0_K8, each step's paired interval above 0.",
+   "perfect_values": "From the earlier no-shared rows (S0_K32 c=96: 0.710, S0_K16 c=192: 0.847): S0_K24 about 0.76 (0.72-0.80), S0_K12 about 0.89 (0.85-0.93), S0_K8 about 0.95 (0.90-1.02).",
+   "vs_baseline": "S0_K24 beats today's carve (S1536_K9, 0.822); S0_K12 and S0_K8 are worse than it.",
+   "tail": "All three have copy p99 above 1.3 (no-shared S0_K16 had 1.65 against the baseline's 0.73).",
+   "router": "Fewer, larger experts are easier to route: recall rises as c grows, S0_K8 above 0.75, and every learned/perfect ratio is below S282_K32's 1.55.",
+   "learned_order": "The learned-router order may differ from the perfect order: the gap between S0_K24 and S0_K12 learned is under half the perfect gap."
+  },
+  "outcome": "Perfect KL 0.764 / 0.913 / 1.049 (copy p99 1.38 / 1.82 / 2.35); learned 1.167 / 1.270 / 1.364, recall 0.76 / 0.80 / 0.81, ratio 1.53 / 1.40 / 1.30. Today's carve learned: 1.288. perfect_order held; perfect_values held for K24 and K12, S0_K8 worse than the range; vs_baseline held; tail held; router held; learned_order failed (learned gap K24-K12 0.103 is 0.70 of the perfect gap 0.149). Best geometry: c=128."
+ },
+ "followup4": {
+  "written": "2026-11-02, after followup3, before S384_K21 and S768_K18 were built",
+  "user": "'if the shared expert looks better then we will rerun with the best geometry and a shared expert'. The earlier rows say it does (K=32: S0 0.710, S282 0.685, S768 0.641), and followup3's best geometry is c=128.",
+  "reading": "c=128 with a shared expert of 3 or 6 experts' size (384 = 12.5%, 768 = 25%), exactly 25% active. Perfect and learned routers, as followup3.",
+  "configs": ["S384_K21", "S768_K18"],
+  "predictions": {
+   "perfect": "Both below S0_K24's 0.764, S768_K18 lowest: S384_K21 about 0.73, S768_K18 about 0.71.",
+   "tail": "Copy p99 below S0_K24's 1.38 for both, S768_K18 below 1.1.",
+   "learned": "Both learned KLs below S0_K24's 1.167; the shared expert also narrows the learned/perfect ratio (below 1.53), because a router miss loses less."
+  },
+  "outcome": "Perfect KL S384_K21 0.734, S768_K18 0.726 (S0_K24 0.764 in the same evaluation); learned 1.134 and 1.192 (S0_K24 1.167), recall 0.73 and 0.70 (0.76), ratio 1.55 and 1.65. perfect held (S768_K18 0.726 slightly above the 0.71 guess); tail inconclusive: copy p99 of an unchanged config moves between evaluations (S0_K24 1.38 then 1.07), S768_K18 0.70; learned held for S384_K21 only, failed for S768_K18; the ratio prediction failed for both. No paired interval between learned arms (route runs are separate). Reading: a shared expert helps the perfect router a little and the learned router hardly at all, because it leaves fewer routed picks and lower recall."
+ }
+}

@@ -1,0 +1,101 @@
+{
+  "scope": "Exploratory observed-development follow-up; no new reserved judgments. Default unchanged.",
+  "candidate": "ternary-blend25",
+  "core": 45.585306492386664,
+  "sts": 82.64926146405999,
+  "mean12": 70.424775,
+  "wide_task_deltas": {
+    "STSBenchmark": 0.19719999999999516,
+    "SICK-R": -0.8452000000000055,
+    "STS12": -0.34949999999999193,
+    "STS13": -0.1033999999999935,
+    "STS14": -0.29340000000000543,
+    "STS15": 0.0478999999999985,
+    "STS16": -0.21040000000000703,
+    "SciFact": 0.6330000000000027,
+    "NFCorpus": 0.08299999999999841,
+    "Banking77Classification": 0.7793000000000063,
+    "AskUbuntuDupQuestions": -0.037499999999994316,
+    "TwitterSemEval2015": -0.5776000000000039
+  },
+  "extra_tasks": {
+    "FiQA": {
+      "ndcg10": 24.942695260003113,
+      "recall10": 30.977304588415706,
+      "top1_relevant_queries": 149,
+      "median_first_relevant_rank": 11.0,
+      "median_best_relevant_margin": -0.06016182899475098,
+      "queries": 648,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+        "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+        "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+      }
+    },
+    "SCIDOCS": {
+      "ndcg10": 16.950142658004793,
+      "recall10": 17.503333333333334,
+      "top1_relevant_queries": 206,
+      "median_first_relevant_rank": 9.0,
+      "median_best_relevant_margin": -0.07475686073303223,
+      "queries": 1000,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+        "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+        "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+      }
+    }
+  },
+  "core_contrast": {
+    "tasks": {
+      "SciFact": {
+        "delta_ndcg10": 0.6329124348733917,
+        "paired_query_bootstrap_95_ci": [
+          -0.3185748294043268,
+          1.6115527499094282
+        ]
+      },
+      "NFCorpus": {
+        "delta_ndcg10": 0.0836374058337,
+        "paired_query_bootstrap_95_ci": [
+          -0.3516384277654804,
+          0.5368722411720754
+        ]
+      }
+    },
+    "mean_delta_ndcg10": 0.3582749203535458,
+    "paired_query_bootstrap_95_ci": [
+      -0.18596740373860193,
+      0.8867413999182021
+    ],
+    "seed": 20261025,
+    "resamples": 5000
+  },
+  "extra_contrast": {
+    "tasks": {
+      "FiQA": {
+        "delta_ndcg10": 0.10726372042454098,
+        "paired_query_bootstrap_95_ci": [
+          -0.4866746249681418,
+          0.694720354201184
+        ]
+      },
+      "SCIDOCS": {
+        "delta_ndcg10": 0.16115959791400564,
+        "paired_query_bootstrap_95_ci": [
+          -0.11291637894247528,
+          0.4313653027617354
+        ]
+      }
+    },
+    "mean_delta_ndcg10": 0.1342116591692733,
+    "paired_query_bootstrap_95_ci": [
+      -0.19054016997317072,
+      0.45939101574624475
+    ],
+    "seed": 20261025,
+    "resamples": 5000
+  }
+}

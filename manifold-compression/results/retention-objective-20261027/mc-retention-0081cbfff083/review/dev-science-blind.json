@@ -1,0 +1,570 @@
+{
+  "split": "dev",
+  "instructions": "Blind to arm. All required facts, no disqualifying factual errors. Grade factual content independently of repetition/termination.",
+  "cases": [
+    {
+      "id": "0ba8b8a39600",
+      "case": "sci-dev-isotopes",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Uranium-235 and uranium-238 are both uranium. What is the same about their nuclei, and what is different? Explain briefly."
+        }
+      ],
+      "answer": "### Same Aspects\n\nThe nuclei of Uranium-235 ($^{235}\\text{U}$) and Uranium-238 ($^{238}\\text{U}$) share the following fundamental properties:\n\n1.  **Atomic Number ($Z$):** Both isotopes have **92 protons** in their nuclei. This defines them as both being elements of Uranium.\n2.  **Electron Configuration:** Since they have the same number of protons, they also possess the same number of electrons (in a neutral state), resulting in identical chemical behaviors.\n3.  **Chemical Properties:** Because their electron configurations are identical, they react chemically in exactly the same ways.\n\n### Different Aspects\n\nThe primary difference lies in their **mass number ($A$)** and the specific composition of their **nucleons**:\n\n*   **Mass Number:** $^{235}\\text{U}$ has a mass number of **235**, while $^{238}\\text{U}$ has a mass number of **238**.\n*   **Neutron Count:** The difference in mass number is due to the number of neutrons.\n    *   $^{235}\\text{U}$ contains **143 neutrons** ($235 - 92$).\n    *   $^{238}\\text{U}$ contains **146 neutrons** ($238 - 92$).\n*   **Stability and Decay:** These differences in neutron-to-proton ratios make the two isotopes unstable in different ways. $^{235}\\text{U}$ is fissile (can be split by thermal neutrons to release energy), whereas $^{238}\\text{U}$ is fertile (can absorb neutrons to become $^{239}\\text{U}$, which then decays into $^{239}\\text{Pu}$).\n\n### Conclusion\n\nWhile **Uranium-235 and Uranium-238 are chemically identical** because they have the same number of protons and electrons, they are **physically distinct** due to their different numbers of neutrons (143 vs. 146), which results in different nuclear stability and different applications in nuclear energy.",
+      "rubric": {
+        "required": [
+          "Both have the same number of protons, which is what makes both of them uranium (the count, 92, is optional).",
+          "They differ in their number of neutrons, which is why their mass numbers differ (the counts, 143 and 146, are optional)."
+        ],
+        "disqualifying": [
+          "Says they have different numbers of protons, or that they are different elements.",
+          "Attributes the mass difference to electrons rather than neutrons.",
+          "Supplies proton or neutron counts that are wrong."
+        ]
+      },
+      "reference_answer": "Both nuclei contain 92 protons; the proton count defines the element, so both are uranium. Uranium-235 has 143 neutrons and uranium-238 has 146, so their masses differ.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/2-1-atoms-isotopes-ions-and-molecules-the-building-blocks"
+    },
+    {
+      "id": "c9f9a2c63c4a",
+      "case": "sci-dev-decomposers",
+      "messages": [
+        {
+          "role": "user",
+          "content": "If every decomposer were removed from a forest, what would happen over time to the nutrients in fallen leaves and dead animals? Explain briefly."
+        }
+      ],
+      "answer": "Nutrients would remain locked in dead organic matter. Without decomposers, decomposition slows, and the nutrients stay unavailable to plants and other organisms.\n\nAnswer: Nutrients would remain locked in dead organic matter.",
+      "rubric": {
+        "required": [
+          "Dead organic matter would accumulate instead of being broken down.",
+          "Its nutrients would stay locked in the dead material and would not be returned to the soil for plants, so nutrient cycling would stall and plant growth would eventually suffer."
+        ],
+        "disqualifying": [
+          "Says decomposers recycle energy back to producers (energy flows through ecosystems; nutrients cycle).",
+          "Says nothing would change because plants make their own nutrients."
+        ]
+      },
+      "reference_answer": "Without decomposers, dead leaves and bodies would pile up largely intact. The nutrients in them would not be released back into the soil, so they would be unavailable to plants, and the forest's growth would eventually be limited.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-1-ecology-of-ecosystems"
+    },
+    {
+      "id": "24151e2931f0",
+      "case": "sci-dev-decomposers",
+      "messages": [
+        {
+          "role": "user",
+          "content": "If every decomposer were removed from a forest, what would happen over time to the nutrients in fallen leaves and dead animals? Explain briefly."
+        }
+      ],
+      "answer": "If every decomposer (such as bacteria, fungi, and detritivores) were removed from a forest, the nutrients in fallen leaves and dead animals would **remain locked in the soil and accumulate in the dead matter**, leading to a catastrophic collapse of the ecosystem.\n\nHere is the brief explanation of why:\n\n1.  **Nutrient Locking**: Decomposers are responsible for breaking down complex organic matter (like cellulose in leaves and proteins in dead animals) into simple inorganic nutrients (like nitrogen and phosphorus). Without them, these nutrients cannot be released back into the soil.\n2.  **Accumulation**: As leaves and dead animals rot, they would eventually decompose into a thick layer of rotting material (maggots, maggots, and fungal mats) that would eventually sink to the bottom of ponds or lakes, or pile up in the forest floor.\n3.  **Ecosystem Collapse**: Without the release of essential nutrients, plants would starve, the forest would die, and the food chain would collapse.",
+      "rubric": {
+        "required": [
+          "Dead organic matter would accumulate instead of being broken down.",
+          "Its nutrients would stay locked in the dead material and would not be returned to the soil for plants, so nutrient cycling would stall and plant growth would eventually suffer."
+        ],
+        "disqualifying": [
+          "Says decomposers recycle energy back to producers (energy flows through ecosystems; nutrients cycle).",
+          "Says nothing would change because plants make their own nutrients."
+        ]
+      },
+      "reference_answer": "Without decomposers, dead leaves and bodies would pile up largely intact. The nutrients in them would not be released back into the soil, so they would be unavailable to plants, and the forest's growth would eventually be limited.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-1-ecology-of-ecosystems"
+    },
+    {
+      "id": "5b520ea0a497",
+      "case": "sci-dev-decomposers",
+      "messages": [
+        {
+          "role": "user",
+          "content": "If every decomposer were removed from a forest, what would happen over time to the nutrients in fallen leaves and dead animals? Explain briefly."
+        }
+      ],
+      "answer": "Without decomposers, the nutrients in fallen leaves and dead animals are not consumed. They remain intact and accumulate.\n\nOver time, these accumulated nutrients can become highly concentrated and acidic. This can cause the leaves to turn into a thick, sticky, and potentially toxic soup.",
+      "rubric": {
+        "required": [
+          "Dead organic matter would accumulate instead of being broken down.",
+          "Its nutrients would stay locked in the dead material and would not be returned to the soil for plants, so nutrient cycling would stall and plant growth would eventually suffer."
+        ],
+        "disqualifying": [
+          "Says decomposers recycle energy back to producers (energy flows through ecosystems; nutrients cycle).",
+          "Says nothing would change because plants make their own nutrients."
+        ]
+      },
+      "reference_answer": "Without decomposers, dead leaves and bodies would pile up largely intact. The nutrients in them would not be released back into the soil, so they would be unavailable to plants, and the forest's growth would eventually be limited.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-1-ecology-of-ecosystems"
+    },
+    {
+      "id": "98add7dd57ed",
+      "case": "sci-dev-osmosis",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A red blood cell is placed in pure distilled water. Which way does water move across its membrane, and what happens to the cell? Explain briefly."
+        }
+      ],
+      "answer": "Water flows through the cell membrane via osmoses, which are channels formed by the cell's plasma membrane. This movement is driven by the cell's plasma membrane's ability to stretch and contract.\n\nThe cell becomes a sponge, which allows water to enter and exit.",
+      "rubric": {
+        "required": [
+          "Water moves into the cell by osmosis, because the cell's interior has a higher solute concentration (lower water concentration) than pure water; the water is hypotonic to the cell.",
+          "The cell swells and can burst (lyse)."
+        ],
+        "disqualifying": [
+          "Says water moves out of the cell or that the cell shrinks.",
+          "Says the movement requires energy (ATP) or active transport.",
+          "Explains the change mainly as solute moving into the cell."
+        ]
+      },
+      "reference_answer": "Pure water is hypotonic to the cell, whose cytoplasm contains dissolved solutes. Water therefore moves into the cell by osmosis, and the cell swells and may burst.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport"
+    },
+    {
+      "id": "0600dbec3fca",
+      "case": "sci-dev-impulse",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why are cars built with crumple zones that collapse during a crash? Explain briefly in terms of momentum and force."
+        }
+      ],
+      "answer": "Cars are built with crumple zones (crumple zones) that collapse during a crash. This allows the car to move faster than the road surface, which is made of softer material. The momentum of the car is greater than the force of the road, so the car can move faster.",
+      "rubric": {
+        "required": [
+          "Stopping the car (or occupants) requires a fixed change in momentum, which equals the impulse: average force multiplied by the collision time.",
+          "Crumple zones lengthen the collision time, so the average force is smaller."
+        ],
+        "disqualifying": [
+          "Says crumple zones reduce or absorb the change in momentum itself.",
+          "Says crumple zones increase the force, or that force does not depend on stopping time."
+        ]
+      },
+      "reference_answer": "The car's momentum must drop to zero either way, and that change equals average force times the time it takes. Collapsing structures stretch the stopping time, so the same momentum change happens with a smaller average force.",
+      "source_url": "https://openstax.org/books/physics/pages/8-1-linear-momentum-force-and-impulse"
+    },
+    {
+      "id": "d3e6d3f30bea",
+      "case": "sci-dev-isotopes",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Uranium-235 and uranium-238 are both uranium. What is the same about their nuclei, and what is different? Explain briefly."
+        }
+      ],
+      "answer": "Both isotopes have the same number of protons and electrons in their nuclei. The difference is in their atomic arrangement: 235 has 235 protons and 238 electrons, while 238 has 238 protons and 235 electrons.\n\nAnswer: Uranium-235 and 238 are isotopes. Their nuclei have the same number of protons and electrons, but their atomic arrangements differ.",
+      "rubric": {
+        "required": [
+          "Both have the same number of protons, which is what makes both of them uranium (the count, 92, is optional).",
+          "They differ in their number of neutrons, which is why their mass numbers differ (the counts, 143 and 146, are optional)."
+        ],
+        "disqualifying": [
+          "Says they have different numbers of protons, or that they are different elements.",
+          "Attributes the mass difference to electrons rather than neutrons.",
+          "Supplies proton or neutron counts that are wrong."
+        ]
+      },
+      "reference_answer": "Both nuclei contain 92 protons; the proton count defines the element, so both are uranium. Uranium-235 has 143 neutrons and uranium-238 has 146, so their masses differ.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/2-1-atoms-isotopes-ions-and-molecules-the-building-blocks"
+    },
+    {
+      "id": "aa3f4b1b4eda",
+      "case": "sci-dev-isotopes",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Uranium-235 and uranium-238 are both uranium. What is the same about their nuclei, and what is different? Explain briefly."
+        }
+      ],
+      "answer": "The same: the number of protons is 92. The different: the number of neutrons is 143 in U-235 and 146 in U-238.",
+      "rubric": {
+        "required": [
+          "Both have the same number of protons, which is what makes both of them uranium (the count, 92, is optional).",
+          "They differ in their number of neutrons, which is why their mass numbers differ (the counts, 143 and 146, are optional)."
+        ],
+        "disqualifying": [
+          "Says they have different numbers of protons, or that they are different elements.",
+          "Attributes the mass difference to electrons rather than neutrons.",
+          "Supplies proton or neutron counts that are wrong."
+        ]
+      },
+      "reference_answer": "Both nuclei contain 92 protons; the proton count defines the element, so both are uranium. Uranium-235 has 143 neutrons and uranium-238 has 146, so their masses differ.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/2-1-atoms-isotopes-ions-and-molecules-the-building-blocks"
+    },
+    {
+      "id": "eb2fc29442e5",
+      "case": "sci-dev-impulse",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why are cars built with crumple zones that collapse during a crash? Explain briefly in terms of momentum and force."
+        }
+      ],
+      "answer": "A car is made of two pieces: the main body and the wheels. When they collide, the wheels bend and buckle, creating a crumple zone. This zone is made of material that is already broken. The main body and wheels are separate, so the impact doesn cause them to join.\n\nThe force is concentrated in the broken parts, not in the main body. The main body is relatively stiff and can withstand the impact without breaking.",
+      "rubric": {
+        "required": [
+          "Stopping the car (or occupants) requires a fixed change in momentum, which equals the impulse: average force multiplied by the collision time.",
+          "Crumple zones lengthen the collision time, so the average force is smaller."
+        ],
+        "disqualifying": [
+          "Says crumple zones reduce or absorb the change in momentum itself.",
+          "Says crumple zones increase the force, or that force does not depend on stopping time."
+        ]
+      },
+      "reference_answer": "The car's momentum must drop to zero either way, and that change equals average force times the time it takes. Collapsing structures stretch the stopping time, so the same momentum change happens with a smaller average force.",
+      "source_url": "https://openstax.org/books/physics/pages/8-1-linear-momentum-force-and-impulse"
+    },
+    {
+      "id": "f550860448a7",
+      "case": "sci-dev-impulse",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why are cars built with crumple zones that collapse during a crash? Explain briefly in terms of momentum and force."
+        }
+      ],
+      "answer": "A car is made of many small pieces. When it hits a rough surface, the pieces can break. The force from the impact pushes the pieces together, and the resulting mass is greater than the original mass. This is called impact force.\n\nWhen the car is moving, the momentum is the mass and speed of the car. The impact force is added to the momentum, making the total mass greater than before.",
+      "rubric": {
+        "required": [
+          "Stopping the car (or occupants) requires a fixed change in momentum, which equals the impulse: average force multiplied by the collision time.",
+          "Crumple zones lengthen the collision time, so the average force is smaller."
+        ],
+        "disqualifying": [
+          "Says crumple zones reduce or absorb the change in momentum itself.",
+          "Says crumple zones increase the force, or that force does not depend on stopping time."
+        ]
+      },
+      "reference_answer": "The car's momentum must drop to zero either way, and that change equals average force times the time it takes. Collapsing structures stretch the stopping time, so the same momentum change happens with a smaller average force.",
+      "source_url": "https://openstax.org/books/physics/pages/8-1-linear-momentum-force-and-impulse"
+    },
+    {
+      "id": "95bc36839a33",
+      "case": "sci-dev-osmosis",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A red blood cell is placed in pure distilled water. Which way does water move across its membrane, and what happens to the cell? Explain briefly."
+        }
+      ],
+      "answer": "Water moves into the cell. The cell swells and may burst.\n\nReason: Pure water has lower solute concentration than the cytoplasm, so water moves by osmosis into the cell. As water enters, the cell volume increases and can rupture.",
+      "rubric": {
+        "required": [
+          "Water moves into the cell by osmosis, because the cell's interior has a higher solute concentration (lower water concentration) than pure water; the water is hypotonic to the cell.",
+          "The cell swells and can burst (lyse)."
+        ],
+        "disqualifying": [
+          "Says water moves out of the cell or that the cell shrinks.",
+          "Says the movement requires energy (ATP) or active transport.",
+          "Explains the change mainly as solute moving into the cell."
+        ]
+      },
+      "reference_answer": "Pure water is hypotonic to the cell, whose cytoplasm contains dissolved solutes. Water therefore moves into the cell by osmosis, and the cell swells and may burst.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport"
+    },
+    {
+      "id": "f56947cda64d",
+      "case": "sci-dev-decomposers",
+      "messages": [
+        {
+          "role": "user",
+          "content": "If every decomposer were removed from a forest, what would happen over time to the nutrients in fallen leaves and dead animals? Explain briefly."
+        }
+      ],
+      "answer": "Without decomposers, the nutrients in fallen leaves and dead animals are not consumed. They remain intact and accumulate in the forest.\n\nOver time, these accumulated nutrients can become a rich source of food for new decomposers.",
+      "rubric": {
+        "required": [
+          "Dead organic matter would accumulate instead of being broken down.",
+          "Its nutrients would stay locked in the dead material and would not be returned to the soil for plants, so nutrient cycling would stall and plant growth would eventually suffer."
+        ],
+        "disqualifying": [
+          "Says decomposers recycle energy back to producers (energy flows through ecosystems; nutrients cycle).",
+          "Says nothing would change because plants make their own nutrients."
+        ]
+      },
+      "reference_answer": "Without decomposers, dead leaves and bodies would pile up largely intact. The nutrients in them would not be released back into the soil, so they would be unavailable to plants, and the forest's growth would eventually be limited.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-1-ecology-of-ecosystems"
+    },
+    {
+      "id": "455075f22b34",
+      "case": "sci-dev-isotopes",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Uranium-235 and uranium-238 are both uranium. What is the same about their nuclei, and what is different? Explain briefly."
+        }
+      ],
+      "answer": "The same: the number of protons is 92. The different: the number of neutrons is 143 in U-235 and 146 in U-238.",
+      "rubric": {
+        "required": [
+          "Both have the same number of protons, which is what makes both of them uranium (the count, 92, is optional).",
+          "They differ in their number of neutrons, which is why their mass numbers differ (the counts, 143 and 146, are optional)."
+        ],
+        "disqualifying": [
+          "Says they have different numbers of protons, or that they are different elements.",
+          "Attributes the mass difference to electrons rather than neutrons.",
+          "Supplies proton or neutron counts that are wrong."
+        ]
+      },
+      "reference_answer": "Both nuclei contain 92 protons; the proton count defines the element, so both are uranium. Uranium-235 has 143 neutrons and uranium-238 has 146, so their masses differ.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/2-1-atoms-isotopes-ions-and-molecules-the-building-blocks"
+    },
+    {
+      "id": "29e36030f96b",
+      "case": "sci-dev-impulse",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why are cars built with crumple zones that collapse during a crash? Explain briefly in terms of momentum and force."
+        }
+      ],
+      "answer": "A car's momentum is p = mv. The impulse on the car is Δp = FΔt. A crumple zone increases Δt, so F is smaller.\n\nThe passenger's momentum is p = m v. The impulse on the passenger is Δp = FΔt. The crumple zone does not change the passenger's momentum. The passenger's force is F = Δp/Δt. A longer Δt reduces F.",
+      "rubric": {
+        "required": [
+          "Stopping the car (or occupants) requires a fixed change in momentum, which equals the impulse: average force multiplied by the collision time.",
+          "Crumple zones lengthen the collision time, so the average force is smaller."
+        ],
+        "disqualifying": [
+          "Says crumple zones reduce or absorb the change in momentum itself.",
+          "Says crumple zones increase the force, or that force does not depend on stopping time."
+        ]
+      },
+      "reference_answer": "The car's momentum must drop to zero either way, and that change equals average force times the time it takes. Collapsing structures stretch the stopping time, so the same momentum change happens with a smaller average force.",
+      "source_url": "https://openstax.org/books/physics/pages/8-1-linear-momentum-force-and-impulse"
+    },
+    {
+      "id": "9e76c8921273",
+      "case": "sci-dev-osmosis",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A red blood cell is placed in pure distilled water. Which way does water move across its membrane, and what happens to the cell? Explain briefly."
+        }
+      ],
+      "answer": "### Logical Deduction\n\n1.  **Osmotic Principle**: Water movement across a semi-permeable membrane (like the cell membrane) occurs due to **osmosis**. Osmosis is the net movement of water molecules from an area of **lower solute concentration** (higher water potential) to an area of **higher solute concentration** (lower water potential) until equilibrium is reached.\n\n2.  **Initial Conditions**:\n    *   **Red Blood Cell (RBC)**: Contains dissolved ions and proteins, making its internal solution hypertonic (high solute concentration) compared to pure water.\n    *   **Pure Distilled Water**: Contains no solutes, making it hypotonic (zero solute concentration).\n\n3.  **Direction of Water Movement**:\n    *   Since the RBC has a higher solute concentration inside than the surrounding distilled water, water will naturally flow **into** the cell to dilute the internal concentration.\n    *   Therefore, water moves **from the distilled water into the red blood cell**.\n\n4.  **Cellular Consequence**:\n    *   As water enters the cell, the volume of the cell increases.\n    *   If the cell membrane cannot stretch sufficiently to accommodate this influx, the cell will swell and eventually burst. This specific process is called **lysis**.\n\n### Final Conclusion\n\n*   **Direction of Water Movement**: Water moves **into** the red blood cell (from the distilled water into the cell).\n*   **Result**: The cell will **swell and burst (lyse)** due to the loss of structural integrity.",
+      "rubric": {
+        "required": [
+          "Water moves into the cell by osmosis, because the cell's interior has a higher solute concentration (lower water concentration) than pure water; the water is hypotonic to the cell.",
+          "The cell swells and can burst (lyse)."
+        ],
+        "disqualifying": [
+          "Says water moves out of the cell or that the cell shrinks.",
+          "Says the movement requires energy (ATP) or active transport.",
+          "Explains the change mainly as solute moving into the cell."
+        ]
+      },
+      "reference_answer": "Pure water is hypotonic to the cell, whose cytoplasm contains dissolved solutes. Water therefore moves into the cell by osmosis, and the cell swells and may burst.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport"
+    },
+    {
+      "id": "aea6894db824",
+      "case": "sci-dev-osmosis",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A red blood cell is placed in pure distilled water. Which way does water move across its membrane, and what happens to the cell? Explain briefly."
+        }
+      ],
+      "answer": "Water moves into the cell. The cell swells and may burst.\n\nReason: Pure water has lower solute concentration than the cytoplasm, so water moves by osmosis into the cell. As water enters, the cell volume increases and can rupture.",
+      "rubric": {
+        "required": [
+          "Water moves into the cell by osmosis, because the cell's interior has a higher solute concentration (lower water concentration) than pure water; the water is hypotonic to the cell.",
+          "The cell swells and can burst (lyse)."
+        ],
+        "disqualifying": [
+          "Says water moves out of the cell or that the cell shrinks.",
+          "Says the movement requires energy (ATP) or active transport.",
+          "Explains the change mainly as solute moving into the cell."
+        ]
+      },
+      "reference_answer": "Pure water is hypotonic to the cell, whose cytoplasm contains dissolved solutes. Water therefore moves into the cell by osmosis, and the cell swells and may burst.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport"
+    },
+    {
+      "id": "36eeac1d165e",
+      "case": "sci-dev-osmosis",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A red blood cell is placed in pure distilled water. Which way does water move across its membrane, and what happens to the cell? Explain briefly."
+        }
+      ],
+      "answer": "Water is an osmotic fluid that flows into cells to replace ions needed for growth. The cell does not change.\n\nAnswer: The cell remains unchanged.",
+      "rubric": {
+        "required": [
+          "Water moves into the cell by osmosis, because the cell's interior has a higher solute concentration (lower water concentration) than pure water; the water is hypotonic to the cell.",
+          "The cell swells and can burst (lyse)."
+        ],
+        "disqualifying": [
+          "Says water moves out of the cell or that the cell shrinks.",
+          "Says the movement requires energy (ATP) or active transport.",
+          "Explains the change mainly as solute moving into the cell."
+        ]
+      },
+      "reference_answer": "Pure water is hypotonic to the cell, whose cytoplasm contains dissolved solutes. Water therefore moves into the cell by osmosis, and the cell swells and may burst.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport"
+    },
+    {
+      "id": "fa6e17a3a2af",
+      "case": "sci-dev-isotopes",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Uranium-235 and uranium-238 are both uranium. What is the same about their nuclei, and what is different? Explain briefly."
+        }
+      ],
+      "answer": "Both isotopes have the same number of protons and electrons. The difference is in their atomic arrangement: 235 has 238 protons and 238 electrons, while 238 has 235 protons and 238 electrons.\n\nThe atomic arrangement is determined by the nuclear charge. The charge of an atom is the difference between protons and electrons. A positive charge means protons outnumber electrons; a negative charge means electrons outnumber protons.\n\nUranium-235 has a positive charge because its protons outnumber its electrons. Uranium-238 has a negative charge because its electrons outnumber its protons.",
+      "rubric": {
+        "required": [
+          "Both have the same number of protons, which is what makes both of them uranium (the count, 92, is optional).",
+          "They differ in their number of neutrons, which is why their mass numbers differ (the counts, 143 and 146, are optional)."
+        ],
+        "disqualifying": [
+          "Says they have different numbers of protons, or that they are different elements.",
+          "Attributes the mass difference to electrons rather than neutrons.",
+          "Supplies proton or neutron counts that are wrong."
+        ]
+      },
+      "reference_answer": "Both nuclei contain 92 protons; the proton count defines the element, so both are uranium. Uranium-235 has 143 neutrons and uranium-238 has 146, so their masses differ.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/2-1-atoms-isotopes-ions-and-molecules-the-building-blocks"
+    },
+    {
+      "id": "a6a08c2b93e9",
+      "case": "sci-dev-osmosis",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A red blood cell is placed in pure distilled water. Which way does water move across its membrane, and what happens to the cell? Explain briefly."
+        }
+      ],
+      "answer": "Water enters through osmoses that allow water to follow the concentration gradient. The cell does not change its internal environment.\n\nThis is the difference between a cell and a wound.",
+      "rubric": {
+        "required": [
+          "Water moves into the cell by osmosis, because the cell's interior has a higher solute concentration (lower water concentration) than pure water; the water is hypotonic to the cell.",
+          "The cell swells and can burst (lyse)."
+        ],
+        "disqualifying": [
+          "Says water moves out of the cell or that the cell shrinks.",
+          "Says the movement requires energy (ATP) or active transport.",
+          "Explains the change mainly as solute moving into the cell."
+        ]
+      },
+      "reference_answer": "Pure water is hypotonic to the cell, whose cytoplasm contains dissolved solutes. Water therefore moves into the cell by osmosis, and the cell swells and may burst.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport"
+    },
+    {
+      "id": "966d4dcd5a16",
+      "case": "sci-dev-impulse",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why are cars built with crumple zones that collapse during a crash? Explain briefly in terms of momentum and force."
+        }
+      ],
+      "answer": "A car and its passengers have momentum. To stop them, the car must apply a force over a distance. A crumple zone increases that distance, so the force is smaller.",
+      "rubric": {
+        "required": [
+          "Stopping the car (or occupants) requires a fixed change in momentum, which equals the impulse: average force multiplied by the collision time.",
+          "Crumple zones lengthen the collision time, so the average force is smaller."
+        ],
+        "disqualifying": [
+          "Says crumple zones reduce or absorb the change in momentum itself.",
+          "Says crumple zones increase the force, or that force does not depend on stopping time."
+        ]
+      },
+      "reference_answer": "The car's momentum must drop to zero either way, and that change equals average force times the time it takes. Collapsing structures stretch the stopping time, so the same momentum change happens with a smaller average force.",
+      "source_url": "https://openstax.org/books/physics/pages/8-1-linear-momentum-force-and-impulse"
+    },
+    {
+      "id": "000694461365",
+      "case": "sci-dev-decomposers",
+      "messages": [
+        {
+          "role": "user",
+          "content": "If every decomposer were removed from a forest, what would happen over time to the nutrients in fallen leaves and dead animals? Explain briefly."
+        }
+      ],
+      "answer": "The nutrients in fallen leaves and dead animals would be destroyed by bacteria and enzymes, but they would not be consumed by decomposers.",
+      "rubric": {
+        "required": [
+          "Dead organic matter would accumulate instead of being broken down.",
+          "Its nutrients would stay locked in the dead material and would not be returned to the soil for plants, so nutrient cycling would stall and plant growth would eventually suffer."
+        ],
+        "disqualifying": [
+          "Says decomposers recycle energy back to producers (energy flows through ecosystems; nutrients cycle).",
+          "Says nothing would change because plants make their own nutrients."
+        ]
+      },
+      "reference_answer": "Without decomposers, dead leaves and bodies would pile up largely intact. The nutrients in them would not be released back into the soil, so they would be unavailable to plants, and the forest's growth would eventually be limited.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-1-ecology-of-ecosystems"
+    },
+    {
+      "id": "91d3295d5eeb",
+      "case": "sci-dev-impulse",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why are cars built with crumple zones that collapse during a crash? Explain briefly in terms of momentum and force."
+        }
+      ],
+      "answer": "Cars are built with crumple zones that collapse during a crash to **increase the time** over which the vehicle's momentum is stopped, thereby **decreasing the force** exerted on the occupants.\n\nHere is the breakdown using the physics of momentum and force:\n\n1.  **Momentum ($p$)**: Momentum is defined as the product of mass and velocity ($p = mv$). When a car hits a wall, its momentum is high because it is moving fast.\n2.  **Impulse and Force**: According to the Impulse-Momentum Theorem, the change in momentum ($\\Delta p$) is equal to the impulse ($J$) applied to the car. Impulse is the product of the average force ($F$) and the time ($t$) it acts ($J = F \\cdot t$).\n    $$ \\Delta p = F \\cdot t $$\n3.  **The Role of Crumple Zones**:\n    *   If the car were rigid and stopped instantly, the time ($t$) would be very small. To stop the same amount of momentum, the force ($F$) would have to be extremely large, which would crush the passengers.\n    *   By designing crumple zones that deform and collapse, the car intentionally **increases the stopping time** ($t$).\n4.  **The Result**: Since $\\Delta p$ is constant (the car must stop), increasing $t$ requires a smaller $F$. This reduces the deceleration experienced by the passengers, keeping them safe.\n\n**Conclusion:** The crumple zones act as a \"sacrificial\" barrier that absorbs kinetic energy by extending the duration of the collision, which significantly lowers the force transmitted to the occupants.",
+      "rubric": {
+        "required": [
+          "Stopping the car (or occupants) requires a fixed change in momentum, which equals the impulse: average force multiplied by the collision time.",
+          "Crumple zones lengthen the collision time, so the average force is smaller."
+        ],
+        "disqualifying": [
+          "Says crumple zones reduce or absorb the change in momentum itself.",
+          "Says crumple zones increase the force, or that force does not depend on stopping time."
+        ]
+      },
+      "reference_answer": "The car's momentum must drop to zero either way, and that change equals average force times the time it takes. Collapsing structures stretch the stopping time, so the same momentum change happens with a smaller average force.",
+      "source_url": "https://openstax.org/books/physics/pages/8-1-linear-momentum-force-and-impulse"
+    },
+    {
+      "id": "34e521770816",
+      "case": "sci-dev-isotopes",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Uranium-235 and uranium-238 are both uranium. What is the same about their nuclei, and what is different? Explain briefly."
+        }
+      ],
+      "answer": "Uranium-235 and uranium-238 have the same number of atoms in their nuclei (235 atoms and 238 atoms), but they differ in the number of atoms that are uranium atoms. Uranium-235 contains 235 atoms, including 235 uranium atoms. Uranium-238 contains 238 atoms, including 238 uranium atoms.",
+      "rubric": {
+        "required": [
+          "Both have the same number of protons, which is what makes both of them uranium (the count, 92, is optional).",
+          "They differ in their number of neutrons, which is why their mass numbers differ (the counts, 143 and 146, are optional)."
+        ],
+        "disqualifying": [
+          "Says they have different numbers of protons, or that they are different elements.",
+          "Attributes the mass difference to electrons rather than neutrons.",
+          "Supplies proton or neutron counts that are wrong."
+        ]
+      },
+      "reference_answer": "Both nuclei contain 92 protons; the proton count defines the element, so both are uranium. Uranium-235 has 143 neutrons and uranium-238 has 146, so their masses differ.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/2-1-atoms-isotopes-ions-and-molecules-the-building-blocks"
+    },
+    {
+      "id": "1c17a8b5c2d8",
+      "case": "sci-dev-decomposers",
+      "messages": [
+        {
+          "role": "user",
+          "content": "If every decomposer were removed from a forest, what would happen over time to the nutrients in fallen leaves and dead animals? Explain briefly."
+        }
+      ],
+      "answer": "Nutrients would remain locked in dead matter. Without decomposers, they would not be released back into the soil.\n\nAnswer: The nutrients would stay trapped in the dead material.",
+      "rubric": {
+        "required": [
+          "Dead organic matter would accumulate instead of being broken down.",
+          "Its nutrients would stay locked in the dead material and would not be returned to the soil for plants, so nutrient cycling would stall and plant growth would eventually suffer."
+        ],
+        "disqualifying": [
+          "Says decomposers recycle energy back to producers (energy flows through ecosystems; nutrients cycle).",
+          "Says nothing would change because plants make their own nutrients."
+        ]
+      },
+      "reference_answer": "Without decomposers, dead leaves and bodies would pile up largely intact. The nutrients in them would not be released back into the soil, so they would be unavailable to plants, and the forest's growth would eventually be limited.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-1-ecology-of-ecosystems"
+    }
+  ]
+}

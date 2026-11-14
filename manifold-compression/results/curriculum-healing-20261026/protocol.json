@@ -1,0 +1,62 @@
+{
+  "parent": "/home/cyrus/code/model-experiments/manifold-compression/results/broad-healing-20261025/selected",
+  "parent_adapter_sha256": "33eb4d7a4338ce8ca2ef2297cd4606be09c9cb62dc9f9a52e90f37e7c5f96340",
+  "parent_optimizer_sha256": "95f5c7f2b0b6be8ebb5f0b032b98089fb59a02e1dc4a8aa2fa27127fc5b62f1d",
+  "recipe_sha256": "ec653cba925a2931c66881510caed01f717fe3083f2bedeed5fb4770c6c3a547",
+  "steps": 16,
+  "evaluation_steps": [
+    8,
+    16
+  ],
+  "lr": 3e-05,
+  "optimizer": "resume parent AdamW state; no new warmup",
+  "rank": 16,
+  "alpha": 32,
+  "seed": 2610267,
+  "loss": "correct assistant targets including EOS; no teacher KL",
+  "training_precision": "CPU BF16 autocast with FP32 stored parameters",
+  "evaluation_precision": "CPU FP32, four threads, fixed original batches",
+  "max_complete_sequence": 1024,
+  "mix": {
+    "math": 0.35,
+    "verified_code": 0.15,
+    "horizon_code": 0.2,
+    "science": 0.2,
+    "retain": 0.1
+  },
+  "pool_counts": {
+    "math": 800,
+    "verified_code": 94,
+    "horizon_code": 256,
+    "science": 32,
+    "retain": 560
+  },
+  "scheduled_target_tokens": {
+    "math": 23032,
+    "verified_code": 9909,
+    "horizon_code": 13273,
+    "science": 13195,
+    "retain": 6579
+  },
+  "scheduled_presentations": {
+    "math": 998,
+    "verified_code": 244,
+    "horizon_code": 100,
+    "science": 178,
+    "retain": 536
+  },
+  "unique_scheduled_rows": 1562,
+  "selection": "Highest development closed+program correctness, rejecting more combined word/line loop flags or more than one lost completion. Tie: fewer loops, more completions, earlier stage step. Parent eligible. Explanations reviewed separately.",
+  "science_new_explanations": 24,
+  "science_replayed_explanations": 8,
+  "verified_algorithm_families": 12,
+  "cloud_spend": 0,
+  "limitations": [
+    "Continuation plus new curriculum; no matched old-curriculum continuation control.",
+    "Arithmetic has new wording and operands but shared task families.",
+    "Science pool remains small and resampled.",
+    "Only curated algorithm subset has multiple independent oracle tests; Horizon subset has supplied-reference checks.",
+    "Old benchmarks have been inspected but are not used to select this checkpoint.",
+    "No claim of absence from stock pretraining or earlier calibration."
+  ]
+}

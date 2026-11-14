@@ -1,0 +1,2834 @@
+{
+ "args": {
+  "rows": "target/memdraft/code/rows-9b.jsonl",
+  "dataset": "~/.cache/model-experiments/memdraft/code-prompts-src/data-oss_instruct-decontaminated.jsonl",
+  "tokenizer": "models/manifold-audit/Qwen3.5-9B/tokenizer.json",
+  "cache": "target/memdraft/cache",
+  "out": "memdraft/results/code-study.json",
+  "K": 6,
+  "n_max": 8,
+  "pad_to": 4,
+  "skip_shards": false,
+  "pool": 2000,
+  "min_count": 1,
+  "tables": null,
+  "export": null,
+  "floor": 0.1,
+  "prompts_out": null,
+  "prompts_count": 24
+ },
+ "answers": 800,
+ "held_out_prompts": 962,
+ "test_tokens": 68040,
+ "configs": {
+  "no table | context": {
+   "table": "no table",
+   "policy": "context",
+   "table_tokens": 0,
+   "first_guess_right": {
+    "request": 0.36944444444444446,
+    "both": 0.36944444444444446,
+    "in code blocks": {
+     "request": 0.413051930019439,
+     "both": 0.413051930019439,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "request": 0.20149732620320857,
+     "both": 0.20149732620320857,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.2439788653036907,
+      "tokens_per_step": 1.41776583109333,
+      "drafted_per_step": 1.9973536704798815,
+      "acceptance": 0.20941004642428668,
+      "rejected_per_step": 0.8445333500031256,
+      "reshaped_per_step": 0.005896939009397595,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.2511693591104072,
+       "tokens_per_step": 1.426189663994542,
+       "drafted_per_step": 1.997356302234351,
+       "acceptance": 0.2136330643439648,
+       "rejected_per_step": 0.8388623571550401,
+       "reshaped_per_step": 0.005926999829438854,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2371047307695981,
+       "tokens_per_step": 1.4097151473165166,
+       "drafted_per_step": 1.9973511553038021,
+       "acceptance": 0.2053740844265807,
+       "rejected_per_step": 0.8499531358246057,
+       "reshaped_per_step": 0.005868209788499939,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3158096012677256,
+      "tokens_per_step": 1.4393907340808123,
+      "drafted_per_step": 1.3027713137296382,
+      "acceptance": 0.3377447955571433,
+      "rejected_per_step": 0.4998942246668077,
+      "reshaped_per_step": 0.6530145969959805,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3221436871779655,
+       "tokens_per_step": 1.4474834465746311,
+       "drafted_per_step": 1.313714458822002,
+       "acceptance": 0.3410528396363157,
+       "rejected_per_step": 0.4936599298913749,
+       "reshaped_per_step": 0.657982429566798,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3097427932153407,
+       "tokens_per_step": 1.4316516988784505,
+       "drafted_per_step": 1.2923064189049374,
+       "acceptance": 0.3345289182091847,
+       "rejected_per_step": 0.5058560609195878,
+       "reshaped_per_step": 0.6482638745188926,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.2734847889316878,
+      "tokens_per_step": 1.4393907340808123,
+      "drafted_per_step": 1.3027713137296382,
+      "acceptance": 0.3377447955571433,
+      "rejected_per_step": 0.4998942246668077,
+      "reshaped_per_step": 0.6530145969959805,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.2794060269445273,
+       "tokens_per_step": 1.4474834465746311,
+       "drafted_per_step": 1.313714458822002,
+       "acceptance": 0.3410528396363157,
+       "rejected_per_step": 0.4936599298913749,
+       "reshaped_per_step": 0.657982429566798,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.267811592928138,
+       "tokens_per_step": 1.4316516988784505,
+       "drafted_per_step": 1.2923064189049374,
+       "acceptance": 0.3345289182091847,
+       "rejected_per_step": 0.5058560609195878,
+       "reshaped_per_step": 0.6482638745188926,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "shipped text (no code) | static": {
+   "table": "shipped text (no code)",
+   "policy": "static",
+   "table_tokens": 19529706,
+   "first_guess_right": {
+    "table": 0.21153733098177543,
+    "both": 0.21153733098177543,
+    "in code blocks": {
+     "table": 0.22230861797648802,
+     "both": 0.22230861797648802,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.17005347593582887,
+     "both": 0.17005347593582887,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      1
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1074088975519818,
+      "tokens_per_step": 1.1842311374118875,
+      "drafted_per_step": 1.0,
+      "acceptance": 0.18423113741188757,
+      "rejected_per_step": 0.8157688625881124,
+      "reshaped_per_step": 0.0027151683926551215,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1073930562975627,
+       "tokens_per_step": 1.1842161166973517,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.18421611669735166,
+       "rejected_per_step": 0.8157838833026484,
+       "reshaped_per_step": 0.0027262427418212718,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1074242144468582,
+       "tokens_per_step": 1.1842456608811749,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.1842456608811749,
+       "rejected_per_step": 0.8157543391188251,
+       "reshaped_per_step": 0.002704460648385882,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.15
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1395272770573668,
+      "tokens_per_step": 1.2131585985557636,
+      "drafted_per_step": 0.9252206472318801,
+      "acceptance": 0.23038677227264845,
+      "rejected_per_step": 0.48303467950432377,
+      "reshaped_per_step": 0.6029419630917358,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.140481921893611,
+       "tokens_per_step": 1.2144439199738573,
+       "drafted_per_step": 0.9284339711702553,
+       "acceptance": 0.2309737974188502,
+       "rejected_per_step": 0.4807378090846374,
+       "reshaped_per_step": 0.5966377400965833,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1386057761902533,
+       "tokens_per_step": 1.2119184417040358,
+       "drafted_per_step": 0.922120235426009,
+       "acceptance": 0.22981649633372592,
+       "rejected_per_step": 0.4852508408071749,
+       "reshaped_per_step": 0.60902466367713,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1158159198921573,
+      "tokens_per_step": 1.1930353667303748,
+      "drafted_per_step": 0.6920446774561203,
+      "acceptance": 0.2789601702645181,
+      "rejected_per_step": 0.3582262278409988,
+      "reshaped_per_step": 0.5530150269151864,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1162506633025961,
+       "tokens_per_step": 1.193172089041096,
+       "drafted_per_step": 0.689105308219178,
+       "acceptance": 0.28032303152663457,
+       "rejected_per_step": 0.3526327054794521,
+       "reshaped_per_step": 0.5464112442922374,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.115395900574255,
+       "tokens_per_step": 1.1929032035587435,
+       "drafted_per_step": 0.6948860305527776,
+       "acceptance": 0.2776537144558583,
+       "rejected_per_step": 0.36363322873202525,
+       "reshaped_per_step": 0.5593985999517225,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "shipped text (no code) | both": {
+   "table": "shipped text (no code)",
+   "policy": "both",
+   "table_tokens": 19529706,
+   "first_guess_right": {
+    "table": 0.21153733098177543,
+    "request": 0.36944444444444446,
+    "both": 0.42682245737801294,
+    "either": 0.47789535567313346,
+    "in code blocks": {
+     "table": 0.22230861797648802,
+     "request": 0.413051930019439,
+     "both": 0.4659631583819309,
+     "either": 0.5185041192261409,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.17005347593582887,
+     "request": 0.20149732620320857,
+     "both": 0.276078431372549,
+     "either": 0.32149732620320853,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3382661672151381,
+      "tokens_per_step": 1.528336215997664,
+      "drafted_per_step": 1.997686381095712,
+      "acceptance": 0.26462022825659187,
+      "rejected_per_step": 0.8103281744872975,
+      "reshaped_per_step": 0.005817740739908803,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.341899848863249,
+       "tokens_per_step": 1.5325788123167154,
+       "drafted_per_step": 1.9978464076246334,
+       "acceptance": 0.26659938992224946,
+       "rejected_per_step": 0.8082386363636364,
+       "reshaped_per_step": 0.005681818181818182,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3347715255686516,
+       "tokens_per_step": 1.524256444150694,
+       "drafted_per_step": 1.9975324961445253,
+       "acceptance": 0.2627167247540477,
+       "rejected_per_step": 0.8123375192773739,
+       "reshaped_per_step": 0.005948446794448116,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3854601939204443,
+      "tokens_per_step": 1.5444681527216597,
+      "drafted_per_step": 1.589662686702683,
+      "acceptance": 0.3427196527252217,
+      "rejected_per_step": 0.5855313932900531,
+      "reshaped_per_step": 0.6665456031234395,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3914071549702753,
+       "tokens_per_step": 1.552209021718953,
+       "drafted_per_step": 1.5995452014108038,
+       "acceptance": 0.3452577828067427,
+       "rejected_per_step": 0.5779190644143308,
+       "reshaped_per_step": 0.6733803601262298,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.379758382541711,
+       "tokens_per_step": 1.5370567848573713,
+       "drafted_per_step": 1.5802008353328,
+       "acceptance": 0.3402598132943426,
+       "rejected_per_step": 0.5928196925264374,
+       "reshaped_per_step": 0.6600017773038301,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.3326256289526823,
+      "tokens_per_step": 1.5444681527216597,
+      "drafted_per_step": 1.589662686702683,
+      "acceptance": 0.3427196527252217,
+      "rejected_per_step": 0.5855313932900531,
+      "reshaped_per_step": 0.6665456031234395,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3381636907024288,
+       "tokens_per_step": 1.552209021718953,
+       "drafted_per_step": 1.5995452014108038,
+       "acceptance": 0.3452577828067427,
+       "rejected_per_step": 0.5779190644143308,
+       "reshaped_per_step": 0.6733803601262298,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3273144453312051,
+       "tokens_per_step": 1.5370567848573713,
+       "drafted_per_step": 1.5802008353328,
+       "acceptance": 0.3402598132943426,
+       "rejected_per_step": 0.5928196925264374,
+       "reshaped_per_step": 0.6600017773038301,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "own code | static": {
+   "table": "own code",
+   "policy": "static",
+   "table_tokens": 218360,
+   "first_guess_right": {
+    "table": 0.2635655496766608,
+    "both": 0.2635655496766608,
+    "in code blocks": {
+     "table": 0.2743682310469314,
+     "both": 0.2743682310469314,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.22196078431372548,
+     "both": 0.22196078431372548,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      1
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1485274364113074,
+      "tokens_per_step": 1.229312712293127,
+      "drafted_per_step": 1.0,
+      "acceptance": 0.22936691479366914,
+      "rejected_per_step": 0.7706330852063309,
+      "reshaped_per_step": 0.0028185300281853,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.139614554942986,
+       "tokens_per_step": 1.2195362065193611,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.21957266827098373,
+       "rejected_per_step": 0.7804273317290162,
+       "reshaped_per_step": 0.002807554874936192,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1572786245054558,
+       "tokens_per_step": 1.2389155504620013,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.23898717856887042,
+       "rejected_per_step": 0.7610128214311296,
+       "reshaped_per_step": 0.00282931022133085,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.15
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1985670042818295,
+      "tokens_per_step": 1.2942250627710568,
+      "drafted_per_step": 1.132751274442669,
+      "acceptance": 0.2598612953602794,
+      "rejected_per_step": 0.48761698242410406,
+      "reshaped_per_step": 0.6510690101194552,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1879920419770686,
+       "tokens_per_step": 1.28262453503087,
+       "drafted_per_step": 1.134141197223607,
+       "acceptance": 0.24933220625528318,
+       "rejected_per_step": 0.49001035395175824,
+       "reshaped_per_step": 0.642481880584423,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2089722072691338,
+       "tokens_per_step": 1.3056425740705793,
+       "drafted_per_step": 1.1313832798641252,
+       "acceptance": 0.2702495329597011,
+       "rejected_per_step": 0.4852613700698245,
+       "reshaped_per_step": 0.6595206642762785,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1680786959544718,
+      "tokens_per_step": 1.2734418865805728,
+      "drafted_per_step": 0.9020213363279057,
+      "acceptance": 0.3032679738562091,
+      "rejected_per_step": 0.3871233389481565,
+      "reshaped_per_step": 0.5927007299270073,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1579125931259866,
+       "tokens_per_step": 1.2621033168559677,
+       "drafted_per_step": 0.8998151013169314,
+       "acceptance": 0.2914534932483435,
+       "rejected_per_step": 0.3894947360476963,
+       "reshaped_per_step": 0.5810724123617976,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1780792061000072,
+       "tokens_per_step": 1.2846002450889376,
+       "drafted_per_step": 0.9041925062200602,
+       "acceptance": 0.3148383917203992,
+       "rejected_per_step": 0.38478963199524674,
+       "reshaped_per_step": 0.6041442311262951,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "own code | both": {
+   "table": "own code",
+   "policy": "both",
+   "table_tokens": 218360,
+   "first_guess_right": {
+    "table": 0.2635655496766608,
+    "request": 0.36944444444444446,
+    "both": 0.45565843621399177,
+    "either": 0.5108465608465609,
+    "in code blocks": {
+     "table": 0.2743682310469314,
+     "request": 0.413051930019439,
+     "both": 0.49114134962510414,
+     "either": 0.5488475423493474,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.22196078431372548,
+     "request": 0.20149732620320857,
+     "both": 0.3190017825311943,
+     "either": 0.3644919786096257,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3834658185530493,
+      "tokens_per_step": 1.5815531949513029,
+      "drafted_per_step": 1.9976058204132865,
+      "acceptance": 0.2913927320541314,
+      "rejected_per_step": 0.7901489970014643,
+      "reshaped_per_step": 0.006020315659794054,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3837684748109413,
+       "tokens_per_step": 1.5819420139053115,
+       "drafted_per_step": 1.9974459632029513,
+       "acceptance": 0.2916272021216139,
+       "rejected_per_step": 0.7901906068202242,
+       "reshaped_per_step": 0.006195904081729178,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3831733145791456,
+       "tokens_per_step": 1.5811774385227169,
+       "drafted_per_step": 1.9977603071578756,
+       "acceptance": 0.291166174754616,
+       "rejected_per_step": 0.7901087850809032,
+       "reshaped_per_step": 0.005850626199835451,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.437681392645875,
+      "tokens_per_step": 1.618612617756209,
+      "drafted_per_step": 1.7361071462555904,
+      "acceptance": 0.35663684073500596,
+      "rejected_per_step": 0.5892568274812066,
+      "reshaped_per_step": 0.6817965553335237,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4386667176517958,
+       "tokens_per_step": 1.620180197636117,
+       "drafted_per_step": 1.740505715946522,
+       "acceptance": 0.35662798140881136,
+       "rejected_per_step": 0.5844797519860492,
+       "reshaped_per_step": 0.6870277078085643,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.436729992071882,
+       "tokens_per_step": 1.6170998504113687,
+       "drafted_per_step": 1.731862378459237,
+       "acceptance": 0.35664543295184625,
+       "rejected_per_step": 0.5938668661181751,
+       "reshaped_per_step": 0.6767483171278983,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.3791733473331724,
+      "tokens_per_step": 1.618612617756209,
+      "drafted_per_step": 1.7361071462555904,
+      "acceptance": 0.35663684073500596,
+      "rejected_per_step": 0.5892568274812066,
+      "reshaped_per_step": 0.6817965553335237,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3799918307058188,
+       "tokens_per_step": 1.620180197636117,
+       "drafted_per_step": 1.740505715946522,
+       "acceptance": 0.35662798140881136,
+       "rejected_per_step": 0.5844797519860492,
+       "reshaped_per_step": 0.6870277078085643,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.378382901405757,
+       "tokens_per_step": 1.6170998504113687,
+       "drafted_per_step": 1.731862378459237,
+       "acceptance": 0.35664543295184625,
+       "rejected_per_step": 0.5938668661181751,
+       "reshaped_per_step": 0.6767483171278983,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "own code, half | static": {
+   "table": "own code, half",
+   "policy": "static",
+   "table_tokens": 108615,
+   "first_guess_right": {
+    "table": 0.24437095825984714,
+    "both": 0.24437095825984714,
+    "in code blocks": {
+     "table": 0.2537443302786263,
+     "both": 0.2537443302786263,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.208270944741533,
+     "both": 0.208270944741533,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      1
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1345116647608071,
+      "tokens_per_step": 1.2139378044211315,
+      "drafted_per_step": 1.0,
+      "acceptance": 0.21400917054719978,
+      "rejected_per_step": 0.7859908294528002,
+      "reshaped_per_step": 0.0027832789166622064,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1263519203345536,
+       "tokens_per_step": 1.204993335014591,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.20506538891090537,
+       "rejected_per_step": 0.7949346110890947,
+       "reshaped_per_step": 0.0027740750081060635,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1425143003368985,
+       "tokens_per_step": 1.2227131344549695,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.22278382581648523,
+       "rejected_per_step": 0.7772161741835147,
+       "reshaped_per_step": 0.0027923087798671004,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.15
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1773777354478603,
+      "tokens_per_step": 1.2593236965333432,
+      "drafted_per_step": 0.9869699605767274,
+      "acceptance": 0.26282231598687295,
+      "rejected_per_step": 0.43554387458587057,
+      "reshaped_per_step": 0.621740176571841,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1679875247045408,
+       "tokens_per_step": 1.249747786122632,
+       "drafted_per_step": 0.9962261330941972,
+       "acceptance": 0.25076888455479707,
+       "rejected_per_step": 0.44191607816761946,
+       "reshaped_per_step": 0.6185405223629638,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1866015591394972,
+       "tokens_per_step": 1.2687229516614098,
+       "drafted_per_step": 0.9778845448543975,
+       "acceptance": 0.27487529535311106,
+       "rejected_per_step": 0.4292892246754199,
+       "reshaped_per_step": 0.6248808039316365,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1517581917193258,
+      "tokens_per_step": 1.2446720936613922,
+      "drafted_per_step": 0.8067136193176622,
+      "acceptance": 0.303362888047348,
+      "rejected_per_step": 0.36741973840665876,
+      "reshaped_per_step": 0.5705295893167475,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1424560396770094,
+       "tokens_per_step": 1.2355287946511027,
+       "drafted_per_step": 0.8146725277972738,
+       "acceptance": 0.289199238233427,
+       "rejected_per_step": 0.37386871559971924,
+       "reshaped_per_step": 0.5675076650289979,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1608973606053996,
+       "tokens_per_step": 1.2536420961078496,
+       "drafted_per_step": 0.7989055591795318,
+       "acceptance": 0.31753232025402583,
+       "rejected_per_step": 0.3610929912299775,
+       "reshaped_per_step": 0.5734942378777995,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "own code, half | both": {
+   "table": "own code, half",
+   "policy": "both",
+   "table_tokens": 108615,
+   "first_guess_right": {
+    "table": 0.24437095825984714,
+    "request": 0.36944444444444446,
+    "both": 0.4474867724867725,
+    "either": 0.5,
+    "in code blocks": {
+     "table": 0.2537443302786263,
+     "request": 0.413051930019439,
+     "both": 0.48299546422290107,
+     "either": 0.5382949180783115,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.208270944741533,
+     "request": 0.20149732620320857,
+     "both": 0.3107308377896613,
+     "either": 0.35251336898395724,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3694917257459573,
+      "tokens_per_step": 1.5650733771909646,
+      "drafted_per_step": 1.9977227768321295,
+      "acceptance": 0.2830890395974623,
+      "rejected_per_step": 0.7967060771955652,
+      "reshaped_per_step": 0.0058655748263329805,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3696653302393456,
+       "tokens_per_step": 1.565284537626357,
+       "drafted_per_step": 1.9977068513665295,
+       "acceptance": 0.2832009745355729,
+       "rejected_per_step": 0.7970797454137027,
+       "reshaped_per_step": 0.005896667914638712,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.369323914278494,
+       "tokens_per_step": 1.5648692662625532,
+       "drafted_per_step": 1.9977381706324076,
+       "acceptance": 0.2829808432589104,
+       "rejected_per_step": 0.7963448837419705,
+       "reshaped_per_step": 0.005835519768388673,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.4244107960540806,
+      "tokens_per_step": 1.59782072658103,
+      "drafted_per_step": 1.679637413991499,
+      "acceptance": 0.35623007661763884,
+      "rejected_per_step": 0.5853744452011366,
+      "reshaped_per_step": 0.6684827278491416,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4252198678726118,
+       "tokens_per_step": 1.5988813996844973,
+       "drafted_per_step": 1.6809598929203118,
+       "acceptance": 0.35655784324877715,
+       "rejected_per_step": 0.5802858645250729,
+       "reshaped_per_step": 0.6728333094316172,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4236294002085093,
+       "tokens_per_step": 1.596796528803545,
+       "drafted_per_step": 1.6783604135893648,
+       "acceptance": 0.3559130913091309,
+       "rejected_per_step": 0.590288035450517,
+       "reshaped_per_step": 0.6642817577548006,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.3680396659120062,
+      "tokens_per_step": 1.59782072658103,
+      "drafted_per_step": 1.679637413991499,
+      "acceptance": 0.35623007661763884,
+      "rejected_per_step": 0.5853744452011366,
+      "reshaped_per_step": 0.6684827278491416,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3687928169786456,
+       "tokens_per_step": 1.5988813996844973,
+       "drafted_per_step": 1.6809598929203118,
+       "acceptance": 0.35655784324877715,
+       "rejected_per_step": 0.5802858645250729,
+       "reshaped_per_step": 0.6728333094316172,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3673122529644268,
+       "tokens_per_step": 1.596796528803545,
+       "drafted_per_step": 1.6783604135893648,
+       "acceptance": 0.3559130913091309,
+       "rejected_per_step": 0.590288035450517,
+       "reshaped_per_step": 0.6642817577548006,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "own code, quarter | static": {
+   "table": "own code, quarter",
+   "policy": "static",
+   "table_tokens": 54520,
+   "first_guess_right": {
+    "table": 0.2226190476190476,
+    "both": 0.2226190476190476,
+    "in code blocks": {
+     "table": 0.23250948810515598,
+     "both": 0.23250948810515598,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.1845276292335116,
+     "both": 0.1845276292335116,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      1
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1151577921232787,
+      "tokens_per_step": 1.1927216632191564,
+      "drafted_per_step": 1.0,
+      "acceptance": 0.19277425235774637,
+      "rejected_per_step": 0.8072257476422536,
+      "reshaped_per_step": 0.0027346352066753145,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1105014886868927,
+       "tokens_per_step": 1.1876220573092355,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.18765756489010404,
+       "rejected_per_step": 0.812342435109896,
+       "reshaped_per_step": 0.002734083726875688,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1196971208444924,
+       "tokens_per_step": 1.1976941453450127,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.19776339022954678,
+       "rejected_per_step": 0.8022366097704532,
+       "reshaped_per_step": 0.002735172939099124,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.15
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1562647252114109,
+      "tokens_per_step": 1.2306690542080416,
+      "drafted_per_step": 0.9154412429685098,
+      "acceptance": 0.2520350904923733,
+      "rejected_per_step": 0.41910394848698607,
+      "reshaped_per_step": 0.6072313563767251,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1509763959851582,
+       "tokens_per_step": 1.2261529437642056,
+       "drafted_per_step": 0.9317765232055136,
+       "acceptance": 0.24275091474210175,
+       "rejected_per_step": 0.4273773737077498,
+       "reshaped_per_step": 0.606276119950143,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1614242762149152,
+       "tokens_per_step": 1.235067299796494,
+       "drafted_per_step": 0.8995322931914742,
+       "acceptance": 0.26140107164119863,
+       "rejected_per_step": 0.4110464493555643,
+       "reshaped_per_step": 0.6081616623228248,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.132235599524075,
+      "tokens_per_step": 1.2116031839307655,
+      "drafted_per_step": 0.7009811777694678,
+      "acceptance": 0.3019433506922393,
+      "rejected_per_step": 0.315205584343893,
+      "reshaped_per_step": 0.5301031037982799,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1286354939615115,
+       "tokens_per_step": 1.2092628077660075,
+       "drafted_per_step": 0.7143786832495752,
+       "acceptance": 0.29298041398856217,
+       "rejected_per_step": 0.3251021367366861,
+       "reshaped_per_step": 0.5299540836617376,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1357383464768571,
+       "tokens_per_step": 1.2138746578707278,
+       "drafted_per_step": 0.6879781037265773,
+       "acceptance": 0.310976231765786,
+       "rejected_per_step": 0.3056003930100358,
+       "reshaped_per_step": 0.5302477366832761,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "own code, quarter | both": {
+   "table": "own code, quarter",
+   "policy": "both",
+   "table_tokens": 54520,
+   "first_guess_right": {
+    "table": 0.2226190476190476,
+    "request": 0.36944444444444446,
+    "both": 0.43559670781893006,
+    "either": 0.4871252204585538,
+    "in code blocks": {
+     "table": 0.23250948810515598,
+     "request": 0.413051930019439,
+     "both": 0.4726835138387485,
+     "either": 0.5270017587707119,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.1845276292335116,
+     "request": 0.20149732620320857,
+     "both": 0.29276292335115867,
+     "either": 0.33354723707664885,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3504910267473242,
+      "tokens_per_step": 1.5427172138581535,
+      "drafted_per_step": 1.9976872846000362,
+      "acceptance": 0.27188840714593787,
+      "rejected_per_step": 0.8049383275893343,
+      "reshaped_per_step": 0.005849809541084709,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.354290589127946,
+       "tokens_per_step": 1.5471829031362754,
+       "drafted_per_step": 1.997733370339532,
+       "acceptance": 0.2741102646629773,
+       "rejected_per_step": 0.8034045702655195,
+       "reshaped_per_step": 0.005828476269775187,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3468375539408577,
+       "tokens_per_step": 1.5384239082095525,
+       "drafted_per_step": 1.9976429778528861,
+       "acceptance": 0.2697522206638616,
+       "rejected_per_step": 0.8064128791247888,
+       "reshaped_per_step": 0.00587031930979276,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.4030871092114214,
+      "tokens_per_step": 1.5672363753627863,
+      "drafted_per_step": 1.6164370940249688,
+      "acceptance": 0.35124544003647973,
+      "rejected_per_step": 0.5688487584650113,
+      "reshaped_per_step": 0.6792048647901598,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.408153743595694,
+       "tokens_per_step": 1.5739764705882353,
+       "drafted_per_step": 1.6260705882352942,
+       "acceptance": 0.35330207790704404,
+       "rejected_per_step": 0.564564705882353,
+       "reshaped_per_step": 0.6840470588235295,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3982228709780176,
+       "tokens_per_step": 1.560774228478614,
+       "drafted_per_step": 1.6072008662696264,
+       "acceptance": 0.3492504631969008,
+       "rejected_per_step": 0.5729561451001625,
+       "reshaped_per_step": 0.6745623533658185,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.3491541017933202,
+      "tokens_per_step": 1.5672363753627863,
+      "drafted_per_step": 1.6164370940249688,
+      "acceptance": 0.35124544003647973,
+      "rejected_per_step": 0.5688487584650113,
+      "reshaped_per_step": 0.6792048647901598,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.353833574845985,
+       "tokens_per_step": 1.5739764705882353,
+       "drafted_per_step": 1.6260705882352942,
+       "acceptance": 0.35330207790704404,
+       "rejected_per_step": 0.564564705882353,
+       "reshaped_per_step": 0.6840470588235295,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.344660307390909,
+       "tokens_per_step": 1.560774228478614,
+       "drafted_per_step": 1.6072008662696264,
+       "acceptance": 0.3492504631969008,
+       "rejected_per_step": 0.5729561451001625,
+       "reshaped_per_step": 0.6745623533658185,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "other code, same prompts | static": {
+   "table": "other code, same prompts",
+   "policy": "static",
+   "table_tokens": 100667,
+   "first_guess_right": {
+    "table": 0.19093180482069372,
+    "both": 0.19093180482069372,
+    "in code blocks": {
+     "table": 0.21190410071276497,
+     "both": 0.21190410071276497,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.11016042780748662,
+     "both": 0.11016042780748662,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      1
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.0900710103401021,
+      "tokens_per_step": 1.165268025346806,
+      "drafted_per_step": 1.0,
+      "acceptance": 0.16615858879945197,
+      "rejected_per_step": 0.833841411200548,
+      "reshaped_per_step": 0.002671690357938003,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.0863445287740665,
+       "tokens_per_step": 1.1611928898764061,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.1621302596861547,
+       "rejected_per_step": 0.8378697403138453,
+       "reshaped_per_step": 0.0026732398278016944,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.0936984310503493,
+       "tokens_per_step": 1.1692354491989454,
+       "drafted_per_step": 1.0,
+       "acceptance": 0.1700804434529845,
+       "rejected_per_step": 0.8299195565470154,
+       "reshaped_per_step": 0.002670181842763469,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.15
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1264630423021804,
+      "tokens_per_step": 1.182625623555177,
+      "drafted_per_step": 0.70771557193263,
+      "acceptance": 0.2594493700419972,
+      "rejected_per_step": 0.37406358090139574,
+      "reshaped_per_step": 0.5633983974414684,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1223055330598957,
+       "tokens_per_step": 1.1788319881577556,
+       "drafted_per_step": 0.7167377436295069,
+       "acceptance": 0.2510326514555468,
+       "rejected_per_step": 0.3757093010961125,
+       "reshaped_per_step": 0.5599337398230713,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1305122152052374,
+       "tokens_per_step": 1.1863168724279836,
+       "drafted_per_step": 0.6989368998628258,
+       "acceptance": 0.26784750502919386,
+       "rejected_per_step": 0.3724622770919067,
+       "reshaped_per_step": 0.5667695473251029,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1074236774473916,
+      "tokens_per_step": 1.1739332976759433,
+      "drafted_per_step": 0.6005797201470005,
+      "acceptance": 0.291189060300497,
+      "rejected_per_step": 0.32980210148553285,
+      "reshaped_per_step": 0.5178315705930054,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1029804578521445,
+       "tokens_per_step": 1.1690258991297053,
+       "drafted_per_step": 0.5987906749152424,
+       "acceptance": 0.28408825589540043,
+       "rejected_per_step": 0.3308168187060921,
+       "reshaped_per_step": 0.5097689699765824,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1117538734465238,
+       "tokens_per_step": 1.1787174594520922,
+       "drafted_per_step": 0.6023238380809596,
+       "acceptance": 0.29807093963907905,
+       "rejected_per_step": 0.32881286629412565,
+       "reshaped_per_step": 0.525691699604743,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "other code, same prompts | both": {
+   "table": "other code, same prompts",
+   "policy": "both",
+   "table_tokens": 100667,
+   "first_guess_right": {
+    "table": 0.19093180482069372,
+    "request": 0.36944444444444446,
+    "both": 0.4187389770723104,
+    "either": 0.46150793650793653,
+    "in code blocks": {
+     "table": 0.21190410071276497,
+     "request": 0.413051930019439,
+     "both": 0.46416736091826344,
+     "either": 0.5087660834953254,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.11016042780748662,
+     "request": 0.20149732620320857,
+     "both": 0.2437789661319073,
+     "either": 0.27950089126559713,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3235714299053378,
+      "tokens_per_step": 1.5110933439936038,
+      "drafted_per_step": 1.9975570213427498,
+      "acceptance": 0.2561371520056924,
+      "rejected_per_step": 0.8143114131521088,
+      "reshaped_per_step": 0.00590756657116841,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.326906114896097,
+       "tokens_per_step": 1.5150156271232504,
+       "drafted_per_step": 1.9975540154912352,
+       "acceptance": 0.2580952380952381,
+       "rejected_per_step": 0.8131992571454455,
+       "reshaped_per_step": 0.005933777234225664,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3203631153149564,
+       "tokens_per_step": 1.5073202614379084,
+       "drafted_per_step": 1.9975599128540305,
+       "acceptance": 0.25425355553616613,
+       "rejected_per_step": 0.8153812636165577,
+       "reshaped_per_step": 0.0058823529411764705,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3729270924662966,
+      "tokens_per_step": 1.5226245356487491,
+      "drafted_per_step": 1.5084366468245087,
+      "acceptance": 0.3468385603655461,
+      "rejected_per_step": 0.5509555565501499,
+      "reshaped_per_step": 0.6679496934162825,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3787687097042407,
+       "tokens_per_step": 1.5298449435118693,
+       "drafted_per_step": 1.5143850340758358,
+       "acceptance": 0.3502370956537497,
+       "rejected_per_step": 0.5453505923249325,
+       "reshaped_per_step": 0.6686182134199332,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3673258721786479,
+       "tokens_per_step": 1.5157078385838847,
+       "drafted_per_step": 1.5027384655829645,
+       "acceptance": 0.34355774557541474,
+       "rejected_per_step": 0.556324760110415,
+       "reshaped_per_step": 0.6673092932568023,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.3230507169441497,
+      "tokens_per_step": 1.5226245356487491,
+      "drafted_per_step": 1.5084366468245087,
+      "acceptance": 0.3468385603655461,
+      "rejected_per_step": 0.5509555565501499,
+      "reshaped_per_step": 0.6679496934162825,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3286379941129502,
+       "tokens_per_step": 1.5298449435118693,
+       "drafted_per_step": 1.5143850340758358,
+       "acceptance": 0.3502370956537497,
+       "rejected_per_step": 0.5453505923249325,
+       "reshaped_per_step": 0.6686182134199332,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3176930372875932,
+       "tokens_per_step": 1.5157078385838847,
+       "drafted_per_step": 1.5027384655829645,
+       "acceptance": 0.34355774557541474,
+       "rejected_per_step": 0.556324760110415,
+       "reshaped_per_step": 0.6673092932568023,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "other code, all | static": {
+   "table": "other code, all",
+   "policy": "static",
+   "table_tokens": 18593526,
+   "first_guess_right": {
+    "table": 0.3116549088771311,
+    "both": 0.3116549088771311,
+    "in code blocks": {
+     "table": 0.34407109136351016,
+     "both": 0.34407109136351016,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.18680926916221033,
+     "both": 0.18680926916221033,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.2010791070877118,
+      "tokens_per_step": 1.367528238935563,
+      "drafted_per_step": 1.997809221369136,
+      "acceptance": 0.1844887775530941,
+      "rejected_per_step": 0.8906821562085461,
+      "reshaped_per_step": 0.005326204928246975,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.2009187691033227,
+       "tokens_per_step": 1.3673043904831985,
+       "drafted_per_step": 1.9980786526040388,
+       "acceptance": 0.184360742271416,
+       "rejected_per_step": 0.8919957485078898,
+       "reshaped_per_step": 0.005069086746790941,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2012341740965535,
+       "tokens_per_step": 1.367744741420212,
+       "drafted_per_step": 1.9975486319784912,
+       "acceptance": 0.1846126439966747,
+       "rejected_per_step": 0.8894116716748379,
+       "reshaped_per_step": 0.005574885339237704,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.2596647892033177,
+      "tokens_per_step": 1.3695376502083292,
+      "drafted_per_step": 1.2222177492401523,
+      "acceptance": 0.3031076563297706,
+      "rejected_per_step": 0.5283106217668726,
+      "reshaped_per_step": 0.6671162013647068,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.262295845432521,
+       "tokens_per_step": 1.373311435023609,
+       "drafted_per_step": 1.2321494559638677,
+       "acceptance": 0.3036755639974674,
+       "rejected_per_step": 0.5289262985013344,
+       "reshaped_per_step": 0.6670909464175734,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2571313029001419,
+       "tokens_per_step": 1.3659085524757166,
+       "drafted_per_step": 1.212666824607123,
+       "acceptance": 0.30255274811148736,
+       "rejected_per_step": 0.5277185501066098,
+       "reshaped_per_step": 0.6671404880360104,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.2203805707664686,
+      "tokens_per_step": 1.3695376502083292,
+      "drafted_per_step": 1.2222177492401523,
+      "acceptance": 0.3031076563297706,
+      "rejected_per_step": 0.5283106217668726,
+      "reshaped_per_step": 0.6671162013647068,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.2226612906173804,
+       "tokens_per_step": 1.373311435023609,
+       "drafted_per_step": 1.2321494559638677,
+       "acceptance": 0.3036755639974674,
+       "rejected_per_step": 0.5289262985013344,
+       "reshaped_per_step": 0.6670909464175734,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2181834828785936,
+       "tokens_per_step": 1.3659085524757166,
+       "drafted_per_step": 1.212666824607123,
+       "acceptance": 0.30255274811148736,
+       "rejected_per_step": 0.5277185501066098,
+       "reshaped_per_step": 0.6671404880360104,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "other code, all | both": {
+   "table": "other code, all",
+   "policy": "both",
+   "table_tokens": 18593526,
+   "first_guess_right": {
+    "table": 0.3116549088771311,
+    "request": 0.36944444444444446,
+    "both": 0.4700764256319812,
+    "either": 0.5286890064667843,
+    "in code blocks": {
+     "table": 0.34407109136351016,
+     "request": 0.413051930019439,
+     "both": 0.5176154771822642,
+     "either": 0.5795056928630936,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.18680926916221033,
+     "request": 0.20149732620320857,
+     "both": 0.28698752228163993,
+     "either": 0.3329768270944741,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      3
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.4119199453011755,
+      "tokens_per_step": 1.7099773812515708,
+      "drafted_per_step": 2.9925609449610455,
+      "acceptance": 0.23763374036313553,
+      "rejected_per_step": 0.8678813772304599,
+      "reshaped_per_step": 0.00892183965820558,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4247729711361963,
+       "tokens_per_step": 1.7260295180101146,
+       "drafted_per_step": 2.9930849416864485,
+       "acceptance": 0.24291379310344827,
+       "rejected_per_step": 0.8629889565486635,
+       "reshaped_per_step": 0.008772835173908556,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3997113097952438,
+       "tokens_per_step": 1.6947383891828336,
+       "drafted_per_step": 2.992063492063492,
+       "acceptance": 0.23261944526312342,
+       "rejected_per_step": 0.8725259651185577,
+       "reshaped_per_step": 0.009063296100333138,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.4722725572052213,
+      "tokens_per_step": 1.6761097699167364,
+      "drafted_per_step": 1.9111937724786914,
+      "acceptance": 0.35438175889047857,
+      "rejected_per_step": 0.633443366014682,
+      "reshaped_per_step": 0.69771394787407,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4817820814105171,
+       "tokens_per_step": 1.6889012320743284,
+       "drafted_per_step": 1.9274893960815997,
+       "acceptance": 0.3579849104055329,
+       "rejected_per_step": 0.6274490002019794,
+       "reshaped_per_step": 0.7022318723490204,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4631934085110119,
+       "tokens_per_step": 1.663924963924964,
+       "drafted_per_step": 1.8956709956709956,
+       "acceptance": 0.3508918829768339,
+       "rejected_per_step": 0.6391534391534391,
+       "reshaped_per_step": 0.6934102934102934,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.4071719442508421,
+      "tokens_per_step": 1.6761097699167364,
+      "drafted_per_step": 1.9111937724786914,
+      "acceptance": 0.35438175889047857,
+      "rejected_per_step": 0.633443366014682,
+      "reshaped_per_step": 0.69771394787407,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4159737862598005,
+       "tokens_per_step": 1.6889012320743284,
+       "drafted_per_step": 1.9274893960815997,
+       "acceptance": 0.3579849104055329,
+       "rejected_per_step": 0.6274490002019794,
+       "reshaped_per_step": 0.7022318723490204,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.398765117604959,
+       "tokens_per_step": 1.663924963924964,
+       "drafted_per_step": 1.8956709956709956,
+       "acceptance": 0.3508918829768339,
+       "rejected_per_step": 0.6391534391534391,
+       "reshaped_per_step": 0.6934102934102934,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "shipped + own | static": {
+   "table": "shipped + own",
+   "policy": "static",
+   "table_tokens": 19748066,
+   "first_guess_right": {
+    "table": 0.25533509700176366,
+    "both": 0.25533509700176366,
+    "in code blocks": {
+     "table": 0.26836989725076366,
+     "both": 0.26836989725076366,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.2051336898395722,
+     "both": 0.2051336898395722,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1356865513130274,
+      "tokens_per_step": 1.291204099060632,
+      "drafted_per_step": 1.9977227440933676,
+      "acceptance": 0.1457870238434502,
+      "rejected_per_step": 0.9168801594079135,
+      "reshaped_per_step": 0.005237688585254768,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1278900982431492,
+       "tokens_per_step": 1.282083716651334,
+       "drafted_per_step": 1.9980067463968108,
+       "acceptance": 0.14120174967385465,
+       "rejected_per_step": 0.9206531738730451,
+       "reshaped_per_step": 0.004944802207911683,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1433279002150023,
+       "tokens_per_step": 1.3001465779682038,
+       "drafted_per_step": 1.9974442815800353,
+       "acceptance": 0.1502841229819742,
+       "rejected_per_step": 0.9131807419100236,
+       "reshaped_per_step": 0.0055248618784530384,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.1833542545055162,
+      "tokens_per_step": 1.2615652754343352,
+      "drafted_per_step": 0.932286355292678,
+      "acceptance": 0.28062289930590084,
+      "rejected_per_step": 0.43665288413401815,
+      "reshaped_per_step": 0.6101644633155953,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.180617415573518,
+       "tokens_per_step": 1.2571224535818988,
+       "drafted_per_step": 0.9138540178907013,
+       "acceptance": 0.2814016615941433,
+       "rejected_per_step": 0.4302412989551229,
+       "reshaped_per_step": 0.6031722167932045,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1860125194895974,
+       "tokens_per_step": 1.2658908771544626,
+       "drafted_per_step": 0.9502323709152121,
+       "acceptance": 0.27989371124889284,
+       "rejected_per_step": 0.44289530500969737,
+       "reshaped_per_step": 0.6169722252717093,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.153981184204501,
+      "tokens_per_step": 1.2615652754343352,
+      "drafted_per_step": 0.932286355292678,
+      "acceptance": 0.28062289930590084,
+      "rejected_per_step": 0.43665288413401815,
+      "reshaped_per_step": 0.6101644633155953,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.1518593262482177,
+       "tokens_per_step": 1.2571224535818988,
+       "drafted_per_step": 0.9138540178907013,
+       "acceptance": 0.2814016615941433,
+       "rejected_per_step": 0.4302412989551229,
+       "reshaped_per_step": 0.6031722167932045,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.1560401955640511,
+       "tokens_per_step": 1.2658908771544626,
+       "drafted_per_step": 0.9502323709152121,
+       "acceptance": 0.27989371124889284,
+       "rejected_per_step": 0.44289530500969737,
+       "reshaped_per_step": 0.6169722252717093,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "shipped + own | both": {
+   "table": "shipped + own",
+   "policy": "both",
+   "table_tokens": 19748066,
+   "first_guess_right": {
+    "table": 0.25533509700176366,
+    "request": 0.36944444444444446,
+    "both": 0.45291005291005293,
+    "either": 0.5060111699000588,
+    "in code blocks": {
+     "table": 0.26836989725076366,
+     "request": 0.413051930019439,
+     "both": 0.49191891141349625,
+     "either": 0.5462371563454596,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.2051336898395722,
+     "request": 0.20149732620320857,
+     "both": 0.30267379679144385,
+     "either": 0.3510873440285205,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.3800162011954908,
+      "tokens_per_step": 1.5774830752109803,
+      "drafted_per_step": 1.997635166465733,
+      "acceptance": 0.28932708154406817,
+      "rejected_per_step": 0.7905731243624223,
+      "reshaped_per_step": 0.005981637763145692,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.3806470899354926,
+       "tokens_per_step": 1.578209786250177,
+       "drafted_per_step": 1.9977351012126645,
+       "acceptance": 0.2896216165147149,
+       "rejected_per_step": 0.7894587835606096,
+       "reshaped_per_step": 0.005898173925352711,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.379406760588451,
+       "tokens_per_step": 1.5767810747983044,
+       "drafted_per_step": 1.9975386298372761,
+       "acceptance": 0.28904253377144945,
+       "rejected_per_step": 0.7916495738183145,
+       "reshaped_per_step": 0.006062263548931127,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.4288677143181867,
+      "tokens_per_step": 1.6075605434140579,
+      "drafted_per_step": 1.72751329001772,
+      "acceptance": 0.35202483690523406,
+      "rejected_per_step": 0.601015948021264,
+      "reshaped_per_step": 0.673171884229179,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4314058235154123,
+       "tokens_per_step": 1.6105065485362096,
+       "drafted_per_step": 1.7275616332819723,
+       "acceptance": 0.3536707731757623,
+       "rejected_per_step": 0.59259437596302,
+       "reshaped_per_step": 0.6788809707241911,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4264222317840256,
+       "tokens_per_step": 1.6047223639653012,
+       "drafted_per_step": 1.727466716147887,
+       "acceptance": 0.3504390558285668,
+       "rejected_per_step": 0.6091292851509951,
+       "reshaped_per_step": 0.6676717539546319,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.3707599417366587,
+      "tokens_per_step": 1.6075605434140579,
+      "drafted_per_step": 1.72751329001772,
+      "acceptance": 0.35202483690523406,
+      "rejected_per_step": 0.601015948021264,
+      "reshaped_per_step": 0.673171884229179,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.373266326706575,
+       "tokens_per_step": 1.6105065485362096,
+       "drafted_per_step": 1.7275616332819723,
+       "acceptance": 0.3536707731757623,
+       "rejected_per_step": 0.59259437596302,
+       "reshaped_per_step": 0.6788809707241911,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.3683452725179879,
+       "tokens_per_step": 1.6047223639653012,
+       "drafted_per_step": 1.727466716147887,
+       "acceptance": 0.3504390558285668,
+       "rejected_per_step": 0.6091292851509951,
+       "reshaped_per_step": 0.6676717539546319,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "shipped + other all | static": {
+   "table": "shipped + other all",
+   "policy": "static",
+   "table_tokens": 38123232,
+   "first_guess_right": {
+    "table": 0.3182392710170488,
+    "both": 0.3182392710170488,
+    "in code blocks": {
+     "table": 0.34490419327964456,
+     "both": 0.34490419327964456,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.21554367201426025,
+     "both": 0.21554367201426025,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.2134780168665953,
+      "tokens_per_step": 1.3819998781305223,
+      "drafted_per_step": 1.997846972559056,
+      "acceptance": 0.19140910939406264,
+      "rejected_per_step": 0.8874535372615928,
+      "reshaped_per_step": 0.005321633863465561,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.213319679572165,
+       "tokens_per_step": 1.3817648516896637,
+       "drafted_per_step": 1.998223580930348,
+       "acceptance": 0.19132088734520045,
+       "rejected_per_step": 0.8889118400396596,
+       "reshaped_per_step": 0.004957448566471123,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2136311480488264,
+       "tokens_per_step": 1.3822271946298,
+       "drafted_per_step": 1.997482718663843,
+       "acceptance": 0.1914944690044208,
+       "rejected_per_step": 0.8860430734806409,
+       "reshaped_per_step": 0.005673872218004555,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.2692004102703385,
+      "tokens_per_step": 1.38427734375,
+      "drafted_per_step": 1.2706095377604167,
+      "acceptance": 0.30278769634765346,
+      "rejected_per_step": 0.5523478190104166,
+      "reshaped_per_step": 0.67633056640625,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.271548019138267,
+       "tokens_per_step": 1.3889950166112957,
+       "drafted_per_step": 1.2951827242524916,
+       "acceptance": 0.3006925740669488,
+       "rejected_per_step": 0.5509551495016611,
+       "reshaped_per_step": 0.6820598006644518,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2669388011022549,
+       "tokens_per_step": 1.3797463305679643,
+       "drafted_per_step": 1.2470086151882578,
+       "acceptance": 0.30487765872381256,
+       "rejected_per_step": 0.5536853860880664,
+       "reshaped_per_step": 0.6708280153158902,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.2282187037996437,
+      "tokens_per_step": 1.38427734375,
+      "drafted_per_step": 1.2706095377604167,
+      "acceptance": 0.30278769634765346,
+      "rejected_per_step": 0.5523478190104166,
+      "reshaped_per_step": 0.67633056640625,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.2297233701486832,
+       "tokens_per_step": 1.3889950166112957,
+       "drafted_per_step": 1.2951827242524916,
+       "acceptance": 0.3006925740669488,
+       "rejected_per_step": 0.5509551495016611,
+       "reshaped_per_step": 0.6820598006644518,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2267673812436832,
+       "tokens_per_step": 1.3797463305679643,
+       "drafted_per_step": 1.2470086151882578,
+       "acceptance": 0.30487765872381256,
+       "rejected_per_step": 0.5536853860880664,
+       "reshaped_per_step": 0.6708280153158902,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "shipped + other all | both": {
+   "table": "shipped + other all",
+   "policy": "both",
+   "table_tokens": 38123232,
+   "first_guess_right": {
+    "table": 0.3182392710170488,
+    "request": 0.36944444444444446,
+    "both": 0.47347148736037625,
+    "either": 0.5333774250440917,
+    "in code blocks": {
+     "table": 0.34490419327964456,
+     "request": 0.413051930019439,
+     "both": 0.518337498842914,
+     "either": 0.5801166342682588,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.21554367201426025,
+     "request": 0.20149732620320857,
+     "both": 0.3006773618538324,
+     "either": 0.3533689839572193,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      3
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.4200660593692802,
+      "tokens_per_step": 1.7201365187713311,
+      "drafted_per_step": 2.9926178738465428,
+      "acceptance": 0.24092487307071714,
+      "rejected_per_step": 0.8673998230312223,
+      "reshaped_per_step": 0.008899001390468968,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4343336603078318,
+       "tokens_per_step": 1.7379579111457522,
+       "drafted_per_step": 2.9932969602494155,
+       "acceptance": 0.24679720862410165,
+       "rejected_per_step": 0.8620420888542478,
+       "reshaped_per_step": 0.008677578591842037,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4065384419280111,
+       "tokens_per_step": 1.7032496307237814,
+       "drafted_per_step": 2.991974396848843,
+       "acceptance": 0.23535800681290833,
+       "rejected_per_step": 0.8724766125061546,
+       "reshaped_per_step": 0.009108813392417528,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.479115032693464,
+      "tokens_per_step": 1.6868306227687426,
+      "drafted_per_step": 1.9383181277270924,
+      "acceptance": 0.35479126163921004,
+      "rejected_per_step": 0.6389577548591828,
+      "reshaped_per_step": 0.6964002380007933,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4891765886854367,
+       "tokens_per_step": 1.7015312611283513,
+       "drafted_per_step": 1.9668820267589153,
+       "acceptance": 0.3571373147453638,
+       "rejected_per_step": 0.6352444421834461,
+       "reshaped_per_step": 0.6987841481406115,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4695152371139064,
+       "tokens_per_step": 1.6728565211083708,
+       "drafted_per_step": 1.9111659171139803,
+       "acceptance": 0.3524961412919714,
+       "rejected_per_step": 0.6424875477537598,
+       "reshaped_per_step": 0.6941341457517288,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.4129549947668334,
+      "tokens_per_step": 1.6868306227687426,
+      "drafted_per_step": 1.9383181277270924,
+      "acceptance": 0.35479126163921004,
+      "rejected_per_step": 0.6389577548591828,
+      "reshaped_per_step": 0.6964002380007933,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.4218668299090689,
+       "tokens_per_step": 1.7015312611283513,
+       "drafted_per_step": 1.9668820267589153,
+       "acceptance": 0.3571373147453638,
+       "rejected_per_step": 0.6352444421834461,
+       "reshaped_per_step": 0.6987841481406115,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4044439752995197,
+       "tokens_per_step": 1.6728565211083708,
+       "drafted_per_step": 1.9111659171139803,
+       "acceptance": 0.3524961412919714,
+       "rejected_per_step": 0.6424875477537598,
+       "reshaped_per_step": 0.6941341457517288,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "shipped + own + other all | static": {
+   "table": "shipped + own + other all",
+   "policy": "static",
+   "table_tokens": 38341592,
+   "first_guess_right": {
+    "table": 0.32767489711934156,
+    "both": 0.32767489711934156,
+    "in code blocks": {
+     "table": 0.3505322595575303,
+     "both": 0.3505322595575303,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.23964349376114083,
+     "both": 0.23964349376114083,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      2
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.2252339415300497,
+      "tokens_per_step": 1.395749569213096,
+      "drafted_per_step": 1.9978460654796095,
+      "acceptance": 0.19829347680997217,
+      "rejected_per_step": 0.8807540822187577,
+      "reshaped_per_step": 0.0053540658078280135,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.2233606247079856,
+       "tokens_per_step": 1.3935088742604782,
+       "drafted_per_step": 1.998208482626448,
+       "acceptance": 0.19718104293071453,
+       "rejected_per_step": 0.8824681276560287,
+       "reshaped_per_step": 0.004999583368052662,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2270506622625788,
+       "tokens_per_step": 1.3979228966297583,
+       "drafted_per_step": 1.9974945445728602,
+       "acceptance": 0.19937285049565043,
+       "rejected_per_step": 0.8790915703548048,
+       "reshaped_per_step": 0.005697890568172634,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.2820863834153948,
+      "tokens_per_step": 1.4028287493299245,
+      "drafted_per_step": 1.3185641829202919,
+      "acceptance": 0.30588088127218427,
+      "rejected_per_step": 0.5636468599233021,
+      "reshaped_per_step": 0.6795802234959383,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.284129769323884,
+       "tokens_per_step": 1.40734662963898,
+       "drafted_per_step": 1.344441639316671,
+       "acceptance": 0.30336129193790684,
+       "rejected_per_step": 0.5646722208196583,
+       "reshaped_per_step": 0.6867794328031642,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.2801168650151495,
+       "tokens_per_step": 1.3984880336351875,
+       "drafted_per_step": 1.29370148771022,
+       "acceptance": 0.30839661260585605,
+       "rejected_per_step": 0.5626617076326003,
+       "reshaped_per_step": 0.6726633247089263,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.2394052166499991,
+      "tokens_per_step": 1.4028287493299245,
+      "drafted_per_step": 1.3185641829202919,
+      "acceptance": 0.30588088127218427,
+      "rejected_per_step": 0.5636468599233021,
+      "reshaped_per_step": 0.6795802234959383,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.2405605091761494,
+       "tokens_per_step": 1.40734662963898,
+       "drafted_per_step": 1.344441639316671,
+       "acceptance": 0.30336129193790684,
+       "rejected_per_step": 0.5646722208196583,
+       "reshaped_per_step": 0.6867794328031642,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.238290240942723,
+       "tokens_per_step": 1.3984880336351875,
+       "drafted_per_step": 1.29370148771022,
+       "acceptance": 0.30839661260585605,
+       "rejected_per_step": 0.5626617076326003,
+       "reshaped_per_step": 0.6726633247089263,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  },
+  "shipped + own + other all | both": {
+   "table": "shipped + own + other all",
+   "policy": "both",
+   "table_tokens": 38341592,
+   "first_guess_right": {
+    "table": 0.32767489711934156,
+    "request": 0.36944444444444446,
+    "both": 0.4795414462081129,
+    "either": 0.5412257495590829,
+    "in code blocks": {
+     "table": 0.3505322595575303,
+     "request": 0.413051930019439,
+     "both": 0.5215958530037953,
+     "either": 0.5845043043599,
+     "share_of_tokens": 0.7938712522045855
+    },
+    "outside code blocks": {
+     "table": 0.23964349376114083,
+     "request": 0.20149732620320857,
+     "both": 0.31757575757575757,
+     "either": 0.37454545454545457,
+     "share_of_tokens": 0.20612874779541446
+    }
+   },
+   "by_cost": {
+    "gpu9b": {
+     "rule": [
+      "pad",
+      3
+     ],
+     "cost": {
+      "name": "gpu9b",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.185,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.4328138246065305,
+      "tokens_per_step": 1.736068585425597,
+      "drafted_per_step": 2.992702592365789,
+      "acceptance": 0.24626140335919516,
+      "rejected_per_step": 0.863849765258216,
+      "reshaped_per_step": 0.008904878546642172,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.446352753877784,
+       "tokens_per_step": 1.7529874213836478,
+       "drafted_per_step": 2.9934486373165616,
+       "acceptance": 0.2518427733520091,
+       "rejected_per_step": 0.8581236897274633,
+       "reshaped_per_step": 0.008647798742138365,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4199622648712138,
+       "tokens_per_step": 1.7200178997613365,
+       "drafted_per_step": 2.991994828957836,
+       "acceptance": 0.24096385542168675,
+       "rejected_per_step": 0.8692820206841687,
+       "reshaped_per_step": 0.009148766905330152,
+       "tokens": 34593
+      }
+     }
+    },
+    "gpu9b-graph-per-size": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "name": "gpu9b-graph-per-size",
+      "beta": 0.065,
+      "reject": 0.0,
+      "reshape": 0.0,
+      "accept": 0.021
+     },
+     "all": {
+      "speedup": 1.491762746579897,
+      "tokens_per_step": 1.7054768768016042,
+      "drafted_per_step": 1.975836570998872,
+      "acceptance": 0.3574962575799863,
+      "rejected_per_step": 0.6458202782303547,
+      "reshaped_per_step": 0.6973806241383632,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.502101851280914,
+       "tokens_per_step": 1.7204361915539323,
+       "drafted_per_step": 2.0031376986780516,
+       "acceptance": 0.36011606707238786,
+       "rejected_per_step": 0.6420451622858906,
+       "reshaped_per_step": 0.6988838022735456,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4819005973824766,
+       "tokens_per_step": 1.6912584335582281,
+       "drafted_per_step": 1.949887552556957,
+       "acceptance": 0.3549381942180879,
+       "rejected_per_step": 0.649408428669209,
+       "reshaped_per_step": 0.6959518920504547,
+       "tokens": 34593
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.4240983222263153,
+      "tokens_per_step": 1.7054768768016042,
+      "drafted_per_step": 1.975836570998872,
+      "acceptance": 0.3574962575799863,
+      "rejected_per_step": 0.6458202782303547,
+      "reshaped_per_step": 0.6973806241383632,
+      "tokens": 68040
+     },
+     "domains": {
+      "other-languages/plain": {
+       "speedup": 1.433322048570192,
+       "tokens_per_step": 1.7204361915539323,
+       "drafted_per_step": 2.0031376986780516,
+       "acceptance": 0.36011606707238786,
+       "rejected_per_step": 0.6420451622858906,
+       "reshaped_per_step": 0.6988838022735456,
+       "tokens": 33447
+      },
+      "python/plain": {
+       "speedup": 1.4152923415554184,
+       "tokens_per_step": 1.6912584335582281,
+       "drafted_per_step": 1.949887552556957,
+       "acceptance": 0.3549381942180879,
+       "rejected_per_step": 0.649408428669209,
+       "reshaped_per_step": 0.6959518920504547,
+       "tokens": 34593
+      }
+     }
+    }
+   }
+  }
+ }
+}

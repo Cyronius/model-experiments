@@ -1,0 +1,137 @@
+{
+ "note": "Restart of the healing sessions after local 1 damaged the student (heal_sessions_rules.json sessions[0].outcome: eval KL 0.603 -> 0.785, GSM8K thinking on 57 -> 35; the routers, trained at 1e-3 constant and unclipped, did most of it). Same data, selection and loss; from S0_K24_T3M again in a new folder, the LoRA at T3M's final rate (1e-5, its lr 1e-4 times lr_floor 0.1) and the routers frozen (router_lr 0). Written 2026-11-05 before the session. The user: 'should be able to start again????'",
+ "base": {
+  "geometry_rules": "heal_geometry_rules.json",
+  "run": "S0_K24_T3M"
+ },
+ "folder": "results/moe-carve-v2-20261029/heal_sessions/S0_K24_G2",
+ "pool": "results/moe-carve-v2-20261029/heal_sessions/pool",
+ "select": {
+  "alpha": 1.0,
+  "low": 0.3333333333333333,
+  "high": 2.0,
+  "seed": 26110502,
+  "rule": "Correct (or ungraded chat) and finished answers; within a problem and thinking mode, answers under 1/3 or over 2 times the median length are dropped, the others kept with probability min(1, median/length). Tokens outside the student's 64K vocabulary become its pieces (heal_sessions.StudentTokens)."
+ },
+ "train": {
+  "seq_len": 4096,
+  "batch_sequences": 4,
+  "micro_batch": 1,
+  "lr": 1e-05,
+  "router_lr": 0.0,
+  "betas": [
+   0.9,
+   0.99
+  ],
+  "clip": 1.0,
+  "warmup_steps": 5,
+  "ce_weight": 0.5,
+  "router_weight": 1.0,
+  "router_stride": 4,
+  "loss_chunk": 1024,
+  "reserve_minutes": 5,
+  "log_every": 10,
+  "schedule": "Warmup over the first 5 steps of all sessions, then constant; heal_sessions.py decay makes a decayed evaluation copy without touching the main state."
+ },
+ "evaluation": "After each few sessions, a decayed copy is checked sampled (the card's sampler) on the 96 GSM8K check prompts with thinking on and off, against S0_K24_T3M (on 57, off 51) and the dense yardsticks (Qwen3.5-2B off 71, 4B and 9B off 83); a MATH-500 subset and a non-math check are to be added before the first comparison is claimed.",
+ "sessions": [
+  {
+   "name": "local 2",
+   "plan": "3 hours on the local GPU (about 80 steps), then an 8-step decayed copy, checked sampled on the 96 GSM8K prompts with thinking off and on; the copy's corpus eval KL comes with each check.",
+   "predictions": {
+    "eval_kl": "stays within 0.03 of T3M's 0.603 (0.57 to 0.63): a tenth of the rate and fixed routers",
+    "thinking_on": "57/96 -> 52 to 64 (the honest expectation is no clear change at this rate and length; under 50 means the data itself hurts)",
+    "thinking_off": "51/96 -> 48 to 60, and no crash",
+    "loops": "3 or fewer per mode"
+   },
+   "outcome": {
+    "written": "2026-11-06, after the checks (run alone on the GPU through dibs, after a 5-hour wait).",
+    "trained": "67 steps in 3 hours (about 120 tokens/s; 669 of shard 0's 4,588 selected answers, about 0.8M tokens), then the 8-step decay to decayed_75.pt. Routers unchanged; LoRA moved 2.6%.",
+    "results": {
+     "eval_kl": "0.607 against T3M's 0.603 on the check's scale; repeat_full (same docs, one process): 0.5889 in all 3 copy runs against T3M's 0.5856, every run identical, no non-finite value.",
+     "thinking_on": "46/96 right, 63 finished, 0 loops, 0 non-finite (T3M: 57, 63, 1). Finished median length 847 -> 1,284 tokens. Paired by prompt: 20 right only for T3M, 9 only for the copy; finished but wrong 11 -> 19.",
+     "thinking_off": "46/96 right, 82 finished, 1 loop, 0 non-finite, no crash (T3M: 51). VOID (2026-11-07): that process's dense pass was faulty on 19 of 116 eval docs (machine_faults); rerun queued.",
+     "kl_64k_in_the_off_run": "The off run's first eval gave 64K-vocabulary KL 1.81 against 0.67 in the on run with identical full-vocabulary KL (0.607 both): chat, code, wiki, biomed and argument docs blown up, math and reasoning identical. The nondeterministic fault is still there, in the 64K (trimmed) path, in a fresh process."
+    },
+    "predictions": {
+     "eval_kl": "held",
+     "thinking_on": "missed: 46, under the 50 that the prediction said would mean the data itself hurts",
+     "thinking_off": "void: the run was faulty (machine_faults); rerun at both seeds queued",
+     "loops": "held"
+    },
+    "reading": "Both modes are lower, the thinking-on drop (11) about 1.5 standard errors of a difference of two 96-prompt samples. Not settled: checks3 measures the teacher-forced fit to 200 unseen shard-1 answers and repeats both thinking-on checks at a second seed before session 3 is planned. Settled by checks3 (below): not a regression.",
+    "checks3": {
+     "written": "2026-11-06, after checks3 (alone on the GPU).",
+     "heldout_shard1": "Teacher-forced stored top-20 KL on 199 kept answers of shard 1, which no session has trained on: T3M 0.766, the copy 0.693 (lower on 196 of 199 answers); gsm8k on 0.505 -> 0.368, gsm8k off 0.378 -> 0.316, math on 0.425 -> 0.338, math off 0.398 -> 0.354, openthoughts off 0.462 -> 0.420, chat off 1.441 -> 1.394, chat on 1.117 -> 1.026.",
+     "gsm8k_seed2": "Thinking on at seed 26103103: the copy 56/96 (65 finished, 4 loops), T3M 56/96 (68 finished, 0 loops). Over both seeds: T3M 113/192, the copy 102/192.",
+     "reading": "Session 2 learned something that carries to unseen problems of the same kind, and the GSM8K drop at the first seed was mostly the check's noise: the same weights scored 46 and 56 at two seeds. One 96-prompt sampled seed cannot judge a change of under about 10; from here every check runs at both seeds."
+    },
+    "thinking_off_rerun": "check_2_off (seed 26103102), 2026-11-07 18:42: 48/96, 81 finished, 0 loops, 1 non-finite row. Its canary before sampling was clean (0 of 116), but the non-finite row means the process may have gone wrong during sampling (another session's GPU job ran beside it), so it is provisional. Seed 2 not yet clean."
+   }
+  },
+  {
+   "name": "local 3",
+   "written": "2026-11-06, before the session.",
+   "plan": "Continue session 2's state (step 67, cursor [0, 669], its optimizer), same settings (lr 1e-5, routers frozen), 4 hours on the local GPU (about 90 steps, to about answer 1,600 of shard 0), then an 8-step decayed copy. Checks: the shard-1 held-out fit (heldout.py), and the sampled GSM8K check with thinking on and off, each at seeds 26103102 and 26103103; T3M thinking off at the second seed for the baseline.",
+   "why_same_settings": "Session 2's held-out fit moved 0.07 in 67 steps without a measurable loss on GSM8K; changing the rate as well would make sessions 2 and 3 impossible to read as one run.",
+   "predictions": {
+    "heldout_kl": "0.766 (T3M), 0.693 (session 2) -> 0.62 to 0.68",
+    "eval_kl": "0.59 to 0.62 on the check's scale",
+    "thinking_on": "T3M 113/192 over two seeds -> 105 to 125 (no clear change expected yet)",
+    "thinking_off": "within 12 of T3M's two-seed total, either way",
+    "loops": "6 or fewer per mode over two seeds"
+   },
+   "interruptions": [
+    {
+     "written": "2026-11-07, after the reboot.",
+     "what": "The first attempt (started 2026-11-06 23:30 after a dibs wait) reached step 100 (from 67) at 01:33; the machine hard-hung at about 02:05 (the last journal lines are another session's llama-server segfaults) and was power-cycled at 05:58. Sessions saved state only at their end, so those 33 steps were lost; state.pt is still session 2's (step 67). Log: crashed_session_3_20261107.log.",
+     "change": "heal_sessions.train now checkpoints state.pt atomically every checkpoint_every steps (default 10) with a session_partial.json record; a cut session resumes from its last checkpoint (test_a_checkpoint_resumes_as_if_the_session_had_not_been_cut).",
+     "restart": "2026-11-07 06:09, same script (scripts/session3.sh), same settings, from step 67; detached."
+    }
+   ],
+   "outcome": {
+    "written": "2026-11-08 03:50, scored on canary-clean checks.",
+    "steps": "67 -> 112 in the 4 hours (cursor [0, 1122]), not about 90 steps: other sessions' jobs shared the GPU all morning (34 to 59 tokens/s against about 85 alone). Decayed copy decayed_120.pt (8 steps, 10:34). Checkpoints at 77, 87, 97 and 107 all wrote.",
+    "heldout_kl": "0.6773 (T3M 0.7664 in the same process, the same value as session 2's run, so this process computed right values); lower than T3M on 198 of 199 answers. Prediction 0.62 to 0.68: held, at its top. Session 2 was 0.693, so 45 more steps moved it 0.016, less than session 2's first 67 (0.073).",
+    "gsm8k": "Clean reruns (rechecks_quiet.sh, GPU otherwise idle; both canaries 0 of 116, 0 non-finite rows): thinking on 51 + 52 = 103/192 (1 loop), thinking off 55 + 53 = 108/192 (0 loops). T3M: on 57 + 56 = 113, off 51 + 51 = 102 (seed 2 rerun clean, 03:42). Session 2: on 46 + 56 = 102, off 48 (provisional) + 47 = 95.",
+    "eval_kl": "0.610 (in-mix 0.578, held-out 0.741); session 2 0.607, T3M 0.603.",
+    "rerun": "scripts/rechecks.sh, detached under dibs (queued behind another session's GPU fine-tune): the four session-3 checks, session 2's thinking off at both seeds and T3M's thinking off at seed 2, each stopping as soon as its canary fails (heal_sessions check --abort-on-fault) and retried up to 3 times. Log rechecks.log, marker rechecks.done.",
+    "rerun_1": "scripts/rechecks.sh ran 16:45-19:24 holding dibs: 1 clean canary in 20 attempts (check_2_off, attempt 2). The 19 faulty ones differ on 1 to 30 docs by 0.02 to 8 nats on the full path and up to 3,000 nats on the 64K path, so they are real faults, not a strict threshold. Every attempt, the clean one too, had another session's ROCm job (healing-schedules evaluate.py) on the GPU, though dibs showed this run as holder; dibs is handing the GPU to several sessions at once.",
+    "rerun_2": "scripts/rechecks_quiet.sh (from 19:35): the six still-missing checks, each attempt started only after two minutes with no other GPU process (kfd or Vulkan render node), up to 4 attempts each; heal_sessions check now also re-runs the canary after sampling (dense_canary_end in check.json), since a process can go wrong after its first canary. Log rechecks_quiet.log, marker rechecks_quiet.done.",
+    "scored": {
+     "heldout_kl": "0.677: held (0.62 to 0.68), at its top.",
+     "eval_kl": "0.610: held (0.59 to 0.62).",
+     "thinking_on": "103: missed (105 to 125), 10 under T3M; with two seeds of 96 a difference of 10 is about one standard error, so no clear change, as predicted, but on the low side.",
+     "thinking_off": "108 against T3M 102: held (within 12).",
+     "loops": "1 on, 0 off: held (6 or fewer)."
+    },
+    "reading": "The held-out fit keeps falling (0.766, 0.693, 0.677) and GSM8K does not follow: thinking on stays about 10 under T3M, thinking off went from 95 (session 2) to 108, both within noise of T3M. Eval KL has risen slightly (0.603, 0.607, 0.610). Fitting the 9B's answers at lr 1e-5 has not yet moved the sampled check."
+   }
+  },
+  {
+   "name": "local 4",
+   "written": "2026-11-08 03:55, before the session.",
+   "plan": "Continue session 3's state (step 112, cursor [0, 1122], its optimizer), same settings (lr 1e-5, routers frozen), 4 hours on the local GPU started only when no other process has it (scripts/session4.sh), then an 8-step decayed copy, the shard-1 held-out fit, and the sampled GSM8K check thinking on and off at both seeds, each check started only on an idle GPU with both canaries. Steps run while other GPU processes were present are counted from others_on_gpu.",
+   "why": "Sessions 2 and 3 moved the held-out fit but not GSM8K; one more session at the same settings says whether GSM8K is flat or just slow, and gives a session trained mostly without sharing.",
+   "predictions": {
+    "heldout_kl": "0.677 -> 0.645 to 0.67",
+    "eval_kl": "0.60 to 0.62",
+    "thinking_on": "95 to 120 of 192 (no clear change against session 3's 103)",
+    "thinking_off": "98 to 120 of 192",
+    "loops": "6 or fewer per mode over two seeds",
+    "steps": "about 90 if the GPU is mostly unshared, under 60 if shared"
+   },
+   "gpu_turns": "2026-11-08 08:40, at the user's request (\"stop periodically and allow other sessions to use the gpu if they need to before resuming\"): session4.sh held dibs for its whole run, which made other sessions wait for hours. Its training (steps 112 -> 221 in 4 hours, all alone, 126 tokens/s) and held-out fit were done; the remaining checks run in turns (scripts/gpu_turns.sh, session4_rest.sh): each check is one preemptible dibs run started on an idle GPU, followed by 10 minutes with the GPU free. Training from session 5 on runs in 60-minute turns: heal_sessions session --segment-minutes 60 stops at the end of a turn or at the next step after another session queues ($DIBS_YIELD_FILE), checkpoints, exits 75 and resumes on its next turn, with the hours counted across turns.",
+   "heldout_result": "decayed_229.pt: 0.6574 (T3M 0.7664), lower than T3M on 198 of 199 answers.",
+   "paused": "2026-11-08 14:45, by the user, to read the healing-schedules experiment for better ways to heal. Done: training (112 -> 221), decayed_229.pt, held-out 0.6574, check_4_on 46/96 (clean). Not run: check_4_off, check_4_on_seed2, check_4_off_seed2 (session4_rest.sh stopped while waiting for an idle GPU). Resume: bash scripts/session4_rest.sh after removing its wait on the old PID, or rerun those three checks with gpu_turns.sh check."
+  }
+ ],
+ "machine_faults": {
+  "written": "2026-11-07, after the reboot.",
+  "finding": "The faults are not the healed copies'. In every faulty eval the dense model's own pass (slim.on False, no LoRA or router of any copy involved) has NLLs that differ from a clean run's, by up to thousands of nats per doc on the 64K path: crashed_check_75_off 36 of 116 docs, crashed_check_75_on 33, crashed2_check_75_off 34, check_75_off (session 2 thinking off) 19; session 1's check_89_on 16 and check_89_off 3. Clean: all six heal_geometry checks (2026-11-03/04), check_0_on and its seed 2, check_75_on and its seed 2, trace_check_75_on, and every repeat_full run. Some processes on this machine compute wrong values; the same process then also produces the non-finite logits and device asserts seen in generation. No package changed since 2026-11-01; the faults start 2026-11-05, the day the GPU began to be shared by several sessions, and the machine hard-hung on 2026-11-05 21:23 and 2026-11-07 02:05.",
+  "guard": "heal_sessions.dense_canary: every check compares its dense pass with check_0_on's and records faulty_docs and the other GPU processes (gpu_users) in check.json; a check with faulty_docs > 0 is not used.",
+  "consequences": "Session 2's thinking-off 46/96 is void (rerun at both seeds queued: scripts/after_session3.sh). Session 1's 35/96 thinking on and its eval KL 0.785 came from faulty processes; its router drift (norm 16.7 -> 31.7) is real, the size of its damage is not measured.",
+  "sharing_2026_11_07": "Session 3's dibs hold on the GPU (dibs run gpu --eta 9h, PID 30054, still running) lost its lock record during the morning: dibs status showed asd-ste100 holding the GPU at 07:53 and the npu-kernel-coder bakeoff from about 13:10, whose Vulkan llama-server (Qwen3.8-27B, -ngl 99) ran beside the faulty checks. gpu_users looked only at /dev/kfd and missed it; it now also lists render-node (Vulkan) users. Every check that shared the GPU this way was faulty; the shard-1 held-out run, the one eval that came out right, has no record of who else was on the GPU. Sharing is the leading suspect, not shown.",
+  "quiet_test_2026_11_08": "rechecks_quiet.sh started each attempt only after two minutes with no other GPU process: 6 of 6 checks came out clean at the first attempt, both canaries, no non-finite rows. The same checks beside other sessions' GPU jobs (rechecks.sh, 2026-11-07) gave 1 clean in 20. Sharing the GPU between processes causes the wrong values. dibs does not prevent it: it showed the GPU free while rechecks_quiet.sh held it. Rule from here: a local eval counts only if run with no other GPU process and both canaries clean; training logs others_on_gpu at every step."
+ }
+}

@@ -1,0 +1,59 @@
+{
+  "status": "terminated",
+  "session": "Manifold",
+  "user_authorization": "ok $7.20 is too close to the limit. I've raised your limit to $20",
+  "supersedes_total_cap_usd": 10.0,
+  "scope": "The next joint manifold experiment, with one shared cap across Claude and Codex",
+  "total_cap_usd": 20.0,
+  "approval_delegate": "Claude",
+  "approval_delegation_instruction": "if you need any approvals ask claude",
+  "approval_delegation_scope": "Approvals for this joint manifold experiment within the user's existing shared $20 cap and task scope",
+  "new_job_spend_usd": 3.8686803620334027,
+  "launch_owner": "Codex, sole owner acknowledged by Claude in paird message 49",
+  "delegate_approval": "Claude approved the one-A10080 proposal in paird message 49, conditional on preflight review and independent watchdog",
+  "quote": {
+    "date_utc": "2026-10-26",
+    "source": "Read-only authenticated RunPod gpuTypes GraphQL query",
+    "preferred_gpu": "NVIDIA A100-SXM4-80GB",
+    "alternative_gpu": "NVIDIA A100 80GB PCIe",
+    "cloud_type": "SECURE",
+    "gpu_count": 1,
+    "gpu_usd_per_hour_ceiling": 1.79,
+    "availability_confirmed": false
+  },
+  "proposed_limits": {
+    "temporary_container_disk_gb": 60,
+    "persistent_volume_gb": 0,
+    "container_disk_usd_per_gb_month": 0.1,
+    "maximum_hours_from_creation": 4.0,
+    "maximum_estimated_compute_and_disk_usd": 7.2,
+    "remaining_budget_margin_usd": 12.8,
+    "termination": "Independent local watchdog; delete only this newly created pod on completion, failure or deadline; verify deletion"
+  },
+  "launch_prerequisites": [
+    "Single launch owner explicitly acknowledged by both peers; no separate pod per agent",
+    "Fresh evaluation data, group manifests, thresholds and source/code hashes frozen and cross-reviewed",
+    "GPU runner and upload bundle completed and tested before renting",
+    "Current rate and availability rechecked immediately before launch",
+    "Budget ledger and independent termination watchdog active before pod creation",
+    "Dibs coordination for shared local resources and large transfers"
+  ],
+  "restrictions": [
+    "This is not a standing authorization for future unrelated jobs",
+    "No automatic retry with another paid pod unless cumulative cost remains bounded within this same experiment and cap",
+    "Do not modify, resume or delete pre-existing unrelated pods",
+    "Do not extend the deadline to finish artifact copying"
+  ],
+  "active_job": "target/manifold-retention/mc-retention-0081cbfff083/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "rate": 1.79,
+    "stock_status": "Low",
+    "checked_at": 1793058123.577198
+  },
+  "pod_id": "0a43veinp2up0i",
+  "estimated_new_job_spend_usd": 3.8686803620334027,
+  "billing_basis": "conservative elapsed-time estimate, not provider invoice",
+  "terminated_at": 1793065868.1178162
+}

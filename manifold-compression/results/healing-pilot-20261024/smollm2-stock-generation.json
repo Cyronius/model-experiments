@@ -1,0 +1,248 @@
+{
+  "arch": "smollm2",
+  "label": "stock",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "I'm sorry for the misunderstanding, but as an AI, I don't have the ability to generate JSON objects or interact with databases. I can only provide information and answer questions to the best of my knowledge and abilities.",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 45,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "A7x-P4q",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "493",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "9, -2, 0, 4",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 11,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "2500",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "No",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Teal.",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "{\n  \"0\": \"apples\",\n  \"1\": \"cheese\"\n}",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 19,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "1. Red\n2. Blue\n3. Green\n4. Yellow\n5. Purple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 20,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "Raindrops on the window,\nSoftly patter, a soothing sound,\nNature's symphony, so grand,\nA tranquil world, all around.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 33,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library will reopen on Friday after installing 15 new desks for repairs.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 20,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "This Python code prints [5, 8, 13] because it creates a new list 'b' that references the same list 'a' as 'b' is assigned to 'a'. When 'b.append(13)' is called, it modifies the original list 'a' because 'b' is a reference to 'a'.",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 73,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because its density is lower than water's. Water is less dense when it's solid (ice), so it floats on the liquid water. This is important for life on Earth, as it allows ice to float on top of the water, preventing it from sinking and potentially freezing all the water, including the water that living organisms need to survive.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 74,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. Research the company thoroughly: Understand the company's mission, values, and recent news. This will help you tailor your responses and show your genuine interest in the role.\n\n2. Practice common interview questions: Prepare answers to frequently asked questions like \"Why do you want to work here?\" or \"What are your strengths and weaknesses?\" This will boost your confidence and help you articulate your thoughts clearly.\n\n3. Dress appropriately: Choose professional attire that aligns with the company culture. First impressions matter, so make sure you look polished and put-together.\n\n4. Prepare questions to ask: Come up with thoughtful questions to ask the interviewer. This shows your engagement and interest in the role. Examples could include \"What are the biggest challenges facing the team right now?\" or \"Can you tell me more about the company culture?\"\n\n5. Arrive early: Plan to arrive at least 10-15 minutes before the interview. This gives you time to compose yourself, check your appearance, and familiarize yourself with the location.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 211,
+      "repeated_4gram_fraction": 0.0060975609756097615,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "1. **Size and Energy Level**: Consider your lifestyle and living situation. Small breeds require less space and energy, while large breeds need more room and exercise.\n\n2. **Age**: Puppies require training and socialization, while adult dogs may be more independent. Senior dogs may have health issues.\n\n3. **Health Checks**: Ensure the dog has been vet-checked for common health issues.\n\n4. **Training**: Consider your ability to train the dog. Some breeds are easier to train than others.\n\n5. **Cost**: Dogs require ongoing care, including food, vet bills, and grooming.\n\n6. **Space**: Ensure your home can accommodate the dog's size and needs.\n\n7. **Socialization**: Consider the dog's social skills and how it will interact with other pets and people.\n\n8. **Training and Obedience**: Look for a dog that is well-trained and obedient.\n\n9. **Lifestyle**: Think about your lifestyle and how it will affect the dog.\n\n10. **Rehoming**: Consider the possibility of rehoming the dog if you can't keep it.\n\nRemember, adopting a dog is a long-term commitment.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 246,
+      "repeated_4gram_fraction": 0.005952380952380931,
+      "loop_flag": false
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table, also known as a hash map, is a data structure that stores key-value pairs in an array using a hash function to map keys to indices of the array. This allows for efficient lookup, insertion, and deletion of elements.\n\nHere's a simplified overview:\n\n1. **Key-Value Pairs**: You store data as key-value pairs, where each key is unique and maps to a specific value.\n2. **Hash Function**: When you add a new key-value pair, the hash function generates a hash code, which is used to determine the index in the array where the key-value pair should be stored.\n3. **Indexing**: The hash code is used to calculate the index of the array where the key-value pair should be stored.\n4. **Collision Resolution**: If two keys generate the same hash code (a collision), the hash table uses a collision resolution technique, such as chaining or open addressing, to handle the conflict.\n\nHash tables are useful for fast lookups, insertions, and deletions, making them a fundamental data structure in programming.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 234,
+      "repeated_4gram_fraction": 0.04022988505747127,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 7,
+    "completed": 16,
+    "loop_flags": 0,
+    "generated_tokens": 1009,
+    "elapsed_seconds": 156.32906353200087
+  },
+  "rubric_revision": 2
+}

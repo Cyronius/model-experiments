@@ -1,0 +1,112 @@
+{
+  "started_utc": "2026-10-25T08:09:59.073025+00:00",
+  "authorized_total_usd": 10.0,
+  "authorization": "yes. you're approved up to $10. Keep working on this and try experiments until quality is substantially improved",
+  "scope": "Depth comparison and follow-up quality experiments; cumulative GPU/storage spend after this approval <= $10",
+  "prior_closed_jobs_excluded_from_new_campaign": {
+    "data_first_usd": 0.18931327624994299
+  },
+  "realized_estimated_usd": 9.584324283676127,
+  "jobs": [
+    {
+      "name": "depth3",
+      "reserved_cap_usd": 2.5,
+      "max_hours": 2.5,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/depth3-run/pod.json",
+      "pod_id": "44q0zq3vqn9bc3",
+      "actual_estimated_usd": 0.8016745885956066
+    },
+    {
+      "name": "batch1024",
+      "reserved_cap_usd": 2.5,
+      "max_hours": 2.5,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/batch1024-run/pod.json",
+      "pod_id": "i7i3t1987j9h0p",
+      "actual_estimated_usd": 1.5171665471785598
+    },
+    {
+      "name": "nli-aux",
+      "reserved_cap_usd": 3.0,
+      "max_hours": 3.0,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/pod.json",
+      "pod_id": "eu1w4oia9ysxdo",
+      "actual_estimated_usd": 1.5413380123032465
+    },
+    {
+      "name": "hardneg",
+      "reserved_cap_usd": 2.0,
+      "max_hours": 2.0,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/hardneg-run/pod.json",
+      "pod_id": "u6tv99raxffr0w",
+      "actual_estimated_usd": 1.148985807596423
+    },
+    {
+      "name": "science-float",
+      "reserved_cap_usd": 1.5,
+      "max_hours": 1.6,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-float-run/pod.json",
+      "pod_id": "ju566nw1tved4c",
+      "actual_estimated_usd": 1.0389861034395518
+    },
+    {
+      "name": "science-ternary",
+      "reserved_cap_usd": 1.75,
+      "max_hours": 1.9,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-ternary-run/pod.json",
+      "pod_id": "oyiv0yibdpqepu",
+      "actual_estimated_usd": 1.4021670987162325
+    },
+    {
+      "name": "scales",
+      "reserved_cap_usd": 1.5,
+      "max_hours": 1.6,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/pod.json",
+      "pod_id": "6ml2q1263v0y6e",
+      "actual_estimated_usd": 1.1793655179794187
+    },
+    {
+      "name": "scales-rest",
+      "reserved_cap_usd": 0.85,
+      "max_hours": 0.9,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-rest-run/pod.json",
+      "pod_id": "2okteidvy2u442",
+      "actual_estimated_usd": 0.692878716638574
+    },
+    {
+      "name": "human-mix",
+      "reserved_cap_usd": 0.6,
+      "max_hours": 0.65,
+      "status": "completed",
+      "gpu": "RTX4090",
+      "state_path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/human-mix-run/pod.json",
+      "pod_id": "8ka4vy1m0rfzam",
+      "actual_estimated_usd": 0.2617618912285125
+    }
+  ],
+  "criteria": {
+    "primary": "Substantial improvement on external retrieval toward exceeding bge-micro and MiniLM on each core task",
+    "preserve": "Keep ternary branch and avoid material sentence-similarity regressions",
+    "confirmation": "Freeze before new held-out scoring; confirm promising changes on reserved tests and broader evaluation",
+    "no_teacher_targets": true,
+    "broader": "Track the fixed 12-task suite; data-first ternary has retrieval gains but mean 69.491 versus original 70.156. Seek balanced improvement rather than promoting on two-task average alone."
+  },
+  "outstanding_reserved_usd": 0.0,
+  "committed_upper_bound_usd": 9.584324283676127,
+  "uncommitted_usd": 0.41567571632387335
+}

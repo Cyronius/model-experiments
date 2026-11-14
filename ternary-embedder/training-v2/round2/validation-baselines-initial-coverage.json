@@ -1,0 +1,73 @@
+{
+  "data_sha256": "b9932103964532102537455cc0a31411c18a9f2d50fb0198679e6c07f1cba1e8",
+  "train_rows": 47860,
+  "validation_rows": 2032,
+  "models": {
+    "original": {
+      "mrr": 0.8356058806226808,
+      "recall1": 0.6747047244094488,
+      "queries": 2032,
+      "by_source": {
+        "sentence-transformers/msmarco-bm25": {
+          "mrr": 0.7656691821820718,
+          "recall1": 0.5335463258785943,
+          "queries": 1252
+        },
+        "sentence-transformers/quora-duplicates": {
+          "mrr": 0.975268817204301,
+          "recall1": 0.9516129032258065,
+          "queries": 620
+        },
+        "sentence-transformers/all-nli": {
+          "mrr": 0.8416666666666666,
+          "recall1": 0.70625,
+          "queries": 160
+        }
+      }
+    },
+    "bge_micro": {
+      "mrr": 0.822050153213607,
+      "recall1": 0.6500984251968503,
+      "queries": 2032,
+      "by_source": {
+        "sentence-transformers/msmarco-bm25": {
+          "mrr": 0.750696947281722,
+          "recall1": 0.5063897763578274,
+          "queries": 1252
+        },
+        "sentence-transformers/quora-duplicates": {
+          "mrr": 0.9648387096774195,
+          "recall1": 0.932258064516129,
+          "queries": 620
+        },
+        "sentence-transformers/all-nli": {
+          "mrr": 0.8270833333333332,
+          "recall1": 0.68125,
+          "queries": 160
+        }
+      }
+    },
+    "minilm": {
+      "mrr": 0.8972876287098728,
+      "recall1": 0.797736220472441,
+      "queries": 2032,
+      "by_source": {
+        "sentence-transformers/msmarco-bm25": {
+          "mrr": 0.8602543622511675,
+          "recall1": 0.7228434504792333,
+          "queries": 1252
+        },
+        "sentence-transformers/quora-duplicates": {
+          "mrr": 0.9844086021505375,
+          "recall1": 0.9693548387096774,
+          "queries": 620
+        },
+        "sentence-transformers/all-nli": {
+          "mrr": 0.8494791666666666,
+          "recall1": 0.71875,
+          "queries": 160
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+Traceback (most recent call last):
+  File "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/score_campaign.py", line 73, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/score_campaign.py", line 42, in main
+    for f in futures:f.result()
+                     ^^^^^^^^^^
+  File "/home/cyrus/code/phlegm/target/npu-dev/env/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/cyrus/code/phlegm/target/npu-dev/env/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/cyrus/code/phlegm/target/npu-dev/env/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/score_campaign.py", line 38, in worker
+    with (logs/(arm+'-mteb.log')).open('a') as f:subprocess.run([str(PROJECT/'.eval-venv/bin/python'),str(ROOT/'evaluate_round2_mteb.py'),'--freeze',str(freeze),'--branch',arm,'--output',str(out/'mteb'/arm)],check=True,stdout=f,stderr=subprocess.STDOUT)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cyrus/code/phlegm/target/npu-dev/env/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/cyrus/code/model-experiments/ternary-embedder/.eval-venv/bin/python', '/home/cyrus/code/model-experiments/ternary-embedder/training-v2/evaluate_round2_mteb.py', '--freeze', '/home/cyrus/code/model-experiments/ternary-embedder/training-v2/science-ternary/results/frozen.json', '--branch', 'ternary-repeat', '--output', '/home/cyrus/code/model-experiments/ternary-embedder/training-v2/science-ternary/results/mteb/ternary-repeat']' returned non-zero exit status 1.
+Scored ternary-repeat
+Scored ternary-fresh
+Scored 3-ternary-fresh
+{
+  "ternary-repeat": {
+    "core": 44.36454337169688,
+    "sts": 81.46246125308313,
+    "mean12": 69.770075
+  },
+  "ternary-fresh": {
+    "core": 44.6293228830133,
+    "sts": 81.4261960202815,
+    "mean12": 69.97131666666667
+  },
+  "3-ternary-fresh": {
+    "core": 44.67935832953894,
+    "sts": 81.55194415848005,
+    "mean12": 70.08
+  }
+}

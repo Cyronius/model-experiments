@@ -1,0 +1,39 @@
+{
+  "folder": "probe_loops_sample",
+  "earlier": [],
+  "evaluate": {
+    "arms": [
+      "learned"
+    ],
+    "check": {
+      "kl": 0.01,
+      "bpb": 0.01
+    },
+    "max_hours": 0.1
+  },
+  "generate": {
+    "prompts": "probe_prompts_48.json",
+    "count": 48,
+    "max_hours": 2.1,
+    "arms": {
+      "learned_sampled": {
+        "router": "learned",
+        "state": "fp32",
+        "sample": true
+      }
+    },
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "presence_penalty": 1.5,
+      "source": "Qwen3.5-9B model card (revision c2022362), thinking mode for general tasks; repetition_penalty 1.0 and min_p 0 are no-ops"
+    }
+  },
+  "loop": {
+    "window": 20,
+    "last": 1000,
+    "threshold": 0.45
+  },
+  "note": "Check 7: one of six parallel pods; the reading and predictions for all six are in heal_probe_loops_rules.json, written before any of them launched."
+}

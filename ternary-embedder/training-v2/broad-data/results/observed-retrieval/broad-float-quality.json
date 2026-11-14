@@ -1,0 +1,162 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/broad-data-run/backups/broad-data-float-broad/best.pt",
+    "sha256": "cc7f76ce0fb1cec38b73824fee123b5c4d54e451914430a8ae3dcac6fe76e352",
+    "step": 3000,
+    "precision": "float",
+    "layers": 3,
+    "eligible_for_promotion": true,
+    "validation": {
+      "by_source": {
+        "sentence-transformers/msmarco-bm25": {
+          "queries": 5343,
+          "documents": 5253,
+          "mrr": 0.9557502865791321,
+          "ndcg10": 96.54894471168518,
+          "recall10": 0.9949466586112976
+        },
+        "sentence-transformers/gooaq": {
+          "queries": 4557,
+          "documents": 3898,
+          "mrr": 0.9443199634552002,
+          "ndcg10": 95.6750214099884,
+          "recall10": 0.9945139288902283
+        },
+        "sentence-transformers/natural-questions": {
+          "queries": 1368,
+          "documents": 1132,
+          "mrr": 0.9468902945518494,
+          "ndcg10": 95.75123190879822,
+          "recall10": 0.9897660613059998
+        },
+        "sentence-transformers/squad": {
+          "queries": 457,
+          "documents": 114,
+          "mrr": 0.9729508757591248,
+          "ndcg10": 97.85153865814209,
+          "recall10": 0.9956236481666565
+        },
+        "sentence-transformers/stackexchange-duplicates": {
+          "queries": 1825,
+          "documents": 1248,
+          "mrr": 0.7394595742225647,
+          "ndcg10": 77.25274562835693,
+          "recall10": 0.8898630142211914
+        },
+        "sentence-transformers/s2orc": {
+          "queries": 6851,
+          "documents": 6844,
+          "mrr": 0.9084708094596863,
+          "ndcg10": 91.75277352333069,
+          "recall10": 0.9494963884353638
+        },
+        "sentence-transformers/quora-duplicates": {
+          "queries": 1012,
+          "documents": 891,
+          "mrr": 0.8930665850639343,
+          "ndcg10": 92.06403493881226,
+          "recall10": 1.0
+        },
+        "sentence-transformers/all-nli": {
+          "queries": 1613,
+          "documents": 1325,
+          "mrr": 0.7232282161712646,
+          "ndcg10": 76.66523456573486,
+          "recall10": 0.9150651097297668
+        },
+        "IFM/SFT-Reasoning": {
+          "queries": 61,
+          "documents": 61,
+          "mrr": 0.9439890384674072,
+          "ndcg10": 95.82687616348267,
+          "recall10": 0.9999999403953552
+        },
+        "sentence-transformers/hotpotqa": {
+          "queries": 700,
+          "documents": 885,
+          "mrr": 0.9411589503288269,
+          "ndcg10": 90.81624746322632,
+          "recall10": 0.9442856907844543
+        },
+        "sentence-transformers/paq": {
+          "queries": 700,
+          "documents": 689,
+          "mrr": 0.9957518577575684,
+          "ndcg10": 99.64624047279358,
+          "recall10": 0.9985713958740234
+        },
+        "rajpurkar/squad": {
+          "queries": 700,
+          "documents": 479,
+          "mrr": 0.8167786598205566,
+          "ndcg10": 85.72977185249329,
+          "recall10": 0.9800000190734863
+        },
+        "HuggingFaceH4/stack-exchange-preferences": {
+          "queries": 700,
+          "documents": 826,
+          "mrr": 0.8207603096961975,
+          "ndcg10": 82.78109431266785,
+          "recall10": 0.8942856788635254
+        },
+        "sentence-transformers/trivia-qa": {
+          "queries": 700,
+          "documents": 676,
+          "mrr": 0.8597230911254883,
+          "ndcg10": 87.85871863365173,
+          "recall10": 0.9428571462631226
+        }
+      },
+      "macro_ndcg10": 90.44431958879743,
+      "scope": "Each held source ranked against all held positives from that source",
+      "step": 3000,
+      "source_floor_passed": true,
+      "auxiliary_floor_passed": true,
+      "selection_score": 90.44431958879743,
+      "growth_alpha": 1.0,
+      "export_eligible": true
+    },
+    "completion": {
+      "step": 3689,
+      "precision": "float",
+      "layers": 3
+    },
+    "initial_checkpoint_sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c",
+    "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/broad-data/results/summary.json",
+    "source_summary_sha256": "e97c328eca49d5d45a55cac387f6d3b2cada4cd88abb9dda44fa206513681fe2",
+    "source_arm": "float-broad"
+  },
+  "token_cap": 128,
+  "query_instructions": false,
+  "scope": "Previously opened FiQA/SCIDOCS development judgments",
+  "tasks": {
+    "FiQA": {
+      "ndcg10": 27.02798085896586,
+      "recall10": 33.20430897977194,
+      "top1_relevant_queries": 168,
+      "median_first_relevant_rank": 8.0,
+      "median_best_relevant_margin": -0.07230105996131897,
+      "queries": 648,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+        "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+        "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+      }
+    },
+    "SCIDOCS": {
+      "ndcg10": 17.728264860850977,
+      "recall10": 18.76666666666667,
+      "top1_relevant_queries": 203,
+      "median_first_relevant_rank": 8.0,
+      "median_best_relevant_margin": -0.08843053877353668,
+      "queries": 1000,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+        "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+        "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+Failed to extract metadata from model: 'Encoder' object has no attribute 'model_card_data'. Upgrading to sentence-transformers v3.0.0 or above is recommended.
+─────────────────────────────── Selected tasks  ────────────────────────────────
+Classification
+    - Banking77Classification, s2s
+
+
+PairClassification
+    - TwitterSemEval2015, s2s
+
+
+Reranking
+    - AskUbuntuDupQuestions, s2s
+
+
+Retrieval
+    - SciFact, s2p
+    - NFCorpus, s2p
+
+
+STS
+    - STSBenchmark, s2s
+    - SICK-R, s2s
+    - STS12, s2s
+    - STS13, s2s
+    - STS14, s2s
+    - STS15, s2s
+    - STS16, s2s
+
+
+You're using a BertTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+WARNING:mteb.abstasks.AbsTask:Dataset 'Banking77Classification' is superseded by 'Banking77Classification.v2', you might consider using the newer version of the dataset.
+WARNING:mteb.evaluation.evaluators.RerankingEvaluator:A total of 477/7220 duplicate texts were found during encoding. Only encoding unique text and duplicating embeddings across.
+WARNING:mteb.evaluation.evaluators.PairClassificationEvaluator:Found 15954/33554 duplicates in the input data. Only encoding unique sentences.

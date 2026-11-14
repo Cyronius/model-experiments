@@ -1,0 +1,73 @@
+{
+  "status": "frozen",
+  "missing": [
+    "0a generation gates, required before any P1 evaluation claim"
+  ],
+  "plan": "manifold-compression/PAIR_PLAN_20261026.md, section B",
+  "arms": {
+    "P0": {
+      "residual_width": 1520,
+      "mlp_width": 6144,
+      "stored_scalars": 1399093089
+    },
+    "P1": {
+      "residual_width": 1792,
+      "mlp_width": 4200,
+      "stored_scalars": 1399041649
+    }
+  },
+  "budget": {
+    "width": 1792,
+    "mlp_width": 4200,
+    "neurons": 6144,
+    "layers": 24,
+    "unpruned_scalars": 1649864305,
+    "scalars": 1399041649,
+    "reference_scalars": 1399093089,
+    "slack": 51440,
+    "per_neuron_scalars": 129024
+  },
+  "source": "models/manifold-audit/Qwen3.5-2B (pinned; hashes in local-projection-20261025)",
+  "basis": {
+    "file": "manifold-compression/results/local-projection-20261025/broad-pca.pt",
+    "sha256": "5be7b9f9f8241c7b8755a7924980b6c964e612f7457382979d9b1ba6d41d2919"
+  },
+  "rms": "constant per-site scales from fit_rms on broad-states.pt samples, token-weighted as in local_projection_probe.fit",
+  "pruning": {
+    "importance": "E[phi^2] * |down column|^2",
+    "refit": "ridge least squares to the unpruned MLP output",
+    "ridge_relative_to_mean_diag": 0.001,
+    "skip_first_position": true,
+    "inputs": "pruned model, layer order",
+    "calibration": "local-projection-20261025 data.json broad rows",
+    "precision": "FP32 forward, FP64 Gram and solve"
+  },
+  "gates": [
+    "P0 recipe rebuilt here matches shared-broad-recipe.pt (basis exactly, scales within 1e-6 relative)",
+    "full-width rotation without pruning reproduces stock validation logits (numerical_pass)",
+    "P1 stored scalars <= P0 stored scalars",
+    "P1 cache check passes; two independent rebuilds give identical logits",
+    "evaluation: fresh generation suite gates plus tf_metrics; no healing before both pass"
+  ],
+  "cloud_spend": 0,
+  "reviewed_by": "codex (pair msg 60)",
+  "max_build_hours": 1.5,
+  "generation_gates": null,
+  "frozen_utc": "2026-10-26T23:17:30Z",
+  "code_sha256": {
+    "allocation_pilot.py": "72e0e018a4adcd0ab0686f8081023d096458f8d3261f43199eb9dc1c99574907",
+    "local_projection_models.py": "1ca3f95710b6bb3cf9995aca2823a5b3c83047254548d94ad8b37b8d67e3ad4d",
+    "local_projection_probe.py": "6e8e44c4013067397a919f4eac3f6e2f55bac9b7e6bae6913ac6b7f67b6a4f4d",
+    "audit_rotation.py": "e250849eeef83880f2ba303f2637cd1134f8614c881afaab3fd5bd00b9f9d768"
+  },
+  "input_sha256": {
+    "manifold-compression/results/local-projection-20261025/broad-pca.pt": "5be7b9f9f8241c7b8755a7924980b6c964e612f7457382979d9b1ba6d41d2919",
+    "manifold-compression/results/local-projection-20261025/broad-states.pt": "59b2214583aafc4833b5a1557668f6bdcbb360a5f4d7642f44b2b00fdd9d39a0",
+    "manifold-compression/results/local-projection-20261025/data.json": "8f8e8ae2db90adb7a9682502bda7e251f7ca88c371ec3eea7b3ec60af3dc8026",
+    "manifold-compression/results/local-projection-20261025/shared-broad-recipe.pt": "ec653cba925a2931c66881510caed01f717fe3083f2bedeed5fb4770c6c3a547",
+    "manifold-compression/results/local-projection-20261025/reference.pt": "6da342a1c6e67ad99c89724fa480737b0473ac54ad684796adf77970c33f57e8",
+    "models/manifold-audit/Qwen3.5-2B/config.json": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4",
+    "models/manifold-audit/Qwen3.5-2B/model.safetensors-00001-of-00001.safetensors": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1",
+    "models/manifold-audit/Qwen3.5-2B/tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+  }
+}

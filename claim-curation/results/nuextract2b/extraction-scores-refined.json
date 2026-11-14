@@ -1,0 +1,655 @@
+{
+  "totals": {
+    "passages": 12,
+    "schema_valid_passages": 12,
+    "claims": 11,
+    "verbatim_cited_claims": 9,
+    "gold_anchors": 33,
+    "anchor_matches": 9,
+    "scoped_anchor_matches": 9,
+    "scoped_and_cited_matches": 6,
+    "empty_control_passages": 1,
+    "empty_control_correct": 0,
+    "claims_on_empty_control": 2,
+    "truncated_passages": 0,
+    "possible_compound_claims": 2
+  },
+  "passages": [
+    {
+      "id": "core-dma",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 5,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "two-inputs",
+          "patterns": [
+            "(?:core|compute.?tile)",
+            "(?:2|two).{0,15}input"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "two-outputs",
+          "patterns": [
+            "(?:core|compute.?tile)",
+            "(?:2|two).{0,15}output"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "third-input",
+          "patterns": [
+            "(?:third|3).{0,25}input|input.{0,25}(?:third|3)",
+            "cannot|can't|not |unavailable|only"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "shim-wrap",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 5,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "wrap-64",
+          "patterns": [
+            "(?:outermost|outer).{0,30}dimension|dimension.{0,20}(?:outermost|outer)",
+            "wrap",
+            "64"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "split-hang",
+          "patterns": [
+            "split|several fills",
+            "hung|hang"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "middle-dimension",
+          "patterns": [
+            "(?:large|count)",
+            "middle",
+            "dimension"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "granite-stack",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 5,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "granite-nan",
+          "patterns": [
+            "0x1800",
+            "nan"
+          ],
+          "scope_patterns": [
+            "granite",
+            "(?:pos|position).{0,12}(?:>=|\u2265|at least|4|four)"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "granite-working",
+          "patterns": [
+            "0x3000",
+            "\\bwork(?:s|ed|ing)?\\b|succeed|correct|resolve"
+          ],
+          "scope_patterns": [
+            "granite"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "tree-spill",
+          "patterns": [
+            "unrolled",
+            "tree",
+            "spill"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "softmax-stack",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 5,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "five-kb-frame",
+          "patterns": [
+            "5\\s*(?:kb|kilobyte)",
+            "frame"
+          ],
+          "scope_patterns": [
+            "four|4",
+            "exponential"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "four-kb-fault",
+          "patterns": [
+            "4\\s*(?:kb|kilobyte)",
+            "hang|hung|nan"
+          ],
+          "scope_patterns": [
+            "softmax|attn_fa"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "softmax-working",
+          "patterns": [
+            "0x2000",
+            "\\bwork(?:s|ed|ing)?\\b|succeed|resolve"
+          ],
+          "scope_patterns": [
+            "softmax|attn_fa"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "transfer-size",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 5,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "small-transfer-zero",
+          "patterns": [
+            "128",
+            "(?:transfer|shim)",
+            "zero|empty"
+          ],
+          "scope_patterns": [
+            "attention|128"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "padding-fix",
+          "patterns": [
+            "1024",
+            "pad",
+            "fix|resolve|correct"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "gemv-exception",
+          "patterns": [
+            "gemv",
+            "exact|correct|\\bwork(?:s|ed|ing)?\\b"
+          ],
+          "scope_patterns": [
+            "(?:whole|entire|full).{0,20}drain"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "transfer-not-element",
+          "patterns": [
+            "transfer",
+            "(?:not|rather than).{0,40}(?:element|objectfifo)"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "l1-budget",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 5,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "budget",
+          "patterns": [
+            "62208",
+            "budget|available|memory|64\\s*kb"
+          ],
+          "scope_patterns": [
+            "0xd00"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "batch-fit",
+          "patterns": [
+            "61952",
+            "built|ran|fit|\\bwork(?:s|ed|ing)?\\b|succeed"
+          ],
+          "scope_patterns": [
+            "batch.{0,5}2"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "wrong-rule",
+          "patterns": [
+            "61184|63\\s*kb",
+            "reject|incorrect|wrong|would"
+          ],
+          "scope_patterns": [
+            "rule|budget"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "rot13",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 5,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "classic-time",
+          "patterns": [
+            "classic",
+            "0[.]602"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "elf-time",
+          "patterns": [
+            "elf",
+            "0[.]447"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "state-complete",
+          "patterns": [
+            "state.{0,6}4|4.{0,12}state",
+            "complet"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "byte-exact",
+          "patterns": [
+            "byte.exact"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "softmax-mask",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 119,
+      "truncated": false,
+      "claims": 1,
+      "targets": [
+        {
+          "id": "lowest",
+          "patterns": [
+            "softmax|mask",
+            "bf16|bfloat16",
+            "lowest"
+          ],
+          "scope_patterns": [
+            "mask"
+          ],
+          "matched_claims": [
+            "C-9cb408964534d7da28c7"
+          ],
+          "scoped_claims": [
+            "C-9cb408964534d7da28c7"
+          ],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "avoid-infinity",
+          "patterns": [
+            "-inf|negative infinity",
+            "finite|not|avoid|cannot|should"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-9cb408964534d7da28c7"
+          ],
+          "scoped_claims": [
+            "C-9cb408964534d7da28c7"
+          ],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [
+        {
+          "claim_id": "C-9cb408964534d7da28c7",
+          "anchors": [
+            "lowest",
+            "avoid-infinity"
+          ]
+        }
+      ],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "rounding",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 253,
+      "truncated": false,
+      "claims": 3,
+      "targets": [
+        {
+          "id": "default-floor",
+          "patterns": [
+            "floor",
+            "start|default"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-33f426a43492b769a426"
+          ],
+          "scoped_claims": [
+            "C-33f426a43492b769a426"
+          ],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "first-dispatch",
+          "patterns": [
+            "first.{0,35}dispatch",
+            "(?:2x|twice|2 times)|1[.]8e-4"
+          ],
+          "scope_patterns": [
+            "context|load"
+          ],
+          "matched_claims": [
+            "C-438656728d7f01dea427"
+          ],
+          "scoped_claims": [
+            "C-438656728d7f01dea427"
+          ],
+          "scoped_and_cited_claims": [
+            "C-438656728d7f01dea427"
+          ]
+        },
+        {
+          "id": "rounding-fix",
+          "patterns": [
+            "rounding",
+            "first",
+            "every|each"
+          ],
+          "scope_patterns": [
+            "kernel|dispatch"
+          ],
+          "matched_claims": [
+            "C-58f5d3ed81de33533268"
+          ],
+          "scoped_claims": [
+            "C-58f5d3ed81de33533268"
+          ],
+          "scoped_and_cited_claims": [
+            "C-58f5d3ed81de33533268"
+          ]
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "synthetic-negation",
+      "synthetic": true,
+      "schema_errors": [],
+      "output_tokens": 103,
+      "truncated": false,
+      "claims": 2,
+      "targets": [
+        {
+          "id": "ash-latency",
+          "patterns": [
+            "ash",
+            "7\\s*ms"
+          ],
+          "scope_patterns": [
+            "cedar",
+            "1[.]2",
+            "batch.{0,5}2"
+          ],
+          "matched_claims": [
+            "C-8fe7ea58ed89ba3fc662"
+          ],
+          "scoped_claims": [
+            "C-8fe7ea58ed89ba3fc662"
+          ],
+          "scoped_and_cited_claims": [
+            "C-8fe7ea58ed89ba3fc662"
+          ]
+        },
+        {
+          "id": "firmware-unknown",
+          "patterns": [
+            "firmware",
+            "not.{0,20}recorded|unknown|unspecified"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "batch-limitation",
+          "patterns": [
+            "(?:not|cannot|unknown|unestablished)",
+            "other.{0,15}batch|batch.{0,15}(?:other|sizes)"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-9a669d03a96569afc647"
+          ],
+          "scoped_claims": [
+            "C-9a669d03a96569afc647"
+          ],
+          "scoped_and_cited_claims": [
+            "C-9a669d03a96569afc647"
+          ]
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "synthetic-questions",
+      "synthetic": true,
+      "schema_errors": [],
+      "output_tokens": 65,
+      "truncated": false,
+      "claims": 2,
+      "targets": [],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": true,
+      "empty_actual": false
+    },
+    {
+      "id": "synthetic-version-scope",
+      "synthetic": true,
+      "schema_errors": [],
+      "output_tokens": 176,
+      "truncated": false,
+      "claims": 3,
+      "targets": [
+        {
+          "id": "version-only",
+          "patterns": [
+            "0x1800",
+            "sufficient|\\bwork(?:s|ed|ing)?\\b"
+          ],
+          "scope_patterns": [
+            "birch",
+            "only",
+            "1[.]2"
+          ],
+          "matched_claims": [
+            "C-f06806de2beaaa3f9d25"
+          ],
+          "scoped_claims": [
+            "C-f06806de2beaaa3f9d25"
+          ],
+          "scoped_and_cited_claims": [
+            "C-f06806de2beaaa3f9d25"
+          ]
+        },
+        {
+          "id": "version-untested",
+          "patterns": [
+            "1[.]3",
+            "not.{0,20}test|untested"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-f06806de2beaaa3f9d25"
+          ],
+          "scoped_claims": [
+            "C-f06806de2beaaa3f9d25"
+          ],
+          "scoped_and_cited_claims": [
+            "C-f06806de2beaaa3f9d25"
+          ]
+        }
+      ],
+      "possible_compound_claims": [
+        {
+          "claim_id": "C-f06806de2beaaa3f9d25",
+          "anchors": [
+            "version-only",
+            "version-untested"
+          ]
+        }
+      ],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    }
+  ]
+}

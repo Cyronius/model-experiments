@@ -1,0 +1,274 @@
+{
+  "status": "frozen",
+  "reviewers": [
+    "claude",
+    "codex"
+  ],
+  "rules": {
+    "version": 1,
+    "design_status": "agreed_before_main_generation; rehearsal exposure quarantined",
+    "pair_session": "Manifold",
+    "agreement_messages": [
+      199,
+      201,
+      202,
+      203,
+      205,
+      206,
+      208,
+      209,
+      211,
+      217,
+      218,
+      219,
+      220
+    ],
+    "arms": [
+      "stock",
+      "P0",
+      "P1"
+    ],
+    "purpose": "Compare fixed unhealed constructions on generated answers. This screen neither trains nor promotes a model.",
+    "runtime": {
+      "device": "cpu",
+      "precision": "float32",
+      "threads": 16,
+      "batch": 16,
+      "arm_order": [
+        "P0",
+        "P1",
+        "stock"
+      ],
+      "part_order": [
+        "track-a",
+        "gsm8k",
+        "humaneval",
+        "science-new"
+      ],
+      "maximum_total_hours": 8,
+      "maximum_hours_per_part": {
+        "stock": 1.25,
+        "P0": 1.0,
+        "P1": 1.0
+      },
+      "deadline_policy": "One persistent protocol-bound start/deadline across all part commands; the earliest shared or per-part deadline wins. A timeout is incomplete, never an implicit extension.",
+      "cloud_spend_usd": 0
+    },
+    "bootstrap": {
+      "draws": 10000,
+      "seed": 26102761,
+      "interval": "two-sided percentile 95 percent",
+      "pairing": "The same sampled case groups and weights are used for every arm in a draw.",
+      "arithmetic_and_replay": "Stratify by the fixed known family; resample original item groups within each family; retain fixed eligible family case-count weights after rehearsal quarantine.",
+      "gsm8k": "Cluster by problem group.",
+      "humaneval": "Cluster by task group, using the frozen primary mask for primary metrics.",
+      "science_new": "Cluster by concept group (two authored applications per group).",
+      "horizon": "Cluster by original source group.",
+      "science_legacy": "Cluster by original item group; descriptive only.",
+      "macro": "Equal weight for the four prespecified primary automatic categories; independent resampling between category strata.",
+      "bad_events": "Stratify by reporting category, retaining eligible category case-count weights. Include HumanEval training-overlap cases as a fixed separate stratum. Exclude every rehearsal-exposed case from all gated event rates; report their events separately.",
+      "sensitivity": "Family-as-cluster for arithmetic/replay and item-as-cluster for new science; never used to choose the favorable decision.",
+      "limits": "Exploratory uncorrected intervals on a fixed diagnostic suite. Known-family inference is conditional on those families. No new-family, pretraining-disjointness or population-representativeness claim. Few-cluster sensitivity intervals are approximate."
+    },
+    "progression": {
+      "base": "P0",
+      "candidate": "P1",
+      "requires_all_arms_and_parts_complete": true,
+      "requires_both_science_reviews_and_adjudication": true,
+      "primary_categories": [
+        "arithmetic",
+        "replay",
+        "gsm8k",
+        "humaneval_primary"
+      ],
+      "macro_improvement_lower_ci_strictly_greater_than": 0.0,
+      "per_category_improvement_lower_ci_at_least": -0.05,
+      "bad_event_rate_upper_ci_at_most": 0.02,
+      "bad_event_definitions": {
+        "loop": "mean(loop_P1 - loop_P0)",
+        "nontermination": "mean((1-ended_P1) - (1-ended_P0))"
+      },
+      "conditions": [
+        "All three arms and every part are complete and provenance-valid; both science reviews and adjudication are complete.",
+        "The equal-weight four-category P1-minus-P0 accuracy macro has lower 95-percent CI strictly above zero.",
+        "Each primary automatic category has P1-minus-P0 lower 95-percent CI at least -0.05.",
+        "The net loop-rate difference has upper 95-percent CI at most +0.02.",
+        "The net nontermination-rate difference has upper 95-percent CI at most +0.02.",
+        "New-science essential-pass count does not decrease from P0 to P1.",
+        "Horizon fence-tolerant content-correct count does not decrease from P0 to P1."
+      ],
+      "all_conditions_required": true,
+      "pass": "Supports considering the separately activated P1 original-down-weight control; does not automatically launch it, authorize healing or promote a model.",
+      "inconclusive": "A required progression interval straddles its boundary or required progression artifacts/categories are incomplete. Separate unassessable stock floors do not silently change the progression rule. No automatic follow-on run.",
+      "fail": "A hard count condition is violated or a required interval lies wholly on the failing side of its boundary. No automatic follow-on run.",
+      "nonrefit_control": "P1 kept neuron indices with the projected model's original down[:, keep] weights; excluded from this screen's arms."
+    },
+    "stock_floors": {
+      "arms": [
+        "P0",
+        "P1"
+      ],
+      "categories": [
+        "arithmetic",
+        "replay",
+        "gsm8k",
+        "humaneval_primary",
+        "science_new"
+      ],
+      "retained_fraction": 0.9,
+      "paired_margin": "p_arm - 0.9 * p_stock",
+      "pass_requires_lower_ci_at_least": 0.0,
+      "zero_stock_successes": "unassessable",
+      "role": "Separate stock-relative quality diagnostics. Report every category; these floors do not imply promotion and are not substituted for the P1-versus-P0 research progression rule."
+    },
+    "science": {
+      "new_items": 40,
+      "new_concept_groups": 20,
+      "items_per_concept_group": 2,
+      "legacy_items": 12,
+      "new_grade": "All explicitly requested essential clauses must be correct; a core contradiction fails. Optional omissions do not fail. Accept equivalent wording; record optional errors separately.",
+      "legacy_grade": "Apply each item's original required/disqualifying rubric. Do not revise Track A grades or reinterpret legacy items with the new rubric.",
+      "progression_new_minimum_net_correct_change": 0,
+      "legacy_role": "Separate descriptive regression diagnostic, excluded from the automatic macro and the new-science count gate.",
+      "reviewers": [
+        "codex",
+        "claude"
+      ],
+      "blind_review": "Shuffle arm-hidden answers with stable packet identifiers. Both independent rating files must be saved before either reviewer reads the other's ratings or the arm map. Adjudicate disagreements with explicit reasons before revealing arms.",
+      "sources": "Newly authored application questions checked against primary OpenStax sources. Text-overlap screen before freezing; concepts may recur in previous material. No claim of unseen concepts or pretraining disjointness."
+    },
+    "horizon": {
+      "items": 18,
+      "minimum_net_correct_change": 0,
+      "primary_grade": "Fence-tolerant code extraction followed by the same frozen per-case Horizon tests. Report the unchanged Track A extraction grade and fence-closure compliance alongside; no Track A result is revised.",
+      "role": "Separate fixed regression check, never pooled with HumanEval to determine a primary code score.",
+      "transitions": "List every P0-correct/P1-wrong and P0-wrong/P1-correct case.",
+      "eligible_items": 17
+    },
+    "reporting": {
+      "automatic_categories": [
+        "arithmetic",
+        "replay",
+        "gsm8k",
+        "humaneval_primary"
+      ],
+      "category_mapping": {
+        "arithmetic": "Track A test category primary, 128 items; no development arithmetic.",
+        "replay": "Track A test retention: 112 generated, 111 eligible after rehearsal quarantine.",
+        "horizon": "Track A program: test 12 plus development 6, 18 generated, 17 eligible after rehearsal quarantine.",
+        "science_legacy": "Track A science: test 8 plus development 4, 12 items.",
+        "gsm8k": "The 200 deterministically sampled, overlap-screened GSM8K problems outside the TF manifest.",
+        "humaneval_primary": "HumanEval-derived cases with the frozen primary_mask true.",
+        "humaneval_overlap": "HumanEval training_overlap true and rehearsal_exposed false; separate correctness diagnostic, included in bad-event rates.",
+        "science_new": "The 40 newly authored science items in 20 concept groups.",
+        "rehearsal_exposed": "Four generated non-GSM cases, excluded from all gates/floors/event rates; report individually with original category and flags."
+      },
+      "human_eval_label": "HumanEval-derived chat diagnostic: custom prompt, 512-token cap, opened examples; not an official leaderboard result.",
+      "human_eval_primary": "Only tasks passing the frozen training/calibration overlap screen and not rehearsal-exposed; require at least 100 primary tasks. Expected 114 primary, 48 overlap, 2 quarantined. Generate all 164 with all tags.",
+      "gsm8k_primary": "Unambiguous final-answer content from the unchanged final_numeric parser. Preserve parse method and bare-final-line compliance separately. Last-number extraction is secondary only.",
+      "overlap": "Exclude the 400 teacher-forced GSM8K items, then screen the remaining pool against the declared calibration/healing corpora before sampling 200. Screen new science text. Report all exclusions and overlap scope.",
+      "transitions": "Publish correctness changes, new/repaired loops and lost/gained termination, globally and by category.",
+      "sealing": "Freeze suite, rules, sources, recipes and code before main model generation. The documented pre-freeze rehearsal is quarantined. Interpret main outputs/grades only after the full fixed screen; no adaptive changes or candidate selection during execution.",
+      "integrity": "Reject missing, duplicate, mismatched or incomplete generation rows and metadata; validate source/recipe hashes before loading and bind all final artifacts by hash.",
+      "parent": "Current parent remains the default; no promotion in G1.",
+      "expected_generated_counts": {
+        "track-a": 270,
+        "gsm8k": 200,
+        "humaneval": 164,
+        "science-new": 40
+      },
+      "expected_eligible_counts": {
+        "arithmetic": 128,
+        "replay": 111,
+        "horizon": 17,
+        "science_legacy": 12,
+        "gsm8k": 200,
+        "humaneval_primary": 114,
+        "humaneval_overlap": 48,
+        "science_new": 40
+      }
+    },
+    "quarantine": {
+      "excluded_ids": [
+        "rh-test-retain-arithmetic-0",
+        "rh-test-program-3",
+        "HumanEval-0",
+        "HumanEval-23",
+        "gsm8k-1",
+        "gsm8k-1199"
+      ],
+      "record": "results/unhealed-generation-20261027/rehearsal/record.json",
+      "policy": "Rehearsal-exposed cases are excluded from every progression gate, stock floor and bad-event rate, and reported separately. GSM8K exposed cases are excluded before deterministic sampling. Non-GSM exposed cases remain generated diagnostics.",
+      "scope": "Real P1 and stock rehearsals exposed six real cases before the main freeze; the code-fence correction was prompted by one of them. Prior timing probes used development replay items outside this suite and no outputs were read."
+    }
+  },
+  "rules_sha256": "511ad860e7369249610337463f3d8eeac22d48566b1c222553f46194202fa55a",
+  "suite_sha256": "294911fedb0d43d0e7a9ccfb536eb178a5c958ddd74f6902679db71e725b63c6",
+  "code_sha256": {
+    "allocation_pilot.py": "72e0e018a4adcd0ab0686f8081023d096458f8d3261f43199eb9dc1c99574907",
+    "audit_rotation.py": "e250849eeef83880f2ba303f2637cd1134f8614c881afaab3fd5bd00b9f9d768",
+    "broad_healing.py": "afc9348b3cc212191dbf9da60aac9b738ec71b44890e9461da61e4d93b9636be",
+    "broad_healing_science.py": "4e0e17d7cfec2667a9cfcc068ec630723deae1348f5fb06628d237bea70cdcda",
+    "correctness_eval.py": "116fe574d6551e4c1647e3c58fd3a1650f7f439fdd0b90eb688e27d2811b6fdf",
+    "correctness_heal.py": "741e6d3619e24476a824402eed6297e223573809f9e9301ddfdd3e7892d614d8",
+    "correctness_prepare.py": "065dff313fd9a9da3ee2f65f28eaa4baefc126e2d4a35136e4fd2d101977149a",
+    "curriculum_numeric_audit.py": "f577f10c55ebf3022860d6575240c5388b4c3a81bc85726b7f10d6ee40d017fb",
+    "curriculum_tasks.py": "a0e1a9cc3cd48503f5f8c93c267b1dfd6a5fdff9489670698bed229e97e49b1c",
+    "eval_data.py": "c3fa97f9558afb90a6d98485b18240b93ceb2e8f750cbcdce4083fd0401f509f",
+    "healing_data.py": "3968671c698093771b9bbf866d31f76ea99aa0e825d1113277484188a3089712",
+    "horizon_data.py": "0c43af6e23e2862b5b8d9b14e1165815a891f6645d59f597d3886608aac3048a",
+    "local_projection_models.py": "1ca3f95710b6bb3cf9995aca2823a5b3c83047254548d94ad8b37b8d67e3ad4d",
+    "local_projection_probe.py": "6e8e44c4013067397a919f4eac3f6e2f55bac9b7e6bae6913ac6b7f67b6a4f4d",
+    "projection_models.py": "6915ca33f02553dda4be7e1aaa157b9d0e0d4fb6ccbedbf332549e9eb4b6f095",
+    "retention_healing.py": "cbf1bfcee9ef2717ae167305d7dc703d535e64cd77f054a3d6c22c1ddb426cbc",
+    "retention_prepare.py": "5b80d365c86b9bb0424ab4c8199ff8ecccc3b2cd2964e6a1f683c58fd0289a5f",
+    "retention_review.py": "3232c70e5dc514ac1604bb1d9bd880f10ab755971f86367c5cb2849093c296ee",
+    "retention_run.py": "a30394da7b68b84e914cbd5591fa54a80a063bd38658f95474bf76e1ee78debe",
+    "run_unhealed_generation.sh": "c560937e91f9dd9854d17be2caf576e8367b156a5254b4456f97fd857815d1a6",
+    "scale_data.py": "6702891f8b1585d5d3eb36881e864903696915cc620a969b8baf988fdc76109e",
+    "scale_probe.py": "24bfeafb7d7f80ffe345827a1acaf15373e02fa5afaa170c4a25d2dfa0c1c3b3",
+    "summarize_scale_probe.py": "bbcb45ae02fe597444df9a68ed28d4d8f94ebe994bb60510f0af664f884b241f",
+    "tf_metrics.py": "67f89aa69a468290c64ccad1664460df1b0b86b5ecf78cd2e01affcf2af41abd",
+    "unhealed_analysis.py": "047f30a2937188d1c3e410a1fdbc244248406542334b0f413e2d7bf4501d4055",
+    "unhealed_generation.py": "53dd5fd87cdc4f290b3a6496877ce2129c314b34206cf4ca4bde0f64014076cb",
+    "unhealed_review.py": "4734d70844b5fc3b33a55ab8e3077b024fb26b8d26a69514b2c00a5f606c54af",
+    "unhealed_rules.json": "511ad860e7369249610337463f3d8eeac22d48566b1c222553f46194202fa55a",
+    "unhealed_science.json": "5212d7901804a273f2c91aeabc6468099f98bd41bf28297712a7fc77ee611aee"
+  },
+  "input_sha256": {
+    "models/manifold-audit/Qwen3.5-2B/config.json": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4",
+    "models/manifold-audit/Qwen3.5-2B/model.safetensors-00001-of-00001.safetensors": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1",
+    "models/manifold-audit/Qwen3.5-2B/tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+    "models/manifold-audit/Qwen3.5-2B/tokenizer_config.json": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c",
+    "models/manifold-audit/Qwen3.5-2B/chat_template.jinja": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+    "manifold-compression/results/local-projection-20261025/shared-broad-recipe.pt": "ec653cba925a2931c66881510caed01f717fe3083f2bedeed5fb4770c6c3a547",
+    "manifold-compression/results/allocation-pilot-20261027/p1-recipe.pt": "2fec099fa5a139dca66d2ea4e3562144f5faf10c5162dc9fda2b9c21d7007199"
+  },
+  "arms": [
+    "stock",
+    "P0",
+    "P1"
+  ],
+  "threads": 16,
+  "batch": 16,
+  "max_hours_per_part": {
+    "stock": 1.25,
+    "P0": 1.0,
+    "P1": 1.0
+  },
+  "max_total_hours": 8,
+  "torch": "2.14.1+cpu",
+  "run_order": {
+    "arms": [
+      "P0",
+      "P1",
+      "stock"
+    ],
+    "parts": [
+      "track-a",
+      "gsm8k",
+      "humaneval",
+      "science-new"
+    ]
+  }
+}

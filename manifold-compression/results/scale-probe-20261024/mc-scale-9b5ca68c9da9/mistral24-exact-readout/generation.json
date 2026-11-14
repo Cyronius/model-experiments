@@ -1,0 +1,995 @@
+{
+  "decoding": "greedy; thinking off; no repetition/frequency/presence penalty",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "```json\n{\n  \"city\": \"Oslo\",\n  \"count\": 3\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 22,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "A7x-P4q",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 7,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "29 times 17 is 423.",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "-2, 0, 4, 9.",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "2500",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Yes.",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "Red\nBlue\nGreen\nYellow\nPurple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 11,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "Drops from the sky, a gentle rain,\nKissing the earth with soft refrain,\nWhispers of calm in every drop,\nNature's lullaby, where we stop.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 37,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library will reopen on Friday after being closed for repairs, with fifteen new desks installed.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "The Python code creates an array `a` with the values 5 and 8, and then assigns this array to the variable `b`. The `append` function is used to add the number 13 to the array `b`. Finally, the code prints the array `a`. The output will be the original array `a`, which is `[5, 8`, because the `append` function is applied to `b`, not `a`. Therefore, the printed output will be:\n\n5, 8",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 106,
+      "repeated_4gram_fraction": 0.014285714285714235,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water due to its lower density compared to water. When ice is placed in water, it maintains its solid form and can float due to its buoyancy. This is because ice is less dense than water, allowing it to stay afloat without sinking.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 54,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. **Research the Company: Understand the company's mission, values, and recent projects. This will help you tailor your responses to the interview.\n\n2. **Know the Job Description: Familish yourself with the role's requirements and responsibilities. This will help you highlight your relevant skills and experiences.\n\n3. **Prepare Examples: Use specific examples from your past experiences to illustrate your skills and achievements. This can make your responses more engaging and memorable.\n\n4. **Practice Common Questions: Rehearse answers to common interview questions. This will help you feel more confident and prepared.\n\n5. **Dress Professionally: Choose appropriate attire that reflects the company's culture. This can enhance your professional image.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 144,
+      "repeated_4gram_fraction": 0.018867924528301883,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "When adopting a dog, consider the following:\n\n1. **Research the breed**: Understand the specific needs and behaviors of the dog breed you are interested in.\n2. **Space and accommodation: Ensure you have enough space for the dog to live and thrive.\n3. **Time commitment: Dogs require time for care, feeding, and interaction. Make sure you can dedicate enough time to your new pet.\n4. **Financial considerations: Consider the costs of food, supplies, and potential veterinary care.\n5. **Lifestyle compatibility: Ensure your lifestyle can accommodate a dog's needs, including exercise and social interaction.\n6. **Health and well-being: Consider the health requirements of the dog, including regular check-ups and appropriate care.\n7. **Training and socialization: Be prepared to provide training and socialization to help the dog adapt to your environment.\n8. **Long-term commitment: Dogs are long-term companions. Be ready for the commitment and responsibility that comes with caring for a dog.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 203,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table is a simple data structure used to store and manage data efficiently. It's a type of data structure that uses a hash function to organize data into a table. This allows for quick access and efficient searching. When you input data into a hash table, it is divided into smaller chunks and stored in a way that makes it easy to find specific information quickly. This is particularly useful for tasks like searching for specific words, managing lists, or organizing data in a structured manner. For beginners, understanding a hash table can help in creating efficient and scalable applications.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 115,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Teal",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "```json\n[\n\"apples\"\n\"tea\"\n\"cheese\"\n```",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 17,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-0",
+      "answer": "31 multiplied by 13 is 421.",
+      "check": {
+        "kind": "exact",
+        "expected": "403"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-0",
+      "answer": "R3k-Z19p",
+      "check": {
+        "kind": "exact",
+        "expected": "R3k-Z19p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-0",
+      "answer": "```json\n{\n  \"label\": \"item0\",\n  \"count\": 7\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item0",
+          "count": 7
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 22,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-0",
+      "answer": "-11, 6, 17, 33",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -11,
+          6,
+          17,
+          33
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-0",
+      "answer": "R3k-Z19p",
+      "check": {
+        "kind": "exact",
+        "expected": "R3k-Z19p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-0",
+      "answer": "The given Python code has a syntax error. The `print(sum(xs[1:))` line is not correctly formatted. The `1:` part is not a valid slicing syntax in Python. To correct the code, you should use a valid slicing method. Here is a corrected version of the code:\n\n```python\nxs = [2, 5, 9];\nprint(sum(xs));\n```\n\nThis corrected code will print the sum of the elements in the list `xs`. The sum of the numbers 2, 5, and 9 is:\n\n21",
+      "check": {
+        "kind": "exact",
+        "expected": "14"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 119,
+      "repeated_4gram_fraction": 0.012820512820512775,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-1",
+      "answer": "37 multiplied by 15 is 555.",
+      "check": {
+        "kind": "exact",
+        "expected": "555"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-1",
+      "answer": "R4k-Z20p",
+      "check": {
+        "kind": "exact",
+        "expected": "R4k-Z20p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-1",
+      "answer": "```json\n{\n  \"label\": \"item1\",\n  \"count\": 8\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item1",
+          "count": 8
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 22,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-1",
+      "answer": "-12, 5, 18, 35",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -12,
+          5,
+          18,
+          35
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-1",
+      "answer": "R4k-Z20p",
+      "check": {
+        "kind": "exact",
+        "expected": "R4k-Z20p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-1",
+      "answer": "The given Python code has a syntax error. The `print(sum(xs[1:))` line is not correctly formatted. The `1:` is not a valid range for slicing the array. To correct the code, you should use the correct slicing syntax. Here is a corrected version of the code:\n\n```python\nxs = [3, 6, 10];\nprint(sum(xs[1:3));\n```\n\nThis corrected code will print the sum of the elements in the array `xs`. The sum of the elements 3, 6, and 10 is:\n\n21",
+      "check": {
+        "kind": "exact",
+        "expected": "16"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 125,
+      "repeated_4gram_fraction": 0.03749999999999998,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-2",
+      "answer": "43 multiplied by 17 is 72.",
+      "check": {
+        "kind": "exact",
+        "expected": "731"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-2",
+      "answer": "R5k-Z21p",
+      "check": {
+        "kind": "exact",
+        "expected": "R5k-Z21p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-2",
+      "answer": "```json\n{\n  \"label\": \"item2\"\n  \"count\": 9\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item2",
+          "count": 9
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 22,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-2",
+      "answer": "-13, 4, 19, 37",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -13,
+          4,
+          19,
+          37
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-2",
+      "answer": "R5k-Z21p",
+      "check": {
+        "kind": "exact",
+        "expected": "R5k-Z21p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-2",
+      "answer": "The provided Python code has a syntax error. The `print(sum(xs[1:))` line is not correctly formatted. The `1:` is not a valid range for slicing the array. To correct the code, you should use the correct slicing method. Here is a corrected version of the code:\n\n```python\nxs = [4, 7, 11];\nprint(sum(xs));\n```\n\nThis corrected code will print the sum of the elements in the `xs` array. The sum of the numbers 4, 7, and 11 is:\n\n22",
+      "check": {
+        "kind": "exact",
+        "expected": "18"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 122,
+      "repeated_4gram_fraction": 0.012820512820512775,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-3",
+      "answer": "49 multiplied by 19 is 88.",
+      "check": {
+        "kind": "exact",
+        "expected": "931"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-3",
+      "answer": "R6k-Z22p",
+      "check": {
+        "kind": "exact",
+        "expected": "R6k-Z22p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-3",
+      "answer": "```json\n{\n  \"label\": \"item3\"\n  \"count\": 10\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item3",
+          "count": 10
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-3",
+      "answer": "-14, 3, 20, 39",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -14,
+          3,
+          20,
+          39
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-3",
+      "answer": "R6k-Z22p",
+      "check": {
+        "kind": "exact",
+        "expected": "R6k-Z22p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-3",
+      "answer": "The provided Python code has a syntax error. The `print(sum(xs[1:))` line is not correctly formatted. The `1:` is not a valid range for slicing the array. To correct the code, you should use a valid slicing method. Here is a corrected version of the code:\n\n```python\nxs = [5, 8, 12];\nprint(sum(xs));\n```\n\nThis corrected code will print the sum of the elements in the `xs` array, which is:\n\n25",
+      "check": {
+        "kind": "exact",
+        "expected": "20"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 108,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-4",
+      "answer": "55 multiplied by 21 is 115.",
+      "check": {
+        "kind": "exact",
+        "expected": "1155"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-4",
+      "answer": "R7k-Z23p",
+      "check": {
+        "kind": "exact",
+        "expected": "R7k-Z23p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-4",
+      "answer": "```json\n{\n  \"label\": \"item4\",\n  \"count\": 11\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item4",
+          "count": 11
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-4",
+      "answer": "-15, 2, 41, 21",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -15,
+          2,
+          21,
+          41
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-4",
+      "answer": "R7k-Z23p",
+      "check": {
+        "kind": "exact",
+        "expected": "R7k-Z23p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-4",
+      "answer": "The given Python code has a syntax error. The `print(sum(xs[1:))` line is not correctly formatted. The `1:` is not a valid range for slicing the array. To correct the code, you should use the correct slicing syntax. Here is a corrected version of the code:\n\n```python\nxs = [6, 9, 13];\nprint(sum(xs[1:3));\n```\n\nThis corrected code will print the sum of the elements in the array `xs`. The sum of the elements 6, 9, and 13 is:\n\n28",
+      "check": {
+        "kind": "exact",
+        "expected": "22"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 125,
+      "repeated_4gram_fraction": 0.03749999999999998,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-5",
+      "answer": "61 multiplied by 23 is 142.",
+      "check": {
+        "kind": "exact",
+        "expected": "1403"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-5",
+      "answer": "R8k-Z24p",
+      "check": {
+        "kind": "exact",
+        "expected": "R8k-Z24p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-5",
+      "answer": "```json\n{\n  \"label\": \"item5\",\n  \"count\": 12\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item5",
+          "count": 12
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-5",
+      "answer": "-16, 1, 43, 22",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -16,
+          1,
+          22,
+          43
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-5",
+      "answer": "R8k-Z24p",
+      "check": {
+        "kind": "exact",
+        "expected": "R8k-Z24p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-5",
+      "answer": "The provided Python code has a syntax error. The `print(sum(xs[1:))` line is not correctly formatted. The `1:` syntax is not valid for slicing or slicing a list in Python. To correct the code, you should use the correct slicing method. Here is a corrected version of the code:\n\n```python\nxs = [7, 10, 14];\nprint(sum(xs));\n```\n\nThis corrected code will print the sum of the elements in the list `xs`. The sum of the numbers 7, 10, and 14 is:\n\n27",
+      "check": {
+        "kind": "exact",
+        "expected": "24"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 127,
+      "repeated_4gram_fraction": 0.012345679012345734,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-6",
+      "answer": "67 multiplied by 25 is 1675.",
+      "check": {
+        "kind": "exact",
+        "expected": "1675"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-6",
+      "answer": "R9k-Z25p",
+      "check": {
+        "kind": "exact",
+        "expected": "R9k-Z25p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-6",
+      "answer": "```json\n{\n  \"label\": \"item6\"\n  \"count\": 13\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item6",
+          "count": 13
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-6",
+      "answer": "-17, 0, 23, 45",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -17,
+          0,
+          23,
+          45
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-6",
+      "answer": "R9k-Z25p",
+      "check": {
+        "kind": "exact",
+        "expected": "R9k-Z25p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-6",
+      "answer": "The provided Python code has a syntax error. The `print(sum(xs[1:))` line is not correctly formatted. The `1:` syntax is incorrect for slicing or slicing a list in Python. To correctly sum the elements of the list, you should use the correct syntax.\n\nHere is a corrected version of the code:\n\n```python\nxs = [8, 11, 15];\nprint(sum(xs));\n```\n\nThis code will print the sum of the elements in the list `xs`. The sum of the numbers 8, 11, and 15 is:\n\n24",
+      "check": {
+        "kind": "exact",
+        "expected": "26"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 127,
+      "repeated_4gram_fraction": 0.012195121951219523,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-7",
+      "answer": "73 multiplied by 27 is 192.",
+      "check": {
+        "kind": "exact",
+        "expected": "1971"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-7",
+      "answer": "R10k-Z26p",
+      "check": {
+        "kind": "exact",
+        "expected": "R10k-Z26p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 9,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-7",
+      "answer": "```json\n{\n  \"label\": \"item7\"\n  \"count\": 14\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item7",
+          "count": 14
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-7",
+      "answer": "-1, -18, 24, 47",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -18,
+          -1,
+          24,
+          47
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-7",
+      "answer": "R10k-Z26p",
+      "check": {
+        "kind": "exact",
+        "expected": "R10k-Z26p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 9,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-7",
+      "answer": "The provided Python code has a syntax error. The `print(sum(xs[1:))` line is not correctly formatted. The `1:` syntax is not valid for slicing or slicing a list in Python. To correct the code, you should use the correct slicing method. Here is a corrected version of the code:\n\n```python\nxs = [9, 12, 16];\nprint(sum(xs));\n```\n\nThis corrected code will print the sum of the elements in the list `xs`. The sum of the numbers 9, 12, and 16 is:\n\n27",
+      "check": {
+        "kind": "exact",
+        "expected": "28"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 127,
+      "repeated_4gram_fraction": 0.012345679012345734,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 64,
+    "scored_cases": 64,
+    "check_passes": 29,
+    "completed": 64,
+    "loop_flags": 0,
+    "generated_tokens": 2298,
+    "elapsed_seconds": 56.161308648996055
+  }
+}

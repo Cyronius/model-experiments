@@ -1,0 +1,119 @@
+{
+  "note": "On-policy distillation from the every-neuron teacher carried on from opd_self_rules.json's run (slim_opd.py with opd_long_rules.json), written 2026-10-31 before the run. That run (README section 16) improved every count at the 25% budget but not significantly: greedy 13 loops / 33 finished / 26 right of 48 against the healed control's 18 / 30 / 22 (one-sided p 0.19 for fewer loops), sampled 27 right against 13 (p 0.003); its on-policy greedy loop share fell from 0.62 to 0.49 over 16 rounds and was level over the second half; its benchmark KL rose 0.038 to 0.651, over the 0.03 guard, in every domain. I proposed carrying it on for 12 more hours from its adapter, with healing text in each round to hold the drift, checked on 96 prompts instead of 48, about $8 on one A40 with a $10 cap and the tend_pod.py timer as a backup; the user: 'yes to all of it'.",
+  "folder": "opd_long",
+  "prompts": {
+    "file": "opd_prompts.json",
+    "gsm8k": [
+      [
+        500,
+        7000
+      ]
+    ],
+    "per_kind": 2400,
+    "max_prompt_tokens": 384,
+    "salt": "opd-20261031"
+  },
+  "rollout": {
+    "per_round": 48,
+    "max_new_tokens": 2048,
+    "state": "fp32",
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "presence_penalty": 0.0,
+      "note": "the model card's thinking-mode sampling without its presence penalty, so the teacher's and the student's sampled answers are their own distributions, filtered"
+    },
+    "loop": {
+      "window": 20,
+      "run": 40,
+      "every": 16
+    }
+  },
+  "train": {
+    "steps_per_round": 6,
+    "micro_batch": 2,
+    "lr": 5e-05,
+    "betas": [
+      0.9,
+      0.99
+    ],
+    "warmup_steps": 6,
+    "lr_floor": 0.1,
+    "clip": 1.0,
+    "loss_chunk": 1024,
+    "max_hours": 12,
+    "reserve_minutes": 75,
+    "first_round_minutes": 30,
+    "mid_check": 0.5,
+    "checkpoint_every": 3,
+    "max_rounds": null,
+    "seed": 26103111,
+    "teacher": {
+      "kind": "every_neuron",
+      "finished_only": true,
+      "note": "the healed student with every neuron running and the healing run's adapter, frozen while the student's copy trains; only its answers that end within 2,048 tokens train, so the student never learns thinking that does not end"
+    },
+    "start": {
+      "adapter": "opd_self/adapter.pt",
+      "record": "opd_self/train.json",
+      "first_prompt": 1536,
+      "note": "section 16's distilled student; its run used the first 1,536 training prompts (16 rounds of 96), so this one goes on from there. The optimizer starts afresh, with the same warm-up and cosine over this run's time budget"
+    },
+    "text": {
+      "per_round": 24,
+      "note": "24 of the healing run's 2,048-token sequences per round (4 per optimizer step), 49K positions against about 83K on-policy ones in section 16's rounds; the 843 sequences the healing run never reached come first. The student learns toward the dense model on them (forward KL over the 64K rows), as healing did, without its cross-entropy term or router loss"
+    }
+  },
+  "eval": {
+    "prompts": "probe_prompts_96.json",
+    "count": 96,
+    "max_new_tokens": 2048,
+    "state": "fp32",
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "presence_penalty": 1.5,
+      "source": "Qwen3.5-9B model card, thinking mode for general tasks (as heal_probe_loops_sample_rules.json)"
+    },
+    "seed": 26103102,
+    "check": {
+      "kl": 0.01,
+      "bpb": 0.01
+    },
+    "padding_prompts": 4,
+    "padding_limit": {
+      "student": 0.1,
+      "dense": 0.01
+    },
+    "before_hours": 1.5,
+    "after_hours": 1.0,
+    "before_arms": [
+      "healed"
+    ]
+  },
+  "loop": {
+    "window": 20,
+    "last": 1000,
+    "threshold": 0.45
+  },
+  "design": "One A40 pod. before: the healed student must reproduce the healing run (KL 0.612) and padding must not change outputs; then the healed student (the control) and section 16's distilled student (the start) each answer the 96 GSM8K check prompts (test rows 16-111; the first 48 are sections 14-16's), batched, greedy and with the model card's sampling, and the start's benchmark drift is measured. The dense and every-neuron references are not run again (sections 15 and 16 gave identical numbers on the 48). train: from the start's adapter, rounds as in section 16 on the next training prompts (from the 1,537th): the teacher (the healed student with every neuron and the healing adapter, frozen) answers 48 sampled and only its finished answers train; the student answers 48, half greedy and half sampled, cut at its first long repeat; plus 24 healing-text sequences; 6 optimizer steps per round, forward KL on the teacher's answers, forward KL from the dense model on the text, reverse KL on the student's answers, over the 64K rows; LoRA only, routers frozen, learning rate 5e-5 warmed up again over 6 steps, then a cosine over the time budget, 12 hours at most; halfway, the student so far answers the 96 check prompts greedily. after: the distilled student's drift and its generations on the 96, greedy and sampled.",
+  "reading": "All generation counts are out of 96, batched, on this pod. Clean is at most 6 greedy loops. Reduced means a one-sided Fisher exact p < 0.05 for fewer greedy loops than the healed control; still improving means p < 0.05 for fewer than the start. The drift guard: the distilled student's benchmark KL may rise by at most 0.03 over the healed student's (section 16 ended 0.038 over). Reduced and still improving, within the guard: more of this training keeps paying; next is a decision on a full-length run and on the deployment settings (int16 state, the row cache). Reduced, not still improving, within the guard: the every-neuron teacher's gain is real but has levelled with LoRA updates at 25% hard routing; if the on-policy loop share was still falling at the end, a longer run stays open, otherwise the next options are structural (a bigger shared expert at the same budget, or every MLP weight trained), each followed by this distillation. Not reduced: section 16's gain does not hold up on more prompts; the next options are structural. Above the guard: 24 sequences a round do not hold general fit; more text, or text weighted up, before anything longer. Section 16's counts on the first 48 prompts were batched 48 at a time; here the batch is 96, so the start's counts on those 48 are re-measured, not copied.",
+  "predictions": {
+    "reproduce": "The healed student reproduces the healing run's last milestone: KL within 0.01 of 0.612.",
+    "padding": "Left padding changes the next-token distributions by under 0.05 nats for the student and 0.005 for the dense model.",
+    "start": "The start reproduces section 16's distilled student: KL within 0.01 of 0.651.",
+    "batched_control": "The healed control loops in 24 to 48 of 96 greedy generations (section 16: 18 of 48) and in at most 6 sampled ones.",
+    "start_counts": "The start loops in 16 to 36 of 96 greedy generations (section 16: 13 of 48) and in at most 6 sampled ones.",
+    "teacher_finished": "The teacher finishes at least half of its sampled training answers within 2,048 tokens, averaged over the rounds (section 16: 67%).",
+    "on_policy": "The share of the student's greedy training answers cut for a loop is lower in the last quarter of rounds than in the first (section 16 ended at 0.49).",
+    "text_kl": "The student's KL from the dense model on the healing text is lower in the last quarter of rounds than in the first.",
+    "distilled_loops": "The distilled student loops in fewer greedy generations than the healed control (p < 0.05), but is not clean (more than 6).",
+    "still_improving": "The distilled student loops in fewer greedy generations than the start (point estimate; p < 0.05 is not expected at this length).",
+    "finished": "The distilled student finishes at least as many greedy answers as the start.",
+    "correct": "The distilled student gets at least as many greedy answers right as the start, and at least as many sampled ones.",
+    "sampled": "With the model card's sampling, the distilled student loops in at most 6 and finishes at least as many as the start.",
+    "kl": "The distilled student's benchmark KL is within the guard (at most 0.642) and below the start's."
+  }
+}

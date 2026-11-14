@@ -1,0 +1,168 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/provisional-family/model-q4.pt",
+    "sha256": "b941fd7284b798719f43ce1e97b24468c7d94bfab936fcbf57850a830590c0c8",
+    "bytes": 50577931,
+    "precision": "q4",
+    "layers": 3,
+    "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+    "eligible_for_promotion": false,
+    "format": "Packed W4/W8 dense matrices, int8 activations, BF16 scales, group64; embeddings/output/bias/norm remain float32.",
+    "performance": "Dense reference loader for quality; native packed-kernel speed unmeasured."
+  },
+  "token_cap": 128,
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 60.548107746388055,
+      "recall10": 75.05555555555557,
+      "top1_relevant_queries": 144,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.0029163360595703125,
+      "queries": 300,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "NFCorpus": {
+      "ndcg10": 31.37675651840386,
+      "recall10": 14.70576114895096,
+      "top1_relevant_queries": 139,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.016945064067840576,
+      "queries": 323,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "ArguAna": {
+      "ndcg10": 48.03656177890305,
+      "recall10": 75.74679943100996,
+      "top1_relevant_queries": 341,
+      "median_first_relevant_rank": 4.0,
+      "median_best_relevant_margin": -0.03518414497375488,
+      "queries": 1406,
+      "judged_documents_absent_from_corpus": 5
+    }
+  },
+  "scope": "Observed external development tasks; reserved FiQA/SCIDOCS labels not used",
+  "stsbenchmark_spearman": 83.53184227253837,
+  "mean_core_retrieval": 45.96243213239596,
+  "reference_report_sha256": "804a497e5ab5861cffc1dd26ca0a4dbdff46b232e17f5ba43706f1f7b6d4a4ef",
+  "paired": {
+    "original": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": 5.694909413257154,
+        "paired_bootstrap_95_ci": [
+          2.949974325571707,
+          8.421091295819574
+        ],
+        "queries_improved": 66,
+        "queries_worsened": 46,
+        "top1_gained": 27,
+        "top1_lost": 16
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 1.9738818744853763,
+        "paired_bootstrap_95_ci": [
+          0.7461499066576318,
+          3.206328237238799
+        ],
+        "queries_improved": 122,
+        "queries_worsened": 68,
+        "top1_gained": 22,
+        "top1_lost": 14
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": 5.3223251546024954,
+        "paired_bootstrap_95_ci": [
+          3.926156155388247,
+          6.772715721518009
+        ],
+        "queries_improved": 482,
+        "queries_worsened": 301,
+        "top1_gained": 132,
+        "top1_lost": 83
+      }
+    },
+    "bge_micro": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -0.7823281074042817,
+        "paired_bootstrap_95_ci": [
+          -2.6746848476432654,
+          1.0323060417933045
+        ],
+        "queries_improved": 40,
+        "queries_worsened": 54,
+        "top1_gained": 13,
+        "top1_lost": 15
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 0.27872926436401707,
+        "paired_bootstrap_95_ci": [
+          -0.5859595420563695,
+          1.182402222142579
+        ],
+        "queries_improved": 95,
+        "queries_worsened": 91,
+        "top1_gained": 16,
+        "top1_lost": 15
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -3.7711455219704733,
+        "paired_bootstrap_95_ci": [
+          -4.82589654227175,
+          -2.7226373600010345
+        ],
+        "queries_improved": 261,
+        "queries_worsened": 428,
+        "top1_gained": 60,
+        "top1_lost": 110
+      }
+    },
+    "minilm": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -1.8378551336212852,
+        "paired_bootstrap_95_ci": [
+          -4.539321193048142,
+          0.8751998626397222
+        ],
+        "queries_improved": 50,
+        "queries_worsened": 68,
+        "top1_gained": 21,
+        "top1_lost": 21
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": -0.07663700096755803,
+        "paired_bootstrap_95_ci": [
+          -1.227828146088867,
+          1.1071900864354554
+        ],
+        "queries_improved": 98,
+        "queries_worsened": 109,
+        "top1_gained": 18,
+        "top1_lost": 18
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -0.7275942007542352,
+        "paired_bootstrap_95_ci": [
+          -2.187562613841995,
+          0.7489206468543158
+        ],
+        "queries_improved": 422,
+        "queries_worsened": 438,
+        "top1_gained": 109,
+        "top1_lost": 123
+      }
+    }
+  },
+  "gates": {
+    "original": {
+      "each_core_retrieval": true,
+      "stsbenchmark": true
+    },
+    "bge_micro": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    },
+    "minilm": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    }
+  }
+}

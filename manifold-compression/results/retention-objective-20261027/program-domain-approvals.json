@@ -1,0 +1,774 @@
+{
+  "reviewer": "claude",
+  "session": "Manifold",
+  "scope": "Domain validity of generated program inputs against each natural-language specification, bound to source group, inputs and expected outputs (not positional case ids).",
+  "reviewed_file": "program-domain-review.json",
+  "reviewed_sha256": "ebf033b8b528cee4668a8e51d7c86017c03e916e7df9959051a953417eee6a14",
+  "method": "Each extra input checked against the stated input domain; expected outputs recomputed independently by hand.",
+  "limits": "Agreement with the reference on these inputs is still not proof of the full specification. About half the test programs are near-trivial, so the program category mostly measures interface and format compliance.",
+  "counts": {
+    "extras_accepted": 13,
+    "supplied_only": 5,
+    "rejected": 1
+  },
+  "entries": [
+    {
+      "group": "horizon:f87c5a7a9c7179be4308e32620e165dbe8f52d7e125a2dac92e538433bff9ac5",
+      "source_id": "bfc640fd9ae4941a86d44eb7686410594e4f775fc1601ae669b19ed8ea6fdb88",
+      "status": "extras_accepted",
+      "note": "grid_size 9 and 11 are valid square-grid dimensions; C(18,9)=48620 and C(22,11)=705432 recomputed.",
+      "supplied_tests": [
+        [
+          {
+            "grid_size": 10
+          },
+          184756
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "grid_size": 9
+          },
+          "expected": 48620
+        },
+        {
+          "inputs": {
+            "grid_size": 11
+          },
+          "expected": 705432
+        }
+      ]
+    },
+    {
+      "group": "horizon:3a2cfff21f5fa051c9409f8211b28177507f84090d452bb8c72f5442b8db7367",
+      "source_id": "2cb878ace14ce2f8506fa31a2ee45dc600745818c11982a3ef7dd3d8548dc0d9",
+      "status": "extras_accepted",
+      "note": "target 27 and 29 are non-negative; minimum cost 4*(56-target) (minimum vertex cover of the 8-node path) gives 116 and 108.",
+      "supplied_tests": [
+        [
+          {
+            "A": [
+              0,
+              56,
+              0,
+              56,
+              0,
+              56,
+              0,
+              56
+            ],
+            "target": 28
+          },
+          112
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "A": [
+              0,
+              56,
+              0,
+              56,
+              0,
+              56,
+              0,
+              56
+            ],
+            "target": 27
+          },
+          "expected": 116
+        },
+        {
+          "inputs": {
+            "A": [
+              0,
+              56,
+              0,
+              56,
+              0,
+              56,
+              0,
+              56
+            ],
+            "target": 29
+          },
+          "expected": 108
+        }
+      ]
+    },
+    {
+      "group": "horizon:ebfacca2a44f8eba42b634b8118cf6c7e3499b7b6613435ee30299afd6907463",
+      "source_id": "a3b414b6e1102b9ca59b245d6fc7ec3d4ab47b627230dbfae52966ccad6328c9",
+      "status": "extras_accepted",
+      "note": "x=-72 and -70 are valid numbers; squares 5184 and 4900.",
+      "supplied_tests": [
+        [
+          {
+            "x": -71
+          },
+          5041
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "x": -72
+          },
+          "expected": 5184
+        },
+        {
+          "inputs": {
+            "x": -70
+          },
+          "expected": 4900
+        }
+      ]
+    },
+    {
+      "group": "horizon:940df5b809552df9da046eaeb3462802e9cafaf0d24464c9e7d49cba7252abb4",
+      "source_id": "fb7d9997e8b2e017649b1eb5308b80957510f3334b7d185039d0529d40b0e149",
+      "status": "supplied_only",
+      "note": "No type-preserving extras were generated; grade on the supplied I/O only.",
+      "supplied_tests": [
+        [
+          {
+            "operations": [
+              {
+                "action": "add",
+                "key": "qpadb",
+                "value": "G6kVe"
+              }
+            ]
+          },
+          {
+            "qpadb": "G6kVe"
+          }
+        ]
+      ],
+      "accepted_extras": []
+    },
+    {
+      "group": "horizon:a05935888249bf72be04fe4dc90aada2ebc4c60f210f43d8c23f1948f94c0556",
+      "source_id": "5e93e8bb52ba3a4cdbcedbea8c875f7feb690eacb196c43dd799b02f90de2a10",
+      "status": "extras_accepted",
+      "note": "All mutated inputs remain positive integers; product-mod-3 and even counts recomputed.",
+      "supplied_tests": [
+        [
+          {
+            "num1": 3,
+            "num2": 5,
+            "num3": 7
+          },
+          {
+            "is_multiple_of_3": true,
+            "even_count": 0
+          }
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "num1": 2,
+            "num2": 5,
+            "num3": 7
+          },
+          "expected": {
+            "is_multiple_of_3": false,
+            "even_count": 1
+          }
+        },
+        {
+          "inputs": {
+            "num1": 4,
+            "num2": 5,
+            "num3": 7
+          },
+          "expected": {
+            "is_multiple_of_3": false,
+            "even_count": 1
+          }
+        },
+        {
+          "inputs": {
+            "num1": 3,
+            "num2": 4,
+            "num3": 7
+          },
+          "expected": {
+            "is_multiple_of_3": true,
+            "even_count": 1
+          }
+        },
+        {
+          "inputs": {
+            "num1": 3,
+            "num2": 6,
+            "num3": 7
+          },
+          "expected": {
+            "is_multiple_of_3": true,
+            "even_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "group": "horizon:c8560b4ea980a1df81a30ed4a0e2112592ff3cc0d3a23acaddbcf78e618b7ff4",
+      "source_id": "3ae01cacc09e741d4d2bf70b013814d6f424562b9663873ba21932605f513ebc",
+      "status": "supplied_only",
+      "note": "No type-preserving extras were generated; grade on the supplied I/O only. Expected 156 recomputed (162 - 10 + 4).",
+      "supplied_tests": [
+        [
+          {
+            "dartResult": "9D*10S#2D"
+          },
+          156
+        ]
+      ],
+      "accepted_extras": []
+    },
+    {
+      "group": "horizon:296a83ae2d4382a0c73adfb61495bce787d3a7a3f730957534b7198a5cf374c5",
+      "source_id": "5efd99afbc24777f78bfa4dea1949c14a47c50f925582396b88eadd1f7b9d698",
+      "status": "extras_accepted",
+      "note": "m=2 and m=4 satisfy m >= 1; outputs g1y1 and g113y113 recomputed by hand.",
+      "supplied_tests": [
+        [
+          {
+            "n": "gy",
+            "m": 3
+          },
+          "g111y111"
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "n": "gy",
+            "m": 2
+          },
+          "expected": "g1y1"
+        },
+        {
+          "inputs": {
+            "n": "gy",
+            "m": 4
+          },
+          "expected": "g113y113"
+        }
+      ]
+    },
+    {
+      "group": "horizon:08ac65f650c034c3d7bce2973cd61671a4e63ce3d6ff0a73cfe81af9e6ec95cf",
+      "source_id": "928158b1b267531f88231fbd660432aba2315e1b9e8bf1ad4f59d3f3b05e0ecd",
+      "status": "extras_accepted",
+      "note": "node_index 2 is a middle node of a 6-element list of unique strings.",
+      "supplied_tests": [
+        [
+          {
+            "linked_list": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f"
+            ],
+            "node_index": 1
+          },
+          [
+            "a",
+            "c",
+            "d",
+            "e",
+            "f"
+          ]
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "linked_list": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f"
+            ],
+            "node_index": 2
+          },
+          "expected": [
+            "a",
+            "b",
+            "d",
+            "e",
+            "f"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "horizon:ed40d6ed4f41f8381661fb44b8a69489a77bbda7c550678d4ad2bd4efea9c0e8",
+      "source_id": "9c251d92352295e1bd07379cdac306d09a3cf708e27d2102d92f315404ce700c",
+      "status": "rejected",
+      "reason": "Prompt declares an int output (num_samples) but the reference returns {\"num_samples\": n}; the count formula is not derivable from the prompt. Replace the group, or keep it diagnostic-only.",
+      "supplied_tests": [
+        [
+          {
+            "lev": 3
+          },
+          {
+            "num_samples": 10
+          }
+        ]
+      ],
+      "accepted_extras": []
+    },
+    {
+      "group": "horizon:d76b300c62601b64875e09cf9e72d4758d749549c8d6e11d1876e2a1663c01cc",
+      "source_id": "3a5307d5f1b5ea08c668df21455dfe9d40e3f967f19541846118504a942e9656",
+      "status": "extras_accepted",
+      "note": "All mutated pairs remain distinct integers.",
+      "supplied_tests": [
+        [
+          {
+            "a": 68,
+            "b": 66
+          },
+          [
+            66,
+            68
+          ]
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "a": 67,
+            "b": 66
+          },
+          "expected": [
+            66,
+            67
+          ]
+        },
+        {
+          "inputs": {
+            "a": 69,
+            "b": 66
+          },
+          "expected": [
+            66,
+            69
+          ]
+        },
+        {
+          "inputs": {
+            "a": 68,
+            "b": 65
+          },
+          "expected": [
+            65,
+            68
+          ]
+        },
+        {
+          "inputs": {
+            "a": 68,
+            "b": 67
+          },
+          "expected": [
+            67,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "group": "horizon:99bb76339788ff5a330f948a77b85e0777d280f81254d2328180405ad7471643",
+      "source_id": "27a6c9ebcbbcbd4df9d091ca26d17336078b24fcfc3df82c4be9028b42de057c",
+      "status": "extras_accepted",
+      "note": "Ages 32 and 34 are valid integers; output echoes inputs.",
+      "supplied_tests": [
+        [
+          {
+            "name": "Ethan",
+            "age": 33,
+            "weight": 50.2,
+            "profession": "Scientist"
+          },
+          {
+            "name": "Ethan",
+            "age": 33,
+            "weight": 50.2,
+            "profession": "Scientist"
+          }
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "name": "Ethan",
+            "age": 32,
+            "weight": 50.2,
+            "profession": "Scientist"
+          },
+          "expected": {
+            "name": "Ethan",
+            "age": 32,
+            "weight": 50.2,
+            "profession": "Scientist"
+          }
+        },
+        {
+          "inputs": {
+            "name": "Ethan",
+            "age": 34,
+            "weight": 50.2,
+            "profession": "Scientist"
+          },
+          "expected": {
+            "name": "Ethan",
+            "age": 34,
+            "weight": 50.2,
+            "profession": "Scientist"
+          }
+        }
+      ]
+    },
+    {
+      "group": "horizon:c17546257b9559648a2f0ad1ac891e826f271a1a6dfb8db40bac210e7abbf83d",
+      "source_id": "f7e1d9ba45ac85dd5454b4b68514f8dc3f6b3e94f95d45c72b05640df6aadc50",
+      "status": "supplied_only",
+      "note": "No type-preserving extras were generated; grade on the supplied I/O only.",
+      "supplied_tests": [
+        [
+          {
+            "names": [
+              "Sydney",
+              "Savannah",
+              "Emma"
+            ]
+          },
+          "Sydney Savannah Emma"
+        ]
+      ],
+      "accepted_extras": []
+    },
+    {
+      "group": "horizon:e946601f5241e0b738bedd3976af09b31805b3f5d0aed58ee0f209aa00c072f8",
+      "source_id": "87203580f62f411cc76fa853ca05a4f3005a2b34bbfb561be87722a2ac5fbe8e",
+      "status": "extras_accepted",
+      "note": "Ages 53 and 55 are valid integers; f-string output recomputed.",
+      "supplied_tests": [
+        [
+          {
+            "name": "Alice",
+            "age": 54,
+            "money": 55.05
+          },
+          "Alice is 54 and has $55.05 dollars."
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "name": "Alice",
+            "age": 53,
+            "money": 55.05
+          },
+          "expected": "Alice is 53 and has $55.05 dollars."
+        },
+        {
+          "inputs": {
+            "name": "Alice",
+            "age": 55,
+            "money": 55.05
+          },
+          "expected": "Alice is 55 and has $55.05 dollars."
+        }
+      ]
+    },
+    {
+      "group": "horizon:f139cf177d3aef570e73474409c79e8ddad2186577c629c448e332ef695c5d49",
+      "source_id": "d1bd56e9ea024886aafbb1b9f01e60731394d448a248c40fb291866ca12c3718",
+      "status": "extras_accepted",
+      "note": "max_retries 1 and 3 are valid integers; first attempt \"30\" parses, so 30 both times.",
+      "supplied_tests": [
+        [
+          {
+            "input_attempts": [
+              "30",
+              "12.5",
+              "25"
+            ],
+            "max_retries": 2
+          },
+          30
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "input_attempts": [
+              "30",
+              "12.5",
+              "25"
+            ],
+            "max_retries": 1
+          },
+          "expected": 30
+        },
+        {
+          "inputs": {
+            "input_attempts": [
+              "30",
+              "12.5",
+              "25"
+            ],
+            "max_retries": 3
+          },
+          "expected": 30
+        }
+      ]
+    },
+    {
+      "group": "horizon:57c5aff8784ea786fdc442647ed187cce00719092916fc34a1190b9184cbd35e",
+      "source_id": "d7a256670cc31f46b7ec965022cb7f3e1531a472ee1df4a79e8c66d05164ec8e",
+      "status": "extras_accepted",
+      "note": "dia 4 and 6 are valid weekday numbers (quarta, sexta).",
+      "supplied_tests": [
+        [
+          {
+            "dia": 5
+          },
+          "quinta"
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "dia": 4
+          },
+          "expected": "quarta"
+        },
+        {
+          "inputs": {
+            "dia": 6
+          },
+          "expected": "sexta"
+        }
+      ]
+    },
+    {
+      "group": "horizon:10fe629bdd667286aba2aaa931ccbc19de85893fd3dd58701063e93e2ea5e6f5",
+      "source_id": "0cf2b966d29f80a6ac3110bff09be1dc7064226440b74aad43535a348a92d0ba",
+      "status": "supplied_only",
+      "note": "No type-preserving extras were generated; grade on the supplied I/O only.",
+      "supplied_tests": [
+        [
+          {
+            "patterns": [
+              "\\\\d+",
+              "error"
+            ],
+            "text": "The log file had no issues."
+          },
+          [
+            [],
+            []
+          ]
+        ]
+      ],
+      "accepted_extras": []
+    },
+    {
+      "group": "horizon:df5e195bcf881799238cc8c8f058176b457ec0df4b650e6544b34b286d035a93",
+      "source_id": "587237cd333a4a96d64bea985898d7d03ae0a95e15fa5266e58be258f54d26e6",
+      "status": "extras_accepted",
+      "note": "Integer triples; products 90, 150, 96, 144 recomputed.",
+      "supplied_tests": [
+        [
+          {
+            "a": 4,
+            "r": 5,
+            "n": 6
+          },
+          120
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "a": 3,
+            "r": 5,
+            "n": 6
+          },
+          "expected": 90
+        },
+        {
+          "inputs": {
+            "a": 5,
+            "r": 5,
+            "n": 6
+          },
+          "expected": 150
+        },
+        {
+          "inputs": {
+            "a": 4,
+            "r": 4,
+            "n": 6
+          },
+          "expected": 96
+        },
+        {
+          "inputs": {
+            "a": 4,
+            "r": 6,
+            "n": 6
+          },
+          "expected": 144
+        }
+      ]
+    },
+    {
+      "group": "horizon:06be38960bfcbce6ffb10d97f2648c0029a848d194140a392c74d69baed4d91b",
+      "source_id": "8102e919932a8e8c0e24e7efbe02e0f8d4ade4b0f468378e848643e6a8a2e7e4",
+      "status": "supplied_only",
+      "note": "No type-preserving extras were generated; grade on the supplied I/O only.",
+      "supplied_tests": [
+        [
+          {
+            "test_cases": [
+              [
+                "123",
+                "456"
+              ],
+              [
+                "789",
+                "124",
+                "35"
+              ]
+            ]
+          },
+          [
+            "YES",
+            "YES"
+          ]
+        ]
+      ],
+      "accepted_extras": []
+    },
+    {
+      "group": "horizon:d34a4e6158b0f822efeb590af750dfc88f99b154418477e72e60e2117824b02a",
+      "source_id": "e7a56c0a702f816b0fee122b1eeba8b42c7321f292ec33c7f3aa8a71284e727e",
+      "status": "extras_accepted",
+      "note": "Replacement for the rejected Smolyak group. N=3 and N=5 are positive integers; all three expected matrices (N=3, 4, 5) reproduced by an independent spiral implementation; list-of-lists output matches the stated type.",
+      "supplied_tests": [
+        [
+          {
+            "N": 4
+          },
+          [
+            [
+              1,
+              2,
+              3,
+              4
+            ],
+            [
+              12,
+              13,
+              14,
+              5
+            ],
+            [
+              11,
+              16,
+              15,
+              6
+            ],
+            [
+              10,
+              9,
+              8,
+              7
+            ]
+          ]
+        ]
+      ],
+      "accepted_extras": [
+        {
+          "inputs": {
+            "N": 3
+          },
+          "expected": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              8,
+              9,
+              4
+            ],
+            [
+              7,
+              6,
+              5
+            ]
+          ]
+        },
+        {
+          "inputs": {
+            "N": 5
+          },
+          "expected": [
+            [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            [
+              16,
+              17,
+              18,
+              19,
+              6
+            ],
+            [
+              15,
+              24,
+              25,
+              20,
+              7
+            ],
+            [
+              14,
+              23,
+              22,
+              21,
+              8
+            ],
+            [
+              13,
+              12,
+              11,
+              10,
+              9
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "revised_review_file": "../retention-objective-20261027-revised/program-domain-review.json",
+  "revised_review_sha256": "4878f30e7ccc68ca656e7437982935bdeae1916a353fc06656ec42c139e90afc"
+}

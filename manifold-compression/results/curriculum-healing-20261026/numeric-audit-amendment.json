@@ -1,0 +1,7 @@
+{
+  "timing": "After observing stock baseline fraction output, before any trained-checkpoint generation result. Training already running.",
+  "reason": "Legacy numeric parser can prefer intermediate equals signs over an explicit final numeric line; mixed numbers also need value parsing.",
+  "rule": "Prefer an unambiguous standalone final numeric line (including simple LaTeX fractions and mixed numbers), otherwise use prior explicit-answer parser. Extraction never consults expected answer. Preserve original grades.",
+  "application": "Apply uniformly to stock, parent, all development checkpoints, and final tests. Final selection uses audited development correctness and unchanged loop/completion gates. If winner differs from provisional runner selection, reload that winner and rerun final tests; never choose using test scores.",
+  "training_data_or_training_code_changed": false
+}

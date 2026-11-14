@@ -1,0 +1,10 @@
+{
+  "scope": "Scheduling only; no model, data, training, generation or evaluation change.",
+  "reason": "Resource inventory has 32 logical CPUs and approximately 58 GiB available memory; each job uses four threads. No timing claims.",
+  "stock_worker": [
+    "stock-r16",
+    "stock-r64"
+  ],
+  "logs": "stock-r16-worker.log and stock-r64-worker.log",
+  "original_worker": "Continues projected-r16 and projected-r64. Its later stock-r16 invocation must refuse the existing directory; this expected overwrite guard ends that worker without changing any stock artifacts. Completion requires all four result.json files and checks."
+}

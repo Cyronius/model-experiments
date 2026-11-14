@@ -1,0 +1,674 @@
+{
+  "scope": "Frozen checkpoints, observed development tasks. Wider means cover only the fixed 12-task subset. Query confidence intervals do not measure training-seed variation.",
+  "reserved_fiqa_scidocs_scored": false,
+  "resources": {
+    "local_only": true,
+    "paid_resource_allocated": false
+  },
+  "continuation_resources": [],
+  "models": {
+    "ternary-2-25": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-2-25.pt",
+        "sha256": "0f01828f2162bb7abc3d804762cc41d2b292e629b05941b7270078e0dbcecb8f",
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+          "trained_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "core_retrieval": 44.585566014540156,
+      "stsbenchmark": 81.08995220549522,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 58.59528649340325,
+          "recall10": 70.12222222222223,
+          "top1_relevant_queries": 144,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.0053444504737854,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.57584553567706,
+          "recall10": 14.26676955403216,
+          "top1_relevant_queries": 140,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.014984190464019775,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 43.44405919813511,
+          "recall10": 69.98577524893315,
+          "top1_relevant_queries": 301,
+          "median_first_relevant_rank": 4.5,
+          "median_best_relevant_margin": -0.03731215000152588,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": false
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.457529526015465,
+          "paired_query_bootstrap_95_ci": [
+            1.444508498172491,
+            3.5083444127349916
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.6286655393759324,
+          "paired_query_bootstrap_95_ci": [
+            -2.9184724435118374,
+            -0.26148953621086296
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -2.3341121851502216,
+          "paired_query_bootstrap_95_ci": [
+            -4.0245307045218315,
+            -0.5985063877683661
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.457529526015465,
+        "paired_query_bootstrap_95_ci": [
+          1.444508498172491,
+          3.5083444127349916
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 81.08999999999999,
+        "SICK-R": 75.6813,
+        "STS12": 74.76859999999999,
+        "STS13": 79.5883,
+        "STS14": 76.732,
+        "STS15": 84.4515,
+        "STS16": 82.0184,
+        "SciFact": 58.595,
+        "NFCorpus": 30.575999999999997,
+        "Banking77Classification": 76.5162,
+        "AskUbuntuDupQuestions": 60.5356,
+        "TwitterSemEval2015": 65.8202
+      },
+      "mteb_12_mean": 70.53109166666667
+    },
+    "ternary-2-50": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-2-50.pt",
+        "sha256": "e80f1d131194a68eef38bfa28b9c5f7b0e67d2a65ec27e9196568a4986a0de9b",
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+          "trained_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7",
+          "trained_fraction": 0.5
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "core_retrieval": 44.52185661413876,
+      "stsbenchmark": 81.19695404462007,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 58.34289960087887,
+          "recall10": 70.45555555555556,
+          "top1_relevant_queries": 142,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.007978305220603943,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.700813627398656,
+          "recall10": 14.12583775275702,
+          "top1_relevant_queries": 144,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.0133228600025177,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 43.74531870035523,
+          "recall10": 70.69701280227596,
+          "top1_relevant_queries": 302,
+          "median_first_relevant_rank": 5.0,
+          "median_best_relevant_margin": -0.045453786849975586,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": false
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.3938201256140745,
+          "paired_query_bootstrap_95_ci": [
+            1.3788229132637824,
+            3.4321615257688105
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.6923749397773231,
+          "paired_query_bootstrap_95_ci": [
+            -3.0002924569034177,
+            -0.3597916521899358
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -2.397821585551612,
+          "paired_query_bootstrap_95_ci": [
+            -4.101483491825591,
+            -0.7056627788809013
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.3938201256140745,
+        "paired_query_bootstrap_95_ci": [
+          1.3788229132637824,
+          3.4321615257688105
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 81.197,
+        "SICK-R": 75.9639,
+        "STS12": 74.3861,
+        "STS13": 79.4479,
+        "STS14": 76.5527,
+        "STS15": 84.1151,
+        "STS16": 81.5168,
+        "SciFact": 58.343,
+        "NFCorpus": 30.701,
+        "Banking77Classification": 76.7857,
+        "AskUbuntuDupQuestions": 60.1036,
+        "TwitterSemEval2015": 65.4916
+      },
+      "mteb_12_mean": 70.3837
+    },
+    "ternary-2-75": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-2-75.pt",
+        "sha256": "40ade0575e3ed7b8ffa70c688eb3d762673f7019788e99285732db808ae739de",
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+          "trained_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7",
+          "trained_fraction": 0.75
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "core_retrieval": 44.97764930341,
+      "stsbenchmark": 81.40787327449713,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.31479385459757,
+          "recall10": 71.44444444444443,
+          "top1_relevant_queries": 147,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.006608128547668457,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.64050475222243,
+          "recall10": 14.221275280235776,
+          "top1_relevant_queries": 141,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.01896992325782776,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 44.51320994733541,
+          "recall10": 71.40825035561878,
+          "top1_relevant_queries": 315,
+          "median_first_relevant_rank": 5.0,
+          "median_best_relevant_margin": -0.05349057912826538,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": false
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.8496128148853095,
+          "paired_query_bootstrap_95_ci": [
+            1.6653021124189928,
+            4.077056342849831
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.2365822505060882,
+          "paired_query_bootstrap_95_ci": [
+            -2.5379847556698705,
+            0.11883697470110763
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -1.9420288962803776,
+          "paired_query_bootstrap_95_ci": [
+            -3.567404411013988,
+            -0.2727411872776419
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.8496128148853095,
+        "paired_query_bootstrap_95_ci": [
+          1.6653021124189928,
+          4.077056342849831
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 81.4078,
+        "SICK-R": 75.7829,
+        "STS12": 73.8647,
+        "STS13": 78.92519999999999,
+        "STS14": 76.1939,
+        "STS15": 83.6693,
+        "STS16": 81.0822,
+        "SciFact": 59.315,
+        "NFCorpus": 30.641000000000002,
+        "Banking77Classification": 77.2273,
+        "AskUbuntuDupQuestions": 59.9309,
+        "TwitterSemEval2015": 65.2411
+      },
+      "mteb_12_mean": 70.27344166666667
+    },
+    "ternary-3-25": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-25.pt",
+        "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.25
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "core_retrieval": 45.22703157203311,
+      "stsbenchmark": 82.4517793016043,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.868276543475176,
+          "recall10": 72.33333333333334,
+          "top1_relevant_queries": 147,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.005242466926574707,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.585786600591057,
+          "recall10": 14.063282352169178,
+          "top1_relevant_queries": 136,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.025468111038208008,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 46.570004702001775,
+          "recall10": 74.25320056899004,
+          "top1_relevant_queries": 326,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.039743125438690186,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 3.0989950835084232,
+          "paired_query_bootstrap_95_ci": [
+            1.772265581992589,
+            4.417974971131363
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -0.9871999818829744,
+          "paired_query_bootstrap_95_ci": [
+            -2.13424701358942,
+            0.19787456275054371
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -1.6926466276572636,
+          "paired_query_bootstrap_95_ci": [
+            -3.3265925484966035,
+            -0.08094008121390436
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 3.0989950835084232,
+        "paired_query_bootstrap_95_ci": [
+          1.772265581992589,
+          4.417974971131363
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 82.4521,
+        "SICK-R": 74.7358,
+        "STS12": 74.198,
+        "STS13": 80.23479999999999,
+        "STS14": 76.7004,
+        "STS15": 83.9363,
+        "STS16": 81.4775,
+        "SciFact": 59.868,
+        "NFCorpus": 30.586000000000002,
+        "Banking77Classification": 75.711,
+        "AskUbuntuDupQuestions": 60.14319999999999,
+        "TwitterSemEval2015": 65.7308
+      },
+      "mteb_12_mean": 70.48115833333333
+    },
+    "ternary-3-50": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-50.pt",
+        "sha256": "db47d00c22f3c0e7e288fc1c006b7c75d4031704deabee8075291ef2f131ffcd",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.5
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "core_retrieval": 45.02200291643565,
+      "stsbenchmark": 82.41171266691036,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.45879863509481,
+          "recall10": 72.27777777777777,
+          "top1_relevant_queries": 143,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.007612675428390503,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.585207197776505,
+          "recall10": 13.99681394717943,
+          "top1_relevant_queries": 136,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.028322219848632812,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 46.9807602349945,
+          "recall10": 74.67994310099573,
+          "top1_relevant_queries": 337,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.044020265340805054,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.8939664279109683,
+          "paired_query_bootstrap_95_ci": [
+            1.5110105750097265,
+            4.259930187998421
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.1922286374804292,
+          "paired_query_bootstrap_95_ci": [
+            -2.337690611762543,
+            -0.013395862899710807
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -1.8976752832547188,
+          "paired_query_bootstrap_95_ci": [
+            -3.5243542102836547,
+            -0.2695031285629376
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.8939664279109683,
+        "paired_query_bootstrap_95_ci": [
+          1.5110105750097265,
+          4.259930187998421
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 82.4117,
+        "SICK-R": 75.1386,
+        "STS12": 73.9719,
+        "STS13": 79.98429999999999,
+        "STS14": 76.5698,
+        "STS15": 83.5835,
+        "STS16": 81.3998,
+        "SciFact": 59.458999999999996,
+        "NFCorpus": 30.585,
+        "Banking77Classification": 76.1558,
+        "AskUbuntuDupQuestions": 59.9191,
+        "TwitterSemEval2015": 65.64219999999999
+      },
+      "mteb_12_mean": 70.401725
+    },
+    "ternary-3-75": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-75.pt",
+        "sha256": "bd98b0e403aea377bff5f278f72b58d6548cd96686255b5b96042bbbb50e2286",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "blend": {
+          "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+          "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+          "trained_fraction": 0.75
+        },
+        "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+      },
+      "core_retrieval": 44.998606456372016,
+      "stsbenchmark": 82.1051322429576,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.52016946324098,
+          "recall10": 72.27777777777777,
+          "top1_relevant_queries": 144,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.009889721870422363,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.47704344950305,
+          "recall10": 14.070312871903424,
+          "top1_relevant_queries": 134,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.02497190237045288,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 46.789643614203506,
+          "recall10": 75.32005689900427,
+          "top1_relevant_queries": 323,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.04898771643638611,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.8705699678473193,
+          "paired_query_bootstrap_95_ci": [
+            1.4014929666704914,
+            4.339403718356559
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.2156250975440777,
+          "paired_query_bootstrap_95_ci": [
+            -2.417553723881053,
+            0.052823370875179715
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -1.9210717433183668,
+          "paired_query_bootstrap_95_ci": [
+            -3.5717090080861182,
+            -0.19533866440513817
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.8705699678473193,
+        "paired_query_bootstrap_95_ci": [
+          1.4014929666704914,
+          4.339403718356559
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 82.1056,
+        "SICK-R": 75.4218,
+        "STS12": 73.9211,
+        "STS13": 79.767,
+        "STS14": 76.4085,
+        "STS15": 83.48299999999999,
+        "STS16": 81.2333,
+        "SciFact": 59.519999999999996,
+        "NFCorpus": 30.476999999999997,
+        "Banking77Classification": 76.2857,
+        "AskUbuntuDupQuestions": 59.4456,
+        "TwitterSemEval2015": 65.39399999999999
+      },
+      "mteb_12_mean": 70.28855
+    }
+  },
+  "matched_depth_contrasts": {},
+  "matched_recipe_contrasts": {},
+  "parent_contrasts": {}
+}

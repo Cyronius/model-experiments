@@ -1,0 +1,112 @@
+{
+  "utc": "2026-10-23T21:07:18.374733+00:00",
+  "checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315",
+  "runtime_dll_sha256": "ee63246dbed9bfeacff726f5735a5ce2a099a1953fcf7b5e6df818be0fd53996",
+  "scope": "Both complete encoder layers on NPU in one dispatch; CPU tokenizer, input embeddings/norm, pooling, float output projection",
+  "arithmetic": "int8 activations, packed ternary weights, bf16 Q/K/V/attention probabilities and GELU outputs, split-bf16 fp32 math",
+  "threads": 2,
+  "runs": [
+    {
+      "cap": 32,
+      "batch": 4,
+      "build": {
+        "cap": 32,
+        "texts_per_dispatch": 4,
+        "cores": 32,
+        "layers": 2,
+        "scope": "One dispatch, two full encoder layers; host embedding lookup/input norm/output projection/pooling",
+        "program_text_bytes": 16096,
+        "stack_bytes_per_core": 5120,
+        "mlir_aie": "1.4.2",
+        "llvm_aie": "21.0.0.2026080301+c9c5ecb7",
+        "source_sha256": {
+          "fused.h": "685d4c33abbd3de2a64b892b9652b6467d4e6316352936dd774530c5a28c1e0c",
+          "fused_design.py": "aa7af0b7e2a1abe6e8f2edd0d788668c0062194ee14c44b793750f17730a3547",
+          "vecmath.h": "9988dbcaa1f089140950da357de1cb2047f2ce100695567268de7879b7ca1e9e",
+          "ironutil.py": "22d40beeee13bd1f76b59631d9935c0101bf35f7a3758be63f5a32b5bcc2fbb9",
+          "ep_attend.cc": "94e94d6ce2e6767470b3478594241172b00cd3d90188ec3992e54f1f518a5d07",
+          "ep_attfinish.cc": "19a686883b717eb90aaf7b57d7105b972f6a019988c40c67a52bb4246763ce27",
+          "ep_copy.cc": "b152904fd85aa724a6549a192340d3ad88b3f382d3720dd7c775ae92d33e1b7a",
+          "ep_linear.cc": "6c7431432c391ed3bd88b3b6e777891314787454e6a87ecd329ce4c756cb3ac6",
+          "ep_mask.cc": "7296edf7182894e618dfba16d96b19a704026b0917ae989f04b98bc1266617f2",
+          "ep_norm.cc": "2492af5adce024ae114b65af2f09f2a578e2d6005f589e06f57ae9fb7ca443b4",
+          "ep_out.cc": "8d52d13d30f767c6aa4f9ab85609d8df3b4b2ef51762a1b6d6248749d32c6244",
+          "ep_quant_q.cc": "2e36324d3019f4040c0537e35afdb2030b950b20c990b69f110d2a7e68dbdd55",
+          "ep_quant_x.cc": "836e2fbee46228b1ddb0c6222561a5627480007054ca47be58382961be5a367c"
+        },
+        "artifact_sha256": {
+          "final.xclbin": "12b0644f446487948ac5894a68d7dd59c39225e4158d826ae694b45028d73af8",
+          "insts.bin": "729fdb9fa3327d7d467a391b289bd7b273ee382c58d4b904a970446e7795c5a7"
+        },
+        "build_seconds": 43.708624599999894
+      },
+      "verification": {
+        "max_vector_abs_error": 0.003188852220773697,
+        "min_cosine": 0.9998798370361328,
+        "mean_cosine": 0.9998902082443237,
+        "max_state_abs_errors": [
+          0.0,
+          1.0227742195129395,
+          1.3673582077026367
+        ],
+        "max_valid_state_abs_errors": [
+          0.0,
+          0.03860780596733093,
+          0.056850969791412354
+        ],
+        "masked_query_states_may_differ": true
+      }
+    },
+    {
+      "cap": 128,
+      "batch": 1,
+      "build": {
+        "cap": 128,
+        "texts_per_dispatch": 1,
+        "cores": 32,
+        "layers": 2,
+        "scope": "One dispatch, two full encoder layers; host embedding lookup/input norm/output projection/pooling",
+        "program_text_bytes": 16096,
+        "stack_bytes_per_core": 5120,
+        "mlir_aie": "1.4.2",
+        "llvm_aie": "21.0.0.2026080301+c9c5ecb7",
+        "source_sha256": {
+          "fused.h": "685d4c33abbd3de2a64b892b9652b6467d4e6316352936dd774530c5a28c1e0c",
+          "fused_design.py": "aa7af0b7e2a1abe6e8f2edd0d788668c0062194ee14c44b793750f17730a3547",
+          "vecmath.h": "9988dbcaa1f089140950da357de1cb2047f2ce100695567268de7879b7ca1e9e",
+          "ironutil.py": "22d40beeee13bd1f76b59631d9935c0101bf35f7a3758be63f5a32b5bcc2fbb9",
+          "ep_attend.cc": "94e94d6ce2e6767470b3478594241172b00cd3d90188ec3992e54f1f518a5d07",
+          "ep_attfinish.cc": "19a686883b717eb90aaf7b57d7105b972f6a019988c40c67a52bb4246763ce27",
+          "ep_copy.cc": "b152904fd85aa724a6549a192340d3ad88b3f382d3720dd7c775ae92d33e1b7a",
+          "ep_linear.cc": "6c7431432c391ed3bd88b3b6e777891314787454e6a87ecd329ce4c756cb3ac6",
+          "ep_mask.cc": "7296edf7182894e618dfba16d96b19a704026b0917ae989f04b98bc1266617f2",
+          "ep_norm.cc": "2492af5adce024ae114b65af2f09f2a578e2d6005f589e06f57ae9fb7ca443b4",
+          "ep_out.cc": "8d52d13d30f767c6aa4f9ab85609d8df3b4b2ef51762a1b6d6248749d32c6244",
+          "ep_quant_q.cc": "2e36324d3019f4040c0537e35afdb2030b950b20c990b69f110d2a7e68dbdd55",
+          "ep_quant_x.cc": "836e2fbee46228b1ddb0c6222561a5627480007054ca47be58382961be5a367c"
+        },
+        "artifact_sha256": {
+          "final.xclbin": "e7e44f5b6b34dde4694f04aa967e89cee01d874aa7c92a79fdc5f9f304988175",
+          "insts.bin": "729fdb9fa3327d7d467a391b289bd7b273ee382c58d4b904a970446e7795c5a7"
+        },
+        "build_seconds": 57.68623959999968
+      },
+      "verification": {
+        "max_vector_abs_error": 0.0018178988248109818,
+        "min_cosine": 0.9999053478240967,
+        "mean_cosine": 0.9999344348907471,
+        "max_state_abs_errors": [
+          0.0,
+          1.4742329120635986,
+          1.6799036264419556
+        ],
+        "max_valid_state_abs_errors": [
+          0.0,
+          0.05422532558441162,
+          0.0716625452041626
+        ],
+        "masked_query_states_may_differ": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+ "args": {
+  "server": "/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-vk/bin/llama-server",
+  "model": "/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf",
+  "prompts": "memdraft/prompts/live-v1.jsonl",
+  "out": "memdraft/results/lookup-9b-vk-20261110-0550-turn1.json",
+  "arm": [
+   "none=",
+   "table=--spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad",
+   "ngram-cache=--spec-type ngram-cache",
+   "ngram-simple=--spec-type ngram-simple",
+   "ngram-mod=--spec-type ngram-mod",
+   "simple+table=--spec-type ngram-simple,ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad",
+   "table-request-only=--spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad --spec-table-source context"
+  ],
+  "rounds": 1,
+  "max_tokens": 160,
+  "temperature": 0.0,
+  "thinking": false,
+  "limit": null,
+  "per_domain": 2,
+  "port": 8455,
+  "gpu_guard": true,
+  "guard_checks": 2,
+  "guard_gap": 5,
+  "chunk": null,
+  "retries": 1,
+  "time_limit": 520,
+  "arm_seconds": 75,
+  "clean": false
+ },
+ "common": [
+  "-ngl",
+  "99",
+  "-c",
+  "8192"
+ ],
+ "arms": {
+  "none": [],
+  "table": [
+   "--spec-type",
+   "ngram-table",
+   "--spec-table-file",
+   "/home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt",
+   "--spec-table-n-max",
+   "2",
+   "--spec-table-pad"
+  ],
+  "ngram-cache": [
+   "--spec-type",
+   "ngram-cache"
+  ],
+  "ngram-simple": [
+   "--spec-type",
+   "ngram-simple"
+  ],
+  "ngram-mod": [
+   "--spec-type",
+   "ngram-mod"
+  ],
+  "simple+table": [
+   "--spec-type",
+   "ngram-simple,ngram-table",
+   "--spec-table-file",
+   "/home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt",
+   "--spec-table-n-max",
+   "2",
+   "--spec-table-pad"
+  ],
+  "table-request-only": [
+   "--spec-type",
+   "ngram-table",
+   "--spec-table-file",
+   "/home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt",
+   "--spec-table-n-max",
+   "2",
+   "--spec-table-pad",
+   "--spec-table-source",
+   "context"
+  ]
+ },
+ "started": "2026-11-10 06:36:11",
+ "load_average_start": 7.375,
+ "rows": [],
+ "stopped_early": "the GPU was not ours in time for none (about 75 s)",
+ "complete_arms": []
+}

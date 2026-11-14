@@ -1,0 +1,123 @@
+{
+  "status": "User approved one bounded four-arm job, up to $10 total; previous campaign remains closed.",
+  "resource": "One RTX 4090 24GB RunPod Secure Cloud pod, at least32GB host RAM",
+  "listed_rate_usd_per_hour": 0.89,
+  "maximum_gpu_rate_usd_per_hour": 0.9,
+  "maximum_elapsed_hours": 10,
+  "expected_elapsed_hours": [
+    4,
+    5.5
+  ],
+  "expected_total_usd": [
+    3.61,
+    4.96
+  ],
+  "proposed_total_cap_usd": 10,
+  "disk_gb": 80,
+  "retained_paid_volumes": false,
+  "work_deadline_minutes": 575,
+  "watchdog_delete_minutes": 590,
+  "training": {
+    "arms": [
+      {
+        "id": "ternary-repeat",
+        "checkpoint": "training-v2/work/broad-data/starts/ternary.pt",
+        "layers": 3,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 1e-05,
+        "use_negatives": false,
+        "data_key": "train_repeat"
+      },
+      {
+        "id": "ternary-broad",
+        "checkpoint": "training-v2/work/broad-data/starts/ternary.pt",
+        "layers": 3,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 1e-05,
+        "use_negatives": false,
+        "data_key": "train"
+      },
+      {
+        "id": "float-repeat",
+        "checkpoint": "training-v2/work/broad-data/starts/float.pt",
+        "layers": 3,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 1e-05,
+        "use_negatives": false,
+        "data_key": "train_repeat"
+      },
+      {
+        "id": "float-broad",
+        "checkpoint": "training-v2/work/broad-data/starts/float.pt",
+        "layers": 3,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 1e-05,
+        "use_negatives": false,
+        "data_key": "train"
+      }
+    ],
+    "epochs_each": 1,
+    "seed": 71,
+    "eval_every": 500,
+    "save_every": 100,
+    "source_floor": 2,
+    "teacher_targets": false,
+    "auxiliary_nli": false,
+    "validation_negatives": false,
+    "train_rows": 3771503,
+    "control_rows": 3771503,
+    "dev_rows": 27155,
+    "comparison": "Two precisions x broad positives versus repeated old positives. Same fixed3-layer starts, batch, optimizer settings, seed, validation and pair presentations; source composition and token lengths differ and will be logged.",
+    "selection": "Highest held-source macro nDCG with every source within2 points of initialization; unchanged step0 remains eligible. Freeze all four arms before external development scoring.",
+    "external_protocol": "FiQA, SCIDOCS and prior fixed12 tasks are observed development. New Touche/TREC-COVID labels stay sealed until one candidate passes the predeclared development gate. No full-MTEB or seed-replication claim."
+  },
+  "recovery": {
+    "remote_save_every_steps": 100,
+    "remote_save_every_seconds": 120,
+    "local_backup_attempt_interval_seconds": 60,
+    "sha256_verified_local_copies": true,
+    "full_optimizer_rng_sampler_resume": true,
+    "remote_resume_copies_retained": 2
+  },
+  "pricing_source": "https://www.runpod.io/pricing",
+  "data_center_ids": [
+    "EU-RO-1",
+    "EUR-IS-1",
+    "EUR-IS-2",
+    "US-IL-1"
+  ],
+  "cuda_versions": [
+    "13.2"
+  ],
+  "gpu_type_id": "NVIDIA GeForce RTX 4090",
+  "profile": "broad-data",
+  "data_inputs": {
+    "train": {
+      "path": "training-v2/work/broad-data/ready/train.jsonl",
+      "sha256": "d00235dd439d566f57dcaca885143ccc7ab3b7094666f7efd8244eaf9c463bbd"
+    },
+    "train_repeat": {
+      "path": "training-v2/work/broad-data/ready/train-repeat.jsonl",
+      "sha256": "9536133dae300c00bc5ff24b5cbe63489cb9d4b5e83656880ede612527d88c19"
+    },
+    "dev": {
+      "path": "training-v2/work/broad-data/ready/dev.jsonl",
+      "sha256": "61ab589fcf8bf9b7acb0dcbbd35dfdc4eb859676c1af260d5aee129cdbc7a0d6"
+    }
+  },
+  "data_audit_files": [
+    "training-v2/work/broad-data/ready/audit.json",
+    "training-v2/work/broad-data/ready/repeat-audit.json",
+    "training-v2/broad-data/sources.lock.json",
+    "training-v2/broad-data/evaluation.lock.json",
+    "training-v2/broad-data/quarantine.json"
+  ],
+  "work_duration_minutes": 560,
+  "minimum_host_ram_gb": 32,
+  "package_transfer_timeout_seconds": 1800,
+  "independent_of_closed_campaign": true
+}

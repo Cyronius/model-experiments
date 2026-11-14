@@ -1,0 +1,155 @@
+{
+  "scope": "Qualitative review of saved text; never used to fit projections or predictors. Closed-answer ordering and format are scored separately in answer-review files. Programming execution scores are supplemented by manual requirement review; binary-search outputs must actually implement binary search, not a linear scan.",
+  "criteria": {
+    "photosynthesis": "Correct core inputs and outputs of photosynthesis and aerobic respiration, their connection, and no central contradiction.",
+    "metal_spoon": "Equal starting temperatures; metal draws heat from the warmer hand faster and therefore feels colder, not hotter."
+  },
+  "arms": {
+    "stock": {
+      "explanation-0": {
+        "core_correct": true,
+        "notes": "Core inputs/outputs and carbon/oxygen connection correct; roots-at-night statement is an oversimplification and plant respiration is not explained."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "notes": "Describes heat leaving the hand but explicitly concludes metal feels hot and wood cool; central conclusion is reversed."
+      },
+      "code-intervals": {
+        "true_repetition": true,
+        "notes": "Repeats merge2 through merge21 helper definitions without a functioning merging algorithm; capped at 512 tokens."
+      },
+      "code-dedup": {
+        "requirements_pass": true,
+        "notes": "Working order-preserving deduplication; execution tests pass."
+      },
+      "code-search": {
+        "requirements_pass": true,
+        "notes": "Uses low/high bounds and a midpoint loop for binary search; execution tests pass."
+      }
+    },
+    "shared-small": {
+      "explanation-0": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Defines photosynthesis and respiration as animals turning food into liquid; then repeats food/liquid claims through the cap."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Repeats that a metal spoon is a metal spoon, without the heat-transfer explanation."
+      },
+      "programs": {
+        "notes": "All four lack a function; empty code fences. Interval answer repeats fences through the cap. Parser syntax acceptance of empty code is not functional correctness."
+      }
+    },
+    "shared-large-dynamic": {
+      "explanation-0": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Generic energy-to-energy claims and repeated input/output paragraphs; fails to identify required reactants/products."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Repeats identical conductivity claims for metal and wood; no correct sensory conclusion."
+      },
+      "programs": {
+        "notes": "All four repeat empty code fences through the cap, with no function."
+      }
+    },
+    "shared-extended": {
+      "explanation-0": {
+        "core_correct": false,
+        "true_repetition": false,
+        "notes": "Finishes, but incorrectly defines both photosynthesis and respiration as nutrient breakdown. Repeats several claims; automatic flag reflects redundancy, not an endless loop."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Contradictory heat-transfer statements repeated through the cap."
+      },
+      "programs": {
+        "notes": "Dedup, intervals and search repeat comments or return statements through the cap and fail syntax extraction. Word count finishes but calls input, counts characters, returns a scalar and has an undefined top-level count; all tests fail."
+      }
+    },
+    "shared-broad": {
+      "code-search": {
+        "requirements_pass": false,
+        "notes": "Passes the three return-value tests, but uses `target in values` and `values.index(target)`: a linear scan, contrary to the requested binary-search algorithm. Count separately from full requirement correctness."
+      },
+      "programs": {
+        "notes": "Dedup returns indices early; intervals returns starting endpoints without merging. Word count is an unfinished fence around incorrect index-counting code. Binary-search return values pass, but its algorithm requirement fails."
+      },
+      "explanation-0": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Finishes after repeating the same input/output paragraph nine times. Incorrectly describes both photosynthesis and respiration as light capturing body energy; required reactants/products absent."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Contradicts equal starting temperatures, claiming the metal spoon is hotter, and repeats that claim through the cap."
+      }
+    },
+    "layer-large-matched": {
+      "explanation-0": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Incorrectly treats photosynthesis and respiration as human-body processes for creating images, then repeats through the cap."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Discusses repeated environment-to-material heat transfer rather than heat leaving the hand; never gives the required conductivity/sensation distinction."
+      },
+      "programs": {
+        "notes": "All four repeat empty code fences through the cap; no working function."
+      }
+    },
+    "shared-large": {
+      "explanation-0": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Repeats energy, sunlight and nutrients as both inputs and outputs without the required reactants/products; continues through the cap."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Repeats that both metal and wood efficiently transfer heat; fails to explain their sensory difference."
+      },
+      "programs": {
+        "notes": "All four repeat empty code fences through the cap; no function."
+      }
+    },
+    "shared-extended-linear": {
+      "explanation-0": {
+        "core_correct": false,
+        "true_repetition": false,
+        "notes": "Finishes with redundant paragraphs defining both processes as breaking down nutrients from the sun and saying the sun supplies energy to the sun. Wrong core facts; flag is repetition within a completed answer."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "true_repetition": false,
+        "notes": "Finishes without a repetition flag but explains room-to-spoon heat transfer and claims both feel cool and stable; omits heat flow from hand and the needed contrast."
+      },
+      "programs": {
+        "notes": "Dedup has a malformed function signature and a long numeric example through the cap. Intervals only sorts without merging. Search has invalid indentation. Word count returns a scalar whitespace-token count. No execution-passing programs."
+      }
+    },
+    "layer-large-samewidth": {
+      "explanation-0": {
+        "core_correct": false,
+        "true_repetition": false,
+        "notes": "Finishes with redundant text, but says air supplies body energy and respiration outputs air. Does not give correct reactants/products; automatic repetition flag is not a cap."
+      },
+      "explanation-1": {
+        "core_correct": false,
+        "true_repetition": true,
+        "notes": "Claims solid objects cannot absorb heat because they are not liquid; repeats the same paragraph through the cap."
+      },
+      "programs": {
+        "notes": "All four repeat empty code fences through the cap; no working function."
+      }
+    }
+  }
+}

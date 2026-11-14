@@ -1,0 +1,1587 @@
+{
+  "google-research-datasets/nq_open": {
+    "repo": "google-research-datasets/nq_open",
+    "revision": "5dd9790a83002ad084ddeb7c420dc716852c6f28",
+    "license": [
+      "cc-by-sa-3.0"
+    ],
+    "files": [
+      "nq_open/train-00000-of-00001.parquet"
+    ],
+    "info": {
+      "config_name": "nq_open",
+      "features": [
+        {
+          "name": "question",
+          "dtype": "string"
+        },
+        {
+          "name": "answer",
+          "sequence": "string"
+        }
+      ],
+      "splits": [
+        {
+          "name": "train",
+          "num_bytes": 6651236,
+          "num_examples": 87925
+        },
+        {
+          "name": "validation",
+          "num_bytes": 313829,
+          "num_examples": 3610
+        }
+      ],
+      "download_size": 4678245,
+      "dataset_size": 6965065
+    }
+  },
+  "mandarjoshi/trivia_qa": {
+    "repo": "mandarjoshi/trivia_qa",
+    "revision": "0f7faf33a3908546c6fd5b73a660e0f8ff173c2f",
+    "license": [
+      "unknown"
+    ],
+    "files": [
+      "rc.nocontext/train-00000-of-00001.parquet",
+      "rc.web.nocontext/train-00000-of-00001.parquet",
+      "rc.web/train-00000-of-00019.parquet",
+      "rc.web/train-00001-of-00019.parquet",
+      "rc.web/train-00002-of-00019.parquet",
+      "rc.web/train-00003-of-00019.parquet",
+      "rc.web/train-00004-of-00019.parquet",
+      "rc.web/train-00005-of-00019.parquet",
+      "rc.web/train-00006-of-00019.parquet",
+      "rc.web/train-00007-of-00019.parquet",
+      "rc.web/train-00008-of-00019.parquet",
+      "rc.web/train-00009-of-00019.parquet",
+      "rc.web/train-00010-of-00019.parquet",
+      "rc.web/train-00011-of-00019.parquet",
+      "rc.web/train-00012-of-00019.parquet",
+      "rc.web/train-00013-of-00019.parquet",
+      "rc.web/train-00014-of-00019.parquet",
+      "rc.web/train-00015-of-00019.parquet",
+      "rc.web/train-00016-of-00019.parquet",
+      "rc.web/train-00017-of-00019.parquet",
+      "rc.web/train-00018-of-00019.parquet",
+      "rc.wikipedia.nocontext/train-00000-of-00001.parquet",
+      "rc.wikipedia/train-00000-of-00007.parquet",
+      "rc.wikipedia/train-00001-of-00007.parquet",
+      "rc.wikipedia/train-00002-of-00007.parquet",
+      "rc.wikipedia/train-00003-of-00007.parquet",
+      "rc.wikipedia/train-00004-of-00007.parquet",
+      "rc.wikipedia/train-00005-of-00007.parquet",
+      "rc.wikipedia/train-00006-of-00007.parquet",
+      "rc/train-00000-of-00026.parquet",
+      "rc/train-00001-of-00026.parquet",
+      "rc/train-00002-of-00026.parquet",
+      "rc/train-00003-of-00026.parquet",
+      "rc/train-00004-of-00026.parquet",
+      "rc/train-00005-of-00026.parquet",
+      "rc/train-00006-of-00026.parquet",
+      "rc/train-00007-of-00026.parquet",
+      "rc/train-00008-of-00026.parquet",
+      "rc/train-00009-of-00026.parquet",
+      "rc/train-00010-of-00026.parquet",
+      "rc/train-00011-of-00026.parquet",
+      "rc/train-00012-of-00026.parquet",
+      "rc/train-00013-of-00026.parquet",
+      "rc/train-00014-of-00026.parquet",
+      "rc/train-00015-of-00026.parquet",
+      "rc/train-00016-of-00026.parquet",
+      "rc/train-00017-of-00026.parquet",
+      "rc/train-00018-of-00026.parquet",
+      "rc/train-00019-of-00026.parquet",
+      "rc/train-00020-of-00026.parquet",
+      "rc/train-00021-of-00026.parquet",
+      "rc/train-00022-of-00026.parquet",
+      "rc/train-00023-of-00026.parquet",
+      "rc/train-00024-of-00026.parquet",
+      "rc/train-00025-of-00026.parquet",
+      "unfiltered.nocontext/train-00000-of-00001.parquet",
+      "unfiltered/train-00000-of-00047.parquet",
+      "unfiltered/train-00001-of-00047.parquet",
+      "unfiltered/train-00002-of-00047.parquet",
+      "unfiltered/train-00003-of-00047.parquet",
+      "unfiltered/train-00004-of-00047.parquet",
+      "unfiltered/train-00005-of-00047.parquet",
+      "unfiltered/train-00006-of-00047.parquet",
+      "unfiltered/train-00007-of-00047.parquet",
+      "unfiltered/train-00008-of-00047.parquet",
+      "unfiltered/train-00009-of-00047.parquet",
+      "unfiltered/train-00010-of-00047.parquet",
+      "unfiltered/train-00011-of-00047.parquet",
+      "unfiltered/train-00012-of-00047.parquet",
+      "unfiltered/train-00013-of-00047.parquet",
+      "unfiltered/train-00014-of-00047.parquet",
+      "unfiltered/train-00015-of-00047.parquet",
+      "unfiltered/train-00016-of-00047.parquet",
+      "unfiltered/train-00017-of-00047.parquet",
+      "unfiltered/train-00018-of-00047.parquet",
+      "unfiltered/train-00019-of-00047.parquet",
+      "unfiltered/train-00020-of-00047.parquet",
+      "unfiltered/train-00021-of-00047.parquet",
+      "unfiltered/train-00022-of-00047.parquet",
+      "unfiltered/train-00023-of-00047.parquet",
+      "unfiltered/train-00024-of-00047.parquet",
+      "unfiltered/train-00025-of-00047.parquet",
+      "unfiltered/train-00026-of-00047.parquet",
+      "unfiltered/train-00027-of-00047.parquet",
+      "unfiltered/train-00028-of-00047.parquet",
+      "unfiltered/train-00029-of-00047.parquet",
+      "unfiltered/train-00030-of-00047.parquet",
+      "unfiltered/train-00031-of-00047.parquet",
+      "unfiltered/train-00032-of-00047.parquet",
+      "unfiltered/train-00033-of-00047.parquet",
+      "unfiltered/train-00034-of-00047.parquet",
+      "unfiltered/train-00035-of-00047.parquet",
+      "unfiltered/train-00036-of-00047.parquet",
+      "unfiltered/train-00037-of-00047.parquet",
+      "unfiltered/train-00038-of-00047.parquet",
+      "unfiltered/train-00039-of-00047.parquet",
+      "unfiltered/train-00040-of-00047.parquet",
+      "unfiltered/train-00041-of-00047.parquet",
+      "unfiltered/train-00042-of-00047.parquet",
+      "unfiltered/train-00043-of-00047.parquet",
+      "unfiltered/train-00044-of-00047.parquet",
+      "unfiltered/train-00045-of-00047.parquet",
+      "unfiltered/train-00046-of-00047.parquet"
+    ],
+    "info": [
+      {
+        "config_name": "rc",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train",
+            "num_bytes": 12749651131,
+            "num_examples": 138384
+          },
+          {
+            "name": "validation",
+            "num_bytes": 1662321188,
+            "num_examples": 17944
+          },
+          {
+            "name": "test",
+            "num_bytes": 1577710503,
+            "num_examples": 17210
+          }
+        ],
+        "download_size": 8998808983,
+        "dataset_size": 15989682822
+      },
+      {
+        "config_name": "rc.nocontext",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train",
+            "num_bytes": 106882730,
+            "num_examples": 138384
+          },
+          {
+            "name": "validation",
+            "num_bytes": 14059830,
+            "num_examples": 17944
+          },
+          {
+            "name": "test",
+            "num_bytes": 3667903,
+            "num_examples": 17210
+          }
+        ],
+        "download_size": 63926518,
+        "dataset_size": 124610463
+      },
+      {
+        "config_name": "rc.web",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train",
+            "num_bytes": 9408851139,
+            "num_examples": 76496
+          },
+          {
+            "name": "validation",
+            "num_bytes": 1232155138,
+            "num_examples": 9951
+          },
+          {
+            "name": "test",
+            "num_bytes": 1171663999,
+            "num_examples": 9509
+          }
+        ],
+        "download_size": 6626625832,
+        "dataset_size": 11812670276
+      },
+      {
+        "config_name": "rc.web.nocontext",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train",
+            "num_bytes": 58523085,
+            "num_examples": 76496
+          },
+          {
+            "name": "validation",
+            "num_bytes": 7694557,
+            "num_examples": 9951
+          },
+          {
+            "name": "test",
+            "num_bytes": 2024747,
+            "num_examples": 9509
+          }
+        ],
+        "download_size": 35123473,
+        "dataset_size": 68242389
+      },
+      {
+        "config_name": "rc.wikipedia",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train",
+            "num_bytes": 3340799992,
+            "num_examples": 61888
+          },
+          {
+            "name": "validation",
+            "num_bytes": 430166050,
+            "num_examples": 7993
+          },
+          {
+            "name": "test",
+            "num_bytes": 406046504,
+            "num_examples": 7701
+          }
+        ],
+        "download_size": 2293374081,
+        "dataset_size": 4177012546
+      },
+      {
+        "config_name": "rc.wikipedia.nocontext",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train",
+            "num_bytes": 48359645,
+            "num_examples": 61888
+          },
+          {
+            "name": "validation",
+            "num_bytes": 6365273,
+            "num_examples": 7993
+          },
+          {
+            "name": "test",
+            "num_bytes": 1643156,
+            "num_examples": 7701
+          }
+        ],
+        "download_size": 28803950,
+        "dataset_size": 56368074
+      },
+      {
+        "config_name": "unfiltered",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train",
+            "num_bytes": 23292199425,
+            "num_examples": 87622
+          },
+          {
+            "name": "validation",
+            "num_bytes": 3038803743,
+            "num_examples": 11313
+          },
+          {
+            "name": "test",
+            "num_bytes": 2906455311,
+            "num_examples": 10832
+          }
+        ],
+        "download_size": 16695552268,
+        "dataset_size": 29237458479
+      },
+      {
+        "config_name": "unfiltered.nocontext",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train",
+            "num_bytes": 63300226,
+            "num_examples": 87622
+          },
+          {
+            "name": "validation",
+            "num_bytes": 8296870,
+            "num_examples": 11313
+          },
+          {
+            "name": "test",
+            "num_bytes": 2320660,
+            "num_examples": 10832
+          }
+        ],
+        "download_size": 38364033,
+        "dataset_size": 73917756
+      },
+      {
+        "config_name": "unfiltered.web",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train"
+          },
+          {
+            "name": "validation"
+          },
+          {
+            "name": "test"
+          }
+        ],
+        "download_size": 3298328560,
+        "dataset_size": 0
+      },
+      {
+        "config_name": "unfiltered.web.nocontext",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train"
+          },
+          {
+            "name": "validation"
+          },
+          {
+            "name": "test"
+          }
+        ],
+        "download_size": 632549060,
+        "dataset_size": 0
+      },
+      {
+        "config_name": "unfiltered.wikipedia",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train"
+          },
+          {
+            "name": "validation"
+          },
+          {
+            "name": "test"
+          }
+        ],
+        "download_size": 3298328560,
+        "dataset_size": 0
+      },
+      {
+        "config_name": "unfiltered.wikipedia.nocontext",
+        "features": [
+          {
+            "name": "question",
+            "dtype": "string"
+          },
+          {
+            "name": "question_id",
+            "dtype": "string"
+          },
+          {
+            "name": "question_source",
+            "dtype": "string"
+          },
+          {
+            "name": "entity_pages",
+            "sequence": [
+              {
+                "name": "doc_source",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "wiki_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "search_results",
+            "sequence": [
+              {
+                "name": "description",
+                "dtype": "string"
+              },
+              {
+                "name": "filename",
+                "dtype": "string"
+              },
+              {
+                "name": "rank",
+                "dtype": "int32"
+              },
+              {
+                "name": "title",
+                "dtype": "string"
+              },
+              {
+                "name": "url",
+                "dtype": "string"
+              },
+              {
+                "name": "search_context",
+                "dtype": "string"
+              }
+            ]
+          },
+          {
+            "name": "answer",
+            "struct": [
+              {
+                "name": "aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "normalized_aliases",
+                "sequence": "string"
+              },
+              {
+                "name": "matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_matched_wiki_entity_name",
+                "dtype": "string"
+              },
+              {
+                "name": "normalized_value",
+                "dtype": "string"
+              },
+              {
+                "name": "type",
+                "dtype": "string"
+              },
+              {
+                "name": "value",
+                "dtype": "string"
+              }
+            ]
+          }
+        ],
+        "splits": [
+          {
+            "name": "train"
+          },
+          {
+            "name": "validation"
+          },
+          {
+            "name": "test"
+          }
+        ],
+        "download_size": 632549060,
+        "dataset_size": 0
+      }
+    ]
+  },
+  "sentence-transformers/natural-questions": {
+    "repo": "sentence-transformers/natural-questions",
+    "revision": "f9e894e1081e206e577b4eaa9ee6de2b06ae6f17",
+    "license": null,
+    "files": [
+      "pair/train-00000-of-00001.parquet"
+    ],
+    "info": {
+      "config_name": "pair",
+      "features": [
+        {
+          "name": "query",
+          "dtype": "string"
+        },
+        {
+          "name": "answer",
+          "dtype": "string"
+        }
+      ],
+      "splits": [
+        {
+          "name": "train",
+          "num_bytes": 67154228,
+          "num_examples": 100231
+        }
+      ],
+      "download_size": 43995757,
+      "dataset_size": 67154228
+    }
+  }
+}

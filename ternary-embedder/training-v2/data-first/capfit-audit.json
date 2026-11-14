@@ -1,0 +1,53 @@
+{
+  "policy": "Keep both tokenized inputs strictly below 128 tokens; conservative exclusion includes texts exactly at cap",
+  "teacher_targets": false,
+  "source_audit_sha256": "91838ee7930ca9bac943eed53d03a9c6b14ddd0f8578034d274104edb4de4232",
+  "splits": {
+    "train": 780743,
+    "dev": 15929
+  },
+  "by_source": {
+    "train": {
+      "sentence-transformers/msmarco-bm25": 220323,
+      "sentence-transformers/gooaq": 195687,
+      "sentence-transformers/natural-questions": 38511,
+      "sentence-transformers/squad": 19759,
+      "sentence-transformers/stackexchange-duplicates": 98007,
+      "sentence-transformers/s2orc": 86571,
+      "sentence-transformers/quora-duplicates": 48925,
+      "sentence-transformers/all-nli": 72960
+    },
+    "dev": {
+      "sentence-transformers/msmarco-bm25": 4643,
+      "sentence-transformers/gooaq": 3857,
+      "sentence-transformers/natural-questions": 753,
+      "sentence-transformers/squad": 457,
+      "sentence-transformers/stackexchange-duplicates": 1830,
+      "sentence-transformers/s2orc": 1752,
+      "sentence-transformers/quora-duplicates": 1012,
+      "sentence-transformers/all-nli": 1625
+    }
+  },
+  "dropped_at_cap": {
+    "train": {
+      "sentence-transformers/msmarco-bm25": 24502,
+      "sentence-transformers/gooaq": 444,
+      "sentence-transformers/natural-questions": 35025,
+      "sentence-transformers/squad": 29152,
+      "sentence-transformers/s2orc": 109429
+    },
+    "dev": {
+      "sentence-transformers/msmarco-bm25": 531,
+      "sentence-transformers/gooaq": 10,
+      "sentence-transformers/natural-questions": 710,
+      "sentence-transformers/squad": 629,
+      "sentence-transformers/s2orc": 2163
+    }
+  },
+  "train_dev_shared_visible_texts": 0,
+  "limits": "Input completeness does not guarantee correct relevance labels or remove all semantic near duplicates",
+  "output_sha256": {
+    "train": "f85428a8870ce75179ecbf77a0b0fb0bda10b165d3652c4c78ca317e009d0715",
+    "dev": "68235d8dfbb0e297379d332e8ab265058a1c7977672a32216a52f1e0b00f3a6d"
+  }
+}

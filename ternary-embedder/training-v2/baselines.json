@@ -1,0 +1,54 @@
+{
+  "bge_micro": {
+    "model": "TaylorAI/bge-micro-v2",
+    "revision": "3edf6d7de0faa426b09780416fe61009f26ae589",
+    "max_length": 128,
+    "prompts": false,
+    "tasks": {
+      "SciFact": {
+        "ndcg10": 61.330435853792345,
+        "recall10": 75.8888888888889,
+        "top1_relevant_queries": 146,
+        "median_first_relevant_rank": 2.0,
+        "median_best_relevant_margin": -0.00362202525138855,
+        "queries": 300
+      },
+      "NFCorpus": {
+        "ndcg10": 31.098027254039838,
+        "recall10": 14.471353525828368,
+        "top1_relevant_queries": 138,
+        "median_first_relevant_rank": 2.0,
+        "median_best_relevant_margin": -0.013639092445373535,
+        "queries": 323
+      }
+    },
+    "stsbenchmark_spearman": 82.49732953181818,
+    "mean_ndcg10": 46.21423155391609
+  },
+  "minilm": {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "max_length": 128,
+    "prompts": false,
+    "tasks": {
+      "SciFact": {
+        "ndcg10": 62.38596288000935,
+        "recall10": 77.43333333333334,
+        "top1_relevant_queries": 144,
+        "median_first_relevant_rank": 2.0,
+        "median_best_relevant_margin": -0.007599860429763794,
+        "queries": 300
+      },
+      "NFCorpus": {
+        "ndcg10": 31.45339351937142,
+        "recall10": 15.369212102238459,
+        "top1_relevant_queries": 139,
+        "median_first_relevant_rank": 3.0,
+        "median_best_relevant_margin": -0.033481717109680176,
+        "queries": 323
+      }
+    },
+    "stsbenchmark_spearman": 82.03246731235654,
+    "mean_ndcg10": 46.91967819969039
+  }
+}

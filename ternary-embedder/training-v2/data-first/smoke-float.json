@@ -1,0 +1,30 @@
+{
+  "scope": "Pipeline smoke only, not a quality gain",
+  "config": {
+    "data": "ternary-embedder/training-v2/work/data-first/ready/train.jsonl",
+    "checkpoint": "ternary-embedder/retrieval-diagnostics/float-control/runs/float150/model.pt",
+    "out": "ternary-embedder/training-v2/work/data-first/smoke-float",
+    "steps": 8,
+    "batch": 8,
+    "lr": 1e-05,
+    "temperature": 0.05,
+    "device": "cpu",
+    "seed": 29,
+    "limit": 512,
+    "teacher_targets": false,
+    "precision": "float",
+    "checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95",
+    "data_sha256": "426f8d6d159f50fd01d389fe26c85c11fdc133a1a207572cda9a63e5d9c0f55e",
+    "loaded_rows": 512,
+    "source_sampling": "single-source batches, proportional to rows"
+  },
+  "last_step": {
+    "step": 8,
+    "source": "sentence-transformers/msmarco-bm25",
+    "loss": 0.012168645858764648,
+    "grad_norm": 0.5972201824188232,
+    "lr": 1.3425421036992098e-06,
+    "seconds": 2.1134769250056706
+  },
+  "exact_checkpoint_reload": true
+}

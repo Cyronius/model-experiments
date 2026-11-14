@@ -1,0 +1,415 @@
+{
+  "status": "Audited positive-pair candidates; local float and ternary direct-training smoke passed; full training quality unmeasured",
+  "teacher_targets": false,
+  "architecture_unchanged": true,
+  "token_cap": 128,
+  "seed": 23,
+  "dev_fraction_requested": 0.02,
+  "kept_pairs": 999267,
+  "splits": {
+    "train": 979295,
+    "dev": 19972
+  },
+  "rejected": {
+    "benchmark_visible_overlap": 595,
+    "duplicate_visible_pair": 65,
+    "identical_after_truncation": 73
+  },
+  "by_source": {
+    "msmarco-bm25": {
+      "candidate_rows": 250000,
+      "query_at_token_cap": 0,
+      "positive_at_token_cap": 25033,
+      "query_tokens": 2255957,
+      "positive_tokens": 19569833,
+      "kept_rows": 249999,
+      "benchmark_visible_overlap": 1,
+      "train": 244825,
+      "dev": 5174
+    },
+    "gooaq": {
+      "candidate_rows": 200000,
+      "query_at_token_cap": 0,
+      "positive_at_token_cap": 454,
+      "query_tokens": 2378156,
+      "positive_tokens": 12054837,
+      "kept_rows": 199998,
+      "benchmark_visible_overlap": 2,
+      "train": 196131,
+      "dev": 3867
+    },
+    "natural-questions": {
+      "candidate_rows": 75000,
+      "query_at_token_cap": 0,
+      "positive_at_token_cap": 35735,
+      "query_tokens": 882706,
+      "positive_tokens": 7936475,
+      "kept_rows": 74999,
+      "duplicate_visible_pair": 1,
+      "train": 73536,
+      "dev": 1463
+    },
+    "squad": {
+      "candidate_rows": 50000,
+      "query_at_token_cap": 0,
+      "positive_at_token_cap": 29781,
+      "query_tokens": 724505,
+      "positive_tokens": 5701005,
+      "kept_rows": 49997,
+      "duplicate_visible_pair": 3,
+      "train": 48911,
+      "dev": 1086
+    },
+    "stackexchange-duplicates": {
+      "candidate_rows": 100000,
+      "query_at_token_cap": 0,
+      "positive_at_token_cap": 0,
+      "query_tokens": 1570020,
+      "positive_tokens": 1629592,
+      "kept_rows": 99837,
+      "benchmark_visible_overlap": 106,
+      "duplicate_visible_pair": 51,
+      "identical_after_truncation": 6,
+      "train": 98007,
+      "dev": 1830
+    },
+    "s2orc": {
+      "candidate_rows": 200000,
+      "query_at_token_cap": 1,
+      "positive_at_token_cap": 111591,
+      "query_tokens": 3746584,
+      "positive_tokens": 21597921,
+      "kept_rows": 199915,
+      "identical_after_truncation": 18,
+      "benchmark_visible_overlap": 67,
+      "train": 196000,
+      "dev": 3915
+    },
+    "quora-duplicates": {
+      "candidate_rows": 50000,
+      "query_at_token_cap": 0,
+      "positive_at_token_cap": 0,
+      "query_tokens": 689113,
+      "positive_tokens": 686689,
+      "kept_rows": 49937,
+      "identical_after_truncation": 49,
+      "benchmark_visible_overlap": 4,
+      "duplicate_visible_pair": 10,
+      "train": 48925,
+      "dev": 1012
+    },
+    "all-nli": {
+      "candidate_rows": 75000,
+      "query_at_token_cap": 0,
+      "positive_at_token_cap": 0,
+      "query_tokens": 1185820,
+      "positive_tokens": 713107,
+      "kept_rows": 74585,
+      "benchmark_visible_overlap": 415,
+      "train": 72960,
+      "dev": 1625
+    }
+  },
+  "components": 841582,
+  "largest_component_rows": 2317,
+  "train_dev_shared_visible_texts": 0,
+  "reference_text_files": {
+    "comparisons/qwen06b/data/scifact/corpus.jsonl": "dec31c8182f3d744c7d2c09423756fd1d17cbef75808db13ba01cc0aab4d1ac6",
+    "comparisons/qwen06b/data/scifact/queries.jsonl": "8ff84a7c903f722981cd8d595c022660140c51867b27608a6d4910db86080313",
+    "comparisons/qwen06b/data/nfcorpus/corpus.jsonl": "10cc83ef1826b1425e6a87090b5140b39b27755d5a27e48215a88611c899991f",
+    "comparisons/qwen06b/data/nfcorpus/queries.jsonl": "d024e6621b84925d485ae473d316a0c3af31c62c8068a59fb29d22f7613aef2a",
+    "comparisons/qwen06b/data/arguana/corpus.jsonl": "0627982cec4ee896df6dc98604ef6b499c83fd87a19eaaeb3f23b88bbef6cbce",
+    "comparisons/qwen06b/data/arguana/queries.jsonl": "f8b7c903f95d9a2d291de3915a8fac25085e9db679f19f59fea4145bfd1df618",
+    "comparisons/qwen06b/data/fiqa/corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+    "comparisons/qwen06b/data/fiqa/queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+    "comparisons/qwen06b/data/scidocs/corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+    "comparisons/qwen06b/data/scidocs/queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+    "comparisons/qwen06b/data/stsb-test.json": "a6e8342d9420a0eff494236e0dc5b359839ec232db0e8cebd30eda5f88a649ef"
+  },
+  "reserved_unscored_tests": [
+    "FiQA2018",
+    "SCIDOCS"
+  ],
+  "sources": {
+    "msmarco-bm25": {
+      "sha256": "ba84964891de9a23d558a654bd3e2be54a68c1d52c7831be36cfadd6eb4d9e3f",
+      "manifest": {
+        "request": {
+          "source": {
+            "id": "sentence-transformers/msmarco-bm25",
+            "config": "triplet",
+            "query": "query",
+            "positive": "positive",
+            "quota": 250000,
+            "relation": "search relevance",
+            "revision": "ce8a493a65af5e872c3c92f72a89e2e99e175f02",
+            "split": "train",
+            "upstream_training_rows": 502931,
+            "card_license": "not specified in derivative card"
+          },
+          "target": 250000,
+          "seed": 19,
+          "shuffle_buffer": 8192
+        },
+        "accepted": 250000,
+        "scanned": 250049,
+        "exhausted_before_quota": false,
+        "filtered": {
+          "url_only_prefix": 35,
+          "duplicate_query": 14
+        },
+        "seconds": 13.819065492003574,
+        "sha256": "ba84964891de9a23d558a654bd3e2be54a68c1d52c7831be36cfadd6eb4d9e3f",
+        "status": "candidate pairs; benchmark/truncation dedup and split audit pending"
+      }
+    },
+    "gooaq": {
+      "sha256": "4bf85e9d747238548599a217c7c9ce844602af14d1cfc07f0d909ec3aa7a861a",
+      "manifest": {
+        "request": {
+          "source": {
+            "id": "sentence-transformers/gooaq",
+            "config": "pair",
+            "query": "question",
+            "positive": "answer",
+            "quota": 200000,
+            "relation": "question answer; weak supervision",
+            "revision": "b089f728748a068b7bc5234e5bcf5b25e3c8279c",
+            "split": "train",
+            "upstream_training_rows": 3012496,
+            "card_license": "not specified in derivative card"
+          },
+          "target": 200000,
+          "seed": 19,
+          "shuffle_buffer": 8192
+        },
+        "accepted": 200000,
+        "scanned": 200024,
+        "exhausted_before_quota": false,
+        "filtered": {
+          "short_positive": 22,
+          "url_only_prefix": 2
+        },
+        "seconds": 12.831255901997793,
+        "sha256": "4bf85e9d747238548599a217c7c9ce844602af14d1cfc07f0d909ec3aa7a861a",
+        "status": "candidate pairs; benchmark/truncation dedup and split audit pending"
+      }
+    },
+    "natural-questions": {
+      "sha256": "2c0c64eefbb72ca76a5a9df6aca441e5a2621487ac5623af0f3f09ee165db907",
+      "manifest": {
+        "request": {
+          "source": {
+            "id": "sentence-transformers/natural-questions",
+            "config": "pair",
+            "query": "query",
+            "positive": "answer",
+            "quota": 75000,
+            "relation": "question passage relevance",
+            "revision": "f9e894e1081e206e577b4eaa9ee6de2b06ae6f17",
+            "split": "train",
+            "upstream_training_rows": 100231,
+            "card_license": "not specified in derivative card"
+          },
+          "target": 75000,
+          "seed": 19,
+          "shuffle_buffer": 8192
+        },
+        "accepted": 75000,
+        "scanned": 75017,
+        "exhausted_before_quota": false,
+        "filtered": {
+          "short_positive": 17
+        },
+        "seconds": 9.324588913004845,
+        "sha256": "2c0c64eefbb72ca76a5a9df6aca441e5a2621487ac5623af0f3f09ee165db907",
+        "status": "candidate pairs; benchmark/truncation dedup and split audit pending"
+      }
+    },
+    "squad": {
+      "sha256": "75158e2000a913a0423d9c7061e3f73a69f18fadd773bcfa9160d59ccfd1643d",
+      "manifest": {
+        "request": {
+          "source": {
+            "id": "sentence-transformers/squad",
+            "config": "pair",
+            "query": "question",
+            "positive": "answer",
+            "quota": 50000,
+            "relation": "question passage relevance",
+            "revision": "d84c8c2ef64693264c890bb242d2e73fc0a46c40",
+            "split": "train",
+            "upstream_training_rows": 87599,
+            "card_license": "not specified in derivative card"
+          },
+          "target": 50000,
+          "seed": 19,
+          "shuffle_buffer": 8192
+        },
+        "accepted": 50000,
+        "scanned": 50173,
+        "exhausted_before_quota": false,
+        "filtered": {
+          "duplicate_query": 164,
+          "too_short": 9
+        },
+        "seconds": 8.488832785005798,
+        "sha256": "75158e2000a913a0423d9c7061e3f73a69f18fadd773bcfa9160d59ccfd1643d",
+        "status": "candidate pairs; benchmark/truncation dedup and split audit pending"
+      }
+    },
+    "stackexchange-duplicates": {
+      "sha256": "ca8de62ff3963abfdd403ea65a7e912083298ef03a4fdf5c1d494861ecf02b4a",
+      "manifest": {
+        "request": {
+          "source": {
+            "id": "sentence-transformers/stackexchange-duplicates",
+            "config": "title-title-pair",
+            "query": "title1",
+            "positive": "title2",
+            "quota": 100000,
+            "relation": "duplicate question",
+            "revision": "1c9657aec12d9e101667bb9593efcc623c4a68ff",
+            "split": "train",
+            "upstream_training_rows": 304525,
+            "card_license": "not specified in derivative card"
+          },
+          "target": 100000,
+          "seed": 19,
+          "shuffle_buffer": 8192
+        },
+        "accepted": 100000,
+        "scanned": 100758,
+        "exhausted_before_quota": false,
+        "filtered": {
+          "identical_text": 171,
+          "short_positive": 426,
+          "duplicate_query": 154,
+          "replacement_characters": 3,
+          "url_only_prefix": 3,
+          "too_short": 1
+        },
+        "seconds": 8.606897336998372,
+        "sha256": "ca8de62ff3963abfdd403ea65a7e912083298ef03a4fdf5c1d494861ecf02b4a",
+        "status": "candidate pairs; benchmark/truncation dedup and split audit pending"
+      }
+    },
+    "s2orc": {
+      "sha256": "8dfa8264e721b8242482fccf3084bb8166705ffeb0c1ed26072596d7a54cbbed",
+      "manifest": {
+        "request": {
+          "source": {
+            "id": "sentence-transformers/s2orc",
+            "config": "title-abstract-pair",
+            "query": "title",
+            "positive": "abstract",
+            "quota": 200000,
+            "relation": "scientific title abstract; weak supervision",
+            "revision": "8cfc394e83b2ebfcf38f90b508aea383df742439",
+            "split": "train",
+            "upstream_training_rows": 41769185,
+            "card_license": "not specified in derivative card"
+          },
+          "target": 200000,
+          "seed": 19,
+          "shuffle_buffer": 8192
+        },
+        "accepted": 200000,
+        "scanned": 200063,
+        "exhausted_before_quota": false,
+        "filtered": {
+          "replacement_characters": 49,
+          "url_only_prefix": 2,
+          "duplicate_query": 11,
+          "short_positive": 1
+        },
+        "seconds": 22.78507151400845,
+        "sha256": "8dfa8264e721b8242482fccf3084bb8166705ffeb0c1ed26072596d7a54cbbed",
+        "status": "candidate pairs; benchmark/truncation dedup and split audit pending"
+      }
+    },
+    "quora-duplicates": {
+      "sha256": "ba8ebba48761b069be8846cf3c47200cb0bf2559f0860de803b9b699e6071ef2",
+      "manifest": {
+        "request": {
+          "source": {
+            "id": "sentence-transformers/quora-duplicates",
+            "config": "pair",
+            "query": "anchor",
+            "positive": "positive",
+            "quota": 50000,
+            "relation": "duplicate question",
+            "revision": "41f699770310302022a4dd75d4cf903bfef9ea46",
+            "split": "train",
+            "upstream_training_rows": 149263,
+            "card_license": "not specified in derivative card"
+          },
+          "target": 50000,
+          "seed": 19,
+          "shuffle_buffer": 8192
+        },
+        "accepted": 50000,
+        "scanned": 73540,
+        "exhausted_before_quota": false,
+        "filtered": {
+          "duplicate_query": 23513,
+          "short_positive": 10,
+          "identical_text": 17
+        },
+        "seconds": 7.837211415011552,
+        "sha256": "ba8ebba48761b069be8846cf3c47200cb0bf2559f0860de803b9b699e6071ef2",
+        "status": "candidate pairs; benchmark/truncation dedup and split audit pending"
+      }
+    },
+    "all-nli": {
+      "sha256": "e7407811ffac9fe92d7de6f906a22f05c5d3556df48280e8b0c704c0c79bff15",
+      "manifest": {
+        "request": {
+          "source": {
+            "id": "sentence-transformers/all-nli",
+            "config": "pair-class",
+            "query": "premise",
+            "positive": "hypothesis",
+            "label": 0,
+            "quota": 75000,
+            "relation": "entailment auxiliary; cap training weight",
+            "revision": "d482672c8e74ce18da116f430137434ba2e52fab",
+            "split": "train",
+            "upstream_training_rows": 942069,
+            "card_license": "not specified in derivative card"
+          },
+          "target": 75000,
+          "seed": 19,
+          "shuffle_buffer": 8192
+        },
+        "accepted": 75000,
+        "scanned": 276866,
+        "exhausted_before_quota": false,
+        "filtered": {
+          "other_label": 184380,
+          "duplicate_query": 16802,
+          "short_positive": 544,
+          "identical_text": 130,
+          "too_short": 10
+        },
+        "seconds": 10.264526330996887,
+        "sha256": "e7407811ffac9fe92d7de6f906a22f05c5d3556df48280e8b0c704c0c79bff15",
+        "status": "candidate pairs; benchmark/truncation dedup and split audit pending"
+      }
+    }
+  },
+  "output_sha256": {
+    "train": "426f8d6d159f50fd01d389fe26c85c11fdc133a1a207572cda9a63e5d9c0f55e",
+    "dev": "b8c27cd032781890ccd466c1b7c9cbe2eaa35215769a625c14eef7ac19d64df3"
+  },
+  "limits": "Exact model-visible deduplication; not exhaustive semantic near-duplicate detection. Test qrels were not read.",
+  "local_preflight": {
+    "tests": 6,
+    "float_steps": 8,
+    "ternary_steps": 8,
+    "batch": 8,
+    "finite_loss_and_gradients": true,
+    "exact_checkpoint_reload": true,
+    "teacher_targets": false
+  }
+}

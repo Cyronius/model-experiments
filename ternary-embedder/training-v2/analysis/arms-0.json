@@ -1,0 +1,97 @@
+{
+  "scope": "Post-hoc development diagnosis; no promotion; test scores now observed",
+  "models": {
+    "balanced-plain-anchor1.0/best.pt": {
+      "sha256": "28dc14921c67d3f02a6b6b8d24a3faa953a57dcf10debe2d0d47339b2f1e3060",
+      "step": 900,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 51.67065988921259,
+          "recall10": 63.9,
+          "top1_relevant_queries": 123,
+          "median_first_relevant_rank": 2.5,
+          "median_best_relevant_margin": -0.017260491847991943,
+          "queries": 300
+        },
+        "NFCorpus": {
+          "ndcg10": 27.016247960282286,
+          "recall10": 11.787083803720664,
+          "top1_relevant_queries": 132,
+          "median_first_relevant_rank": 3.0,
+          "median_best_relevant_margin": -0.01642507314682007,
+          "queries": 323
+        }
+      },
+      "mean": 39.343453924747436
+    },
+    "balanced-prompted-anchor.1/best.pt": {
+      "sha256": "16dea37573e1f018c6ad7135c56bef1e30f1849f8199dbbe7b332a80b95af3d1",
+      "step": 500,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 50.73937293576748,
+          "recall10": 64.53888888888889,
+          "top1_relevant_queries": 116,
+          "median_first_relevant_rank": 3.0,
+          "median_best_relevant_margin": -0.019562125205993652,
+          "queries": 300
+        },
+        "NFCorpus": {
+          "ndcg10": 26.92891379268382,
+          "recall10": 11.735725938586414,
+          "top1_relevant_queries": 133,
+          "median_first_relevant_rank": 3.0,
+          "median_best_relevant_margin": -0.019732177257537842,
+          "queries": 323
+        }
+      },
+      "mean": 38.834143364225646
+    },
+    "balanced-prompted-anchor1.0-positive.2/best.pt": {
+      "sha256": "b112994ea85c797292713f0242a02112315f7fda5630980de953abfabec27056",
+      "step": 3600,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 53.80309041589382,
+          "recall10": 66.28888888888889,
+          "top1_relevant_queries": 130,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.011535823345184326,
+          "queries": 300
+        },
+        "NFCorpus": {
+          "ndcg10": 28.74434665262503,
+          "recall10": 12.950835382607051,
+          "top1_relevant_queries": 134,
+          "median_first_relevant_rank": 3.0,
+          "median_best_relevant_margin": -0.015009164810180664,
+          "queries": 323
+        }
+      },
+      "mean": 41.27371853425942
+    },
+    "balanced-prompted-anchor1.0/model.pt": {
+      "sha256": "c22b7da9e2773bb2244dd8a312f38301288f4a3601125003e5d487645eb18e27",
+      "step": 4000,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 53.53199693450264,
+          "recall10": 65.27777777777777,
+          "top1_relevant_queries": 129,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.013606786727905273,
+          "queries": 300
+        },
+        "NFCorpus": {
+          "ndcg10": 29.198375074584725,
+          "recall10": 13.382366514156239,
+          "top1_relevant_queries": 131,
+          "median_first_relevant_rank": 3.0,
+          "median_best_relevant_margin": -0.017902672290802002,
+          "queries": 323
+        }
+      },
+      "mean": 41.36518600454368
+    }
+  }
+}

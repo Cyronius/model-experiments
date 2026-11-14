@@ -1,0 +1,166 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/tern-embed/pulls/grid1/runs/r0_3x384/float.pt",
+    "sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6",
+    "precision": "float",
+    "layers": 3,
+    "parameters": 17241984,
+    "eligible_for_promotion": false,
+    "historical_frozen_checkpoint": true
+  },
+  "token_cap": 128,
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 60.38729434827093,
+      "recall10": 74.53888888888889,
+      "top1_relevant_queries": 144,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.0032771527767181396,
+      "queries": 300,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "NFCorpus": {
+      "ndcg10": 31.34878634510218,
+      "recall10": 14.603927167517156,
+      "top1_relevant_queries": 137,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.011107206344604492,
+      "queries": 323,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "ArguAna": {
+      "ndcg10": 48.76735825764709,
+      "recall10": 76.95590327169275,
+      "top1_relevant_queries": 347,
+      "median_first_relevant_rank": 4.0,
+      "median_best_relevant_margin": -0.028923869132995605,
+      "queries": 1406,
+      "judged_documents_absent_from_corpus": 5
+    }
+  },
+  "scope": "Observed external development tasks; reserved FiQA/SCIDOCS labels not used",
+  "stsbenchmark_spearman": 83.85111030120804,
+  "mean_core_retrieval": 45.868040346686556,
+  "reference_report_sha256": "804a497e5ab5861cffc1dd26ca0a4dbdff46b232e17f5ba43706f1f7b6d4a4ef",
+  "paired": {
+    "original": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": 5.534096015140029,
+        "paired_bootstrap_95_ci": [
+          2.979683842764885,
+          8.054695278974773
+        ],
+        "queries_improved": 68,
+        "queries_worsened": 39,
+        "top1_gained": 22,
+        "top1_lost": 11
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 1.945911701183702,
+        "paired_bootstrap_95_ci": [
+          0.7571283724522295,
+          3.1209014454903317
+        ],
+        "queries_improved": 126,
+        "queries_worsened": 66,
+        "top1_gained": 23,
+        "top1_lost": 17
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": 6.053121633346541,
+        "paired_bootstrap_95_ci": [
+          4.728773088736734,
+          7.433737691383696
+        ],
+        "queries_improved": 500,
+        "queries_worsened": 281,
+        "top1_gained": 131,
+        "top1_lost": 76
+      }
+    },
+    "bge_micro": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -0.9431415055214076,
+        "paired_bootstrap_95_ci": [
+          -2.973329136572444,
+          1.0848151317367172
+        ],
+        "queries_improved": 44,
+        "queries_worsened": 53,
+        "top1_gained": 14,
+        "top1_lost": 16
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 0.2507590910623429,
+        "paired_bootstrap_95_ci": [
+          -0.5775716576367713,
+          1.111677403162094
+        ],
+        "queries_improved": 88,
+        "queries_worsened": 90,
+        "top1_gained": 14,
+        "top1_lost": 15
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -3.0403490432264273,
+        "paired_bootstrap_95_ci": [
+          -3.989485245838534,
+          -2.136081185463527
+        ],
+        "queries_improved": 231,
+        "queries_worsened": 381,
+        "top1_gained": 45,
+        "top1_lost": 89
+      }
+    },
+    "minilm": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -1.9986685317384112,
+        "paired_bootstrap_95_ci": [
+          -4.757870541550299,
+          0.8673152302393327
+        ],
+        "queries_improved": 51,
+        "queries_worsened": 69,
+        "top1_gained": 22,
+        "top1_lost": 22
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": -0.10460717426923222,
+        "paired_bootstrap_95_ci": [
+          -1.3118393894358817,
+          1.1070143054586832
+        ],
+        "queries_improved": 98,
+        "queries_worsened": 102,
+        "top1_gained": 20,
+        "top1_lost": 22
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": 0.0032022779898105446,
+        "paired_bootstrap_95_ci": [
+          -1.5163302793103919,
+          1.4997248127007963
+        ],
+        "queries_improved": 427,
+        "queries_worsened": 429,
+        "top1_gained": 110,
+        "top1_lost": 118
+      }
+    }
+  },
+  "gates": {
+    "original": {
+      "each_core_retrieval": true,
+      "stsbenchmark": true
+    },
+    "bge_micro": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    },
+    "minilm": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    }
+  }
+}

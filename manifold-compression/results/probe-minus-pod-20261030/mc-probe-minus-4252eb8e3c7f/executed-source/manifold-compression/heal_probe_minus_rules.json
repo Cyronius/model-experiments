@@ -1,0 +1,46 @@
+{
+  "folder": "probe_minus",
+  "earlier": ["probe", "probe_all", "probe_soft", "probe_fold"],
+  "fold": {
+    "fit_per_domain": 30,
+    "held_per_domain": 10,
+    "group": 4,
+    "batch": 8,
+    "rhos": [0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0],
+    "max_hours": 0.4
+  },
+  "evaluate": {
+    "arms": [
+      "learned",
+      {"name": "add", "router": "learned", "healed": true, "fold": "fold", "scale": 1},
+      {"name": "add_half", "router": "learned", "healed": true, "fold": "fold", "scale": 0.5},
+      {"name": "add_quarter", "router": "learned", "healed": true, "fold": "fold", "scale": 0.25},
+      {"name": "subtract_quarter", "router": "learned", "healed": true, "fold": "fold", "scale": -0.25},
+      {"name": "subtract_half", "router": "learned", "healed": true, "fold": "fold", "scale": -0.5},
+      {"name": "subtract", "router": "learned", "healed": true, "fold": "fold", "scale": -1},
+      {"name": "gains_less", "router": "learned", "healed": true, "fold": "gains", "scale": -1},
+      {"name": "shared_less", "router": "learned", "healed": true, "fold": "gain_shared", "scale": -1}
+    ],
+    "baseline": "learned",
+    "check": {"kl": 0.01, "bpb": 0.01},
+    "max_hours": 0.5
+  },
+  "generate": {
+    "arms": {
+      "subtract": {"router": "learned", "state": "fp32", "fold": "fold", "scale": -1},
+      "best": {"router": "learned", "state": "fp32", "fold": "fold", "scale": "best"}
+    },
+    "best": {"margin": 0.01},
+    "max_hours": 0.7
+  },
+  "loop": {"window": 20, "last": 1000, "threshold": 0.45},
+  "reading": "The user's question (2026-10-30), after adding the fold made the loops worse: what if the other neurons are subtracted instead? Subtracting the skipped neurons' real output would need every neuron to run, so this subtracts the fold, the part of it the neurons that run predict, at no extra cost: the fold check's fit (refitted the same way, heal_probe_fold_rules.json) at scales from -1 to +1, on the healed student with its learned routers, no training. Mirrored gains (each gain's distance from 1 reversed: the shared expert weighed about 0.94 instead of 1.06) are the same question for 'weigh it more'. 16 generations loop if at least 5 hit the cap stuck in a loop, are clean with at most 2, unclear in between. The 'best' generations run only if a scale lowers KL by at least 0.01 and is not -1. Subtracting lowers KL by at least 0.02: the healing over-compensates for the skipped neurons along the fold's direction; whether the loops follow decides between fitting the scale per layer and dropping the idea. Both sides raise KL, lowest at or near 0: the healed student already sits at the bottom of this line, so no fixed patch to the output weights after healing helps, and the skipped output has to be learned during healing (README section 12's options). A small positive scale lowers KL: the fold points the right way but at full strength overshoots, as layers fitted alone compound; next is fitting the layers in order, each on the folded student's own inputs.",
+  "predictions": {
+    "reproduce": "With rebuilt low-rank factors and the saved adapter, the learned-router student reproduces the healing run's last milestone: KL within 0.01 of 0.612 and 64K bits per byte within 1% of 0.734.",
+    "refit": "The refitted fold at scale 1 reproduces the fold check: KL within 0.01 of 0.743.",
+    "kl_subtract": "Subtracting the whole fold also raises KL, to at least 0.66: the healed student sits near the bottom along the fold's direction, so the size of the change costs, whichever its sign.",
+    "kl_best": "No scale tried (plus or minus a quarter, a half or the whole fold) lowers KL by more than 0.01.",
+    "gains_less": "The mirrored gains raise KL as well (by more than 0.002 each): the gains' +0.006 to +0.008 came from changing the healed student at all, not from their direction.",
+    "loops_subtract": "With the fold subtracted, at least 5 of the 16 generations still loop."
+  }
+}

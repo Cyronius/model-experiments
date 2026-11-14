@@ -1,0 +1,48 @@
+{
+  "scope": "Additional exact input exclusion for all newly observed nonretrieval legacy tests. Original six-dataset reference exclusions inherited from audited base. No new training run yet.",
+  "inputs_sha256": {
+    "train": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502",
+    "dev": "9ac846cb11f3b28c9280f9b369aba9c3f2377284a4a9d04f7a3baaa1428b0037"
+  },
+  "exclusion_texts_sha256": "8eef5795ca40b2d7468f5178343b7aa967ddf47974ae1bbd41f3181d4cd7bab9",
+  "counts": {
+    "train": {
+      "kept_pairs": 779098,
+      "removed_pairs": 1645
+    },
+    "dev": {
+      "kept_pairs": 15912,
+      "removed_pairs": 17
+    }
+  },
+  "by_source": {
+    "train": {
+      "sentence-transformers/msmarco-bm25": 220323,
+      "sentence-transformers/gooaq": 195687,
+      "sentence-transformers/natural-questions": 38511,
+      "sentence-transformers/squad": 19759,
+      "sentence-transformers/stackexchange-duplicates": 97260,
+      "sentence-transformers/s2orc": 86571,
+      "sentence-transformers/quora-duplicates": 48925,
+      "sentence-transformers/all-nli": 72062
+    },
+    "dev": {
+      "sentence-transformers/msmarco-bm25": 4643,
+      "sentence-transformers/gooaq": 3857,
+      "sentence-transformers/natural-questions": 753,
+      "sentence-transformers/squad": 457,
+      "sentence-transformers/stackexchange-duplicates": 1825,
+      "sentence-transformers/s2orc": 1752,
+      "sentence-transformers/quora-duplicates": 1012,
+      "sentence-transformers/all-nli": 1613
+    }
+  },
+  "output_sha256": {
+    "train": "e62c96cf6b7e72a1e57dbc720104693e6a66909a617d26ed138edd5854891675",
+    "dev": "7c33246ef2b38a58bd71fcbdb1a5394ff54b27a84fcb2023aa3d487a30bc29f1"
+  },
+  "remaining_known_legacy_test_visible_input_overlap": 0,
+  "train_dev_shared_visible_inputs": 0,
+  "teacher_targets": false,
+  "limits": "This removes direct input overlap from new fine-tuning data. It does not establish that historical pretrained checkpoints never saw these public texts."
+}

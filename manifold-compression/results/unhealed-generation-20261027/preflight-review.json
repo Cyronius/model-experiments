@@ -1,0 +1,64 @@
+{
+  "status": "preflight_reviewed_before_freeze",
+  "written_utc": "2026-10-27T07:52:22+00:00",
+  "pair_session": "Manifold",
+  "final_acknowledgments": {
+    "codex": {
+      "message": 236,
+      "scope": "runner deadline alarm, check_meta completion stamp, check_suite/stage_freeze, driver; own four files final"
+    },
+    "claude": {
+      "message": 235,
+      "scope": "rules (incl. eligible-weight clarification), science, review, analysis and their tests; own runner/driver/tests final"
+    }
+  },
+  "agreement_messages": [
+    199,
+    201,
+    202,
+    203,
+    205,
+    206,
+    208,
+    209,
+    211,
+    217,
+    218,
+    219,
+    220
+  ],
+  "owners": {
+    "claude": [
+      "unhealed_generation.py",
+      "run_unhealed_generation.sh",
+      "test_unhealed_generation.py"
+    ],
+    "codex": [
+      "unhealed_rules.json",
+      "unhealed_science.json",
+      "unhealed_review.py",
+      "unhealed_analysis.py",
+      "test_unhealed_review.py",
+      "test_unhealed_analysis.py"
+    ]
+  },
+  "sha256": {
+    "unhealed_generation.py": "53dd5fd87cdc4f290b3a6496877ce2129c314b34206cf4ca4bde0f64014076cb",
+    "run_unhealed_generation.sh": "c560937e91f9dd9854d17be2caf576e8367b156a5254b4456f97fd857815d1a6",
+    "test_unhealed_generation.py": "07c9e8a0d4e5decbf6635ed9e916c0a481bb5e789f3e1f5de3fd611d52c9cc65",
+    "unhealed_rules.json": "511ad860e7369249610337463f3d8eeac22d48566b1c222553f46194202fa55a",
+    "unhealed_science.json": "5212d7901804a273f2c91aeabc6468099f98bd41bf28297712a7fc77ee611aee",
+    "unhealed_review.py": "4734d70844b5fc3b33a55ab8e3077b024fb26b8d26a69514b2c00a5f606c54af",
+    "unhealed_analysis.py": "047f30a2937188d1c3e410a1fdbc244248406542334b0f413e2d7bf4501d4055",
+    "test_unhealed_review.py": "7f44202eb02aa6c9968b97b5a50ade4d16ce6956a750d7fb2a949a39e1560697",
+    "test_unhealed_analysis.py": "14727011e2fcfac60528db7de6c9ddb102316b305593ac3443486b5db417eb22",
+    "results/unhealed-generation-20261027/suite.json": "294911fedb0d43d0e7a9ccfb536eb178a5c958ddd74f6902679db71e725b63c6",
+    "results/unhealed-generation-20261027/rehearsal/record.json": "4e46ba80afdc799deab6ef5b38a819526344122c92396196d03a33df033dd823"
+  },
+  "tests": {
+    "command": "../target/manifold-audit/env/bin/python -m pytest -q test_unhealed_generation.py test_unhealed_review.py test_unhealed_analysis.py",
+    "result": "28 passed in 15.46s"
+  },
+  "rehearsal_disclosure": "rehearsal/record.json: a pre-freeze engineering rehearsal exposed six real cases (quarantined per rules.quarantine); one output prompted the unclosed-fence extraction fix.",
+  "scope": "Local CPU only, $0 cloud spend; no automatic follow-on experiment; no promotion."
+}

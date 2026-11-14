@@ -1,0 +1,90 @@
+{
+ "note": "Healing pilot for slim_batch's combined Qwen3.5-9B student, written 2026-10-29 before any healing run. The user approved a pilot of about 10M tokens for roughly $3-5 ('do it!'). One copy of the dense weights is both teacher and student; the student trains LoRA updates on every body projection plus its routers. KL is always from the stock dense model.",
+ "threads": 8,
+ "data": {
+  "salt": "heal-20261029",
+  "tokens": 10000000,
+  "seq_len": 2048,
+  "slack": 1.15,
+  "max_item_tokens": {"default": 4096, "code": 32768, "code_cpp": 32768},
+  "min_item_tokens": 32,
+  "max_file_bytes": 200000,
+  "overlap_tokens": 32,
+  "domains": ["chat", "code", "code_cpp", "math", "math_word", "wiki", "reasoning", "science"],
+  "held_out": ["biomed", "argument"],
+  "fetch": {
+   "math_configs": ["algebra", "counting_and_probability", "geometry", "intermediate_algebra", "number_theory",
+                    "prealgebra", "precalculus"],
+   "math": [[100, 10000]],
+   "math_word": [[500, 10000]],
+   "wiki": [[1000000, 6000]],
+   "reasoning": [[100500, 60], [110300, 60], [111300, 60], [112600, 60], [113400, 60],
+                 [101500, 60], [110400, 60], [111500, 60], [112800, 60], [113600, 60]],
+   "science": [[250000, 8000]],
+   "cpp_extra": ["aie_kernels", "include", "tools", "runtime_lib", "aie_runtime_lib"]
+  }
+ },
+ "student": {
+  "budget": "0.25",
+  "lora_rank": 64,
+  "lora_alpha": 64,
+  "seed": 26102921
+ },
+ "train": {
+  "tokens": 10000000,
+  "batch_sequences": 8,
+  "micro_batch": 2,
+  "lr": 0.0001,
+  "router_lr": 0.001,
+  "betas": [0.9, 0.99],
+  "warmup_steps": 20,
+  "lr_floor": 0.1,
+  "clip": 1.0,
+  "ce_weight": 0.5,
+  "router_weight": 1.0,
+  "router_stride": 4,
+  "loss_chunk": 1024,
+  "milestones": [1000000, 3000000, 10000000],
+  "log_every": 10,
+  "check": {"kl": 0.1, "bpb": 0.05},
+  "seed": 26102922,
+  "max_hours": 3.6,
+  "reserve_minutes": 65
+ },
+ "final": {
+  "state": "int16_row",
+  "state_docs_per_domain": 2,
+  "seed": 26102923,
+  "max_hours": 0.6,
+  "cache": {
+   "sizes": [4096, 16384],
+   "warm_tokens": 20480,
+   "ridge": 0.001,
+   "recall": 0.95,
+   "seed": 26102924,
+   "report_size": 16384
+  }
+ },
+ "generate": {
+  "prompts": "slim_prompts.json",
+  "count": 16,
+  "max_new_tokens": 2048,
+  "state": "int16_row",
+  "seed": 26102925,
+  "max_hours": 0.75
+ },
+ "predictions": {
+  "reproduce": "Before training the student reproduces the combined model: KL within 0.05 of 1.491 and 64K bits per byte within 3% of 1.061.",
+  "kl": "After the full run, domain-equal KL from the dense model on the original tokens is below 0.6 (unhealed 1.49).",
+  "bpb": "After the full run, bits per byte with the 64K vocabulary are below 0.75 (unhealed 1.061; dense 0.624 with the full vocabulary, 0.656 with the 64K one).",
+  "early": "At least 70% of the full run's KL reduction has happened by 3M tokens.",
+  "held_out": "Biomed and argument, which are not in the healing mix, lose at least half as large a share of their KL as the in-mix domains do.",
+  "router": "Router recall of the student's own best experts rises by at least 5 points from its value before training.",
+  "state": "int16 state storage changes the healed student's KL by under 0.01.",
+  "cache": "With the miss detector retrained on the healed student (16K rows of the 64K head), it falls back on under 40% of positions.",
+  "generate": "The healed student answers at least 4 of the 16 GSM8K prompts correctly within 2,048 tokens (the dense model answered 9)."
+ },
+ "criteria": {
+  "longer_run": "Worth a longer healing run if KL is below 0.6 and still falling between the last two milestones by at least 10% of its value."
+ }
+}

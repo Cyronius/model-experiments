@@ -1,0 +1,563 @@
+{
+  "models": {
+    "float-repeat": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-float-run/backups/science-float-float-repeat/best.pt",
+      "sha256": "fcdf9605642f5dc2383973896c9b12d0f0fc1b763feb330d0773b4e31f7610bd",
+      "step": 2008,
+      "precision": "float",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9536697864532471,
+            "ndcg10": 96.37088179588318,
+            "recall10": 0.9941847920417786
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9330794215202332,
+            "ndcg10": 94.71039175987244,
+            "recall10": 0.9906662702560425
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9835904836654663,
+            "ndcg10": 98.7052857875824,
+            "recall10": 0.9973440170288086
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9586221575737,
+            "ndcg10": 96.70578837394714,
+            "recall10": 0.9934354424476624
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7160966992378235,
+            "ndcg10": 74.64905977249146,
+            "recall10": 0.8558903932571411
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.9026908278465271,
+            "ndcg10": 91.2111222743988,
+            "recall10": 0.9455553889274597
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8916667103767395,
+            "ndcg10": 91.95913076400757,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.718202531337738,
+            "ndcg10": 75.9186863899231,
+            "recall10": 0.9020459055900574
+          }
+        },
+        "macro_ndcg10": 90.02879336476326,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 67.95532703399658,
+          "macro_accuracy": 67.95282363891602,
+          "by_label": {
+            "0": 72.45789766311646,
+            "1": 61.007100343704224,
+            "2": 70.39347290992737
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 2008,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 78.99080850183964,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 2008,
+        "precision": "float",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+    },
+    "float-fresh": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-float-run/backups/science-float-float-fresh/best.pt",
+      "sha256": "bb50d5a44b23132c4396f384bb9df2a54b071f1c79dc523f6e07de82aa305292",
+      "step": 2008,
+      "precision": "float",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9542235732078552,
+            "ndcg10": 96.42320275306702,
+            "recall10": 0.9946155548095703
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9332584738731384,
+            "ndcg10": 94.7206437587738,
+            "recall10": 0.9904070496559143
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9848091006278992,
+            "ndcg10": 98.79236817359924,
+            "recall10": 0.9973440170288086
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9595825672149658,
+            "ndcg10": 96.82894945144653,
+            "recall10": 0.9956236481666565
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7150022983551025,
+            "ndcg10": 74.56187009811401,
+            "recall10": 0.8558903932571411
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.9071957468986511,
+            "ndcg10": 91.61705374717712,
+            "recall10": 0.9478908181190491
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8913373947143555,
+            "ndcg10": 91.93636775016785,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7192567586898804,
+            "ndcg10": 75.96928477287292,
+            "recall10": 0.9014259576797485
+          }
+        },
+        "macro_ndcg10": 90.10621756315231,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 67.96069741249084,
+          "macro_accuracy": 67.96005169550578,
+          "by_label": {
+            "0": 72.65220284461975,
+            "1": 61.3783061504364,
+            "2": 69.84964609146118
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 2008,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 79.03313462932906,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 2008,
+        "precision": "float",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+    },
+    "3-float-fresh": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-float-run/backups/science-float-3-float-fresh/best.pt",
+      "sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+      "step": 2000,
+      "precision": "float",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9590767025947571,
+            "ndcg10": 96.84780836105347,
+            "recall10": 0.996769368648529
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9479690790176392,
+            "ndcg10": 95.98291516304016,
+            "recall10": 0.9958516955375671
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9887354969978333,
+            "ndcg10": 99.12884831428528,
+            "recall10": 0.9986720085144043
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9717060923576355,
+            "ndcg10": 97.81476855278015,
+            "recall10": 0.9978118538856506
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7443113327026367,
+            "ndcg10": 77.92472243309021,
+            "recall10": 0.9008219242095947
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.9142358303070068,
+            "ndcg10": 92.28489995002747,
+            "recall10": 0.9529995322227478
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8945817351341248,
+            "ndcg10": 92.17361807823181,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7226598858833313,
+            "ndcg10": 76.57862305641174,
+            "recall10": 0.9138251543045044
+          }
+        },
+        "macro_ndcg10": 91.09202548861504,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 68.2882308959961,
+          "macro_accuracy": 68.28759709993999,
+          "by_label": {
+            "0": 73.99611473083496,
+            "1": 60.329246520996094,
+            "2": 70.53743004798889
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 2000,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 79.68981129427752,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 2008,
+        "precision": "float",
+        "layers": 3
+      },
+      "initial_checkpoint_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6"
+    },
+    "ternary-repeat": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-ternary-run/backups/science-ternary-ternary-repeat/best.pt",
+      "sha256": "28364146ff1b36835c2d99408cd551cd22b3c3d41aaeeed542e6eee79c151c21",
+      "step": 2008,
+      "precision": "ternary",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9430504441261292,
+            "ndcg10": 95.49010396003723,
+            "recall10": 0.9913849234580994
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9211305975914001,
+            "ndcg10": 93.70996356010437,
+            "recall10": 0.9870365262031555
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.971080482006073,
+            "ndcg10": 97.68344759941101,
+            "recall10": 0.9946879148483276
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9507480263710022,
+            "ndcg10": 96.12410068511963,
+            "recall10": 0.9934354424476624
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.6886104345321655,
+            "ndcg10": 71.9429612159729,
+            "recall10": 0.8317808508872986
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.8927380442619324,
+            "ndcg10": 90.33939838409424,
+            "recall10": 0.9405925869941711
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8919466733932495,
+            "ndcg10": 91.97832942008972,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7067915201187134,
+            "ndcg10": 74.86841678619385,
+            "recall10": 0.8958462476730347
+          }
+        },
+        "macro_ndcg10": 89.01709020137787,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 69.4372832775116,
+          "macro_accuracy": 69.43991184234619,
+          "by_label": {
+            "0": 74.28756356239319,
+            "1": 63.734668493270874,
+            "2": 70.29750347137451
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 2008,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 79.22850102186203,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 2008,
+        "precision": "ternary",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+    },
+    "ternary-fresh": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-ternary-run/backups/science-ternary-ternary-fresh/best.pt",
+      "sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7",
+      "step": 2008,
+      "precision": "ternary",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9440832734107971,
+            "ndcg10": 95.59122323989868,
+            "recall10": 0.9922463893890381
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9202042818069458,
+            "ndcg10": 93.67089867591858,
+            "recall10": 0.9880735874176025
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9726682901382446,
+            "ndcg10": 97.84170985221863,
+            "recall10": 0.9960159659385681
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9542087912559509,
+            "ndcg10": 96.50340676307678,
+            "recall10": 0.9978118538856506
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.6904929876327515,
+            "ndcg10": 72.26016521453857,
+            "recall10": 0.8389041423797607
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.8964390158653259,
+            "ndcg10": 90.69051146507263,
+            "recall10": 0.9432199597358704
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8915350437164307,
+            "ndcg10": 91.94326400756836,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7073317170143127,
+            "ndcg10": 74.92566704750061,
+            "recall10": 0.8958462476730347
+          }
+        },
+        "macro_ndcg10": 89.1783557832241,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 69.29231286048889,
+          "macro_accuracy": 69.2975123723348,
+          "by_label": {
+            "0": 75.016188621521,
+            "1": 63.26662302017212,
+            "2": 69.60972547531128
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 2008,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 79.23793407777944,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 2008,
+        "precision": "ternary",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+    },
+    "3-ternary-fresh": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-ternary-run/backups/science-ternary-3-ternary-fresh/best.pt",
+      "sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+      "step": 2008,
+      "precision": "ternary",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.950411319732666,
+            "ndcg10": 96.14667892456055,
+            "recall10": 0.9952617287635803
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9319427609443665,
+            "ndcg10": 94.64676976203918,
+            "recall10": 0.9911848306655884
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9837641716003418,
+            "ndcg10": 98.7549901008606,
+            "recall10": 0.9986720085144043
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9663202166557312,
+            "ndcg10": 97.35490679740906,
+            "recall10": 0.9956236481666565
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7182891368865967,
+            "ndcg10": 75.10104179382324,
+            "recall10": 0.8679451942443848
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.9031826853752136,
+            "ndcg10": 91.29951596260071,
+            "recall10": 0.9475988745689392
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8900198936462402,
+            "ndcg10": 91.8336808681488,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7124631404876709,
+            "ndcg10": 75.55610537528992,
+            "recall10": 0.9051457047462463
+          }
+        },
+        "macro_ndcg10": 90.0867111980915,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 70.09235620498657,
+          "macro_accuracy": 70.10084390640259,
+          "by_label": {
+            "0": 75.24287104606628,
+            "1": 65.94577431678772,
+            "2": 69.11388635635376
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 2008,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 80.09377755224705,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 2008,
+        "precision": "ternary",
+        "layers": 3
+      },
+      "initial_checkpoint_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9"
+    }
+  },
+  "scope": "All six fixed science checkpoints; matched CPU/architecture timing, not a precision-isolated training comparison."
+}

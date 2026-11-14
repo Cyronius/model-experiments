@@ -88,6 +88,10 @@ Hypothesis: the chat collapse comes from calibration coverage, and sensitivity w
 
 ## Deforming the manifold with a learned encoder (0.8B, single site)
 
+> **Correction, 2026-10-27: the "warp" arm is not a k-wide bottleneck.** In `m_autoencoder_kl.py:76-81`, `m_autoencoder_all.py:78-83` and `heal_layerwise.py:78-84`, the warp output is `mu + (x @ Vk) @ Vk.T + dec(z) * rs`, with `z = (x @ Vk) / zs + enc(x / xs)`. The reconstruction reads two k-wide channels: the exact PCA coordinates `x @ Vk` and the warped code `z`. `z` alone does not determine `x @ Vk`. A counterexample: with k = 1, d = 2, `Vk = (1, 0)`, all scales 1, `enc(x) = x2` and `dec(z) = (0, z)`, the inputs (1, 0) and (0, 1) both give `z = 1`, but their outputs are (1, 1) and (0, 1). So the warp passes up to 2k coordinates. The decoder and `decoder2x` arms reconstruct from the PCA coordinates alone, so they are true k-wide bottlenecks; `decoder2x` matched parameters, not code width. The trained effective rank of the two channels was not measured.
+>
+> The numbers below remain valid measurements of the two-channel intervention as implemented. These interpretations are retracted: that a learned encoder beats PCA plus a decoder *at equal code width*, that the warp is "about a 2x narrower code", and that the warp's gain in layer-wise healing shows curvature at equal width. This does not show that the whole gain came from the extra width; that needs a fair control. The decoder-only results remain valid evidence that nonlinear reconstruction from a k-wide PCA code improves these measurements (the "function view" section above). Later experiments must reconstruct only from the declared k-wide code, with a test that two inputs with the same code get the same reconstruction. Found by Claude and confirmed independently by Codex.
+
 Script: `m_autoencoder_kl.py`; log `logs/autoencoder_kl.log`; results `results/Qwen3.5-0.8B/autoencoder_kl.json`. Replace-and-continue KL at one site, same eval set, 1,500 training steps, hidden width 1,024. "Warp" = PCA coordinates plus a learned nonlinear correction computed from the full vector, then the decoder.
 
 | site | k | KL, PCA | KL, PCA + decoder | KL, warp | warp vs PCA + decoder |
@@ -99,7 +103,7 @@ Script: `m_autoencoder_kl.py`; log `logs/autoencoder_kl.log`; results `results/Q
 | L20.in | 64 | 1.950 | 1.264 | 0.736 | 1.7x lower |
 | L20.in | 256 | 0.409 | 0.310 | 0.123 | 2.5x lower |
 
-- The learned encoder beat PCA + decoder at every site and width, by 1.7-2.5x, and plain PCA by 3-5x. The gate for idea 11 passes at the single-site level.
+- The learned encoder beat PCA + decoder at every site and width, by 1.7-2.5x, and plain PCA by 3-5x. The gate for idea 11 passes at the single-site level. *(Retracted 2026-10-27: the warp read two k-wide channels; see the correction above.)*
 - **Caveats before this means a cheaper model:** (1) the warp arm has more trainable parameters than the decoder-only arm, and the encoder compute (a 1,024-wide MLP over the full vector) is not counted; an equal-parameter comparison is still needed. (2) It is one site at a time; errors compound across sites, and the all-sites version has not been run. (3) The 2B has not been tested; the decoder payoff shrank at 2B, so the warp's gain may too. (4) The layers still read the original wide vector, so a per-site warp adds compute unless the whole network is refit in the small space.
 
 ### Same test on the 2B, with an equal-parameter arm
@@ -115,7 +119,7 @@ Qwen3.5-2B-Base, single site, 3,000 steps, hidden width 2,048. `decoder2x` is a 
 | L20.in | 128 | 2.044 | 1.369 | 1.220 | 0.854 | 1.4x lower |
 | L20.in | 512 | 0.381 | 0.275 | 0.234 | 0.093 | 2.5x lower |
 
-- The warp beats the equal-parameter decoder at every site and width, by 1.4-2.5x. Extra parameters alone do not explain the gain; the learned encoder does.
+- The warp beats the equal-parameter decoder at every site and width, by 1.4-2.5x. Extra parameters alone do not explain the gain; the learned encoder does. *(Retracted 2026-10-27: the comparison matched parameters but not code width; the warp read up to 2k coordinates.)*
 - The gain is smallest at the narrow late sites (L20, k = 128: 1.4x) and largest at k = 512.
 - Still open: all sites at once, compute cost of the encoder, and refitting the whole network in the small space (distillation).
 
@@ -131,7 +135,7 @@ Every one of the 49 sites replaced together, so errors compound. Script `m_autoe
 - **Compounding takes most of the single-site gain.** At one site the warp scored 0.03-0.18 at width 512; across all sites it scores 1.78. It is nowhere near usable: the 50% MLP cut that broke tool use was at about 0.45.
 - **The warp's lead over the equal-parameter decoder shrank** from 1.4-2.5x at one site to 1.2x (width 512) and 1.03x (width 128).
 - **Copy-task recall is the exception at width 512:** 2.32 for PCA down to 0.455 for the warp.
-- **For scale**, plain PCA at half width (1024) scored 1.69 all-sites in the earlier 2B run. The warp at a quarter width roughly matches it. That is about a 2x narrower code for the same error, with the warp's extra compute not counted.
+- **For scale**, plain PCA at half width (1024) scored 1.69 all-sites in the earlier 2B run. The warp at a quarter width roughly matches it. That is about a 2x narrower code for the same error, with the warp's extra compute not counted. *(Retracted 2026-10-27: the warp's nominal width-512 code carried two 512-wide channels, so the comparison does not demonstrate a 2x narrower strict code; see the correction above.)*
 - At width 128 all four arms are far above usable, so there is nothing to build there.
 
 ## 2B -> 0.8B: the first real down-projection (2026-10-19)
@@ -277,7 +281,7 @@ Plan: `../.claude/plans/manifold-compression-layerwise-healing.md`. Script `heal
 | PCA, blocks healed | 6e-4, 2000 | 3.45 | 2.43 | 1.65 | 3.32 | 1.79 | 3.18 | 0.54 |
 | warp + blocks healed | 2e-4, 1000 | 1.65 | **0.97** | 0.56 | 1.65 | 0.64 | 1.13 | 0.21 |
 
-- Healing works and the warp stacks with it. The best arm reaches 0.97, inside the plan's "mixed" band (0.5-1.0); the pass line is 0.5.
+- Healing works and the warp stacks with it. The best arm reaches 0.97, inside the plan's "mixed" band (0.5-1.0); the pass line is 0.5. *(Corrected 2026-10-27: the warp arm read both the k PCA coordinates and a second k-wide code (`heal_layerwise.py:78-84`), so 0.97 against 1.93 is not an equal-width comparison.)*
 - Learning rate matters: 2e-4 beats both 2e-5 (undertrained) and 6e-4 (training loss rose at several layers).
 - The KL curve through depth climbs steadily (warp arm: 0.18 after layer 0, 0.41 after layer 12, 0.97 after layer 23), with no blow-up, but the late layers add the most.
 - Code and chat are the weakest domains; the copy task is the best.
@@ -330,6 +334,110 @@ Method: `m_part_swap.py`, GGUF through llama.cpp Vulkan, greedy, thinking off, 4
 - A lossy round trip through our coordinates (held-out R2 0.60-0.82) is enough to destroy the stock model at any one site. The test cannot say which part of ours breaks chat, because the basis mismatch alone breaks every mixed model.
 - Our all-ours build (2.02) is better than any mix. Mixed parts do worse than parts that were fitted together.
 - Conclusion: the part-swap does not localize the damage. A swap needs a near-exact basis map. Our maps are not.
+
+## Unhealed generation screen G1: stock 2B vs P0 and P1 (2026-10-27)
+
+Method: `unhealed_generation.py`, Qwen3.5-2B, greedy, local CPU. P0 projects the residual 2048 -> 1520 with one shared PCA basis. P1 keeps residual 1792 and prunes each MLP 6144 -> 4200 by importance, then refits the down projection by ridge. Neither arm had any healing. Automatic grades for everything except science. Science was rated blind by Claude alone, because the second reviewer (Codex) left before rating. The frozen two-reviewer bootstrap analysis was therefore not run; the counts below are descriptive. Quarantined (rehearsal-exposed) cases are excluded.
+
+| Category | stock | P0 | P1 |
+|---|---|---|---|
+| arithmetic | 51/128 (40%) | 8/128 (6%) | 12/128 (9%) |
+| replay | 95/111 (86%) | 36/111 (32%) | 64/111 (58%) |
+| GSM8K | 134/200 (67%) | 9/200 (4%) | 24/200 (12%) |
+| HumanEval primary | 64/114 (56%) | 6/114 (5%) | 15/114 (13%) |
+| HumanEval overlap | 24/48 (50%) | 2/48 (4%) | 6/48 (12%) |
+| horizon | 12/17 (71%) | 4/17 (24%) | 6/17 (35%) |
+| science, new | 32/40 (80%) | 1/40 (2%) | 1/40 (2%) |
+| science, legacy | 9/12 (75%) | 0/12 | 0/12 |
+| all | 421/670 (63%) | 66/670 (10%) | 128/670 (19%) |
+| loop rate | 1% | 18% | 31% |
+| no-stop rate | 13% | 19% | 29% |
+
+- Without healing, both folds lose most of the model. P1 keeps about twice what P0 keeps, mostly in replay (copying) and short tasks.
+- P1 loops much more often than P0 (31% vs 18%). Its extra correct answers come with more degenerate output, so it is not simply a better model.
+- Reasoning and knowledge (GSM8K, science) are nearly gone in both. That is the damage a healing run would have to repair.
+- These are width folds, not the function-fit projection of `roadmap.md`. They set the unhealed baseline that H0 must beat.
+
+## H0b: native MLP functions fitted on the manifold vs restricted weights (SmolLM2-1.7B, 2026-10-28)
+
+Method: `h0_mlp_probe.py`, rules `h0_rules.json`, results `results/h0-native-mlp-20261027/` (protocol frozen before any teacher forward on the corpus; amendment `amendment-1.json` raised only the evaluation time cap). Teacher SmolLM2-1.7B-Instruct (Llama, d = 2048, MLP 8192). At layers 2, 12 and 20, every arm reads a strict k-wide code of the MLP input and writes a k-wide code of its output. Arms: **restricted** (teacher MLP folded into a shared PCA chart, pruned to m neurons by importance, down ridge-refit: the P0/P1 line), **pca** (native gated MLP of the same shape trained from restricted on the activations), **learned** (the same, in a learned nonlinear chart frozen before the fits), **full** (control reading the full input). Budgets k/m = 1536/4096 (moderate) and 768/2560 (aggressive, the gate). Score: replace the block, let the untouched teacher finish, mean token KL on 265 held-out documents (chat, prose, code, math, domain-equal weights). Floors: the true output squeezed through the chart and back (`pca_floor`, `chart_floor`).
+
+**Frozen gate: FAIL at all three sites.** L2: learned is 30% below restricted (passes the margin) but fails the copy-tail guard (p99 copy KL 0.65 vs 0.51). L12: only 7% below. L20: learned is worse than restricted (0.535 vs 0.454).
+
+Mean KL, with each arm's excess over its own chart floor:
+
+| Site, budget | drop MLP | floor (PCA) | restricted | pca native | learned | full |
+|---|---|---|---|---|---|---|
+| L2, 1536 | 0.244 | 0.056 | 0.108 (+0.053) | 0.084 (+0.029) | 0.083 (+0.024) | 0.074 (+0.019) |
+| L2, 768 | 0.244 | 0.282 | 0.449 (+0.166) | 0.347 (+0.065) | 0.314 (+0.040) | 0.323 (+0.040) |
+| L12, 1536 | 0.151 | 0.031 | 0.053 (+0.022) | 0.047 (+0.016) | 0.049 (+0.013) | 0.043 (+0.012) |
+| L12, 768 | 0.151 | 0.168 | 0.218 (+0.050) | 0.193 (+0.026) | 0.204 (+0.004) | 0.185 (+0.018) |
+| L20, 1536 | 0.177 | 0.061 | 0.104 (+0.043) | 0.098 (+0.036) | 0.100 (+0.034) | 0.088 (+0.027) |
+| L20, 768 | 0.177 | 0.370 | 0.454 (+0.084) | 0.454 (+0.083) | 0.535 (+0.120) | 0.417 (+0.047) |
+
+- **Fitting the block's function on the activations beats restricting its weights.** Above the chart floor, the native MLP cuts the block's own error by 46% and 61% at L2, 27% and 49% at L12, and 15% and 0% at L20. This is the part of the holographic idea H0 was built to test, and it holds except at the late layer under the aggressive budget.
+- **The chart, not the block, is the bottleneck.** At k = 768, squeezing the residual through the PCA chart once, with the true output, costs more KL than deleting the MLP outright (0.28 vs 0.24, 0.17 vs 0.15, 0.37 vs 0.18). Every arm sits on top of that floor, so no block fit can meet a 25% margin where the floor dominates. At k = 1536 the floor is small (0.03-0.06).
+- **The learned chart did not help.** It reconstructs states better than PCA (9.7% vs 12.6% relative error at 768) but its floor KL is equal or worse (L12 0.200 vs 0.168, L20 0.415 vs 0.370). Reconstruction error pooled over all layers is the wrong target: it does not weight directions by what the rest of the model reads. Its block fits are nearly at its own floor (L12 excess 0.004), so the block function is not the limit there either.
+- **Not data-limited.** Learned at 25%, 50% and 100% of the training data: 0.339, 0.322, 0.314 (L2); 50% -> 100% improves under 3% everywhere.
+- **Late layers are hardest.** L20's floor at 768 is twice the drop KL, and chat suffers most (learned 1.00 vs restricted 0.64).
+- Caveat: the floor is measured with an untouched teacher downstream that expects full-width states. In a native narrow model the downstream blocks are fitted or healed to read the code, so this floor is pessimistic; how much healing recovers is the H1 question.
+
+Next step from this: choose the chart by what the downstream model reads (Fisher- or KL-weighted), not by variance or reconstruction, and measure the floor first. If the floor at 768 cannot be brought well below the drop KL, a single shared narrow residual is the obstacle to the 128B -> 9B target, not the block functions.
+
+### Follow-up: the floor comes mostly from sharing one basis across layers (2026-10-28)
+
+Method: `h0_floor_probe.py`, results `results/h0-floor-20261028/`. Floors only (true MLP output squeezed through a k-wide linear chart, untouched teacher downstream), on the 166 H0 dev docs; the H0 test split was not reused. Charts: **shared** (the H0 basis), **site** (PCA of that layer's own second moment), **fisher** (reduced-rank chart minimising the Fisher-weighted reconstruction error, Fisher of the teacher's outputs with respect to the state, estimated on a quarter of the train docs; damping 1e-3 and 1e-1 gave the same result).
+
+| Floor KL | L2 | L12 | L20 |
+|---|---|---|---|
+| drop the MLP | 0.230 | 0.146 | 0.165 |
+| 768 shared | 0.271 | 0.161 | 0.344 |
+| 768 site | **0.104** | 0.105 | 0.228 |
+| 768 fisher | 0.120 | **0.093** | **0.221** |
+| 1536 shared | 0.050 | 0.029 | 0.057 |
+| 1536 site | **0.014** | 0.017 | 0.035 |
+| 1536 fisher | 0.015 | **0.015** | **0.033** |
+
+- **A per-layer basis cuts the floor 1.5-3.5x.** The residual stream turns with depth; one 768-wide basis for all layers has to cover all of them and covers none well. At 768 the site floor is below the drop KL at L2 (0.45x) and L12 (0.72x), but not at L20 (1.38x).
+- **Fisher weighting adds little.** It lowers the floor by 3-11% at L12 and L20 and raises it 16% at L2, although by construction it always has the lower second-order (predicted) loss. The quadratic approximation does not hold for perturbations this large.
+- So the H0b gate was run with a handicapped chart. The block result (native beats restricted above the floor) stands; the floor part of the verdict was mostly the shared basis. A native narrow model would need per-layer coordinates joined by k x k transition maps on the residual path (as SliceGPT does with its per-layer rotations).
+
+**Whole stack at once** (`h0_floor_probe.py stack`): the residual squeezed at all 25 stream points (embedding output and every layer output), every teacher block exact and reading the decoded state. This is the best any block replacement can do before healing.
+
+| Width k (of 2048) | 1792 | 1536 | 1280 | 1024 | 768 | 512 |
+|---|---|---|---|---|---|---|
+| per-layer PCA, mean KL | 0.21 | 0.56 | 1.00 | 1.53 | 2.17 | 3.02 |
+| shared PCA | | 0.66 | | | 3.65 | |
+
+- **The narrow residual stream is the obstacle, not the block functions.** With perfect blocks, a 768-wide stream already costs 2.2 nats per token; 1536 (75% width) costs 0.56. Only about 12% of the width can go before the floor reaches 0.2. Chat and prose suffer most, math least (768: chat 3.5, prose 3.5, code 1.4, math 0.33).
+- Per-layer bases help less in the stack (0.66 -> 0.56 at 1536) than at one site, because errors compound through every layer.
+- For a 128B -> 9B projection, the residual has to narrow about 3-4x (as Llama 405B -> 8B does, 16384 -> 4096). Without healing that is far below this floor, so healing is not an optional repair here: it has to carry most of the quality. The useful H0 result is that projected block functions are a better starting point than cut weights; whether that advantage survives healing, at matched compute against distillation, is H1.
+
+## M1: carving the 9B's MLPs into experts by domain (Qwen3.5-9B, 2026-10-28)
+
+Method: `moe_carve.py`, rules `moe_carve_rules.json` (predictions and criteria written before collection), results `results/moe-carve-20261028/`. Qwen3.5-9B (same `qwen3_5_text` architecture as Qwen3.8-27B; MLP 12288 wide, 32 layers). Eight domains: chat, code, math, Wikipedia, biomedical, argument, French, Chinese. Neuron contribution = |a_i| x ||W_down[:, i]||, collected on 40 calibration documents of 512 tokens per domain. No refit and no training: every arm keeps the dense weights and only chooses which neurons run for each token, all layers at once. At one budget every arm runs the same number of neurons per token. Score: KL of the next-token distribution from the dense model on 80 held-out documents (10 per domain, domain-equal weights) plus 16 copy documents.
+
+Arms: **static** (one fixed set, a plain prune); **domain_doc** (the document's domain set, chosen by the true label: the thesis with a perfect document router); **domain_token** (per token, whichever of the eight domain sets holds most of that token's contribution); **cluster_token** (CMoE-style: a shared expert of the most often active neurons, half the budget, plus 64 equal clusters of co-active neurons, the top K per token); **token_topk** (each token's own top neurons: the bound for any router). The per-token arms are oracles: they read the layer's real activations to choose, so they save no compute until a learned router predicts the choice from the MLP input.
+
+Domain-equal KL (copy p99 in brackets):
+
+| Active MLP width | static | domain_doc | domain_token | cluster_token | token_topk |
+|---|---|---|---|---|---|
+| 50% | 1.12 (1.53) | 0.75 (1.73) | 0.57 (0.58) | **0.34** (0.41) | 0.016 (0.01) |
+| 25% | 2.50 (4.08) | 1.87 (3.71) | 1.59 (2.52) | **0.95** (1.40) | 0.104 (0.06) |
+| 12.5% | 3.64 (8.61) | 3.01 (7.47) | 2.75 (6.54) | **2.13** (3.87) | 0.314 (0.40) |
+
+- **Primary: the co-activation carve beats the domain carve.** At 25%, domain_token minus cluster_token is +0.64 nats [0.59, 0.69] (domain 1.68x worse), with the better copy tail too (p99 1.40 vs 2.52). It wins at every budget and in every domain.
+- **Secondary: a domain router recovers only a quarter of what a prune loses.** domain_doc / static = 0.75 at 25% (criterion: under 0.5). Choosing among the eight domain sets per token helps a little more (domain_token 0.64 of static), but the domain label is a poor key for which neurons a token needs.
+- **The dense MLP is very sparse per token.** Each token's own top 25% of neurons gives KL 0.10; top 50% gives 0.016. The gap from cluster_token (0.95) to that bound (0.10) is the cost of grouping neurons into fixed experts; the gap from domain experts is larger still. What a token needs is token-specific, not domain-specific.
+- **Domain specialisation is real but concentrated late.** Of each domain's top-25% set, 30% is shared by all eight domains: about half in layers 10-18, 8-22% in layers 20-26, rising again to 28-48% in the last four. Split-half Jaccard is 0.72 within a domain and 0.45 across domains (layers 20-26: 0.66-0.71 vs 0.27-0.39). Domains group by genre more than language: wiki-French 0.58, wiki-Chinese 0.54, chat-argument 0.57, code-math 0.46.
+- **Contribution mass kept is a poor proxy for function.** On the dense activations, cluster_token keeps 37% of the per-layer contribution and static 34%, yet their KL differs 2.6x. Which neurons drop for which tokens matters more than how much mass is kept.
+- **Domain gains follow the late-layer split.** At 25%, a domain set beats static most for Chinese (38%), math (37%) and code (34%), and least for Wikipedia (10%) and chat (14%).
+- **Without healing, none of this is usable.** The best real carve at 25% costs +0.81 nats NLL (perplexity x2.2); at 50%, +0.26. CMoE and LLaMA-MoE both train after carving; so would we.
+
+Predictions: static above 1 nat at 25% (held, 2.50); token_topk under 0.3 (held, 0.10); domain_doc better than static by less than half (held, 25%); domain_token close to domain_doc (failed: 15% better, interval excludes zero); cluster_token beats both domain arms everywhere (held); shared core over half (failed, 0.30).
+
+Next: learned routers from the MLP input (the oracle gap), then a short healing run on the best carve. If a domain split is still wanted (question 8), it fits as a coarse layer over co-activation experts in the late layers, not as the expert boundary.
 
 ## Grafting 9B experts onto a small trunk: failed, closed (2026-11-05 to 11-07)
 

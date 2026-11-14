@@ -1,0 +1,92 @@
+{
+  "model": "Qwen/Qwen3.5-2B",
+  "source_manifest": {
+    "repo": "Qwen/Qwen3.5-2B",
+    "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+    "files": {
+      "chat_template.jinja": {
+        "size": 7755,
+        "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+      },
+      "config.json": {
+        "size": 2908,
+        "sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4"
+      },
+      "model.safetensors-00001-of-00001.safetensors": {
+        "size": 4548221488,
+        "sha256": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"
+      },
+      "tokenizer.json": {
+        "size": 12807982,
+        "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+      },
+      "tokenizer_config.json": {
+        "size": 16709,
+        "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c"
+      }
+    }
+  },
+  "data_sha256": "512f58bf8cf3533a6b809ff9883a95cd5540615289189d48794fddf5a3183532",
+  "base_directory": "/home/cyrus/code/model-experiments/manifold-compression/results/local-projection-20261025",
+  "base_data_sha256": "8f8e8ae2db90adb7a9682502bda7e251f7ca88c371ec3eea7b3ec60af3dc8026",
+  "plan": {
+    "model_type": "qwen3_5_text",
+    "source_width": 2048,
+    "source_parameters": 1881825088,
+    "source_bf16_weight_gb": 3.763650176,
+    "source_fp32_weight_gb": 7.527300352,
+    "arms": [
+      {
+        "target_fraction": 0.75,
+        "width": 1520,
+        "parameters": 1399093040,
+        "retained_fraction": 0.7434766647132722,
+        "bf16_weight_gb": 2.79818608,
+        "output_matrix_parameters": 2310400
+      }
+    ],
+    "fixed_parameters": 448320,
+    "parameters_per_residual_coordinate": 918641,
+    "count_scope": "text causal model, including embeddings, output head, and output adapter; no vision/MTP"
+  },
+  "arm": "shared-broad-extended",
+  "width": 1520,
+  "requested_tokens": 262144,
+  "actual_tokens": 262691,
+  "rows": 1737,
+  "by_kind": {
+    "chat": {
+      "tokens": 131517,
+      "rows": 131
+    },
+    "math": {
+      "tokens": 65583,
+      "rows": 1464
+    },
+    "code": {
+      "tokens": 65591,
+      "rows": 142
+    }
+  },
+  "exact_64k_prefix": true,
+  "prefix_rows": 438,
+  "additional_rows": 1299,
+  "heldout_exact_prompt_overlap": 0,
+  "max_length": 2048,
+  "sampling": "Original broad corpus unchanged, then new examples from the same seeded long-chat ordering and verified Horizon training ordering; same 50/25/25 token targets. No repeated examples.",
+  "activation_reuse": "Original broad activation packet plus a new packet for only added conversations; uncentered covariance sums combine additively. Per-conversation sampled states retain token weighting.",
+  "precision": "CPU BF16 autocast; FP32 covariance accumulation; FP64 eigensolve. Projection construction and evaluation FP32.",
+  "generation": {
+    "closed_cases": 56,
+    "code_cases": 4,
+    "explanations": 2,
+    "greedy": true,
+    "thinking": false,
+    "penalties": false,
+    "limits": "256 closed / 512 code / 1024 explanation; caps reported separately from repetition"
+  },
+  "comparison": "Complete 2x2: chat-only/broad x 64k/256k. Same 74.35% shared projection, constant RMS correction, frozen 62 prompts and original four-thread FP32 decoding.",
+  "whole_model_healing": false,
+  "cloud_spend_usd": 0,
+  "limits": "One fixed corpus and small repeated evaluation screen; transfer and general intelligence unproven."
+}

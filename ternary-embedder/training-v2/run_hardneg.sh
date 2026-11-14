@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+python -m unittest discover -s training-v2 -p test_contrastive_cache.py
+python training-v2/run_pair_plan.py --plan training-v2/hardneg/runpod-job.json

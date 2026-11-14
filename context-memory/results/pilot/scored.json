@@ -1,0 +1,3095 @@
+{
+  "scores": {
+    "no_memory": {
+      "fact": {
+        "correct": 0,
+        "total": 14
+      },
+      "all": {
+        "correct": 2,
+        "total": 18
+      },
+      "canary": {
+        "correct": 0,
+        "total": 2
+      },
+      "absent": {
+        "correct": 2,
+        "total": 2
+      }
+    },
+    "full_text": {
+      "fact": {
+        "correct": 0,
+        "total": 14
+      },
+      "all": {
+        "correct": 0,
+        "total": 18
+      },
+      "canary": {
+        "correct": 0,
+        "total": 2
+      },
+      "absent": {
+        "correct": 0,
+        "total": 2
+      }
+    },
+    "latent": {
+      "fact": {
+        "correct": 13,
+        "total": 14
+      },
+      "all": {
+        "correct": 17,
+        "total": 18
+      },
+      "canary": {
+        "correct": 2,
+        "total": 2
+      },
+      "absent": {
+        "correct": 2,
+        "total": 2
+      }
+    },
+    "zero_memory": {
+      "fact": {
+        "correct": 0,
+        "total": 14
+      },
+      "all": {
+        "correct": 2,
+        "total": 18
+      },
+      "canary": {
+        "correct": 0,
+        "total": 2
+      },
+      "absent": {
+        "correct": 2,
+        "total": 2
+      }
+    },
+    "counterfactual": {
+      "canary": {
+        "correct": 2,
+        "total": 2
+      },
+      "all": {
+        "correct": 2,
+        "total": 2
+      }
+    },
+    "stock_no_memory": {
+      "fact": {
+        "correct": 0,
+        "total": 14
+      },
+      "all": {
+        "correct": 2,
+        "total": 18
+      },
+      "canary": {
+        "correct": 0,
+        "total": 2
+      },
+      "absent": {
+        "correct": 2,
+        "total": 2
+      }
+    },
+    "stock_full_text": {
+      "fact": {
+        "correct": 12,
+        "total": 14
+      },
+      "all": {
+        "correct": 15,
+        "total": 18
+      },
+      "canary": {
+        "correct": 2,
+        "total": 2
+      },
+      "absent": {
+        "correct": 1,
+        "total": 2
+      }
+    }
+  },
+  "manual_review": {
+    "method": "Manual review of raw generations against the fixed corpus; questions and regex patterns unchanged.",
+    "overrides": [
+      {
+        "condition": "latent",
+        "id": "mask-view",
+        "correct": false,
+        "reason": "Quotes the correct uint8 view, but explicitly and repeatedly says the view is unspecified. Contradictory answer; reject the automatic regex pass."
+      },
+      {
+        "condition": "latent",
+        "id": "missing-driver",
+        "correct": true,
+        "reason": "Explicitly says the notes do not specify the firmware version. The fixed regex misses the verb 'specify'. Counts as correct abstention, although unnecessary elaboration was truncated at the output cap."
+      }
+    ]
+  },
+  "answers": [
+    {
+      "id": "program-size",
+      "question": "According to F-0006, what is the core program-memory capacity?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.4853284480050206,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "program-size",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "According to F-0006, what is the core program-memory capacity?",
+        "patterns": [
+          "\\b16\\s*(?:kib|kb|kilobytes)\\b"
+        ]
+      }
+    },
+    {
+      "id": "overflow-error",
+      "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.4601360590022523,
+      "question_tokens": 30,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "overflow-error",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+        "patterns": [
+          "xaie_invalid_elf"
+        ]
+      }
+    },
+    {
+      "id": "compile-flag",
+      "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.48960466199787334,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "compile-flag",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+        "patterns": [
+          "-os\\b"
+        ]
+      }
+    },
+    {
+      "id": "stack-working",
+      "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.5375381789926905,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "stack-working",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+        "patterns": [
+          "0x1800"
+        ],
+        "forbidden": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "stack-granite",
+      "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.5418862179940334,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "stack-granite",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+        "patterns": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "float-bug",
+      "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.5720215610053856,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "float-bug",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+        "patterns": [
+          "\\bnan\\b|not.a.number"
+        ]
+      }
+    },
+    {
+      "id": "peano-symbol",
+      "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.591971432993887,
+      "question_tokens": 32,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "peano-symbol",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+        "patterns": [
+          "get_cycles"
+        ]
+      }
+    },
+    {
+      "id": "mask-view",
+      "question": "What integer view does F-0014 recommend for masking?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.571785017993534,
+      "question_tokens": 26,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "mask-view",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "What integer view does F-0014 recommend for masking?",
+        "patterns": [
+          "uint8|unsigned.{0,10}8.bit"
+        ]
+      }
+    },
+    {
+      "id": "classic-time",
+      "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.6352686729951529,
+      "question_tokens": 39,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "classic-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]602|\\b602\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "elf-time",
+      "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.6311578389868373,
+      "question_tokens": 38,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "elf-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]447|\\b447\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "completion-state",
+      "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.6607327910023741,
+      "question_tokens": 32,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "completion-state",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+        "patterns": [
+          "\\b4\\b"
+        ]
+      }
+    },
+    {
+      "id": "softmax-mask",
+      "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+      "category": "fact",
+      "source": "F-0066",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.6258403020037804,
+      "question_tokens": 34,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "softmax-mask",
+        "category": "fact",
+        "source": "F-0066",
+        "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+        "patterns": [
+          "lowest|lowest.finite|most.negative.finite|minimum.finite"
+        ]
+      }
+    },
+    {
+      "id": "same-context",
+      "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.6528015599906212,
+      "question_tokens": 40,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false,
+        false
+      ],
+      "gold": {
+        "id": "same-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+        "patterns": [
+          "0[.]23",
+          "0[.]25"
+        ]
+      }
+    },
+    {
+      "id": "switched-context",
+      "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.6163643620093353,
+      "question_tokens": 44,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false,
+        false
+      ],
+      "gold": {
+        "id": "switched-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+        "patterns": [
+          "0[.]65",
+          "0[.]79"
+        ]
+      }
+    },
+    {
+      "id": "pilot-code",
+      "question": "What is the code for the memory recall pilot?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.5839327209978364,
+      "question_tokens": 22,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "pilot-code",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the code for the memory recall pilot?",
+        "patterns": [
+          "velvet-heron-7316"
+        ],
+        "counterfactual_patterns": [
+          "copper-badger-9527"
+        ]
+      }
+    },
+    {
+      "id": "recovery-phrase",
+      "question": "What is the recovery phrase for the pilot memory bank?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.5961365679977462,
+      "question_tokens": 23,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "recovery-phrase",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the recovery phrase for the pilot memory bank?",
+        "patterns": [
+          "mosaic-lantern-4829"
+        ],
+        "counterfactual_patterns": [
+          "amber-compass-1638"
+        ]
+      }
+    },
+    {
+      "id": "missing-driver",
+      "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+      "category": "absent",
+      "source": "F-0038",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.5821791199996369,
+      "question_tokens": 36,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "missing-driver",
+        "category": "absent",
+        "source": "F-0038",
+        "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "missing-canary",
+      "question": "What is the emergency override password for the memory recall pilot?",
+      "category": "absent",
+      "source": "synthetic-control",
+      "condition": "no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.48931512799754273,
+      "question_tokens": 24,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "missing-canary",
+        "category": "absent",
+        "source": "synthetic-control",
+        "question": "What is the emergency override password for the memory recall pilot?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "program-size",
+      "question": "According to F-0006, what is the core program-memory capacity?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.5363961870025378,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "program-size",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "According to F-0006, what is the core program-memory capacity?",
+        "patterns": [
+          "\\b16\\s*(?:kib|kb|kilobytes)\\b"
+        ]
+      }
+    },
+    {
+      "id": "overflow-error",
+      "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.4727627609972842,
+      "question_tokens": 30,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "overflow-error",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+        "patterns": [
+          "xaie_invalid_elf"
+        ]
+      }
+    },
+    {
+      "id": "compile-flag",
+      "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.48871887900168076,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "compile-flag",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+        "patterns": [
+          "-os\\b"
+        ]
+      }
+    },
+    {
+      "id": "stack-working",
+      "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.6038277689949609,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "stack-working",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+        "patterns": [
+          "0x1800"
+        ],
+        "forbidden": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "stack-granite",
+      "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.6022688950033626,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "stack-granite",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+        "patterns": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "float-bug",
+      "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.6628156190126901,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "float-bug",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+        "patterns": [
+          "\\bnan\\b|not.a.number"
+        ]
+      }
+    },
+    {
+      "id": "peano-symbol",
+      "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.5141493849951075,
+      "question_tokens": 32,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "peano-symbol",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+        "patterns": [
+          "get_cycles"
+        ]
+      }
+    },
+    {
+      "id": "mask-view",
+      "question": "What integer view does F-0014 recommend for masking?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.4738202049920801,
+      "question_tokens": 26,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "mask-view",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "What integer view does F-0014 recommend for masking?",
+        "patterns": [
+          "uint8|unsigned.{0,10}8.bit"
+        ]
+      }
+    },
+    {
+      "id": "classic-time",
+      "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.5713571639935253,
+      "question_tokens": 39,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "classic-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]602|\\b602\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "elf-time",
+      "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.5421024029928958,
+      "question_tokens": 38,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "elf-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]447|\\b447\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "completion-state",
+      "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.5168845059961313,
+      "question_tokens": 32,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "completion-state",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+        "patterns": [
+          "\\b4\\b"
+        ]
+      }
+    },
+    {
+      "id": "softmax-mask",
+      "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+      "category": "fact",
+      "source": "F-0066",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.538874396996107,
+      "question_tokens": 34,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "softmax-mask",
+        "category": "fact",
+        "source": "F-0066",
+        "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+        "patterns": [
+          "lowest|lowest.finite|most.negative.finite|minimum.finite"
+        ]
+      }
+    },
+    {
+      "id": "same-context",
+      "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.5230873149994295,
+      "question_tokens": 40,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false,
+        false
+      ],
+      "gold": {
+        "id": "same-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+        "patterns": [
+          "0[.]23",
+          "0[.]25"
+        ]
+      }
+    },
+    {
+      "id": "switched-context",
+      "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.5927475100033917,
+      "question_tokens": 44,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false,
+        false
+      ],
+      "gold": {
+        "id": "switched-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+        "patterns": [
+          "0[.]65",
+          "0[.]79"
+        ]
+      }
+    },
+    {
+      "id": "pilot-code",
+      "question": "What is the code for the memory recall pilot?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.4354007369984174,
+      "question_tokens": 22,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "pilot-code",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the code for the memory recall pilot?",
+        "patterns": [
+          "velvet-heron-7316"
+        ],
+        "counterfactual_patterns": [
+          "copper-badger-9527"
+        ]
+      }
+    },
+    {
+      "id": "recovery-phrase",
+      "question": "What is the recovery phrase for the pilot memory bank?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.42062668700236827,
+      "question_tokens": 23,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "recovery-phrase",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the recovery phrase for the pilot memory bank?",
+        "patterns": [
+          "mosaic-lantern-4829"
+        ],
+        "counterfactual_patterns": [
+          "amber-compass-1638"
+        ]
+      }
+    },
+    {
+      "id": "missing-driver",
+      "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+      "category": "absent",
+      "source": "F-0038",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.5173387390095741,
+      "question_tokens": 36,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "missing-driver",
+        "category": "absent",
+        "source": "F-0038",
+        "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "missing-canary",
+      "question": "What is the emergency override password for the memory recall pilot?",
+      "category": "absent",
+      "source": "synthetic-control",
+      "condition": "full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.40472187400155235,
+      "question_tokens": 24,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "missing-canary",
+        "category": "absent",
+        "source": "synthetic-control",
+        "question": "What is the emergency override password for the memory recall pilot?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "program-size",
+      "question": "According to F-0006, what is the core program-memory capacity?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "latent",
+      "answer": "16 KB",
+      "generated_tokens": 4,
+      "seconds": 1.4054709030024242,
+      "question_tokens": 29,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "program-size",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "According to F-0006, what is the core program-memory capacity?",
+        "patterns": [
+          "\\b16\\s*(?:kib|kb|kilobytes)\\b"
+        ]
+      }
+    },
+    {
+      "id": "overflow-error",
+      "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "latent",
+      "answer": "XAIE_INVALID_ELF",
+      "generated_tokens": 6,
+      "seconds": 2.1363301320088794,
+      "question_tokens": 30,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "overflow-error",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+        "patterns": [
+          "xaie_invalid_elf"
+        ]
+      }
+    },
+    {
+      "id": "compile-flag",
+      "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "latent",
+      "answer": "The answer is: `-Os`",
+      "generated_tokens": 7,
+      "seconds": 2.3469004680082435,
+      "question_tokens": 29,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "compile-flag",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+        "patterns": [
+          "-os\\b"
+        ]
+      }
+    },
+    {
+      "id": "stack-working",
+      "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "latent",
+      "answer": "The original phlegm fp32-vector observation in F-0009 (before its disputed section) states that a worker stack of 0x1800 works.",
+      "generated_tokens": 38,
+      "seconds": 11.161687851010356,
+      "question_tokens": 43,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "stack-working",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+        "patterns": [
+          "0x1800"
+        ],
+        "forbidden": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "stack-granite",
+      "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "latent",
+      "answer": "The answer is: 0x3000.",
+      "generated_tokens": 12,
+      "seconds": 3.673559575006948,
+      "question_tokens": 43,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "stack-granite",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+        "patterns": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "float-bug",
+      "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "latent",
+      "answer": "The 16-lane int32-to-float `to_float` conversion produced NaN on device.",
+      "generated_tokens": 22,
+      "seconds": 6.4295032559894025,
+      "question_tokens": 43,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "float-bug",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+        "patterns": [
+          "\\bnan\\b|not.a.number"
+        ]
+      }
+    },
+    {
+      "id": "peano-symbol",
+      "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "latent",
+      "answer": "The exact cycle-counter function reported as unlinkable under Peano in F-0014 is `get_cycles()`.",
+      "generated_tokens": 25,
+      "seconds": 6.548979390005115,
+      "question_tokens": 32,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "peano-symbol",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+        "patterns": [
+          "get_cycles"
+        ]
+      }
+    },
+    {
+      "id": "mask-view",
+      "question": "What integer view does F-0014 recommend for masking?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "latent",
+      "answer": "The provided notes do not specify an integer view for masking in F-0014. The recommendation is to \"Mask through a uint8 view,\" but no specific integer view is mentioned. Therefore",
+      "generated_tokens": 40,
+      "seconds": 10.048702934000175,
+      "question_tokens": 26,
+      "correct": false,
+      "automatic_correct": true,
+      "review": {
+        "condition": "latent",
+        "id": "mask-view",
+        "correct": false,
+        "reason": "Quotes the correct uint8 view, but explicitly and repeatedly says the view is unspecified. Contradictory answer; reject the automatic regex pass."
+      },
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "mask-view",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "What integer view does F-0014 recommend for masking?",
+        "patterns": [
+          "uint8|unsigned.{0,10}8.bit"
+        ]
+      }
+    },
+    {
+      "id": "classic-time",
+      "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "latent",
+      "answer": "The classic mlir-aie flow took 0.602 ms.",
+      "generated_tokens": 16,
+      "seconds": 4.455378790997202,
+      "question_tokens": 39,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "classic-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]602|\\b602\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "elf-time",
+      "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "latent",
+      "answer": "The xrt::elf load-path time for ROT13 in F-0038 was 0.447 milliseconds.",
+      "generated_tokens": 28,
+      "seconds": 7.127143195990357,
+      "question_tokens": 38,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "elf-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]447|\\b447\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "completion-state",
+      "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "latent",
+      "answer": "The completion-state number reported by both ROT13 load paths in F-0038 is 4.",
+      "generated_tokens": 23,
+      "seconds": 5.313820545998169,
+      "question_tokens": 32,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "completion-state",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+        "patterns": [
+          "\\b4\\b"
+        ]
+      }
+    },
+    {
+      "id": "softmax-mask",
+      "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+      "category": "fact",
+      "source": "F-0066",
+      "condition": "latent",
+      "answer": "bf16 `lowest`",
+      "generated_tokens": 6,
+      "seconds": 1.7971228529931977,
+      "question_tokens": 34,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "softmax-mask",
+        "category": "fact",
+        "source": "F-0066",
+        "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+        "patterns": [
+          "lowest|lowest.finite|most.negative.finite|minimum.finite"
+        ]
+      }
+    },
+    {
+      "id": "same-context",
+      "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "latent",
+      "answer": "The back-to-back dispatch time range within one context was 0.23-0.25 ms.",
+      "generated_tokens": 23,
+      "seconds": 4.858725265992689,
+      "question_tokens": 40,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true,
+        true
+      ],
+      "gold": {
+        "id": "same-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+        "patterns": [
+          "0[.]23",
+          "0[.]25"
+        ]
+      }
+    },
+    {
+      "id": "switched-context",
+      "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "latent",
+      "answer": "The dispatch time range measured when the previous dispatch used another xclbin context was 0.65-0.79 ms.",
+      "generated_tokens": 28,
+      "seconds": 5.428458904003492,
+      "question_tokens": 44,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true,
+        true
+      ],
+      "gold": {
+        "id": "switched-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+        "patterns": [
+          "0[.]65",
+          "0[.]79"
+        ]
+      }
+    },
+    {
+      "id": "pilot-code",
+      "question": "What is the code for the memory recall pilot?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "latent",
+      "answer": "The code for the memory recall pilot is velvet-heron-7316.",
+      "generated_tokens": 18,
+      "seconds": 3.528817402999266,
+      "question_tokens": 22,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "pilot-code",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the code for the memory recall pilot?",
+        "patterns": [
+          "velvet-heron-7316"
+        ],
+        "counterfactual_patterns": [
+          "copper-badger-9527"
+        ]
+      }
+    },
+    {
+      "id": "recovery-phrase",
+      "question": "What is the recovery phrase for the pilot memory bank?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "latent",
+      "answer": "The recovery phrase for the pilot memory bank is mosaic-lantern-4829.",
+      "generated_tokens": 19,
+      "seconds": 3.6589605620101793,
+      "question_tokens": 23,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "recovery-phrase",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the recovery phrase for the pilot memory bank?",
+        "patterns": [
+          "mosaic-lantern-4829"
+        ],
+        "counterfactual_patterns": [
+          "amber-compass-1638"
+        ]
+      }
+    },
+    {
+      "id": "missing-driver",
+      "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+      "category": "absent",
+      "source": "F-0038",
+      "condition": "latent",
+      "answer": "The notes for F-0038 do not specify the exact NPU firmware version used for the ROT13 load-path comparison. The sources mention \"XRT runtime 32.0",
+      "generated_tokens": 40,
+      "seconds": 7.428425685997354,
+      "question_tokens": 36,
+      "correct": true,
+      "automatic_correct": false,
+      "review": {
+        "condition": "latent",
+        "id": "missing-driver",
+        "correct": true,
+        "reason": "Explicitly says the notes do not specify the firmware version. The fixed regex misses the verb 'specify'. Counts as correct abstention, although unnecessary elaboration was truncated at the output cap."
+      },
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "missing-driver",
+        "category": "absent",
+        "source": "F-0038",
+        "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "missing-canary",
+      "question": "What is the emergency override password for the memory recall pilot?",
+      "category": "absent",
+      "source": "synthetic-control",
+      "condition": "latent",
+      "answer": "The emergency override password for the memory recall pilot is UNKNOWN.",
+      "generated_tokens": 12,
+      "seconds": 2.2358779549977044,
+      "question_tokens": 24,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "missing-canary",
+        "category": "absent",
+        "source": "synthetic-control",
+        "question": "What is the emergency override password for the memory recall pilot?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "program-size",
+      "question": "According to F-0006, what is the core program-memory capacity?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "zero_memory",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.224798330993508,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "program-size",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "According to F-0006, what is the core program-memory capacity?",
+        "patterns": [
+          "\\b16\\s*(?:kib|kb|kilobytes)\\b"
+        ]
+      }
+    },
+    {
+      "id": "overflow-error",
+      "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.4161068559915293,
+      "question_tokens": 30,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "overflow-error",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+        "patterns": [
+          "xaie_invalid_elf"
+        ]
+      }
+    },
+    {
+      "id": "compile-flag",
+      "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 2,
+      "seconds": 0.5344432429992594,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "compile-flag",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+        "patterns": [
+          "-os\\b"
+        ]
+      }
+    },
+    {
+      "id": "stack-working",
+      "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.43147844799386803,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "stack-working",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+        "patterns": [
+          "0x1800"
+        ],
+        "forbidden": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "stack-granite",
+      "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.428406224003993,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "stack-granite",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+        "patterns": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "float-bug",
+      "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.4345814510015771,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "float-bug",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+        "patterns": [
+          "\\bnan\\b|not.a.number"
+        ]
+      }
+    },
+    {
+      "id": "peano-symbol",
+      "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "zero_memory",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.22931169100047555,
+      "question_tokens": 32,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "peano-symbol",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+        "patterns": [
+          "get_cycles"
+        ]
+      }
+    },
+    {
+      "id": "mask-view",
+      "question": "What integer view does F-0014 recommend for masking?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3759130200051004,
+      "question_tokens": 26,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "mask-view",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "What integer view does F-0014 recommend for masking?",
+        "patterns": [
+          "uint8|unsigned.{0,10}8.bit"
+        ]
+      }
+    },
+    {
+      "id": "classic-time",
+      "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "zero_memory",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.24768835998838767,
+      "question_tokens": 39,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "classic-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]602|\\b602\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "elf-time",
+      "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "zero_memory",
+      "answer": "The provided notes do not contain any information about ROT13 in F-0038 or the xrt::elf load-path time. Therefore, the requested fact is absent.\n\nAnswer",
+      "generated_tokens": 38,
+      "seconds": 6.308136923995335,
+      "question_tokens": 38,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "elf-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]447|\\b447\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "completion-state",
+      "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3914934940112289,
+      "question_tokens": 32,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "completion-state",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+        "patterns": [
+          "\\b4\\b"
+        ]
+      }
+    },
+    {
+      "id": "softmax-mask",
+      "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+      "category": "fact",
+      "source": "F-0066",
+      "condition": "zero_memory",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.23234842799138278,
+      "question_tokens": 34,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "softmax-mask",
+        "category": "fact",
+        "source": "F-0066",
+        "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+        "patterns": [
+          "lowest|lowest.finite|most.negative.finite|minimum.finite"
+        ]
+      }
+    },
+    {
+      "id": "same-context",
+      "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3965403430047445,
+      "question_tokens": 40,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false,
+        false
+      ],
+      "gold": {
+        "id": "same-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+        "patterns": [
+          "0[.]23",
+          "0[.]25"
+        ]
+      }
+    },
+    {
+      "id": "switched-context",
+      "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "zero_memory",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.26159042499784846,
+      "question_tokens": 44,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false,
+        false
+      ],
+      "gold": {
+        "id": "switched-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+        "patterns": [
+          "0[.]65",
+          "0[.]79"
+        ]
+      }
+    },
+    {
+      "id": "pilot-code",
+      "question": "What is the code for the memory recall pilot?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "zero_memory",
+      "answer": "The code for the memory recall pilot is UNKNOWN.",
+      "generated_tokens": 10,
+      "seconds": 1.7160569980042055,
+      "question_tokens": 22,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "pilot-code",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the code for the memory recall pilot?",
+        "patterns": [
+          "velvet-heron-7316"
+        ],
+        "counterfactual_patterns": [
+          "copper-badger-9527"
+        ]
+      }
+    },
+    {
+      "id": "recovery-phrase",
+      "question": "What is the recovery phrase for the pilot memory bank?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "zero_memory",
+      "answer": "The recovery phrase for the pilot memory bank is UNKNOWN.",
+      "generated_tokens": 11,
+      "seconds": 2.0265494999912335,
+      "question_tokens": 23,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "recovery-phrase",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the recovery phrase for the pilot memory bank?",
+        "patterns": [
+          "mosaic-lantern-4829"
+        ],
+        "counterfactual_patterns": [
+          "amber-compass-1638"
+        ]
+      }
+    },
+    {
+      "id": "missing-driver",
+      "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+      "category": "absent",
+      "source": "F-0038",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.41367931199783925,
+      "question_tokens": 36,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "missing-driver",
+        "category": "absent",
+        "source": "F-0038",
+        "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "missing-canary",
+      "question": "What is the emergency override password for the memory recall pilot?",
+      "category": "absent",
+      "source": "synthetic-control",
+      "condition": "zero_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3485592859942699,
+      "question_tokens": 24,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "missing-canary",
+        "category": "absent",
+        "source": "synthetic-control",
+        "question": "What is the emergency override password for the memory recall pilot?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "pilot-code",
+      "question": "What is the code for the memory recall pilot?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "counterfactual",
+      "answer": "The code for the memory recall pilot is copper-badger-9527.",
+      "generated_tokens": 18,
+      "seconds": 3.341505688003963,
+      "question_tokens": 22,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "pilot-code",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the code for the memory recall pilot?",
+        "patterns": [
+          "velvet-heron-7316"
+        ],
+        "counterfactual_patterns": [
+          "copper-badger-9527"
+        ]
+      }
+    },
+    {
+      "id": "recovery-phrase",
+      "question": "What is the recovery phrase for the pilot memory bank?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "counterfactual",
+      "answer": "The recovery phrase for the pilot memory bank is amber-compass-1638.",
+      "generated_tokens": 18,
+      "seconds": 3.452985918993363,
+      "question_tokens": 23,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "recovery-phrase",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the recovery phrase for the pilot memory bank?",
+        "patterns": [
+          "mosaic-lantern-4829"
+        ],
+        "counterfactual_patterns": [
+          "amber-compass-1638"
+        ]
+      }
+    },
+    {
+      "id": "program-size",
+      "question": "According to F-0006, what is the core program-memory capacity?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3603676229977282,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "program-size",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "According to F-0006, what is the core program-memory capacity?",
+        "patterns": [
+          "\\b16\\s*(?:kib|kb|kilobytes)\\b"
+        ]
+      }
+    },
+    {
+      "id": "overflow-error",
+      "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3657590779912425,
+      "question_tokens": 30,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "overflow-error",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+        "patterns": [
+          "xaie_invalid_elf"
+        ]
+      }
+    },
+    {
+      "id": "compile-flag",
+      "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3481140600051731,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "compile-flag",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+        "patterns": [
+          "-os\\b"
+        ]
+      }
+    },
+    {
+      "id": "stack-working",
+      "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.389467193002929,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "stack-working",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+        "patterns": [
+          "0x1800"
+        ],
+        "forbidden": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "stack-granite",
+      "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.37782256299396977,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "stack-granite",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+        "patterns": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "float-bug",
+      "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.374106960996869,
+      "question_tokens": 43,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "float-bug",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+        "patterns": [
+          "\\bnan\\b|not.a.number"
+        ]
+      }
+    },
+    {
+      "id": "peano-symbol",
+      "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3574498880043393,
+      "question_tokens": 32,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "peano-symbol",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+        "patterns": [
+          "get_cycles"
+        ]
+      }
+    },
+    {
+      "id": "mask-view",
+      "question": "What integer view does F-0014 recommend for masking?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3522497200028738,
+      "question_tokens": 26,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "mask-view",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "What integer view does F-0014 recommend for masking?",
+        "patterns": [
+          "uint8|unsigned.{0,10}8.bit"
+        ]
+      }
+    },
+    {
+      "id": "classic-time",
+      "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3784971479908563,
+      "question_tokens": 39,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "classic-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]602|\\b602\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "elf-time",
+      "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.37490570099907927,
+      "question_tokens": 38,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "elf-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]447|\\b447\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "completion-state",
+      "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.38110640399099793,
+      "question_tokens": 32,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "completion-state",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+        "patterns": [
+          "\\b4\\b"
+        ]
+      }
+    },
+    {
+      "id": "softmax-mask",
+      "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+      "category": "fact",
+      "source": "F-0066",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3828016560000833,
+      "question_tokens": 34,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "softmax-mask",
+        "category": "fact",
+        "source": "F-0066",
+        "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+        "patterns": [
+          "lowest|lowest.finite|most.negative.finite|minimum.finite"
+        ]
+      }
+    },
+    {
+      "id": "same-context",
+      "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3842717540101148,
+      "question_tokens": 40,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false,
+        false
+      ],
+      "gold": {
+        "id": "same-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+        "patterns": [
+          "0[.]23",
+          "0[.]25"
+        ]
+      }
+    },
+    {
+      "id": "switched-context",
+      "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.41688836200046353,
+      "question_tokens": 44,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false,
+        false
+      ],
+      "gold": {
+        "id": "switched-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+        "patterns": [
+          "0[.]65",
+          "0[.]79"
+        ]
+      }
+    },
+    {
+      "id": "pilot-code",
+      "question": "What is the code for the memory recall pilot?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.36243871800252236,
+      "question_tokens": 22,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "pilot-code",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the code for the memory recall pilot?",
+        "patterns": [
+          "velvet-heron-7316"
+        ],
+        "counterfactual_patterns": [
+          "copper-badger-9527"
+        ]
+      }
+    },
+    {
+      "id": "recovery-phrase",
+      "question": "What is the recovery phrase for the pilot memory bank?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.336782710000989,
+      "question_tokens": 23,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "recovery-phrase",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the recovery phrase for the pilot memory bank?",
+        "patterns": [
+          "mosaic-lantern-4829"
+        ],
+        "counterfactual_patterns": [
+          "amber-compass-1638"
+        ]
+      }
+    },
+    {
+      "id": "missing-driver",
+      "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+      "category": "absent",
+      "source": "F-0038",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3885479279997526,
+      "question_tokens": 36,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "missing-driver",
+        "category": "absent",
+        "source": "F-0038",
+        "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "missing-canary",
+      "question": "What is the emergency override password for the memory recall pilot?",
+      "category": "absent",
+      "source": "synthetic-control",
+      "condition": "stock_no_memory",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.3588204090046929,
+      "question_tokens": 24,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "missing-canary",
+        "category": "absent",
+        "source": "synthetic-control",
+        "question": "What is the emergency override password for the memory recall pilot?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "program-size",
+      "question": "According to F-0006, what is the core program-memory capacity?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "stock_full_text",
+      "answer": "16 KB",
+      "generated_tokens": 3,
+      "seconds": 0.9500006979942555,
+      "question_tokens": 29,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "program-size",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "According to F-0006, what is the core program-memory capacity?",
+        "patterns": [
+          "\\b16\\s*(?:kib|kb|kilobytes)\\b"
+        ]
+      }
+    },
+    {
+      "id": "overflow-error",
+      "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "stock_full_text",
+      "answer": "",
+      "generated_tokens": 0,
+      "seconds": 0.3027525079960469,
+      "question_tokens": 30,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "overflow-error",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+        "patterns": [
+          "xaie_invalid_elf"
+        ]
+      }
+    },
+    {
+      "id": "compile-flag",
+      "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+      "category": "fact",
+      "source": "F-0006",
+      "condition": "stock_full_text",
+      "answer": "- Os",
+      "generated_tokens": 2,
+      "seconds": 0.7663499820046127,
+      "question_tokens": 29,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "compile-flag",
+        "category": "fact",
+        "source": "F-0006",
+        "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+        "patterns": [
+          "-os\\b"
+        ]
+      }
+    },
+    {
+      "id": "stack-working",
+      "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "stock_full_text",
+      "answer": "0x1800",
+      "generated_tokens": 6,
+      "seconds": 1.681785895008943,
+      "question_tokens": 43,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "stack-working",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+        "patterns": [
+          "0x1800"
+        ],
+        "forbidden": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "stack-granite",
+      "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+      "category": "fact",
+      "source": "F-0009",
+      "condition": "stock_full_text",
+      "answer": "0x3000",
+      "generated_tokens": 6,
+      "seconds": 1.6530157329980284,
+      "question_tokens": 43,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "stack-granite",
+        "category": "fact",
+        "source": "F-0009",
+        "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+        "patterns": [
+          "0x3000"
+        ]
+      }
+    },
+    {
+      "id": "float-bug",
+      "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "stock_full_text",
+      "answer": "The 16-lane int32-to-float to_float conversion produced NaN on device.",
+      "generated_tokens": 20,
+      "seconds": 4.82299502400565,
+      "question_tokens": 43,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "float-bug",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+        "patterns": [
+          "\\bnan\\b|not.a.number"
+        ]
+      }
+    },
+    {
+      "id": "peano-symbol",
+      "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "stock_full_text",
+      "answer": "get_cycles()",
+      "generated_tokens": 3,
+      "seconds": 1.0086423980101245,
+      "question_tokens": 32,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "peano-symbol",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+        "patterns": [
+          "get_cycles"
+        ]
+      }
+    },
+    {
+      "id": "mask-view",
+      "question": "What integer view does F-0014 recommend for masking?",
+      "category": "fact",
+      "source": "F-0014",
+      "condition": "stock_full_text",
+      "answer": "The question asks for the integer view recommended in F-0014 for masking. In the provided notes under F-0014, the recommendation is to \"Mask through a uint8",
+      "generated_tokens": 40,
+      "seconds": 9.16631425700325,
+      "question_tokens": 26,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "mask-view",
+        "category": "fact",
+        "source": "F-0014",
+        "question": "What integer view does F-0014 recommend for masking?",
+        "patterns": [
+          "uint8|unsigned.{0,10}8.bit"
+        ]
+      }
+    },
+    {
+      "id": "classic-time",
+      "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "stock_full_text",
+      "answer": "0.602",
+      "generated_tokens": 5,
+      "seconds": 1.502702779995161,
+      "question_tokens": 39,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "classic-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]602|\\b602\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "elf-time",
+      "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "stock_full_text",
+      "answer": "0.447",
+      "generated_tokens": 5,
+      "seconds": 1.5257397539971862,
+      "question_tokens": 38,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "elf-time",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+        "patterns": [
+          "0[.]447|\\b447\\s*(?:microseconds|us|\u03bcs)"
+        ]
+      }
+    },
+    {
+      "id": "completion-state",
+      "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+      "category": "fact",
+      "source": "F-0038",
+      "condition": "stock_full_text",
+      "answer": "4",
+      "generated_tokens": 1,
+      "seconds": 0.5261752389924368,
+      "question_tokens": 32,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "completion-state",
+        "category": "fact",
+        "source": "F-0038",
+        "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+        "patterns": [
+          "\\b4\\b"
+        ]
+      }
+    },
+    {
+      "id": "softmax-mask",
+      "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+      "category": "fact",
+      "source": "F-0066",
+      "condition": "stock_full_text",
+      "answer": "bf16 `lowest`",
+      "generated_tokens": 6,
+      "seconds": 1.6278972330037504,
+      "question_tokens": 34,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "softmax-mask",
+        "category": "fact",
+        "source": "F-0066",
+        "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+        "patterns": [
+          "lowest|lowest.finite|most.negative.finite|minimum.finite"
+        ]
+      }
+    },
+    {
+      "id": "same-context",
+      "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "stock_full_text",
+      "answer": "0.23-0.25",
+      "generated_tokens": 9,
+      "seconds": 2.4580744650011184,
+      "question_tokens": 40,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true,
+        true
+      ],
+      "gold": {
+        "id": "same-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+        "patterns": [
+          "0[.]23",
+          "0[.]25"
+        ]
+      }
+    },
+    {
+      "id": "switched-context",
+      "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+      "category": "fact",
+      "source": "F-0101",
+      "condition": "stock_full_text",
+      "answer": "0.65-0.79 ms",
+      "generated_tokens": 10,
+      "seconds": 2.5601624339906266,
+      "question_tokens": 44,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true,
+        true
+      ],
+      "gold": {
+        "id": "switched-context",
+        "category": "fact",
+        "source": "F-0101",
+        "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+        "patterns": [
+          "0[.]65",
+          "0[.]79"
+        ]
+      }
+    },
+    {
+      "id": "pilot-code",
+      "question": "What is the code for the memory recall pilot?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "stock_full_text",
+      "answer": "The code for the memory recall pilot is velvet-heron-7316.",
+      "generated_tokens": 18,
+      "seconds": 4.401008345987066,
+      "question_tokens": 22,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "pilot-code",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the code for the memory recall pilot?",
+        "patterns": [
+          "velvet-heron-7316"
+        ],
+        "counterfactual_patterns": [
+          "copper-badger-9527"
+        ]
+      }
+    },
+    {
+      "id": "recovery-phrase",
+      "question": "What is the recovery phrase for the pilot memory bank?",
+      "category": "canary",
+      "source": "synthetic-control",
+      "condition": "stock_full_text",
+      "answer": "mosaic-lantern-4829",
+      "generated_tokens": 10,
+      "seconds": 2.6596360169933178,
+      "question_tokens": 23,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "recovery-phrase",
+        "category": "canary",
+        "source": "synthetic-control",
+        "question": "What is the recovery phrase for the pilot memory bank?",
+        "patterns": [
+          "mosaic-lantern-4829"
+        ],
+        "counterfactual_patterns": [
+          "amber-compass-1638"
+        ]
+      }
+    },
+    {
+      "id": "missing-driver",
+      "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+      "category": "absent",
+      "source": "F-0038",
+      "condition": "stock_full_text",
+      "answer": "UNKNOWN",
+      "generated_tokens": 1,
+      "seconds": 0.5799483849987155,
+      "question_tokens": 36,
+      "correct": true,
+      "automatic_correct": true,
+      "review": null,
+      "pattern_hits": [
+        true
+      ],
+      "gold": {
+        "id": "missing-driver",
+        "category": "absent",
+        "source": "F-0038",
+        "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    },
+    {
+      "id": "missing-canary",
+      "question": "What is the emergency override password for the memory recall pilot?",
+      "category": "absent",
+      "source": "synthetic-control",
+      "condition": "stock_full_text",
+      "answer": "The emergency override password for the memory recall pilot is mosaic-lantern-4829.",
+      "generated_tokens": 20,
+      "seconds": 4.872179479993065,
+      "question_tokens": 24,
+      "correct": false,
+      "automatic_correct": false,
+      "review": null,
+      "pattern_hits": [
+        false
+      ],
+      "gold": {
+        "id": "missing-canary",
+        "category": "absent",
+        "source": "synthetic-control",
+        "question": "What is the emergency override password for the memory recall pilot?",
+        "patterns": [
+          "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+        ]
+      }
+    }
+  ]
+}

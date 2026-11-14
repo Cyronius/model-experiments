@@ -1,0 +1,177 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-25.pt",
+    "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+    "precision": "ternary",
+    "layers": 3,
+    "eligible_for_promotion": false,
+    "blend": {
+      "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+      "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+      "trained_fraction": 0.25
+    },
+    "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established.",
+    "step": 0,
+    "selected_identity": true,
+    "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json",
+    "source_arm": "ternary-3-25",
+    "source_summary_sha256": "0735b1902c479c7580ed733c2c0296e7918043cb047b35ee8822514786bc21ab",
+    "experiment_mode": "query"
+  },
+  "token_cap": 128,
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 59.868276543475176,
+      "recall10": 72.33333333333334,
+      "top1_relevant_queries": 147,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.005242466926574707,
+      "queries": 300,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "NFCorpus": {
+      "ndcg10": 30.585786600591057,
+      "recall10": 14.063282352169178,
+      "top1_relevant_queries": 136,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.025468111038208008,
+      "queries": 323,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "ArguAna": {
+      "ndcg10": 46.570004702001775,
+      "recall10": 74.25320056899004,
+      "top1_relevant_queries": 326,
+      "median_first_relevant_rank": 4.0,
+      "median_best_relevant_margin": -0.039743125438690186,
+      "queries": 1406,
+      "judged_documents_absent_from_corpus": 5
+    }
+  },
+  "scope": "Observed external development tasks; reserved FiQA/SCIDOCS labels not used",
+  "stsbenchmark_spearman": 82.4517793016043,
+  "mean_core_retrieval": 45.22703157203311,
+  "reference_report_sha256": "804a497e5ab5861cffc1dd26ca0a4dbdff46b232e17f5ba43706f1f7b6d4a4ef",
+  "paired": {
+    "original": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": 5.01507821034427,
+        "paired_bootstrap_95_ci": [
+          2.5482606241323635,
+          7.445967878301321
+        ],
+        "queries_improved": 67,
+        "queries_worsened": 33,
+        "top1_gained": 26,
+        "top1_lost": 12
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 1.1829119566725765,
+        "paired_bootstrap_95_ci": [
+          0.002689123941672231,
+          2.3371385360570893
+        ],
+        "queries_improved": 120,
+        "queries_worsened": 71,
+        "top1_gained": 21,
+        "top1_lost": 16
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": 3.855768077701225,
+        "paired_bootstrap_95_ci": [
+          2.5493981716604552,
+          5.160434941813576
+        ],
+        "queries_improved": 437,
+        "queries_worsened": 303,
+        "top1_gained": 111,
+        "top1_lost": 77
+      }
+    },
+    "bge_micro": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -1.4621593103171664,
+        "paired_bootstrap_95_ci": [
+          -3.5427831136910863,
+          0.7047860458501225
+        ],
+        "queries_improved": 42,
+        "queries_worsened": 51,
+        "top1_gained": 14,
+        "top1_lost": 13
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": -0.5122406534487824,
+        "paired_bootstrap_95_ci": [
+          -1.5380212282623895,
+          0.5448044430643217
+        ],
+        "queries_improved": 89,
+        "queries_worsened": 98,
+        "top1_gained": 17,
+        "top1_lost": 19
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -5.237702598871744,
+        "paired_bootstrap_95_ci": [
+          -6.478976239876212,
+          -4.067801559052074
+        ],
+        "queries_improved": 259,
+        "queries_worsened": 477,
+        "top1_gained": 68,
+        "top1_lost": 133
+      }
+    },
+    "minilm": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -2.5176863365341697,
+        "paired_bootstrap_95_ci": [
+          -5.4648377716415775,
+          0.4344055846898541
+        ],
+        "queries_improved": 50,
+        "queries_worsened": 65,
+        "top1_gained": 25,
+        "top1_lost": 22
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": -0.8676069187803575,
+        "paired_bootstrap_95_ci": [
+          -2.1279568759732697,
+          0.47834700541833525
+        ],
+        "queries_improved": 89,
+        "queries_worsened": 109,
+        "top1_gained": 17,
+        "top1_lost": 20
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -2.1941512776555054,
+        "paired_bootstrap_95_ci": [
+          -3.7490173831650875,
+          -0.6324833070012148
+        ],
+        "queries_improved": 406,
+        "queries_worsened": 476,
+        "top1_gained": 111,
+        "top1_lost": 140
+      }
+    }
+  },
+  "gates": {
+    "original": {
+      "each_core_retrieval": true,
+      "stsbenchmark": true
+    },
+    "bge_micro": {
+      "each_core_retrieval": false,
+      "stsbenchmark": false
+    },
+    "minilm": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    }
+  },
+  "reused_sha_identical_source": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json"
+}

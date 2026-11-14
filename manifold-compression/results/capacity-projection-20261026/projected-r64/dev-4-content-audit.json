@@ -1,0 +1,274 @@
+{
+  "cases": [
+    {
+      "id": "cp-dev-add_subtract-0",
+      "family": "math_add_subtract",
+      "answer": "66",
+      "grade": {
+        "correct": false,
+        "parsed": true,
+        "format_pass": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false,
+      "original_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "numeric_audit": {
+        "method": "standalone_final_number",
+        "value": "66"
+      }
+    },
+    {
+      "id": "cp-dev-multiply-0",
+      "family": "math_multiply",
+      "answer": "468",
+      "grade": {
+        "correct": false,
+        "parsed": true,
+        "format_pass": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false,
+      "original_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "numeric_audit": {
+        "method": "standalone_final_number",
+        "value": "468"
+      }
+    },
+    {
+      "id": "cp-dev-divide-0",
+      "family": "math_divide",
+      "answer": "1110/15 = 74",
+      "grade": {
+        "correct": true,
+        "parsed": true,
+        "format_pass": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 12,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false,
+      "original_grade": {
+        "correct": true,
+        "format_pass": false,
+        "parsed": true
+      },
+      "numeric_audit": {
+        "method": "legacy_explicit_answer_parser",
+        "value": "74"
+      }
+    },
+    {
+      "id": "cp-dev-fraction-0",
+      "family": "math_fraction",
+      "answer": "13/18",
+      "grade": {
+        "correct": false,
+        "parsed": true,
+        "format_pass": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false,
+      "original_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "numeric_audit": {
+        "method": "standalone_final_number",
+        "value": "13/18"
+      }
+    },
+    {
+      "id": "cp-dev-percent-0",
+      "family": "math_percent",
+      "answer": "104",
+      "grade": {
+        "correct": false,
+        "parsed": true,
+        "format_pass": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false,
+      "original_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "numeric_audit": {
+        "method": "standalone_final_number",
+        "value": "104"
+      }
+    },
+    {
+      "id": "cp-dev-equation-0",
+      "family": "math_equation",
+      "answer": "-100",
+      "grade": {
+        "correct": false,
+        "parsed": true,
+        "format_pass": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false,
+      "original_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "numeric_audit": {
+        "method": "standalone_final_number",
+        "value": "-100"
+      }
+    },
+    {
+      "id": "cp-dev-remainder-0",
+      "family": "math_remainder",
+      "answer": "25",
+      "grade": {
+        "correct": true,
+        "parsed": true,
+        "format_pass": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false,
+      "original_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "numeric_audit": {
+        "method": "standalone_final_number",
+        "value": "25"
+      }
+    },
+    {
+      "id": "cp-dev-multi_step-0",
+      "family": "math_multi_step",
+      "answer": "469",
+      "grade": {
+        "correct": false,
+        "parsed": true,
+        "format_pass": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false,
+      "original_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "numeric_audit": {
+        "method": "standalone_final_number",
+        "value": "469"
+      }
+    },
+    {
+      "id": "cdev-product",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(values):\n    result = []\n    for value in values:\n        result.append(value * value)\n    return result\n```",
+      "grade": {
+        "correct": false,
+        "syntax_pass": true,
+        "passed_tests": 1,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 35,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cdev-palindrome",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(text):\n    if text == text[::-1] or text == text[::-2]:\n        return True\n    return False\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 4,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 35,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cscience-compass",
+      "family": "explanation",
+      "answer": "A compass needle points north when it is rotated by a magnetic field, which aligns the magnetic moment to the north direction.\n\nThis is a common property of magnetic materials, where the magnetic moment is aligned to the north direction.",
+      "grade": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 47,
+      "repeated_4gram_fraction": 0.027027027027026973,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cscience-mirage",
+      "family": "explanation",
+      "answer": "A hot road can appear to have a distant patch of water because the water is not visible in the immediate vicinity, but it is present in the surrounding area. The water is simply a local phenomenon, not a distant phenomenon.",
+      "grade": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 46,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    }
+  ],
+  "summary": {
+    "closed_correct": 2,
+    "closed_total": 8,
+    "programs_correct": 1,
+    "programs_total": 2,
+    "syntax_pass": 2,
+    "ended": 12,
+    "capped": 0,
+    "loop_flags": 0,
+    "word_loop_flags": 0
+  },
+  "numeric_audit_changes": []
+}

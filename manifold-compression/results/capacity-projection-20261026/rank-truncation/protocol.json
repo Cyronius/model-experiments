@@ -1,0 +1,15 @@
+{
+  "scope": "Exploratory post-hoc diagnostic, outside primary fixed 2x2 endpoints.",
+  "declared_after": "Projected rank64 scores 10/39 versus rank16 5/39; stock-r16 complete. Before stock-r64 trained evaluation.",
+  "source_arm": "projected-r64",
+  "source_step": 8,
+  "source_adapter_sha256": "f12bae81ef30d1bf7730c57d8e3f834427e7144760e94a1f4ceb7d879170cbdf",
+  "variants": [
+    "full-rank-control",
+    "rank16-truncated"
+  ],
+  "method": "Double-precision thin QR of B and A.T; SVD of their small core. Balance factors with square-root singular values, store FP32. Keep alpha/rank=2. No retraining or evaluation-dependent tuning.",
+  "evaluation": "Same 47 cases, decoding and numeric audit as primary study. Full-rank control must be inspected for generation equivalence. Separate post-hoc program edge audit applies.",
+  "interpretation": "If rank16 truncation preserves gains, a rank16 final update can represent those gains on this set. This implicates training trajectory/optimization rather than a necessary rank>16 final update. A failed truncation does not prove every rank16 solution is inferior.",
+  "cloud_spend": 0
+}

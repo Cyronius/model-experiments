@@ -1,0 +1,69 @@
+{
+  "status": "completed; retrieval improved; target not yet met; pod deleted",
+  "resource": "one RTX A5000 24GB RunPod Secure Cloud pod",
+  "listed_rate_usd_per_hour": 0.27,
+  "maximum_gpu_rate_usd_per_hour": 0.3,
+  "maximum_elapsed_hours": 4,
+  "expected_elapsed_hours": [
+    2,
+    3
+  ],
+  "expected_total_usd": [
+    0.6,
+    1.0
+  ],
+  "proposed_total_cap_usd": 1.5,
+  "disk_gb": 60,
+  "retained_paid_volumes": false,
+  "work_deadline_minutes": 220,
+  "watchdog_delete_minutes": 230,
+  "training": {
+    "branches": [
+      "float continuation",
+      "ternary continuation"
+    ],
+    "epochs_each": 2,
+    "batch": 128,
+    "learning_rate": 1e-05,
+    "amp": "bf16",
+    "teacher_targets": false,
+    "architecture": "unchanged two layers, width 384, 384 output",
+    "train_rows": 780743,
+    "dev_rows": 15929,
+    "data": "capfit positive relevance pairs",
+    "checkpoint_selection": "Highest full held-source macro nDCG@10 while each source stays within 2 points of its initialization; initialization is eligible as null control",
+    "int4_int8": "derive and evaluate locally from selected float branch after training"
+  },
+  "recovery": {
+    "remote_save_every_steps": 500,
+    "remote_save_every_seconds": 120,
+    "local_backup_attempt_interval_seconds": 60,
+    "payload": [
+      "model",
+      "optimizer",
+      "learning-rate step",
+      "source epoch permutations and cursors",
+      "CPU and CUDA RNG",
+      "validation progress"
+    ],
+    "atomic_publish": true,
+    "sha256_verified_local_copies": true,
+    "remote_resume_copies_retained": 2,
+    "backup_transport": "immutable hardlink snapshot then SCP to local temporary file; verify hash before atomic publish",
+    "backup_failure_action": "retry; stop training if off-pod backups remain unavailable for 10 minutes"
+  },
+  "pricing_source": "https://www.runpod.io/pricing",
+  "approval": {
+    "user_reply": "do it",
+    "cap_usd": 1.5,
+    "max_hours": 4
+  },
+  "actual_gpu_rate_usd_per_hour": 0.27,
+  "pod_id": "pjeduelfgo0u00",
+  "lifecycle_api": "REST v2; v1 rejected available host CUDA 13.2",
+  "image": "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404",
+  "paid_training_authorized": false,
+  "approval_consumed": true,
+  "actual_estimated_total_usd": 0.18931327624994299,
+  "actual_elapsed_hours": 0.6801674595806334
+}

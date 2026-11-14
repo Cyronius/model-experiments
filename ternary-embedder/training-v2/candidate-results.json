@@ -1,0 +1,123 @@
+{
+  "checkpoint_sha256": "e796c96824c9e7da8c69eac49bd8fbf685479b4423499ab645424af0e60146fa",
+  "selection": {
+    "run": "continued-8B-qat",
+    "path": "ternary-embedder/training-v2/runs/approved-pilot/ternary-embedder/training-v2/runs/continued-8B-qat/best.pt",
+    "step": 500,
+    "mrr": 0.8122549019607842,
+    "recall1": 0.6274509803921569,
+    "queries": 204,
+    "sha256": "e796c96824c9e7da8c69eac49bd8fbf685479b4423499ab645424af0e60146fa",
+    "frozen_utc": "2026-10-24T18:49:16.488638+00:00",
+    "selection_metric": "MRR on fixed 204-query MS MARCO training-source holdout",
+    "selected_before_test": true,
+    "all_candidates": [
+      {
+        "run": "adapted-0.6B-gradual",
+        "path": "ternary-embedder/training-v2/runs/approved-pilot/ternary-embedder/training-v2/runs/adapted-0.6B-gradual/best.pt",
+        "step": 3200,
+        "mrr": 0.7339869281045752,
+        "recall1": 0.47549019607843135,
+        "queries": 204
+      },
+      {
+        "run": "adapted-8B-gradual",
+        "path": "ternary-embedder/training-v2/runs/approved-pilot/ternary-embedder/training-v2/runs/adapted-8B-gradual/best.pt",
+        "step": 3200,
+        "mrr": 0.7637721755368814,
+        "recall1": 0.5392156862745098,
+        "queries": 204
+      },
+      {
+        "run": "adapted-8B-abrupt",
+        "path": "ternary-embedder/training-v2/runs/approved-pilot/ternary-embedder/training-v2/runs/adapted-8B-abrupt/best.pt",
+        "step": 2700,
+        "mrr": 0.7498832866479925,
+        "recall1": 0.5147058823529411,
+        "queries": 204
+      },
+      {
+        "run": "continued-8B-qat",
+        "path": "ternary-embedder/training-v2/runs/approved-pilot/ternary-embedder/training-v2/runs/continued-8B-qat/best.pt",
+        "step": 500,
+        "mrr": 0.8122549019607842,
+        "recall1": 0.6274509803921569,
+        "queries": 204
+      }
+    ]
+  },
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 53.45473691605107,
+      "recall10": 67.19444444444444,
+      "top1_relevant_queries": 124,
+      "median_first_relevant_rank": 2.5,
+      "median_best_relevant_margin": -0.014689981937408447,
+      "queries": 300,
+      "paired_vs_minilm": {
+        "ndcg10_delta_right_minus_left": -8.931225963958276,
+        "paired_bootstrap_95_ci": [
+          -12.33093009240726,
+          -5.518118752900305
+        ],
+        "queries_improved": 41,
+        "queries_worsened": 93,
+        "top1_gained": 19,
+        "top1_lost": 39
+      },
+      "paired_vs_original": {
+        "ndcg10_delta_right_minus_left": -1.4007865800666153,
+        "paired_bootstrap_95_ci": [
+          -3.2014098122532135,
+          0.3534268676223236
+        ],
+        "queries_improved": 37,
+        "queries_worsened": 49,
+        "top1_gained": 8,
+        "top1_lost": 17
+      }
+    },
+    "NFCorpus": {
+      "ndcg10": 28.22702998268464,
+      "recall10": 13.216015395697077,
+      "top1_relevant_queries": 128,
+      "median_first_relevant_rank": 3.0,
+      "median_best_relevant_margin": -0.022059321403503418,
+      "queries": 323,
+      "paired_vs_minilm": {
+        "ndcg10_delta_right_minus_left": -3.2263635366867724,
+        "paired_bootstrap_95_ci": [
+          -4.650034587684045,
+          -1.7916883997060726
+        ],
+        "queries_improved": 65,
+        "queries_worsened": 139,
+        "top1_gained": 24,
+        "top1_lost": 35
+      },
+      "paired_vs_original": {
+        "ndcg10_delta_right_minus_left": -1.1818509582575516,
+        "paired_bootstrap_95_ci": [
+          -2.283729249301463,
+          -0.1101139375371533
+        ],
+        "queries_improved": 85,
+        "queries_worsened": 102,
+        "top1_gained": 17,
+        "top1_lost": 20
+      }
+    }
+  },
+  "device": "CPU",
+  "cap": 128,
+  "stsbenchmark_spearman": 81.34914322420855,
+  "mean_ndcg10": 40.84088344936785,
+  "delta_vs_original": {
+    "mean_retrieval": -1.2871530391568342,
+    "stsbenchmark": -0.2337998122207381
+  },
+  "passes_each_reference": {
+    "bge_micro": false,
+    "minilm": false
+  }
+}

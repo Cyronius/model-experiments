@@ -1,0 +1,754 @@
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.001.990 I srv  llama_server: initializing ...
+0.00.002.001 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.002.355 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.004.219 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.03.070.003 I cmn          init: llama threadpool init, n_threads = 8
+0.03.277.167 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.03.277.245 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.03.280.354 I srv  server_run_i: model loaded
+0.03.280.365 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.984.078 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.984.232 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.286.900 I slot print_timing: id  0 | task 0 | prompt eval time =     396.73 ms /    15 tokens (   26.45 ms per token,    37.81 tokens per second)
+0.05.286.904 I slot print_timing: id  0 | task 0 |        eval time =     905.88 ms /     8 tokens (  129.41 ms per token,     7.73 tokens per second)
+0.05.286.905 I slot print_timing: id  0 | task 0 |       total time =    1302.61 ms /    23 tokens
+0.05.286.912 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.286.913 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.286.953 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.290.460 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251201436441
+0.05.290.550 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.24.028.345 I slot print_timing: id  0 | task 10 | prompt eval time =     591.07 ms /    33 tokens (   17.91 ms per token,    55.83 tokens per second)
+0.24.028.351 I slot print_timing: id  0 | task 10 |        eval time =   18146.69 ms /    96 tokens (  191.02 ms per token,     5.24 tokens per second)
+0.24.028.352 I slot print_timing: id  0 | task 10 |       total time =   18737.76 ms /   129 tokens
+0.24.028.353 I slot print_timing: id  0 | task 10 |    graphs reused =        100
+0.24.028.354 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.24.028.385 I slot      release: id  0 | task 10 | stop processing: n_tokens = 128, truncated = 0
+0.24.029.335 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.001.421 I srv  llama_server: initializing ...
+0.00.001.429 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.001.695 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.003.425 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.047.056 I cmn          init: llama threadpool init, n_threads = 8
+0.02.047.147 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.088.316 I spec common_specu: ngram-table: 3391248 entries, contexts up to 6 tokens, 64.0 MiB, tau = 0.300, n_max = 2, table = 1, context = 1, pad = 1
+0.02.088.479 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.091.813 I srv  server_run_i: model loaded
+0.02.091.827 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.004.744 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.004.987 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.543.793 I slot print_timing: id  0 | task 0 | prompt eval time =     798.06 ms /    15 tokens (   53.20 ms per token,    18.80 tokens per second)
+0.04.543.800 I slot print_timing: id  0 | task 0 |        eval time =     740.61 ms /     8 tokens (  105.80 ms per token,     9.45 tokens per second)
+0.04.543.801 I slot print_timing: id  0 | task 0 |       total time =    1538.67 ms /    23 tokens
+0.04.543.806 I slot print_timing: id  0 | task 0 |    graphs reused =          3
+0.04.543.808 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.543.812 I slot print_timing: id  0 | task 0 | draft acceptance = 0.22222 (    2 accepted /     9 generated), mean len =  1.40
+0.04.543.870 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.546.669 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251224941898
+0.04.546.707 I slot launch_slot_: id  0 | task 8 | processing task, is_child = 0
+0.19.863.904 I slot print_timing: id  0 | task 8 | prompt eval time =     414.35 ms /    33 tokens (   12.56 ms per token,    79.64 tokens per second)
+0.19.863.909 I slot print_timing: id  0 | task 8 |        eval time =   14902.82 ms /    96 tokens (  156.87 ms per token,     6.37 tokens per second)
+0.19.863.910 I slot print_timing: id  0 | task 8 |       total time =   15317.17 ms /   129 tokens
+0.19.863.911 I slot print_timing: id  0 | task 8 |    graphs reused =         76
+0.19.863.912 I slot print_timing: id  0 | task 8 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.19.863.916 I slot print_timing: id  0 | task 8 | draft acceptance = 0.12752 (   19 accepted /   149 generated), mean len =  1.25
+0.19.863.964 I slot      release: id  0 | task 8 | stop processing: n_tokens = 128, truncated = 0
+0.19.864.803 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-cache
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.256 I srv  llama_server: initializing ...
+0.00.002.306 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.002.753 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.004.794 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.087.613 I cmn          init: llama threadpool init, n_threads = 8
+0.02.569.257 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.569.465 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.574.606 I srv  server_run_i: model loaded
+0.02.574.615 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.004.688 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.004.941 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.662.238 I slot print_timing: id  0 | task 0 | prompt eval time =     770.00 ms /    15 tokens (   51.33 ms per token,    19.48 tokens per second)
+0.04.662.244 I slot print_timing: id  0 | task 0 |        eval time =     887.22 ms /     8 tokens (  126.75 ms per token,     7.89 tokens per second)
+0.04.662.245 I slot print_timing: id  0 | task 0 |       total time =    1657.22 ms /    23 tokens
+0.04.662.254 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.04.662.255 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.662.329 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.665.783 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251245146971
+0.04.665.874 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.23.754.884 I slot print_timing: id  0 | task 10 | prompt eval time =     495.17 ms /    33 tokens (   15.01 ms per token,    66.64 tokens per second)
+0.23.754.890 I slot print_timing: id  0 | task 10 |        eval time =   18593.79 ms /    96 tokens (  195.72 ms per token,     5.11 tokens per second)
+0.23.754.891 I slot print_timing: id  0 | task 10 |       total time =   19088.95 ms /   129 tokens
+0.23.754.894 I slot print_timing: id  0 | task 10 |    graphs reused =         85
+0.23.754.894 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.23.754.906 I slot print_timing: id  0 | task 10 | draft acceptance = 0.25000 (    6 accepted /    24 generated), mean len =  3.00
+0.23.754.982 I slot      release: id  0 | task 10 | stop processing: n_tokens = 128, truncated = 0
+0.23.756.453 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.003.111 I srv  llama_server: initializing ...
+0.00.003.136 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.769 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.182 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.066.076 I cmn          init: llama threadpool init, n_threads = 8
+0.02.246.452 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.246.524 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.249.472 I srv  server_run_i: model loaded
+0.02.249.480 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.060.951 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.061.150 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.921.208 I slot print_timing: id  0 | task 0 | prompt eval time =     727.45 ms /    15 tokens (   48.50 ms per token,    20.62 tokens per second)
+0.05.921.222 I slot print_timing: id  0 | task 0 |        eval time =    2132.49 ms /     8 tokens (  304.64 ms per token,     3.28 tokens per second)
+0.05.921.224 I slot print_timing: id  0 | task 0 |       total time =    2859.94 ms /    23 tokens
+0.05.921.241 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.921.242 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.921.342 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.926.443 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251270654256
+0.05.926.529 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.22.125.714 I slot print_timing: id  0 | task 10 | prompt eval time =     637.43 ms /    31 tokens (   20.56 ms per token,    48.63 tokens per second)
+0.22.125.721 I slot print_timing: id  0 | task 10 |        eval time =   15561.38 ms /    96 tokens (  163.80 ms per token,     6.10 tokens per second)
+0.22.125.722 I slot print_timing: id  0 | task 10 |       total time =   16198.82 ms /   127 tokens
+0.22.125.728 I slot print_timing: id  0 | task 10 |    graphs reused =        100
+0.22.125.730 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.22.125.814 I slot      release: id  0 | task 10 | stop processing: n_tokens = 126, truncated = 0
+0.22.149.131 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.003.330 I srv  llama_server: initializing ...
+0.00.003.351 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.973 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.353 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.03.103.396 I cmn          init: llama threadpool init, n_threads = 8
+0.03.103.595 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.03.183.699 I spec common_specu: ngram-table: 3391248 entries, contexts up to 6 tokens, 64.0 MiB, tau = 0.300, n_max = 2, table = 1, context = 1, pad = 1
+0.03.183.999 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.03.189.517 I srv  server_run_i: model loaded
+0.03.189.543 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.04.115.862 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.04.115.968 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.06.868.355 I slot print_timing: id  0 | task 0 | prompt eval time =    1076.71 ms /    15 tokens (   71.78 ms per token,    13.93 tokens per second)
+0.06.868.369 I slot print_timing: id  0 | task 0 |        eval time =    1675.53 ms /     8 tokens (  239.36 ms per token,     4.18 tokens per second)
+0.06.868.371 I slot print_timing: id  0 | task 0 |       total time =    2752.24 ms /    23 tokens
+0.06.868.380 I slot print_timing: id  0 | task 0 |    graphs reused =          3
+0.06.868.381 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.06.868.397 I slot print_timing: id  0 | task 0 | draft acceptance = 0.22222 (    2 accepted /     9 generated), mean len =  1.40
+0.06.868.486 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.06.872.607 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251294242245
+0.06.872.660 I slot launch_slot_: id  0 | task 8 | processing task, is_child = 0
+0.26.306.967 I slot print_timing: id  0 | task 8 | prompt eval time =     686.32 ms /    31 tokens (   22.14 ms per token,    45.17 tokens per second)
+0.26.306.976 I slot print_timing: id  0 | task 8 |        eval time =   18747.92 ms /    96 tokens (  197.35 ms per token,     5.07 tokens per second)
+0.26.306.977 I slot print_timing: id  0 | task 8 |       total time =   19434.24 ms /   127 tokens
+0.26.306.980 I slot print_timing: id  0 | task 8 |    graphs reused =         82
+0.26.306.981 I slot print_timing: id  0 | task 8 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.26.306.990 I slot print_timing: id  0 | task 8 | draft acceptance = 0.08750 (   14 accepted /   160 generated), mean len =  1.18
+0.26.307.087 I slot      release: id  0 | task 8 | stop processing: n_tokens = 126, truncated = 0
+0.26.309.559 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-cache
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.635 I srv  llama_server: initializing ...
+0.00.002.659 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.187 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.154 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.028.443 I cmn          init: llama threadpool init, n_threads = 8
+0.02.416.314 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.416.601 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.423.063 I srv  server_run_i: model loaded
+0.02.423.079 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.001.460 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.001.564 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.321.413 I slot print_timing: id  0 | task 0 | prompt eval time =     822.05 ms /    15 tokens (   54.80 ms per token,    18.25 tokens per second)
+0.05.321.423 I slot print_timing: id  0 | task 0 |        eval time =    1497.74 ms /     8 tokens (  213.96 ms per token,     4.67 tokens per second)
+0.05.321.424 I slot print_timing: id  0 | task 0 |       total time =    2319.79 ms /    23 tokens
+0.05.321.429 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.321.430 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.321.489 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.326.852 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251319629666
+0.05.326.948 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.26.686.293 I slot print_timing: id  0 | task 10 | prompt eval time =     467.89 ms /    31 tokens (   15.09 ms per token,    66.25 tokens per second)
+0.26.686.298 I slot print_timing: id  0 | task 10 |        eval time =   20891.42 ms /    96 tokens (  219.91 ms per token,     4.55 tokens per second)
+0.26.686.299 I slot print_timing: id  0 | task 10 |       total time =   21359.32 ms /   127 tokens
+0.26.686.301 I slot print_timing: id  0 | task 10 |    graphs reused =         94
+0.26.686.302 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.26.686.308 I slot print_timing: id  0 | task 10 | draft acceptance = 0.00000 (    0 accepted /    16 generated), mean len =  1.00
+0.26.686.363 I slot      release: id  0 | task 10 | stop processing: n_tokens = 126, truncated = 0
+0.26.687.617 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.075 I srv  llama_server: initializing ...
+0.00.002.092 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.002.490 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.004.633 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.855.390 I cmn          init: llama threadpool init, n_threads = 8
+0.03.284.534 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.03.284.664 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.03.289.005 I srv  server_run_i: model loaded
+0.03.289.022 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.04.147.682 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.04.147.798 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.987.989 I slot print_timing: id  0 | task 0 | prompt eval time =     546.53 ms /    15 tokens (   36.44 ms per token,    27.45 tokens per second)
+0.05.987.996 I slot print_timing: id  0 | task 0 |        eval time =    1293.58 ms /     8 tokens (  184.80 ms per token,     5.41 tokens per second)
+0.05.987.998 I slot print_timing: id  0 | task 0 |       total time =    1840.12 ms /    23 tokens
+0.05.988.008 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.988.009 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.988.086 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.995.417 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251347458690
+0.05.995.592 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.26.645.748 I slot print_timing: id  0 | task 10 | prompt eval time =    1212.94 ms /    83 tokens (   14.61 ms per token,    68.43 tokens per second)
+0.26.645.761 I slot print_timing: id  0 | task 10 |        eval time =   19437.10 ms /    96 tokens (  204.60 ms per token,     4.89 tokens per second)
+0.26.645.764 I slot print_timing: id  0 | task 10 |       total time =   20650.05 ms /   179 tokens
+0.26.645.769 I slot print_timing: id  0 | task 10 |    graphs reused =        100
+0.26.645.770 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.26.645.838 I slot      release: id  0 | task 10 | stop processing: n_tokens = 178, truncated = 0
+0.26.647.605 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.003.504 I srv  llama_server: initializing ...
+0.00.003.520 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.004.127 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.749 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.403.601 I cmn          init: llama threadpool init, n_threads = 8
+0.02.403.685 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.418.792 I spec common_specu: ngram-table: 3391248 entries, contexts up to 6 tokens, 64.0 MiB, tau = 0.300, n_max = 2, table = 1, context = 1, pad = 1
+0.02.419.031 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.421.923 I srv  server_run_i: model loaded
+0.02.421.934 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.167.478 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.167.613 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.435.406 I slot print_timing: id  0 | task 0 | prompt eval time =     453.10 ms /    15 tokens (   30.21 ms per token,    33.11 tokens per second)
+0.04.435.415 I slot print_timing: id  0 | task 0 |        eval time =     814.64 ms /     8 tokens (  116.38 ms per token,     8.59 tokens per second)
+0.04.435.415 I slot print_timing: id  0 | task 0 |       total time =    1267.74 ms /    23 tokens
+0.04.435.422 I slot print_timing: id  0 | task 0 |    graphs reused =          3
+0.04.435.422 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.435.426 I slot print_timing: id  0 | task 0 | draft acceptance = 0.22222 (    2 accepted /     9 generated), mean len =  1.40
+0.04.435.479 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.437.616 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251373334943
+0.04.437.666 I slot launch_slot_: id  0 | task 8 | processing task, is_child = 0
+0.20.905.354 I slot print_timing: id  0 | task 8 | prompt eval time =    1448.01 ms /    83 tokens (   17.45 ms per token,    57.32 tokens per second)
+0.20.905.361 I slot print_timing: id  0 | task 8 |        eval time =   15019.64 ms /    96 tokens (  158.10 ms per token,     6.33 tokens per second)
+0.20.905.362 I slot print_timing: id  0 | task 8 |       total time =   16467.65 ms /   179 tokens
+0.20.905.364 I slot print_timing: id  0 | task 8 |    graphs reused =         56
+0.20.905.365 I slot print_timing: id  0 | task 8 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.20.905.370 I slot print_timing: id  0 | task 8 | draft acceptance = 0.36697 (   40 accepted /   109 generated), mean len =  1.73
+0.20.905.431 I slot      release: id  0 | task 8 | stop processing: n_tokens = 178, truncated = 0
+0.20.906.246 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-cache
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.602 I srv  llama_server: initializing ...
+0.00.002.617 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.114 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.178 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.03.413.907 I cmn          init: llama threadpool init, n_threads = 8
+0.03.673.957 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.03.674.067 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.03.677.521 I srv  server_run_i: model loaded
+0.03.677.530 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.04.129.028 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.04.129.148 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.589.918 I slot print_timing: id  0 | task 0 | prompt eval time =     523.21 ms /    15 tokens (   34.88 ms per token,    28.67 tokens per second)
+0.05.589.925 I slot print_timing: id  0 | task 0 |        eval time =     937.51 ms /     8 tokens (  133.93 ms per token,     7.47 tokens per second)
+0.05.589.926 I slot print_timing: id  0 | task 0 |       total time =    1460.72 ms /    23 tokens
+0.05.589.934 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.589.934 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.589.997 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.592.586 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251395867785
+0.05.592.651 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.27.175.572 I slot print_timing: id  0 | task 10 | prompt eval time =    1444.12 ms /    83 tokens (   17.40 ms per token,    57.47 tokens per second)
+0.27.175.585 I slot print_timing: id  0 | task 10 |        eval time =   20138.78 ms /    96 tokens (  211.99 ms per token,     4.72 tokens per second)
+0.27.175.586 I slot print_timing: id  0 | task 10 |       total time =   21582.89 ms /   179 tokens
+0.27.175.589 I slot print_timing: id  0 | task 10 |    graphs reused =         77
+0.27.175.590 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.27.175.597 I slot print_timing: id  0 | task 10 | draft acceptance = 0.10417 (    5 accepted /    48 generated), mean len =  1.71
+0.27.175.656 I slot      release: id  0 | task 10 | stop processing: n_tokens = 178, truncated = 0
+0.27.176.845 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.003.020 I srv  llama_server: initializing ...
+0.00.003.039 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.711 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.076 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.584.316 I cmn          init: llama threadpool init, n_threads = 8
+0.02.921.840 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.921.912 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.925.392 I srv  server_run_i: model loaded
+0.02.925.402 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.003.111 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.003.154 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.177.931 I slot print_timing: id  0 | task 0 | prompt eval time =     405.38 ms /    15 tokens (   27.03 ms per token,    37.00 tokens per second)
+0.04.177.935 I slot print_timing: id  0 | task 0 |        eval time =     769.36 ms /     8 tokens (  109.91 ms per token,     9.10 tokens per second)
+0.04.177.936 I slot print_timing: id  0 | task 0 |       total time =    1174.74 ms /    23 tokens
+0.04.177.944 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.04.177.945 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.177.980 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.181.076 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251422108491
+0.04.181.130 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.26.617.944 I slot print_timing: id  0 | task 10 | prompt eval time =     654.45 ms /    72 tokens (    9.09 ms per token,   110.02 tokens per second)
+0.26.617.952 I slot print_timing: id  0 | task 10 |        eval time =   21782.33 ms /    96 tokens (  229.29 ms per token,     4.36 tokens per second)
+0.26.617.953 I slot print_timing: id  0 | task 10 |       total time =   22436.78 ms /   168 tokens
+0.26.617.955 I slot print_timing: id  0 | task 10 |    graphs reused =        100
+0.26.617.956 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.26.617.989 I slot      release: id  0 | task 10 | stop processing: n_tokens = 167, truncated = 0
+0.26.619.004 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.676 I srv  llama_server: initializing ...
+0.00.002.691 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.203 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.371 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.03.556.173 I cmn          init: llama threadpool init, n_threads = 8
+0.03.556.422 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.03.585.664 I spec common_specu: ngram-table: 3391248 entries, contexts up to 6 tokens, 64.0 MiB, tau = 0.300, n_max = 2, table = 1, context = 1, pad = 1
+0.03.585.787 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.03.591.929 I srv  server_run_i: model loaded
+0.03.591.943 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.04.006.070 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.04.006.133 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.344.982 I slot print_timing: id  0 | task 0 | prompt eval time =     503.59 ms /    15 tokens (   33.57 ms per token,    29.79 tokens per second)
+0.05.344.988 I slot print_timing: id  0 | task 0 |        eval time =     835.20 ms /     8 tokens (  119.31 ms per token,     8.38 tokens per second)
+0.05.344.989 I slot print_timing: id  0 | task 0 |       total time =    1338.79 ms /    23 tokens
+0.05.344.996 I slot print_timing: id  0 | task 0 |    graphs reused =          3
+0.05.344.997 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.345.005 I slot print_timing: id  0 | task 0 | draft acceptance = 0.22222 (    2 accepted /     9 generated), mean len =  1.40
+0.05.345.073 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.348.263 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251450417580
+0.05.348.315 I slot launch_slot_: id  0 | task 8 | processing task, is_child = 0
+0.21.731.548 I slot print_timing: id  0 | task 8 | prompt eval time =    1174.28 ms /    72 tokens (   16.31 ms per token,    61.31 tokens per second)
+0.21.731.555 I slot print_timing: id  0 | task 8 |        eval time =   15208.91 ms /    96 tokens (  160.09 ms per token,     6.25 tokens per second)
+0.21.731.557 I slot print_timing: id  0 | task 8 |       total time =   16383.19 ms /   168 tokens
+0.21.731.561 I slot print_timing: id  0 | task 8 |    graphs reused =         69
+0.21.731.562 I slot print_timing: id  0 | task 8 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.21.731.570 I slot print_timing: id  0 | task 8 | draft acceptance = 0.19259 (   26 accepted /   135 generated), mean len =  1.38
+0.21.731.668 I slot      release: id  0 | task 8 | stop processing: n_tokens = 167, truncated = 0
+0.21.733.166 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-cache
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.003.813 I srv  llama_server: initializing ...
+0.00.003.834 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.004.385 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.680 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.095.508 I cmn          init: llama threadpool init, n_threads = 8
+0.02.561.894 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.563.507 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.571.791 I srv  server_run_i: model loaded
+0.02.571.810 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.02.982.261 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.02.982.357 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.299.272 I slot print_timing: id  0 | task 0 | prompt eval time =     462.49 ms /    15 tokens (   30.83 ms per token,    32.43 tokens per second)
+0.04.299.280 I slot print_timing: id  0 | task 0 |        eval time =     854.37 ms /     8 tokens (  122.05 ms per token,     8.19 tokens per second)
+0.04.299.281 I slot print_timing: id  0 | task 0 |       total time =    1316.86 ms /    23 tokens
+0.04.299.289 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.04.299.290 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.299.356 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.303.121 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251471948779
+0.04.303.241 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.22.937.629 I slot print_timing: id  0 | task 10 | prompt eval time =     672.86 ms /    72 tokens (    9.35 ms per token,   107.01 tokens per second)
+0.22.937.638 I slot print_timing: id  0 | task 10 |        eval time =   17961.50 ms /    96 tokens (  189.07 ms per token,     5.29 tokens per second)
+0.22.937.639 I slot print_timing: id  0 | task 10 |       total time =   18634.36 ms /   168 tokens
+0.22.937.641 I slot print_timing: id  0 | task 10 |    graphs reused =         66
+0.22.937.642 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.22.937.648 I slot print_timing: id  0 | task 10 | draft acceptance = 0.13889 (   10 accepted /    72 generated), mean len =  2.11
+0.22.937.705 I slot      release: id  0 | task 10 | stop processing: n_tokens = 167, truncated = 0
+0.22.938.538 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.128 I srv  llama_server: initializing ...
+0.00.002.145 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.002.559 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.004.682 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.03.093.419 I cmn          init: llama threadpool init, n_threads = 8
+0.03.529.730 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.03.529.929 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.03.536.174 I srv  server_run_i: model loaded
+0.03.536.193 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.986.880 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.986.964 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.263.286 I slot print_timing: id  0 | task 0 | prompt eval time =     400.02 ms /    15 tokens (   26.67 ms per token,    37.50 tokens per second)
+0.05.263.307 I slot print_timing: id  0 | task 0 |        eval time =     876.22 ms /     8 tokens (  125.17 ms per token,     7.99 tokens per second)
+0.05.263.308 I slot print_timing: id  0 | task 0 |       total time =    1276.24 ms /    23 tokens
+0.05.263.323 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.263.324 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.263.401 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.266.409 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251496390109
+0.05.266.456 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.21.757.208 I slot print_timing: id  0 | task 10 | prompt eval time =     596.38 ms /    49 tokens (   12.17 ms per token,    82.16 tokens per second)
+0.21.757.213 I slot print_timing: id  0 | task 10 |        eval time =   15894.35 ms /    96 tokens (  167.31 ms per token,     5.98 tokens per second)
+0.21.757.214 I slot print_timing: id  0 | task 10 |       total time =   16490.73 ms /   145 tokens
+0.21.757.216 I slot print_timing: id  0 | task 10 |    graphs reused =        100
+0.21.757.217 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.21.757.247 I slot      release: id  0 | task 10 | stop processing: n_tokens = 144, truncated = 0
+0.21.758.074 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.751 I srv  llama_server: initializing ...
+0.00.002.765 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.291 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.387 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.423.478 I cmn          init: llama threadpool init, n_threads = 8
+0.02.423.621 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.459.686 I spec common_specu: ngram-table: 3391248 entries, contexts up to 6 tokens, 64.0 MiB, tau = 0.300, n_max = 2, table = 1, context = 1, pad = 1
+0.02.459.831 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.463.798 I srv  server_run_i: model loaded
+0.02.463.811 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.002.731 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.002.985 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.471.991 I slot print_timing: id  0 | task 0 | prompt eval time =     626.79 ms /    15 tokens (   41.79 ms per token,    23.93 tokens per second)
+0.04.472.001 I slot print_timing: id  0 | task 0 |        eval time =     842.13 ms /     8 tokens (  120.30 ms per token,     8.31 tokens per second)
+0.04.472.002 I slot print_timing: id  0 | task 0 |       total time =    1468.92 ms /    23 tokens
+0.04.472.008 I slot print_timing: id  0 | task 0 |    graphs reused =          3
+0.04.472.009 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.472.012 I slot print_timing: id  0 | task 0 | draft acceptance = 0.22222 (    2 accepted /     9 generated), mean len =  1.40
+0.04.472.072 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.474.713 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251517932398
+0.04.474.755 I slot launch_slot_: id  0 | task 8 | processing task, is_child = 0
+0.19.145.997 I slot print_timing: id  0 | task 8 | prompt eval time =     618.48 ms /    49 tokens (   12.62 ms per token,    79.23 tokens per second)
+0.19.146.002 I slot print_timing: id  0 | task 8 |        eval time =   14052.72 ms /    96 tokens (  147.92 ms per token,     6.76 tokens per second)
+0.19.146.002 I slot print_timing: id  0 | task 8 |       total time =   14671.21 ms /   145 tokens
+0.19.146.004 I slot print_timing: id  0 | task 8 |    graphs reused =         67
+0.19.146.004 I slot print_timing: id  0 | task 8 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.19.146.007 I slot print_timing: id  0 | task 8 | draft acceptance = 0.23077 (   30 accepted /   130 generated), mean len =  1.46
+0.19.146.054 I slot      release: id  0 | task 8 | stop processing: n_tokens = 144, truncated = 0
+0.19.146.790 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-cache
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.003.313 I srv  llama_server: initializing ...
+0.00.003.331 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.004.128 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.467 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.661.644 I cmn          init: llama threadpool init, n_threads = 8
+0.02.994.797 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.995.080 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.03.001.686 I srv  server_run_i: model loaded
+0.03.001.707 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.181.049 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.181.161 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.574.062 I slot print_timing: id  0 | task 0 | prompt eval time =     744.56 ms /    15 tokens (   49.64 ms per token,    20.15 tokens per second)
+0.05.574.070 I slot print_timing: id  0 | task 0 |        eval time =    1648.26 ms /     8 tokens (  235.47 ms per token,     4.25 tokens per second)
+0.05.574.071 I slot print_timing: id  0 | task 0 |       total time =    2392.82 ms /    23 tokens
+0.05.574.086 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.574.087 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.574.189 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.577.864 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251538804629
+0.05.577.925 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.22.982.030 I slot print_timing: id  0 | task 10 | prompt eval time =     793.42 ms /    49 tokens (   16.19 ms per token,    61.76 tokens per second)
+0.22.982.041 I slot print_timing: id  0 | task 10 |        eval time =   16610.64 ms /    96 tokens (  174.85 ms per token,     5.72 tokens per second)
+0.22.982.042 I slot print_timing: id  0 | task 10 |       total time =   17404.05 ms /   145 tokens
+0.22.982.044 I slot print_timing: id  0 | task 10 |    graphs reused =         55
+0.22.982.044 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.22.982.050 I slot print_timing: id  0 | task 10 | draft acceptance = 0.14737 (   14 accepted /    95 generated), mean len =  2.08
+0.22.982.115 I slot      release: id  0 | task 10 | stop processing: n_tokens = 144, truncated = 0
+0.22.983.132 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.003.192 I srv  llama_server: initializing ...
+0.00.003.212 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.847 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.396 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.236.511 I cmn          init: llama threadpool init, n_threads = 8
+0.02.512.277 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.512.408 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.519.883 I srv  server_run_i: model loaded
+0.02.519.899 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.02.989.505 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.02.989.667 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.697.855 I slot print_timing: id  0 | task 0 | prompt eval time =     515.43 ms /    15 tokens (   34.36 ms per token,    29.10 tokens per second)
+0.04.697.860 I slot print_timing: id  0 | task 0 |        eval time =    1192.70 ms /     8 tokens (  170.39 ms per token,     5.87 tokens per second)
+0.04.697.861 I slot print_timing: id  0 | task 0 |       total time =    1708.13 ms /    23 tokens
+0.04.697.870 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.04.697.871 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.697.920 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.700.756 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251561595645
+0.04.700.822 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.18.333.361 I slot print_timing: id  0 | task 10 | prompt eval time =     546.84 ms /    31 tokens (   17.64 ms per token,    56.69 tokens per second)
+0.18.333.369 I slot print_timing: id  0 | task 10 |        eval time =   13085.66 ms /    96 tokens (  137.74 ms per token,     7.26 tokens per second)
+0.18.333.371 I slot print_timing: id  0 | task 10 |       total time =   13632.50 ms /   127 tokens
+0.18.333.374 I slot print_timing: id  0 | task 10 |    graphs reused =        100
+0.18.333.375 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.18.333.419 I slot      release: id  0 | task 10 | stop processing: n_tokens = 126, truncated = 0
+0.18.337.153 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.708 I srv  llama_server: initializing ...
+0.00.002.723 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.226 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.416 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.01.949.219 I cmn          init: llama threadpool init, n_threads = 8
+0.01.949.344 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.028.982 I spec common_specu: ngram-table: 3391248 entries, contexts up to 6 tokens, 64.0 MiB, tau = 0.300, n_max = 2, table = 1, context = 1, pad = 1
+0.02.029.091 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.032.076 I srv  server_run_i: model loaded
+0.02.032.087 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.009.902 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.010.110 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.941.534 I slot print_timing: id  0 | task 0 | prompt eval time =     622.49 ms /    15 tokens (   41.50 ms per token,    24.10 tokens per second)
+0.04.941.542 I slot print_timing: id  0 | task 0 |        eval time =    1308.83 ms /     8 tokens (  186.98 ms per token,     5.35 tokens per second)
+0.04.941.543 I slot print_timing: id  0 | task 0 |       total time =    1931.32 ms /    23 tokens
+0.04.941.553 I slot print_timing: id  0 | task 0 |    graphs reused =          3
+0.04.941.555 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.941.560 I slot print_timing: id  0 | task 0 | draft acceptance = 0.22222 (    2 accepted /     9 generated), mean len =  1.40
+0.04.941.664 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.944.585 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251580849894
+0.04.944.634 I slot launch_slot_: id  0 | task 8 | processing task, is_child = 0
+0.18.113.506 I slot print_timing: id  0 | task 8 | prompt eval time =     461.35 ms /    31 tokens (   14.88 ms per token,    67.19 tokens per second)
+0.18.113.517 I slot print_timing: id  0 | task 8 |        eval time =   12707.46 ms /    96 tokens (  133.76 ms per token,     7.48 tokens per second)
+0.18.113.518 I slot print_timing: id  0 | task 8 |       total time =   13168.81 ms /   127 tokens
+0.18.113.522 I slot print_timing: id  0 | task 8 |    graphs reused =         74
+0.18.113.523 I slot print_timing: id  0 | task 8 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.18.113.530 I slot print_timing: id  0 | task 8 | draft acceptance = 0.14483 (   21 accepted /   145 generated), mean len =  1.29
+0.18.113.642 I slot      release: id  0 | task 8 | stop processing: n_tokens = 126, truncated = 0
+0.18.115.283 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-cache
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.977 I srv  llama_server: initializing ...
+0.00.002.994 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.544 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.815 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.165.920 I cmn          init: llama threadpool init, n_threads = 8
+0.02.450.411 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.450.641 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.455.323 I srv  server_run_i: model loaded
+0.02.455.342 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.007.705 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.007.862 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.191.918 I slot print_timing: id  0 | task 0 | prompt eval time =     569.65 ms /    15 tokens (   37.98 ms per token,    26.33 tokens per second)
+0.05.191.925 I slot print_timing: id  0 | task 0 |        eval time =    1614.34 ms /     8 tokens (  230.62 ms per token,     4.34 tokens per second)
+0.05.191.927 I slot print_timing: id  0 | task 0 |       total time =    2184.00 ms /    23 tokens
+0.05.191.935 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.191.936 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.192.001 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.194.448 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251599943196
+0.05.194.506 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.18.568.232 I slot print_timing: id  0 | task 10 | prompt eval time =     439.78 ms /    31 tokens (   14.19 ms per token,    70.49 tokens per second)
+0.18.568.240 I slot print_timing: id  0 | task 10 |        eval time =   12933.92 ms /    96 tokens (  136.15 ms per token,     7.35 tokens per second)
+0.18.568.241 I slot print_timing: id  0 | task 10 |       total time =   13373.70 ms /   127 tokens
+0.18.568.243 I slot print_timing: id  0 | task 10 |    graphs reused =         77
+0.18.568.243 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.18.568.250 I slot print_timing: id  0 | task 10 | draft acceptance = 0.03846 (    2 accepted /    52 generated), mean len =  1.29
+0.18.568.303 I slot      release: id  0 | task 10 | stop processing: n_tokens = 126, truncated = 0
+0.18.569.264 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.829 I srv  llama_server: initializing ...
+0.00.002.848 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.466 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.640 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.341.344 I cmn          init: llama threadpool init, n_threads = 8
+0.02.542.747 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.542.848 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.548.588 I srv  server_run_i: model loaded
+0.02.548.600 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.005.648 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.005.758 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.132.023 I slot print_timing: id  0 | task 0 | prompt eval time =     655.44 ms /    15 tokens (   43.70 ms per token,    22.89 tokens per second)
+0.05.132.031 I slot print_timing: id  0 | task 0 |        eval time =    1470.76 ms /     8 tokens (  210.11 ms per token,     4.76 tokens per second)
+0.05.132.032 I slot print_timing: id  0 | task 0 |       total time =    2126.20 ms /    23 tokens
+0.05.132.040 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.132.041 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.132.093 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.137.049 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251619028692
+0.05.137.118 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.10.439.813 I slot print_timing: id  0 | task 10 | prompt processing, n_tokens =    319, progress = 0.99, t =   5.30 s / 60.16 tokens per second
+0.26.081.208 I slot print_timing: id  0 | task 10 | prompt eval time =    5589.14 ms /   323 tokens (   17.30 ms per token,    57.79 tokens per second)
+0.26.081.539 I slot print_timing: id  0 | task 10 |        eval time =   15354.92 ms /    96 tokens (  161.63 ms per token,     6.19 tokens per second)
+0.26.081.594 I slot print_timing: id  0 | task 10 |       total time =   20944.06 ms /   419 tokens
+0.26.081.639 I slot print_timing: id  0 | task 10 |    graphs reused =        100
+0.26.081.667 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.26.081.728 I slot      release: id  0 | task 10 | stop processing: n_tokens = 418, truncated = 0
+0.26.085.615 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.003.085 I srv  llama_server: initializing ...
+0.00.003.105 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.698 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.006.188 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.939.508 I cmn          init: llama threadpool init, n_threads = 8
+0.02.939.600 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.960.215 I spec common_specu: ngram-table: 3391248 entries, contexts up to 6 tokens, 64.0 MiB, tau = 0.300, n_max = 2, table = 1, context = 1, pad = 1
+0.02.960.316 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.963.593 I srv  server_run_i: model loaded
+0.02.963.601 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.02.999.651 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.02.999.779 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.737.537 I slot print_timing: id  0 | task 0 | prompt eval time =     499.32 ms /    15 tokens (   33.29 ms per token,    30.04 tokens per second)
+0.04.737.546 I slot print_timing: id  0 | task 0 |        eval time =    1238.38 ms /     8 tokens (  176.91 ms per token,     5.65 tokens per second)
+0.04.737.547 I slot print_timing: id  0 | task 0 |       total time =    1737.69 ms /    23 tokens
+0.04.737.554 I slot print_timing: id  0 | task 0 |    graphs reused =          3
+0.04.737.554 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.737.559 I slot print_timing: id  0 | task 0 | draft acceptance = 0.22222 (    2 accepted /     9 generated), mean len =  1.40
+0.04.737.638 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.742.394 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251645195372
+0.04.742.442 I slot launch_slot_: id  0 | task 8 | processing task, is_child = 0
+0.17.999.262 I slot print_timing: id  0 | task 8 | prompt eval time =    3064.40 ms /   323 tokens (    9.49 ms per token,   105.40 tokens per second)
+0.17.999.269 I slot print_timing: id  0 | task 8 |        eval time =   10192.38 ms /    96 tokens (  107.29 ms per token,     9.32 tokens per second)
+0.17.999.270 I slot print_timing: id  0 | task 8 |       total time =   13256.77 ms /   419 tokens
+0.17.999.273 I slot print_timing: id  0 | task 8 |    graphs reused =         62
+0.17.999.273 I slot print_timing: id  0 | task 8 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.17.999.286 I slot print_timing: id  0 | task 8 | draft acceptance = 0.28333 (   34 accepted /   120 generated), mean len =  1.57
+0.17.999.358 I slot      release: id  0 | task 8 | stop processing: n_tokens = 418, truncated = 0
+0.18.000.218 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-cache
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.649 I srv  llama_server: initializing ...
+0.00.002.668 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.199 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.439 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.176.941 I cmn          init: llama threadpool init, n_threads = 8
+0.02.433.556 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.433.754 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.439.401 I srv  server_run_i: model loaded
+0.02.439.417 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.001.393 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.001.581 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.05.037.630 I slot print_timing: id  0 | task 0 | prompt eval time =     604.58 ms /    15 tokens (   40.31 ms per token,    24.81 tokens per second)
+0.05.037.635 I slot print_timing: id  0 | task 0 |        eval time =    1431.41 ms /     8 tokens (  204.49 ms per token,     4.89 tokens per second)
+0.05.037.636 I slot print_timing: id  0 | task 0 |       total time =    2035.99 ms /    23 tokens
+0.05.037.642 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.05.037.643 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.05.037.703 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.05.041.281 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251664218858
+0.05.041.343 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.19.947.531 I slot print_timing: id  0 | task 10 | prompt eval time =    2820.84 ms /   323 tokens (    8.73 ms per token,   114.50 tokens per second)
+0.19.947.536 I slot print_timing: id  0 | task 10 |        eval time =   12085.31 ms /    96 tokens (  127.21 ms per token,     7.86 tokens per second)
+0.19.947.537 I slot print_timing: id  0 | task 10 |       total time =   14906.16 ms /   419 tokens
+0.19.947.538 I slot print_timing: id  0 | task 10 |    graphs reused =         61
+0.19.947.539 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.19.947.544 I slot print_timing: id  0 | task 10 | draft acceptance = 0.23611 (   17 accepted /    72 generated), mean len =  2.89
+0.19.947.610 I slot      release: id  0 | task 10 | stop processing: n_tokens = 418, truncated = 0
+0.19.948.575 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.765 I srv  llama_server: initializing ...
+0.00.002.779 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.296 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.450 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.343.503 I cmn          init: llama threadpool init, n_threads = 8
+0.02.542.650 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.542.723 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.545.563 I srv  server_run_i: model loaded
+0.02.545.573 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.002.071 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.002.274 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.769.591 I slot print_timing: id  0 | task 0 | prompt eval time =     706.51 ms /    15 tokens (   47.10 ms per token,    21.23 tokens per second)
+0.04.769.600 I slot print_timing: id  0 | task 0 |        eval time =    1060.72 ms /     8 tokens (  151.53 ms per token,     6.60 tokens per second)
+0.04.769.601 I slot print_timing: id  0 | task 0 |       total time =    1767.23 ms /    23 tokens
+0.04.769.608 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.04.769.608 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.769.649 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.774.260 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251684427066
+0.04.774.354 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.08.009.868 I slot print_timing: id  0 | task 10 | prompt processing, n_tokens =    314, progress = 0.99, t =   3.24 s / 97.05 tokens per second
+0.19.444.174 I slot print_timing: id  0 | task 10 | prompt eval time =    3409.78 ms /   318 tokens (   10.72 ms per token,    93.26 tokens per second)
+0.19.444.182 I slot print_timing: id  0 | task 10 |        eval time =   11260.00 ms /    96 tokens (  118.53 ms per token,     8.44 tokens per second)
+0.19.444.183 I slot print_timing: id  0 | task 10 |       total time =   14669.78 ms /   414 tokens
+0.19.444.186 I slot print_timing: id  0 | task 10 |    graphs reused =        100
+0.19.444.187 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.19.444.257 I slot      release: id  0 | task 10 | stop processing: n_tokens = 413, truncated = 0
+0.19.445.561 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-table --spec-table-file /home/cyrus/code/model-experiments/target/memdraft/9b-all-c3.mdt --spec-table-n-max 2 --spec-table-pad
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.001.319 I srv  llama_server: initializing ...
+0.00.001.326 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.001.580 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.003.336 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.403.112 I cmn          init: llama threadpool init, n_threads = 8
+0.02.403.198 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.02.422.274 I spec common_specu: ngram-table: 3391248 entries, contexts up to 6 tokens, 64.0 MiB, tau = 0.300, n_max = 2, table = 1, context = 1, pad = 1
+0.02.422.363 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.02.425.460 I srv  server_run_i: model loaded
+0.02.425.469 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.003.769 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.003.926 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.821.985 I slot print_timing: id  0 | task 0 | prompt eval time =     671.41 ms /    15 tokens (   44.76 ms per token,    22.34 tokens per second)
+0.04.821.989 I slot print_timing: id  0 | task 0 |        eval time =    1146.58 ms /     8 tokens (  163.80 ms per token,     6.11 tokens per second)
+0.04.821.990 I slot print_timing: id  0 | task 0 |       total time =    1817.99 ms /    23 tokens
+0.04.821.995 I slot print_timing: id  0 | task 0 |    graphs reused =          3
+0.04.821.996 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.821.999 I slot print_timing: id  0 | task 0 | draft acceptance = 0.22222 (    2 accepted /     9 generated), mean len =  1.40
+0.04.822.053 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.825.031 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251704445194
+0.04.825.064 I slot launch_slot_: id  0 | task 8 | processing task, is_child = 0
+0.16.717.295 I slot print_timing: id  0 | task 8 | prompt eval time =    2189.14 ms /   318 tokens (    6.88 ms per token,   145.26 tokens per second)
+0.16.717.301 I slot print_timing: id  0 | task 8 |        eval time =    9703.06 ms /    96 tokens (  102.14 ms per token,     9.79 tokens per second)
+0.16.717.302 I slot print_timing: id  0 | task 8 |       total time =   11892.20 ms /   414 tokens
+0.16.717.304 I slot print_timing: id  0 | task 8 |    graphs reused =         61
+0.16.717.305 I slot print_timing: id  0 | task 8 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.16.717.309 I slot print_timing: id  0 | task 8 | draft acceptance = 0.30508 (   36 accepted /   118 generated), mean len =  1.61
+0.16.717.394 I slot      release: id  0 | task 8 | stop processing: n_tokens = 413, truncated = 0
+0.16.720.501 I srv    operator(): operator(): cleaning up before exit...
+/home/cyrus/.cache/model-experiments/memdraft/llama.cpp/build-cpu/bin/llama-server -m /home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf --host 127.0.0.1 --port 8455 -np 1 --jinja --cache-ram 0 --no-warmup -ngl 0 -t 8 -c 8192 --spec-type ngram-cache
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.002.639 I srv  llama_server: initializing ...
+0.00.002.653 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.003.161 W srv  server_setup: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.005.230 I srv    load_model: loading model '/home/cyrus/.cache/model-experiments/memdraft/models/Qwen3.5-9B-Q4_K_M.gguf'
+0.02.866.944 I cmn          init: llama threadpool init, n_threads = 8
+0.03.062.875 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.03.063.011 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.03.068.478 I srv  server_run_i: model loaded
+0.03.068.494 I srv  server_on_li: listening on http://127.0.0.1:8455
+0.03.295.817 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.03.295.905 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.04.810.539 I slot print_timing: id  0 | task 0 | prompt eval time =     514.63 ms /    15 tokens (   34.31 ms per token,    29.15 tokens per second)
+0.04.810.544 I slot print_timing: id  0 | task 0 |        eval time =     999.96 ms /     8 tokens (  142.85 ms per token,     7.00 tokens per second)
+0.04.810.544 I slot print_timing: id  0 | task 0 |       total time =    1514.59 ms /    23 tokens
+0.04.810.550 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.04.810.550 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.04.810.614 I slot      release: id  0 | task 0 | stop processing: n_tokens = 22, truncated = 0
+0.04.816.450 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 22, t_last = 251721828021
+0.04.816.513 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.19.996.101 I slot print_timing: id  0 | task 10 | prompt eval time =    3046.28 ms /   318 tokens (    9.58 ms per token,   104.39 tokens per second)
+0.19.996.106 I slot print_timing: id  0 | task 10 |        eval time =   12133.27 ms /    96 tokens (  127.72 ms per token,     7.83 tokens per second)
+0.19.996.107 I slot print_timing: id  0 | task 10 |       total time =   15179.56 ms /   414 tokens
+0.19.996.108 I slot print_timing: id  0 | task 10 |    graphs reused =         54
+0.19.996.109 I slot print_timing: id  0 | task 10 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.19.996.114 I slot print_timing: id  0 | task 10 | draft acceptance = 0.20000 (   19 accepted /    95 generated), mean len =  2.46
+0.19.996.177 I slot      release: id  0 | task 10 | stop processing: n_tokens = 413, truncated = 0
+0.19.996.920 I srv    operator(): operator(): cleaning up before exit...

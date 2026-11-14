@@ -1,0 +1,1010 @@
+{
+ "args": {
+  "shards": [
+   "manifold-compression/results/heal-shards-pod-20261105/mc-shard-ec420510e5b4/shards/shard_000",
+   "manifold-compression/results/heal-shards-pod-20261105/mc-shard-d65446e1cd6b/shards/shard_001",
+   "manifold-compression/results/heal-shards-pod-20261105/mc-shard-1135ab4d74a4/shards/shard_002"
+  ],
+  "out": "memdraft/results/study-9b-chat-to-math.json",
+  "K": 6,
+  "n_max": 8,
+  "pad_to": 0,
+  "cost": null,
+  "labels": [
+   "top"
+  ],
+  "modes": [
+   "greedy"
+  ],
+  "policies": [
+   "static",
+   "both"
+  ],
+  "fractions": [
+   1.0
+  ],
+  "min_counts": [
+   1
+  ],
+  "train_sources": [
+   "chat"
+  ],
+  "test_sources": [
+   "gsm8k",
+   "math",
+   "openthoughts"
+  ],
+  "limit": null,
+  "cache": "target/memdraft/cache"
+ },
+ "configs": {
+  "top@4.3M static greedy": {
+   "train_tokens": 4295169,
+   "labels": "top",
+   "policy": "static",
+   "mode": "greedy",
+   "min_count": 1,
+   "entries_total": 14348208,
+   "entries_kept": {
+    "0.1": 14202897,
+    "0.3": 4141747,
+    "0.5": 240409
+   },
+   "by_cost": {
+    "b0.0": {
+     "rule": [
+      "tau",
+      0.02
+     ],
+     "cost": {
+      "beta": 0.0,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.2801935886761033,
+      "tokens_per_step": 1.2801935886761033,
+      "drafted_per_step": 2.5427676455517836,
+      "acceptance": 0.11019567423804363,
+      "rejected_per_step": 0.9469060238262986,
+      "reshaped_per_step": 0.7543865688849036,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.296492627897699,
+       "tokens_per_step": 1.296492627897699,
+       "drafted_per_step": 2.5403576976292133,
+       "acceptance": 0.11671962763593594,
+       "rejected_per_step": 0.947015932568819,
+       "reshaped_per_step": 0.7321384614078721,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.4040217999598754,
+       "tokens_per_step": 1.4040217999598754,
+       "drafted_per_step": 2.564931509328941,
+       "acceptance": 0.15751875454308076,
+       "rejected_per_step": 0.940915954306367,
+       "reshaped_per_step": 0.74400584067566,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.2100069193162355,
+       "tokens_per_step": 1.2100069193162355,
+       "drafted_per_step": 2.549867285245976,
+       "acceptance": 0.08236383351405455,
+       "rejected_per_step": 0.9479945326058599,
+       "reshaped_per_step": 0.7660250229698613,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.3154944722604927,
+       "tokens_per_step": 1.3154944722604927,
+       "drafted_per_step": 2.5779226452501764,
+       "acceptance": 0.12238582623793609,
+       "rejected_per_step": 0.9448973419805773,
+       "reshaped_per_step": 0.7589199905910817,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.201530847396269,
+       "tokens_per_step": 1.201530847396269,
+       "drafted_per_step": 2.493167835109601,
+       "acceptance": 0.08083727877675233,
+       "rejected_per_step": 0.9532332321595273,
+       "reshaped_per_step": 0.7586879025513564,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.05": {
+     "rule": [
+      "tau",
+      0.15
+     ],
+     "cost": {
+      "beta": 0.05,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1758939580243097,
+      "tokens_per_step": 1.2358522538662577,
+      "drafted_per_step": 1.0197908652016128,
+      "acceptance": 0.23128269801077864,
+      "rejected_per_step": 0.616474263528086,
+      "reshaped_per_step": 0.5172065328829478,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.189745375319902,
+       "tokens_per_step": 1.2482153875070996,
+       "drafted_per_step": 0.9828995917967074,
+       "acceptance": 0.2525462905223949,
+       "rejected_per_step": 0.6049499246111036,
+       "reshaped_per_step": 0.5126363231466385,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.2680656453374428,
+       "tokens_per_step": 1.3397076984636465,
+       "drafted_per_step": 1.12994233996678,
+       "acceptance": 0.30064417017709905,
+       "rejected_per_step": 0.6292039576142622,
+       "reshaped_per_step": 0.5121941038801777,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.1230451702526418,
+       "tokens_per_step": 1.177177177177177,
+       "drafted_per_step": 0.9640218997132181,
+       "acceptance": 0.18379959333713955,
+       "rejected_per_step": 0.6094620113912719,
+       "reshaped_per_step": 0.5137273240167131,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.1957895457073096,
+       "tokens_per_step": 1.260685026793075,
+       "drafted_per_step": 1.0853997063066776,
+       "acceptance": 0.24018015291635886,
+       "rejected_per_step": 0.6355111294311624,
+       "reshaped_per_step": 0.5150260201978566,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.1173447396969336,
+       "tokens_per_step": 1.1699918563452778,
+       "drafted_per_step": 0.9423612029108261,
+       "acceptance": 0.18039966818431358,
+       "rejected_per_step": 0.6052922331729083,
+       "reshaped_per_step": 0.5299364990771068,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1240537138654203,
+      "tokens_per_step": 1.2123176231186106,
+      "drafted_per_step": 0.7852285719484569,
+      "acceptance": 0.2703987517554646,
+      "rejected_per_step": 0.4540012979805485,
+      "reshaped_per_step": 0.5602689063907346,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.1342205053546293,
+       "tokens_per_step": 1.2188705745282755,
+       "drafted_per_step": 0.7463281502495781,
+       "acceptance": 0.2932792292846183,
+       "rejected_per_step": 0.4437741149056551,
+       "reshaped_per_step": 0.5610458736827825,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.201618944819884,
+       "tokens_per_step": 1.3105562251484055,
+       "drafted_per_step": 0.9065875733579644,
+       "acceptance": 0.3425582374163849,
+       "rejected_per_step": 0.47712808497696474,
+       "reshaped_per_step": 0.578518366243509,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.079472907808452,
+       "tokens_per_step": 1.1569425991703044,
+       "drafted_per_step": 0.7176622108944986,
+       "acceptance": 0.21869911327220315,
+       "rejected_per_step": 0.4380561806892438,
+       "reshaped_per_step": 0.5467734063609989,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.1403013594088158,
+       "tokens_per_step": 1.237186577588441,
+       "drafted_per_step": 0.8496457307553741,
+       "acceptance": 0.27916682164775897,
+       "rejected_per_step": 0.4725149007982909,
+       "reshaped_per_step": 0.5728132327937654,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.0743675076020776,
+       "tokens_per_step": 1.1506277896635793,
+       "drafted_per_step": 0.7098156033377256,
+       "acceptance": 0.21221823509859652,
+       "rejected_per_step": 0.4412278772957296,
+       "reshaped_per_step": 0.5487602297695724,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.15": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.15,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0845720757823485,
+      "tokens_per_step": 1.2123176231186106,
+      "drafted_per_step": 0.7852285719484569,
+      "acceptance": 0.2703987517554646,
+      "rejected_per_step": 0.4540012979805485,
+      "reshaped_per_step": 0.5602689063907346,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.096156685776395,
+       "tokens_per_step": 1.2188705745282755,
+       "drafted_per_step": 0.7463281502495781,
+       "acceptance": 0.2932792292846183,
+       "rejected_per_step": 0.4437741149056551,
+       "reshaped_per_step": 0.5610458736827825,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.1536706974412831,
+       "tokens_per_step": 1.3105562251484055,
+       "drafted_per_step": 0.9065875733579644,
+       "acceptance": 0.3425582374163849,
+       "rejected_per_step": 0.47712808497696474,
+       "reshaped_per_step": 0.578518366243509,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.044502593129727,
+       "tokens_per_step": 1.1569425991703044,
+       "drafted_per_step": 0.7176622108944986,
+       "acceptance": 0.21869911327220315,
+       "rejected_per_step": 0.4380561806892438,
+       "reshaped_per_step": 0.5467734063609989,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.0973347143055359,
+       "tokens_per_step": 1.237186577588441,
+       "drafted_per_step": 0.8496457307553741,
+       "acceptance": 0.27916682164775897,
+       "rejected_per_step": 0.4725149007982909,
+       "reshaped_per_step": 0.5728132327937654,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.039906509676456,
+       "tokens_per_step": 1.1506277896635793,
+       "drafted_per_step": 0.7098156033377256,
+       "acceptance": 0.21221823509859652,
+       "rejected_per_step": 0.4412278772957296,
+       "reshaped_per_step": 0.5487602297695724,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.2": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.2,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0652828539488428,
+      "tokens_per_step": 1.1357800113577077,
+      "drafted_per_step": 0.3308846901437613,
+      "acceptance": 0.41036412912227976,
+      "rejected_per_step": 0.16277001636177602,
+      "reshaped_per_step": 0.37302505337021685,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.0658110228857847,
+       "tokens_per_step": 1.1326842001831712,
+       "drafted_per_step": 0.31371967385137917,
+       "acceptance": 0.4229505484114977,
+       "rejected_per_step": 0.1532371993340576,
+       "reshaped_per_step": 0.37721779949794765,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.1169981178112849,
+       "tokens_per_step": 1.2160801262620984,
+       "drafted_per_step": 0.4435191379058051,
+       "acceptance": 0.48719459386212466,
+       "rejected_per_step": 0.18704663753997952,
+       "reshaped_per_step": 0.44315984488993876,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.0345337576609546,
+       "tokens_per_step": 1.0881322002129383,
+       "drafted_per_step": 0.2590463682556279,
+       "acceptance": 0.3402424677964767,
+       "rejected_per_step": 0.14438614498925745,
+       "reshaped_per_step": 0.3238777709065176,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.0770845164045202,
+       "tokens_per_step": 1.157349210947986,
+       "drafted_per_step": 0.3726016543780709,
+       "acceptance": 0.42231461351698746,
+       "rejected_per_step": 0.174061504076818,
+       "reshaped_per_step": 0.3953419619575822,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.033328423079041,
+       "tokens_per_step": 1.0893535226141726,
+       "drafted_per_step": 0.27109047948275733,
+       "acceptance": 0.3296133538109705,
+       "rejected_per_step": 0.15454676685331367,
+       "reshaped_per_step": 0.33683682695010675,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.3": {
+     "rule": [
+      "tau",
+      0.4
+     ],
+     "cost": {
+      "beta": 0.3,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0425394698876593,
+      "tokens_per_step": 1.1061524125894202,
+      "drafted_per_step": 0.20339099714090633,
+      "acceptance": 0.5219266396725332,
+      "rejected_per_step": 0.07984882014827441,
+      "reshaped_per_step": 0.23450136728734755,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.0429295998536035,
+       "tokens_per_step": 1.103745429318842,
+       "drafted_per_step": 0.19437499096703328,
+       "acceptance": 0.5337385679232657,
+       "rejected_per_step": 0.07478212484282638,
+       "reshaped_per_step": 0.23494385107889754,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.0810341843910676,
+       "tokens_per_step": 1.176618267594702,
+       "drafted_per_step": 0.2947303751159833,
+       "acceptance": 0.5992536993351919,
+       "rejected_per_step": 0.09639193893778238,
+       "reshaped_per_step": 0.30079311103301637,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.0192832562924363,
+       "tokens_per_step": 1.0635791467776712,
+       "drafted_per_step": 0.14485960342485388,
+       "acceptance": 0.4389448598050434,
+       "rejected_per_step": 0.06748009023268567,
+       "reshaped_per_step": 0.1879843463738674,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.0488204460483503,
+       "tokens_per_step": 1.1250725662292576,
+       "drafted_per_step": 0.24234246661953454,
+       "acceptance": 0.5161221464571598,
+       "rejected_per_step": 0.0916547399398778,
+       "reshaped_per_step": 0.2640289920047822,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.0195965156377178,
+       "tokens_per_step": 1.0652880060388843,
+       "drafted_per_step": 0.14937768584725664,
+       "acceptance": 0.4370766062848787,
+       "rejected_per_step": 0.07112925946398958,
+       "reshaped_per_step": 0.1965891597272992,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.5": {
+     "rule": [
+      "tau",
+      0.7
+     ],
+     "cost": {
+      "beta": 0.5,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0217973678547654,
+      "tokens_per_step": 1.0579772090139719,
+      "drafted_per_step": 0.07081607821160299,
+      "acceptance": 0.8187012113369554,
+      "rejected_per_step": 0.009993469574635748,
+      "reshaped_per_step": 0.09798185375420061,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.0290687489893817,
+       "tokens_per_step": 1.0675153849110803,
+       "drafted_per_step": 0.07472121947043056,
+       "acceptance": 0.9035637452062483,
+       "rejected_per_step": 0.006087567314446265,
+       "reshaped_per_step": 0.11676107870854112,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.0400538588105808,
+       "tokens_per_step": 1.0997892060251158,
+       "drafted_per_step": 0.11486971892561242,
+       "acceptance": 0.8687163767653805,
+       "rejected_per_step": 0.011541679073262721,
+       "reshaped_per_step": 0.14260023348032197,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.009651259159527,
+       "tokens_per_step": 1.0308425066829658,
+       "drafted_per_step": 0.04197736066031206,
+       "acceptance": 0.7347414462893154,
+       "rejected_per_step": 0.00869359341234111,
+       "reshaped_per_step": 0.06474474271336267,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.0233742401051926,
+       "tokens_per_step": 1.0647276564612067,
+       "drafted_per_step": 0.08081777855139946,
+       "acceptance": 0.8009086320040384,
+       "rejected_per_step": 0.011393090168326176,
+       "reshaped_per_step": 0.10552411206514378,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.0093599395151922,
+       "tokens_per_step": 1.0318756180165034,
+       "drafted_per_step": 0.044613774769237856,
+       "acceptance": 0.7144792876500193,
+       "rejected_per_step": 0.010524452223276139,
+       "reshaped_per_step": 0.07150783792458723,
+       "tokens": 716909
+      }
+     }
+    }
+   }
+  },
+  "top@4.3M both greedy": {
+   "train_tokens": 4295169,
+   "labels": "top",
+   "policy": "both",
+   "mode": "greedy",
+   "min_count": 1,
+   "entries_total": 14348208,
+   "entries_kept": {
+    "0.1": 14202897,
+    "0.3": 4141747,
+    "0.5": 240409
+   },
+   "by_cost": {
+    "b0.0": {
+     "rule": [
+      "tau",
+      0.02
+     ],
+     "cost": {
+      "beta": 0.0,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.7664026105870618,
+      "tokens_per_step": 1.7664026105870618,
+      "drafted_per_step": 5.088881143833051,
+      "acceptance": 0.15061030878556156,
+      "rejected_per_step": 0.9506129334085991,
+      "reshaped_per_step": 0.73356480126199,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.6600206499293555,
+       "tokens_per_step": 1.6600206499293555,
+       "drafted_per_step": 5.133344201717205,
+       "acceptance": 0.12859105816196256,
+       "rejected_per_step": 0.9649005542875775,
+       "reshaped_per_step": 0.7595152700793392,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.8272798839371078,
+       "tokens_per_step": 1.8272798839371078,
+       "drafted_per_step": 4.824878921196202,
+       "acceptance": 0.17146574916629098,
+       "rejected_per_step": 0.9437746746528616,
+       "reshaped_per_step": 0.7171870061388474,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.7527604337824516,
+       "tokens_per_step": 1.7527604337824516,
+       "drafted_per_step": 5.342410860992442,
+       "acceptance": 0.14090814201459145,
+       "rejected_per_step": 0.9536312849162011,
+       "reshaped_per_step": 0.7382229707525468,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.842778397563536,
+       "tokens_per_step": 1.842778397563536,
+       "drafted_per_step": 5.003511596269988,
+       "acceptance": 0.1684449089836595,
+       "rejected_per_step": 0.9421810496189494,
+       "reshaped_per_step": 0.7201361331958821,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.7160950411244842,
+       "tokens_per_step": 1.7160950411244842,
+       "drafted_per_step": 5.139131454724768,
+       "acceptance": 0.13934909960999636,
+       "rejected_per_step": 0.9534273595112936,
+       "reshaped_per_step": 0.7435033847509073,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.05": {
+     "rule": [
+      "tau",
+      0.15
+     ],
+     "cost": {
+      "beta": 0.05,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.491910324322713,
+      "tokens_per_step": 1.6713865444547054,
+      "drafted_per_step": 2.40599206542082,
+      "acceptance": 0.2790609472810298,
+      "rejected_per_step": 0.7780152263226084,
+      "reshaped_per_step": 0.7392783619917874,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.4272161886066868,
+       "tokens_per_step": 1.5862260555298808,
+       "drafted_per_step": 2.2282520082458808,
+       "acceptance": 0.2631228167478019,
+       "rejected_per_step": 0.7774131404447998,
+       "reshaped_per_step": 0.7472544020438153,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.543397941849765,
+       "tokens_per_step": 1.7345714903355174,
+       "drafted_per_step": 2.4773072880559965,
+       "acceptance": 0.2965284093601829,
+       "rejected_per_step": 0.7831380310247408,
+       "reshaped_per_step": 0.7443943764861984,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.4736777211548813,
+       "tokens_per_step": 1.6497142812956704,
+       "drafted_per_step": 2.3890781222211053,
+       "acceptance": 0.27196239676142187,
+       "rejected_per_step": 0.7709069539061111,
+       "reshaped_per_step": 0.7372199840708923,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.543127110955892,
+       "tokens_per_step": 1.7365911218166252,
+       "drafted_per_step": 2.507428059388987,
+       "acceptance": 0.293775995272863,
+       "rejected_per_step": 0.7749712769874328,
+       "reshaped_per_step": 0.7397229282834064,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.4521311159292063,
+       "tokens_per_step": 1.6238360464879238,
+       "drafted_per_step": 2.364868140007384,
+       "acceptance": 0.26380752977775396,
+       "rejected_per_step": 0.7819343995687341,
+       "reshaped_per_step": 0.7317657664595655,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.1": {
+     "rule": [
+      "tau",
+      0.2
+     ],
+     "cost": {
+      "beta": 0.1,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.3551024808046719,
+      "tokens_per_step": 1.62113665188832,
+      "drafted_per_step": 1.9632033359253735,
+      "acceptance": 0.31640511327266957,
+      "rejected_per_step": 0.7052130423894893,
+      "reshaped_per_step": 0.7261117470114654,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.3036405248924468,
+       "tokens_per_step": 1.5441545180661989,
+       "drafted_per_step": 1.8449410599106295,
+       "acceptance": 0.2949852184086295,
+       "rejected_per_step": 0.7043239581858989,
+       "reshaped_per_step": 0.745794326384536,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.397858408674496,
+       "tokens_per_step": 1.68379749812314,
+       "drafted_per_step": 2.0455511636531383,
+       "acceptance": 0.3342949369887243,
+       "rejected_per_step": 0.7113289977115876,
+       "reshaped_per_step": 0.7348535144766952,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.3392507964407339,
+       "tokens_per_step": 1.5976755201341968,
+       "drafted_per_step": 1.929621579320816,
+       "acceptance": 0.30975074949790915,
+       "rejected_per_step": 0.6970650071797522,
+       "reshaped_per_step": 0.7209688078615946,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.394485151371588,
+       "tokens_per_step": 1.6807401682981282,
+       "drafted_per_step": 2.0527648978189936,
+       "acceptance": 0.3316357476000251,
+       "rejected_per_step": 0.7036364416967199,
+       "reshaped_per_step": 0.7214623046539584,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.3230540332248675,
+       "tokens_per_step": 1.5755133704882294,
+       "drafted_per_step": 1.908155909914028,
+       "acceptance": 0.3016232240588203,
+       "rejected_per_step": 0.7085413773097277,
+       "reshaped_per_step": 0.7153518873397915,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.15": {
+     "rule": [
+      "tau",
+      0.3
+     ],
+     "cost": {
+      "beta": 0.15,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.2714691111753733,
+      "tokens_per_step": 1.5393538039732142,
+      "drafted_per_step": 1.4045940528863372,
+      "acceptance": 0.384010478190826,
+      "rejected_per_step": 0.5891624212038246,
+      "reshaped_per_step": 0.6334139104852342,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.231716900710498,
+       "tokens_per_step": 1.4627602520638203,
+       "drafted_per_step": 1.2505219406615717,
+       "acceptance": 0.3700958055400262,
+       "rejected_per_step": 0.5651755444463599,
+       "reshaped_per_step": 0.6607864544427205,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.3078000002248098,
+       "tokens_per_step": 1.59929140162957,
+       "drafted_per_step": 1.485912225899236,
+       "acceptance": 0.4033258864559339,
+       "rejected_per_step": 0.5936418588507786,
+       "reshaped_per_step": 0.642499750856538,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.257757038464594,
+       "tokens_per_step": 1.5157716743960512,
+       "drafted_per_step": 1.367591291698268,
+       "acceptance": 0.37715174074430036,
+       "rejected_per_step": 0.5820768272993216,
+       "reshaped_per_step": 0.6286236485418373,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.3011727831871718,
+       "tokens_per_step": 1.5932392394347854,
+       "drafted_per_step": 1.4964267109461484,
+       "acceptance": 0.39645353422720225,
+       "rejected_per_step": 0.5934264504786091,
+       "reshaped_per_step": 0.6265953636778017,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.2443376102960224,
+       "tokens_per_step": 1.499913173922049,
+       "drafted_per_step": 1.3692723556228776,
+       "acceptance": 0.365118485729609,
+       "rejected_per_step": 0.6003427014835753,
+       "reshaped_per_step": 0.6195385873920166,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.2": {
+     "rule": [
+      "tau",
+      0.4
+     ],
+     "cost": {
+      "beta": 0.2,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.205132541645319,
+      "tokens_per_step": 1.4165933200947753,
+      "drafted_per_step": 0.8773341153030259,
+      "acceptance": 0.4748652317982776,
+      "rejected_per_step": 0.35891478671318916,
+      "reshaped_per_step": 0.5654943175047962,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.1737242712179603,
+       "tokens_per_step": 1.3564035504482463,
+       "drafted_per_step": 0.7782035513363024,
+       "acceptance": 0.45805089581193653,
+       "rejected_per_step": 0.33929070960121843,
+       "reshaped_per_step": 0.594651238172203,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.2359856129361406,
+       "tokens_per_step": 1.4705232740928689,
+       "drafted_per_step": 0.9487879903374162,
+       "acceptance": 0.49593533841096876,
+       "rejected_per_step": 0.3626944642369071,
+       "reshaped_per_step": 0.5943199933012827,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.1916194655122048,
+       "tokens_per_step": 1.3923638813972194,
+       "drafted_per_step": 0.8423176261170201,
+       "acceptance": 0.46583594668567524,
+       "rejected_per_step": 0.35494034129380997,
+       "reshaped_per_step": 0.5443145163264007,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.2286295883184812,
+       "tokens_per_step": 1.46238125656054,
+       "drafted_per_step": 0.9512698964135092,
+       "acceptance": 0.4860909312243279,
+       "rejected_per_step": 0.3683465384629752,
+       "reshaped_per_step": 0.5611227535403569,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.1838804700321324,
+       "tokens_per_step": 1.3819213265044519,
+       "drafted_per_step": 0.8364056232253936,
+       "acceptance": 0.4566497967311043,
+       "rejected_per_step": 0.36265100418869767,
+       "reshaped_per_step": 0.5449451305666982,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.3": {
+     "rule": [
+      "tau",
+      0.5
+     ],
+     "cost": {
+      "beta": 0.3,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.1214528861589748,
+      "tokens_per_step": 1.3062156243030918,
+      "drafted_per_step": 0.5491766987404393,
+      "acceptance": 0.5576171185007404,
+      "rejected_per_step": 0.2251038878183109,
+      "reshaped_per_step": 0.392431281281731,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.1099608959130742,
+       "tokens_per_step": 1.269651993566058,
+       "drafted_per_step": 0.4795697405226123,
+       "acceptance": 0.5623309990986619,
+       "rejected_per_step": 0.19689608019983457,
+       "reshaped_per_step": 0.42856370974110447,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.144342666683879,
+       "tokens_per_step": 1.3543947569074601,
+       "drafted_per_step": 0.6118566181820299,
+       "acceptance": 0.5792263695494488,
+       "rejected_per_step": 0.2310237650386771,
+       "reshaped_per_step": 0.4333554511748648,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.1102187968223782,
+       "tokens_per_step": 1.2824742268041238,
+       "drafted_per_step": 0.5171816296474407,
+       "acceptance": 0.5462031771676309,
+       "rejected_per_step": 0.2220372095819182,
+       "reshaped_per_step": 0.3611688858164768,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.1323445274459292,
+       "tokens_per_step": 1.335259307263332,
+       "drafted_per_step": 0.5973293313095827,
+       "acceptance": 0.5612923119090037,
+       "rejected_per_step": 0.23579309991984584,
+       "reshaped_per_step": 0.39269403277793885,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.1051351218446661,
+       "tokens_per_step": 1.2759066850335123,
+       "drafted_per_step": 0.5150850178507231,
+       "acceptance": 0.5356907161638743,
+       "rejected_per_step": 0.22799626967939887,
+       "reshaped_per_step": 0.3637916857987976,
+       "tokens": 716909
+      }
+     }
+    },
+    "b0.5": {
+     "rule": [
+      "tau",
+      0.6
+     ],
+     "cost": {
+      "beta": 0.5,
+      "reject": 0.0,
+      "reshape": 0.0
+     },
+     "all": {
+      "speedup": 1.0397687167414082,
+      "tokens_per_step": 1.2074579365927385,
+      "drafted_per_step": 0.322551000335654,
+      "acceptance": 0.643211486416886,
+      "rejected_per_step": 0.10813834380254032,
+      "reshaped_per_step": 0.27902132516487255,
+      "tokens": 3198026
+     },
+     "domains": {
+      "gsm8k/plain": {
+       "speedup": 1.0343861954070472,
+       "tokens_per_step": 1.1718467086082553,
+       "drafted_per_step": 0.26578180144238145,
+       "acceptance": 0.6466572368800878,
+       "rejected_per_step": 0.08941997851772288,
+       "reshaped_per_step": 0.28386527543348167,
+       "tokens": 305477
+      },
+      "gsm8k/think": {
+       "speedup": 1.0534126089950753,
+       "tokens_per_step": 1.2478756921261849,
+       "drafted_per_step": 0.36920591508131223,
+       "acceptance": 0.6713897170164169,
+       "rejected_per_step": 0.11159286221828955,
+       "reshaped_per_step": 0.32088109506763735,
+       "tokens": 930778
+      },
+      "math/plain": {
+       "speedup": 1.0326093598464245,
+       "tokens_per_step": 1.1867208261311537,
+       "drafted_per_step": 0.2984893848098555,
+       "acceptance": 0.6255712868104376,
+       "rejected_per_step": 0.10647174080218492,
+       "reshaped_per_step": 0.2509070226988601,
+       "tokens": 853384
+      },
+      "math/think": {
+       "speedup": 1.0453532571326338,
+       "tokens_per_step": 1.23451799060263,
+       "drafted_per_step": 0.3619154236700199,
+       "acceptance": 0.6480260005053717,
+       "rejected_per_step": 0.11708240042887326,
+       "reshaped_per_step": 0.2882501340228943,
+       "tokens": 391478
+      },
+      "openthoughts/plain": {
+       "speedup": 1.0302259527745983,
+       "tokens_per_step": 1.1834673225811776,
+       "drafted_per_step": 0.2974907968370834,
+       "acceptance": 0.6167714512432648,
+       "rejected_per_step": 0.10923617874770952,
+       "reshaped_per_step": 0.25393796325338,
+       "tokens": 716909
+      }
+     }
+    }
+   }
+  }
+ }
+}

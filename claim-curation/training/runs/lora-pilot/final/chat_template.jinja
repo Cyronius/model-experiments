@@ -1,0 +1,139 @@
+{%- if not messages %}
+    {{- raise_exception('No messages provided.') }}
+{%- endif %}
+{%- set image_count = namespace(value=0) %}
+{%- set image_placeholder = '<|vision_start|><|image_pad|><|vision_end|>' -%}
+{%- set mode = mode | default('content') -%}
+{%- if template -%}{%- set mode = 'structured' -%}{%- endif -%}
+{%- if not template and mode == 'structured' %}
+    {{- raise_exception('`structured` mode specified but no `template` provided.') }}
+{%- endif %}
+{%- if mode not in ['structured', 'content', 'template-generation', 'document-detection', 'markdown'] -%}{%- set mode = 'content' -%}{%- endif -%}
+{%- if mode == 'markdown' %}{%- set mode = 'content' -%}{%- endif %}
+{%- set enable_thinking = enable_thinking | default(False) -%}
+{%- if mode not in ['structured', 'content'] and enable_thinking %}
+    {{- raise_exception('`enable_thinking` can only be `True` for `structured` and `content` modes.') }}
+{%- endif %}
+{%- set has_examples = namespace(flag=false) -%}
+{%- if mode != 'structured' -%}{%- set has_examples = false -%}{%- endif -%}
+{# MACRO TO RENDER MESSAGE CONTENT #}
+{%- macro render_content(content, do_vision_count, is_system_content=false) %}
+    {%- if content is string %}
+        {{- content }}
+    {%- elif content is iterable and content is not mapping %}
+        {%- for item in content %}
+            {%- if 'image' in item or 'image_url' in item or item.type == 'image' %}
+                {%- if is_system_content %}
+                    {{- raise_exception('System message cannot contain images.') }}
+                {%- endif %}
+                {%- if do_vision_count %}
+                    {%- set image_count.value = image_count.value + 1 %}
+                {%- endif %}
+                {%- if add_vision_id %}
+                    {{- 'Picture ' ~ image_count.value ~ ': ' }}
+                {%- endif %}
+                {{- '<|vision_start|><|image_pad|><|vision_end|>\n' }}
+            {%- elif 'text' in item %}
+                {{- item.text + '\n' }}
+            {%- else %}
+                {{- raise_exception('Unexpected item type in content.') }}
+            {%- endif %}
+        {%- endfor %}
+    {%- elif content is none or content is undefined %}
+        {{- '' }}
+    {%- else %}
+        {{- raise_exception('Unexpected content type.') }}
+    {%- endif %}
+{%- endmacro %}
+{# SYSTEM MESSAGE #}
+{%- if messages[0].role == 'system' %}
+    {%- set content = render_content(messages[0].content, false, true)|trim %}
+    {{- '<|im_start|>system\n' + content + '<|im_end|>\n' }}
+{%- endif %}
+{# USER MESSAGE #}
+{{- '<|im_start|>user\n' -}}
+{{- '【task】' + mode|replace("-", " ") + '\n' -}}
+{# Template Section (for structured task): specifies template, instructions, examples, previous_output #}
+{%- if mode == 'structured' -%}
+    {{- '【template_start】' + template + '【template_end】\n' -}}
+    {# Instructions Section #}
+    {%- if instructions -%}
+        {{- '【instructions_start】' + instructions + '【instructions_end】\n'-}}
+    {%- endif -%}
+    {# Examples Section (only for extraction tasks) #}
+    {%- for message in messages -%}
+        {%- if message.role == 'developer' and 'content' in message -%}
+            {# Validate that there is at least one input and one output contents #}
+            {%- set example_inputs = message.content[:-1] -%}
+            {%- set example_output_part = message.content[-1] -%}
+            {%- if example_inputs|length > 0 -%}
+                {%- if not has_examples.flag -%}
+                    {{- '【examples_start】\n' -}}
+                    {%- set has_examples.flag = true -%}
+                {%- endif -%}
+                {{- '【example_input_start】' + render_content(example_inputs, true)|trim + '【example_input_end】\n' -}}
+                {# Example output: only keep the text of the first output content #}
+                {%- set output_text = '' -%}
+                {%- if example_output_part is string -%}
+                    {%- set output_text = example_output_part -%}
+                {%- elif example_output_part.text is defined -%}
+                    {%- set output_text = example_output_part.text -%}
+                {%- endif -%}
+                {{- '【example_output_start】' + output_text|trim + '【example_output_end】\n' -}}
+                {%- if loop.last and has_examples.flag -%}
+                    {{- '【examples_end】\n' -}}
+                {%- endif -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {# Previous Output Section #}
+    {%- if previous_output -%}
+        {{- '【previous_output_start】' + previous_output + '【previous_output_end】\n' -}}
+    {%- endif -%}
+{%- endif -%}
+{{- '【document_start】\n' -}}
+{# PROCESS PROVIDED USER MESSAGES (RENDERED INTO A SINGLE ONE) #}
+{%- for message in messages -%}
+    {%- if message.role == "system" %}
+        {%- if not loop.first %}
+            {{- raise_exception('System message must be at the beginning.') }}
+        {%- endif %}
+    {%- elif message.role == 'user' and message.name != "example" -%}
+        {%- set content = render_content(message.content, true)|trim %}
+        {{- content + '\n' -}}
+    {# {%- elif message.role == 'assistant' and not loop.last %}
+        llama.cpp renders a synthetic init example with an assistant turn in
+        the middle; ignore it so valid NuExtract prompts render unchanged.
+        {{- raise_exception('Assistant message must be at the end.') }} #}
+    {%- endif %}
+{%- endfor -%}
+{{- '【document_end】<|im_end|>\n' -}}
+{# ASSISTANT MESSAGE #}
+{%- if messages[-1].role == 'assistant' %}
+    {%- if add_generation_prompt -%}
+        {{- raise_exception('`add_generation_prompt` can only be `True` when no assistant message is provided.') }}
+    {%- endif %}
+    {%- set content = render_content(messages[-1].content, true)|trim %}
+    {%- set reasoning_content = '' %}
+    {%- if messages[-1].reasoning_content is string %}
+        {%- set reasoning_content = messages[-1].reasoning_content %}
+    {%- else %}
+        {%- if '</think>' in content %}
+            {%- set reasoning_content = content.split('</think>')[0].rstrip('\n').split('<think>')[-1].lstrip('\n') %}
+            {%- set content = content.split('</think>')[-1].lstrip('\n') %}
+        {%- endif %}
+    {%- endif %}
+    {%- set reasoning_content = reasoning_content|trim %}
+    {% generation %}
+    {{- '<|im_start|>assistant\n<think>\n' + reasoning_content + '\n</think>\n\n' + content + '<|im_end|>\n' -}}
+    {% endgeneration %}
+{%- endif -%}
+{# GENERATION PROMPT #}
+{%- if add_generation_prompt -%}
+    {{- '<|im_start|>assistant\n' -}}
+    {%- if not enable_thinking -%}
+        {{- '<think>\n\n</think>\n\n' -}}
+    {%- else %}
+        {{- '<think>\n' -}}
+    {%- endif %}
+{%- endif -%}

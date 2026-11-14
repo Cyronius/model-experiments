@@ -1,0 +1,248 @@
+{
+  "arch": "qwen35",
+  "label": "corrected-before",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "```json\n{\n  \"city\": \"Oslo\",\n  \"count\": 3\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 25,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "A7x-P4q",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 7,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "493",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "-2, 0, 4, 9",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 12,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "125",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Yes",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Teal",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "```json\n[\"apples\", \"cheese\"]\n```",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "red\nblue\ngreen\nyellow\npurple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 10,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "The sky turns gray and heavy,\nA soft, cold breath fills the air.\nThe leaves begin to rust,\nAnd silence settles in the air.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 33,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library reopened on Friday after fifteen new desks were installed following repairs.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 17,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "The code prints `[5, 8, 13]`.\n\nHere is why:\n1.  **`a = [5, 8]`** creates a list with two elements.\n2.  **`b = a`** creates a *copy* of `a`. Both `a` and `b` are separate lists containing `[5, 8]`.\n3.  **`b.append(13)`** adds `13` to the *second* list (`b`), resulting in `[5, 8, 13]`.\n4.  **`print(a)`** prints the first list (`a`), which remains unchanged at `[5, 8]`.\n\nTherefore, the output is `[5, 8]`.",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 165,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it is less dense than the surrounding liquid. This occurs due to the molecular structure of water: water molecules are packed closer together, creating a higher density. In contrast, ice molecules are spaced further apart, resulting in a lower density. Because ice is less dense, it rises to the top of the container, while water sinks below it.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 74,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. **Review Your Resume**: Ensure your name, contact info, and a clear summary of your professional history are ready before you arrive.\n2. **Prepare Your Documents**: Have your formal letter, a list of questions you want to ask, and a list of questions you want to answer ready.\n3. **Check Your Environment**: Verify your seat, the lighting, and the temperature to ensure you are comfortable and ready to work.\n4. **Review Your Notes**: Check your notes for the job description, the interview process, and the interviewee's name.\n5. **Make Your First Move**: Start your first move before the interviewee begins to make the first move.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 141,
+      "repeated_4gram_fraction": 0.03883495145631066,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "1. **Health & Safety**: Ensure the dog is healthy, free from parasites, and has a clean bill.\n2. **Location**: Choose a safe, accessible area with good lighting and a secure entry point.\n3. **Healthcare**: Verify the dog has a valid health certificate and is free from contagious diseases.\n4. **Age & Age**: Select a dog that fits your lifestyle and needs, avoiding overly large or small breeds.\n5. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n6. **Age**: Ensure the dog is not too old to avoid excessive risk, but not too young to avoid excessive risk.\n7. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n8. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n9. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n10. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n11. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n12. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n13. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n14. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.\n15. **Age**: Ensure the dog is not too young to avoid excessive risk, but not too old to avoid excessive risk.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 395,
+      "repeated_4gram_fraction": 0.5802047781569966,
+      "loop_flag": true
+    },
+    {
+      "id": "hash-table",
+      "answer": "A **hash table** is simply a data structure that stores items in a specific order, but it doesn't actually store the items themselves. Instead, it stores **indices** (numbers) that point directly to where those items are located in the original list.\n\nThink of it like a library:\n1.  **The List**: Imagine a long list of items (like a grocery list).\n2.  **The Hash Table**: This is a separate list containing only the numbers you need to find.\n3.  **The Lookup**: When you ask for an item, you look at the hash table to see if the number is already there. If it is, you know exactly where the item is in the original list.\n\n**Why is it useful?**\n*   **Speed**: It's incredibly fast to check if an item exists.\n*   **Order**: It keeps the items in the exact order they appear in the original list.\n*   **No Duplicates**: It automatically removes duplicates, so if you see the same item twice, it only counts once.\n\n**Example**:\nIf your list is `[1, 2, 3, 2, 4]`, the hash table might look like `[1, 2, 3, 4]`. When you search for `2`, the hash table tells you \"2 is here at index 2.\"\n\nIn short: A hash table is a shortcut list of numbers that helps you quickly find items without having to scan the whole original list every time.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 317,
+      "repeated_4gram_fraction": 0.017937219730941756,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 10,
+    "completed": 16,
+    "loop_flags": 1,
+    "generated_tokens": 1223,
+    "elapsed_seconds": 205.3521197259979
+  },
+  "rubric_revision": 2
+}

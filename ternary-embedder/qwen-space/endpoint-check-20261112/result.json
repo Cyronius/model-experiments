@@ -1,0 +1,97 @@
+{
+  "endpoint": "https://api.deepinfra.com/v1/inference/Qwen/Qwen3-Embedding-8B",
+  "passages": 24,
+  "queries": 16,
+  "response_fields_besides_embeddings": {
+    "request_id": "R896jnbsigPiwbdyvhvMwVfi",
+    "inference_status": {
+      "status": "succeeded",
+      "runtime_ms": 157,
+      "cost": 1.7519999999999998e-05,
+      "tokens_input": 1752
+    },
+    "input_tokens": 1752
+  },
+  "shape": [
+    24,
+    4096
+  ],
+  "default_norm": {
+    "min": 1.0,
+    "max": 1.0
+  },
+  "passage_cos_vs_local_bf16_4096": {
+    "min": 0.99677,
+    "median": 0.99756,
+    "max": 0.99811
+  },
+  "passage_cos_vs_local_bf16_prefix1024": {
+    "min": 0.99653,
+    "median": 0.99773,
+    "max": 0.99838
+  },
+  "repeat_call_cos": {
+    "min": 1.0,
+    "median": 1.0,
+    "max": 1.0
+  },
+  "repeat_call_max_abs_diff": 0.0,
+  "normalize_true": {
+    "norm_min": 1.0,
+    "norm_max": 1.0,
+    "cos_vs_default": {
+      "min": 1.0,
+      "median": 1.0,
+      "max": 1.0
+    }
+  },
+  "dimensions_1024": {
+    "shape": [
+      24,
+      1024
+    ],
+    "norm_min": 1.0,
+    "norm_max": 1.0,
+    "cos_vs_prefix_of_4096": {
+      "min": 1.0,
+      "median": 1.0,
+      "max": 1.0
+    },
+    "max_abs_diff_vs_raw_prefix": 0.10425107926130295
+  },
+  "query_inline_template_vs_local_prompted": {
+    "min": 0.99566,
+    "median": 0.99706,
+    "max": 0.99761
+  },
+  "query_custom_instruction_vs_local_prompted": {
+    "min": 0.97448,
+    "median": 0.98403,
+    "max": 0.99027
+  },
+  "query_custom_instruction_vs_local_plain": {
+    "min": 0.7552,
+    "median": 0.86493,
+    "max": 0.90556
+  },
+  "query_custom_instruction_vs_inline": {
+    "min": 0.97614,
+    "median": 0.9842,
+    "max": 0.99168
+  },
+  "query_bare_vs_local_plain": {
+    "min": 0.99622,
+    "median": 0.99756,
+    "max": 0.99848
+  },
+  "query_bare_vs_local_prompted": {
+    "min": 0.74378,
+    "median": 0.85424,
+    "max": 0.9085
+  },
+  "spent": {
+    "calls": 7,
+    "tokens": 7944,
+    "cost": 7.944e-05
+  }
+}

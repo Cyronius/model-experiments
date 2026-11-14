@@ -1,0 +1,40 @@
+{
+  "float": {
+    "selection": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/float-blends/float-25.pt",
+      "sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+      "precision": "float",
+      "layers": 3,
+      "eligible_for_promotion": false,
+      "blend": {
+        "parent_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6",
+        "trained_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+        "trained_fraction": 0.25
+      },
+      "eligibility_note": "Diagnostic blend; source/NLI training-selection guards and seed confirmation have not been established."
+    },
+    "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/float-blends/results/summary.json",
+    "source_arm": "float-25",
+    "source_summary_sha256": "0f64d0a17aefd26a28cfe43839868291b3db27856ede2812fbf8a4285acb7510",
+    "prepared_path": "training-v2/work/human-mix/starts/float.pt"
+  },
+  "ternary": {
+    "selection": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/ternary-blends/ternary-3-25.pt",
+      "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+      "precision": "ternary",
+      "layers": 3,
+      "eligible_for_promotion": false,
+      "blend": {
+        "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+        "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+        "trained_fraction": 0.25
+      },
+      "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established."
+    },
+    "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json",
+    "source_arm": "ternary-3-25",
+    "source_summary_sha256": "0735b1902c479c7580ed733c2c0296e7918043cb047b35ee8822514786bc21ab",
+    "prepared_path": "training-v2/work/human-mix/starts/ternary.pt"
+  }
+}

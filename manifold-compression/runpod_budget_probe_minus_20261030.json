@@ -1,0 +1,24 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-30",
+  "user_authorization": "After the fold check (adding the fold raised KL 0.612 -> 0.743 and loops 8 -> 10 of 16), the user asked: 'ok here is a dumb and crazy idea: if averaging in the other neurons makes the doubling worse, what happens if we SUBTRACT them instead'. Earlier the same day the user approved RunPod checks to learn more: 'if you need to do the runpod to learn more then that is ok too, but more experts can't be the final answer'. This check subtracts the fold on the healed student with no training, about $0.90.",
+  "scope": "One pod for the subtracted-fold check on the healed Qwen3.5-9B student at the same 25% budget (heal_probe.py with heal_probe_minus_rules.json): refit the fold as in the fold check, evaluate the learned student and the fold at scales +1, +0.5, +0.25, -0.25, -0.5, -1 plus the mirrored gains, then the 16 GSM8K generations with the fold subtracted, and with the best scale only if it lowers KL by at least 0.01. No training, no more-experts arm.",
+  "total_cap_usd": 1.5,
+  "spent_usd": 0.9556157066259119,
+  "restrictions": [
+    "Not a standing authorization for other jobs; a new carve, a healing run or on-policy distillation needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "reserved_job_max_usd": 0,
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "active_job": "target/manifold-probe-minus/mc-probe-minus-4252eb8e3c7f/pod.json",
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "High",
+    "checked_at": 1793403106.7916489
+  },
+  "pod_id": "pyi0ad8bcgvz46",
+  "terminated_at": 1793408937.6728857
+}

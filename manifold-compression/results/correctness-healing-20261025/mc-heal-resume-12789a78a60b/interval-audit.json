@@ -1,0 +1,321 @@
+{
+  "post_hoc": true,
+  "used_for_selection": false,
+  "case_id": "test-long-3",
+  "test_cases": [
+    [
+      [],
+      []
+    ],
+    [
+      [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          18
+        ]
+      ],
+      [
+        [
+          1,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          18
+        ]
+      ]
+    ],
+    [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      [
+        [
+          1,
+          4
+        ]
+      ]
+    ],
+    [
+      [
+        [
+          1,
+          10
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      [
+        [
+          1,
+          10
+        ]
+      ]
+    ],
+    [
+      [
+        [
+          8,
+          10
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      [
+        [
+          1,
+          6
+        ],
+        [
+          8,
+          10
+        ]
+      ]
+    ],
+    [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        [
+          5,
+          5
+        ]
+      ]
+    ]
+  ],
+  "arms": {
+    "stock": {
+      "generation_file_sha256": "95ed27bedc34e1b3abc874a766273974580ee0a40909ad2001c562bb9908a3f8",
+      "function": "merge_intervals",
+      "source_sha256": "6627815104f60babef545b7d54d16558a8e36899f880ca58eea46b636e83ab1b",
+      "parse_errors_in_earlier_blocks": [],
+      "checks": [
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": []
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              15,
+              18
+            ]
+          ]
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              4
+            ]
+          ]
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              10
+            ]
+          ]
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ]
+          ]
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              2
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        }
+      ],
+      "all_passed": true
+    },
+    "full_width": {
+      "generation_file_sha256": "b59b149677d6c4e48d416604e22b785c0c09ce99b0a50f85daf414b39dc18ea6",
+      "function": "merge_intervals",
+      "source_sha256": "6627815104f60babef545b7d54d16558a8e36899f880ca58eea46b636e83ab1b",
+      "parse_errors_in_earlier_blocks": [],
+      "checks": [
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": []
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              15,
+              18
+            ]
+          ]
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              4
+            ]
+          ]
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              10
+            ]
+          ]
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ]
+          ]
+        },
+        {
+          "correct": true,
+          "input_unchanged": true,
+          "actual": [
+            [
+              1,
+              2
+            ],
+            [
+              5,
+              5
+            ]
+          ]
+        }
+      ],
+      "all_passed": true
+    },
+    "unhealed_75": {
+      "generation_file_sha256": "0004c173aac5c4e9cd1c784452e2954dbf35241c237df1f8b77068aa682ded62",
+      "all_passed": false,
+      "parse_errors": [
+        {
+          "error": "SyntaxError",
+          "line": 10
+        },
+        {
+          "error": "SyntaxError",
+          "line": 1
+        }
+      ],
+      "reason": "No parseable Python function found"
+    },
+    "healed-selected": {
+      "generation_file_sha256": "7686079d0cc75e7c1e475ea419d09002cd61c7ec9f199a21650674280ec66f43",
+      "all_passed": false,
+      "parse_errors": [
+        {
+          "error": "SyntaxError",
+          "line": 21
+        }
+      ],
+      "reason": "No parseable Python function found"
+    }
+  }
+}

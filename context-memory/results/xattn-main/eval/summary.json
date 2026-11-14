@@ -1,0 +1,103 @@
+{
+  "checkpoint": "../../target/context-memory/xattn/ckpt/xattn-main/final.pt",
+  "qa/memory": {
+    "answerable_f1": 0.035166666666666666,
+    "answerable_em": 0.0275,
+    "answerable_abstained": 0.9275,
+    "unanswerable_abstain": 0.98,
+    "removed_abstain": 0.96,
+    "n": 600
+  },
+  "qa/no_memory": {
+    "answerable_f1": 0.05418339757117911,
+    "answerable_em": 0.0225,
+    "answerable_abstained": 0.8275,
+    "unanswerable_abstain": 0.93,
+    "removed_abstain": 0.89,
+    "n": 600
+  },
+  "qa/wrong_memory": {
+    "answerable_f1": 0.03666666666666667,
+    "answerable_em": 0.03,
+    "answerable_abstained": 0.93,
+    "unanswerable_abstain": 0.98,
+    "removed_abstain": 0.95,
+    "n": 600
+  },
+  "qa/full_text": {
+    "answerable_f1": 0.7435500364961295,
+    "answerable_em": 0.565,
+    "answerable_abstained": 0.05,
+    "unanswerable_abstain": 0.56,
+    "removed_abstain": 0.98,
+    "n": 600
+  },
+  "recon-fw/memory": {
+    "nll": 2.313486347198486,
+    "acc": 0.4964319345355034,
+    "n": 100
+  },
+  "recon-sq/memory": {
+    "nll": 2.236532754302025,
+    "acc": 0.5118864351511001,
+    "n": 100
+  },
+  "continue-fw/memory": {
+    "nll": 2.6114124101400376,
+    "acc": 0.44829469829797747,
+    "n": 100
+  },
+  "recon-fw/no_memory": {
+    "nll": 2.833254507780075,
+    "acc": 0.47693915784358976,
+    "n": 100
+  },
+  "recon-sq/no_memory": {
+    "nll": 2.9177624309062957,
+    "acc": 0.48138686895370486,
+    "n": 100
+  },
+  "continue-fw/no_memory": {
+    "nll": 3.329663244485855,
+    "acc": 0.4250496631860733,
+    "n": 100
+  },
+  "recon-fw/wrong_memory": {
+    "nll": 2.4986878991127015,
+    "acc": 0.4753589674830437,
+    "n": 100
+  },
+  "recon-sq/wrong_memory": {
+    "nll": 2.4248353934288023,
+    "acc": 0.4880756467580795,
+    "n": 100
+  },
+  "continue-fw/wrong_memory": {
+    "nll": 2.6741528964042662,
+    "acc": 0.44139690935611725,
+    "n": 100
+  },
+  "continue-fw/full_text": {
+    "nll": 3.452194275856018,
+    "acc": 0.4440253284573555,
+    "n": 100
+  },
+  "xdna/memory": {
+    "fact": "0/14",
+    "canary": "0/2",
+    "absent": "2/2"
+  },
+  "xdna/no_memory": {
+    "fact": "0/14",
+    "canary": "0/2",
+    "absent": "2/2"
+  },
+  "xdna/counterfactual": {
+    "canary": "0/2"
+  },
+  "xdna_meta": {
+    "memory_slots": 483,
+    "source_tokens": 1929,
+    "pilot_review_note": "Manual review of raw generations against the fixed corpus; questions and regex patterns unchanged."
+  }
+}

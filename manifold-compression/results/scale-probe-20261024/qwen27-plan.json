@@ -1,0 +1,32 @@
+{
+  "model_type": "qwen3_5_text",
+  "source_width": 5120,
+  "source_parameters": 26895998464,
+  "source_bf16_weight_gb": 53.791996928,
+  "source_fp32_weight_gb": 107.583993856,
+  "arms": [
+    {
+      "target_fraction": 0.75,
+      "width": 3824,
+      "parameters": 20103074288,
+      "retained_fraction": 0.7474373674919615,
+      "bf16_weight_gb": 40.206148576,
+      "output_matrix_parameters": 14622976
+    },
+    {
+      "target_fraction": 0.5,
+      "width": 2544,
+      "parameters": 13371419888,
+      "retained_fraction": 0.49715276069403036,
+      "bf16_weight_gb": 26.742839776,
+      "output_matrix_parameters": 6471936
+    }
+  ],
+  "fixed_parameters": 1985024,
+  "parameters_per_residual_coordinate": 5252737,
+  "count_scope": "text causal model, including embeddings, output head, and output adapter; no vision/MTP",
+  "source": {
+    "repo": "Qwen/Qwen3.5-27B",
+    "revision": "fc05daec18b0a78c049392ed2e771dde82bdf654"
+  }
+}

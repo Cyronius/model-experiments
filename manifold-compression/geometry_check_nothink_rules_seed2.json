@@ -1,0 +1,41 @@
+{
+ "note": "Repeat of geometry_check_nothink_rules.json at sampling seed 26103103 (2026-11-06): one seed of the 96-prompt sampled check moved session 2's copy from 46 to 56 with thinking on. Everything else unchanged. geometry_check_rules.json's check with thinking off (enable_thinking false in the chat template: an empty think block, then the answer), sampled only, written 2026-11-04 after Qwen3.5-2B, whose template defaults to thinking off, answered the check that way (71/96 right, 92 finished, 5 minutes). Same prompts, sampler (the thinking-mode settings, as for every other row), seed and cap, so the student and the dense models are compared in both modes.",
+ "folder": "check_nothink",
+ "eval": {
+  "prompts": "probe_prompts_96.json",
+  "count": 96,
+  "max_new_tokens": 4096,
+  "state": "fp32",
+  "sampling": {
+   "temperature": 1.0,
+   "top_p": 0.95,
+   "top_k": 20,
+   "presence_penalty": 1.5,
+   "source": "Qwen3.5-9B model card, thinking mode for general tasks (as opd_long_rules.json)"
+  },
+  "seed": 26103103,
+  "check": {
+   "kl": 0.01,
+   "bpb": 0.01
+  },
+  "also_at": 2048,
+  "arms": [
+   [
+    "healed",
+    "sampled"
+   ]
+  ],
+  "adapter": null,
+  "hours": 3.5,
+  "compact": true,
+  "enable_thinking": false
+ },
+ "loop": {
+  "window": 20,
+  "last": 1000,
+  "threshold": 0.45
+ },
+ "references": "Pod counts at 4,096 tokens (section 18): dense greedy 60 right, 61 finished, 7 loops; dense sampled 73, 78, 0; healed 9 experts after 8.2M tokens, sampled 48, 88, 0. At 2,048 (section 17) the 8.2M-healed model looped in 36 of 96 greedy. These models were healed on 1M tokens, not 8.2M, so they should loop more than those.",
+ "criteria": "Paired by prompt: one-sided exact sign test on the prompts where one model loops and the other does not; p below 0.05 counts as fewer loops. Same for right answers.",
+ "suffix": "_seed2"
+}

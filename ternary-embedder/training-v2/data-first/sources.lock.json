@@ -1,0 +1,99 @@
+[
+  {
+    "id": "sentence-transformers/msmarco-bm25",
+    "config": "triplet",
+    "query": "query",
+    "positive": "positive",
+    "quota": 250000,
+    "relation": "search relevance",
+    "revision": "ce8a493a65af5e872c3c92f72a89e2e99e175f02",
+    "split": "train",
+    "upstream_training_rows": 502931,
+    "card_license": "not specified in derivative card"
+  },
+  {
+    "id": "sentence-transformers/gooaq",
+    "config": "pair",
+    "query": "question",
+    "positive": "answer",
+    "quota": 200000,
+    "relation": "question answer; weak supervision",
+    "revision": "b089f728748a068b7bc5234e5bcf5b25e3c8279c",
+    "split": "train",
+    "upstream_training_rows": 3012496,
+    "card_license": "not specified in derivative card"
+  },
+  {
+    "id": "sentence-transformers/natural-questions",
+    "config": "pair",
+    "query": "query",
+    "positive": "answer",
+    "quota": 75000,
+    "relation": "question passage relevance",
+    "revision": "f9e894e1081e206e577b4eaa9ee6de2b06ae6f17",
+    "split": "train",
+    "upstream_training_rows": 100231,
+    "card_license": "not specified in derivative card"
+  },
+  {
+    "id": "sentence-transformers/squad",
+    "config": "pair",
+    "query": "question",
+    "positive": "answer",
+    "quota": 50000,
+    "relation": "question passage relevance",
+    "revision": "d84c8c2ef64693264c890bb242d2e73fc0a46c40",
+    "split": "train",
+    "upstream_training_rows": 87599,
+    "card_license": "not specified in derivative card"
+  },
+  {
+    "id": "sentence-transformers/stackexchange-duplicates",
+    "config": "title-title-pair",
+    "query": "title1",
+    "positive": "title2",
+    "quota": 100000,
+    "relation": "duplicate question",
+    "revision": "1c9657aec12d9e101667bb9593efcc623c4a68ff",
+    "split": "train",
+    "upstream_training_rows": 304525,
+    "card_license": "not specified in derivative card"
+  },
+  {
+    "id": "sentence-transformers/s2orc",
+    "config": "title-abstract-pair",
+    "query": "title",
+    "positive": "abstract",
+    "quota": 200000,
+    "relation": "scientific title abstract; weak supervision",
+    "revision": "8cfc394e83b2ebfcf38f90b508aea383df742439",
+    "split": "train",
+    "upstream_training_rows": 41769185,
+    "card_license": "not specified in derivative card"
+  },
+  {
+    "id": "sentence-transformers/quora-duplicates",
+    "config": "pair",
+    "query": "anchor",
+    "positive": "positive",
+    "quota": 50000,
+    "relation": "duplicate question",
+    "revision": "41f699770310302022a4dd75d4cf903bfef9ea46",
+    "split": "train",
+    "upstream_training_rows": 149263,
+    "card_license": "not specified in derivative card"
+  },
+  {
+    "id": "sentence-transformers/all-nli",
+    "config": "pair-class",
+    "query": "premise",
+    "positive": "hypothesis",
+    "label": 0,
+    "quota": 75000,
+    "relation": "entailment auxiliary; cap training weight",
+    "revision": "d482672c8e74ce18da116f430137434ba2e52fab",
+    "split": "train",
+    "upstream_training_rows": 942069,
+    "card_license": "not specified in derivative card"
+  }
+]

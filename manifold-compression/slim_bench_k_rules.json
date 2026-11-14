@@ -1,0 +1,93 @@
+{
+ "note": "The healed student with its learned routers picking 16 and 32 of the 64 routed experts instead of 9, on section 19's multiple-choice benchmark (slim_bench.py with arms healed_k16 and healed_k32), written 2026-11-01 before the run. The user: 'should we just switch from 9 experts to 16 and see if that fixes a bunch?' No training: the adapter and routers are the healing run's, trained at 9, so these are lower bounds for a model healed at that count. Local GPU, no pod. Generations at 16 are in opd_k16_rules.json.",
+ "folder": "bench_k",
+ "earlier": "bench",
+ "sets": [
+  {
+   "name": "mmlu",
+   "file": "mmlu.jsonl",
+   "sha256": "8a361b460162b65753e66e34f6479ada7d7cdff5094bc07391b2710f19c142e4",
+   "style": "letter",
+   "rule": "sum",
+   "group": "subject"
+  },
+  {
+   "name": "arc-challenge",
+   "file": "arc-challenge.jsonl",
+   "sha256": "ad57daf9d3dd1236aafd222cad733aeb4f9afe6e97141d245bb5bf809e14ed90",
+   "style": "cloze",
+   "rule": "per_char",
+   "group": "item"
+  },
+  {
+   "name": "arc-easy",
+   "file": "arc-easy.jsonl",
+   "sha256": "82cba245ae8582f5a4059e8b4d80aa2a3c718789202ad9a85a0b06227f28fc14",
+   "style": "cloze",
+   "rule": "per_char",
+   "group": "item"
+  },
+  {
+   "name": "hellaswag",
+   "file": "hellaswag.jsonl",
+   "sha256": "c19116977be76e358b28ab442967750e432c313c7c4380fefdba48bda8622c95",
+   "style": "continue",
+   "rule": "per_char",
+   "group": "item"
+  }
+ ],
+ "overlap_tokens": 13,
+ "adapter": {
+  "adapter": "opd_long/adapter.pt",
+  "record": "opd_long/train.json",
+  "note": "section 17's distilled student"
+ },
+ "references": {},
+ "arms": [
+  "healed_k16",
+  "healed_k32"
+ ],
+ "pairs": [
+  [
+   "dense",
+   "healed_k16"
+  ],
+  [
+   "dense",
+   "healed_k32"
+  ],
+  [
+   "healed",
+   "healed_k16"
+  ],
+  [
+   "healed_k16",
+   "healed_k32"
+  ],
+  [
+   "qwen3.5-2b",
+   "healed_k16"
+  ],
+  [
+   "qwen3.5-2b",
+   "healed_k32"
+  ]
+ ],
+ "check": {
+  "kl": 0.01,
+  "bpb": 0.01
+ },
+ "batch_tokens": 16384,
+ "hours": 1.5,
+ "draws": 10000,
+ "seed": 26110101,
+ "design": "Section 19's rows, prompts and scoring (rows rebuilt by prepare in this folder and checked identical to bench/'s). After the reproduction check at 9 experts, the healed student is scored with its learned routers picking the top 16, then the top 32, of the 64 routed experts. Per layer that runs 1,536 shared + 16 x 168 = 4,224 of 12,288 MLP neurons (34%; about 3.4B parameters per token against 2.95B), then 1,536 + 32 x 168 = 6,912 (56%; about 4.5B). The report compares them with section 19's arms (earlier: bench).",
+ "reading": "Each count against 9 (share of the dense model's accuracy above chance, averaged over the four tests: 0.45) and against Qwen3.5-2B (0.68). If 16 experts keep at least 0.7, most of what the 25% model lost on these tests comes back with a third of the neurons, even without healing at that count. If 16 stays near 9 and only 32 recovers, the knowledge needs over half of the MLP per token, and a 25-35% budget cannot hold it without much more training. Every-neuron (all 64) is section 19's 1.08.",
+ "predictions": {
+  "reproduce": "The healed student reproduces the healing run's last milestone at 9 experts: KL within 0.01 of 0.612.",
+  "k16": "16 experts keep 0.55 to 0.80 of the dense model's accuracy above chance, averaged over the four tests.",
+  "k32": "32 experts keep 0.75 to 0.95.",
+  "steps": "On MMLU, 16 beats 9 and 32 beats 16, each with a 95% interval above 0.",
+  "size": "16 experts are within 5 points of Qwen3.5-2B on average; 32 are above it."
+ }
+}

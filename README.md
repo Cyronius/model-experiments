@@ -20,6 +20,8 @@ Total cloud spend: about $80 for Qwen3.6 and $8 for Qwen3.8.
 
 | folder | question | state |
 |---|---|---|
+| [`claim-curation/`](claim-curation/) | Can small models extract scoped, source-cited claims and screen contradictions? | Repeatable local pilot: NuExtract3 matches 30/33 target facts (27 scoped/cited); Qwen4B labels 10/10 supplied claim pairs. Proposed claims require review. See [results](claim-curation/results/summary.md). |
+| [`context-memory/`](context-memory/) | Can Qwen3-4B recall XDNA2 notes injected as encoded document memory? | Local pretrained LCLM pilot: 13/14 fact recall, both arbitrary phrases, and both changed phrases after swapping the memory bank. See [results](context-memory/results/pilot/summary.md). |
 | [`healing-schedules/`](healing-schedules/) | After pruning, which healing schedule (whole network, block-wise, layer-wise, adaptive, random windows) recovers the model fastest per FLOP? | 15 schedules on a 25%-pruned Qwen3.5-2B, one seed: whole-network distillation with a cosine-decayed learning rate healed fastest and best (47% of the loss gap in 6e15 FLOPs); block-wise schedules took 4–7× the FLOPs to close a quarter of it. Stock Qwen3.5-0.8B still beats every healed model. See [findings.md](healing-schedules/findings.md). |
 | [`manifold-compression/`](manifold-compression/) | Can a big model's activations be projected onto a smaller architecture to give a usable small model for a few dollars? | A Qwen3.5 2B → 0.8B projection beats the stock 0.8B on perplexity (13.85 vs 15.48), but loops in open-ended generation. Distillation has not fixed the loops yet. See [findings.md](manifold-compression/findings.md). |
 | [`asd-ste100/`](asd-ste100/) | A tiny non-autoregressive editor that rewrites English into ASD-STE100 Simplified Technical English | Lexicon, checker and model tokenizer/slotter are built. Strict vocabulary/copy gates retain 13,414 teacher-corpus pairs and 610,642 checker-only local augmentation pairs. The model is not built yet. See [HANDOFF.md](asd-ste100/HANDOFF.md). |
@@ -32,6 +34,7 @@ Total cloud spend: about $80 for Qwen3.6 and $8 for Qwen3.8.
 | folder | question | result |
 |---|---|---|
 | [`mow-nested-width/`](mow-nested-width/) | Do nested variable-width MLPs with a router ("Mixture of Widths") beat mixture-of-experts at matched cost? | No. Routed MoW is worse than a plain fixed width at every compute level, and the specialization predictions were refuted. One side result held: one nested weight matrix matches four separately trained dense widths. See [README](mow-nested-width/README.md). |
+| [`memdraft/`](memdraft/) | Can a retained-continuation cache (MemDraft) in front of DFlash2 make speculative decoding faster? | No. On new requests it barely changed accepted tokens per proposal and the one timed test was 4% slower; on Qwen3.6-35B-A3B it gave fewer tokens per step than DFlash2 alone (4.48 vs 4.69). Only exact repeats got faster. Code deleted; see [README](memdraft/README.md). |
 | [`ternary/`](ternary/) | Can post-training ternary quantization reproduce Prism's Ternary-Bonsai-1.7B from Qwen3-1.7B? | No. Every post-training method collapses the model (wikitext perplexity 63k–297k against 16.8 for the parent). Bonsai keeps 18.3, so its weights came from fine-tuning, not rounding. See [results/summary.md](ternary/results/summary.md). |
 
 ## Shared tools

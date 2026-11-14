@@ -1,0 +1,2 @@
+Synthetic test fixture, not a hardware finding.
+For the birch kernel, stack 0x1800 was sufficient only with compiler 1.2. Compiler 1.3 was not tested. The result must not be generalized to compiler 1.3.

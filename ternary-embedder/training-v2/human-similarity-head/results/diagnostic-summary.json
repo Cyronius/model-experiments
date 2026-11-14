@@ -1,0 +1,104 @@
+{
+  "scope": "Exploratory observed-development results; no reserved labels opened and no paid allocation.",
+  "summary_sha256": "6310b1f0d933244167786eb503a27fe05174c70c5961d8d2dc90a62f089c3657",
+  "models": {
+    "parent-float": {
+      "core": 46.529453537593604,
+      "sts": 83.95632354969837,
+      "mean12": 71.9134,
+      "selected_step": 20,
+      "source_sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c",
+      "core_delta": -0.49261118930058245,
+      "sts_delta": -0.03350753653914751,
+      "mean12_delta": -0.04276666666666529,
+      "task_deltas": {
+        "STSBenchmark": -0.03340000000000032,
+        "SICK-R": 0.016999999999995907,
+        "STS12": 0.2914999999999992,
+        "STS13": 0.01300000000000523,
+        "STS14": 0.10790000000001498,
+        "STS15": 0.0537000000000063,
+        "STS16": 0.1396000000000015,
+        "SciFact": -0.9840000000000089,
+        "NFCorpus": -0.0010000000000012221,
+        "Banking77Classification": -0.1688000000000045,
+        "AskUbuntuDupQuestions": -0.15260000000000673,
+        "TwitterSemEval2015": 0.2038999999999902
+      }
+    },
+    "broad-float": {
+      "core": 46.14226033960393,
+      "sts": 82.96457524072042,
+      "mean12": 70.66685833333334,
+      "selected_step": 60,
+      "source_sha256": "cc7f76ce0fb1cec38b73824fee123b5c4d54e451914430a8ae3dcac6fe76e352",
+      "core_delta": -0.22296106150987072,
+      "sts_delta": 0.09615896654611333,
+      "mean12_delta": -0.0380833333333328,
+      "task_deltas": {
+        "STSBenchmark": 0.09620000000001028,
+        "SICK-R": 0.09910000000000707,
+        "STS12": 0.0056000000000153705,
+        "STS13": -0.3079000000000036,
+        "STS14": 0.013900000000006685,
+        "STS15": -0.041200000000003456,
+        "STS16": 0.14999999999999147,
+        "SciFact": -0.5730000000000004,
+        "NFCorpus": 0.1280000000000001,
+        "Banking77Classification": -0.10720000000000596,
+        "AskUbuntuDupQuestions": -0.32569999999999055,
+        "TwitterSemEval2015": 0.40519999999999357
+      }
+    },
+    "parent-ternary": {
+      "core": 44.893782077808275,
+      "sts": 82.43105615550562,
+      "mean12": 70.48485,
+      "selected_step": 20,
+      "source_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+      "core_delta": -0.3332494942248374,
+      "sts_delta": -0.02072314609868897,
+      "mean12_delta": 0.003691666666668425,
+      "task_deltas": {
+        "STSBenchmark": -0.02020000000000266,
+        "SICK-R": 0.07229999999999848,
+        "STS12": 0.2896000000000072,
+        "STS13": 0.08710000000000662,
+        "STS14": 0.1425999999999874,
+        "STS15": 0.09529999999999461,
+        "STS16": 0.19409999999999172,
+        "SciFact": -0.5959999999999965,
+        "NFCorpus": -0.07100000000000506,
+        "Banking77Classification": -0.21420000000000528,
+        "AskUbuntuDupQuestions": -0.13999999999999346,
+        "TwitterSemEval2015": 0.20470000000000255
+      }
+    },
+    "broad-ternary": {
+      "core": 45.470923170320134,
+      "sts": 81.90737019549292,
+      "mean12": 69.56910833333333,
+      "selected_step": 40,
+      "source_sha256": "638f0688410c3b7f01074ade89fffa277b16faf14b43abd137306a2a7bd3d030",
+      "core_delta": -0.17599249839692988,
+      "sts_delta": 0.057461910207550204,
+      "mean12_delta": -0.035899999999998045,
+      "task_deltas": {
+        "STSBenchmark": 0.05750000000000455,
+        "SICK-R": 0.07380000000000564,
+        "STS12": -0.12890000000000157,
+        "STS13": -0.11480000000001667,
+        "STS14": -0.11019999999999186,
+        "STS15": -0.1466999999999956,
+        "STS16": 0.12460000000000093,
+        "SciFact": -0.4969999999999999,
+        "NFCorpus": 0.14499999999999957,
+        "Banking77Classification": -0.07469999999999288,
+        "AskUbuntuDupQuestions": -0.009499999999995623,
+        "TwitterSemEval2015": 0.2500999999999962
+      }
+    }
+  },
+  "deployment_changed": false,
+  "conclusion": "No variant improves core retrieval over its own source. Do not promote; skip additional FiQA/SCIDOCS scoring after this failed requirement."
+}

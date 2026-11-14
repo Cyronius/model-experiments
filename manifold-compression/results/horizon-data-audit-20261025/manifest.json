@@ -1,0 +1,208 @@
+{
+  "checked_utc": "2026-10-25T07:12:46.341931+00:00",
+  "purpose": "Read-only source and schema audit for correctness-focused healing of Qwen27 projected to 75%. No training run or paid resource launched.",
+  "github": {
+    "DATA_NAVIGATOR": "69453f3d35664d36a8bcf28b514b6dc796387513",
+    "process_entry": "a4745b10f5ce71e15d46021301e1ee717dc09bdc"
+  },
+  "datasets": {
+    "SFT-Reasoning": {
+      "repo": "IFM/SFT-Reasoning",
+      "revision": "4d4dbbe65e478a2ca179c4cce43b5e1f051aacd2",
+      "public": true,
+      "gated": false,
+      "configs": [
+        {
+          "config_name": "instruction-following",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "instruction-following/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "3efforts-pretrain",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "3efforts-pretrain/*.parquet"
+            }
+          ]
+        }
+      ],
+      "files": 82
+    },
+    "Math-Reasoning": {
+      "repo": "IFM/Math-Reasoning",
+      "revision": "e249295774c3a66943e1483dbf53e0c811bc41dd",
+      "public": true,
+      "gated": false,
+      "configs": [
+        {
+          "config_name": "math-thinking-qwen",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "math-thinking-qwen/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "math-thinking-oss",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "math-thinking-oss/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "math-rewrite",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "math-rewrite/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "math-dialogue",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "math-dialogue/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "socratic-math-dialogue",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "socratic-math-dialogue/*.parquet"
+            }
+          ]
+        }
+      ],
+      "files": 2228
+    },
+    "Code-Reasoning": {
+      "repo": "IFM/Code-Reasoning",
+      "revision": "e971bd7801485b24bb217dcde9d46f4bad42ea00",
+      "public": true,
+      "gated": false,
+      "configs": [
+        {
+          "config_name": "code-no-thinking",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "code-no-thinking/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "code-no-thinking-hard",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "code-no-thinking-hard/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "code-thinking-v1",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "code-thinking-v1/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "code-thinking-hard",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "code-thinking-hard/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "code-thinking-v0",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "code-thinking-v0/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "codeio",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "codeio/*.parquet"
+            }
+          ]
+        },
+        {
+          "config_name": "code-task-synthesis",
+          "data_files": [
+            {
+              "split": "train",
+              "path": "code-task-synthesis/*.parquet"
+            }
+          ]
+        }
+      ],
+      "files": 1637
+    }
+  },
+  "previews": {
+    "Code-Reasoning--code-no-thinking--preview.json": {
+      "sha256": "f9c970d9d4bfa900558f01ad6c0e154a4195a95dbc9940a5fa3c5ee1133e9ee2",
+      "rows_inspected": 3,
+      "reported_total_rows": 131252425,
+      "features": [
+        "text",
+        "token_count"
+      ]
+    },
+    "Code-Reasoning--codeio--preview.json": {
+      "sha256": "6471989ccb2b556f4626ecb59ff42fdd22c04f51734441f5186bcc7ec851677e",
+      "rows_inspected": 3,
+      "reported_total_rows": 9128892,
+      "features": [
+        "text",
+        "token_count"
+      ]
+    },
+    "Math-Reasoning--math-thinking-qwen--preview.json": {
+      "sha256": "9cd0333e5e49c06de651841051d4e766af31bc3ba2e6ba278a0e9e0e2683b93e",
+      "rows_inspected": 3,
+      "reported_total_rows": 249292346,
+      "features": [
+        "text",
+        "token_count"
+      ]
+    },
+    "SFT-Reasoning--instruction-following--preview.json": {
+      "sha256": "7ad987efad227bd84adc904245c631759531f907bacb34e317b03bb38cd6a238",
+      "rows_inspected": 3,
+      "reported_total_rows": 8581751,
+      "features": [
+        "text",
+        "token_count"
+      ]
+    }
+  },
+  "limits": "Viewer previews are first-three-row convenience samples, not random quality estimates, and the viewer endpoint is not pinned to a dataset revision. Pin and fetch original Parquet before constructing training data. No train/validation/test split has been created; inspected sources declare train only.",
+  "observations": [
+    "All four inspected configurations expose text and token_count, not structured message roles or separate ground-truth/verifier fields.",
+    "Instruction-following examples concatenate instruction, reasoning and final response; reliable assistant boundaries must be established before assistant-only SFT.",
+    "CodeI/O examples contain role-like text plus reference code and feedback, but textual Correct output/input markers are not an independent correctness verification.",
+    "Re-tokenize with Qwen and preserve complete answers/EOS; published token_count is not a Qwen token budget."
+  ]
+}

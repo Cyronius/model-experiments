@@ -1,0 +1,54 @@
+{
+ "note": "The healed student with its learned routers picking 16 of the 64 routed experts instead of 9, on section 18's GSM8K checks (slim_opd.py check with eval.experts 16), written 2026-11-01 before the run. The user: 'should we just switch from 9 experts to 16 and see if that fixes a bunch?' No training: the adapter and routers are the healing run's, trained at 9, so this is a lower bound for a model healed at 16. Local GPU (LOCAL_GPU.md), no pod; the counts are compared with the pods' (section 18), not token by token. The multiple-choice benchmark at 16 and 32 is in slim_bench_k_rules.json.",
+ "folder": "opd_k16",
+ "eval": {
+  "prompts": "probe_prompts_96.json",
+  "count": 96,
+  "max_new_tokens": 4096,
+  "state": "fp32",
+  "sampling": {
+   "temperature": 1.0,
+   "top_p": 0.95,
+   "top_k": 20,
+   "presence_penalty": 1.5,
+   "source": "Qwen3.5-9B model card, thinking mode for general tasks (as opd_long_rules.json)"
+  },
+  "seed": 26103102,
+  "check": {
+   "kl": 0.01,
+   "bpb": 0.01
+  },
+  "adapter": {
+   "adapter": "opd_long/adapter.pt",
+   "record": "opd_long/train.json",
+   "note": "section 17's distilled student"
+  },
+  "experts": 16,
+  "also_at": 2048,
+  "arms": [
+   [
+    "healed",
+    "greedy"
+   ],
+   [
+    "healed",
+    "sampled"
+   ]
+  ],
+  "hours": 3.5
+ },
+ "loop": {
+  "window": 20,
+  "last": 1000,
+  "threshold": 0.45
+ },
+ "design": "Local GPU, through dibs. The healed student is rebuilt and must reproduce the healing run at 9 experts (KL within 0.01 of 0.612). Then its learned routers pick 16 experts (4,224 of 12,288 MLP neurons per layer, 34%; about 3.4B parameters per token against 2.95B), its drift is measured again, and it answers section 18's 96 GSM8K check prompts with a 4,096-token cap, greedy and then sampled with the model card's settings and section 18's seeds. Each arm is also counted as a 2,048-token run would have ended (truncated: an answer starts the same at any cap, 96 of 96 on the pods), to compare with section 17's healed model at 2,048 (greedy 36 loops of 96).",
+ "reading": "'Fixes a bunch' if, at 16 experts and 4,096 tokens, greedy loops fall to 10 or fewer (the dense model: 7; the distilled 25% model: 27), and sampled it gets at least 60 right (healed at 9: 48; every neuron: 64; dense: 73). Partly if it clearly improves on one but misses the other. Not if greedy loops stay above 20. With the benchmark at 16 (slim_bench_k_rules.json), this decides whether the next healing run should be at 16 experts: a model healed at 16 would do at least this well, at about 3.4B parameters per token.",
+ "predictions": {
+  "reproduce": "The healed student reproduces the healing run's last milestone: KL within 0.01 of 0.612.",
+  "drift": "At 16 experts, the benchmark KL is 0.40 to 0.52 (9 experts: 0.612; perfect router at 9: 0.517; every neuron: 0.242).",
+  "greedy": "Greedy at 4,096 tokens, 5 to 20 of 96 loop.",
+  "greedy_2048": "Counted at 2,048 tokens, at most 18 loop (the healed model at 9 experts: 36).",
+  "sampled": "Sampled, it finishes at least 85 of 96 and gets 52 to 68 right."
+ }
+}

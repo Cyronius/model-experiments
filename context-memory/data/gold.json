@@ -1,0 +1,175 @@
+[
+  {
+    "id": "program-size",
+    "category": "fact",
+    "source": "F-0006",
+    "question": "According to F-0006, what is the core program-memory capacity?",
+    "patterns": [
+      "\\b16\\s*(?:kib|kb|kilobytes)\\b"
+    ]
+  },
+  {
+    "id": "overflow-error",
+    "category": "fact",
+    "source": "F-0006",
+    "question": "In F-0006, what exact error identifier accompanies core program-memory overflow?",
+    "patterns": [
+      "xaie_invalid_elf"
+    ]
+  },
+  {
+    "id": "compile-flag",
+    "category": "fact",
+    "source": "F-0006",
+    "question": "Which compiler optimization flag does F-0006 recommend for program-memory pressure?",
+    "patterns": [
+      "-os\\b"
+    ]
+  },
+  {
+    "id": "stack-working",
+    "category": "fact",
+    "source": "F-0009",
+    "question": "In the original phlegm fp32-vector observation in F-0009 (before its disputed section), which hexadecimal worker-stack size worked?",
+    "patterns": [
+      "0x1800"
+    ],
+    "forbidden": [
+      "0x3000"
+    ]
+  },
+  {
+    "id": "stack-granite",
+    "category": "fact",
+    "source": "F-0009",
+    "question": "In F-0009's disputed section, what hexadecimal stack size did Granite attention workers need after 0x1800 produced NaN?",
+    "patterns": [
+      "0x3000"
+    ]
+  },
+  {
+    "id": "float-bug",
+    "category": "fact",
+    "source": "F-0014",
+    "question": "According to F-0014, what result did the 16-lane int32-to-float to_float conversion produce on device?",
+    "patterns": [
+      "\\bnan\\b|not.a.number"
+    ]
+  },
+  {
+    "id": "peano-symbol",
+    "category": "fact",
+    "source": "F-0014",
+    "question": "Which exact cycle-counter function is reported unlinkable under Peano in F-0014?",
+    "patterns": [
+      "get_cycles"
+    ]
+  },
+  {
+    "id": "mask-view",
+    "category": "fact",
+    "source": "F-0014",
+    "question": "What integer view does F-0014 recommend for masking?",
+    "patterns": [
+      "uint8|unsigned.{0,10}8.bit"
+    ]
+  },
+  {
+    "id": "classic-time",
+    "category": "fact",
+    "source": "F-0038",
+    "question": "For ROT13 in F-0038, what was the classic mlir-aie load-path time, in milliseconds?",
+    "patterns": [
+      "0[.]602|\\b602\\s*(?:microseconds|us|\u03bcs)"
+    ]
+  },
+  {
+    "id": "elf-time",
+    "category": "fact",
+    "source": "F-0038",
+    "question": "For ROT13 in F-0038, what was the xrt::elf load-path time, in milliseconds?",
+    "patterns": [
+      "0[.]447|\\b447\\s*(?:microseconds|us|\u03bcs)"
+    ]
+  },
+  {
+    "id": "completion-state",
+    "category": "fact",
+    "source": "F-0038",
+    "question": "Which completion-state number did both ROT13 load paths report in F-0038?",
+    "patterns": [
+      "\\b4\\b"
+    ]
+  },
+  {
+    "id": "softmax-mask",
+    "category": "fact",
+    "source": "F-0066",
+    "question": "Which bf16 value does F-0066 recommend for masked softmax scores instead of negative infinity?",
+    "patterns": [
+      "lowest|lowest.finite|most.negative.finite|minimum.finite"
+    ]
+  },
+  {
+    "id": "same-context",
+    "category": "fact",
+    "source": "F-0101",
+    "question": "In F-0101's floor.cfg measurement, what was the back-to-back dispatch time range within one context, in milliseconds?",
+    "patterns": [
+      "0[.]23",
+      "0[.]25"
+    ]
+  },
+  {
+    "id": "switched-context",
+    "category": "fact",
+    "source": "F-0101",
+    "question": "In F-0101's floor.cfg measurement, what dispatch time range was measured when the previous dispatch used another xclbin context, in milliseconds?",
+    "patterns": [
+      "0[.]65",
+      "0[.]79"
+    ]
+  },
+  {
+    "id": "pilot-code",
+    "category": "canary",
+    "source": "synthetic-control",
+    "question": "What is the code for the memory recall pilot?",
+    "patterns": [
+      "velvet-heron-7316"
+    ],
+    "counterfactual_patterns": [
+      "copper-badger-9527"
+    ]
+  },
+  {
+    "id": "recovery-phrase",
+    "category": "canary",
+    "source": "synthetic-control",
+    "question": "What is the recovery phrase for the pilot memory bank?",
+    "patterns": [
+      "mosaic-lantern-4829"
+    ],
+    "counterfactual_patterns": [
+      "amber-compass-1638"
+    ]
+  },
+  {
+    "id": "missing-driver",
+    "category": "absent",
+    "source": "F-0038",
+    "question": "What exact NPU firmware version was used for the ROT13 load-path comparison in F-0038?",
+    "patterns": [
+      "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+    ]
+  },
+  {
+    "id": "missing-canary",
+    "category": "absent",
+    "source": "synthetic-control",
+    "question": "What is the emergency override password for the memory recall pilot?",
+    "patterns": [
+      "unknown|not (?:stated|recorded|specified|provided|mentioned)"
+    ]
+  }
+]

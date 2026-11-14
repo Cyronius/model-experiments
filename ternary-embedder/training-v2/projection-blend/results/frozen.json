@@ -1,0 +1,90 @@
+{
+  "frozen_utc": "2026-10-25T15:57:11.593248+00:00",
+  "selected_before_external_scores": true,
+  "local_only": true,
+  "rule": "Highest full held-source macro nDCG; all nine held sources within2 points of identity. Includes official held human-NLI triplets. Null identity eligible. Freeze all three before external scoring.",
+  "models": {
+    "projection-0.1": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection-blend/projection-0.1.pt",
+      "sha256": "e05afa655186b7337573e798f7e24b278339cd6870f2e16ac74db9ef0992f39a",
+      "precision": "ternary",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": 96.29395008087158,
+          "sentence-transformers/gooaq": 94.69783902168274,
+          "sentence-transformers/natural-questions": 98.5755205154419,
+          "sentence-transformers/squad": 97.63811230659485,
+          "sentence-transformers/stackexchange-duplicates": 75.09194016456604,
+          "sentence-transformers/s2orc": 89.83158469200134,
+          "sentence-transformers/quora-duplicates": 92.18280911445618,
+          "sentence-transformers/all-nli": 75.23126006126404,
+          "human-nli-triplets": 82.18626976013184
+        },
+        "macro_ndcg10": 89.0810317463345
+      },
+      "step": 0,
+      "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+      "regularizer": 0.1,
+      "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+      "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+      "matrix_condition_number": 1.0
+    },
+    "projection-1": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection-blend/projection-1.pt",
+      "sha256": "706852f85477584ec4ad92264fa613f346d8447a388f46a3a66f3e800ebc537a",
+      "precision": "ternary",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": 96.29395008087158,
+          "sentence-transformers/gooaq": 94.69783902168274,
+          "sentence-transformers/natural-questions": 98.5755205154419,
+          "sentence-transformers/squad": 97.63811230659485,
+          "sentence-transformers/stackexchange-duplicates": 75.09194016456604,
+          "sentence-transformers/s2orc": 89.83158469200134,
+          "sentence-transformers/quora-duplicates": 92.18280911445618,
+          "sentence-transformers/all-nli": 75.23126006126404,
+          "human-nli-triplets": 82.18626976013184
+        },
+        "macro_ndcg10": 89.0810317463345
+      },
+      "step": 0,
+      "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+      "regularizer": 1.0,
+      "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+      "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+      "matrix_condition_number": 1.0
+    },
+    "projection-10": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection-blend/projection-10.pt",
+      "sha256": "d90eb0e60360fc53e3a142e64ceba302ee82bac5b8bcc36bb028bf4596d1b30f",
+      "precision": "ternary",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": 96.29395008087158,
+          "sentence-transformers/gooaq": 94.69783902168274,
+          "sentence-transformers/natural-questions": 98.5755205154419,
+          "sentence-transformers/squad": 97.63811230659485,
+          "sentence-transformers/stackexchange-duplicates": 75.09194016456604,
+          "sentence-transformers/s2orc": 89.83158469200134,
+          "sentence-transformers/quora-duplicates": 92.18280911445618,
+          "sentence-transformers/all-nli": 75.23126006126404,
+          "human-nli-triplets": 82.18626976013184
+        },
+        "macro_ndcg10": 89.0810317463345
+      },
+      "step": 0,
+      "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+      "regularizer": 10.0,
+      "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+      "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+      "matrix_condition_number": 1.0
+    }
+  },
+  "source_plan_sha256": "f012f479cd52e8cf8e2ea50b8ae8d096c0d4dd1219a5dd3119e41f5c65a62ae1"
+}

@@ -1,0 +1,72 @@
+{
+  "recorded_before_external_evaluation_utc": "2026-10-24T22:10:23.039709+00:00",
+  "architecture": "unchanged 2x384, FFN1536, 12 heads, 384 output, ternary weights/int8 activation simulation",
+  "parameter_count": 15467520,
+  "data_sha256": "710e362e2bdac67eb2087f87fe8f071b1cccd16f86ab4cb8e811f8b35bbe7216",
+  "train_rows": 47409,
+  "validation_rows": 2501,
+  "approved_gpu": "A5000 24GB",
+  "max_rate_usd_per_hour": 0.3,
+  "max_hours": 2,
+  "total_budget_cap_usd": 0.75,
+  "arms": [
+    {
+      "teacher": "8B",
+      "query_format": "prompted",
+      "anchor": 0.1,
+      "positive_weight": 0
+    },
+    {
+      "teacher": "8B",
+      "query_format": "prompted",
+      "anchor": 1.0,
+      "positive_weight": 0
+    },
+    {
+      "teacher": "8B",
+      "query_format": "plain",
+      "anchor": 1.0,
+      "positive_weight": 0
+    },
+    {
+      "teacher": "0.6B",
+      "query_format": "plain",
+      "anchor": 1.0,
+      "positive_weight": 0
+    },
+    {
+      "teacher": "8B",
+      "query_format": "prompted",
+      "anchor": 1.0,
+      "positive_weight": 0.2
+    },
+    {
+      "teacher": "8B",
+      "query_format": "prompted",
+      "anchor": 1.0,
+      "positive_weight": 0.2,
+      "anchor_reference": "independent float150 control; student stays quantized"
+    }
+  ],
+  "updates_per_arm": 4000,
+  "batch": 32,
+  "lr": 2e-05,
+  "seed": 0,
+  "selection": "per-source MRR >= original-0.01; among candidates within 0.01 of best eligible mixed MRR, minimize original-to-candidate cosine-relation RMS drift on a fixed unlabeled holdout text sample",
+  "external_tasks": [
+    "SciFact",
+    "NFCorpus",
+    "STSBenchmark",
+    "ArguAna"
+  ],
+  "reserved_task_not_used_for_selection": "ArguAna",
+  "changes_within_same_job": [
+    "explicit SSH workload selection after environment dispatch issue",
+    "length-bucketed teacher encoding with adaptive batch backoff",
+    "NLI distinct-premise coverage correction with exact text-vector reuse",
+    "matched smaller-teacher control",
+    "verified-positive loss control"
+  ],
+  "paid_allocation_count": 1,
+  "adaptation_note": "Matched smaller-teacher, verified-positive, and float-anchor controls added before external evaluation within the same allocation and unchanged cap."
+}

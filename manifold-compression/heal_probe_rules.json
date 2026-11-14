@@ -1,0 +1,30 @@
+{
+  "evaluate": {
+    "arms": ["learned", "perfect", "all"],
+    "check": {"kl": 0.01, "bpb": 0.01},
+    "max_hours": 1.0
+  },
+  "state": {
+    "docs_per_domain": 5,
+    "variants": ["fp32", "int16_row"],
+    "pairs": [["chunked", "fp32"], ["fp32", "int16_row"], ["chunked", "int16_row"]],
+    "seed": 26103001,
+    "max_hours": 0.5
+  },
+  "generate": {
+    "arms": {
+      "fp32": {"router": "learned", "state": "fp32"},
+      "perfect": {"router": "perfect", "state": "fp32"}
+    },
+    "max_hours": 1.0
+  },
+  "loop": {"window": 20, "last": 1000, "threshold": 0.45},
+  "predictions": {
+    "reproduce": "With rebuilt low-rank factors and the saved adapter, the learned-router student reproduces the healing run's last milestone: KL within 0.01 of 0.612 and 64K bits per byte within 1% of 0.734.",
+    "router": "The perfect router on the healed experts lowers KL by at least 0.1 from the learned router's 0.612: the router is still a major cost.",
+    "all": "Running every MLP neuron gives a lower KL than the perfect router, even though healing trained the LoRA with 25% of neurons.",
+    "state": "int16 itself (fp32 token by token against int16) accounts for under half of the 0.014 nats between the chunked fp32 run and int16.",
+    "loops_fp32": "With fp32 state, at least 5 of the 16 generations still hit the cap stuck in a loop (int16 gave 7): the state format is not the cause.",
+    "loops_perfect": "With the perfect router and fp32 state, at least 4 of the 16 still loop: the router is not the main cause either, the teacher-forced healing is."
+  }
+}

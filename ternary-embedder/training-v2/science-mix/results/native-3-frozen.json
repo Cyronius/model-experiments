@@ -1,0 +1,97 @@
+{
+  "models": {
+    "ternary": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-ternary-run/backups/science-ternary-3-ternary-fresh/best.pt",
+      "sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+      "step": 2008,
+      "precision": "ternary",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.950411319732666,
+            "ndcg10": 96.14667892456055,
+            "recall10": 0.9952617287635803
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9319427609443665,
+            "ndcg10": 94.64676976203918,
+            "recall10": 0.9911848306655884
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9837641716003418,
+            "ndcg10": 98.7549901008606,
+            "recall10": 0.9986720085144043
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9663202166557312,
+            "ndcg10": 97.35490679740906,
+            "recall10": 0.9956236481666565
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7182891368865967,
+            "ndcg10": 75.10104179382324,
+            "recall10": 0.8679451942443848
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.9031826853752136,
+            "ndcg10": 91.29951596260071,
+            "recall10": 0.9475988745689392
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8900198936462402,
+            "ndcg10": 91.8336808681488,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7124631404876709,
+            "ndcg10": 75.55610537528992,
+            "recall10": 0.9051457047462463
+          }
+        },
+        "macro_ndcg10": 90.0867111980915,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 70.09235620498657,
+          "macro_accuracy": 70.10084390640259,
+          "by_label": {
+            "0": 75.24287104606628,
+            "1": 65.94577431678772,
+            "2": 69.11388635635376
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 2008,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 80.09377755224705,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 2008,
+        "precision": "ternary",
+        "layers": 3
+      },
+      "initial_checkpoint_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "status": "Predeclared before new paid training",
+  "architecture": {
+    "layers": 3,
+    "width": 384,
+    "heads": 12,
+    "ffn": 1536,
+    "dimensions": 384,
+    "token_cap": 128
+  },
+  "precision_family": {
+    "ternary": "Independently continued ternary branch",
+    "float": "Independently continued float branch",
+    "q4": "Export from float; fixed group16 maxabs scales",
+    "q8": "Export from float; fixed group64 maxabs scales"
+  },
+  "training_selection": "Highest internal held-source macro nDCG, each source within2points of initialization; step0 eligible. No external development labels select a checkpoint within an arm.",
+  "data_comparison": "Four arms, two precisions x broad versus repeated old data. Same pair presentations and initialization within precision. Source proportions and token lengths differ; no isolated novelty or equal-FLOPs claim.",
+  "observed_development_tasks": [
+    "SciFact",
+    "NFCorpus",
+    "FiQA",
+    "SCIDOCS",
+    "STSBenchmark",
+    "fixed prior12-task subset"
+  ],
+  "conditional_reserved_gate": "One candidate must exceed both pinned reference point estimates on each of the four observed retrieval tasks, STSBenchmark and the fixed12-task mean.",
+  "candidate_selection": "Among candidates passing every gate, select highest equal-task mean across the four observed retrieval datasets. Ties resolve by lower artifact SHA256. Freeze physical file and report hashes before opening any new qrels.",
+  "new_reserved_tasks": [
+    "webis-touche2020",
+    "trec-covid"
+  ],
+  "reserved_qrels_opened": false,
+  "confirmation": "One frozen candidate and pinned references only; common128token cap, full corpora, no query instructions. Touche query1 excluded due pre-score preview exposure. No further training or selection after reserved scoring.",
+  "uncertainty": "Paired per-query bootstrap5000samples, seed20261025; no claim of training-seed or arbitrary-domain uncertainty. No full-MTEB superiority claim.",
+  "paid_spending_approval": "Approved up to $10 for this one four-arm job. Previous $10 campaign closed at $9.5843. Resource and all training/evaluation gates unchanged.",
+  "reserved_preview_exposure": {
+    "recorded_utc": "2026-10-25T23:23:31.537979+00:00",
+    "source": "https://huggingface.co/datasets/BeIR/webis-touche2020-qrels",
+    "mechanism": "Web search result preview exposed several score0 document judgments for query1; no full qrels file fetched and no candidate scored on new reserved tasks.",
+    "exposed_query_ids": {
+      "webis-touche2020": [
+        "1"
+      ]
+    },
+    "remedy": "Exclude query1 completely from reserved confirmation. Corpus exclusions and all four paid training recipes remain unchanged. Remaining Touche query judgments and all TREC-COVID judgments stay reserved.",
+    "training_or_candidate_selection_used_preview": false
+  },
+  "reserved_exclude_query_ids": {
+    "webis-touche2020": [
+      "1"
+    ]
+  },
+  "reserved_qrels_opened_definition": "Full qrels files; preview exposure is explicitly recorded above."
+}

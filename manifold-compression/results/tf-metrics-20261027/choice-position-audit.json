@@ -1,0 +1,477 @@
+{
+  "scope": "Post-hoc descriptive choice-position audit; no rescoring, selection, or changes to frozen results.",
+  "manifest_sha256": "5f753cf4487909dacbe3e0eecf61642d30bde361146e0e2a2575b13793507927",
+  "code_sha256": "43ec892aed1e2695a0e94218fde494d1e0f276eb79b75cbc283a9de48bc7db35",
+  "device": "cpu",
+  "requested_arms": [
+    "stock",
+    "shared-broad",
+    "p1"
+  ],
+  "sources": {
+    "arc-challenge": {
+      "items": 600,
+      "choice_counts": {
+        "3": 3,
+        "4": 595,
+        "5": 2
+      },
+      "gold_position_counts": {
+        "0": 146,
+        "1": 181,
+        "2": 140,
+        "3": 133
+      },
+      "uniform_random_accuracy": 0.25025000000000003
+    },
+    "arc-easy": {
+      "items": 400,
+      "choice_counts": {
+        "3": 3,
+        "4": 397
+      },
+      "gold_position_counts": {
+        "0": 96,
+        "1": 99,
+        "2": 108,
+        "3": 97
+      },
+      "uniform_random_accuracy": 0.250625
+    },
+    "hellaswag": {
+      "items": 600,
+      "choice_counts": {
+        "4": 600
+      },
+      "gold_position_counts": {
+        "0": 133,
+        "1": 171,
+        "2": 155,
+        "3": 141
+      },
+      "uniform_random_accuracy": 0.25
+    },
+    "mmlu": {
+      "items": 1138,
+      "choice_counts": {
+        "4": 1138
+      },
+      "gold_position_counts": {
+        "0": 279,
+        "1": 266,
+        "2": 292,
+        "3": 301
+      },
+      "uniform_random_accuracy": 0.25
+    }
+  },
+  "arms": {
+    "stock": {
+      "score_sha256": "0601394c5fe8e73452b1cb753b7a72e21150fad4f9a5ad4833eb7a56da6ce0ec",
+      "sources": {
+        "arc-challenge": {
+          "sum": {
+            "pick_counts": {
+              "0": 211,
+              "1": 160,
+              "2": 119,
+              "3": 109,
+              "4": 1
+            },
+            "accuracy": 0.40166666666666667,
+            "most_common_pick_fraction": 0.3516666666666667
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 154,
+              "1": 134,
+              "2": 156,
+              "3": 155,
+              "4": 1
+            },
+            "accuracy": 0.445,
+            "most_common_pick_fraction": 0.26
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 132,
+              "1": 138,
+              "2": 157,
+              "3": 172,
+              "4": 1
+            },
+            "accuracy": 0.415,
+            "most_common_pick_fraction": 0.2866666666666667
+          }
+        },
+        "arc-easy": {
+          "sum": {
+            "pick_counts": {
+              "0": 118,
+              "1": 93,
+              "2": 103,
+              "3": 86
+            },
+            "accuracy": 0.6925,
+            "most_common_pick_fraction": 0.295
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 89,
+              "1": 86,
+              "2": 107,
+              "3": 118
+            },
+            "accuracy": 0.645,
+            "most_common_pick_fraction": 0.295
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 84,
+              "1": 77,
+              "2": 111,
+              "3": 128
+            },
+            "accuracy": 0.67,
+            "most_common_pick_fraction": 0.32
+          }
+        },
+        "hellaswag": {
+          "sum": {
+            "pick_counts": {
+              "0": 149,
+              "1": 155,
+              "2": 157,
+              "3": 139
+            },
+            "accuracy": 0.455,
+            "most_common_pick_fraction": 0.26166666666666666
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 152,
+              "1": 156,
+              "2": 151,
+              "3": 141
+            },
+            "accuracy": 0.6566666666666666,
+            "most_common_pick_fraction": 0.26
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 150,
+              "1": 154,
+              "2": 156,
+              "3": 140
+            },
+            "accuracy": 0.66,
+            "most_common_pick_fraction": 0.26
+          }
+        },
+        "mmlu": {
+          "sum": {
+            "pick_counts": {
+              "0": 378,
+              "1": 195,
+              "2": 269,
+              "3": 296
+            },
+            "accuracy": 0.5869947275922671,
+            "most_common_pick_fraction": 0.3321616871704745
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 378,
+              "1": 195,
+              "2": 269,
+              "3": 296
+            },
+            "accuracy": 0.5869947275922671,
+            "most_common_pick_fraction": 0.3321616871704745
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 378,
+              "1": 195,
+              "2": 269,
+              "3": 296
+            },
+            "accuracy": 0.5869947275922671,
+            "most_common_pick_fraction": 0.3321616871704745
+          }
+        }
+      }
+    },
+    "shared-broad": {
+      "score_sha256": "8a7d3ec2f68d533be19f480413b0845c2b43649a6b5a75245fc4efa3e248dc42",
+      "sources": {
+        "arc-challenge": {
+          "sum": {
+            "pick_counts": {
+              "0": 221,
+              "1": 152,
+              "2": 111,
+              "3": 115,
+              "4": 1
+            },
+            "accuracy": 0.21,
+            "most_common_pick_fraction": 0.36833333333333335
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 153,
+              "1": 133,
+              "2": 153,
+              "3": 160,
+              "4": 1
+            },
+            "accuracy": 0.23166666666666666,
+            "most_common_pick_fraction": 0.26666666666666666
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 136,
+              "1": 124,
+              "2": 160,
+              "3": 180
+            },
+            "accuracy": 0.22833333333333333,
+            "most_common_pick_fraction": 0.3
+          }
+        },
+        "arc-easy": {
+          "sum": {
+            "pick_counts": {
+              "0": 152,
+              "1": 95,
+              "2": 79,
+              "3": 74
+            },
+            "accuracy": 0.36,
+            "most_common_pick_fraction": 0.38
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 106,
+              "1": 88,
+              "2": 87,
+              "3": 119
+            },
+            "accuracy": 0.355,
+            "most_common_pick_fraction": 0.2975
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 75,
+              "1": 85,
+              "2": 103,
+              "3": 137
+            },
+            "accuracy": 0.345,
+            "most_common_pick_fraction": 0.3425
+          }
+        },
+        "hellaswag": {
+          "sum": {
+            "pick_counts": {
+              "0": 152,
+              "1": 147,
+              "2": 152,
+              "3": 149
+            },
+            "accuracy": 0.295,
+            "most_common_pick_fraction": 0.25333333333333335
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 148,
+              "1": 136,
+              "2": 165,
+              "3": 151
+            },
+            "accuracy": 0.3616666666666667,
+            "most_common_pick_fraction": 0.275
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 156,
+              "1": 130,
+              "2": 171,
+              "3": 143
+            },
+            "accuracy": 0.375,
+            "most_common_pick_fraction": 0.285
+          }
+        },
+        "mmlu": {
+          "sum": {
+            "pick_counts": {
+              "0": 1127,
+              "1": 2,
+              "2": 5,
+              "3": 4
+            },
+            "accuracy": 0.2460456942003515,
+            "most_common_pick_fraction": 0.9903339191564148
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 1127,
+              "1": 2,
+              "2": 5,
+              "3": 4
+            },
+            "accuracy": 0.2460456942003515,
+            "most_common_pick_fraction": 0.9903339191564148
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 1127,
+              "1": 2,
+              "2": 5,
+              "3": 4
+            },
+            "accuracy": 0.2460456942003515,
+            "most_common_pick_fraction": 0.9903339191564148
+          }
+        }
+      }
+    },
+    "p1": {
+      "score_sha256": "344da0a4d0684ad98d6bcb566f09d028bf19a9dbb61d80fa2be7e41205403074",
+      "sources": {
+        "arc-challenge": {
+          "sum": {
+            "pick_counts": {
+              "0": 218,
+              "1": 144,
+              "2": 127,
+              "3": 110,
+              "4": 1
+            },
+            "accuracy": 0.22666666666666666,
+            "most_common_pick_fraction": 0.36333333333333334
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 145,
+              "1": 124,
+              "2": 167,
+              "3": 163,
+              "4": 1
+            },
+            "accuracy": 0.24333333333333335,
+            "most_common_pick_fraction": 0.2783333333333333
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 135,
+              "1": 129,
+              "2": 157,
+              "3": 179
+            },
+            "accuracy": 0.22833333333333333,
+            "most_common_pick_fraction": 0.29833333333333334
+          }
+        },
+        "arc-easy": {
+          "sum": {
+            "pick_counts": {
+              "0": 140,
+              "1": 102,
+              "2": 81,
+              "3": 77
+            },
+            "accuracy": 0.39,
+            "most_common_pick_fraction": 0.35
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 100,
+              "1": 94,
+              "2": 91,
+              "3": 115
+            },
+            "accuracy": 0.37,
+            "most_common_pick_fraction": 0.2875
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 86,
+              "1": 83,
+              "2": 97,
+              "3": 134
+            },
+            "accuracy": 0.3825,
+            "most_common_pick_fraction": 0.335
+          }
+        },
+        "hellaswag": {
+          "sum": {
+            "pick_counts": {
+              "0": 151,
+              "1": 146,
+              "2": 151,
+              "3": 152
+            },
+            "accuracy": 0.31166666666666665,
+            "most_common_pick_fraction": 0.25333333333333335
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 138,
+              "1": 141,
+              "2": 166,
+              "3": 155
+            },
+            "accuracy": 0.39,
+            "most_common_pick_fraction": 0.27666666666666667
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 158,
+              "1": 131,
+              "2": 165,
+              "3": 146
+            },
+            "accuracy": 0.4066666666666667,
+            "most_common_pick_fraction": 0.275
+          }
+        },
+        "mmlu": {
+          "sum": {
+            "pick_counts": {
+              "0": 605,
+              "1": 11,
+              "2": 133,
+              "3": 389
+            },
+            "accuracy": 0.29876977152899825,
+            "most_common_pick_fraction": 0.531634446397188
+          },
+          "per_token": {
+            "pick_counts": {
+              "0": 605,
+              "1": 11,
+              "2": 133,
+              "3": 389
+            },
+            "accuracy": 0.29876977152899825,
+            "most_common_pick_fraction": 0.531634446397188
+          },
+          "per_char": {
+            "pick_counts": {
+              "0": 605,
+              "1": 11,
+              "2": 133,
+              "3": 389
+            },
+            "accuracy": 0.29876977152899825,
+            "most_common_pick_fraction": 0.531634446397188
+          }
+        }
+      }
+    }
+  },
+  "missing": []
+}

@@ -1,0 +1,72 @@
+{
+  "model": "qwen27",
+  "positions": 32,
+  "rows": [
+    "test_sft-14e013b58749ed2362eff70cfbc25c6742826d9386183473f20edfd66fd58b74",
+    "test_sft-5aa57bcfeba3906ffe32139a236e987e7b172af0609fbb1ef8938f5a2016203a"
+  ],
+  "primary_data_sha256": "7951aba0311b044ff8a89751d10982f1a83f64145131b1630bc68693d71d509a",
+  "readout_dtype": "float32",
+  "scope": "Exploratory readout-only diagnostic; unmodified teacher activations, first two validation conversations. Not full-model generation quality.",
+  "source_tied_embeddings": false,
+  "arms": {
+    "3824": {
+      "teacher_vs_retained_matrix": {
+        "positions": 32,
+        "max_abs_logit_error": 5.704730987548828,
+        "rms_logit_error": 0.5130853521405466,
+        "mean_kl": 0.12152336194711227,
+        "max_token_kl": 1.696255241621476,
+        "top1_agreement": 0.875,
+        "numerical_pass": false
+      },
+      "teacher_vs_exact_readout": {
+        "positions": 32,
+        "max_abs_logit_error": 5.565803527832031,
+        "rms_logit_error": 0.49926227888484986,
+        "mean_kl": 0.11521323242096765,
+        "max_token_kl": 1.5936085499541683,
+        "top1_agreement": 0.875,
+        "numerical_pass": false
+      },
+      "exact_vs_retained_matrix": {
+        "positions": 32,
+        "max_abs_logit_error": 0.5252892971038818,
+        "rms_logit_error": 0.09037404684349719,
+        "mean_kl": 0.00047707346494730625,
+        "max_token_kl": 0.0022005344487283,
+        "top1_agreement": 1.0,
+        "numerical_pass": false
+      }
+    },
+    "2544": {
+      "teacher_vs_retained_matrix": {
+        "positions": 32,
+        "max_abs_logit_error": 11.534055709838867,
+        "rms_logit_error": 0.8041855189455305,
+        "mean_kl": 0.39071770908135117,
+        "max_token_kl": 5.004502238343675,
+        "top1_agreement": 0.8125,
+        "numerical_pass": false
+      },
+      "teacher_vs_exact_readout": {
+        "positions": 32,
+        "max_abs_logit_error": 11.496883392333984,
+        "rms_logit_error": 0.7793575315968255,
+        "mean_kl": 0.38142775303690124,
+        "max_token_kl": 5.013278833812618,
+        "top1_agreement": 0.8125,
+        "numerical_pass": false
+      },
+      "exact_vs_retained_matrix": {
+        "positions": 32,
+        "max_abs_logit_error": 0.821990966796875,
+        "rms_logit_error": 0.1528583845351083,
+        "mean_kl": 0.002275740153944025,
+        "max_token_kl": 0.014589147948375765,
+        "top1_agreement": 1.0,
+        "numerical_pass": false
+      }
+    }
+  }
+}

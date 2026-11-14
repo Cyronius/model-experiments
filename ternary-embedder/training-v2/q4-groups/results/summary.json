@@ -1,0 +1,234 @@
+{
+  "scope": "Frozen checkpoints, observed development tasks. Wider means cover only the fixed 12-task subset. Query confidence intervals do not measure training-seed variation.",
+  "reserved_fiqa_scidocs_scored": false,
+  "resources": {
+    "local_only": true,
+    "paid_resource_allocated": false
+  },
+  "continuation_resources": [],
+  "models": {
+    "q4-g32": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-groups/q4-g32.pt",
+        "sha256": "811787e7b3bb68569f9f289d1b1c5df195e4d8d84daec0b8a0d13b6633c1273c",
+        "bytes": 50743883,
+        "precision": "q4",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+        "bits": 4,
+        "activation_bits": 8,
+        "group_size": 32,
+        "note": "Four-bit dense codes; more BF16 scales, with embeddings/output still float. Packed accuracy/reference artifact; native kernel speed unmeasured."
+      },
+      "core_retrieval": 46.30906376801689,
+      "stsbenchmark": 83.555293491079,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 60.74005424405495,
+          "recall10": 74.65555555555555,
+          "top1_relevant_queries": 146,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.004412233829498291,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.878073291978826,
+          "recall10": 14.812292016166822,
+          "top1_relevant_queries": 140,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.01466834545135498,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 48.37248460803455,
+          "recall10": 76.31578947368422,
+          "top1_relevant_queries": 346,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.035324692726135254,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 4.181027279492196,
+          "paired_query_bootstrap_95_ci": [
+            2.697163587496775,
+            5.709164170162648
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": 0.09483221410079867,
+          "paired_query_bootstrap_95_ci": [
+            -0.9398530100235198,
+            1.1187499471145186
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -0.6106144316734907,
+          "paired_query_bootstrap_95_ci": [
+            -2.0392265447662683,
+            0.8557829075097673
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 1.8729386841580113,
+        "paired_query_bootstrap_95_ci": [
+          0.6932654119503553,
+          3.0666984200977865
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 83.5553,
+        "SICK-R": 75.89439999999999,
+        "STS12": 74.1306,
+        "STS13": 81.1605,
+        "STS14": 77.9024,
+        "STS15": 85.0866,
+        "STS16": 82.7012,
+        "SciFact": 60.74,
+        "NFCorpus": 31.878,
+        "Banking77Classification": 77.0,
+        "AskUbuntuDupQuestions": 60.3693,
+        "TwitterSemEval2015": 67.05680000000001
+      },
+      "mteb_12_mean": 71.45625833333334
+    },
+    "q4-g16": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-groups/q4-g16.pt",
+        "sha256": "5694e57f47744de60eae46a5b6cd42b78d17ee2346a4ff26c5dc2c875666ff5f",
+        "bytes": 51075659,
+        "precision": "q4",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+        "bits": 4,
+        "activation_bits": 8,
+        "group_size": 16,
+        "note": "Four-bit dense codes; more BF16 scales, with embeddings/output still float. Packed accuracy/reference artifact; native kernel speed unmeasured."
+      },
+      "core_retrieval": 46.42504269477438,
+      "stsbenchmark": 83.57743967004482,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 60.91240606476425,
+          "recall10": 73.97222222222223,
+          "top1_relevant_queries": 148,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.001870959997177124,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.93767932478452,
+          "recall10": 14.895601658573767,
+          "top1_relevant_queries": 141,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.013170361518859863,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 48.54475557676899,
+          "recall10": 76.60028449502134,
+          "top1_relevant_queries": 350,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.03468513488769531,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 4.297006206249687,
+          "paired_query_bootstrap_95_ci": [
+            2.8166775380170717,
+            5.791861906982481
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": 0.21081114085828997,
+          "paired_query_bootstrap_95_ci": [
+            -0.8578933440451683,
+            1.290936009016663
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -0.4946355049159997,
+          "paired_query_bootstrap_95_ci": [
+            -2.049769854113086,
+            1.0884753764126254
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 1.9889176109155027,
+        "paired_query_bootstrap_95_ci": [
+          0.8633808451820351,
+          3.165160941011539
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 83.5773,
+        "SICK-R": 75.42609999999999,
+        "STS12": 74.13889999999999,
+        "STS13": 81.6396,
+        "STS14": 77.92670000000001,
+        "STS15": 84.8777,
+        "STS16": 82.7135,
+        "SciFact": 60.912,
+        "NFCorpus": 31.938,
+        "Banking77Classification": 76.9351,
+        "AskUbuntuDupQuestions": 60.2805,
+        "TwitterSemEval2015": 67.16069999999999
+      },
+      "mteb_12_mean": 71.46050833333334
+    }
+  },
+  "matched_depth_contrasts": {},
+  "matched_recipe_contrasts": {},
+  "parent_contrasts": {}
+}

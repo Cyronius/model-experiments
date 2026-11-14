@@ -1,0 +1,381 @@
+{
+  "purpose": "Separate precision sensitivity from fitting/generalization; diagnostic subset only",
+  "models": {
+    "before": [
+      {
+        "split": "train",
+        "id": "curated-multi-1",
+        "fp32_vs_autocast": {
+          "positions": 2,
+          "max_abs_logit_error": 0.2242298126220703,
+          "rms_logit_error": 0.028180579210390907,
+          "mean_kl": 0.00014711060326645816,
+          "max_token_kl": 0.00029186186143388606,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 2,
+          "max_abs_logit_error": 7.883934020996094,
+          "rms_logit_error": 1.3825959024463133,
+          "mean_kl": 0.07640322255766574,
+          "max_token_kl": 0.13761902618001934,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 2,
+          "max_abs_logit_error": 7.78125,
+          "rms_logit_error": 1.380591903263064,
+          "mean_kl": 0.07385460970989927,
+          "max_token_kl": 0.13525947728246032,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "train",
+        "id": "curated-7",
+        "fp32_vs_autocast": {
+          "positions": 3,
+          "max_abs_logit_error": 0.1748485565185547,
+          "rms_logit_error": 0.026581221710350805,
+          "mean_kl": 0.000290533016977512,
+          "max_token_kl": 0.0007117265146150686,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 3,
+          "max_abs_logit_error": 6.929092884063721,
+          "rms_logit_error": 1.3926632108776569,
+          "mean_kl": 0.18029071194733048,
+          "max_token_kl": 0.42861538444708125,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 3,
+          "max_abs_logit_error": 6.921875,
+          "rms_logit_error": 1.3952613297909602,
+          "mean_kl": 0.1901119810719074,
+          "max_token_kl": 0.4422673869098959,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "train",
+        "id": "curated-11",
+        "fp32_vs_autocast": {
+          "positions": 5,
+          "max_abs_logit_error": 0.15964722633361816,
+          "rms_logit_error": 0.02680977762272559,
+          "mean_kl": 0.0006018687397170263,
+          "max_token_kl": 0.0013146984230612392,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 5,
+          "max_abs_logit_error": 6.592389106750488,
+          "rms_logit_error": 1.1788171950285864,
+          "mean_kl": 0.19523374188917358,
+          "max_token_kl": 0.48794261182201426,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 5,
+          "max_abs_logit_error": 6.5625,
+          "rms_logit_error": 1.175357553646977,
+          "mean_kl": 0.19810026456174984,
+          "max_token_kl": 0.5072992708050361,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "train",
+        "id": "curated-9",
+        "fp32_vs_autocast": {
+          "positions": 4,
+          "max_abs_logit_error": 0.1779499053955078,
+          "rms_logit_error": 0.024039709935718818,
+          "mean_kl": 7.369615435565234e-05,
+          "max_token_kl": 0.0002877546796663435,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 4,
+          "max_abs_logit_error": 4.041759014129639,
+          "rms_logit_error": 0.7535609719815578,
+          "mean_kl": 0.034579970397684213,
+          "max_token_kl": 0.13539115926628545,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 4,
+          "max_abs_logit_error": 4.0546875,
+          "rms_logit_error": 0.7532522584995468,
+          "mean_kl": 0.03570761842525224,
+          "max_token_kl": 0.14001646905474505,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "validation",
+        "id": "test_sft-e422a6373fed404fd41c6b246c591dd12ef0e95d86fbdb3cd414cfa5128ec415",
+        "fp32_vs_autocast": {
+          "positions": 9,
+          "max_abs_logit_error": 0.15053749084472656,
+          "rms_logit_error": 0.027934048372196933,
+          "mean_kl": 0.0004911724074487596,
+          "max_token_kl": 0.0016909250983753663,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 9,
+          "max_abs_logit_error": 8.639838218688965,
+          "rms_logit_error": 1.3967327451889255,
+          "mean_kl": 0.30539114131740935,
+          "max_token_kl": 0.8300115771578692,
+          "top1_agreement": 0.5555555555555556,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 9,
+          "max_abs_logit_error": 8.63671875,
+          "rms_logit_error": 1.3975078418108102,
+          "mean_kl": 0.3067789548782412,
+          "max_token_kl": 0.8370658520532996,
+          "top1_agreement": 0.5555555555555556,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "validation",
+        "id": "test_sft-3623df0db075c4158ea1c62952504e33027b20b7eabaa14b8cd8266fee73e89b",
+        "fp32_vs_autocast": {
+          "positions": 3,
+          "max_abs_logit_error": 0.17031526565551758,
+          "rms_logit_error": 0.02838553738050811,
+          "mean_kl": 6.219899525832671e-05,
+          "max_token_kl": 0.00012477616767446855,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 3,
+          "max_abs_logit_error": 8.159403800964355,
+          "rms_logit_error": 1.1977306703890385,
+          "mean_kl": 0.003177365331944343,
+          "max_token_kl": 0.006847978366207576,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 3,
+          "max_abs_logit_error": 8.15625,
+          "rms_logit_error": 1.1970327784742478,
+          "mean_kl": 0.002776788582811125,
+          "max_token_kl": 0.006055953403601944,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        }
+      }
+    ],
+    "after": [
+      {
+        "split": "train",
+        "id": "curated-multi-1",
+        "fp32_vs_autocast": {
+          "positions": 2,
+          "max_abs_logit_error": 0.12750625610351562,
+          "rms_logit_error": 0.023335838356336482,
+          "mean_kl": 8.078026070733563e-05,
+          "max_token_kl": 0.0001576137678807885,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 2,
+          "max_abs_logit_error": 19.647916793823242,
+          "rms_logit_error": 2.6800673448480077,
+          "mean_kl": 5.928244904276193,
+          "max_token_kl": 8.116694795354329,
+          "top1_agreement": 0.0,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 2,
+          "max_abs_logit_error": 19.6875,
+          "rms_logit_error": 2.6784304693348644,
+          "mean_kl": 5.93097597534916,
+          "max_token_kl": 8.119167406977075,
+          "top1_agreement": 0.0,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "train",
+        "id": "curated-7",
+        "fp32_vs_autocast": {
+          "positions": 3,
+          "max_abs_logit_error": 0.10988044738769531,
+          "rms_logit_error": 0.02086850767409657,
+          "mean_kl": 0.00047745014272889216,
+          "max_token_kl": 0.0006463557978126614,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 3,
+          "max_abs_logit_error": 14.467578887939453,
+          "rms_logit_error": 2.071940886984117,
+          "mean_kl": 4.2166315027148755,
+          "max_token_kl": 7.718235026200137,
+          "top1_agreement": 0.3333333333333333,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 3,
+          "max_abs_logit_error": 14.375,
+          "rms_logit_error": 2.0744788683478825,
+          "mean_kl": 4.150840803546042,
+          "max_token_kl": 7.608691228981851,
+          "top1_agreement": 0.3333333333333333,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "train",
+        "id": "curated-11",
+        "fp32_vs_autocast": {
+          "positions": 5,
+          "max_abs_logit_error": 0.15237808227539062,
+          "rms_logit_error": 0.025878609450583703,
+          "mean_kl": 0.00022378176787114947,
+          "max_token_kl": 0.0007768367578314104,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 5,
+          "max_abs_logit_error": 9.934476852416992,
+          "rms_logit_error": 1.6300111577160086,
+          "mean_kl": 0.11890416728998457,
+          "max_token_kl": 0.2510986166374648,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 5,
+          "max_abs_logit_error": 9.875,
+          "rms_logit_error": 1.6219967426704132,
+          "mean_kl": 0.1275198400198375,
+          "max_token_kl": 0.25321003042293655,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "train",
+        "id": "curated-9",
+        "fp32_vs_autocast": {
+          "positions": 4,
+          "max_abs_logit_error": 0.12805557250976562,
+          "rms_logit_error": 0.02724530556599263,
+          "mean_kl": 0.00037984874255384807,
+          "max_token_kl": 0.000831105520880735,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 4,
+          "max_abs_logit_error": 10.757942199707031,
+          "rms_logit_error": 1.5165764783523574,
+          "mean_kl": 0.1586918709331566,
+          "max_token_kl": 0.527838897254259,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 4,
+          "max_abs_logit_error": 10.734375,
+          "rms_logit_error": 1.5077683815882268,
+          "mean_kl": 0.16025527622191485,
+          "max_token_kl": 0.5540462892714986,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "validation",
+        "id": "test_sft-e422a6373fed404fd41c6b246c591dd12ef0e95d86fbdb3cd414cfa5128ec415",
+        "fp32_vs_autocast": {
+          "positions": 9,
+          "max_abs_logit_error": 0.1392679214477539,
+          "rms_logit_error": 0.024179678526885958,
+          "mean_kl": 0.0006438955042812785,
+          "max_token_kl": 0.0019331469007033513,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 9,
+          "max_abs_logit_error": 12.819283485412598,
+          "rms_logit_error": 2.2517977800089515,
+          "mean_kl": 0.5427086344018516,
+          "max_token_kl": 0.9464150347352145,
+          "top1_agreement": 0.5555555555555556,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 9,
+          "max_abs_logit_error": 12.84375,
+          "rms_logit_error": 2.24942827049723,
+          "mean_kl": 0.5391094638024103,
+          "max_token_kl": 0.9448269575798326,
+          "top1_agreement": 0.5555555555555556,
+          "numerical_pass": false
+        }
+      },
+      {
+        "split": "validation",
+        "id": "test_sft-3623df0db075c4158ea1c62952504e33027b20b7eabaa14b8cd8266fee73e89b",
+        "fp32_vs_autocast": {
+          "positions": 3,
+          "max_abs_logit_error": 0.15829133987426758,
+          "rms_logit_error": 0.026605984268277053,
+          "mean_kl": 0.00017973337511454778,
+          "max_token_kl": 0.0005075137542570754,
+          "top1_agreement": 1.0,
+          "numerical_pass": false
+        },
+        "fp32_teacher_vs_student": {
+          "positions": 3,
+          "max_abs_logit_error": 12.507938385009766,
+          "rms_logit_error": 1.7620052580551342,
+          "mean_kl": 0.9465361073416929,
+          "max_token_kl": 2.756054632831699,
+          "top1_agreement": 0.6666666666666666,
+          "numerical_pass": false
+        },
+        "training_precision_teacher_vs_student": {
+          "positions": 3,
+          "max_abs_logit_error": 12.5,
+          "rms_logit_error": 1.760274522928627,
+          "mean_kl": 0.9705430827447796,
+          "max_token_kl": 2.8299705016592647,
+          "top1_agreement": 0.6666666666666666,
+          "numerical_pass": false
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1083 @@
+{
+  "decoding": "greedy; thinking off; no repetition/frequency/presence penalty",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "Here is a list of numbers in the ascending order.\n\nThe number of 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "Here are the five colors that are listed in the list.\n\nThe colors are:\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.\n1.",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.9147727272727273,
+      "loop_flag": true
+    },
+    {
+      "id": "poem",
+      "answer": "Here is a poem about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a.\n\nThe poem is about the \"a",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.9705882352941176,
+      "loop_flag": true
+    },
+    {
+      "id": "summary",
+      "answer": "<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n<think>\n\n",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.9960474308300395,
+      "loop_flag": true
+    },
+    {
+      "id": "alias",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Here is a very well.\n\nI can't find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\nI can find the text.\n\n",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.9641873278236914,
+      "loop_flag": true
+    },
+    {
+      "id": "interview",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "Here is a concise checklist for a dog.\n\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "hash-table",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Here is a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm a **\nI'm",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.9836065573770492,
+      "loop_flag": true
+    },
+    {
+      "id": "multi-edit",
+      "answer": "Here is a list of apples, bread, and tea.",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-0",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "403"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-0",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R3k-Z19p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-0",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item0",
+          "count": 7
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-0",
+      "answer": "Here is a list of 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -11,
+          6,
+          17,
+          33
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-0",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R3k-Z19p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-0",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "14"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-1",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "555"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-1",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R4k-Z20p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-1",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item1",
+          "count": 8
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-1",
+      "answer": "Here is a list of 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -12,
+          5,
+          18,
+          35
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-1",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R4k-Z20p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-1",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "16"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-2",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "731"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-2",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R5k-Z21p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-2",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item2",
+          "count": 9
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-2",
+      "answer": "Here is a list of 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -13,
+          4,
+          19,
+          37
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-2",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R5k-Z21p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-2",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "18"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-3",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "931"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-3",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R6k-Z22p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-3",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item3",
+          "count": 10
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-3",
+      "answer": "Here is a list of 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -14,
+          3,
+          20,
+          39
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-3",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R6k-Z22p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-3",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "20"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-4",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "1155"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-4",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R7k-Z23p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-4",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item4",
+          "count": 11
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-4",
+      "answer": "Here is a list of 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -15,
+          2,
+          21,
+          41
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-4",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R7k-Z23p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-4",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "22"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-5",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "1403"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-5",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R8k-Z24p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-5",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item5",
+          "count": 12
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-5",
+      "answer": "Here is a list of 20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -16,
+          1,
+          22,
+          43
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-5",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R8k-Z24p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-5",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "24"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-6",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "1675"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-6",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R9k-Z25p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-6",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item6",
+          "count": 13
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-6",
+      "answer": "Here is a list of 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -17,
+          0,
+          23,
+          45
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-6",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R9k-Z25p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-6",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "26"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-7",
+      "answer": "Here is a 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "1971"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-7",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R10k-Z26p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-7",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item7",
+          "count": 14
+        }
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-7",
+      "answer": "Here is a list of 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -18,
+          -1,
+          24,
+          47
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-7",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "R10k-Z26p"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-7",
+      "answer": "Here is a **1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": {
+        "kind": "exact",
+        "expected": "28"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "long-0",
+      "answer": "Here is a **200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "long-1",
+      "answer": "Here is a Python function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a function that can handle a string of a numeric number.\n\nHere is a",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.9807909604519774,
+      "loop_flag": true
+    },
+    {
+      "id": "long-2",
+      "answer": "Here is a comprehensive guide for a small community of a vegetable garden.\n\n**1. ** The main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the garden is a small area.\nThe main of the",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.9724220623501199,
+      "loop_flag": true
+    },
+    {
+      "id": "long-3",
+      "answer": "Here is a brief conclusion.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the text.\n\nThe text is a short of the",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.9840881272949816,
+      "loop_flag": true
+    },
+    {
+      "id": "long-4",
+      "answer": "Here is a **100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "long-5",
+      "answer": "Here is a **100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "long-6",
+      "answer": "Here is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple example of a beginner Python program.\n\nHere is a simple",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.9882491186839013,
+      "loop_flag": true
+    },
+    {
+      "id": "long-7",
+      "answer": "Here is a **100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 72,
+    "scored_cases": 64,
+    "check_passes": 1,
+    "completed": 1,
+    "loop_flags": 9,
+    "generated_tokens": 40461,
+    "elapsed_seconds": 236.57578535599168
+  }
+}

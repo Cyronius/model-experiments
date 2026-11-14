@@ -1,0 +1,54 @@
+{
+  "note": "Section 17's checks again with a 4,096-token cap instead of 2,048 (slim_opd.py check with opd_cap_rules.json), written 2026-11-01 before the run. Section 17's distilled student never repeats with the model card's sampling, but 35 of its 96 sampled answers ran to the 2,048-token cap unfinished, against the healed control's 15 (p = 0.0008). It thinks like its teacher, at a median of 831 tokens against the control's 303. I offered to check whether those answers are long or go round in circles; the user: 'check with longer limit'.",
+  "folder": "opd_cap",
+  "eval": {
+    "prompts": "probe_prompts_96.json",
+    "count": 96,
+    "max_new_tokens": 4096,
+    "state": "fp32",
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "presence_penalty": 1.5,
+      "source": "Qwen3.5-9B model card, thinking mode for general tasks (as opd_long_rules.json)"
+    },
+    "seed": 26103102,
+    "check": {
+      "kl": 0.01,
+      "bpb": 0.01
+    },
+    "adapter": {
+      "adapter": "opd_long/adapter.pt",
+      "record": "opd_long/train.json",
+      "note": "section 17's distilled student"
+    },
+    "arms": [
+      ["distilled", "sampled"],
+      ["healed", "sampled"],
+      ["dense", "sampled"],
+      ["distilled", "greedy"],
+      ["every_neuron", "sampled"],
+      ["dense", "greedy"]
+    ],
+    "hours": 3.4,
+    "longer_than": ["opd_long", "opd_self"]
+  },
+  "loop": {
+    "window": 20,
+    "last": 1000,
+    "threshold": 0.45
+  },
+  "design": "One A40 pod, no training. The healed student is rebuilt and must reproduce the healing run (KL within 0.01 of 0.612). Then, on section 17's 96 GSM8K check prompts (test rows 16-111), batched 96 at a time, with section 17's seeds and the model card's sampling, each arm answers with a 4,096-token cap, most important first: the distilled student sampled, the healed control sampled, the dense model sampled, the distilled student greedy, the every-neuron model (the teacher) sampled, the dense model greedy. The distilled and healed arms repeat section 17's runs with only the cap changed, so their first 2,048 tokens should be the same answers; the report compares them prompt by prompt (against_shorter). The dense and every-neuron arms have no 96-prompt run at 2,048 (section 16 ran them on the first 48, batched 48, so not the same answers). A loop is, as before, an answer at the cap whose last 1,000 tokens repeat earlier 20-token spans at least 45% of the time.",
+  "reading": "All counts are out of 96 at 4,096 tokens. Long, not circling: the distilled student's sampled answers are not significantly more often unfinished than the healed control's (one-sided Fisher p >= 0.05), and at least half of the 35 that section 17's cap cut finish. Then the 2,048-token cap, not the student, explains section 17's sampled shortfall, and later checks use 4,096. Circling: significantly more unfinished than the control (p < 0.05). Then, sampled, the student goes round without ending, a failure that counts beside its greedy loops for the next structural change to fix. Between the two (not significant, but fewer than half finish): mixed, and both counts are reported. The dense and every-neuron arms set the scale: if the dense model leaves as many unfinished at 4,096 as the distilled student, long thinking is this model's normal behavior, and the bar is the every-neuron model's.",
+  "predictions": {
+    "reproduce": "The healed student reproduces the healing run's last milestone: KL within 0.01 of 0.612.",
+    "same_start": "At least 90 of the 96 answers in each of the two repeated arms (distilled and healed, sampled) begin with section 17's 2,048-token answer: same seeds, same batch, a card of the same family.",
+    "cut_distilled": "Of the 35 distilled sampled answers section 17's cap cut, 4 to 17 finish by 4,096 tokens: most go round in circles rather than being long.",
+    "cut_healed": "Of the healed control's 15 sampled answers that cap cut, at most 5 finish.",
+    "circling": "At 4,096, the distilled student's sampled answers are still unfinished more often than the healed control's (one-sided p < 0.05).",
+    "dense": "The dense model, sampled, finishes 50 to 85 of 96 (section 16, at 2,048 on the first 48: 23).",
+    "teacher": "The every-neuron model, sampled, finishes at least 85 of 96.",
+    "greedy": "The distilled student, greedy, loops in 17 to 31 (section 17's loops stay loops, and some answers that ran on without repeating start to) and finishes at most 72."
+  }
+}

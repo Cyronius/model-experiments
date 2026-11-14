@@ -1,0 +1,32 @@
+{
+  "model_type": "mistral",
+  "source_width": 5120,
+  "source_parameters": 23572403200,
+  "source_bf16_weight_gb": 47.1448064,
+  "source_fp32_weight_gb": 94.2896128,
+  "arms": [
+    {
+      "target_fraction": 0.75,
+      "width": 3824,
+      "parameters": 17620261616,
+      "retained_fraction": 0.7474953430289195,
+      "bf16_weight_gb": 35.240523232,
+      "output_matrix_parameters": 14622976
+    },
+    {
+      "target_fraction": 0.5,
+      "width": 2544,
+      "parameters": 11719009776,
+      "retained_fraction": 0.4971495556295253,
+      "bf16_weight_gb": 23.438019552,
+      "output_matrix_parameters": 6471936
+    }
+  ],
+  "fixed_parameters": 0,
+  "parameters_per_residual_coordinate": 4603985,
+  "count_scope": "text causal model, including embeddings, output head, and output adapter; no vision/MTP",
+  "source": {
+    "repo": "mistralai/Mistral-Small-24B-Instruct-2501",
+    "revision": "9527884be6e5616bdd54de542f9ae13384489724"
+  }
+}

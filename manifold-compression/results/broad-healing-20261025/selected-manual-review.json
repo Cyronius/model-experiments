@@ -1,0 +1,90 @@
+{
+  "selected_step": 16,
+  "science": {
+    "dev": {
+      "science-sound": {
+        "factual_pass": false,
+        "reason": "Calls a vacuum solid and says solidity blocks sound."
+      },
+      "science-shadow": {
+        "factual_pass": false,
+        "partial_recovery": true,
+        "reason": "Recognizes solar angle and daily shadow-length direction, but adds an incorrect explanation about light focused on the upper pole while the lower part stays dark."
+      }
+    },
+    "fresh": {
+      "science-ice": {
+        "factual_pass": false,
+        "reason": "Reverses the density relationship and claims rocks float."
+      },
+      "science-orbit": {
+        "factual_pass": false,
+        "reason": "Claims gravity is absent inside a hollow spacecraft; does not explain shared free fall."
+      }
+    },
+    "legacy": {
+      "explanation-0": {
+        "factual_pass": false,
+        "reason": "Still treats respiration as capturing sunlight and lacks correct chemical inputs/outputs; repeated sentences."
+      },
+      "explanation-1": {
+        "factual_pass": false,
+        "reason": "Attributes sensation to rigidity/softness and explicitly denies heat transfer; repeated sentences."
+      }
+    }
+  },
+  "programs": {
+    "dev-chunks": {
+      "full_requirements_pass": false,
+      "partial_recovery": true,
+      "reason": "Correct chunking algorithm, wrong keyword argument name."
+    },
+    "dev-factorial": {
+      "full_requirements_pass": false,
+      "reason": "Sums integers instead of multiplying a factorial."
+    },
+    "test-rotate": {
+      "full_requirements_pass": false,
+      "reason": "Concatenates slices back into the original order; wrong parameter name too."
+    },
+    "test-runs": {
+      "full_requirements_pass": false,
+      "reason": "Invalid syntax, unsafe lookahead, and no correct run-counting logic."
+    },
+    "test-transpose": {
+      "full_requirements_pass": false,
+      "reason": "Wraps the original rows rather than transposing them."
+    },
+    "test-brackets": {
+      "full_requirements_pass": false,
+      "reason": "Compares a single character with a two-character string and effectively accepts every input; wrong parameter name too."
+    },
+    "code-dedup": {
+      "full_requirements_pass": false,
+      "reason": "Appends every input item, leaving duplicates."
+    },
+    "code-intervals": {
+      "full_requirements_pass": false,
+      "reason": "Sorts intervals but does not merge them."
+    },
+    "code-search": {
+      "full_requirements_pass": false,
+      "io_tests_pass": true,
+      "reason": "Uses membership and list.index, both linear scans, instead of the requested binary search."
+    },
+    "code-counts": {
+      "full_requirements_pass": false,
+      "reason": "Counts selected uppercase letters and returns repeated total counts; does not extract and count lowercase ASCII words. Hits the cap despite reaching a closing code fence; cap alone is not evidence of looping."
+    }
+  },
+  "full_program_pass_counts": {
+    "dev": "0/2",
+    "fresh": "0/4",
+    "legacy": "0/4"
+  },
+  "science_factual_pass_counts": {
+    "dev": "0/2",
+    "fresh": "0/2",
+    "legacy": "0/2"
+  }
+}

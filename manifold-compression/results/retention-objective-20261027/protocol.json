@@ -1,0 +1,103 @@
+{
+  "status": "prepared_and_domain_reviewed_pending_final_freeze",
+  "source": {
+    "repo": "Qwen/Qwen3.5-2B",
+    "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc"
+  },
+  "arms": [
+    "A0",
+    "A1",
+    "A2",
+    "S0",
+    "S1",
+    "S2"
+  ],
+  "parent": "/home/cyrus/code/model-experiments/manifold-compression/results/curriculum-healing-20261026/selected",
+  "parent_step": 24,
+  "steps": 16,
+  "rank": 64,
+  "alpha": 128,
+  "lr": 3e-05,
+  "warmup_steps": 2,
+  "optimizer": "fresh AdamW beta=(0.9,0.95), weight_decay=0, clip_norm=1",
+  "loss": "answer CE plus replay-only exact forward KL for A2/S2; T=lambda=1; shared total-answer-token denominator",
+  "endpoint": "Fixed update16; all six preregistered endpoints receive one final test. No test-driven checkpoint selection or auto-promotion. Parent default.",
+  "test_blinding": "Development science reviewed and gates applied before sealed test summaries are opened",
+  "precision": "FP32 stored weights, vocabulary heads, teacher and evaluation; BF16 autocast student body during training; TF32 disabled",
+  "kernels": "One pinned torch fallback for all arms; record runtime versions and control results",
+  "generation_batch_size": 16,
+  "training_batch": "Stable length-sort within each frozen update; right-pad groups of at most8 rows; gather only real answer positions; accumulate to shared >=4096-answer-token denominator",
+  "seed": 26102719,
+  "selection_policy": {
+    "min_primary_gain": 0.05,
+    "max_retention_loss_fraction": 0.05,
+    "max_program_net_loss": 0,
+    "max_science_net_loss": 0,
+    "max_new_loops": 0,
+    "max_lost_completions": 1
+  },
+  "code_guardrail": "Historical authored code cases veto losses only; gains do not count as primary improvement",
+  "science_guardrail": "One item per science family in each split: any individual science loss vetoes promotion",
+  "program_extras": "All-tests grade includes Claude-approved domain-valid extras; supplied-only grade also reported",
+  "split_counts": {
+    "dev": {
+      "primary": 64,
+      "retention": 56,
+      "program": 6,
+      "science": 4
+    },
+    "test": {
+      "primary": 128,
+      "retention": 112,
+      "program": 12,
+      "science": 8
+    }
+  },
+  "mix": {
+    "target_mix": {
+      "math": 0.35,
+      "retain": 0.3,
+      "verified_code": 0.3,
+      "science": 0.05
+    },
+    "tokens_by_kind": {
+      "math": 23007,
+      "retain": 19729,
+      "verified_code": 19756,
+      "science": 3347
+    },
+    "presentations_by_kind": {
+      "math": 1005,
+      "retain": 1594,
+      "verified_code": 484,
+      "science": 44
+    },
+    "unique_rows": 1486,
+    "pool_counts": {
+      "math": 800,
+      "retain": 560,
+      "verified_code": 94,
+      "science": 32
+    },
+    "presentations_per_pool_row": {
+      "math": 1.25625,
+      "retain": 2.8464285714285715,
+      "verified_code": 5.148936170212766,
+      "science": 1.375
+    },
+    "maximum_row_presentations": 6,
+    "answer_tokens": 65839
+  },
+  "limitations": [
+    "Fresh numeric instances share task families/templates with training/replay; this is not novel-family generalization.",
+    "Program source groups are disjoint; single supplied I/O is weaker than authored edge/property checks.",
+    "Several held-out programs are simple interfaces, formatting or arithmetic; program gains do not establish reasoning recovery.",
+    "Science applications and prompts differ, but taught concepts can overlap.",
+    "No claim of absence from source-model pretraining. Known historical groups/prompts are excluded where metadata permits.",
+    "Stock arms start fresh; projected arms continue a trained parent. Their interaction is not a clean projection-only causal effect.",
+    "Learning rate, curriculum and dose differ from prior studies; only A1/A2 and S1/S2 isolate the added KL term. Horizon I/O-prediction training was removed in favor of independently verified program-writing examples."
+  ],
+  "evaluation_order": "All fixed endpoints dev/test first; CUDA0b stock,A0,A1,A2,S1,S2, with S0 an explicit identical-stock alias; historical veto regressions last. S1/S2 0b may be skipped for deadline, recorded as missing, with no promotion on missing evidence.",
+  "runtime_batch_gate": "FP32 batched vs independent hybrid Qwen loss/gradients; BF16 gradient relative L2<2%, cosine>.999; same implementation for all four arms",
+  "initial_kl_floor": "A2/S2 first-update replay rows before any update, BF16 student body and FP32 head versus FP32 teacher"
+}

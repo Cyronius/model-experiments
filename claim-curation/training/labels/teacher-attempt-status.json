@@ -1,0 +1,40 @@
+{
+  "started_utc": "2026-10-25T12:03:07.325494+00:00",
+  "pid": 1763282,
+  "state": "failed",
+  "phase": "label",
+  "completed_phases": [],
+  "paid_compute_cost_usd": 0,
+  "protocol": "protocol.json",
+  "interpretation": "Pilot supervision remains proposed, not independently certified truth.",
+  "input_hashes": {
+    "protocol.json": "9062c1158ba6eec9060791681bde0dc0a16b0e54dfa55a55bbc13c3e40804806",
+    "data/manifest.json": "535eeffd7da42b97779c1c5f03b5ac3c3c67915c1284b26b83276645c6245a60",
+    "evaluate.py": "7df02586600cbf2fc80de142b38b6969a95e9ebcdb74bae4e55f59a182248819",
+    "pilot.py": "d5419f5c85563be25dc50fef6dce754e622cbe706e9d509fc2a5c3c4b2914ffe",
+    "prepare.py": "34402523192b91624930ca442a769cb3bcb39bc8034a2800ed3c60198b2905d2",
+    "run_all.py": "017b4ab94c5439aea45ec67b31a03756185bb237a329c8b3eff424a4774738fe",
+    "runtime.py": "da09f6e773ba413b91f10ddc17f32d982a6e7b7f5d07f738aa5cec633e8c5943",
+    "teacher.py": "14452b6951b77bd92f76c4947a55946c24b550b779b0cb05d598ce9053919d4e",
+    "test_distill.py": "a041a724ca806e1d7dedcc1ccc6e3f62aa661a6d6167ae37176e6677086b65c9",
+    "train_lora.py": "8269ce0e930ce61368ce211a0fb9d024ce9a1c9596a080301aee825b86dc6302"
+  },
+  "phase_started_utc": "2026-10-25T12:03:07.327387+00:00",
+  "command": [
+    "dibs",
+    "run",
+    "gpu",
+    "port-8400",
+    "--label",
+    "XDNA2 claim-distillation label",
+    "--eta",
+    "90m",
+    "--",
+    "/home/cyrus/code/model-experiments/target/manifold-audit/env/bin/python",
+    "/home/cyrus/code/model-experiments/claim-curation/training/pilot.py",
+    "label"
+  ],
+  "child_pid": 1763284,
+  "error": "label exited 137; see label.log",
+  "finished_utc": "2026-10-25T12:24:27.411435+00:00"
+}

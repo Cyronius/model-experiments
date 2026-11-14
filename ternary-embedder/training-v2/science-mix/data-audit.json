@@ -1,0 +1,54 @@
+{
+  "teacher_targets": false,
+  "inputs_sha256": {
+    "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/hardneg/data/train.jsonl": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502",
+    "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-global/train.jsonl": "439e3fc0bd2798960e83c18d4ffcb42e4867c6db568d574831cba8f43377d276",
+    "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/hardneg/data/dev.jsonl": "9ac846cb11f3b28c9280f9b369aba9c3f2377284a4a9d04f7a3baaa1428b0037",
+    "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-global/dev.jsonl": "a3607ec36e3d61e93ef08f428cd97764d103f63f07be82d9d617a458a274d199"
+  },
+  "output_sha256": {
+    "train": "6bed89abb6ceb0bc8bf3a1fa9f387bade6e3ec7c7f36a1c7dc66c205faae9452",
+    "dev": "eea0d97d672a4a81cef03770b4154eb1740ef9cddd76f06343f202a649975167"
+  },
+  "rows": {
+    "train": 1025644,
+    "dev": 21028
+  },
+  "by_source": {
+    "train": {
+      "sentence-transformers/msmarco-bm25": 220323,
+      "sentence-transformers/gooaq": 195687,
+      "sentence-transformers/natural-questions": 38511,
+      "sentence-transformers/squad": 19759,
+      "sentence-transformers/stackexchange-duplicates": 98007,
+      "sentence-transformers/s2orc": 331472,
+      "sentence-transformers/quora-duplicates": 48925,
+      "sentence-transformers/all-nli": 72960
+    },
+    "dev": {
+      "sentence-transformers/msmarco-bm25": 4643,
+      "sentence-transformers/gooaq": 3857,
+      "sentence-transformers/natural-questions": 753,
+      "sentence-transformers/squad": 457,
+      "sentence-transformers/stackexchange-duplicates": 1830,
+      "sentence-transformers/s2orc": 6851,
+      "sentence-transformers/quora-duplicates": 1012,
+      "sentence-transformers/all-nli": 1625
+    }
+  },
+  "train_dev_shared_visible_texts": 0,
+  "retrieval_train_auxiliary_dev_shared_visible_texts": 0,
+  "retrieval_dev_auxiliary_train_shared_visible_texts": 0,
+  "new_science_pairs": 250000,
+  "science_audit_sha256": "93f4a98f2cbc5964e48e8b33f16d8f973fe8f0550a4e4bb056365e4fcde1ac1c",
+  "scope": "Prepared additional-data recipe only; unchanged original relevance pairs plus globally sampled complete science pairs. Not trained yet.",
+  "repeat_control": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/science-mix/train-repeat.jsonl",
+    "sha256": "09beaab8a6d4379ddd91bd4e359e386b423c8fadb20ba1349c04cc59b19305ec",
+    "rows": 1025644,
+    "repeated_old_science_rows": 244901,
+    "available_old_science_pairs": 86571,
+    "seed": 67,
+    "policy": "Same total rows, source weights, original base pairs, and new held corpus as fresh-science mixture. Repeat old science examples instead of adding novel ones."
+  }
+}

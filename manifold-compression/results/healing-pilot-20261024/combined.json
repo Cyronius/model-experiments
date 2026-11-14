@@ -1,0 +1,285 @@
+{
+  "rows": [
+    {
+      "arch": "qwen35",
+      "label": "stock",
+      "cases": 16,
+      "check_passes": 13,
+      "completed": 16,
+      "loop_flags": 0,
+      "generated_tokens": 892,
+      "elapsed_seconds": 284.1038993990005
+    },
+    {
+      "arch": "qwen35",
+      "label": "legacy-before",
+      "cases": 16,
+      "check_passes": 10,
+      "completed": 15,
+      "loop_flags": 1,
+      "generated_tokens": 1128,
+      "elapsed_seconds": 221.856870257001,
+      "assistant_tokens": 1806,
+      "kl": 0.8016448890912045,
+      "nll": 2.070802005686501,
+      "eos_nll": 0.9694948593775431,
+      "teacher_top1_agreement": 0.6157253599114064
+    },
+    {
+      "arch": "qwen35",
+      "label": "legacy-after",
+      "cases": 16,
+      "check_passes": 4,
+      "completed": 14,
+      "loop_flags": 2,
+      "generated_tokens": 1498,
+      "elapsed_seconds": 366.7222467520005,
+      "assistant_tokens": 1806,
+      "kl": 0.8361135651898939,
+      "nll": 1.9580569543183708,
+      "eos_nll": 0.7295947475358844,
+      "teacher_top1_agreement": 0.6312292358803987
+    },
+    {
+      "arch": "qwen35",
+      "label": "corrected-before",
+      "cases": 16,
+      "check_passes": 10,
+      "completed": 16,
+      "loop_flags": 1,
+      "generated_tokens": 1223,
+      "elapsed_seconds": 205.3521197259979,
+      "assistant_tokens": 1806,
+      "kl": 0.712166529623245,
+      "nll": 1.9904179860851166,
+      "eos_nll": 0.6908977612232169,
+      "teacher_top1_agreement": 0.6489479512735327
+    },
+    {
+      "arch": "qwen35",
+      "label": "corrected-after",
+      "cases": 16,
+      "check_passes": 7,
+      "completed": 13,
+      "loop_flags": 4,
+      "generated_tokens": 1972,
+      "elapsed_seconds": 589.8027154929987,
+      "assistant_tokens": 1806,
+      "kl": 0.8202432884132347,
+      "nll": 1.9469203687915506,
+      "eos_nll": 0.6773053562889496,
+      "teacher_top1_agreement": 0.6301218161683277
+    },
+    {
+      "arch": "qwen35",
+      "label": "recovered-500m",
+      "cases": 16,
+      "check_passes": 4,
+      "completed": 15,
+      "loop_flags": 2,
+      "generated_tokens": 1808,
+      "elapsed_seconds": 297.53274540799976,
+      "assistant_tokens": 1806,
+      "kl": 0.4326022575926015,
+      "nll": 1.6623793576378891,
+      "eos_nll": 0.9788156654685736,
+      "teacher_top1_agreement": 0.7414174972314507
+    },
+    {
+      "arch": "smollm2",
+      "label": "stock",
+      "cases": 16,
+      "check_passes": 7,
+      "completed": 16,
+      "loop_flags": 0,
+      "generated_tokens": 1009,
+      "elapsed_seconds": 156.32906353200087
+    },
+    {
+      "arch": "smollm2",
+      "label": "legacy-before",
+      "cases": 16,
+      "check_passes": 4,
+      "completed": 16,
+      "loop_flags": 1,
+      "generated_tokens": 413,
+      "elapsed_seconds": 56.17668663400036,
+      "assistant_tokens": 1847,
+      "kl": 0.9184781696322678,
+      "nll": 2.0796778179467146,
+      "eos_nll": 0.22912229783833027,
+      "teacher_top1_agreement": 0.623714131023281
+    },
+    {
+      "arch": "smollm2",
+      "label": "legacy-after",
+      "cases": 16,
+      "check_passes": 1,
+      "completed": 14,
+      "loop_flags": 5,
+      "generated_tokens": 2809,
+      "elapsed_seconds": 495.5152500030017,
+      "assistant_tokens": 1847,
+      "kl": 0.5097063153490029,
+      "nll": 1.6797944722978502,
+      "eos_nll": 1.798300914466381,
+      "teacher_top1_agreement": 0.7125067677314564
+    },
+    {
+      "arch": "smollm2",
+      "label": "corrected-before",
+      "cases": 16,
+      "check_passes": 5,
+      "completed": 16,
+      "loop_flags": 2,
+      "generated_tokens": 1231,
+      "elapsed_seconds": 236.9307412709968,
+      "assistant_tokens": 1847,
+      "kl": 0.5717473596850794,
+      "nll": 1.7454510465724182,
+      "eos_nll": 0.8316818373277783,
+      "teacher_top1_agreement": 0.7065511640498106
+    },
+    {
+      "arch": "smollm2",
+      "label": "corrected-after",
+      "cases": 16,
+      "check_passes": 6,
+      "completed": 16,
+      "loop_flags": 0,
+      "generated_tokens": 1524,
+      "elapsed_seconds": 241.1345180850003,
+      "assistant_tokens": 1847,
+      "kl": 0.41947051290569914,
+      "nll": 1.5976560639896196,
+      "eos_nll": 0.8651510700583458,
+      "teacher_top1_agreement": 0.7287493232268544
+    }
+  ],
+  "paired_cases": {
+    "qwen35": {
+      "legacy": {
+        "check_improvements": [
+          "ice",
+          "hash-table"
+        ],
+        "check_regressions": [
+          "copy",
+          "multiply",
+          "sort",
+          "logic",
+          "five-lines",
+          "poem",
+          "summary",
+          "alias"
+        ],
+        "failed_after_while_stock_passes": [
+          "json",
+          "copy",
+          "multiply",
+          "sort",
+          "logic",
+          "five-lines",
+          "poem",
+          "summary",
+          "alias",
+          "dog"
+        ],
+        "loop_flags_after": [
+          "alias",
+          "dog"
+        ],
+        "capped_after": [
+          "alias",
+          "dog"
+        ]
+      },
+      "corrected": {
+        "check_improvements": [
+          "dog",
+          "hash-table"
+        ],
+        "check_regressions": [
+          "copy",
+          "multiply",
+          "logic",
+          "poem",
+          "summary"
+        ],
+        "failed_after_while_stock_passes": [
+          "json",
+          "copy",
+          "multiply",
+          "logic",
+          "poem",
+          "summary",
+          "alias"
+        ],
+        "loop_flags_after": [
+          "copy",
+          "multi-edit",
+          "poem",
+          "dog"
+        ],
+        "capped_after": [
+          "copy",
+          "multi-edit",
+          "poem"
+        ]
+      }
+    },
+    "smollm2": {
+      "legacy": {
+        "check_improvements": [
+          "interview"
+        ],
+        "check_regressions": [
+          "summary",
+          "ice",
+          "dog",
+          "hash-table"
+        ],
+        "failed_after_while_stock_passes": [
+          "copy",
+          "multiply",
+          "units",
+          "poem",
+          "summary",
+          "alias",
+          "ice"
+        ],
+        "loop_flags_after": [
+          "json",
+          "copy",
+          "poem",
+          "alias",
+          "dog"
+        ],
+        "capped_after": [
+          "copy",
+          "poem"
+        ]
+      },
+      "corrected": {
+        "check_improvements": [
+          "copy",
+          "logic",
+          "multi-memory"
+        ],
+        "check_regressions": [
+          "summary",
+          "hash-table"
+        ],
+        "failed_after_while_stock_passes": [
+          "multiply",
+          "units",
+          "summary",
+          "alias"
+        ],
+        "loop_flags_after": [],
+        "capped_after": []
+      }
+    }
+  },
+  "spend_usd": 0
+}

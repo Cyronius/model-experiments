@@ -1,0 +1,28 @@
+{
+  "name": "float",
+  "checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95",
+  "bits": 0,
+  "weight_group_size": 64,
+  "scale": "bf16 absmax",
+  "scope": "Accuracy-only simulation; no native low-bit runtime or speed measurement",
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 57.40269309167421,
+      "recall10": 69.90555555555555,
+      "top1_relevant_queries": 138,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.006134629249572754,
+      "queries": 300
+    },
+    "NFCorpus": {
+      "ndcg10": 31.469557076043554,
+      "recall10": 15.117351517007869,
+      "top1_relevant_queries": 135,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.008749961853027344,
+      "queries": 323
+    }
+  },
+  "stsbenchmark_spearman": 82.43962411855676,
+  "mean": 44.43612508385888
+}

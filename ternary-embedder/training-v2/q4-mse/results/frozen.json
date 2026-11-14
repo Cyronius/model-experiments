@@ -1,0 +1,21 @@
+{
+  "frozen_utc": "2026-10-25T16:09:14.869551+00:00",
+  "local_only": true,
+  "selected_before_external_scores": true,
+  "no_calibration_data_or_labels": true,
+  "models": {
+    "q4-mse": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-mse/model-q4-mse.pt",
+      "sha256": "1c260f0bf05cbec17fa82ef89665fa1095c63d74aa7eb5b71ad78ba3981cc1b4",
+      "precision": "q4",
+      "layers": 3,
+      "eligible_for_promotion": false,
+      "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+      "weight_scale_method": "Per-group minimum weight-MSE over21 BF16 scale candidates; includes original maxabs scale.",
+      "bits": 4,
+      "activation_bits": 8,
+      "group_size": 64,
+      "note": "Accuracy/reference packed artifact. No native packed-kernel speed claim; float parent is a development blend."
+    }
+  }
+}

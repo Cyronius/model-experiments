@@ -1,0 +1,48 @@
+{
+  "frozen_utc": "2026-10-25T15:04:33.712884+00:00",
+  "selected_before_external_scores": true,
+  "local_only": true,
+  "scope": "Three fixed float weight blends; observed development diagnostics. No new paid job.",
+  "rule": "Fractions fixed before any blend score; no within-grid checkpoint training or selection.",
+  "models": {
+    "float-25": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/float-blends/float-25.pt",
+      "sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+      "precision": "float",
+      "layers": 3,
+      "eligible_for_promotion": false,
+      "blend": {
+        "parent_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6",
+        "trained_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+        "trained_fraction": 0.25
+      },
+      "eligibility_note": "Diagnostic blend; source/NLI training-selection guards and seed confirmation have not been established."
+    },
+    "float-50": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/float-blends/float-50.pt",
+      "sha256": "2f9e26c9b664fddc64d8a63e230ea68eab8bfc1b6491a9c50174bea7b34c0464",
+      "precision": "float",
+      "layers": 3,
+      "eligible_for_promotion": false,
+      "blend": {
+        "parent_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6",
+        "trained_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+        "trained_fraction": 0.5
+      },
+      "eligibility_note": "Diagnostic blend; source/NLI training-selection guards and seed confirmation have not been established."
+    },
+    "float-75": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/float-blends/float-75.pt",
+      "sha256": "9adb9654485bd7edf882288951bf9ee1c972b1ca7820e09af970c96e912c4b4e",
+      "precision": "float",
+      "layers": 3,
+      "eligible_for_promotion": false,
+      "blend": {
+        "parent_sha256": "2cfab7b9268235bec66f538764016b7e33075dbeb7c4e48b815d6c930cb0bff6",
+        "trained_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142",
+        "trained_fraction": 0.75
+      },
+      "eligibility_note": "Diagnostic blend; source/NLI training-selection guards and seed confirmation have not been established."
+    }
+  }
+}

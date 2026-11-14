@@ -1,0 +1,75 @@
+{
+  "source": {
+    "id": "sentence-transformers/all-nli",
+    "config": "pair-class",
+    "revision": "d482672c8e74ce18da116f430137434ba2e52fab",
+    "label_names": [
+      "entailment",
+      "neutral",
+      "contradiction"
+    ]
+  },
+  "teacher_targets": false,
+  "kind": "Human NLI classification labels, not embedding targets or benchmark test labels",
+  "sampling": "Full memory-mapped upstream train split globally shuffled with seed41 before balanced100k/class quotas; no short streaming-buffer prefix sampling",
+  "output_directory": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-global",
+  "counts": {
+    "dev_source_rows": 19657,
+    "dev_dev_retrieval_train_overlap": 769,
+    "dev_benchmark_input_overlap": 129,
+    "dev_too_short": 11,
+    "dev_duplicate_pair": 2,
+    "dev_short_positive": 87,
+    "dev_identical_text": 9,
+    "dev_at_token_cap": 26,
+    "train_source_rows": 309592,
+    "train_too_short": 138,
+    "train_short_positive": 1314,
+    "train_train_held_input_overlap": 3707,
+    "train_benchmark_input_overlap": 2540,
+    "train_identical_text": 238,
+    "train_at_token_cap": 258,
+    "train_duplicate_pair": 69,
+    "train_conflicting_label": 13,
+    "train_too_long": 1
+  },
+  "by_split_label": {
+    "train": {
+      "1": 100000,
+      "2": 100000,
+      "0": 100000
+    },
+    "dev": {
+      "1": 6196,
+      "0": 6176,
+      "2": 6252
+    }
+  },
+  "output_sha256": {
+    "train": "8ba8c91dab77fe2c969a569351eb38e08379444b202b8491141333b94020fcd0",
+    "dev": "9b9bf1fe2ef257ef7b149125801e801fb5c0237957562626b85de24fd6e91895"
+  },
+  "retrieval_base_sha256": {
+    "train": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502",
+    "dev": "9ac846cb11f3b28c9280f9b369aba9c3f2377284a4a9d04f7a3baaa1428b0037"
+  },
+  "reference_text_files": {
+    "comparisons/qwen06b/data/scifact/corpus.jsonl": "dec31c8182f3d744c7d2c09423756fd1d17cbef75808db13ba01cc0aab4d1ac6",
+    "comparisons/qwen06b/data/scifact/queries.jsonl": "8ff84a7c903f722981cd8d595c022660140c51867b27608a6d4910db86080313",
+    "comparisons/qwen06b/data/nfcorpus/corpus.jsonl": "10cc83ef1826b1425e6a87090b5140b39b27755d5a27e48215a88611c899991f",
+    "comparisons/qwen06b/data/nfcorpus/queries.jsonl": "d024e6621b84925d485ae473d316a0c3af31c62c8068a59fb29d22f7613aef2a",
+    "comparisons/qwen06b/data/arguana/corpus.jsonl": "0627982cec4ee896df6dc98604ef6b499c83fd87a19eaaeb3f23b88bbef6cbce",
+    "comparisons/qwen06b/data/arguana/queries.jsonl": "f8b7c903f95d9a2d291de3915a8fac25085e9db679f19f59fea4145bfd1df618",
+    "comparisons/qwen06b/data/fiqa/corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+    "comparisons/qwen06b/data/fiqa/queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+    "comparisons/qwen06b/data/scidocs/corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+    "comparisons/qwen06b/data/scidocs/queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+    "comparisons/qwen06b/data/stsb-test.json": "a6e8342d9420a0eff494236e0dc5b359839ec232db0e8cebd30eda5f88a649ef",
+    "training-v2/work/expanded/observed-test-texts.jsonl": "8eef5795ca40b2d7468f5178343b7aa967ddf47974ae1bbd41f3181d4cd7bab9"
+  },
+  "auxiliary_train_dev_shared_visible_texts": 0,
+  "auxiliary_train_retrieval_dev_shared_visible_texts": 0,
+  "auxiliary_dev_retrieval_train_shared_visible_texts": 0,
+  "reserved_fiqa_scidocs_qrels_read": false,
+  "limits": "Exact model-visible identity exclusions, not exhaustive semantic near-duplicate detection. No embedding quality gain established yet."
+}

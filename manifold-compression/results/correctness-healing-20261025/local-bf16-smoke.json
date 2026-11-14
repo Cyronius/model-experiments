@@ -1,0 +1,56 @@
+{
+  "device": "cpu",
+  "first_ce": 5.580907821655273,
+  "final_ce": 5.386448860168457,
+  "updates": [
+    {
+      "mean_answer_ce": 5.580907821655273,
+      "assistant_tokens": 32,
+      "input_tokens": 96,
+      "rows": 1,
+      "grad_norm": 0.6617743372917175,
+      "lr": 0.001,
+      "seconds": 0.06175622400769498
+    },
+    {
+      "mean_answer_ce": 5.522721767425537,
+      "assistant_tokens": 32,
+      "input_tokens": 96,
+      "rows": 1,
+      "grad_norm": 0.663522481918335,
+      "lr": 0.001,
+      "seconds": 0.06270708900410682
+    },
+    {
+      "mean_answer_ce": 5.457910060882568,
+      "assistant_tokens": 32,
+      "input_tokens": 96,
+      "rows": 1,
+      "grad_norm": 0.702197253704071,
+      "lr": 0.001,
+      "seconds": 0.07873632801056374
+    }
+  ],
+  "adapter": {
+    "rank": 4,
+    "alpha": 8,
+    "modules": [
+      "model.layers.0.linear_attn.out_proj",
+      "model.layers.0.linear_attn.in_proj_qkv",
+      "model.layers.0.linear_attn.in_proj_z",
+      "model.layers.0.linear_attn.in_proj_b",
+      "model.layers.0.linear_attn.in_proj_a",
+      "model.layers.0.mlp.gate_proj",
+      "model.layers.0.mlp.up_proj",
+      "model.layers.0.mlp.down_proj",
+      "model.layers.1.self_attn.q_proj",
+      "model.layers.1.self_attn.k_proj",
+      "model.layers.1.self_attn.v_proj",
+      "model.layers.1.self_attn.o_proj",
+      "model.layers.1.mlp.gate_proj",
+      "model.layers.1.mlp.up_proj",
+      "model.layers.1.mlp.down_proj"
+    ],
+    "trainable_parameters": 33040
+  }
+}

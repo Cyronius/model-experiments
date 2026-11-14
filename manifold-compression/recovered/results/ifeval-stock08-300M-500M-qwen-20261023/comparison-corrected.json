@@ -1,0 +1,52 @@
+{
+  "method": "Local literal-character correction for # and ! counts (keys 1122 and 1129); all other installed lm_eval 0.4.13 checks unchanged. Native results and responses preserved. Every corrected result rescored twice.",
+  "models": {
+    "stock-0.8B": {
+      "prompt_strict": 0.4602587800369686,
+      "instruction_strict": 0.5671462829736211,
+      "prompt_loose": 0.5268022181146026,
+      "instruction_loose": 0.6306954436450839,
+      "prompt_pass_count": 249,
+      "instruction_pass_count": 473,
+      "cap_hit_rate": 0.04436229205175601
+    },
+    "ours-300M": {
+      "prompt_strict": 0.15711645101663585,
+      "instruction_strict": 0.2733812949640288,
+      "prompt_loose": 0.1756007393715342,
+      "instruction_loose": 0.2997601918465228,
+      "prompt_pass_count": 85,
+      "instruction_pass_count": 228,
+      "cap_hit_rate": 0.025878003696857672
+    },
+    "ours-500M": {
+      "prompt_strict": 0.1423290203327172,
+      "instruction_strict": 0.26498800959232616,
+      "prompt_loose": 0.16820702402957485,
+      "instruction_loose": 0.2949640287769784,
+      "prompt_pass_count": 77,
+      "instruction_pass_count": 221,
+      "cap_hit_rate": 0.02033271719038817
+    }
+  },
+  "paired_prompt_strict": {
+    "stock-0.8B vs ours-300M": {
+      "both_pass": 62,
+      "first_only_pass": 187,
+      "second_only_pass": 23,
+      "both_fail": 269
+    },
+    "stock-0.8B vs ours-500M": {
+      "both_pass": 63,
+      "first_only_pass": 186,
+      "second_only_pass": 14,
+      "both_fail": 278
+    },
+    "ours-300M vs ours-500M": {
+      "both_pass": 50,
+      "first_only_pass": 35,
+      "second_only_pass": 27,
+      "both_fail": 429
+    }
+  }
+}

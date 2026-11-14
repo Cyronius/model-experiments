@@ -1,0 +1,43 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-31",
+  "user_authorization": "After section 16 (the every-neuron teacher improved every count, not significantly for the loops, and the drift rose 0.038 over the guard) I recommended a longer every-neuron-teacher run with the original healing text mixed back in; the user asked 'how much do you need'. I answered about $8 with the cap at $10: one A40 for about 13.5 hours, carrying on from section 16's adapter for 12 more hours, 24 healing-text sequences per round scored against the dense model, checks on 96 prompts instead of 48, the dense and every-neuron references not re-run, and asked the user to approve the tend_pod.py backup timer too. User: 'yes to all of it'.",
+  "scope": "One pod for the every-neuron-teacher distillation carried on from section 16's adapter, with healing text (slim_opd.py before, train and after with opd_long_rules.json; opd_long_worker.py; run_opd_long_pod.py): checks of the healed control and the starting student on 96 GSM8K prompts, about 12 hours of distillation (LoRA only), then the distilled student's checks. Rules, predictions and reading in opd_long_rules.json (sha256 3433abffd7a6a62565d792b2b28ec068b62dc357e50d7209326441f552a3f57a); training prompts opd_prompts.json (sha256 87f1e8bd00c522eaaaa315051ca262f7278ba9d0fc027d84f99bc2a38b9aaae2); check prompts probe_prompts_96.json (sha256 6c1a1ae76456e0a615359cbae6d72d70f21b235152a6bccf7fbafcb1bbd91a9c); starting adapter results/moe-carve-v2-20261029/opd_self/adapter.pt (sha256 d3a21fae97f6eff2e1bc9efd612497cc03e2aa90bcb652ee9d488b765ae1147f). Backup: a systemd user timer mc-opdl-tend running tend_pod.py run_opd_long_pod every 5 minutes, approved by the user with this run; it does nothing while the launcher runs and stops itself once the pod is deleted and this ledger settled.",
+  "total_cap_usd": 10.0,
+  "spent_usd": 7.113464457422495,
+  "restrictions": [
+    "Not a standing authorization for other jobs; a longer distillation, a new carve or another healing run needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "reserved_job_max_usd": 0,
+  "attempts": [
+    {
+      "pod_id": "paj2wo70h7o2fc",
+      "active_job": "target/manifold-opd-long/mc-opdl-687d86dea437/pod.json",
+      "fresh_quote": {
+        "gpu": "NVIDIA A40",
+        "rate": 0.59,
+        "stock_status": "Low",
+        "checked_at": 1793490451.27441
+      },
+      "terminated_at": 1793518122.1256568,
+      "spent_usd": 4.534943831530544,
+      "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+      "launcher": "run_opd_long_pod.py",
+      "outcome": "before done; train failed after 22 rounds (132 steps, about 6.5 hours): out of memory in the halfway check, which generated all 96 check prompts beside the optimizer and retried smaller batches while the except clause still held the failed attempt; after skipped. Checkpoint after 21 rounds (latest.pt) synced, checksums verified, pod deleted by the launcher."
+    }
+  ],
+  "retry": "Second pod within this cap, as the restrictions allow: run_opd_long_resume_pod.py (opd_long_resume_worker.py: slim_opd.py train --resume, then after, with the same opd_long_rules.json) carries the job on from the first pod's checkpoint after 21 rounds with the rest of the 12-hour budget (about 6.2 hours), after the out-of-memory fix; 8.6-hour deadline, at most $5.26, so both pods stay under $10 with the first pod's disk. The backup timer stopped itself after the first pod.",
+  "active_job": "target/manifold-opd-long/mc-opdl-6b1d15b44a63/pod.json",
+  "fresh_quote": {
+    "gpu": "NVIDIA RTX A6000",
+    "rate": 0.59,
+    "stock_status": "Low",
+    "checked_at": 1793518950.6775548
+  },
+  "pod_id": "qz9dw73gayu012",
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1793534684.0336802,
+  "outcome": "Second pod (mc-opdl-6b1d15b44a63, RTX A6000): resumed from the checkpoint after 21 rounds, ran the halfway check in two batches of 48 and 13 more rounds, stopped when the 4,800 training prompts ran out (34 rounds in all), then ran the checks after. Outputs synced, checksums verified, pod deleted by the launcher. This pod about $2.58; both pods about $7.11 of the $10 cap. Results: README section 17."
+}

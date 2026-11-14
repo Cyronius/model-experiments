@@ -1,0 +1,36 @@
+{
+ "note": "Healing data from the dense teacher, in shards (written 2026-11-05, before any shard is generated). The user's goal: the student should beat dense models with as many parameters as its active ones (Qwen3.5-2B/4B-class), on quality rather than on matching the 9B; the sampler handles loops. Plan the user approved: the dense 9B writes answers in vLLM (vllm_proof_rules.json showed its log-probs match our HF teacher to 0.0075 nats), wrong answers are dropped, short correct answers are preferred by a random length rule, and the student heals on them in time-boxed local and pod sessions (heal_sessions.py). The user, on this step: 'do it'.",
+ "teacher": {
+  "model": "Qwen/Qwen3.5-9B at run_slim_pod.MODEL's pinned revision, bf16",
+  "vllm": "0.33.0, in its own environment, with VLLM_USE_FLASHINFER_SAMPLER=0 (the image has no nvcc); LLM(dtype bfloat16, max_model_len 8192, logprobs_mode raw_logprobs, max_logprobs 20, generation_config 'vllm', no images or video)",
+  "grader": "math-verify==0.9.0, installed in the vLLM environment",
+  "sampling": {"temperature": 1.0, "top_p": 0.95, "top_k": 20, "presence_penalty": 1.5},
+  "cap": 4096,
+  "max_prompt_tokens": 2048,
+  "topk": 20,
+  "seed": 26110501
+ },
+ "sources": {
+  "gsm8k": {"dataset": "openai/gsm8k main train (7,473 rows)", "grader": "number: the last number after any </think>, a boxed one first (slim_batch.final_number, as the GSM8K check scores), equal to the gold within 1e-6", "samples": {"off": 2, "on": 2}, "per_shard": 500},
+  "math": {"dataset": "EleutherAI/hendrycks_math, all seven configs, train (7,500 rows); gold is the solution's last \\boxed{}, rows without one are skipped", "grader": "math: math_verify.verify(parse('\\boxed{gold}'), parse(answer after any </think>))", "samples": {"off": 2, "on": 2}, "per_shard": 600},
+  "openthoughts": {"dataset": "open-thoughts/OpenThoughts-114k metadata, rows 0 to 7,999: domain math whose ground_truth_solution has a \\boxed{} of at most 80 characters; no proofs (questions saying prove, show that or demonstrate, or boxed Q.E.D. or a square)", "grader": "math", "samples": {"off": 2, "on": 1}, "per_shard": 400},
+  "chat": {"dataset": "HuggingFaceH4/ultrachat_200k train_sft rows 0 to 4,999: the first user message, 20 to 1,500 characters", "grader": "none (correct is null; kept if finished)", "samples": {"off": 2, "on": 1}, "per_shard": 500}
+ },
+ "exclude": "Items the benchmark corpus holds as eval documents (same idents as its domains: gsm8k-<row>, <config>-<row>, openthoughts-<row>). The GSM8K check prompts are GSM8K test rows, MATH-500 is MATH test: no overlap with train splits.",
+ "shards": {
+  "count_built": 4,
+  "problems": "Each source's eligible rows in an order fixed by the seed, dealt to shards in turn (shard s takes the s-th block of per_shard rows of each source); within a shard the problems are shuffled by the seed so any prefix is mixed.",
+  "folder": "heal_shards/problems_<shard>.jsonl (bundled); generated shards land in results/heal-shards-pod-<date>/<job>/shards/shard_<nnn>/ and are moved into the pool folder of heal_sessions_rules.json",
+  "chunk_problems": 400,
+  "format": "samples.jsonl (one row per answer: id, sample, source, thinking, chunk, prompt_ids, answer_ids ending with the stop token when finished, finished, finish_reason, correct, gold, extracted, logprob_sum) and teacher_<chunk>.npz (ids_<row> int32 and logprobs_<row> float16, (len(answer_ids), 20), for finished answers only: the teacher's raw top-20 at each answer token, the stop token included)",
+  "time_box": "A chunk starts only if the last chunk's duration times 1.1 (40 minutes for the first) still fits before the worker's deadline less 10 minutes; a cut shard is still a valid shard."
+ },
+ "budget": "Shard 0: a $5 cap (runpod_budget_heal_shard0_20261105.json), one 48 GB card at most $0.60/h, 3.5-hour deadline.",
+ "predictions": {
+  "written": "2026-11-05, before shard 0 is generated.",
+  "throughput": "1,250 to 1,500 generated tokens per second over the generation (vllm_proof: 1,383 with the same settings, smaller batches); shard 0 finishes its 2,000 problems inside the deadline.",
+  "tokens": "8 to 13 million generated tokens for shard 0.",
+  "kept": "Answers correct and finished, by source and thinking mode: gsm8k off 85-95%, on 80-92%; math off 55-75%, on 50-70%; openthoughts off 25-50%, on 15-40%; chat off 95%+ finished, on 75%+ finished.",
+  "teacher_rows": "The sampled token is in the stored top-20 at 99% or more of answer positions; the stop token's position is stored for every finished answer."
+ }
+}

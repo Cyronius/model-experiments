@@ -1,0 +1,102 @@
+{
+  "what": "Pre-freeze engineering rehearsal by Claude: full prepare with a one-item dummy science file, then freeze -> generate (all 4 parts) -> grade on a 7-case miniature suite with the real stock and P1 weights, max_new_tokens 96, CPU FP32, 16 threads, batch 16. Not part of G1 results.",
+  "started_utc": "2026-10-27T07:20:39+00:00",
+  "arms": [
+    "P1",
+    "stock"
+  ],
+  "cases": [
+    "rh-test-retain-arithmetic-0",
+    "rh-test-program-3",
+    "HumanEval-23",
+    "HumanEval-0",
+    "gsm8k-1",
+    "gsm8k-1199",
+    "dummy-1 (synthetic, not in G1)"
+  ],
+  "seen": {
+    "grade summaries (correct, ended, loop, format fields) for every case and both arms": true,
+    "raw answers read": [
+      "P1 HumanEval-23",
+      "stock HumanEval-0",
+      "stock HumanEval-23",
+      "stock gsm8k-1",
+      "P1 rh-test-retain-arithmetic-0"
+    ],
+    "rehearsal totals printed": {
+      "P1": "0/6 auto-graded",
+      "stock": "2/6 auto-graded"
+    }
+  },
+  "consequence": [
+    "P1 HumanEval-23 ended inside an unclosed ```python fence and was graded wrong; code extraction was changed to accept an unclosed final fence, applied identically to all arms, with fences_closed recorded (HumanEval and Horizon).",
+    "Quarantine (agreed with Codex): GSM8K exposed ids are removed before sampling; the other four are generated and reported as rehearsal-exposed but excluded from every gate, floor and event rate."
+  ],
+  "timing_probes": {
+    "what": "Earlier decode-speed probes (scratch gen_timing.py) on stock and P1, 64 forced tokens; outputs were never printed or read.",
+    "cases": [
+      "rh-dev-retain-arithmetic-0",
+      "rh-dev-retain-sorting-0",
+      "rh-dev-retain-python-0",
+      "rh-dev-retain-units-0",
+      "rh-dev-retain-json-0",
+      "rh-dev-retain-grounding-0",
+      "rh-dev-retain-memory-0",
+      "rh-dev-retain-arithmetic-1",
+      "rh-dev-retain-sorting-1",
+      "rh-dev-retain-python-1",
+      "rh-dev-retain-units-1",
+      "rh-dev-retain-json-1",
+      "rh-dev-retain-grounding-1",
+      "rh-dev-retain-memory-1",
+      "rh-dev-retain-arithmetic-2",
+      "rh-dev-retain-sorting-2",
+      "rh-dev-retain-python-2",
+      "rh-dev-retain-units-2",
+      "rh-dev-retain-json-2",
+      "rh-dev-retain-grounding-2",
+      "rh-dev-retain-memory-2",
+      "rh-dev-retain-arithmetic-3",
+      "rh-dev-retain-sorting-3",
+      "rh-dev-retain-python-3",
+      "rh-dev-retain-units-3",
+      "rh-dev-retain-json-3",
+      "rh-dev-retain-grounding-3",
+      "rh-dev-retain-memory-3",
+      "rh-dev-retain-sorting-4",
+      "rh-dev-retain-python-4",
+      "rh-dev-retain-units-4",
+      "rh-dev-retain-json-4"
+    ],
+    "in_g1_suite": false
+  },
+  "full_prepare_rehearsal_suite": "full-prepare-rehearsal-suite.json: complete prepare output with the dummy science file; only ids/counts were viewed. It predates the quarantine and is superseded.",
+  "artifacts": {
+    "clock.json": "48c9287daabde6e6322a075fdb31af9f3a1809c70498e693cf0c21eb0d2ec6fa",
+    "dry_generate.py": "f9834b5897be50e94b81d9eb6b1e6a7dd90d76cabada7481098377957e51d839",
+    "dry_prepare.py": "80529f377ef0163673b1486e33a1f37703cfcd576d6b1d567f39a592e24a06b6",
+    "full-prepare-rehearsal-suite.json": "d73c251dd8fee9d1583c665a8f26472ff701f208a984b3253a9b954428a33b1d",
+    "gen_timing.py": "b19f864c76d6251927b00ad1522ade875283bc3b973a40b73f3a60fad9a3e92e",
+    "generations/P1-gsm8k.json": "fb2cc1c023d28a466f3b800a8aec2afa90dff08b68b6ee14b5a2d6e0cdf02766",
+    "generations/P1-gsm8k.meta.json": "4a56a5c17f9163a33e4d5743c1b6305fdfa9529b68b846d2370d68c1a0936794",
+    "generations/P1-humaneval.json": "3438ad0e8e709b6ad653a36c8a0cc2ba01172eb8c50305984e34c397f3ad2d08",
+    "generations/P1-humaneval.meta.json": "5d38e5d5d47028428bce3f62af218d2cc82ae594c2ffd4e7286d4d6e35ec9474",
+    "generations/P1-science-new.json": "9ad3df5e96a1ee4c878abcb7593738fe2519bb206abaa824636cfc191dded39d",
+    "generations/P1-science-new.meta.json": "de8efcd251d918567d2170b1758fe3e212e3eb6da06ae150f602cfcbf9c1e9d9",
+    "generations/P1-track-a.json": "3edddd6fee1e6aa138f475108f47dbe582149e9e8a4754f739737089ae8c98d6",
+    "generations/P1-track-a.meta.json": "28b2d275056e4a47b2bc5fa0f82954c795a76a73fee66c6f3832c4af53bb8163",
+    "generations/stock-gsm8k.json": "ba2501feb19340754860f89fdf88b255f7b7e045d313be609d0b8700c47873ca",
+    "generations/stock-gsm8k.meta.json": "95c8dd0404346288e0f97b2647fd5aac14cdb96b05b4cfb5fa2de5cfe4a18a5d",
+    "generations/stock-humaneval.json": "97bf2f5c1827d89569b8df0eb66813fc9dc342ae71f0a0ca7362a6b172fd2cd3",
+    "generations/stock-humaneval.meta.json": "c7c6a9a639261bf66bac900f6f787a53d87fe89f698513d25512352d9c0f6cda",
+    "generations/stock-science-new.json": "f48507ad3669c2070984f07ffc3191a99a213b055823f6c88019bd7ef3f62b3f",
+    "generations/stock-science-new.meta.json": "2817681cac3be239312d4bd9e052172056126429ed1773ef864c911983233536",
+    "generations/stock-track-a.json": "5d3d7a2f5a70da5c6e779842fc1fa30f16787567db83abfb9c4001bb8e1a9480",
+    "generations/stock-track-a.meta.json": "89ce335a4fc53b97586311605aea01f696e6b57469377e229f65f79066a7c623",
+    "grades/P1.json": "e34478d45d19f100b67fc1b8e8c17a0a6699e394b9346a0fd996910d28088689",
+    "grades/stock.json": "fba18b4124729876af73681d46c0ee14269daf567891ecbf4977999a873becdb",
+    "protocol.json": "ff4963a8dca93b11f27ce2cbf4785a47a7d744f6a8c616e17f5fc82cb42b9f51",
+    "rules.json": "d9f5e6739c22920cca0cf7dde981f3f2f534ffe497a594741a8c4c339a5ef9ab",
+    "suite.json": "384ad481a6c089a1eeacbb556b6f770da0ea4f47c8d8820a75615ef1452405fa"
+  }
+}

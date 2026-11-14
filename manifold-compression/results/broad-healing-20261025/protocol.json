@@ -1,0 +1,51 @@
+{
+  "seed": 25102536,
+  "steps": 16,
+  "evaluation_steps": [
+    8,
+    16
+  ],
+  "rank": 16,
+  "alpha": 32,
+  "lr": 3e-05,
+  "warmup_steps": 2,
+  "loss": "assistant correctness CE including EOS, no teacher KL",
+  "training": "FP32 parameters; CPU BF16 autocast; AdamW betas 0.9,0.95 wd0 clip1; max complete sequence1024",
+  "selection": "Development closed+program correctness; no more loop flags and at most one fewer completion than step0. Tie: fewer loops, more completions, earlier step. Explanations reviewed separately, not selection.",
+  "recipe_sha256": "ec653cba925a2931c66881510caed01f717fe3083f2bedeed5fb4770c6c3a547",
+  "source": "/home/cyrus/code/model-experiments/models/manifold-audit/Qwen3.5-2B",
+  "recipe": "/home/cyrus/code/model-experiments/manifold-compression/results/local-projection-20261025/shared-broad-recipe.pt",
+  "cloud_spend": 0,
+  "mix_target_tokens": {
+    "program": 0.4,
+    "math": 0.25,
+    "science": 0.2,
+    "short": 0.15
+  },
+  "pool_counts": {
+    "program": 192,
+    "math": 320,
+    "science": 8,
+    "short": 560
+  },
+  "scheduled_target_tokens": {
+    "program": 26494,
+    "math": 16573,
+    "science": 13313,
+    "short": 9928
+  },
+  "scheduled_rows": {
+    "program": 201,
+    "math": 223,
+    "science": 134,
+    "short": 803
+  },
+  "unique_scheduled_rows": 983,
+  "limitations": [
+    "Only eight distinct science topics, resampled.",
+    "Worked math is synthetic multiplication, not a broad reasoning corpus.",
+    "Horizon programs checked against supplied IO, not exhaustive formal verification.",
+    "Fresh tasks share synthetic templates with training; this measures task-family transfer, not broad intelligence.",
+    "No claim that fresh evaluation was absent from stock pretraining or projection calibration."
+  ]
+}

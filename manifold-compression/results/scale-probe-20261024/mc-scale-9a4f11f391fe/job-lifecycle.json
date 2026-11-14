@@ -1,0 +1,26 @@
+{
+  "name": "mc-scale-9a4f11f391fe",
+  "created_intent": 1792882525.4225762,
+  "deadline": 1792887925.4225762,
+  "budget_cap_usd": 10.0,
+  "proposal": {
+    "resource": "1 H200 SXM, 141 GB VRAM, Secure Cloud on-demand",
+    "gpu_id": "NVIDIA H200",
+    "gpu_usd_per_hour_ceiling": 5.29,
+    "temporary_disk_gb": 200,
+    "disk_usd_per_hour_estimate": 0.027777777777777776,
+    "maximum_minutes_from_create": 90,
+    "maximum_planned_usage_usd": 7.9766666666666675,
+    "budget_cap_usd": 10.0,
+    "image": "pytorch/pytorch@sha256:1262abc856a428933c0477b4be87079173a0b087b7691c47fcb396b7b5775c56",
+    "scope": "Qwen2B control, Qwen27B, Mistral24B; stock/75%/50%; no healing",
+    "outputs": "metrics, generations, basis, scales, configs, pinned sources; no full weight copies",
+    "termination": "Delete only the newly created pod on completion, failure or deadline; no persistent volume",
+    "authorization": "pending explicit approval of this bounded paid job"
+  },
+  "terminate_requested": true,
+  "terminated": true,
+  "terminated_at": 1792882554.5332894,
+  "create_failed": "HTTP 403 browser-signature rejection; subsequent authenticated GET confirmed no mc-scale pods",
+  "spent_usd": 0
+}

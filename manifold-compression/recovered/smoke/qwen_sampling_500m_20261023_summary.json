@@ -1,0 +1,273 @@
+{
+  "method": {
+    "reviewer": "Primary Codex assistant, direct unblinded review",
+    "tag": "qwen-20261023",
+    "reference": "Same coherence and loop rubric as judge/d200/RUBRIC.txt; strict whole-answer correctness",
+    "checkable_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      32,
+      34,
+      35,
+      36,
+      38,
+      39
+    ],
+    "sampling": {
+      "temperature": 1,
+      "top_p": 1,
+      "top_k": 20,
+      "min_p": 0,
+      "presence_penalty": 2,
+      "repeat_penalty": 1
+    },
+    "effective_repeat_last_n": 64,
+    "thinking": false,
+    "max_tokens": 400,
+    "seed_rule": "prompt_id",
+    "slots": "20M: 1; remaining models: 4, with 4096 context tokens per slot",
+    "limitations": [
+      "One sampled answer per prompt; 40 prompts, 31 checkable.",
+      "Unblinded subjective coherence and repetition review.",
+      "400-token controlled pilot, shorter than Qwen's generally recommended output budget.",
+      "llama.cpp penalty implementation and 64-token window can differ from other serving frameworks.",
+      "Parallel batching can affect numerical reproducibility despite fixed per-prompt seeds. Borderline judgments can change counts by one; see per-answer notes."
+    ],
+    "model_card": "https://huggingface.co/Qwen/Qwen3.5-0.8B#best-practices",
+    "parser_recovery": "200M prompt 18 hit the peg-native chat-parser HTTP 500. Its actual 229-token output was recovered from the preserved server log, not replaced. Remaining 200M prompts and subsequent models use --skip-chat-parsing; generation settings and thinking-off template remain unchanged.",
+    "runtime_restart": "20M completed with one slot. A one-answer 50M serial partial was archived before a fresh full four-slot pass. The four-slot 200M run resumed after parser recovery; metadata retains previous-run details.",
+    "greedy_comparison": "Reuse unchanged Codex ratings for 200M and stock from judge/d200/tally.json, plus correctness_d250M.json and loops_d250M.json. Earlier Haiku scores are not a matched-judge comparison.",
+    "strict_correctness": "Evaluate the whole answer; material false claims, contradictions and wrong supporting arithmetic fail even if the first or final number is right. Formatting is separate. Nine subjective prompts are always na.",
+    "extension": "500M final checkpoint; prior ratings unchanged; same primary assistant and rubric."
+  },
+  "summary": {
+    "d200M": {
+      "coherence_mean": 2.35,
+      "coherent_4plus": 4,
+      "correct": 1,
+      "checkable": 31,
+      "accuracy": 0.03225806451612903,
+      "correct_ids": [
+        27
+      ],
+      "loops": 1,
+      "loop_ids": [
+        38
+      ],
+      "loop_rate": 0.025,
+      "token_limit_hits": 13,
+      "total_generated_tokens": 10058
+    },
+    "d250M": {
+      "coherence_mean": 2.4,
+      "coherent_4plus": 6,
+      "correct": 1,
+      "checkable": 31,
+      "accuracy": 0.03225806451612903,
+      "correct_ids": [
+        27
+      ],
+      "loops": 0,
+      "loop_ids": [],
+      "loop_rate": 0.0,
+      "token_limit_hits": 15,
+      "total_generated_tokens": 10156
+    },
+    "d300M": {
+      "coherence_mean": 2.35,
+      "coherent_4plus": 6,
+      "correct": 3,
+      "checkable": 31,
+      "accuracy": 0.0967741935483871,
+      "correct_ids": [
+        16,
+        22,
+        27
+      ],
+      "loops": 1,
+      "loop_ids": [
+        33
+      ],
+      "loop_rate": 0.025,
+      "token_limit_hits": 18,
+      "total_generated_tokens": 11101
+    },
+    "stock08": {
+      "coherence_mean": 3.075,
+      "coherent_4plus": 13,
+      "correct": 8,
+      "checkable": 31,
+      "accuracy": 0.25806451612903225,
+      "correct_ids": [
+        15,
+        16,
+        17,
+        25,
+        26,
+        27,
+        36,
+        39
+      ],
+      "loops": 0,
+      "loop_ids": [],
+      "loop_rate": 0.0,
+      "token_limit_hits": 15,
+      "total_generated_tokens": 9667
+    },
+    "d500M": {
+      "coherence_mean": 2.35,
+      "coherent_4plus": 8,
+      "correct": 1,
+      "checkable": 31,
+      "accuracy": 0.03225806451612903,
+      "correct_ids": [
+        27
+      ],
+      "loops": 1,
+      "loop_ids": [
+        34
+      ],
+      "loop_rate": 0.025,
+      "token_limit_hits": 20,
+      "total_generated_tokens": 10876
+    }
+  },
+  "paired_500m_against": {
+    "d200M": {
+      "newly_correct_ids": [],
+      "lost_correct_ids": [],
+      "coherence_delta": 0.0,
+      "new_loop_ids": [
+        34
+      ],
+      "resolved_loop_ids": [
+        38
+      ]
+    },
+    "d250M": {
+      "newly_correct_ids": [],
+      "lost_correct_ids": [],
+      "coherence_delta": -0.05,
+      "new_loop_ids": [
+        34
+      ],
+      "resolved_loop_ids": []
+    },
+    "d300M": {
+      "newly_correct_ids": [],
+      "lost_correct_ids": [
+        16,
+        22
+      ],
+      "coherence_delta": 0.0,
+      "new_loop_ids": [
+        34
+      ],
+      "resolved_loop_ids": [
+        33
+      ]
+    },
+    "stock08": {
+      "newly_correct_ids": [],
+      "lost_correct_ids": [
+        15,
+        16,
+        17,
+        25,
+        26,
+        36,
+        39
+      ],
+      "coherence_delta": -0.725,
+      "new_loop_ids": [
+        34
+      ],
+      "resolved_loop_ids": []
+    }
+  },
+  "format_checks_500m": [
+    {
+      "id": 10,
+      "pass": true,
+      "note": "Numbered steps; correctness assessed separately."
+    },
+    {
+      "id": 11,
+      "pass": true,
+      "note": "Five numbered tips, final tip truncated."
+    },
+    {
+      "id": 13,
+      "pass": true,
+      "note": "Under 100 whitespace-separated words."
+    },
+    {
+      "id": 25,
+      "pass": true,
+      "note": "One sentence; content correctness fails separately."
+    },
+    {
+      "id": 27,
+      "pass": true,
+      "note": "Bulleted list with requested items."
+    },
+    {
+      "id": 28,
+      "pass": true,
+      "note": "Four nonempty lines."
+    },
+    {
+      "id": 29,
+      "pass": true,
+      "note": "Three name ideas."
+    },
+    {
+      "id": 30,
+      "pass": false,
+      "note": "Five sentences, not two."
+    },
+    {
+      "id": 37,
+      "pass": false,
+      "note": "Introductory prose and fenced JSON."
+    },
+    {
+      "id": 38,
+      "pass": false,
+      "note": "Table instead of one planet per line."
+    },
+    {
+      "id": 39,
+      "pass": false,
+      "note": "Multiple paragraphs instead of only yes or no."
+    }
+  ],
+  "borderline_judgments": [
+    "Prompt 34 is a borderline repetition loop; excluding it changes loops from 1/40 to 0/40.",
+    "An answer-only arithmetic metric would credit prompts 14 and 16, raising correctness from 1/31 to 3/31. The existing strict rubric rejects material errors in supporting work.",
+    "Prompt 25 invents approval timing and outcome. Accepting its broad gist would add one pass, but does not follow the existing strict whole-answer rule."
+  ]
+}

@@ -1,0 +1,248 @@
+{
+  "arch": "smollm2",
+  "label": "corrected-before",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "Sure, here is a JSON object with city set to Oslo and count set to 3:\n\n```json\n{\n  \"city\": \"Osslo\",\n  \"count\": 3\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 45,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "The code you provided is not a complete code. It's a single line of code without any surrounding context. Here's the code you provided:\n\nA7x-P4q\n\nThis code is not a complete code. It's a single line of code without any surrounding context.",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 61,
+      "repeated_4gram_fraction": 0.32558139534883723,
+      "loop_flag": true
+    },
+    {
+      "id": "multiply",
+      "answer": "29 times 17 equals 493.",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "Here is the sorted list of numbers in ascending order:\n\n-2, 0, 4, 9",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 25,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "2.5",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Yes.",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Your preferred color is teal.",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "Here's the updated list as a JSON array:\n\n```\n[\n  {\n    \"name\": \"apples\",\n    \"quantity\": 1\n  },\n  {\n    \"name\": \"bread\",\n    \"quantity\": 1\n  },\n  {\n    \"name\": \"tea\",\n    \"quantity\": 1\n  }\n]\n```",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 72,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "1. Red\n2. Blue\n3. Green\n4. Yellow\n5. Purple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 20,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "Rain, a gentle touch,\nSoftly, it whispers,\nA soothing melody,\nA tranquil dance.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 24,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library will reopen on Friday after it was closed for repairs, with fifteen new desks installed.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "This Python code prints the value of a, which is [5, 8]. The reason for this is because the code creates a new list 'b' which is a copy of the original list 'a'. The 'append' function is then used to add the value 13 to the list 'b'. The 'print(a)' statement then prints the value of 'a', which is [5, 8].",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 88,
+      "repeated_4gram_fraction": 0.09999999999999998,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it is less dense than water. This is due to the specific heat capacity of ice being lower than water. When ice is placed on water, the ice absorbs heat from the water, causing it to melt and become less dense. This results in the ice floating on water.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 61,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. **First, prepare your resume**: Ensure your resume is clear, concise, and tailored to the job you're applying for. Highlight your relevant skills and experiences.\n\n2. **Second, prepare your cover letter**: Write a cover letter that complements your resume. It should be professional, concise, and tailored to the job.\n\n3. **Third, prepare your portfolio**: If you have a portfolio, make sure it's professional and tailored to the job. It should showcase your skills and experiences.\n\n4. **Fourth, prepare your portfolio**: If you don't have a portfolio, consider creating one. It should showcase your skills and experiences.\n\n5. **Fifth, prepare your responses**: Make sure your responses are professional, concise, and tailored to the job. They should highlight your skills and experiences.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 167,
+      "repeated_4gram_fraction": 0.1333333333333333,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "When adopting a dog, consider the following factors:\n\n1. **Age and Breed**: Choose a dog that suits your lifestyle and preferences. Some breeds are better suited for living in a house or for outdoor use.\n\n2. **Cost**: Calculate the total cost of the dog, including the initial purchase price, maintenance costs, and any additional expenses.\n\n3. **Health and Age**: Ensure the dog is healthy and not too old. A younger dog is easier to maintain and less likely to have health issues.\n\n4. **Size and Weight**: Consider the size and weight of the dog. Larger dogs require more space and resources.\n\n5. **Health and Age**: Ensure the dog is healthy and not too old. A younger dog is easier to maintain and less likely to have health issues.\n\n6. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n7. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n8. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n9. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n10. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n11. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n12. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n13. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n14. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\n15. **Health and Age**: Consider the health and age of the dog. A younger dog is easier to maintain and less likely to have health issues.\n\nRemember, adopting a dog should be a thoughtful and careful process.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 504,
+      "repeated_4gram_fraction": 0.5858585858585859,
+      "loop_flag": true
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table is a data structure used to store and retrieve elements based on their unique identifiers. It's like a dictionary where each element is associated with a unique key. When you add an element to the hash table, you assign a unique key to it. When you try to retrieve an element, the hash table checks if the key matches the one you're looking for. If it does, the element is found. If not, it's not found. The hash table is usually implemented using a hash function, which calculates the hash value of the key.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 113,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 5,
+    "completed": 16,
+    "loop_flags": 2,
+    "generated_tokens": 1231,
+    "elapsed_seconds": 236.9307412709968
+  },
+  "rubric_revision": 2
+}

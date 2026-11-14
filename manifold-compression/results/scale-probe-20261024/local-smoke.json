@@ -1,0 +1,53 @@
+{
+  "status": "complete",
+  "smoke_only": true,
+  "elapsed_seconds": 56.30508096200356,
+  "calibration_tokens": 1021,
+  "rotation_gate": {
+    "positions": 16,
+    "max_abs_logit_error": 2.3603439331054688e-05,
+    "rms_logit_error": 3.908597875120118e-06,
+    "mean_kl": 6.1473790303137835e-12,
+    "max_token_kl": 1.6493627793351426e-11,
+    "top1_agreement": 1.0,
+    "numerical_pass": true
+  },
+  "rotation_cache": {
+    "positions": 8,
+    "max_abs_logit_error": 3.2901763916015625e-05,
+    "rms_logit_error": 5.178508724086622e-06,
+    "mean_kl": 1.4313560412770428e-11,
+    "max_token_kl": 1.959879582720535e-11,
+    "top1_agreement": 1.0,
+    "numerical_pass": true
+  },
+  "bf16_rotation_control": {
+    "positions": 32,
+    "mean_kl": 0.000824446743241251,
+    "top1_agreement": 0.96875,
+    "target_nll": 1.2618073174910118,
+    "target_top1": 0.5625
+  },
+  "compressed_cache_checks": {
+    "retain-75": {
+      "positions": 8,
+      "max_abs_logit_error": 0.25,
+      "rms_logit_error": 0.03821471732949131,
+      "mean_kl": 0.0018020156750866909,
+      "max_token_kl": 0.006691335328955453,
+      "top1_agreement": 1.0,
+      "numerical_pass": false
+    },
+    "retain-50": {
+      "positions": 8,
+      "max_abs_logit_error": 0.21875,
+      "rms_logit_error": 0.026242592381082428,
+      "mean_kl": 0.0009289433967583486,
+      "max_token_kl": 0.0018151965106466862,
+      "top1_agreement": 1.0,
+      "numerical_pass": false
+    }
+  },
+  "interpretation": "Real Qwen2B end-to-end plumbing check only: two calibration/validation conversations, two generations capped at 16 tokens. Not a compression-quality result.",
+  "paid_spend_usd": 0
+}

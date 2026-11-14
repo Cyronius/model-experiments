@@ -1,0 +1,64 @@
+{
+ "note": "Time-boxed healing sessions on the teacher's generated answers (heal_sessions.py; data from heal_shards.py, heal_shards_rules.json). Written 2026-11-05, before any session. The goal (the user, 2026-11-04): improve the student's quality even where it does not match the 9B, and beat dense models with as many parameters as its active ones; the sampler handles the remaining loops.",
+ "base": {
+  "geometry_rules": "heal_geometry_rules.json",
+  "run": "S0_K24_T3M"
+ },
+ "folder": "results/moe-carve-v2-20261029/heal_sessions/S0_K24_G",
+ "pool": "results/moe-carve-v2-20261029/heal_sessions/pool",
+ "select": {
+  "alpha": 1.0,
+  "low": 0.3333333333333333,
+  "high": 2.0,
+  "seed": 26110502,
+  "rule": "Correct (or ungraded chat) and finished answers; within a problem and thinking mode, answers under 1/3 or over 2 times the median length are dropped, the others kept with probability min(1, median/length). Tokens outside the student's 64K vocabulary become its pieces (heal_sessions.StudentTokens)."
+ },
+ "train": {
+  "seq_len": 4096,
+  "batch_sequences": 4,
+  "micro_batch": 1,
+  "lr": 0.0001,
+  "router_lr": 0.001,
+  "betas": [
+   0.9,
+   0.99
+  ],
+  "clip": 1.0,
+  "warmup_steps": 5,
+  "ce_weight": 0.5,
+  "router_weight": 1.0,
+  "router_stride": 4,
+  "loss_chunk": 1024,
+  "reserve_minutes": 5,
+  "log_every": 10,
+  "schedule": "Warmup over the first 5 steps of all sessions, then constant; heal_sessions.py decay makes a decayed evaluation copy without touching the main state."
+ },
+ "evaluation": "After each few sessions, a decayed copy is checked sampled (the card's sampler) on the 96 GSM8K check prompts with thinking on and off, against S0_K24_T3M (on 57, off 51) and the dense yardsticks (Qwen3.5-2B off 71, 4B and 9B off 83); a MATH-500 subset and a non-math check are to be added before the first comparison is claimed.",
+ "sessions": [
+  {
+   "name": "local 1",
+   "written": "2026-11-05, before the session, while shard 0's later chunks are still generating (its first chunk: 400 problems, 927 answers selected, 91 steps of 4 x 4,096 tokens).",
+   "plan": "3 hours on the local GPU (about 80 steps, about 1M answer tokens), then an 8-step decayed copy, checked sampled on the 96 GSM8K prompts with thinking off and on.",
+   "predictions": {
+    "thinking_off": "S0_K24_T3M sampled 51/96 -> 56 to 68 (answers in this mode are the most direct teacher data and the shortest)",
+    "thinking_on": "57/96 -> 55 to 66",
+    "loops": "sampled loops stay at 3 or fewer per mode"
+   },
+   "outcome": {
+    "written": "2026-11-05, after the session, the decay and the checks.",
+    "session": "81 steps in 3 hours (126 tokens/s), cursor [0, 815] of shard 0's first chunk; logged KL at 10-step points 0.33 to 1.07 with no trend. Decay: 8 steps to decayed_89.pt.",
+    "eval_kl": "The corpus eval KL rose from S0_K24_T3M's 0.603 to 0.785 (in-mix 0.571 -> 0.756, held-out 0.732 -> 0.904), in every domain, math_word 0.242 -> 0.363.",
+    "thinking_on": "35/96 right, 55 finished, 1 loop (S0_K24_T3M: 57, 63, 1). The wrong finished answers are well formed but miscalculate (19.50 / 0.75 = 13; 3 x 16.50 = 54.15).",
+    "thinking_off": "No result: the check crashed in sampling with a device-side assert (torch's async assert kernel; likely non-finite probabilities from the copy) after the eval KL (0.783).",
+    "predictions": {
+     "thinking_off": "not measured (crash)",
+     "thinking_on": "failed: 35, below 55 to 66 and below the start's 57",
+     "loops": "held for thinking on (1)"
+    },
+    "reading": "The session damaged the student. The routers moved most: their total norm went from 16.7 to 31.7 (layers 14-17 changed by 3.8 to 4.5 times their norm) while the LoRA moved 18% (12.7 on 70.7). T3M ended at lr_floor 0.1 (LoRA 1e-5, routers 1e-4); the session restarted both at the peak (1e-4, 1e-3) with fresh Adam state and kept it constant, and the router loss rose from 4.51 to 4.62 over the session. The attribution confirms the routers did most of the damage.",
+    "attribution": "Eval KL with parts swapped (attribute_89.log; stopped after two of four arms to free the GPU for another session's benchmark): T3M LoRA and routers 0.603 (reproduces); the session's LoRA with T3M's routers 0.645 (math_word 0.277); both of the session's 0.785. So the LoRA accounts for about 0.04 of the 0.18 rise and the routers for most of the rest.",
+    "amended_2026_11_07": "Both checks of decayed_89 ran in processes whose dense pass computed wrong values (check_89_on 16 of 116 eval docs, check_89_off 3; heal_sessions_g2_rules.json machine_faults). The 35/96 and the eval KL 0.785 are not reliable; the router drift (norm 16.7 -> 31.7) and the attribution's lora-only 0.645 (a separate, clean-looking process) stand."
+   }
+  }
+ ]
+}

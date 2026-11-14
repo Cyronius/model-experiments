@@ -1,0 +1,719 @@
+{
+  "cases": [
+    {
+      "id": "ctest-add_subtract-0",
+      "family": "math_add_subtract",
+      "answer": "To find the number of counters remaining, we perform the following steps:\n\n1.  **Start with the initial count**: 28 counters.\n2.  **Add 3 counters**: $28 + 3 = 31$.\n3.  **Remove 12 counters**: $31 - 12 = 19$.\n\nThe calculation is:\n$$28 + 3 - 12 = 19$$\n\n19",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 99,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-add_subtract-1",
+      "family": "math_add_subtract",
+      "answer": "To find the number of counters remaining, we perform the following steps:\n\n1.  **Start with the initial count**: 49 counters.\n2.  **Add 12 counters**:\n    $$49 + 12 = 61$$\n3.  **Remove 14 counters**:\n    $$61 - 14 = 47$$\n\nThe final number of counters remaining is 47.\n\n47",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 96,
+      "repeated_4gram_fraction": 0.025000000000000022,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-add_subtract-2",
+      "family": "math_add_subtract",
+      "answer": "To find the final number of counters, we perform the following steps:\n\n1.  **Start with the initial count**: 73 counters.\n2.  **Add 17 counters**:\n    $$73 + 17 = 90$$\n3.  **Remove 9 counters**:\n    $$90 - 9 = 81$$\n\nThe final number of counters remaining is 81.\n\n81",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 94,
+      "repeated_4gram_fraction": 0.050000000000000044,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-multiply-3",
+      "family": "math_multiply",
+      "answer": "168",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-multiply-4",
+      "family": "math_multiply",
+      "answer": "1,265",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-multiply-5",
+      "family": "math_multiply",
+      "answer": "108",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-divide-6",
+      "family": "math_divide",
+      "answer": "29",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-divide-7",
+      "family": "math_divide",
+      "answer": "174",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-divide-8",
+      "family": "math_divide",
+      "answer": "12",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-fraction-9",
+      "family": "math_fraction",
+      "answer": "1 3/7",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-fraction-10",
+      "family": "math_fraction",
+      "answer": "To find the combined length, we need to add the two fractions:\n$$ \\frac{4}{19} + \\frac{2}{2} $$\n\nFirst, simplify the second fraction:\n$$ \\frac{2}{2} = 1 $$\n\nNow, add the whole number to the fraction:\n$$ 1 + \\frac{4}{19} $$\n\nTo combine these into a single fraction, convert the whole number 1 into a fraction with a denominator of 19:\n$$ 1 = \\frac{19}{19} $$\n\nSo, the expression becomes:\n$$ \\frac{19}{19} + \\frac{4}{19} = \\frac{19 + 4}{19} = \\frac{23}{19} $$\n\nThe fraction $\\frac{23}{19}$ is already in its simplest form because 23 is a prime number and does not divide 19.\n\n23/19",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 212,
+      "repeated_4gram_fraction": 0.00990099009900991,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-fraction-11",
+      "family": "math_fraction",
+      "answer": "To find the combined length, we need to add the two fractions: $\\frac{5}{16}$ and $\\frac{11}{10}$.\n\n**Step 1: Find the Least Common Denominator (LCD)**\nThe denominators are 16 and 10.\n- Prime factorization of 16: $2^4$\n- Prime factorization of 10: $2 \\times 5$\n- The LCD is $2^4 \\times 5 = 16 \\times 5 = 80$.\n\n**Step 2: Convert the fractions to equivalent fractions with the LCD**\n- For $\\frac{5}{16}$: Multiply numerator and denominator by 5.\n  $$ \\frac{5 \\times 5}{16 \\times 5} = \\frac{25}{80} $$\n- For $\\frac{11}{10}$: Multiply numerator and denominator by 8.\n  $$ \\frac{11 \\times 8}{10 \\times 8} = \\frac{88}{80} $$\n\n**Step 3: Add the fractions**\n$$ \\frac{25}{8",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": false,
+      "generated_tokens": 256,
+      "repeated_4gram_fraction": 0.03539823008849563,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-percent-12",
+      "family": "math_percent",
+      "answer": "10",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-percent-13",
+      "family": "math_percent",
+      "answer": "11",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-percent-14",
+      "family": "math_percent",
+      "answer": "To find the number of blue cards, we calculate 75% of the total number of cards (340).\n\n1.  **Convert the percentage to a decimal**:\n    $75\\% = 0.75$\n\n2.  **Multiply the total by the decimal**:\n    $340 \\times 0.75 = 340 \\times \\frac{3}{4}$\n\n3.  **Perform the calculation**:\n    $340 \\div 4 = 85$\n    $85 \\times 3 = 255$\n\nAlternatively:\n$0.75 \\times 340 = 255$\n\nThe number of blue cards is 255.\n\n255",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 167,
+      "repeated_4gram_fraction": 0.030303030303030276,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-equation-15",
+      "family": "math_equation",
+      "answer": "Let the unknown number be $x$.\n\nAccording to the problem, the number multiplied by 29, then increased by 10, results in -222. We can translate this into the following equation:\n$$29x + 10 = -222$$\n\nTo solve for $x$, first subtract 10 from both sides:\n$$29x = -222 - 10$$\n$$29x = -232$$\n\nNext, divide both sides by 29:\n$$x = \\frac{-232}{29}$$\n\nNow, perform the division:\n$$232 \\div 29 = 8$$\nSo,\n$$x = -8$$\n\nThe final number is -8.",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 168,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-equation-16",
+      "family": "math_equation",
+      "answer": "10/7",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-equation-17",
+      "family": "math_equation",
+      "answer": "1",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-remainder-18",
+      "family": "math_remainder",
+      "answer": "To find the number of marbles left unpacked, we divide the total number of marbles by the number of marbles per bag:\n\n$$40 \\div 26$$\n\nWe can simplify the fraction by dividing both the numerator and the denominator by their greatest common divisor, which is 2:\n\n$$\\frac{40}{26} = \\frac{20}{13}$$\n\nNow, we convert the improper fraction $\\frac{20}{13}$ to a mixed number to see the whole bags and the remainder:\n$$20 \\div 13 = 1 \\text{ with a remainder of } 7$$\n\nSo, the fraction is $1 \\frac{7}{13}$.\n\nThe number of marbles left unpacked is the remainder:\n**7**",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 173,
+      "repeated_4gram_fraction": 0.04081632653061229,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-remainder-19",
+      "family": "math_remainder",
+      "answer": "To find the number of marbles left unpacked, we need to divide the total number of marbles by the capacity of each bag:\n\n$$20 \\div 26$$\n\nSince 20 is less than 26, the bag will not be full. The number of marbles unpacked is the remainder of this division.\n\n$$20 = 0 \\times 26 + 20$$\n\nThe remainder is 20.\n\n20",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 100,
+      "repeated_4gram_fraction": 0.017857142857142905,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-remainder-20",
+      "family": "math_remainder",
+      "answer": "1",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-multi_step-21",
+      "family": "math_multi_step",
+      "answer": "48",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-multi_step-22",
+      "family": "math_multi_step",
+      "answer": "136",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-multi_step-23",
+      "family": "math_multi_step",
+      "answer": "1,008",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650000-arithmetic-0",
+      "family": "arithmetic",
+      "answer": "3360",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650000-sorting-1",
+      "family": "sorting",
+      "answer": "```json\n[\"-46\", \"-17\", \"-5\", \"17\", \"42\"]\n```",
+      "grade": {
+        "correct": true,
+        "format_pass": false,
+        "parsed": true,
+        "typed_value_correct": false,
+        "numeric_strings": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 26,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650000-python-2",
+      "family": "python",
+      "answer": "```python\na=[9,9]; b=a; b.append(22); print(a)\n```\nOutput:\n```python\n[9, 9, 22]\n```",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 43,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650000-units-3",
+      "family": "units",
+      "answer": "59700",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650000-json-4",
+      "family": "json",
+      "answer": "{\"label\":\"item-500188\",\"count\":407,\"active\":true}",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650000-memory-6",
+      "family": "memory",
+      "answer": "BZQ7TKEE",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650001-arithmetic-0",
+      "family": "arithmetic",
+      "answer": "432",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650001-sorting-1",
+      "family": "sorting",
+      "answer": "```json\n[\"1\", \"-49\", \"24\", \"46\", \"48\"]\n```",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true,
+        "typed_value_correct": false,
+        "numeric_strings": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 25,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650001-python-2",
+      "family": "python",
+      "answer": "27",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650001-units-3",
+      "family": "units",
+      "answer": "57500",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650001-json-4",
+      "family": "json",
+      "answer": "{\"label\":\"item-352876\",\"count\":443,\"active\":true}",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650001-grounding-5",
+      "family": "grounding",
+      "answer": "```json\n{\n  \"day\": \"Thursday\",\n  \"desks\": 75\n}\n```",
+      "grade": {
+        "correct": true,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 26,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650001-memory-6",
+      "family": "memory",
+      "answer": "BFRJWWNM",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "26102650002-grounding-5",
+      "family": "grounding",
+      "answer": "```json\n{\n  \"day\": \"Monday\",\n  \"desks\": 44\n}\n```",
+      "grade": {
+        "correct": true,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 26,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-dot",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(left, right):\n    if not left or not right:\n        return 0\n    return sum(a * b for a, b in zip(left, right))\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 3,
+        "tests": 3
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 44,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-unique",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(text):\n    from collections import Counter\n    counts = Counter(text)\n    for char, count in counts.items():\n        if count == 1:\n            return char\n    return None\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 4,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 50,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-streak",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(values):\n    if not values:\n        return 0\n\n    max_len = 0\n    current_len = 0\n\n    for x in values:\n        if x > 0:\n            current_len += 1\n            max_len = max(max_len, current_len)\n        else:\n            current_len = 0\n\n    return max_len\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 4,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 86,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "ctest-overlap",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(text, pattern):\n    \"\"\"\n    Count occurrences of nonempty pattern in text, including overlapping occurrences.\n    \n    Args:\n        text (str): The input text to search in.\n        pattern (str): The pattern to search for.\n    \n    Returns:\n        int: The count of nonempty pattern occurrences in text.\n    \"\"\"\n    if not pattern:\n        return 0\n\n    count = 0\n    i = 0\n    while i <= len(text) - len(pattern):\n        if text[i:i + len(pattern)] == pattern:\n            count += 1\n            i += 1\n        else:\n            i += 1\n\n    return count\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 4,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 157,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cscience-thunder",
+      "family": "explanation",
+      "answer": "We usually see lightning before hearing thunder because **light travels much faster than sound**.\n\nLight travels at approximately **300,000 kilometers per second** (about 186,000 miles per second), while sound travels at roughly **343 meters per second** (about 767 miles per hour) in air. Since the distance between the lightning strike and your location is usually only a few kilometers, the light reaches your eyes almost instantly, while the sound takes several seconds to travel that same distance.",
+      "grade": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 111,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cscience-whale",
+      "family": "explanation",
+      "answer": "Whales are classified as mammals because they share fundamental biological characteristics with land mammals, specifically **mammals have hair or fur** (though whales have a layer of hair called lanugo that is lost after birth), **they are warm-blooded (endothermic)**, and **they feed their young with milk**.\n\nUnlike fish, which are cold-blooded and lay eggs, whales give birth to live young and nurse them with milk. This reproductive and nutritional method is the primary reason they are grouped with land mammals rather than aquatic vertebrates like sharks or tuna.",
+      "grade": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 114,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    }
+  ],
+  "summary": {
+    "closed_correct": 13,
+    "closed_total": 38,
+    "programs_correct": 4,
+    "programs_total": 4,
+    "syntax_pass": 4,
+    "ended": 43,
+    "capped": 1,
+    "loop_flags": 0,
+    "word_loop_flags": 0
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "status": "Prepared only; choose after existing results, then reserve within remaining approved$10 before allocation",
+  "resource": "one RTX 4090 24GB RunPod Secure Cloud pod",
+  "listed_rate_usd_per_hour": 0.89,
+  "maximum_gpu_rate_usd_per_hour": 0.9,
+  "maximum_elapsed_hours": 0.65,
+  "expected_elapsed_hours": [
+    0.33,
+    0.5
+  ],
+  "expected_total_usd": [
+    0.3,
+    0.45
+  ],
+  "proposed_total_cap_usd": 0.6,
+  "disk_gb": 60,
+  "retained_paid_volumes": false,
+  "work_deadline_minutes": 35,
+  "watchdog_delete_minutes": 38,
+  "training": {
+    "arms": [
+      {
+        "id": "ternary-low-lr",
+        "checkpoint": "training-v2/work/human-mix/starts/ternary.pt",
+        "layers": 3,
+        "batch": 512,
+        "micro_batch": 128,
+        "lr": 3e-06,
+        "use_negatives": true
+      },
+      {
+        "id": "ternary",
+        "checkpoint": "training-v2/work/human-mix/starts/ternary.pt",
+        "layers": 3,
+        "batch": 512,
+        "micro_batch": 128,
+        "lr": 1e-05,
+        "use_negatives": true
+      },
+      {
+        "id": "float",
+        "checkpoint": "training-v2/work/human-mix/starts/float.pt",
+        "layers": 3,
+        "batch": 512,
+        "micro_batch": 128,
+        "lr": 1e-05,
+        "use_negatives": true
+      }
+    ],
+    "epochs_each": 3,
+    "seed": 57,
+    "eval_every": 150,
+    "save_every": 100,
+    "source_floor": 2.0,
+    "validation_negatives": true,
+    "teacher_targets": false,
+    "auxiliary_nli": false,
+    "train_rows": 121393,
+    "dev_rows": 26681,
+    "data_sha256": "bc9aad9a380c98279d70ee7bc26a06d567a8eed1bacfd17ce7e8b106c19891e0",
+    "selection": "Highest held-source macro nDCG across all9 sources; every source within2 points of initialization. Human contradictions included in held NLI ranking. Freeze all3 before external scoring.",
+    "comparison": "Whole-model continuation on clean relevance plus human entailment/contradiction. Two ternary rates and one independent float branch; source proportions differ from the large science mixture. Frozen-output-projection experiments are context, not a clean same-learning-rate ablation.",
+    "direct_nli": "Human entailment positives and same-premise human contradictions in contrastive ranking; no disposable classifier or teacher."
+  },
+  "recovery": {
+    "remote_save_every_steps": 100,
+    "remote_save_every_seconds": 120,
+    "local_backup_attempt_interval_seconds": 60,
+    "sha256_verified_local_copies": true,
+    "full_optimizer_rng_sampler_resume": true,
+    "remote_resume_copies_retained": 2
+  },
+  "pricing_source": "https://www.runpod.io/pricing",
+  "data_center_ids": [
+    "EU-RO-1",
+    "EUR-IS-1",
+    "EUR-IS-2",
+    "US-IL-1"
+  ],
+  "cuda_versions": [
+    "13.2"
+  ],
+  "gpu_type_id": "NVIDIA GeForce RTX 4090",
+  "campaign_cap_usd": 10.0,
+  "resource_change": "A5000 did not allocate; using available 4090 within explicitly authorized $10 multi-experiment campaign",
+  "profile": "human-mix",
+  "data_inputs": {
+    "train": {
+      "path": "training-v2/work/human-mix/train.jsonl",
+      "sha256": "bc9aad9a380c98279d70ee7bc26a06d567a8eed1bacfd17ce7e8b106c19891e0"
+    },
+    "dev": {
+      "path": "training-v2/work/human-mix/dev.jsonl",
+      "sha256": "84ac17ccc8a2493ed171d1d2b187f0ecc958dc43b4024fbdbe23a587c85f05da"
+    }
+  },
+  "data_audit_files": [
+    "training-v2/work/human-mix/audit.json",
+    "training-v2/work/projection/plan.json",
+    "training-v2/work/human-triplets/audit.json"
+  ],
+  "work_duration_minutes": 32
+}

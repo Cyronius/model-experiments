@@ -1,0 +1,31 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-31",
+  "user_authorization": "Asked, after section 14 (no fold stops the loops): 'Recommended next step (needs your go-ahead and a budget cap): on-policy distillation from the dense 9B, keeping the 25% budget... A pilot would cost about what the healing run did, roughly $5-10; I'd write up the design and exact cap before launching.' User: 'ok do the $5-10 run'.",
+  "scope": "One pod for the on-policy distillation pilot of the healed Qwen3.5-9B student at 25% of MLP neurons (slim_opd.py before, train and after; opd_worker.py; run_opd_pod.py): checks of the healed student and the dense and every-neuron references on 48 GSM8K prompts, about 7.5 hours of distillation (LoRA only), then the distilled student's checks. Rules, predictions and reading in opd_rules.json (sha256 c9e444ccfa582ff55c80abac6fb738bc7afa8d7328d0955dc8dadb69d6014a0b); training prompts opd_prompts.json (sha256 87f1e8bd00c522eaaaa315051ca262f7278ba9d0fc027d84f99bc2a38b9aaae2).",
+  "total_cap_usd": 10.0,
+  "spent_usd": 4.748213631933927,
+  "restrictions": [
+    "Not a standing authorization for other jobs; a longer distillation, a new carve or another healing run needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "reserved_job_max_usd": 0,
+  "active_job": "target/manifold-opd/mc-opd-dbe051b0d7db/pod.json",
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "High",
+    "checked_at": 1793434616.9309237
+  },
+  "pod_id": "0r8gfuzy7qw0h4",
+  "launcher_stopped": {
+    "at": 1793453098,
+    "cause": "Claude Code stopped the local launcher (run_opd_pod.py --execute) and its watchdog under host memory pressure; the pod kept running",
+    "tending": "From about 1793453900, the user-approved systemd user timer mc-opd-tend runs tend_pod.py run_opd_pod every 5 minutes: sync, then delete the pod once the worker is complete or failed, or at the deadline; it charges the ledger once and stops itself",
+    "user_decision": "Asked how to handle the unguarded pod; chose 'Allow timer, finish (Recommended)'"
+  },
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1793463589.0899267,
+  "tended_by": "tend_pod.py after the launcher and its watchdog stopped"
+}

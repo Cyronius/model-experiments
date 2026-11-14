@@ -1,0 +1,35 @@
+{
+  "reason": "Post-inference fix: the unbounded alternative work was matching the noun workers. Bound the work/works/worked/working verb forms. Original frozen gold and scores remain unchanged; this is an explicit bug fix, not independent confirmation.",
+  "changes": [
+    {
+      "passage": "granite-stack",
+      "target": "granite-working",
+      "original": "work|succeed|correct|resolve",
+      "refined": "\\bwork(?:s|ed|ing)?\\b|succeed|correct|resolve"
+    },
+    {
+      "passage": "softmax-stack",
+      "target": "softmax-working",
+      "original": "work|succeed|resolve",
+      "refined": "\\bwork(?:s|ed|ing)?\\b|succeed|resolve"
+    },
+    {
+      "passage": "transfer-size",
+      "target": "gemv-exception",
+      "original": "exact|correct|work",
+      "refined": "exact|correct|\\bwork(?:s|ed|ing)?\\b"
+    },
+    {
+      "passage": "l1-budget",
+      "target": "batch-fit",
+      "original": "built|ran|fit|work|succeed",
+      "refined": "built|ran|fit|\\bwork(?:s|ed|ing)?\\b|succeed"
+    },
+    {
+      "passage": "synthetic-version-scope",
+      "target": "version-only",
+      "original": "sufficient|work",
+      "refined": "sufficient|\\bwork(?:s|ed|ing)?\\b"
+    }
+  ]
+}

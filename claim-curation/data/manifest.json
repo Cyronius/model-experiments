@@ -1,0 +1,214 @@
+{
+  "version": "pilot-v1",
+  "notes_commit": "2dc94972946c8421af68831f590c5781df400dec",
+  "sources": {
+    "array": {
+      "path": "raw/phlegm/2026-09-02-array-resource-limits-dma-l1-program-memory.md",
+      "snapshot": "sources/array.md",
+      "sha256": "381eca3328d6e399791d70d3671357c36464c24fae2fd36073db5ceb1f994f3b",
+      "context": {
+        "from": "phlegm",
+        "date": "2026-09-02",
+        "evidence": "measured",
+        "stack": "mlir-aie 1.4.2, Peano 21.0.0 (later runs 21.0.0.2026080301), aiecc build errors quoted below; XRT/driver versions not stated for the early items"
+      },
+      "upstream_reference_text": "Sources: C:/code/phlegm/xdna-dump/sources/open-kernels-phase2-fused-linear-layer.md (\"The constraint that shapes the design\"); C:/code/phlegm/open_kernels/README.md (\"designs/moe_experts\", \"Item 5, second half\"); designs/dit_conv/README.md, dit_ew/README.md, dit_fa/README.md, dit_gemm/README.md; C:/code/phlegm/specs/open-engine/plans/archive/gemm-context-collapse.md (\"The gate, honestly\"); C:/code/phlegm/specs/open-engine/plans/wide-deltanet-bringup.md and wide-deltanet-a7.md; C:/code/phlegm/specs/open-engine/spec.md (lines ~884, ~2567, ~2581, ~2668, ~5199-5203). F-0001..F-0007 already cover the shim start queue, 16 BDs per column shim, zero strides, BD repeat/len/wrap, the 16 KB program memory in general, and the objectfifo depth+1 rule; this file does not repeat them.",
+      "upstream_references_verified": false,
+      "source_level": "project_note_or_digest"
+    },
+    "arithmetic": {
+      "path": "raw/phlegm/2026-09-26-aie2p-arithmetic-and-stack-traps.md",
+      "snapshot": "sources/arithmetic.md",
+      "sha256": "3b522fc9f30c6100ca2eb3ac153dc8f7968c7b7a3b533c885154a6043a9b52f5",
+      "context": {
+        "from": "phlegm",
+        "date": "2026-09-26",
+        "evidence": "measured",
+        "stack": "mlir-aie 1.4.2 (dev16 build named for the whisper runs), Peano 21.0.0.2026080301, Ryzen AI 9 HX 370 in turbo power mode for the dit_* numbers; XRT/driver not stated in these READMEs"
+      },
+      "upstream_reference_text": "Sources: C:/code/phlegm/open_kernels/designs/dit_gemm/README.md, dit_fa/README.md (\"Accuracy\", \"Traps hit getting here\"), dit_ew/README.md (\"Arithmetic\"), vae_ew/README.md (\"Trap: rounding mode\"), gemm_q4/NOTES.md, C:/code/phlegm/xdna-dump/sources/open-kernels-feasibility.md (vegah trap list). Already in findings: hardware tanh/inv/invsqrt ~1e-2 LUTs (F-0008), stack 0xD00 hang vs 0x1800 (F-0009), `to_float` NaN / int16 `bit_and` / `get_cycles` / static zeroing (F-0014), bf16 GEMV compute-bound (F-0016).",
+      "upstream_references_verified": false,
+      "source_level": "project_note_or_digest"
+    },
+    "abi": {
+      "path": "raw/phlegm/2026-09-02-instruction-stream-ddr-patch-and-kernel-abi.md",
+      "snapshot": "sources/abi.md",
+      "sha256": "3e8d03c9c08cbc25df7376531d05cc631272f5ffc79fbf93eff54ce9c9ee50a1",
+      "context": {
+        "from": "phlegm",
+        "date": "2026-09-02",
+        "evidence": "measured",
+        "stack": "XRT runtime 32.00.20102.3931 for the FLM-kernel drive work (npu-open-engine.md); XRT master 2.26.0 xclbinutil/aiebu-asm for the IRON flow; mlir-aie 1.4.2, Peano 21.0.0; driver/firmware versions not stated for the early items"
+      },
+      "upstream_reference_text": "Sources: C:/code/phlegm/xdna-dump/sources/npu-open-engine.md (\"M0\", \"Step 2c\", \"DECODE PATH interpreted\"); open-kernels-feasibility.md (\"How FLM fetches routed experts\"); open-kernels-phase2-moe-first.md (\"Step 2 design note\"); C:/code/phlegm/open_kernels/README.md (\"Running through phlegm\", \"Phase 2 ... moe_experts Step 2a\"); open_kernels/harness/README.md; xdna-dump/tools/seq-capture/README.md. F-0012 (DDR patch on args >= 5 carry +0x80000000) and F-0015 (array->shim control) are already recorded; this file adds the surrounding facts.",
+      "upstream_references_verified": false,
+      "source_level": "project_note_or_digest"
+    },
+    "llm": {
+      "path": "raw/LLMNpuTest/2026-09-01-dma-l1-program-memory-limits-and-silent-faults.md",
+      "snapshot": "sources/llm.md",
+      "sha256": "d43599629275f013c972a47159bb5b47b9fdee8075f0969a275d8bfc79f34231",
+      "context": {
+        "from": "LLMNpuTest (C:/code/LLMNpuTest, main checkout, branch main, HEAD d94836a)",
+        "date": "2026-09-01",
+        "evidence": "measured",
+        "stack": "Windows; AMD Ryzen AI 9 HX 370, NPU Strix, 8 columns, AIE2P; XRT 2.21.0; NPU driver 32.0.20102.3930; mlir-aie 1.4.2.dev16+g7e00b57; Peano 21.0.0.2026080301 (Peano only, no Chess); NPU firmware not stated"
+      },
+      "upstream_reference_text": "Sources (C:/code/LLMNpuTest): commits `01ff971`, `625c6ea`, `e552d38`, `a520103`, `660048a`, `c712130`, `36befc8`, `3501bc4` (2026-09-01); `designs/granite_gemv/granite_gemv32.py:5-9`, `granite_gemv.py:50-81`, `granite_gather.py:46-52`, `granite_elementwise.py:58-75`, `granite_gemv.h:99-108`, `lm_head/lm_head.h:87-95`; `README.md:152-158`, `README.md:194-231`, `README.md:253-257`, `README.md:272-288`, `README.md:338-353`. Each item below happened in this repo's own builds or runs.",
+      "upstream_references_verified": false,
+      "source_level": "project_note_or_digest"
+    },
+    "granite": {
+      "path": "raw/OpenFlowLM-Next3/2026-10-19-oflm-iron-peano-aiecc-dma-traps-and-hangs.md",
+      "snapshot": "sources/granite.md",
+      "sha256": "2caa6e6abf98e55a055845700560b35b64d5b7462ab89f656a8826cad05e3c3f",
+      "context": {
+        "from": "OpenFlowLM-Next3 (C:/code/OpenFlowLM-Next3-decB, branch perf/qwen3-decode-b, HEAD 69e1b98 2026-10-19; same skills on perf/qwen3-decode-a)",
+        "date": "2026-10-19",
+        "evidence": "measured",
+        "stack": "Windows 11, Ryzen AI 9 HX PRO 370 (Strix Point), aie2p; IRON / aiecc / Peano from the mlir-aie Windows build, version not stated for these runs (last stated 1.4.2.dev16+g7e00b57 / Peano 21.0.0.2026080301, 2026-09-06); XRT from C:\\Xilinx\\XRT, version not stated; NPU driver and firmware not stated"
+      },
+      "upstream_reference_text": "Sources (C:/code/OpenFlowLM-Next3-decB): `.opencode/skill/open-dxl-rows/SKILL.md:21-23, 64-79, 208-209, 274-289`, `.agents/skills/open-granite-kernels/SKILL.md:264-265, 296-305, 362-389, 466-470, 503-504`, `.opencode/skill/open-gemm-bfp16/SKILL.md:65-67, 114-115, 157-161`, `.opencode/skill/open-qwen3-small/SKILL.md:14-24, 86-88`, `.opencode/skill/open-k2-kernels/SKILL.md:121-124`, `specs/open-engine/spec.md:209-213, 677-681, 4786-4788, 4898-4904, 4938-4941`. Each item was hit in a build or on hardware. Core-arithmetic and compiler traps are in `2026-10-19-oflm-core-memory-arithmetic-and-compiler-traps.md`. None of this is on the openflowlm-next main checkout.",
+      "upstream_references_verified": false,
+      "source_level": "project_note_or_digest"
+    },
+    "synthetic-negation": {
+      "path": "synthetic://synthetic-negation",
+      "snapshot": "sources/synthetic-negation.md",
+      "sha256": "5f7e922a0c34dad13192cb2389ae0ad122bae75e2955ab21f5d72896c7bb1544",
+      "context": {},
+      "source_level": "synthetic_fixture",
+      "upstream_reference_text": "",
+      "upstream_references_verified": false
+    },
+    "synthetic-questions": {
+      "path": "synthetic://synthetic-questions",
+      "snapshot": "sources/synthetic-questions.md",
+      "sha256": "0a0085b4e84ffbbf426dd05219ebee7e7bac93ad29f8ee470b8bf5180fd48bd9",
+      "context": {},
+      "source_level": "synthetic_fixture",
+      "upstream_reference_text": "",
+      "upstream_references_verified": false
+    },
+    "synthetic-version-scope": {
+      "path": "synthetic://synthetic-version-scope",
+      "snapshot": "sources/synthetic-version-scope.md",
+      "sha256": "aad85997861c7b96fe0b3e904d86b3d29824e7ee12adf9777f5ecb5763722b42",
+      "context": {},
+      "source_level": "synthetic_fixture",
+      "upstream_reference_text": "",
+      "upstream_references_verified": false
+    }
+  },
+  "passages": [
+    {
+      "id": "core-dma",
+      "source_key": "array",
+      "synthetic": false,
+      "text": "---\nfrom: phlegm\ndate: 2026-09-02\nevidence: measured\nstack: mlir-aie 1.4.2, Peano 21.0.0 (later runs 21.0.0.2026080301), aiecc build errors quoted below; XRT/driver versions not stated for the early items\n---\n\n- Every core: 2 input + 2 output DMA channels. Build error that names it: `requires 4 input/2 output DMA channels, but only 2 input/2 output available`. Another seen on the DeltaNet glue core: `tile (2, 3) requires 3 input/1 output DMA channels, but only 2 input/2 output available`. A core therefore cannot take a third independent input stream; the fix used was to ride a header record at the front of the weight stream (`[xm bf16 | router output f32[1024]]`).",
+      "excerpt": "- Every core: 2 input + 2 output DMA channels. Build error that names it: `requires 4 input/2 output DMA channels, but only 2 input/2 output available`. Another seen on the DeltaNet glue core: `tile (2, 3) requires 3 input/1 output DMA channels, but only 2 input/2 output available`. A core therefore cannot take a third independent input stream; the fix used was to ride a header record at the front of the weight stream (`[xm bf16 | router output f32[1024]]`).",
+      "source_start": 1192,
+      "source_end": 1654
+    },
+    {
+      "id": "shim-wrap",
+      "source_key": "array",
+      "synthetic": false,
+      "text": "---\nfrom: phlegm\ndate: 2026-09-02\nevidence: measured\nstack: mlir-aie 1.4.2, Peano 21.0.0 (later runs 21.0.0.2026080301), aiecc build errors quoted below; XRT/driver versions not stated for the early items\n---\n\n- A shim BD's outermost dimension wraps silently above 64: a `[72, 2, 64, 64]` K fill read chunks 0-7 nine times (right byte count, no hang, garbage output). Splitting into several fills per pass hung instead. Keep large counts in a middle dimension (`[n_chunks, 64, 128]`) and let the memtile do the head-dim split (dit_fa trap 1). Measured on hardware.",
+      "excerpt": "- A shim BD's outermost dimension wraps silently above 64: a `[72, 2, 64, 64]` K fill read chunks 0-7 nine times (right byte count, no hang, garbage output). Splitting into several fills per pass hung instead. Keep large counts in a middle dimension (`[n_chunks, 64, 128]`) and let the memtile do the head-dim split (dit_fa trap 1). Measured on hardware.",
+      "source_start": 3084,
+      "source_end": 3438
+    },
+    {
+      "id": "granite-stack",
+      "source_key": "granite",
+      "synthetic": false,
+      "text": "---\nfrom: OpenFlowLM-Next3 (C:/code/OpenFlowLM-Next3-decB, branch perf/qwen3-decode-b, HEAD 69e1b98 2026-10-19; same skills on perf/qwen3-decode-a)\ndate: 2026-10-19\nevidence: measured\nstack: Windows 11, Ryzen AI 9 HX PRO 370 (Strix Point), aie2p; IRON / aiecc / Peano from the mlir-aie Windows build, version not stated for these runs (last stated 1.4.2.dev16+g7e00b57 / Peano 21.0.0.2026080301, 2026-09-06); XRT from C:\\Xilinx\\XRT, version not stated; NPU driver and firmware not stated\n---\n\n- Granite attention workers: 0x1800 builds, runs and reads back NaN from the first blocked position (pos >= 4); 0x3000 works (the unrolled tree spills).",
+      "excerpt": "- Granite attention workers: 0x1800 builds, runs and reads back NaN from the first blocked position (pos >= 4); 0x3000 works (the unrolled tree spills).",
+      "source_start": 5169,
+      "source_end": 5321
+    },
+    {
+      "id": "softmax-stack",
+      "source_key": "granite",
+      "synthetic": false,
+      "text": "---\nfrom: OpenFlowLM-Next3 (C:/code/OpenFlowLM-Next3-decB, branch perf/qwen3-decode-b, HEAD 69e1b98 2026-10-19; same skills on perf/qwen3-decode-a)\ndate: 2026-10-19\nevidence: measured\nstack: Windows 11, Ryzen AI 9 HX PRO 370 (Strix Point), aie2p; IRON / aiecc / Peano from the mlir-aie Windows build, version not stated for these runs (last stated 1.4.2.dev16+g7e00b57 / Peano 21.0.0.2026080301, 2026-09-06); XRT from C:\\Xilinx\\XRT, version not stated; NPU driver and firmware not stated\n---\n\n- `attn_fa` softmax with four interleaved exponentials has a 5 KB frame: at a 4 KB stack the array hung (state 8) or, slightly over, returned NaN in ~5 % of rows. `STACK = 0x2000` works.",
+      "excerpt": "- `attn_fa` softmax with four interleaved exponentials has a 5 KB frame: at a 4 KB stack the array hung (state 8) or, slightly over, returned NaN in ~5 % of rows. `STACK = 0x2000` works.",
+      "source_start": 5322,
+      "source_end": 5508
+    },
+    {
+      "id": "transfer-size",
+      "source_key": "llm",
+      "synthetic": false,
+      "text": "---\nfrom: LLMNpuTest (C:/code/LLMNpuTest, main checkout, branch main, HEAD d94836a)\ndate: 2026-09-01\nevidence: measured\nstack: Windows; AMD Ryzen AI 9 HX 370, NPU Strix, 8 columns, AIE2P; XRT 2.21.0; NPU driver 32.0.20102.3930; mlir-aie 1.4.2.dev16+g7e00b57; Peano 21.0.0.2026080301 (Peano only, no Chess); NPU firmware not stated\n---\n\n- A 128-byte shim transfer silently delivers zeros. Attention's q (64 bf16 = 128 B) and its 128 B result both arrived empty, with no error; every score was wrong but in a plausible range. Padding both to 1024 B fixed it. The same design's 8192 B weight stream and 264 B state readback worked. (commit e552d38)\n- The GEMV designs have 128-byte `y` elements and are exact, because there the shim moves the whole drain at once: the shim transfer size matters, not the ObjectFifo element size. (README.md:274-280)",
+      "excerpt": "- A 128-byte shim transfer silently delivers zeros. Attention's q (64 bf16 = 128 B) and its 128 B result both arrived empty, with no error; every score was wrong but in a plausible range. Padding both to 1024 B fixed it. The same design's 8192 B weight stream and 264 B state readback worked. (commit e552d38)\n- The GEMV designs have 128-byte `y` elements and are exact, because there the shim moves the whole drain at once: the shim transfer size matters, not the ObjectFifo element size. (README.md:274-280)",
+      "source_start": 2392,
+      "source_end": 2901
+    },
+    {
+      "id": "l1-budget",
+      "source_key": "llm",
+      "synthetic": false,
+      "text": "---\nfrom: LLMNpuTest (C:/code/LLMNpuTest, main checkout, branch main, HEAD d94836a)\ndate: 2026-09-01\nevidence: measured\nstack: Windows; AMD Ryzen AI 9 HX 370, NPU Strix, 8 columns, AIE2P; XRT 2.21.0; NPU driver 32.0.20102.3930; mlir-aie 1.4.2.dev16+g7e00b57; Peano 21.0.0.2026080301 (Peano only, no Chess); NPU firmware not stated\n---\n\n- Budget used: 64 KB minus the worker stack 0xD00 = 62208 B. Batch 2 with 5 tiles per call needs 61952 B of buffers; it built and ran. The \"63 KB minus stack\" rule (61184 B) would have rejected it, and falling back silently halved the DMA element and cost ~20% throughput. (granite_gemv.py:61-66)",
+      "excerpt": "- Budget used: 64 KB minus the worker stack 0xD00 = 62208 B. Batch 2 with 5 tiles per call needs 61952 B of buffers; it built and ran. The \"63 KB minus stack\" rule (61184 B) would have rejected it, and falling back silently halved the DMA element and cost ~20% throughput. (granite_gemv.py:61-66)",
+      "source_start": 3451,
+      "source_end": 3747
+    },
+    {
+      "id": "rot13",
+      "source_key": "abi",
+      "synthetic": false,
+      "text": "---\nfrom: phlegm\ndate: 2026-09-02\nevidence: measured\nstack: XRT runtime 32.00.20102.3931 for the FLM-kernel drive work (npu-open-engine.md); XRT master 2.26.0 xclbinutil/aiebu-asm for the IRON flow; mlir-aie 1.4.2, Peano 21.0.0; driver/firmware versions not stated for the early items\n---\n\nBoth paths loaded ROT13 (2026-09-01): classic `run k [2 bufs] -> state 4 (0.602 ms)`, ELF `0.447 ms`, output byte-exact. State 4 = completed.",
+      "excerpt": "Both paths loaded ROT13 (2026-09-01): classic `run k [2 bufs] -> state 4 (0.602 ms)`, ELF `0.447 ms`, output byte-exact. State 4 = completed.",
+      "source_start": 1773,
+      "source_end": 1914
+    },
+    {
+      "id": "softmax-mask",
+      "source_key": "arithmetic",
+      "synthetic": false,
+      "text": "---\nfrom: phlegm\ndate: 2026-09-26\nevidence: measured\nstack: mlir-aie 1.4.2 (dev16 build named for the whisper runs), Peano 21.0.0.2026080301, Ryzen AI 9 HX 370 in turbo power mode for the dit_* numbers; XRT/driver not stated in these READMEs\n---\n\n- Masked softmax scores are bf16 `lowest`, not -inf, because the exp argument is `S*c - m*c` in fp32 and -inf would stay -inf on a path that expects finite values (dit_fa trap 5).",
+      "excerpt": "- Masked softmax scores are bf16 `lowest`, not -inf, because the exp argument is `S*c - m*c` in fp32 and -inf would stay -inf on a path that expects finite values (dit_fa trap 5).",
+      "source_start": 4728,
+      "source_end": 4907
+    },
+    {
+      "id": "rounding",
+      "source_key": "arithmetic",
+      "synthetic": false,
+      "text": "---\nfrom: phlegm\ndate: 2026-09-26\nevidence: measured\nstack: mlir-aie 1.4.2 (dev16 build named for the whisper runs), Peano 21.0.0.2026080301, Ryzen AI 9 HX 370 in turbo power mode for the dit_* numbers; XRT/driver not stated in these READMEs\n---\n\nThe core starts in floor rounding (vegah trap list says the same: \"floor rounding default\"). In vae_ew, converting to bf16 before any data kernel ran meant the first dispatch after a context load was 2x less accurate than every later one: 1.8e-4 vs 8.5e-5 rel_fro from identical inputs. Fix: set the rounding mode in the first kernel of every dispatch (`vew_begin`), not only in the data kernels. Measured.",
+      "excerpt": "The core starts in floor rounding (vegah trap list says the same: \"floor rounding default\"). In vae_ew, converting to bf16 before any data kernel ran meant the first dispatch after a context load was 2x less accurate than every later one: 1.8e-4 vs 8.5e-5 rel_fro from identical inputs. Fix: set the rounding mode in the first kernel of every dispatch (`vew_begin`), not only in the data kernels. Measured.",
+      "source_start": 3689,
+      "source_end": 4095
+    },
+    {
+      "id": "synthetic-negation",
+      "source_key": "synthetic-negation",
+      "synthetic": true,
+      "text": "Synthetic test fixture, not a hardware finding.\nOn device Cedar with compiler 1.2, the ash kernel took 7 ms at batch 2. The firmware version was not recorded. This measurement does not establish the latency at other batch sizes.",
+      "excerpt": "Synthetic test fixture, not a hardware finding.\nOn device Cedar with compiler 1.2, the ash kernel took 7 ms at batch 2. The firmware version was not recorded. This measurement does not establish the latency at other batch sizes.",
+      "source_start": 0,
+      "source_end": 228
+    },
+    {
+      "id": "synthetic-questions",
+      "source_key": "synthetic-questions",
+      "synthetic": true,
+      "text": "Synthetic test fixture.\nQuestions for future work:\n- How much stack would the birch kernel require?\n- Could compiler 9.9 change that requirement?",
+      "excerpt": "Synthetic test fixture.\nQuestions for future work:\n- How much stack would the birch kernel require?\n- Could compiler 9.9 change that requirement?",
+      "source_start": 0,
+      "source_end": 145
+    },
+    {
+      "id": "synthetic-version-scope",
+      "source_key": "synthetic-version-scope",
+      "synthetic": true,
+      "text": "Synthetic test fixture, not a hardware finding.\nFor the birch kernel, stack 0x1800 was sufficient only with compiler 1.2. Compiler 1.3 was not tested. The result must not be generalized to compiler 1.3.",
+      "excerpt": "Synthetic test fixture, not a hardware finding.\nFor the birch kernel, stack 0x1800 was sufficient only with compiler 1.2. Compiler 1.3 was not tested. The result must not be generalized to compiler 1.3.",
+      "source_start": 0,
+      "source_end": 202
+    }
+  ],
+  "annotation": "Agent-authored pilot gold, auditable against retained sources; not independent human ground truth."
+}

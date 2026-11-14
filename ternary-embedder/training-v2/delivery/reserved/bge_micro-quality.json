@@ -1,0 +1,43 @@
+{
+  "identity": {
+    "name": "bge_micro",
+    "revision": "3edf6d7de0faa426b09780416fe61009f26ae589",
+    "weights": {
+      "model.safetensors": "792472b64c3ca1c725e55f6a9d2a58143d4ce6b3ffde05bf55bc8427cb3733c8"
+    },
+    "pooling": "masked-mean-unit",
+    "cap": 128
+  },
+  "activation_sha256": "2abb0a30cdf6462724bf890479f1f50d898bccbff96ea12db52474c7fecd5934",
+  "tasks": {
+    "FiQA": {
+      "ndcg10": 23.523113752007443,
+      "recall10": 28.65991775713998,
+      "top1_relevant_queries": 145,
+      "median_first_relevant_rank": 15.0,
+      "median_best_relevant_margin": -0.045320063829422,
+      "queries": 648,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+        "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+        "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+      }
+    },
+    "SCIDOCS": {
+      "ndcg10": 17.52083369347823,
+      "recall10": 18.158333333333335,
+      "top1_relevant_queries": 220,
+      "median_first_relevant_rank": 9.0,
+      "median_best_relevant_margin": -0.047648489475250244,
+      "queries": 1000,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+        "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+        "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+      }
+    }
+  },
+  "token_cap": 128
+}

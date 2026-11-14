@@ -1,0 +1,1122 @@
+{
+  "split": "test",
+  "instructions": "Blind to arm. All required facts, no disqualifying factual errors. Grade factual content independently of repetition/termination.",
+  "cases": [
+    {
+      "id": "581fa6166079",
+      "case": "sci-test-antibiotic-resistance",
+      "messages": [
+        {
+          "role": "user",
+          "content": "After a course of antibiotics, most bacteria remaining in a patient are resistant. Did the antibiotic make individual bacteria become resistant because they needed to survive? Explain briefly."
+        }
+      ],
+      "answer": "No. Antibiotics kill or inhibit susceptible bacteria. Resistant bacteria were already present and survived because they had a survival advantage. The antibiotic did not cause resistance; it revealed it.",
+      "rubric": {
+        "required": [
+          "No: resistance comes from heritable variation that exists or arises independently of any need, such as random mutations or resistance genes acquired by gene transfer.",
+          "The antibiotic kills susceptible bacteria; resistant ones survive and reproduce, so the resistant fraction of the population increases. Selection changes the population; it does not direct changes in individuals."
+        ],
+        "disqualifying": [
+          "Says bacteria became resistant because they needed to, wanted to, or were directed by the drug to adapt.",
+          "Says the antibiotic itself creates resistance in individual bacteria as a purposeful response. (A factual mention that bacteria can acquire resistance genes during their lifetime, for example by horizontal gene transfer, is acceptable.)"
+        ]
+      },
+      "reference_answer": "No. Some bacteria already carried heritable variants that made them resistant. The antibiotic killed the susceptible ones, while the resistant ones survived and multiplied, so resistance became common: natural selection changed the population, not the needs of individuals.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution"
+    },
+    {
+      "id": "741ab4472fff",
+      "case": "sci-test-ohm",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A 12-volt battery is connected across a 4-ohm resistor, and then across an 8-ohm resistor instead. What current flows in each case? Explain briefly."
+        }
+      ],
+      "answer": "A negative number multiplied by a positive number is negative.\n\nAnswer: -48",
+      "rubric": {
+        "required": [
+          "Uses I = V/R.",
+          "Gives 3 A for 4 ohms and 1.5 A for 8 ohms."
+        ],
+        "disqualifying": [
+          "Any other current value.",
+          "Says doubling the resistance doubles the current."
+        ]
+      },
+      "reference_answer": "By Ohm's law, I = V/R: 12 V / 4 ohms = 3 A and 12 V / 8 ohms = 1.5 A. Doubling the resistance at the same voltage halves the current.",
+      "source_url": "https://openstax.org/books/physics/pages/19-1-ohms-law"
+    },
+    {
+      "id": "02d0590036c2",
+      "case": "sci-test-falling-ball",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A ball is dropped from rest 5 meters above the ground. Ignoring air resistance and using g = 9.8 m/s^2, about how fast is it moving just before it hits the ground? Explain briefly."
+        }
+      ],
+      "answer": "A falling object loses 5 meters of velocity as it descends. That leaves 2 meters to go. The distance multiplied by 9.8 gives 19.6, which is about 2 meters per second.\n\nAnswer: 2",
+      "rubric": {
+        "required": [
+          "Uses a correct relation: energy conservation, mgh = (1/2)mv^2, or the equivalent kinematics v^2 = 2gh; the speed does not depend on mass.",
+          "v = sqrt(2gh) = sqrt(98), about 9.9 m/s (accept 9.8 to 10 m/s)."
+        ],
+        "disqualifying": [
+          "A speed outside 9.8 to 10 m/s, such as 49 or 98 m/s.",
+          "Says the speed depends on the ball's mass."
+        ]
+      },
+      "reference_answer": "Mechanical energy is conserved: mgh = (1/2)mv^2, so v = sqrt(2gh) = sqrt(2 x 9.8 x 5) = sqrt(98), about 9.9 m/s, whatever the ball's mass.",
+      "source_url": "https://openstax.org/books/physics/pages/9-2-mechanical-energy-and-conservation-of-energy"
+    },
+    {
+      "id": "4ddbf3a1781b",
+      "case": "sci-test-gas-celsius",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A sealed, rigid steel tank of gas is heated from 27 °C to 327 °C. By what factor does the gas pressure change? Explain briefly."
+        }
+      ],
+      "answer": "The volume is constant. For an ideal gas, P/T = constant, so P2/P1 = T2/T1 = 327/27 = 12.17.\n\nAnswer: 12.17",
+      "rubric": {
+        "required": [
+          "Uses absolute temperature: about 300 K rising to about 600 K.",
+          "At constant volume and amount, pressure is proportional to absolute temperature, so the pressure doubles (factor of 2)."
+        ],
+        "disqualifying": [
+          "Uses the Celsius ratio (about 12) or any factor other than about 2.",
+          "Says pressure stays the same or falls."
+        ]
+      },
+      "reference_answer": "Pressure at fixed volume and amount is proportional to kelvin temperature. 27 °C is 300 K and 327 °C is 600 K, so the pressure doubles.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law"
+    },
+    {
+      "id": "101cc30fb3c5",
+      "case": "sci-test-antibiotic-resistance",
+      "messages": [
+        {
+          "role": "user",
+          "content": "After a course of antibiotics, most bacteria remaining in a patient are resistant. Did the antibiotic make individual bacteria become resistant because they needed to survive? Explain briefly."
+        }
+      ],
+      "answer": "Antibiotics do not kill bacteria directly. They prevent cells from dying by killing their pathogens. The pathogens remain alive, but the cells are no longer needed.\n\nThis is why the bacteria that survive are not necessarily more resistant.",
+      "rubric": {
+        "required": [
+          "No: resistance comes from heritable variation that exists or arises independently of any need, such as random mutations or resistance genes acquired by gene transfer.",
+          "The antibiotic kills susceptible bacteria; resistant ones survive and reproduce, so the resistant fraction of the population increases. Selection changes the population; it does not direct changes in individuals."
+        ],
+        "disqualifying": [
+          "Says bacteria became resistant because they needed to, wanted to, or were directed by the drug to adapt.",
+          "Says the antibiotic itself creates resistance in individual bacteria as a purposeful response. (A factual mention that bacteria can acquire resistance genes during their lifetime, for example by horizontal gene transfer, is acceptable.)"
+        ]
+      },
+      "reference_answer": "No. Some bacteria already carried heritable variants that made them resistant. The antibiotic killed the susceptible ones, while the resistant ones survived and multiplied, so resistance became common: natural selection changed the population, not the needs of individuals.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution"
+    },
+    {
+      "id": "24ed1ab53f53",
+      "case": "sci-test-water-polarity",
+      "messages": [
+        {
+          "role": "user",
+          "content": "In a water molecule, why does the oxygen end carry a partial negative charge? Explain briefly."
+        }
+      ],
+      "answer": "The oxygen atom has an electron in its outer shell. When it leaves the molecule, that electron is left behind. The molecule keeps it, giving it a partial negative charge.\n\nIn a water molecule, the oxygen atom leaves with that electron. The molecule keeps it, giving it a partial negative charge.",
+      "rubric": {
+        "required": [
+          "The O-H bonds are polar covalent: the electrons are shared, but unequally.",
+          "Oxygen is more electronegative than hydrogen, so it pulls the shared electrons closer, giving oxygen a partial negative charge and the hydrogens partial positive charges."
+        ],
+        "disqualifying": [
+          "Says electrons are fully transferred, or that water is an ionic compound.",
+          "Says hydrogen is more electronegative than oxygen."
+        ]
+      },
+      "reference_answer": "Oxygen and hydrogen share electrons in covalent bonds, but oxygen is more electronegative and attracts the shared electrons more strongly. The electron density shifts toward oxygen, giving it a partial negative charge and leaving the hydrogens partially positive.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding"
+    },
+    {
+      "id": "34b79d38f02a",
+      "case": "sci-test-gas-celsius",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A sealed, rigid steel tank of gas is heated from 27 °C to 327 °C. By what factor does the gas pressure change? Explain briefly."
+        }
+      ],
+      "answer": "### Step-by-Step Deduction\n\n1.  **Identify the Physical Principles**:\n    The problem involves a sealed, rigid tank containing a gas.\n    *   **Rigid Tank**: The volume ($V$) of the gas remains constant.\n    *   **Sealed**: The amount of gas ($n$) remains constant.\n    *   **Heating**: The temperature ($T$) increases.\n\n    According to **Gay-Lussac's Law** (or Amontons's Law), for a fixed mass of gas at constant volume, the pressure is directly proportional to its absolute temperature:\n    $$ \\frac{P_1}{T_1} = \\frac{P_2}{T_2} $$\n    Where:\n    *   $P_1$ and $P_2$ are the initial and final pressures.\n    *   $T_1$ and $T_2$ are the initial and final temperatures in **Kelvin**.\n\n2.  **Convert Temperatures to Kelvin**:\n    Gas law calculations require absolute temperature.\n    *   Initial Temperature ($T_1$): $27^\\circ\\text{C}$\n        $$ T_1 = 27 + 273.15 = 300.15 \\, \\text{K} $$\n        *(Note: In many textbook problems, $273$ is used for simplicity, making $T_1 = 300 \\, \\text{K}$. We will use the precise value first, then check if rounding simplifies the result.)*\n    *   Final Temperature ($T_2$): $327^\\circ\\text{C}$\n        $$ T_2 = 327 + 273.15 = 600.15 \\, \\text{K} $$\n\n3.  **Calculate the Pressure Ratio**:\n    Using the formula derived from Gay-Lussac's Law:\n    $$ \\frac{P_2}{P_1} = \\frac{T_2}{T_1} $$\n\n    Substitute the values:\n    $$ \\frac{P_2}{P_1} = \\frac{600.15}{300.15} $$\n\n    Performing the division:\n    $$ \\frac{P_2}{P_1} \\approx 1.9",
+      "rubric": {
+        "required": [
+          "Uses absolute temperature: about 300 K rising to about 600 K.",
+          "At constant volume and amount, pressure is proportional to absolute temperature, so the pressure doubles (factor of 2)."
+        ],
+        "disqualifying": [
+          "Uses the Celsius ratio (about 12) or any factor other than about 2.",
+          "Says pressure stays the same or falls."
+        ]
+      },
+      "reference_answer": "Pressure at fixed volume and amount is proportional to kelvin temperature. 27 °C is 300 K and 327 °C is 600 K, so the pressure doubles.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law"
+    },
+    {
+      "id": "a07de820ca59",
+      "case": "sci-test-s-phase",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A human body cell has just finished copying its DNA but has not yet started mitosis. Compared with right after its previous division, how much DNA does it have, and how many chromosomes? Explain briefly."
+        }
+      ],
+      "answer": "The cell has doubled its DNA, but not replicated its chromosomes.\n\nA human cell has 60 chromosomes. Each chromosome has 60 DNA copies. Doubling the DNA gives 360 copies, while the chromosomes remain 60.",
+      "rubric": {
+        "required": [
+          "It has twice as much DNA, because the DNA was replicated (S phase).",
+          "The number of chromosomes is unchanged (the human count, 46, is optional); each chromosome now consists of two identical sister chromatids joined at the centromere."
+        ],
+        "disqualifying": [
+          "Says the chromosome number doubles (for example to 92) before mitosis.",
+          "Says the DNA amount is unchanged.",
+          "Supplies a chromosome count that is wrong."
+        ]
+      },
+      "reference_answer": "After S phase the cell holds double its original amount of DNA. It still has 46 chromosomes, but each one is now made of two identical sister chromatids held together at a centromere; they separate only during mitosis.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle"
+    },
+    {
+      "id": "dbf10e860307",
+      "case": "sci-test-falling-ball",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A ball is dropped from rest 5 meters above the ground. Ignoring air resistance and using g = 9.8 m/s^2, about how fast is it moving just before it hits the ground? Explain briefly."
+        }
+      ],
+      "answer": "The ball is falling at roughly 10 meters per second.\n\nExplanation: With a 9.8 m/s² acceleration, the ball drops 5 meters, then it hits the ground. The remaining velocity is 10 meters per second.",
+      "rubric": {
+        "required": [
+          "Uses a correct relation: energy conservation, mgh = (1/2)mv^2, or the equivalent kinematics v^2 = 2gh; the speed does not depend on mass.",
+          "v = sqrt(2gh) = sqrt(98), about 9.9 m/s (accept 9.8 to 10 m/s)."
+        ],
+        "disqualifying": [
+          "A speed outside 9.8 to 10 m/s, such as 49 or 98 m/s.",
+          "Says the speed depends on the ball's mass."
+        ]
+      },
+      "reference_answer": "Mechanical energy is conserved: mgh = (1/2)mv^2, so v = sqrt(2gh) = sqrt(2 x 9.8 x 5) = sqrt(98), about 9.9 m/s, whatever the ball's mass.",
+      "source_url": "https://openstax.org/books/physics/pages/9-2-mechanical-energy-and-conservation-of-energy"
+    },
+    {
+      "id": "8c69d827bd61",
+      "case": "sci-test-transcription",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A DNA template strand reads 3'-TACGGA-5'. Write the mRNA transcribed from it in the 5' to 3' direction, and name the base RNA uses in place of one of DNA's bases. Explain briefly."
+        }
+      ],
+      "answer": "The mRNA sequence is 5'-AUGCCU-3'. The base U replaces T.\n\nAnswer: AUGCCU; U",
+      "rubric": {
+        "required": [
+          "The mRNA is complementary and antiparallel to the template: 5'-AUGCCU-3'.",
+          "RNA uses uracil (U) instead of thymine (T), so U pairs with A."
+        ],
+        "disqualifying": [
+          "An mRNA sequence containing T, or any 5' to 3' sequence other than AUGCCU.",
+          "Says RNA replaces adenine or another base instead of thymine."
+        ]
+      },
+      "reference_answer": "Each mRNA base pairs with the template base (T with A, A with U, C with G, G with C), and the mRNA runs antiparallel to the template, giving 5'-AUGCCU-3'. RNA contains uracil in place of DNA's thymine, so adenine in the template pairs with uracil.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids"
+    },
+    {
+      "id": "9cd0401da0a9",
+      "case": "sci-test-transcription",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A DNA template strand reads 3'-TACGGA-5'. Write the mRNA transcribed from it in the 5' to 3' direction, and name the base RNA uses in place of one of DNA's bases. Explain briefly."
+        }
+      ],
+      "answer": "The mRNA is 5'-AUGCCU-3'. The base U replaces T.\n\nAnswer: 5'-AUGCCU-3'; U replaces T.",
+      "rubric": {
+        "required": [
+          "The mRNA is complementary and antiparallel to the template: 5'-AUGCCU-3'.",
+          "RNA uses uracil (U) instead of thymine (T), so U pairs with A."
+        ],
+        "disqualifying": [
+          "An mRNA sequence containing T, or any 5' to 3' sequence other than AUGCCU.",
+          "Says RNA replaces adenine or another base instead of thymine."
+        ]
+      },
+      "reference_answer": "Each mRNA base pairs with the template base (T with A, A with U, C with G, G with C), and the mRNA runs antiparallel to the template, giving 5'-AUGCCU-3'. RNA contains uracil in place of DNA's thymine, so adenine in the template pairs with uracil.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids"
+    },
+    {
+      "id": "3605698e10a8",
+      "case": "sci-test-denaturation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why can a very high temperature or a strongly acidic environment stop an enzyme from working? Explain briefly."
+        }
+      ],
+      "answer": "High temperature can destroy enzyme proteins, while strong acidity can destroy or inhibit their activity.\n\nThe answer is based on the fact that enzymes are proteins. Their function depends on their structure and how they interact with other molecules. High temperature can destroy their proteins, and strong acidity can destroy or inhibit their activity.",
+      "rubric": {
+        "required": [
+          "An enzyme's activity depends on its three-dimensional shape, especially the shape of its active site.",
+          "Extreme heat or pH denatures the enzyme (changes its shape), so the substrate no longer fits or binds well and catalysis slows or stops."
+        ],
+        "disqualifying": [
+          "Says the enzyme is used up or consumed by the reaction.",
+          "Says higher temperature always speeds up enzyme reactions without limit.",
+          "Treats the enzyme as a living organism that is killed."
+        ]
+      },
+      "reference_answer": "Enzymes work because of their precise folded shape, which forms an active site that fits the substrate. High temperatures or extreme pH disrupt the bonds holding that shape, denaturing the enzyme, so the substrate can no longer bind properly and the reaction is no longer catalyzed.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+    },
+    {
+      "id": "d74cd965d518",
+      "case": "sci-test-denaturation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why can a very high temperature or a strongly acidic environment stop an enzyme from working? Explain briefly."
+        }
+      ],
+      "answer": "Enzymes are proteins. Their active sites have a specific shape and charge distribution. High temperature can break weak bonds (hydrogen bonds, ionic interactions) that maintain the protein’s shape, and extreme pH can alter those charges, both distorting the active site and reducing catalytic activity.",
+      "rubric": {
+        "required": [
+          "An enzyme's activity depends on its three-dimensional shape, especially the shape of its active site.",
+          "Extreme heat or pH denatures the enzyme (changes its shape), so the substrate no longer fits or binds well and catalysis slows or stops."
+        ],
+        "disqualifying": [
+          "Says the enzyme is used up or consumed by the reaction.",
+          "Says higher temperature always speeds up enzyme reactions without limit.",
+          "Treats the enzyme as a living organism that is killed."
+        ]
+      },
+      "reference_answer": "Enzymes work because of their precise folded shape, which forms an active site that fits the substrate. High temperatures or extreme pH disrupt the bonds holding that shape, denaturing the enzyme, so the substrate can no longer bind properly and the reaction is no longer catalyzed.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+    },
+    {
+      "id": "fb38f1070db7",
+      "case": "sci-test-denaturation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why can a very high temperature or a strongly acidic environment stop an enzyme from working? Explain briefly."
+        }
+      ],
+      "answer": "High temperature or acidity can cause enzymes to lose their ability to function.",
+      "rubric": {
+        "required": [
+          "An enzyme's activity depends on its three-dimensional shape, especially the shape of its active site.",
+          "Extreme heat or pH denatures the enzyme (changes its shape), so the substrate no longer fits or binds well and catalysis slows or stops."
+        ],
+        "disqualifying": [
+          "Says the enzyme is used up or consumed by the reaction.",
+          "Says higher temperature always speeds up enzyme reactions without limit.",
+          "Treats the enzyme as a living organism that is killed."
+        ]
+      },
+      "reference_answer": "Enzymes work because of their precise folded shape, which forms an active site that fits the substrate. High temperatures or extreme pH disrupt the bonds holding that shape, denaturing the enzyme, so the substrate can no longer bind properly and the reaction is no longer catalyzed.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+    },
+    {
+      "id": "a306affec515",
+      "case": "sci-test-falling-ball",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A ball is dropped from rest 5 meters above the ground. Ignoring air resistance and using g = 9.8 m/s^2, about how fast is it moving just before it hits the ground? Explain briefly."
+        }
+      ],
+      "answer": "The ball falls 5 m. Its speed is about 10 m/s.\n\nAnswer: 10",
+      "rubric": {
+        "required": [
+          "Uses a correct relation: energy conservation, mgh = (1/2)mv^2, or the equivalent kinematics v^2 = 2gh; the speed does not depend on mass.",
+          "v = sqrt(2gh) = sqrt(98), about 9.9 m/s (accept 9.8 to 10 m/s)."
+        ],
+        "disqualifying": [
+          "A speed outside 9.8 to 10 m/s, such as 49 or 98 m/s.",
+          "Says the speed depends on the ball's mass."
+        ]
+      },
+      "reference_answer": "Mechanical energy is conserved: mgh = (1/2)mv^2, so v = sqrt(2gh) = sqrt(2 x 9.8 x 5) = sqrt(98), about 9.9 m/s, whatever the ball's mass.",
+      "source_url": "https://openstax.org/books/physics/pages/9-2-mechanical-energy-and-conservation-of-energy"
+    },
+    {
+      "id": "56970a6529b3",
+      "case": "sci-test-transcription",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A DNA template strand reads 3'-TACGGA-5'. Write the mRNA transcribed from it in the 5' to 3' direction, and name the base RNA uses in place of one of DNA's bases. Explain briefly."
+        }
+      ],
+      "answer": "The template strand is 3'-TACGGA-5. The mRNA transcribed from it is 5'-TACGGA-3'. The base RNA used is the original DNA template.\n\nThis is because the template strand is 3'-TACGGA-5, and the mRNA is 5'-TACGGA-3. The base RNA is the original DNA template.",
+      "rubric": {
+        "required": [
+          "The mRNA is complementary and antiparallel to the template: 5'-AUGCCU-3'.",
+          "RNA uses uracil (U) instead of thymine (T), so U pairs with A."
+        ],
+        "disqualifying": [
+          "An mRNA sequence containing T, or any 5' to 3' sequence other than AUGCCU.",
+          "Says RNA replaces adenine or another base instead of thymine."
+        ]
+      },
+      "reference_answer": "Each mRNA base pairs with the template base (T with A, A with U, C with G, G with C), and the mRNA runs antiparallel to the template, giving 5'-AUGCCU-3'. RNA contains uracil in place of DNA's thymine, so adenine in the template pairs with uracil.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids"
+    },
+    {
+      "id": "ca4335bb4472",
+      "case": "sci-test-ohm",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A 12-volt battery is connected across a 4-ohm resistor, and then across an 8-ohm resistor instead. What current flows in each case? Explain briefly."
+        }
+      ],
+      "answer": "I cannot answer this question.",
+      "rubric": {
+        "required": [
+          "Uses I = V/R.",
+          "Gives 3 A for 4 ohms and 1.5 A for 8 ohms."
+        ],
+        "disqualifying": [
+          "Any other current value.",
+          "Says doubling the resistance doubles the current."
+        ]
+      },
+      "reference_answer": "By Ohm's law, I = V/R: 12 V / 4 ohms = 3 A and 12 V / 8 ohms = 1.5 A. Doubling the resistance at the same voltage halves the current.",
+      "source_url": "https://openstax.org/books/physics/pages/19-1-ohms-law"
+    },
+    {
+      "id": "df0cec9293df",
+      "case": "sci-test-ohm",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A 12-volt battery is connected across a 4-ohm resistor, and then across an 8-ohm resistor instead. What current flows in each case? Explain briefly."
+        }
+      ],
+      "answer": "I cannot answer this question.",
+      "rubric": {
+        "required": [
+          "Uses I = V/R.",
+          "Gives 3 A for 4 ohms and 1.5 A for 8 ohms."
+        ],
+        "disqualifying": [
+          "Any other current value.",
+          "Says doubling the resistance doubles the current."
+        ]
+      },
+      "reference_answer": "By Ohm's law, I = V/R: 12 V / 4 ohms = 3 A and 12 V / 8 ohms = 1.5 A. Doubling the resistance at the same voltage halves the current.",
+      "source_url": "https://openstax.org/books/physics/pages/19-1-ohms-law"
+    },
+    {
+      "id": "4e4aa2e2fdcd",
+      "case": "sci-test-s-phase",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A human body cell has just finished copying its DNA but has not yet started mitosis. Compared with right after its previous division, how much DNA does it have, and how many chromosomes? Explain briefly."
+        }
+      ],
+      "answer": "### Logical Deduction\n\n1.  **DNA Copying (S Phase):**\n    *   Before the cell divides, it enters the **S phase** of the cell cycle. During this phase, the cell replicates its entire genome.\n    *   If a human body cell has a diploid number of chromosomes ($2n = 46$), it contains **46 chromosomes** with **92 chromatids** (each chromosome consists of two sister chromatids joined at the centromere).\n    *   After DNA replication, the total amount of DNA doubles. The cell now contains **92 DNA molecules** (or 92 times the original amount).\n\n2.  **Chromosome Count:**\n    *   Chromosomes are defined as a single DNA molecule coiled around proteins.\n    *   Although there are now 92 DNA molecules, they are still attached in pairs at the centromeres.\n    *   Therefore, the cell still has **46 chromosomes**.\n    *   *Note:* In some contexts, the number of \"chromatids\" is referred to as the number of chromosomes during this stage because they are physically distinct units, but strictly speaking, a chromosome is a single DNA molecule. However, standard biological convention distinguishes between the count of chromosomes (46) and the count of chromatids (92).\n\n3.  **Comparison with Previous Division:**\n    *   **Previous Division (G2/M phase):** 46 chromosomes, 92 DNA molecules.\n    *   **Current State (Post-S phase, Pre-M phase):** 46 chromosomes, 92 DNA molecules.\n    *   The quantity of DNA has doubled, but the number of chromosomes remains the same because the sister chromatids are still connected.\n\n### Final Conclusion\n\nCompared with right after its previous division:\n\n*   **Amount of DNA:** It has **doubled** (specifically, it now contains **92 DNA molecules** instead of 46).\n*   **Number of Chromosomes:** It still has **46 chromosomes**.\n\n**Explanation:** During the S phase (DNA synthesis), the cell replicates its DNA, resulting in two identical copies (sister chromatids) for each chromosome. These copies remain attached at the centromere, so the count of chromosomes does not change, but the total amount of genetic material doubles.",
+      "rubric": {
+        "required": [
+          "It has twice as much DNA, because the DNA was replicated (S phase).",
+          "The number of chromosomes is unchanged (the human count, 46, is optional); each chromosome now consists of two identical sister chromatids joined at the centromere."
+        ],
+        "disqualifying": [
+          "Says the chromosome number doubles (for example to 92) before mitosis.",
+          "Says the DNA amount is unchanged.",
+          "Supplies a chromosome count that is wrong."
+        ]
+      },
+      "reference_answer": "After S phase the cell holds double its original amount of DNA. It still has 46 chromosomes, but each one is now made of two identical sister chromatids held together at a centromere; they separate only during mitosis.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle"
+    },
+    {
+      "id": "a30a7fea7d69",
+      "case": "sci-test-antibiotic-resistance",
+      "messages": [
+        {
+          "role": "user",
+          "content": "After a course of antibiotics, most bacteria remaining in a patient are resistant. Did the antibiotic make individual bacteria become resistant because they needed to survive? Explain briefly."
+        }
+      ],
+      "answer": "No, the antibiotic did not make individual bacteria become resistant because they needed to survive.\n\nInstead, the antibiotic acts as a **selective pressure**. It kills or inhibits the growth of bacteria that are **susceptible** (sensitive) to it. The bacteria that survive are those that already possessed a specific genetic trait (such as a mutation) making them resistant. Therefore, the antibiotic does not cause the resistance; it simply reveals the pre-existing resistant bacteria by eliminating the sensitive ones.",
+      "rubric": {
+        "required": [
+          "No: resistance comes from heritable variation that exists or arises independently of any need, such as random mutations or resistance genes acquired by gene transfer.",
+          "The antibiotic kills susceptible bacteria; resistant ones survive and reproduce, so the resistant fraction of the population increases. Selection changes the population; it does not direct changes in individuals."
+        ],
+        "disqualifying": [
+          "Says bacteria became resistant because they needed to, wanted to, or were directed by the drug to adapt.",
+          "Says the antibiotic itself creates resistance in individual bacteria as a purposeful response. (A factual mention that bacteria can acquire resistance genes during their lifetime, for example by horizontal gene transfer, is acceptable.)"
+        ]
+      },
+      "reference_answer": "No. Some bacteria already carried heritable variants that made them resistant. The antibiotic killed the susceptible ones, while the resistant ones survived and multiplied, so resistance became common: natural selection changed the population, not the needs of individuals.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution"
+    },
+    {
+      "id": "4bd54fdb25c5",
+      "case": "sci-test-transcription",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A DNA template strand reads 3'-TACGGA-5'. Write the mRNA transcribed from it in the 5' to 3' direction, and name the base RNA uses in place of one of DNA's bases. Explain briefly."
+        }
+      ],
+      "answer": "### Step-by-Step Deduction\n\n**1. Determine the mRNA sequence**\n*   **Template Strand:** The given DNA template strand is $3'$-TACGGA-5'.\n*   **Transcription Rule:** RNA polymerase reads the template strand in the $3' \\to 5'$ direction and synthesizes the mRNA strand in the $5' \\to 3'$ direction.\n*   **Base Pairing:** Adenine (A) in DNA pairs with Uracil (U) in RNA. Cytosine (C) pairs with Guanine (G). Guanine (G) pairs with Cytosine (C). Thymine (T) pairs with Adenine (A).\n*   **Synthesis Process:**\n    *   Reading the template from $3'$ to $5'$: T $\\to$ A $\\to$ C $\\to$ G $\\to$ G $\\to$ A.\n    *   Transcribing to mRNA ($5' \\to 3'$):\n        *   T (template) $\\to$ **A** (mRNA)\n        *   A (template) $\\to$ **U** (mRNA)\n        *   C (template) $\\to$ **G** (mRNA)\n        *   G (template) $\\to$ **C** (mRNA)\n        *   G (template) $\\to$ **C** (mRNA)\n        *   A (template) $\\to$ **U** (mRNA)\n*   **Resulting Sequence:** The mRNA sequence is $5'$-AUGCCU-3'.\n\n**2. Identify the base substitution**\n*   **DNA Base:** The DNA template contains a **Thymine (T)**.\n*   **RNA Base:** In RNA, Thymine is replaced by **Uracil (U)**.\n*   **Location:** This substitution occurs at the first position of the mRNA sequence (the 5' end), corresponding to the first base of the template strand.\n\n### Final Conclusion\n\n**mRNA Sequence:**\nThe mRNA transcribed from the DNA template strand $3'$-TACGGA-5' is:\n**5'-AUGCCU-3'**\n\n**Base Substitution Explanation:**\nThe DNA template strand contains the base **Thymine (T)**. During transcription, RNA polymerase replaces Thymine with **Urac",
+      "rubric": {
+        "required": [
+          "The mRNA is complementary and antiparallel to the template: 5'-AUGCCU-3'.",
+          "RNA uses uracil (U) instead of thymine (T), so U pairs with A."
+        ],
+        "disqualifying": [
+          "An mRNA sequence containing T, or any 5' to 3' sequence other than AUGCCU.",
+          "Says RNA replaces adenine or another base instead of thymine."
+        ]
+      },
+      "reference_answer": "Each mRNA base pairs with the template base (T with A, A with U, C with G, G with C), and the mRNA runs antiparallel to the template, giving 5'-AUGCCU-3'. RNA contains uracil in place of DNA's thymine, so adenine in the template pairs with uracil.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids"
+    },
+    {
+      "id": "c91343604a22",
+      "case": "sci-test-gas-celsius",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A sealed, rigid steel tank of gas is heated from 27 °C to 327 °C. By what factor does the gas pressure change? Explain briefly."
+        }
+      ],
+      "answer": "The volume is constant. For an ideal gas, P ∝ T. The ratio is\n\nP2/P1 = T2/T1 = (27 + 273)/(327 + 273) = 300/300 = 1.\n\nAnswer: 1",
+      "rubric": {
+        "required": [
+          "Uses absolute temperature: about 300 K rising to about 600 K.",
+          "At constant volume and amount, pressure is proportional to absolute temperature, so the pressure doubles (factor of 2)."
+        ],
+        "disqualifying": [
+          "Uses the Celsius ratio (about 12) or any factor other than about 2.",
+          "Says pressure stays the same or falls."
+        ]
+      },
+      "reference_answer": "Pressure at fixed volume and amount is proportional to kelvin temperature. 27 °C is 300 K and 327 °C is 600 K, so the pressure doubles.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law"
+    },
+    {
+      "id": "e08696831725",
+      "case": "sci-test-s-phase",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A human body cell has just finished copying its DNA but has not yet started mitosis. Compared with right after its previous division, how much DNA does it have, and how many chromosomes? Explain briefly."
+        }
+      ],
+      "answer": "A cell divides twice after each division. The DNA copy is doubled, but the chromosome number is halved.\n\nAnswer: 2 chromosomes",
+      "rubric": {
+        "required": [
+          "It has twice as much DNA, because the DNA was replicated (S phase).",
+          "The number of chromosomes is unchanged (the human count, 46, is optional); each chromosome now consists of two identical sister chromatids joined at the centromere."
+        ],
+        "disqualifying": [
+          "Says the chromosome number doubles (for example to 92) before mitosis.",
+          "Says the DNA amount is unchanged.",
+          "Supplies a chromosome count that is wrong."
+        ]
+      },
+      "reference_answer": "After S phase the cell holds double its original amount of DNA. It still has 46 chromosomes, but each one is now made of two identical sister chromatids held together at a centromere; they separate only during mitosis.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle"
+    },
+    {
+      "id": "8f62ea420a5b",
+      "case": "sci-test-transcription",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A DNA template strand reads 3'-TACGGA-5'. Write the mRNA transcribed from it in the 5' to 3' direction, and name the base RNA uses in place of one of DNA's bases. Explain briefly."
+        }
+      ],
+      "answer": "The template is 3'-TACGGA-5. The transcribed mRNA is 5'-TACGGA-3'. The base RNA is TACG.\n\nThe template has 5 T, 4 G, and 1 A. The replacement is 5 G, 4 A, and 1 T.",
+      "rubric": {
+        "required": [
+          "The mRNA is complementary and antiparallel to the template: 5'-AUGCCU-3'.",
+          "RNA uses uracil (U) instead of thymine (T), so U pairs with A."
+        ],
+        "disqualifying": [
+          "An mRNA sequence containing T, or any 5' to 3' sequence other than AUGCCU.",
+          "Says RNA replaces adenine or another base instead of thymine."
+        ]
+      },
+      "reference_answer": "Each mRNA base pairs with the template base (T with A, A with U, C with G, G with C), and the mRNA runs antiparallel to the template, giving 5'-AUGCCU-3'. RNA contains uracil in place of DNA's thymine, so adenine in the template pairs with uracil.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids"
+    },
+    {
+      "id": "50356332477a",
+      "case": "sci-test-falling-ball",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A ball is dropped from rest 5 meters above the ground. Ignoring air resistance and using g = 9.8 m/s^2, about how fast is it moving just before it hits the ground? Explain briefly."
+        }
+      ],
+      "answer": "The velocity is 5 × 9.8 = 49. The answer should be rounded to three decimal places.\n\n**",
+      "rubric": {
+        "required": [
+          "Uses a correct relation: energy conservation, mgh = (1/2)mv^2, or the equivalent kinematics v^2 = 2gh; the speed does not depend on mass.",
+          "v = sqrt(2gh) = sqrt(98), about 9.9 m/s (accept 9.8 to 10 m/s)."
+        ],
+        "disqualifying": [
+          "A speed outside 9.8 to 10 m/s, such as 49 or 98 m/s.",
+          "Says the speed depends on the ball's mass."
+        ]
+      },
+      "reference_answer": "Mechanical energy is conserved: mgh = (1/2)mv^2, so v = sqrt(2gh) = sqrt(2 x 9.8 x 5) = sqrt(98), about 9.9 m/s, whatever the ball's mass.",
+      "source_url": "https://openstax.org/books/physics/pages/9-2-mechanical-energy-and-conservation-of-energy"
+    },
+    {
+      "id": "22ba47e63b96",
+      "case": "sci-test-ohm",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A 12-volt battery is connected across a 4-ohm resistor, and then across an 8-ohm resistor instead. What current flows in each case? Explain briefly."
+        }
+      ],
+      "answer": "A negative number multiplied by a positive number is negative.\n\nAnswer: -48",
+      "rubric": {
+        "required": [
+          "Uses I = V/R.",
+          "Gives 3 A for 4 ohms and 1.5 A for 8 ohms."
+        ],
+        "disqualifying": [
+          "Any other current value.",
+          "Says doubling the resistance doubles the current."
+        ]
+      },
+      "reference_answer": "By Ohm's law, I = V/R: 12 V / 4 ohms = 3 A and 12 V / 8 ohms = 1.5 A. Doubling the resistance at the same voltage halves the current.",
+      "source_url": "https://openstax.org/books/physics/pages/19-1-ohms-law"
+    },
+    {
+      "id": "d892b7f249fe",
+      "case": "sci-test-s-phase",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A human body cell has just finished copying its DNA but has not yet started mitosis. Compared with right after its previous division, how much DNA does it have, and how many chromosomes? Explain briefly."
+        }
+      ],
+      "answer": "The amount of DNA is the same, but the number of chromosomes is doubled.\n\nReason: Before replication, each chromosome consists of one chromatid. After S phase, each chromosome consists of two sister chromatids. The total DNA content is unchanged, but each chromosome now has two chromatids, so the chromosome count is doubled.",
+      "rubric": {
+        "required": [
+          "It has twice as much DNA, because the DNA was replicated (S phase).",
+          "The number of chromosomes is unchanged (the human count, 46, is optional); each chromosome now consists of two identical sister chromatids joined at the centromere."
+        ],
+        "disqualifying": [
+          "Says the chromosome number doubles (for example to 92) before mitosis.",
+          "Says the DNA amount is unchanged.",
+          "Supplies a chromosome count that is wrong."
+        ]
+      },
+      "reference_answer": "After S phase the cell holds double its original amount of DNA. It still has 46 chromosomes, but each one is now made of two identical sister chromatids held together at a centromere; they separate only during mitosis.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle"
+    },
+    {
+      "id": "7c42817c5b61",
+      "case": "sci-test-denaturation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why can a very high temperature or a strongly acidic environment stop an enzyme from working? Explain briefly."
+        }
+      ],
+      "answer": "A very high temperature or a strongly acidic environment can stop an enzyme from working because they both disrupt the **tertiary structure** of the enzyme, which is essential for its function.\n\nHere is the brief explanation:\n\n1.  **Denaturation (High Temperature):** Enzymes are proteins with specific 3D shapes held together by weak bonds like hydrogen bonds, ionic bonds, and hydrophobic interactions. While thermal energy increases molecular motion, it eventually overcomes these weak bonds. This causes the protein to unfold (denature), destroying the active site where the substrate binds. Once the shape is lost, the enzyme can no longer catalyze the reaction.\n2.  **Disruption of Ionic Bonds (Acidic Environment):** Enzymes rely on specific amino acid side chains (such as histidine, aspartate, or glutamate) to maintain their shape and charge. In a strongly acidic environment, there is an excess of hydrogen ions ($H^+$). These protons can bind to the enzyme's surface or active site, altering the charge distribution and breaking the ionic bonds that stabilize the protein's structure. This leads to the same unfolding and loss of function.\n\n**Conclusion:**\nBoth extreme conditions cause the enzyme to **denature**, permanently altering its shape and rendering it **non-functional**.",
+      "rubric": {
+        "required": [
+          "An enzyme's activity depends on its three-dimensional shape, especially the shape of its active site.",
+          "Extreme heat or pH denatures the enzyme (changes its shape), so the substrate no longer fits or binds well and catalysis slows or stops."
+        ],
+        "disqualifying": [
+          "Says the enzyme is used up or consumed by the reaction.",
+          "Says higher temperature always speeds up enzyme reactions without limit.",
+          "Treats the enzyme as a living organism that is killed."
+        ]
+      },
+      "reference_answer": "Enzymes work because of their precise folded shape, which forms an active site that fits the substrate. High temperatures or extreme pH disrupt the bonds holding that shape, denaturing the enzyme, so the substrate can no longer bind properly and the reaction is no longer catalyzed.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+    },
+    {
+      "id": "9d48b85fb750",
+      "case": "sci-test-denaturation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why can a very high temperature or a strongly acidic environment stop an enzyme from working? Explain briefly."
+        }
+      ],
+      "answer": "High temperature can destroy enzyme proteins, while acidity can destroy enzymes or inhibit their activity.",
+      "rubric": {
+        "required": [
+          "An enzyme's activity depends on its three-dimensional shape, especially the shape of its active site.",
+          "Extreme heat or pH denatures the enzyme (changes its shape), so the substrate no longer fits or binds well and catalysis slows or stops."
+        ],
+        "disqualifying": [
+          "Says the enzyme is used up or consumed by the reaction.",
+          "Says higher temperature always speeds up enzyme reactions without limit.",
+          "Treats the enzyme as a living organism that is killed."
+        ]
+      },
+      "reference_answer": "Enzymes work because of their precise folded shape, which forms an active site that fits the substrate. High temperatures or extreme pH disrupt the bonds holding that shape, denaturing the enzyme, so the substrate can no longer bind properly and the reaction is no longer catalyzed.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+    },
+    {
+      "id": "8db839cdadba",
+      "case": "sci-test-water-polarity",
+      "messages": [
+        {
+          "role": "user",
+          "content": "In a water molecule, why does the oxygen end carry a partial negative charge? Explain briefly."
+        }
+      ],
+      "answer": "The oxygen atom has an electron in its outer shell. As that electron moves away from the molecule, it leaves behind a partial negative charge.\n\nAnswer: The oxygen atom has an electron in its outer shell. As that electron moves away from the molecule, it leaves behind a partial negative charge.",
+      "rubric": {
+        "required": [
+          "The O-H bonds are polar covalent: the electrons are shared, but unequally.",
+          "Oxygen is more electronegative than hydrogen, so it pulls the shared electrons closer, giving oxygen a partial negative charge and the hydrogens partial positive charges."
+        ],
+        "disqualifying": [
+          "Says electrons are fully transferred, or that water is an ionic compound.",
+          "Says hydrogen is more electronegative than oxygen."
+        ]
+      },
+      "reference_answer": "Oxygen and hydrogen share electrons in covalent bonds, but oxygen is more electronegative and attracts the shared electrons more strongly. The electron density shifts toward oxygen, giving it a partial negative charge and leaving the hydrogens partially positive.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding"
+    },
+    {
+      "id": "1ccde686f104",
+      "case": "sci-test-ohm",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A 12-volt battery is connected across a 4-ohm resistor, and then across an 8-ohm resistor instead. What current flows in each case? Explain briefly."
+        }
+      ],
+      "answer": "### Step-by-Step Deduction\n\n**1. Identify the given values:**\n*   Voltage ($V$) = $12\\text{ V}$ (constant in both cases)\n*   Case 1 Resistance ($R_1$) = $4\\text{ }\\Omega$\n*   Case 2 Resistance ($R_2$) = $8\\text{ }\\Omega$\n\n**2. Apply Ohm's Law:**\nOhm's Law states that the current ($I$) flowing through a conductor between two points is directly proportional to the voltage across the two points and inversely proportional to the resistance. The formula is:\n$$I = \\frac{V}{R}$$\n\n**3. Calculate the current for the 4-ohm resistor:**\nSubstitute the values into the formula:\n$$I_1 = \\frac{12\\text{ V}}{4\\text{ }\\Omega}$$\n$$I_1 = 3\\text{ A}$$\n\n**4. Calculate the current for the 8-ohm resistor:**\nSubstitute the values into the formula:\n$$I_2 = \\frac{12\\text{ V}}{8\\text{ }\\Omega}$$\n$$I_2 = 1.5\\text{ A}$$\n\n**5. Explain the relationship:**\nThe current is inversely proportional to the resistance. When the resistance increases from $4\\text{ }\\Omega$ to $8\\text{ }\\Omega$ (doubled), the current decreases by half. This is because the same amount of energy (voltage) is being distributed over a larger path of resistance, resulting in less flow of charge.\n\n---\n\n### Final Conclusion\n\n*   **Current through the 4-ohm resistor:** **3 Amperes**\n*   **Current through the 8-ohm resistor:** **1.5 Amperes**",
+      "rubric": {
+        "required": [
+          "Uses I = V/R.",
+          "Gives 3 A for 4 ohms and 1.5 A for 8 ohms."
+        ],
+        "disqualifying": [
+          "Any other current value.",
+          "Says doubling the resistance doubles the current."
+        ]
+      },
+      "reference_answer": "By Ohm's law, I = V/R: 12 V / 4 ohms = 3 A and 12 V / 8 ohms = 1.5 A. Doubling the resistance at the same voltage halves the current.",
+      "source_url": "https://openstax.org/books/physics/pages/19-1-ohms-law"
+    },
+    {
+      "id": "d92dfcec94f8",
+      "case": "sci-test-water-polarity",
+      "messages": [
+        {
+          "role": "user",
+          "content": "In a water molecule, why does the oxygen end carry a partial negative charge? Explain briefly."
+        }
+      ],
+      "answer": "The oxygen end of a water molecule carries a partial negative charge due to **electronegativity differences** and **electron distribution**.\n\nHere is the step-by-step explanation:\n\n1.  **Electronegativity Difference**: Oxygen is significantly more electronegative (3.44) than hydrogen (2.20). Electronegativity measures an atom's ability to attract shared electrons in a chemical bond.\n2.  **Unequal Sharing**: Because oxygen attracts the shared electrons in the covalent bonds (O–H) much more strongly than hydrogen does, the electrons spend more time closer to the oxygen atom than to the hydrogen atoms.\n3.  **Charge Separation**: This unequal sharing creates a region of high electron density around the oxygen atom and a region of lower electron density around the hydrogen atoms.\n4.  **Resulting Dipole**: The accumulation of extra electron density on the oxygen side gives it a partial negative charge ($\\delta-$), while the hydrogen side acquires a partial positive charge ($\\delta+$).\n\n**Conclusion:**\nThe oxygen end is partially negative because **oxygen is more electronegative than hydrogen**, causing it to pull the shared electron pair closer to itself, resulting in a higher concentration of negative charge on that side.",
+      "rubric": {
+        "required": [
+          "The O-H bonds are polar covalent: the electrons are shared, but unequally.",
+          "Oxygen is more electronegative than hydrogen, so it pulls the shared electrons closer, giving oxygen a partial negative charge and the hydrogens partial positive charges."
+        ],
+        "disqualifying": [
+          "Says electrons are fully transferred, or that water is an ionic compound.",
+          "Says hydrogen is more electronegative than oxygen."
+        ]
+      },
+      "reference_answer": "Oxygen and hydrogen share electrons in covalent bonds, but oxygen is more electronegative and attracts the shared electrons more strongly. The electron density shifts toward oxygen, giving it a partial negative charge and leaving the hydrogens partially positive.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding"
+    },
+    {
+      "id": "7f900119b212",
+      "case": "sci-test-gas-celsius",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A sealed, rigid steel tank of gas is heated from 27 °C to 327 °C. By what factor does the gas pressure change? Explain briefly."
+        }
+      ],
+      "answer": "The pressure doubles.\n\nFor ideal gases, pressure is proportional to temperature. When temperature rises by 300 °C, pressure doubles.",
+      "rubric": {
+        "required": [
+          "Uses absolute temperature: about 300 K rising to about 600 K.",
+          "At constant volume and amount, pressure is proportional to absolute temperature, so the pressure doubles (factor of 2)."
+        ],
+        "disqualifying": [
+          "Uses the Celsius ratio (about 12) or any factor other than about 2.",
+          "Says pressure stays the same or falls."
+        ]
+      },
+      "reference_answer": "Pressure at fixed volume and amount is proportional to kelvin temperature. 27 °C is 300 K and 327 °C is 600 K, so the pressure doubles.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law"
+    },
+    {
+      "id": "9701363667c8",
+      "case": "sci-test-gas-celsius",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A sealed, rigid steel tank of gas is heated from 27 °C to 327 °C. By what factor does the gas pressure change? Explain briefly."
+        }
+      ],
+      "answer": "The pressure doubles.\n\nFor a gas, pressure is proportional to temperature. When temperature rises by 300 °C, pressure doubles.",
+      "rubric": {
+        "required": [
+          "Uses absolute temperature: about 300 K rising to about 600 K.",
+          "At constant volume and amount, pressure is proportional to absolute temperature, so the pressure doubles (factor of 2)."
+        ],
+        "disqualifying": [
+          "Uses the Celsius ratio (about 12) or any factor other than about 2.",
+          "Says pressure stays the same or falls."
+        ]
+      },
+      "reference_answer": "Pressure at fixed volume and amount is proportional to kelvin temperature. 27 °C is 300 K and 327 °C is 600 K, so the pressure doubles.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law"
+    },
+    {
+      "id": "0bc6006cc1c4",
+      "case": "sci-test-transcription",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A DNA template strand reads 3'-TACGGA-5'. Write the mRNA transcribed from it in the 5' to 3' direction, and name the base RNA uses in place of one of DNA's bases. Explain briefly."
+        }
+      ],
+      "answer": "The template is 3'-TACGGA-5. The mRNA is 5'AAGCACG-T.\n\nThe replacement is A for T, C for A, G for G, and G for A.\n\nThe base RNA is the original DNA molecule.",
+      "rubric": {
+        "required": [
+          "The mRNA is complementary and antiparallel to the template: 5'-AUGCCU-3'.",
+          "RNA uses uracil (U) instead of thymine (T), so U pairs with A."
+        ],
+        "disqualifying": [
+          "An mRNA sequence containing T, or any 5' to 3' sequence other than AUGCCU.",
+          "Says RNA replaces adenine or another base instead of thymine."
+        ]
+      },
+      "reference_answer": "Each mRNA base pairs with the template base (T with A, A with U, C with G, G with C), and the mRNA runs antiparallel to the template, giving 5'-AUGCCU-3'. RNA contains uracil in place of DNA's thymine, so adenine in the template pairs with uracil.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids"
+    },
+    {
+      "id": "9971466703b6",
+      "case": "sci-test-antibiotic-resistance",
+      "messages": [
+        {
+          "role": "user",
+          "content": "After a course of antibiotics, most bacteria remaining in a patient are resistant. Did the antibiotic make individual bacteria become resistant because they needed to survive? Explain briefly."
+        }
+      ],
+      "answer": "No. Antibiotics kill or inhibit susceptible bacteria, but they do not change the DNA of resistant bacteria. Resistance arises from preexisting mutations or horizontal gene transfer. The antibiotic selects for those that already have resistance.",
+      "rubric": {
+        "required": [
+          "No: resistance comes from heritable variation that exists or arises independently of any need, such as random mutations or resistance genes acquired by gene transfer.",
+          "The antibiotic kills susceptible bacteria; resistant ones survive and reproduce, so the resistant fraction of the population increases. Selection changes the population; it does not direct changes in individuals."
+        ],
+        "disqualifying": [
+          "Says bacteria became resistant because they needed to, wanted to, or were directed by the drug to adapt.",
+          "Says the antibiotic itself creates resistance in individual bacteria as a purposeful response. (A factual mention that bacteria can acquire resistance genes during their lifetime, for example by horizontal gene transfer, is acceptable.)"
+        ]
+      },
+      "reference_answer": "No. Some bacteria already carried heritable variants that made them resistant. The antibiotic killed the susceptible ones, while the resistant ones survived and multiplied, so resistance became common: natural selection changed the population, not the needs of individuals.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution"
+    },
+    {
+      "id": "f299d19baf8b",
+      "case": "sci-test-water-polarity",
+      "messages": [
+        {
+          "role": "user",
+          "content": "In a water molecule, why does the oxygen end carry a partial negative charge? Explain briefly."
+        }
+      ],
+      "answer": "Oxygen is more electronegative than hydrogen. The shared electrons spend more time near oxygen, giving it a partial negative charge and the hydrogen atoms partial positive charges.\n\nAnswer: Because oxygen is more electronegative than hydrogen, it attracts the shared electrons more strongly, giving it a partial negative charge.",
+      "rubric": {
+        "required": [
+          "The O-H bonds are polar covalent: the electrons are shared, but unequally.",
+          "Oxygen is more electronegative than hydrogen, so it pulls the shared electrons closer, giving oxygen a partial negative charge and the hydrogens partial positive charges."
+        ],
+        "disqualifying": [
+          "Says electrons are fully transferred, or that water is an ionic compound.",
+          "Says hydrogen is more electronegative than oxygen."
+        ]
+      },
+      "reference_answer": "Oxygen and hydrogen share electrons in covalent bonds, but oxygen is more electronegative and attracts the shared electrons more strongly. The electron density shifts toward oxygen, giving it a partial negative charge and leaving the hydrogens partially positive.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding"
+    },
+    {
+      "id": "3327524a5258",
+      "case": "sci-test-water-polarity",
+      "messages": [
+        {
+          "role": "user",
+          "content": "In a water molecule, why does the oxygen end carry a partial negative charge? Explain briefly."
+        }
+      ],
+      "answer": "Oxygen is more electronegative than hydrogen. The shared electrons spend more time near oxygen, giving it a partial negative charge and the hydrogen atoms partial positive charges.",
+      "rubric": {
+        "required": [
+          "The O-H bonds are polar covalent: the electrons are shared, but unequally.",
+          "Oxygen is more electronegative than hydrogen, so it pulls the shared electrons closer, giving oxygen a partial negative charge and the hydrogens partial positive charges."
+        ],
+        "disqualifying": [
+          "Says electrons are fully transferred, or that water is an ionic compound.",
+          "Says hydrogen is more electronegative than oxygen."
+        ]
+      },
+      "reference_answer": "Oxygen and hydrogen share electrons in covalent bonds, but oxygen is more electronegative and attracts the shared electrons more strongly. The electron density shifts toward oxygen, giving it a partial negative charge and leaving the hydrogens partially positive.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding"
+    },
+    {
+      "id": "2e55979b3554",
+      "case": "sci-test-denaturation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why can a very high temperature or a strongly acidic environment stop an enzyme from working? Explain briefly."
+        }
+      ],
+      "answer": "Enzymes are proteins. Their shape is determined by the arrangement of atoms. Chemical reactions depend on the orientation of reactant molecules. Temperature and pH affect the shape of proteins. If temperature is too high, the protein unfolds. If pH is too extreme, the protein unfolds. Unfolded enzymes cannot catalyze reactions.\n\nAnswer: High temperature or extreme pH can unfold the enzyme, destroying its shape and preventing catalysis.",
+      "rubric": {
+        "required": [
+          "An enzyme's activity depends on its three-dimensional shape, especially the shape of its active site.",
+          "Extreme heat or pH denatures the enzyme (changes its shape), so the substrate no longer fits or binds well and catalysis slows or stops."
+        ],
+        "disqualifying": [
+          "Says the enzyme is used up or consumed by the reaction.",
+          "Says higher temperature always speeds up enzyme reactions without limit.",
+          "Treats the enzyme as a living organism that is killed."
+        ]
+      },
+      "reference_answer": "Enzymes work because of their precise folded shape, which forms an active site that fits the substrate. High temperatures or extreme pH disrupt the bonds holding that shape, denaturing the enzyme, so the substrate can no longer bind properly and the reaction is no longer catalyzed.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+    },
+    {
+      "id": "0c2e5cc972be",
+      "case": "sci-test-s-phase",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A human body cell has just finished copying its DNA but has not yet started mitosis. Compared with right after its previous division, how much DNA does it have, and how many chromosomes? Explain briefly."
+        }
+      ],
+      "answer": "The DNA amount is unchanged. The chromosome number is doubled.\n\nReason: The cell has completed S phase, so each chromosome has two sister chromatids. The total DNA content is the same as before division. Each chromosome is still counted as one, so the chromosome number is doubled.",
+      "rubric": {
+        "required": [
+          "It has twice as much DNA, because the DNA was replicated (S phase).",
+          "The number of chromosomes is unchanged (the human count, 46, is optional); each chromosome now consists of two identical sister chromatids joined at the centromere."
+        ],
+        "disqualifying": [
+          "Says the chromosome number doubles (for example to 92) before mitosis.",
+          "Says the DNA amount is unchanged.",
+          "Supplies a chromosome count that is wrong."
+        ]
+      },
+      "reference_answer": "After S phase the cell holds double its original amount of DNA. It still has 46 chromosomes, but each one is now made of two identical sister chromatids held together at a centromere; they separate only during mitosis.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle"
+    },
+    {
+      "id": "ad6f9afba3a6",
+      "case": "sci-test-antibiotic-resistance",
+      "messages": [
+        {
+          "role": "user",
+          "content": "After a course of antibiotics, most bacteria remaining in a patient are resistant. Did the antibiotic make individual bacteria become resistant because they needed to survive? Explain briefly."
+        }
+      ],
+      "answer": "Yes. Antibiotics can reduce bacterial growth, but they do not kill bacteria. Instead, they allow surviving bacteria to survive.",
+      "rubric": {
+        "required": [
+          "No: resistance comes from heritable variation that exists or arises independently of any need, such as random mutations or resistance genes acquired by gene transfer.",
+          "The antibiotic kills susceptible bacteria; resistant ones survive and reproduce, so the resistant fraction of the population increases. Selection changes the population; it does not direct changes in individuals."
+        ],
+        "disqualifying": [
+          "Says bacteria became resistant because they needed to, wanted to, or were directed by the drug to adapt.",
+          "Says the antibiotic itself creates resistance in individual bacteria as a purposeful response. (A factual mention that bacteria can acquire resistance genes during their lifetime, for example by horizontal gene transfer, is acceptable.)"
+        ]
+      },
+      "reference_answer": "No. Some bacteria already carried heritable variants that made them resistant. The antibiotic killed the susceptible ones, while the resistant ones survived and multiplied, so resistance became common: natural selection changed the population, not the needs of individuals.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution"
+    },
+    {
+      "id": "66e3c59f8737",
+      "case": "sci-test-s-phase",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A human body cell has just finished copying its DNA but has not yet started mitosis. Compared with right after its previous division, how much DNA does it have, and how many chromosomes? Explain briefly."
+        }
+      ],
+      "answer": "The cell has just finished copying its DNA, so it has roughly 100,000 cells. It has not yet started mitosis, so it has 100 chromosomes.",
+      "rubric": {
+        "required": [
+          "It has twice as much DNA, because the DNA was replicated (S phase).",
+          "The number of chromosomes is unchanged (the human count, 46, is optional); each chromosome now consists of two identical sister chromatids joined at the centromere."
+        ],
+        "disqualifying": [
+          "Says the chromosome number doubles (for example to 92) before mitosis.",
+          "Says the DNA amount is unchanged.",
+          "Supplies a chromosome count that is wrong."
+        ]
+      },
+      "reference_answer": "After S phase the cell holds double its original amount of DNA. It still has 46 chromosomes, but each one is now made of two identical sister chromatids held together at a centromere; they separate only during mitosis.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle"
+    },
+    {
+      "id": "6a9595121181",
+      "case": "sci-test-antibiotic-resistance",
+      "messages": [
+        {
+          "role": "user",
+          "content": "After a course of antibiotics, most bacteria remaining in a patient are resistant. Did the antibiotic make individual bacteria become resistant because they needed to survive? Explain briefly."
+        }
+      ],
+      "answer": "Antibiotics do not kill bacteria; they remove the enzymes that produce acid. Without these enzymes, bacteria can grow and survive.\n\nAnswer: Yes",
+      "rubric": {
+        "required": [
+          "No: resistance comes from heritable variation that exists or arises independently of any need, such as random mutations or resistance genes acquired by gene transfer.",
+          "The antibiotic kills susceptible bacteria; resistant ones survive and reproduce, so the resistant fraction of the population increases. Selection changes the population; it does not direct changes in individuals."
+        ],
+        "disqualifying": [
+          "Says bacteria became resistant because they needed to, wanted to, or were directed by the drug to adapt.",
+          "Says the antibiotic itself creates resistance in individual bacteria as a purposeful response. (A factual mention that bacteria can acquire resistance genes during their lifetime, for example by horizontal gene transfer, is acceptable.)"
+        ]
+      },
+      "reference_answer": "No. Some bacteria already carried heritable variants that made them resistant. The antibiotic killed the susceptible ones, while the resistant ones survived and multiplied, so resistance became common: natural selection changed the population, not the needs of individuals.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution"
+    },
+    {
+      "id": "640231771272",
+      "case": "sci-test-gas-celsius",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A sealed, rigid steel tank of gas is heated from 27 °C to 327 °C. By what factor does the gas pressure change? Explain briefly."
+        }
+      ],
+      "answer": "The pressure increases by approximately 1000 times.\n\nThe pressure is governed by the phase transition of the gas. At 27°C, the gas is liquid; at 327°C, it becomes a solid phase. The transition from liquid to solid is a phase transition that significantly increases pressure.",
+      "rubric": {
+        "required": [
+          "Uses absolute temperature: about 300 K rising to about 600 K.",
+          "At constant volume and amount, pressure is proportional to absolute temperature, so the pressure doubles (factor of 2)."
+        ],
+        "disqualifying": [
+          "Uses the Celsius ratio (about 12) or any factor other than about 2.",
+          "Says pressure stays the same or falls."
+        ]
+      },
+      "reference_answer": "Pressure at fixed volume and amount is proportional to kelvin temperature. 27 °C is 300 K and 327 °C is 600 K, so the pressure doubles.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law"
+    },
+    {
+      "id": "490698ea6c76",
+      "case": "sci-test-falling-ball",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A ball is dropped from rest 5 meters above the ground. Ignoring air resistance and using g = 9.8 m/s^2, about how fast is it moving just before it hits the ground? Explain briefly."
+        }
+      ],
+      "answer": "To find the speed of the ball just before it hits the ground, we can use the **Kinematic Equation** that relates velocity, acceleration, and displacement without needing time.\n\n### Step-by-Step Deduction\n\n1.  **Identify the given variables:**\n    *   Initial velocity ($v_0$): $0 \\, \\text{m/s}$ (since it is dropped from rest).\n    *   Displacement ($\\Delta y$): $5 \\, \\text{m}$ (downward).\n    *   Acceleration due to gravity ($g$): $9.8 \\, \\text{m/s}^2$.\n    *   Final velocity ($v$): Unknown.\n\n2.  **Select the appropriate kinematic equation:**\n    The equation connecting final velocity, initial velocity, acceleration, and displacement is:\n    $$v^2 = v_0^2 + 2g\\Delta y$$\n\n3.  **Substitute the values into the equation:**\n    Since the ball falls downward, we can treat the displacement as positive in the direction of gravity.\n    $$v^2 = (0)^2 + 2(9.8)(5)$$\n\n4.  **Perform the calculation:**\n    $$v^2 = 0 + 98$$\n    $$v = \\sqrt{98}$$\n\n5.  **Calculate the numerical value:**\n    $$v \\approx 9.9 \\, \\text{m/s}$$\n\n### Conclusion\n\nThe ball is moving at approximately **9.9 m/s** just before it hits the ground.",
+      "rubric": {
+        "required": [
+          "Uses a correct relation: energy conservation, mgh = (1/2)mv^2, or the equivalent kinematics v^2 = 2gh; the speed does not depend on mass.",
+          "v = sqrt(2gh) = sqrt(98), about 9.9 m/s (accept 9.8 to 10 m/s)."
+        ],
+        "disqualifying": [
+          "A speed outside 9.8 to 10 m/s, such as 49 or 98 m/s.",
+          "Says the speed depends on the ball's mass."
+        ]
+      },
+      "reference_answer": "Mechanical energy is conserved: mgh = (1/2)mv^2, so v = sqrt(2gh) = sqrt(2 x 9.8 x 5) = sqrt(98), about 9.9 m/s, whatever the ball's mass.",
+      "source_url": "https://openstax.org/books/physics/pages/9-2-mechanical-energy-and-conservation-of-energy"
+    },
+    {
+      "id": "abc3b6d66ebb",
+      "case": "sci-test-water-polarity",
+      "messages": [
+        {
+          "role": "user",
+          "content": "In a water molecule, why does the oxygen end carry a partial negative charge? Explain briefly."
+        }
+      ],
+      "answer": "The oxygen end carries a partial negative charge because it contains an oxygen atom with a charge of -2.",
+      "rubric": {
+        "required": [
+          "The O-H bonds are polar covalent: the electrons are shared, but unequally.",
+          "Oxygen is more electronegative than hydrogen, so it pulls the shared electrons closer, giving oxygen a partial negative charge and the hydrogens partial positive charges."
+        ],
+        "disqualifying": [
+          "Says electrons are fully transferred, or that water is an ionic compound.",
+          "Says hydrogen is more electronegative than oxygen."
+        ]
+      },
+      "reference_answer": "Oxygen and hydrogen share electrons in covalent bonds, but oxygen is more electronegative and attracts the shared electrons more strongly. The electron density shifts toward oxygen, giving it a partial negative charge and leaving the hydrogens partially positive.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding"
+    },
+    {
+      "id": "c1bf21990976",
+      "case": "sci-test-ohm",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A 12-volt battery is connected across a 4-ohm resistor, and then across an 8-ohm resistor instead. What current flows in each case? Explain briefly."
+        }
+      ],
+      "answer": "The 12-volt battery is connected across a 4-ohm resistor, so the current flows at 3 volts. The 8-ohm resistor is connected across the 12-volt battery, so the current flows at 12 volts.",
+      "rubric": {
+        "required": [
+          "Uses I = V/R.",
+          "Gives 3 A for 4 ohms and 1.5 A for 8 ohms."
+        ],
+        "disqualifying": [
+          "Any other current value.",
+          "Says doubling the resistance doubles the current."
+        ]
+      },
+      "reference_answer": "By Ohm's law, I = V/R: 12 V / 4 ohms = 3 A and 12 V / 8 ohms = 1.5 A. Doubling the resistance at the same voltage halves the current.",
+      "source_url": "https://openstax.org/books/physics/pages/19-1-ohms-law"
+    },
+    {
+      "id": "e7274f46e111",
+      "case": "sci-test-falling-ball",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A ball is dropped from rest 5 meters above the ground. Ignoring air resistance and using g = 9.8 m/s^2, about how fast is it moving just before it hits the ground? Explain briefly."
+        }
+      ],
+      "answer": "The change in speed is 9.8 m/s for every meter of fall. Over 5 m, the speed increases by 49 m/s. The initial speed is 0, so the final speed is 49 m/s.\n\nAnswer: 49",
+      "rubric": {
+        "required": [
+          "Uses a correct relation: energy conservation, mgh = (1/2)mv^2, or the equivalent kinematics v^2 = 2gh; the speed does not depend on mass.",
+          "v = sqrt(2gh) = sqrt(98), about 9.9 m/s (accept 9.8 to 10 m/s)."
+        ],
+        "disqualifying": [
+          "A speed outside 9.8 to 10 m/s, such as 49 or 98 m/s.",
+          "Says the speed depends on the ball's mass."
+        ]
+      },
+      "reference_answer": "Mechanical energy is conserved: mgh = (1/2)mv^2, so v = sqrt(2gh) = sqrt(2 x 9.8 x 5) = sqrt(98), about 9.9 m/s, whatever the ball's mass.",
+      "source_url": "https://openstax.org/books/physics/pages/9-2-mechanical-energy-and-conservation-of-energy"
+    }
+  ]
+}

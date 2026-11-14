@@ -1,0 +1,404 @@
+{
+  "base": "stock",
+  "arm": "S1",
+  "manifest_sha256": "5f753cf4487909dacbe3e0eecf61642d30bde361146e0e2a2575b13793507927",
+  "metrics": {
+    "arc-challenge/accuracy_sum": {
+      "base": 0.40166666666666667,
+      "arm": 0.42833333333333334,
+      "difference": 0.02666666666666667,
+      "ci95": [
+        0.006666666666666667,
+        0.04666666666666667
+      ],
+      "groups": 600,
+      "items": 600,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 12,
+      "arm_only_correct": 28,
+      "same_pick": 0.9083333333333333
+    },
+    "arc-challenge/accuracy_per_token": {
+      "base": 0.445,
+      "arm": 0.4633333333333333,
+      "difference": 0.018333333333333333,
+      "ci95": [
+        0.0,
+        0.03666666666666667
+      ],
+      "groups": 600,
+      "items": 600,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 11,
+      "arm_only_correct": 22,
+      "same_pick": 0.92
+    },
+    "arc-challenge/accuracy_per_char": {
+      "base": 0.415,
+      "arm": 0.43333333333333335,
+      "difference": 0.018333333333333333,
+      "ci95": [
+        0.0,
+        0.03833333333333333
+      ],
+      "groups": 600,
+      "items": 600,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 12,
+      "arm_only_correct": 23,
+      "same_pick": 0.8916666666666667
+    },
+    "arc-easy/accuracy_sum": {
+      "base": 0.6925,
+      "arm": 0.71,
+      "difference": 0.0175,
+      "ci95": [
+        -0.0075,
+        0.0425
+      ],
+      "groups": 400,
+      "items": 400,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 10,
+      "arm_only_correct": 17,
+      "same_pick": 0.9175
+    },
+    "arc-easy/accuracy_per_token": {
+      "base": 0.645,
+      "arm": 0.67,
+      "difference": 0.025,
+      "ci95": [
+        0.0,
+        0.05
+      ],
+      "groups": 400,
+      "items": 400,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 7,
+      "arm_only_correct": 17,
+      "same_pick": 0.93
+    },
+    "arc-easy/accuracy_per_char": {
+      "base": 0.67,
+      "arm": 0.695,
+      "difference": 0.025,
+      "ci95": [
+        -0.0025,
+        0.0525
+      ],
+      "groups": 400,
+      "items": 400,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 11,
+      "arm_only_correct": 21,
+      "same_pick": 0.905
+    },
+    "hellaswag/accuracy_sum": {
+      "base": 0.455,
+      "arm": 0.4483333333333333,
+      "difference": -0.006666666666666667,
+      "ci95": [
+        -0.01672925708947235,
+        0.010471204188481676
+      ],
+      "groups": 101,
+      "items": 600,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 7,
+      "arm_only_correct": 3,
+      "same_pick": 0.975
+    },
+    "hellaswag/accuracy_per_token": {
+      "base": 0.6566666666666666,
+      "arm": 0.6533333333333333,
+      "difference": -0.0033333333333333335,
+      "ci95": [
+        -0.017964071856287425,
+        0.008721247588097893
+      ],
+      "groups": 101,
+      "items": 600,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 10,
+      "arm_only_correct": 8,
+      "same_pick": 0.9633333333333334
+    },
+    "hellaswag/accuracy_per_char": {
+      "base": 0.66,
+      "arm": 0.66,
+      "difference": 0.0,
+      "ci95": [
+        -0.01793822743991535,
+        0.012168352056141482
+      ],
+      "groups": 101,
+      "items": 600,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 8,
+      "arm_only_correct": 8,
+      "same_pick": 0.9683333333333334
+    },
+    "mmlu/accuracy_sum": {
+      "base": 0.5869947275922671,
+      "arm": 0.5738137082601055,
+      "difference": -0.013181019332161687,
+      "ci95": [
+        -0.02899824253075571,
+        0.0026362038664323375
+      ],
+      "groups": 57,
+      "items": 1138,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 57,
+      "arm_only_correct": 42,
+      "same_pick": 0.851493848857645
+    },
+    "mmlu/accuracy_per_token": {
+      "base": 0.5869947275922671,
+      "arm": 0.5738137082601055,
+      "difference": -0.013181019332161687,
+      "ci95": [
+        -0.02899824253075571,
+        0.0026362038664323375
+      ],
+      "groups": 57,
+      "items": 1138,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 57,
+      "arm_only_correct": 42,
+      "same_pick": 0.851493848857645
+    },
+    "mmlu/accuracy_per_char": {
+      "base": 0.5869947275922671,
+      "arm": 0.5738137082601055,
+      "difference": -0.013181019332161687,
+      "ci95": [
+        -0.02899824253075571,
+        0.0026362038664323375
+      ],
+      "groups": 57,
+      "items": 1138,
+      "draws": 10000,
+      "seed": 26102742,
+      "base_only_correct": 57,
+      "arm_only_correct": 42,
+      "same_pick": 0.851493848857645
+    },
+    "gsm8k/kl": {
+      "base": 0.0,
+      "arm": 0.7136480566355453,
+      "difference": 0.7136480566355453,
+      "ci95": [
+        0.6841674001822151,
+        0.7442245264378778
+      ],
+      "groups": 400,
+      "items": 400,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "gsm8k/top1": {
+      "base": 1.0,
+      "arm": 0.8498341260641912,
+      "difference": -0.1501658739358088,
+      "ci95": [
+        -0.15490152793061135,
+        -0.1455695296093469
+      ],
+      "groups": 400,
+      "items": 400,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "gsm8k/ce": {
+      "base": 1.0861846767173757,
+      "arm": 1.3043471858577138,
+      "difference": 0.21816250914033797,
+      "ci95": [
+        0.20485534413337333,
+        0.23167888674831755
+      ],
+      "groups": 400,
+      "items": 400,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "gsm8k/teacher_ce": 1.086184676717376,
+    "humaneval/kl": {
+      "base": 0.0,
+      "arm": 0.08432967807879438,
+      "difference": 0.08432967807879438,
+      "ci95": [
+        0.07827640508462483,
+        0.09075958284874648
+      ],
+      "groups": 116,
+      "items": 116,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "humaneval/top1": {
+      "base": 1.0,
+      "arm": 0.9738527450200963,
+      "difference": -0.026147254979903715,
+      "ci95": [
+        -0.02901274890748473,
+        -0.023448802968888252
+      ],
+      "groups": 116,
+      "items": 116,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "humaneval/ce": {
+      "base": 0.22131287838157648,
+      "arm": 0.27052406360362596,
+      "difference": 0.049211185222049494,
+      "ci95": [
+        0.04197472261644799,
+        0.05652350880016565
+      ],
+      "groups": 116,
+      "items": 116,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "humaneval/teacher_ce": 0.22131287838157648,
+    "ultrachat-fresh/kl": {
+      "base": 0.0,
+      "arm": 0.20978149665783916,
+      "difference": 0.20978149665783916,
+      "ci95": [
+        0.19782464513835257,
+        0.2228945248187261
+      ],
+      "groups": 207,
+      "items": 207,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "ultrachat-fresh/top1": {
+      "base": 1.0,
+      "arm": 0.8451007316623286,
+      "difference": -0.1548992683376714,
+      "ci95": [
+        -0.16153484217579028,
+        -0.14858693996719366
+      ],
+      "groups": 207,
+      "items": 207,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "ultrachat-fresh/ce": {
+      "base": 1.365535896563757,
+      "arm": 1.2618978703412729,
+      "difference": -0.10363802622248378,
+      "ci95": [
+        -0.11540643987083306,
+        -0.09259153812847702
+      ],
+      "groups": 207,
+      "items": 207,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "ultrachat-fresh/teacher_ce": 1.3655358965637565,
+    "ultrachat-heldout/kl": {
+      "base": 0.0,
+      "arm": 0.20127367947544123,
+      "difference": 0.20127367947544123,
+      "ci95": [
+        0.16963609905896931,
+        0.2459667929226427
+      ],
+      "groups": 28,
+      "items": 28,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "ultrachat-heldout/top1": {
+      "base": 1.0,
+      "arm": 0.8314688362632573,
+      "difference": -0.1685311637367427,
+      "ci95": [
+        -0.18499443720242442,
+        -0.15373899278911943
+      ],
+      "groups": 28,
+      "items": 28,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "ultrachat-heldout/ce": {
+      "base": 1.6846949828509517,
+      "arm": 1.5473042367324308,
+      "difference": -0.13739074611852123,
+      "ci95": [
+        -0.17443387073118785,
+        -0.10178238600655895
+      ],
+      "groups": 28,
+      "items": 28,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "ultrachat-heldout/teacher_ce": 1.6846949828509517,
+    "wikitext/kl": {
+      "base": 0.0,
+      "arm": 0.020607853572632867,
+      "difference": 0.020607853572632867,
+      "ci95": [
+        0.01981781953975811,
+        0.021456563566238835
+      ],
+      "groups": 60,
+      "items": 117,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "wikitext/top1": {
+      "base": 1.0,
+      "arm": 0.9198989746934952,
+      "difference": -0.08010102530650476,
+      "ci95": [
+        -0.08305421268809358,
+        -0.07715717972716185
+      ],
+      "groups": 60,
+      "items": 117,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "wikitext/ce": {
+      "base": 2.5617808378852107,
+      "arm": 2.5558237525101837,
+      "difference": -0.005957085375027097,
+      "ci95": [
+        -0.008827441244558922,
+        -0.0031684112631015214
+      ],
+      "groups": 60,
+      "items": 117,
+      "draws": 10000,
+      "seed": 26102742
+    },
+    "wikitext/teacher_ce": 2.5617808378852107
+  },
+  "scope": "Descriptive paired source-specific metrics; no pooled score or checkpoint selection",
+  "score_sha256": {
+    "scores-stock.json": "2680f836028a9ccc306edb745670e07fabfe6f640591f95b0f3794acb5fb76e9",
+    "scores-S1.json": "1462961dbb82e344017a6108c991aec271e05b8135545a9014cbf477d6bf6955"
+  }
+}

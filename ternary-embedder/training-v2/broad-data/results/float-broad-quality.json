@@ -1,0 +1,281 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/broad-data-run/backups/broad-data-float-broad/best.pt",
+    "sha256": "cc7f76ce0fb1cec38b73824fee123b5c4d54e451914430a8ae3dcac6fe76e352",
+    "step": 3000,
+    "precision": "float",
+    "layers": 3,
+    "eligible_for_promotion": true,
+    "validation": {
+      "by_source": {
+        "sentence-transformers/msmarco-bm25": {
+          "queries": 5343,
+          "documents": 5253,
+          "mrr": 0.9557502865791321,
+          "ndcg10": 96.54894471168518,
+          "recall10": 0.9949466586112976
+        },
+        "sentence-transformers/gooaq": {
+          "queries": 4557,
+          "documents": 3898,
+          "mrr": 0.9443199634552002,
+          "ndcg10": 95.6750214099884,
+          "recall10": 0.9945139288902283
+        },
+        "sentence-transformers/natural-questions": {
+          "queries": 1368,
+          "documents": 1132,
+          "mrr": 0.9468902945518494,
+          "ndcg10": 95.75123190879822,
+          "recall10": 0.9897660613059998
+        },
+        "sentence-transformers/squad": {
+          "queries": 457,
+          "documents": 114,
+          "mrr": 0.9729508757591248,
+          "ndcg10": 97.85153865814209,
+          "recall10": 0.9956236481666565
+        },
+        "sentence-transformers/stackexchange-duplicates": {
+          "queries": 1825,
+          "documents": 1248,
+          "mrr": 0.7394595742225647,
+          "ndcg10": 77.25274562835693,
+          "recall10": 0.8898630142211914
+        },
+        "sentence-transformers/s2orc": {
+          "queries": 6851,
+          "documents": 6844,
+          "mrr": 0.9084708094596863,
+          "ndcg10": 91.75277352333069,
+          "recall10": 0.9494963884353638
+        },
+        "sentence-transformers/quora-duplicates": {
+          "queries": 1012,
+          "documents": 891,
+          "mrr": 0.8930665850639343,
+          "ndcg10": 92.06403493881226,
+          "recall10": 1.0
+        },
+        "sentence-transformers/all-nli": {
+          "queries": 1613,
+          "documents": 1325,
+          "mrr": 0.7232282161712646,
+          "ndcg10": 76.66523456573486,
+          "recall10": 0.9150651097297668
+        },
+        "IFM/SFT-Reasoning": {
+          "queries": 61,
+          "documents": 61,
+          "mrr": 0.9439890384674072,
+          "ndcg10": 95.82687616348267,
+          "recall10": 0.9999999403953552
+        },
+        "sentence-transformers/hotpotqa": {
+          "queries": 700,
+          "documents": 885,
+          "mrr": 0.9411589503288269,
+          "ndcg10": 90.81624746322632,
+          "recall10": 0.9442856907844543
+        },
+        "sentence-transformers/paq": {
+          "queries": 700,
+          "documents": 689,
+          "mrr": 0.9957518577575684,
+          "ndcg10": 99.64624047279358,
+          "recall10": 0.9985713958740234
+        },
+        "rajpurkar/squad": {
+          "queries": 700,
+          "documents": 479,
+          "mrr": 0.8167786598205566,
+          "ndcg10": 85.72977185249329,
+          "recall10": 0.9800000190734863
+        },
+        "HuggingFaceH4/stack-exchange-preferences": {
+          "queries": 700,
+          "documents": 826,
+          "mrr": 0.8207603096961975,
+          "ndcg10": 82.78109431266785,
+          "recall10": 0.8942856788635254
+        },
+        "sentence-transformers/trivia-qa": {
+          "queries": 700,
+          "documents": 676,
+          "mrr": 0.8597230911254883,
+          "ndcg10": 87.85871863365173,
+          "recall10": 0.9428571462631226
+        }
+      },
+      "macro_ndcg10": 90.44431958879743,
+      "scope": "Each held source ranked against all held positives from that source",
+      "step": 3000,
+      "source_floor_passed": true,
+      "auxiliary_floor_passed": true,
+      "selection_score": 90.44431958879743,
+      "growth_alpha": 1.0,
+      "export_eligible": true
+    },
+    "completion": {
+      "step": 3689,
+      "precision": "float",
+      "layers": 3
+    },
+    "initial_checkpoint_sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c"
+  },
+  "token_cap": 128,
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 61.16597795700479,
+      "recall10": 75.45555555555555,
+      "top1_relevant_queries": 143,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.0028718113899230957,
+      "queries": 300,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "NFCorpus": {
+      "ndcg10": 31.564464845222815,
+      "recall10": 14.756344175065598,
+      "top1_relevant_queries": 138,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.01691436767578125,
+      "queries": 323,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "ArguAna": {
+      "ndcg10": 45.544955654016334,
+      "recall10": 72.75960170697012,
+      "top1_relevant_queries": 330,
+      "median_first_relevant_rank": 5.0,
+      "median_best_relevant_margin": -0.056586623191833496,
+      "queries": 1406,
+      "judged_documents_absent_from_corpus": 5
+    }
+  },
+  "scope": "Observed external development tasks; reserved FiQA/SCIDOCS labels not used",
+  "stsbenchmark_spearman": 82.86841627417431,
+  "mean_core_retrieval": 46.3652214011138,
+  "reference_report_sha256": "804a497e5ab5861cffc1dd26ca0a4dbdff46b232e17f5ba43706f1f7b6d4a4ef",
+  "paired": {
+    "original": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": 6.312779623873885,
+        "paired_bootstrap_95_ci": [
+          3.5087709308622266,
+          9.169862231618486
+        ],
+        "queries_improved": 72,
+        "queries_worsened": 36,
+        "top1_gained": 28,
+        "top1_lost": 18
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 2.1615902013043367,
+        "paired_bootstrap_95_ci": [
+          0.8129783158545156,
+          3.50368350896829
+        ],
+        "queries_improved": 123,
+        "queries_worsened": 72,
+        "top1_gained": 25,
+        "top1_lost": 18
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": 2.830719029715777,
+        "paired_bootstrap_95_ci": [
+          1.3030857190456697,
+          4.415368193288225
+        ],
+        "queries_improved": 454,
+        "queries_worsened": 389,
+        "top1_gained": 140,
+        "top1_lost": 102
+      }
+    },
+    "bge_micro": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -0.1644578967875526,
+        "paired_bootstrap_95_ci": [
+          -2.0302005326588826,
+          1.6298257001150458
+        ],
+        "queries_improved": 44,
+        "queries_worsened": 44,
+        "top1_gained": 13,
+        "top1_lost": 16
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 0.46643759118297856,
+        "paired_bootstrap_95_ci": [
+          -0.5075233450987038,
+          1.4396532957587764
+        ],
+        "queries_improved": 100,
+        "queries_worsened": 87,
+        "top1_gained": 16,
+        "top1_lost": 16
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -6.2627516468571915,
+        "paired_bootstrap_95_ci": [
+          -7.499852608535437,
+          -5.095853592286282
+        ],
+        "queries_improved": 232,
+        "queries_worsened": 512,
+        "top1_gained": 65,
+        "top1_lost": 126
+      }
+    },
+    "minilm": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -1.2199849230045563,
+        "paired_bootstrap_95_ci": [
+          -3.94283324763755,
+          1.5438839980545134
+        ],
+        "queries_improved": 51,
+        "queries_worsened": 66,
+        "top1_gained": 21,
+        "top1_lost": 22
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 0.11107132585140311,
+        "paired_bootstrap_95_ci": [
+          -1.0975762829638,
+          1.3249087836097582
+        ],
+        "queries_improved": 101,
+        "queries_worsened": 101,
+        "top1_gained": 18,
+        "top1_lost": 19
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -3.2192003256409545,
+        "paired_bootstrap_95_ci": [
+          -4.669140221392829,
+          -1.7479006774685442
+        ],
+        "queries_improved": 369,
+        "queries_worsened": 467,
+        "top1_gained": 102,
+        "top1_lost": 127
+      }
+    }
+  },
+  "gates": {
+    "original": {
+      "each_core_retrieval": true,
+      "stsbenchmark": true
+    },
+    "bge_micro": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    },
+    "minilm": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    }
+  }
+}

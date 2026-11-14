@@ -1,0 +1,201 @@
+{
+  "cases": [
+    {
+      "id": "cp-dev-add_subtract-0",
+      "family": "math_add_subtract",
+      "answer": "77",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-multiply-0",
+      "family": "math_multiply",
+      "answer": "459",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-divide-0",
+      "family": "math_divide",
+      "answer": "72",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-fraction-0",
+      "family": "math_fraction",
+      "answer": "13/18",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-percent-0",
+      "family": "math_percent",
+      "answer": "130",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-equation-0",
+      "family": "math_equation",
+      "answer": "-319",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-remainder-0",
+      "family": "math_remainder",
+      "answer": "1",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-multi_step-0",
+      "family": "math_multi_step",
+      "answer": "947",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cdev-product",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(values):\n    result = []\n    product = 1\n    for value in values:\n        product *= value\n        result.append(product)\n    return result\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 4,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 44,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cdev-palindrome",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(text):\n    return text == text[::-1]\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 4,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 20,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cscience-compass",
+      "family": "explanation",
+      "answer": "A freely turning compass needle aligns with Earth's magnetic field. Earth has a magnetic dipole: its magnetic north pole is near the geographic north, and its magnetic south pole is near the geographic south. The needle points toward the magnetic north, which is close to geographic north.",
+      "grade": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 57,
+      "repeated_4gram_fraction": 0.0444444444444444,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cscience-mirage",
+      "family": "explanation",
+      "answer": "A hot road heats the air above it, making that air less dense than the surrounding cooler air. This creates a rising column of warm air that can trap a patch of water droplets on the road, forming a temporary \u201cwater patch\u201d that looks like a puddle.",
+      "grade": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 56,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    }
+  ],
+  "summary": {
+    "closed_correct": 2,
+    "closed_total": 8,
+    "programs_correct": 2,
+    "programs_total": 2,
+    "syntax_pass": 2,
+    "ended": 12,
+    "capped": 0,
+    "loop_flags": 0,
+    "word_loop_flags": 0
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "status": "completed and scored; cloned third layer did not improve quality",
+  "resource": "one RTX 4090 24GB RunPod Secure Cloud pod",
+  "listed_rate_usd_per_hour": 0.89,
+  "maximum_gpu_rate_usd_per_hour": 0.9,
+  "maximum_elapsed_hours": 2.5,
+  "expected_elapsed_hours": [
+    0.75,
+    1.5
+  ],
+  "expected_total_usd": [
+    0.7,
+    1.4
+  ],
+  "proposed_total_cap_usd": 2.5,
+  "disk_gb": 60,
+  "retained_paid_volumes": false,
+  "work_deadline_minutes": 130,
+  "watchdog_delete_minutes": 140,
+  "training": {
+    "arms": [
+      "2-layer float control",
+      "3-layer float grown",
+      "2-layer ternary control",
+      "3-layer ternary grown"
+    ],
+    "initialization": "Each depth pair shares the same selected data-first checkpoint; extra block clones the last block",
+    "growth": "Training-only identity-to-block interpolation over first 500 updates; ordinary three-layer inference at alpha=1",
+    "parameters_two_layers": 15467520,
+    "parameters_three_layers": 17241984,
+    "epochs_each": 2,
+    "batch": 128,
+    "learning_rate": 1e-05,
+    "amp": "bf16",
+    "teacher_targets": false,
+    "train_rows": 780743,
+    "dev_rows": 15929,
+    "token_cap": 128,
+    "data": "Same audited capfit relevance pairs and source sampler as preceding job",
+    "selection": "Highest full held-source macro nDCG@10 after growth alpha=1, with each source within 2 points of common parent initialization. If no grown checkpoint qualifies, evaluate the predeclared final grown model as an unsuccessful diagnostic, without promoting it.",
+    "comparison": "Compare 3-layer versus same-job 2-layer continuation; comparison with last job alone cannot isolate extra training",
+    "int4_int8": "derive locally from float branches after frozen selection",
+    "native_npu": "Existing engine supports two layers. Three-layer quality/CPU latency first; a three-layer NPU graph is separate implementation work if worthwhile."
+  },
+  "recovery": {
+    "remote_save_every_steps": 500,
+    "remote_save_every_seconds": 120,
+    "local_backup_attempt_interval_seconds": 60,
+    "sha256_verified_local_copies": true,
+    "full_optimizer_rng_sampler_resume": true,
+    "remote_resume_copies_retained": 2
+  },
+  "pricing_source": "https://www.runpod.io/pricing",
+  "data_center_ids": [
+    "EU-RO-1"
+  ],
+  "cuda_versions": [
+    "13.2"
+  ],
+  "gpu_type_id": "NVIDIA GeForce RTX 4090",
+  "campaign_cap_usd": 10.0,
+  "resource_change": "A5000 did not allocate; using available 4090 within explicitly authorized $10 multi-experiment campaign"
+}

@@ -1,0 +1,24 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-30",
+  "user_authorization": "Asked: 'Decision for you: one more check, about $0.80 on one A40, capped at $1.20 ... Both versions [the 16 GSM8K questions with every neuron running, A: without the healing adapter, B: with it] plus the check that the rebuilt model matches would take about 75 minutes ... Should I go ahead?' User: 'do it'",
+  "scope": "One pod for the all-neuron check on the healed Qwen3.5-9B student (heal_probe.py with heal_probe_all_rules.json): evaluate (learned reproduction check, every neuron with and without the healing adapter) and the 16 GSM8K generations with fp32 state, every neuron, with and without the adapter.",
+  "total_cap_usd": 1.2,
+  "spent_usd": 0.7628991813533835,
+  "restrictions": [
+    "Not a standing authorization for other jobs; on-policy distillation, a bigger expert budget or a longer healing run needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "active_job": "target/manifold-probe-all/mc-probe-all-42faa86f99ce/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "High",
+    "checked_at": 1793353772.6030328
+  },
+  "pod_id": "oqq88qxixjw329",
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1793358427.5943077
+}

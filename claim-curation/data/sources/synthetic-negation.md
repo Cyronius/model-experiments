@@ -1,0 +1,2 @@
+Synthetic test fixture, not a hardware finding.
+On device Cedar with compiler 1.2, the ash kernel took 7 ms at batch 2. The firmware version was not recorded. This measurement does not establish the latency at other batch sizes.

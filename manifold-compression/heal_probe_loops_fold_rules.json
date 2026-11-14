@@ -1,0 +1,88 @@
+{
+  "folder": "probe_loops_fold",
+  "earlier": [],
+  "fold": {
+    "fit_per_domain": 30,
+    "held_per_domain": 10,
+    "group": 4,
+    "batch": 8,
+    "rhos": [
+      0.01,
+      0.03,
+      0.1,
+      0.3,
+      1.0,
+      3.0,
+      10.0
+    ],
+    "max_hours": 0.4
+  },
+  "evaluate": {
+    "arms": [
+      "learned",
+      {
+        "name": "fold_0.1",
+        "router": "learned",
+        "healed": true,
+        "fold": "fold",
+        "scale": 0.1
+      },
+      {
+        "name": "fold_0.15",
+        "router": "learned",
+        "healed": true,
+        "fold": "fold",
+        "scale": 0.15
+      },
+      {
+        "name": "fold_0.2",
+        "router": "learned",
+        "healed": true,
+        "fold": "fold",
+        "scale": 0.2
+      },
+      {
+        "name": "fold_0.25",
+        "router": "learned",
+        "healed": true,
+        "fold": "fold",
+        "scale": 0.25
+      },
+      {
+        "name": "fold_0.3",
+        "router": "learned",
+        "healed": true,
+        "fold": "fold",
+        "scale": 0.3
+      }
+    ],
+    "baseline": "learned",
+    "check": {
+      "kl": 0.01,
+      "bpb": 0.01
+    },
+    "max_hours": 0.35
+  },
+  "generate": {
+    "prompts": "probe_prompts_48.json",
+    "count": 48,
+    "max_hours": 2.1,
+    "arms": {
+      "best": {
+        "router": "learned",
+        "state": "fp32",
+        "fold": "fold",
+        "scale": "best"
+      }
+    },
+    "best": {
+      "margin": null
+    }
+  },
+  "loop": {
+    "window": 20,
+    "last": 1000,
+    "threshold": 0.45
+  },
+  "note": "Check 7: one of six parallel pods; the reading and predictions for all six are in heal_probe_loops_rules.json, written before any of them launched."
+}

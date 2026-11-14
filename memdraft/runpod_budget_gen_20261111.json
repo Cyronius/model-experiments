@@ -1,0 +1,25 @@
+{
+  "status": "terminated",
+  "session": "MemDraft: more of the 9B's own code (memdraft), 2026-11-11",
+  "user_authorization": "On 2026-11-11 the user asked 'should we just rent some cloud gpu time on runpod?'. I recommended it and wrote: 'What I need: your go-ahead and a cap; I suggest $15. I would time the first 15 minutes and stop if the projection exceeds the cap.' User: 'Do it'.",
+  "scope": "One pod, no training: the Q4_K_M 9B under llama.cpp with CUDA answers the OSS-Instruct prompts from place 6200 of gen_code.py's order to the end (68,985 prompts), per memdraft/run_gen_pod.py and gen_pod_worker.py.",
+  "total_cap_usd": 15.0,
+  "spent_usd": 8.706216547375917,
+  "restrictions": [
+    "Not a standing authorization for other jobs",
+    "No automatic retry with another paid pod; a retry after a failure is a deliberate relaunch and the cumulative cost stays within this cap",
+    "Stop after the speed check if all the prompts would cost more than the cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "active_job": "target/memdraft/pod/gen-a5b56126d586/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "High",
+    "checked_at": 1794451878.8218062
+  },
+  "pod_id": "3719cq7du7aj9v",
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1794505001.5088005
+}

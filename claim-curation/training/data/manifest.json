@@ -1,0 +1,371 @@
+{
+  "version": "distill-v2",
+  "sources": {
+    "S-de681507a37c76e6": {
+      "path": "raw/phlegm/2026-09-03-open-kernels-notes.md",
+      "sha256": "2928ac2a1077e91ba730497a1e87bcc40ddcc8f293a39bb03117d03564660aee",
+      "snapshot": "sources/S-de681507a37c76e6-2928ac2a1077.md",
+      "split": "train",
+      "project": "phlegm",
+      "original_references_verified": false
+    },
+    "S-c44537badf9e36c7": {
+      "path": "raw/phlegm/2026-10-25-compensated-prefill-model-and-quality-controls.md",
+      "sha256": "69a58bbafac2087c85d18723e47d0443a9c88528de5f06c718821296e382812a",
+      "snapshot": "sources/S-c44537badf9e36c7-69a58bbafac2.md",
+      "split": "train",
+      "project": "phlegm",
+      "original_references_verified": false
+    },
+    "S-00c85ffbbbd40f41": {
+      "path": "raw/fastflowlm/2026-08-11-flm-docs-prefill-chunk-preemption-power-timeline.md",
+      "sha256": "b4b9892efcae6a2b0b54bea7c787976bf912acda6bd57ed77238847daf09cba7",
+      "snapshot": "sources/S-00c85ffbbbd40f41-b4b9892efcae.md",
+      "split": "train",
+      "project": "fastflowlm",
+      "original_references_verified": false
+    },
+    "S-5924860d432f2588": {
+      "path": "raw/fastflowlm/2026-09-01-flm-qwen36-chat-completion-timings.md",
+      "sha256": "4981b6cb5e52622db91e29cc1345fcf9cbe8427010e33c16feb801bc5a824bec",
+      "snapshot": "sources/S-5924860d432f2588-4981b6cb5e52.md",
+      "split": "train",
+      "project": "fastflowlm",
+      "original_references_verified": false
+    },
+    "S-9a49df199a491540": {
+      "path": "raw/openflowlm-next/2026-10-07-35b-block-prefill-vs-closed-engine-and-omp-spin.md",
+      "sha256": "b32d24ecdd0e11b3f1ab0624d83cf20f5b542b5ff5aed1fbcdd3989a5da02bb3",
+      "snapshot": "sources/S-9a49df199a491540-b32d24ecdd0e.md",
+      "split": "train",
+      "project": "openflowlm-next",
+      "original_references_verified": false
+    },
+    "S-4e8175509846cd44": {
+      "path": "raw/openflowlm-next/2026-10-20-bfp16-gemm-dma-vs-compute-and-q4-dequant-cost.md",
+      "sha256": "2fa53514f01fe031aef34534a9e967e925c33564d6ddc1500a38d226bf9dcc18",
+      "snapshot": "sources/S-4e8175509846cd44-2fa53514f01f.md",
+      "split": "train",
+      "project": "openflowlm-next",
+      "original_references_verified": false
+    },
+    "S-22233697005af538": {
+      "path": "raw/hipfire/2026-10-05-halo-linux-amdxdna-raw-dispatch-imports-and-wedges.md",
+      "sha256": "d41a7b020609a89321becf8a01d24257b7a7dadfd1e4bad614965bb6ded8ad0c",
+      "snapshot": "sources/S-22233697005af538-d41a7b020609.md",
+      "split": "validation",
+      "project": "hipfire",
+      "original_references_verified": false
+    },
+    "S-5e09f2836f76d3c0": {
+      "path": "raw/hipfire/2026-10-05-halo-dispatch-overhead-lean-txn-and-cpu-free-ring.md",
+      "sha256": "f9fdc96551ffa06c8d8ee3e354907dcc60522940cc8c4703a39fcfc9a3950a2d",
+      "snapshot": "sources/S-5e09f2836f76d3c0-f9fdc96551ff.md",
+      "split": "validation",
+      "project": "hipfire",
+      "original_references_verified": false
+    },
+    "S-d03598e9a0f80ca6": {
+      "path": "raw/ggml-xdna/2026-10-12-linux-xrt-and-third-party-npu-reports-hearsay.md",
+      "sha256": "f8545518103416871b63546addc201178df18bd0e8e98486f6de6dc5952e7b01",
+      "snapshot": "sources/S-d03598e9a0f80ca6-f85455181034.md",
+      "split": "test",
+      "project": "ggml-xdna",
+      "original_references_verified": false
+    },
+    "S-61cd80f8f800ebe8": {
+      "path": "raw/ggml-xdna/2026-10-08-qwen36-35b-a3b-openflowlm-npu-vs-addon.md",
+      "sha256": "7fc935037ec0e88b752395dee0b72034661ccc52c6b7499c99f066f5d6616222",
+      "snapshot": "sources/S-61cd80f8f800ebe8-7fc935037ec0.md",
+      "split": "test",
+      "project": "ggml-xdna",
+      "original_references_verified": false
+    }
+  },
+  "split_projects": {
+    "train": [
+      "phlegm",
+      "fastflowlm",
+      "openflowlm-next"
+    ],
+    "validation": [
+      "hipfire"
+    ],
+    "test": [
+      "ggml-xdna"
+    ]
+  },
+  "excluded_pilot_sources": [
+    "raw/LLMNpuTest/2026-09-01-dma-l1-program-memory-limits-and-silent-faults.md",
+    "raw/OpenFlowLM-Next3/2026-10-19-oflm-iron-peano-aiecc-dma-traps-and-hangs.md",
+    "raw/phlegm/2026-09-02-array-resource-limits-dma-l1-program-memory.md",
+    "raw/phlegm/2026-09-02-instruction-stream-ddr-patch-and-kernel-abi.md",
+    "raw/phlegm/2026-09-26-aie2p-arithmetic-and-stack-traps.md",
+    "synthetic://synthetic-negation",
+    "synthetic://synthetic-questions",
+    "synthetic://synthetic-version-scope"
+  ],
+  "annotation": "Teacher inputs only; no teacher labels or training performed by preparation.",
+  "examples": [
+    {
+      "id": "D-185d48a8b253a235cf79",
+      "split": "train",
+      "source_key": "S-de681507a37c76e6",
+      "source_sha256": "2928ac2a1077e91ba730497a1e87bcc40ddcc8f293a39bb03117d03564660aee",
+      "document": "---\nfrom: phlegm\ndate: 2026-09-03\nevidence: measured\nstack: mlir-aie 1.4.2, Peano, XRT master\n---\n\n# open_kernels working notes (verbatim from project memory)\n\nAs of 2026-09-02, both project-gating unknowns for replacing FLM's closed\nxclbins with our own IRON/mlir-aie kernels are retired (plan +\npublished verdict: docs/open-kernels-feasibility.md):",
+      "body": "As of 2026-09-02, both project-gating unknowns for replacing FLM's closed\nxclbins with our own IRON/mlir-aie kernels are retired (plan +\npublished verdict: docs/open-kernels-feasibility.md):",
+      "source_start": 161,
+      "source_end": 351,
+      "heading": "# open_kernels working notes (verbatim from project memory)",
+      "title": "# open_kernels working notes (verbatim from project memory)",
+      "task": "extraction"
+    },
+    {
+      "id": "D-412eca1274063fdc48b0",
+      "split": "train",
+      "source_key": "S-de681507a37c76e6",
+      "source_sha256": "2928ac2a1077e91ba730497a1e87bcc40ddcc8f293a39bb03117d03564660aee",
+      "document": "---\nfrom: phlegm\ndate: 2026-09-03\nevidence: measured\nstack: mlir-aie 1.4.2, Peano, XRT master\n---\n\n# open_kernels working notes (verbatim from project memory)\n\n- **0a toolchain**: mlir-aie 1.4.2 + Peano build xclbins in WSL\n  (`~/ironenv142`, `~/mlir-aie` at tag v1.4.2). `xclbinutil` + `aiebu-asm`\n  are NOT in the wheel and WSL has no sudo \u2014 built from XRT master in a\n  Docker `ubuntu:24.04` container into `~/xrt-tools/{bin,lib}`\n  (recipe: scratchpad build_xclbinutil.sh). Build a design with\n  `tools/open-kernels/build_design.py` (@iron.jit) or `build_mlir.sh` (raw\n  MLIR). Our own kernels run through phlegm's driver: ROT13 byte-exact.\n- **0b expert fetch**: a shim DMA descriptor into a big DDR pool, retargeted\n  to a runtime-chosen slab and enqueued by CONTROL PACKETS with no host\n  round-trip. Array->shim-control directly does not deliver (AIE2 target\n  model); bounce the packet words through DDR (S2MM out, shim MM2S back into\n  its own TileControl) \u2014 a legal flow, and how FLM does it (its shim BDs\n  4-7/12-15 are written-but-never-enqueued by the txn stream; 32 = 8 experts\n  x 4 stripes). Proof: designs/expert_fetch/ddr_bounce_fetch.mlir, idx 3/7\n  give exact per-slab sums.",
+      "body": "- **0a toolchain**: mlir-aie 1.4.2 + Peano build xclbins in WSL\n  (`~/ironenv142`, `~/mlir-aie` at tag v1.4.2). `xclbinutil` + `aiebu-asm`\n  are NOT in the wheel and WSL has no sudo \u2014 built from XRT master in a\n  Docker `ubuntu:24.04` container into `~/xrt-tools/{bin,lib}`\n  (recipe: scratchpad build_xclbinutil.sh). Build a design with\n  `tools/open-kernels/build_design.py` (@iron.jit) or `build_mlir.sh` (raw\n  MLIR). Our own kernels run through phlegm's driver: ROT13 byte-exact.\n- **0b expert fetch**: a shim DMA descriptor into a big DDR pool, retargeted\n  to a runtime-chosen slab and enqueued by CONTROL PACKETS with no host\n  round-trip. Array->shim-control directly does not deliver (AIE2 target\n  model); bounce the packet words through DDR (S2MM out, shim MM2S back into\n  its own TileControl) \u2014 a legal flow, and how FLM does it (its shim BDs\n  4-7/12-15 are written-but-never-enqueued by the txn stream; 32 = 8 experts\n  x 4 stripes). Proof: designs/expert_fetch/ddr_bounce_fetch.mlir, idx 3/7\n  give exact per-slab sums.",
+      "source_start": 353,
+      "source_end": 1389,
+      "heading": "# open_kernels working notes (verbatim from project memory)",
+      "title": "# open_kernels working notes (verbatim from project memory)",
+      "task": "extraction"
+    },
+    {
+      "id": "D-bf45345c42b0a01e70d7",
+      "split": "train",
+      "source_key": "S-c44537badf9e36c7",
+      "source_sha256": "69a58bbafac2087c85d18723e47d0443a9c88528de5f06c718821296e382812a",
+      "document": "---\nfrom: phlegm\ndate: 2026-10-25\nevidence: measured\nstack: Strix Halo Ryzen AI MAX+395; Fedora44 kernel7.2.11; amdxdna0.10.0; firmware1.1.2.65; XRT2.27; MLIR-AIE1.4.2; Peano21.0.0.2026080301+c9c5ecb7\n---\n\n# Compensated prefill passes model gates; preliminary engine improvement\n\nCanonical source: /home/cyrus/code/phlegm/open_kernels/designs/gemm_q4_prefill/\ncompensated64/, with explicit experimental bfp16_hilo runtime input contract.\nFull report and reproducible commands: phlegm/.plans/artlite-performance.md and\nspecs/open-engine/gguf-prefill-linux.md. Dirty development artifacts, no release\nbenchmark or parity claim. Same Llama3.2 1B Q4_1 GGUF SHA256\n6e35ca7e357c6c7f55a34d683e538614cb3e34b1155d92731da75c1685136add.",
+      "body": "Canonical source: /home/cyrus/code/phlegm/open_kernels/designs/gemm_q4_prefill/\ncompensated64/, with explicit experimental bfp16_hilo runtime input contract.\nFull report and reproducible commands: phlegm/.plans/artlite-performance.md and\nspecs/open-engine/gguf-prefill-linux.md. Dirty development artifacts, no release\nbenchmark or parity claim. Same Llama3.2 1B Q4_1 GGUF SHA256\n6e35ca7e357c6c7f55a34d683e538614cb3e34b1155d92731da75c1685136add.",
+      "source_start": 280,
+      "source_end": 725,
+      "heading": "# Compensated prefill passes model gates; preliminary engine improvement",
+      "title": "# Compensated prefill passes model gates; preliminary engine improvement",
+      "task": "extraction"
+    },
+    {
+      "id": "D-c8527f669efb4983a39f",
+      "split": "train",
+      "source_key": "S-c44537badf9e36c7",
+      "source_sha256": "69a58bbafac2087c85d18723e47d0443a9c88528de5f06c718821296e382812a",
+      "document": "---\nfrom: phlegm\ndate: 2026-10-25\nevidence: measured\nstack: Strix Halo Ryzen AI MAX+395; Fedora44 kernel7.2.11; amdxdna0.10.0; firmware1.1.2.65; XRT2.27; MLIR-AIE1.4.2; Peano21.0.0.2026080301+c9c5ecb7\n---\n\n# Compensated prefill passes model gates; preliminary engine improvement\n\nCompensated model300 median cosine .9999477636194,argmax297/300,\nloss2.803070816;8192 median .9999503172159,argmax8191/8192,\nloss .0353892735892. Independent CPU plus sequential controls pass chosen\ncosine/argmax/loss gates; real47 slice across4096 also passes. Artificial\nzero-history failure retained, not repaired. Rotated64x64 image matches all\n8192 logits and16 decode outputs byte-for-byte; resident bridge16 also exact.\n32core .text5136B/frame64B/stack4096B/L1end60488B. All4 projection streams\nrebuilt and three CDO payloads checked identical for shared context.",
+      "body": "Compensated model300 median cosine .9999477636194,argmax297/300,\nloss2.803070816;8192 median .9999503172159,argmax8191/8192,\nloss .0353892735892. Independent CPU plus sequential controls pass chosen\ncosine/argmax/loss gates; real47 slice across4096 also passes. Artificial\nzero-history failure retained, not repaired. Rotated64x64 image matches all\n8192 logits and16 decode outputs byte-for-byte; resident bridge16 also exact.\n32core .text5136B/frame64B/stack4096B/L1end60488B. All4 projection streams\nrebuilt and three CDO payloads checked identical for shared context.",
+      "source_start": 727,
+      "source_end": 1297,
+      "heading": "# Compensated prefill passes model gates; preliminary engine improvement",
+      "title": "# Compensated prefill passes model gates; preliminary engine improvement",
+      "task": "extraction"
+    },
+    {
+      "id": "D-b82a9c16a3f226be9373",
+      "split": "train",
+      "source_key": "S-00c85ffbbbd40f41",
+      "source_sha256": "b4b9892efcae6a2b0b54bea7c787976bf912acda6bd57ed77238847daf09cba7",
+      "document": "---\nfrom: fastflowlm (C:/code/FastFlowLM, main checkout; upstream docs at 1fc5ce1 of 2026-08-25)\ndate: 2026-08-11\nevidence: documented\nstack: FastFlowLM v0.9.30 to v1.0.2 per page; benchmark systems Ryzen AI 7 350 (Kraken Point, 32 GB) and Ryzen AI 9 370 (Strix Point, 32 GB); default power mode performance; NPU driver, firmware and XRT not stated\n---\n\n# FLM docs: prefill chunk size, preemption, NPU request queue, release timeline, a hidden power table and extra benchmark rows\n\n## Prefill chunk size\n\n- `--prefill-chunk-len` sets how many tokens one prefill chunk holds; the docs give a default of 4096. (cli.md:299-313)\n- In code a user value below 512 is raised to 512. Without the flag FLM takes the model's `max_prefill_len` from `model_list.json`, which is 4096 for all 35 entries, Qwen3.6-35B-A3B included; the last fallback is also 4096. (runner.cpp:83-92, rest_handler.cpp:334-337, 414-415)\n- This answers the chunk size the 2026-09-01 engine captures could not find (\"Prefill chunk 1/1 with N tokens\").",
+      "body": "- `--prefill-chunk-len` sets how many tokens one prefill chunk holds; the docs give a default of 4096. (cli.md:299-313)\n- In code a user value below 512 is raised to 512. Without the flag FLM takes the model's `max_prefill_len` from `model_list.json`, which is 4096 for all 35 entries, Qwen3.6-35B-A3B included; the last fallback is also 4096. (runner.cpp:83-92, rest_handler.cpp:334-337, 414-415)\n- This answers the chunk size the 2026-09-01 engine captures could not find (\"Prefill chunk 1/1 with N tokens\").",
+      "source_start": 1169,
+      "source_end": 1679,
+      "heading": "## Prefill chunk size",
+      "title": "# FLM docs: prefill chunk size, preemption, NPU request queue, release timeline, a hidden power table and extra benchmark rows",
+      "task": "extraction"
+    },
+    {
+      "id": "D-087058e0d1d442955ff0",
+      "split": "train",
+      "source_key": "S-00c85ffbbbd40f41",
+      "source_sha256": "b4b9892efcae6a2b0b54bea7c787976bf912acda6bd57ed77238847daf09cba7",
+      "document": "---\nfrom: fastflowlm (C:/code/FastFlowLM, main checkout; upstream docs at 1fc5ce1 of 2026-08-25)\ndate: 2026-08-11\nevidence: documented\nstack: FastFlowLM v0.9.30 to v1.0.2 per page; benchmark systems Ryzen AI 7 350 (Kraken Point, 32 GB) and Ryzen AI 9 370 (Strix Point, 32 GB); default power mode performance; NPU driver, firmware and XRT not stated\n---\n\n# FLM docs: prefill chunk size, preemption, NPU request queue, release timeline, a hidden power table and extra benchmark rows\n\n## Preemption\n\n- `--preemption 1` on `flm run` or `flm serve` lets high-priority tasks interrupt NPU jobs. The docs warn: \"Preemption is for **engineering testing/optimization** only. It requires a special driver + toolkit and is **not for public use**.\" (cli.md:280-294)\n- FLM's code disables it on Linux hosts (see `2026-08-18-flm-source-driver-floor-validate-limits-hrx.md`).",
+      "body": "- `--preemption 1` on `flm run` or `flm serve` lets high-priority tasks interrupt NPU jobs. The docs warn: \"Preemption is for **engineering testing/optimization** only. It requires a special driver + toolkit and is **not for public use**.\" (cli.md:280-294)\n- FLM's code disables it on Linux hosts (see `2026-08-18-flm-source-driver-floor-validate-limits-hrx.md`).",
+      "source_start": 1696,
+      "source_end": 2059,
+      "heading": "## Preemption",
+      "title": "# FLM docs: prefill chunk size, preemption, NPU request queue, release timeline, a hidden power table and extra benchmark rows",
+      "task": "extraction"
+    },
+    {
+      "id": "D-d49678b9ce1874af47d9",
+      "split": "train",
+      "source_key": "S-5924860d432f2588",
+      "source_sha256": "4981b6cb5e52622db91e29cc1345fcf9cbe8427010e33c16feb801bc5a824bec",
+      "document": "---\nfrom: fastflowlm (C:/code/flm_resp1.json, flm_resp2.json, flm_resp3.json; loose files beside the C:/code/FastFlowLM checkout)\ndate: 2026-09-01\nevidence: measured\nstack: FLM version, NPU driver, firmware and XRT not stated in the files; model tag `qwen3.6-moe:35b-a3b`; machine not stated (the same-day FLM 1.0.2 runs in F-0026 used a Ryzen AI 9 HX 370 with XRT runtime 32.00.20102.3931)\n---\n\n# FLM Qwen3.6-35B-A3B: three `/v1/chat/completions` timings, load time and KV capacity\n\n## Per-request numbers (FLM's `usage` fields)\n\n| request | prompt tok | completion tok | load_duration s | TTFT s | prefill tok/s | decode s | decode tok/s |\n|---|---|---|---|---|---|---|---|\n| resp1 | 16 | 64 | 34.820100096 | 5.221258752 | 3.064395150665768 | 9.580855 | 6.679988372645239 |\n| resp2 | 23 | 82 | 1.1e-06 | 6.905550848 | 3.330653919760986 | 11.841838 | 6.924600724988807 |\n| resp3 | 15 | 87 | 9e-07 | 5.076438528 | 2.954827467576891 | 12.650646 | 6.877119160555121 |",
+      "body": "| request | prompt tok | completion tok | load_duration s | TTFT s | prefill tok/s | decode s | decode tok/s |\n|---|---|---|---|---|---|---|---|\n| resp1 | 16 | 64 | 34.820100096 | 5.221258752 | 3.064395150665768 | 9.580855 | 6.679988372645239 |\n| resp2 | 23 | 82 | 1.1e-06 | 6.905550848 | 3.330653919760986 | 11.841838 | 6.924600724988807 |\n| resp3 | 15 | 87 | 9e-07 | 5.076438528 | 2.954827467576891 | 12.650646 | 6.877119160555121 |",
+      "source_start": 793,
+      "source_end": 1227,
+      "heading": "## Per-request numbers (FLM's `usage` fields)",
+      "title": "# FLM Qwen3.6-35B-A3B: three `/v1/chat/completions` timings, load time and KV capacity",
+      "task": "extraction"
+    },
+    {
+      "id": "D-e16180734defccebdb0f",
+      "split": "train",
+      "source_key": "S-5924860d432f2588",
+      "source_sha256": "4981b6cb5e52622db91e29cc1345fcf9cbe8427010e33c16feb801bc5a824bec",
+      "document": "---\nfrom: fastflowlm (C:/code/flm_resp1.json, flm_resp2.json, flm_resp3.json; loose files beside the C:/code/FastFlowLM checkout)\ndate: 2026-09-01\nevidence: measured\nstack: FLM version, NPU driver, firmware and XRT not stated in the files; model tag `qwen3.6-moe:35b-a3b`; machine not stated (the same-day FLM 1.0.2 runs in F-0026 used a Ryzen AI 9 HX 370 with XRT runtime 32.00.20102.3931)\n---\n\n# FLM Qwen3.6-35B-A3B: three `/v1/chat/completions` timings, load time and KV capacity\n\n## Per-request numbers (FLM's `usage` fields)\n\n- The first request paid a 34.82 s model load; the next two found the model loaded.\n- FLM's `prefill_speed_tps` is prompt tokens divided by TTFT (16 / 5.221 = 3.064), so it includes every fixed cost before the first token.\n- Means over the three: decode 6.83 tok/s, prefill 3.12 tok/s. These match F-0026's FLM 1.0.2 baseline (\"~6.8 and ~3.1 ... 3 requests\"); these files are most likely that baseline (inferred: same day, same count, same means).",
+      "body": "- The first request paid a 34.82 s model load; the next two found the model loaded.\n- FLM's `prefill_speed_tps` is prompt tokens divided by TTFT (16 / 5.221 = 3.064), so it includes every fixed cost before the first token.\n- Means over the three: decode 6.83 tok/s, prefill 3.12 tok/s. These match F-0026's FLM 1.0.2 baseline (\"~6.8 and ~3.1 ... 3 requests\"); these files are most likely that baseline (inferred: same day, same count, same means).",
+      "source_start": 1229,
+      "source_end": 1676,
+      "heading": "## Per-request numbers (FLM's `usage` fields)",
+      "title": "# FLM Qwen3.6-35B-A3B: three `/v1/chat/completions` timings, load time and KV capacity",
+      "task": "extraction"
+    },
+    {
+      "id": "D-a018b9f32ff8180b4228",
+      "split": "train",
+      "source_key": "S-9a49df199a491540",
+      "source_sha256": "b32d24ecdd0e11b3f1ab0624d83cf20f5b542b5ff5aed1fbcdd3989a5da02bb3",
+      "document": "---\nfrom: openflowlm-next (C:/code/openflowlm-next, main checkout; spec and gitignored plans)\ndate: 2026-10-07\nevidence: measured\nstack: Windows 11, Ryzen AI 9 HX PRO 370; `--pmode performance` unless a row says turbo; mlir-aie 1.4.2, Peano 21.0.0.2026080301; oflm 1.0.4 (open engine) and closed FLM 1.0.2 `qwen3_6_moe_npu`; MSVC OpenMP runtime VCOMP140.DLL; NPU driver build not stated\n---\n\n# Qwen3.6-35B block prefill on the NPU: how it caught the closed engine, what spinning OpenMP workers cost, open vs closed back to back\n\n## Open against closed\n\n- The closed engine prefills the whole prompt in one weight pass (log: \"Prefill chunk 1/1 with 1122 tokens\"; `--prefill-chunk-len` clamps to 512). 2593 tokens: closed 136.2 tok/s (19.0 s), closed chunked 59.0 tok/s (43.9 s), open with PASSIVE 86.3 tok/s (29.9 s) (prefill-parity.md:90-111, 2026-09-20).\n- Back to back on 2026-09-21, same container: prefill open / closed 1.94 / 14.19 s (182 tokens), 8.95 / 18.85 (1122), 20.96 / 24.15 (2593); decode 8.38 / 14.17, 7.87 / 14.83, 7.00 / 14.46 tok/s (spec.md:3467-3477).\n- Server with PASSIVE: open 20.76 and 25.96 s at 3062 and 3642 tokens against closed 20.94 and 23.05 s; fits server 0.46 s + N/153 tok/s, CLI 0.6 + N/164, default wait policy 0.39 + N/109. Context capacity 32768 against 4096 cost nothing measurable (prefill-parity-2026-09-21.md:264-294).",
+      "body": "- The closed engine prefills the whole prompt in one weight pass (log: \"Prefill chunk 1/1 with 1122 tokens\"; `--prefill-chunk-len` clamps to 512). 2593 tokens: closed 136.2 tok/s (19.0 s), closed chunked 59.0 tok/s (43.9 s), open with PASSIVE 86.3 tok/s (29.9 s) (prefill-parity.md:90-111, 2026-09-20).\n- Back to back on 2026-09-21, same container: prefill open / closed 1.94 / 14.19 s (182 tokens), 8.95 / 18.85 (1122), 20.96 / 24.15 (2593); decode 8.38 / 14.17, 7.87 / 14.83, 7.00 / 14.46 tok/s (spec.md:3467-3477).\n- Server with PASSIVE: open 20.76 and 25.96 s at 3062 and 3642 tokens against closed 20.94 and 23.05 s; fits server 0.46 s + N/153 tok/s, CLI 0.6 + N/164, default wait policy 0.39 + N/109. Context capacity 32768 against 4096 cost nothing measurable (prefill-parity-2026-09-21.md:264-294).",
+      "source_start": 5118,
+      "source_end": 5924,
+      "heading": "## Open against closed",
+      "title": "# Qwen3.6-35B block prefill on the NPU: how it caught the closed engine, what spinning OpenMP workers cost, open vs closed back to back",
+      "task": "extraction"
+    },
+    {
+      "id": "D-c931dca83e2bfb061385",
+      "split": "train",
+      "source_key": "S-9a49df199a491540",
+      "source_sha256": "b32d24ecdd0e11b3f1ab0624d83cf20f5b542b5ff5aed1fbcdd3989a5da02bb3",
+      "document": "---\nfrom: openflowlm-next (C:/code/openflowlm-next, main checkout; spec and gitignored plans)\ndate: 2026-10-07\nevidence: measured\nstack: Windows 11, Ryzen AI 9 HX PRO 370; `--pmode performance` unless a row says turbo; mlir-aie 1.4.2, Peano 21.0.0.2026080301; oflm 1.0.4 (open engine) and closed FLM 1.0.2 `qwen3_6_moe_npu`; MSVC OpenMP runtime VCOMP140.DLL; NPU driver build not stated\n---\n\n# Qwen3.6-35B block prefill on the NPU: how it caught the closed engine, what spinning OpenMP workers cost, open vs closed back to back\n\n## Doubtful\n\n- The closed engine's fixed prefill term moved between 9.93, 10.0, 12.1 and 14.8 s across fits (marginal rate stable at ~264-280 tok/s); its run-to-run spread at one length was 48-158 tok/s, so the open/closed crossover reads ~1700, ~3100, ~3600-3700 or \"past 4800\" tokens depending on the run.\n- Closed decode on this box read ~6.8 tok/s in early September and 14.2-14.8 tok/s on 2026-09-21; the source notes the box's decode rate doubled without saying why. Bears on Q-0011.\n- Open prefill went 17.43 -> 20.96 s at 2593 tokens within one afternoon when the request generated 48 tokens instead of 8; unexplained.\n- The plans first credited the in-binary PASSIVE setting for 38.55 -> 29.93 s at 2582 tokens; the 09-21 notes show it never applied and the gain came from setting the variable in the shell.\n",
+      "body": "- The closed engine's fixed prefill term moved between 9.93, 10.0, 12.1 and 14.8 s across fits (marginal rate stable at ~264-280 tok/s); its run-to-run spread at one length was 48-158 tok/s, so the open/closed crossover reads ~1700, ~3100, ~3600-3700 or \"past 4800\" tokens depending on the run.\n- Closed decode on this box read ~6.8 tok/s in early September and 14.2-14.8 tok/s on 2026-09-21; the source notes the box's decode rate doubled without saying why. Bears on Q-0011.\n- Open prefill went 17.43 -> 20.96 s at 2593 tokens within one afternoon when the request generated 48 tokens instead of 8; unexplained.\n- The plans first credited the in-binary PASSIVE setting for 38.55 -> 29.93 s at 2582 tokens; the 09-21 notes show it never applied and the gain came from setting the variable in the shell.\n",
+      "source_start": 5939,
+      "source_end": 6743,
+      "heading": "## Doubtful",
+      "title": "# Qwen3.6-35B block prefill on the NPU: how it caught the closed engine, what spinning OpenMP workers cost, open vs closed back to back",
+      "task": "extraction"
+    },
+    {
+      "id": "D-f2072ba0362c84a19f98",
+      "split": "train",
+      "source_key": "S-4e8175509846cd44",
+      "source_sha256": "2fa53514f01fe031aef34534a9e967e925c33564d6ddc1500a38d226bf9dcc18",
+      "document": "---\nfrom: openflowlm-next (worktree C:/code/openflowlm-prefill-gemm, branch perf/prefill-gemm-peak from perf/dense-bfp16-qwen3 aad26a0a)\ndate: 2026-10-20\nevidence: measured\nstack: Windows 11, Ryzen AI 9 HX PRO 370 (Strix Point); mlir-aie native Windows build at C:\\dev\\mlir-aie (iron_env.ps1), llvm-aie 21 (Peano); XRT via C:\\Windows\\System32\\AMD; power mode stated per run; box busy (CPU 44-100 % from other sessions, other NPU jobs between units under dibs)\n---\n\n# bfp16 GEMM: the dataflow is the bound, the K-chunk body is load-bound, and on-core q4 dequant costs as much as the matmul\n\nAll on `open_kernels/designs/gemm_bfp16` (whole-array bfp16 x bfp16 -> fp32, 32 cores, core tile 64 x 64 x 128, one K chunk = 1024 8x8x8 mmuls a core). Probes in `utilities/gemm-peak/` and `utilities/aie-probes/mmul_rate_probe.*` of that branch.",
+      "body": "All on `open_kernels/designs/gemm_bfp16` (whole-array bfp16 x bfp16 -> fp32, 32 cores, core tile 64 x 64 x 128, one K chunk = 1024 8x8x8 mmuls a core). Probes in `utilities/gemm-peak/` and `utilities/aie-probes/mmul_rate_probe.*` of that branch.",
+      "source_start": 590,
+      "source_end": 835,
+      "heading": "# bfp16 GEMM: the dataflow is the bound, the K-chunk body is load-bound, and on-core q4 dequant costs as much as the matmul",
+      "title": "# bfp16 GEMM: the dataflow is the bound, the K-chunk body is load-bound, and on-core q4 dequant costs as much as the matmul",
+      "task": "extraction"
+    },
+    {
+      "id": "D-b32d320ac05ccecbce28",
+      "split": "train",
+      "source_key": "S-4e8175509846cd44",
+      "source_sha256": "2fa53514f01fe031aef34534a9e967e925c33564d6ddc1500a38d226bf9dcc18",
+      "document": "---\nfrom: openflowlm-next (worktree C:/code/openflowlm-prefill-gemm, branch perf/prefill-gemm-peak from perf/dense-bfp16-qwen3 aad26a0a)\ndate: 2026-10-20\nevidence: measured\nstack: Windows 11, Ryzen AI 9 HX PRO 370 (Strix Point); mlir-aie native Windows build at C:\\dev\\mlir-aie (iron_env.ps1), llvm-aie 21 (Peano); XRT via C:\\Windows\\System32\\AMD; power mode stated per run; box busy (CPU 44-100 % from other sessions, other NPU jobs between units under dibs)\n---\n\n# bfp16 GEMM: the dataflow is the bound, the K-chunk body is load-bound, and on-core q4 dequant costs as much as the matmul\n\n## Dataflow against arithmetic (performance mode, busy box, min of 20)\n\n`GB_NULL=1` compiles the kernel bodies to an immediate return, every DMA kept. 256 tokens a dispatch:",
+      "body": "`GB_NULL=1` compiles the kernel bodies to an immediate return, every DMA kept. 256 tokens a dispatch:",
+      "source_start": 909,
+      "source_end": 1010,
+      "heading": "## Dataflow against arithmetic (performance mode, busy box, min of 20)",
+      "title": "# bfp16 GEMM: the dataflow is the bound, the K-chunk body is load-bound, and on-core q4 dequant costs as much as the matmul",
+      "task": "extraction"
+    },
+    {
+      "id": "D-be58f86360bdf45c1e7b",
+      "split": "validation",
+      "source_key": "S-22233697005af538",
+      "source_sha256": "d41a7b020609a89321becf8a01d24257b7a7dadfd1e4bad614965bb6ded8ad0c",
+      "document": "---\nfrom: hipfire (C:/code/hipfire, main checkout). Upstream hipfire's own report (git authors Kaden Schutt and \"Bjoern Agent\"; NPU stack folded in by c8fb82c22 on 2026-10-04). Third-party results, not rerun here.\ndate: 2026-10-05\nevidence: hearsay\nstack: Strix Halo, NOT Strix Point. Host \"hipx\": Ryzen AI MAX+ 395 (MS-S1 MAX), Ubuntu 26.04.1, kernel 7.0.0-31-generic (2026-09-16) then 7.0.0-38-generic (2026-10-02), in-tree amdxdna (DRM driver 0.7.0), NPU 1022:17f0 rev 0x11 \"RyzenAI-npu5\", firmware 1.1.2.65 (`amdnpu/17f0_11/npu_7.sbin`), iommu=pt (identity domain), HIP 7.15.26333 / ROCm core 10.0.0, gfx1151 iGPU; XRT 2.21.75 installed but not used by this path. A second Strix Halo box \"halo\" ran Linux 7.2 (firmware not stated) for commit a053503c8. No Windows.\n---\n\n# Linux amdxdna without XRT: raw ioctl dispatch, sync rules, GPU buffer imports, errors and a QoS wedge (upstream hipfire report)\n\n## Raw dispatch without XRT\n\n- A libc-only path ran mlir-aie PDIs and instruction streams bit-exact against XRT, also after context destroy/recreate: 64 MiB DEV_HEAP BO at a 64 MiB-aligned host VA, CREATE_HWCTX (all-zero QoS, max_opc 2048, num_tiles 32), DEV BO for the PDI, CONFIG_HWCTX CU (16 B payload), DEV BO for the instructions, SHMEM BOs for data, one CMD BO, EXEC_CMD, then `DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT` (WAIT_FOR_SUBMIT) on the hwctx syncobj at the EXEC_CMD seq, then a check for ERT state 4.\n- The working ERT_START_CU packet: header `0x30010001`, cu_mask 1, payload opcode 3, instruction address, instruction size in bytes (not words), then bo0..bo4. bo0 sits at payload offset 0x14, so the u64 slots are 4-mod-8 unaligned.\n- Kernel 7.0 has no WAIT_CMD ioctl. The syncobj timeline wait works instead.\n- `SYNC_BO FROM_DEVICE` returns EINVAL for SHMEM BOs on this driver; `TO` works. Readback uses CPU `clflush` per 64 B line with `mfence` before and after. The source says this matches the installed XRT shim's default non-coherent sync (`clflush_data`).\n- The output buffer must also be flushed before the run, so a later dirty-line eviction cannot overwrite device output.\n- The readback flush averaged 1.475 ms for a 35.65 MB GEMM output and 17.345 \u00b5s for a 524,288 B output (all iterations).\n- Only bo0..bo4 reach the firmware, so every design uses at most 5 DDR-patched buffers. Consistent with F-0012.",
+      "body": "- A libc-only path ran mlir-aie PDIs and instruction streams bit-exact against XRT, also after context destroy/recreate: 64 MiB DEV_HEAP BO at a 64 MiB-aligned host VA, CREATE_HWCTX (all-zero QoS, max_opc 2048, num_tiles 32), DEV BO for the PDI, CONFIG_HWCTX CU (16 B payload), DEV BO for the instructions, SHMEM BOs for data, one CMD BO, EXEC_CMD, then `DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT` (WAIT_FOR_SUBMIT) on the hwctx syncobj at the EXEC_CMD seq, then a check for ERT state 4.\n- The working ERT_START_CU packet: header `0x30010001`, cu_mask 1, payload opcode 3, instruction address, instruction size in bytes (not words), then bo0..bo4. bo0 sits at payload offset 0x14, so the u64 slots are 4-mod-8 unaligned.\n- Kernel 7.0 has no WAIT_CMD ioctl. The syncobj timeline wait works instead.\n- `SYNC_BO FROM_DEVICE` returns EINVAL for SHMEM BOs on this driver; `TO` works. Readback uses CPU `clflush` per 64 B line with `mfence` before and after. The source says this matches the installed XRT shim's default non-coherent sync (`clflush_data`).\n- The output buffer must also be flushed before the run, so a later dirty-line eviction cannot overwrite device output.\n- The readback flush averaged 1.475 ms for a 35.65 MB GEMM output and 17.345 \u00b5s for a 524,288 B output (all iterations).\n- Only bo0..bo4 reach the firmware, so every design uses at most 5 DDR-patched buffers. Consistent with F-0012.",
+      "source_start": 1447,
+      "source_end": 2840,
+      "heading": "## Raw dispatch without XRT",
+      "title": "# Linux amdxdna without XRT: raw ioctl dispatch, sync rules, GPU buffer imports, errors and a QoS wedge (upstream hipfire report)",
+      "task": "extraction"
+    },
+    {
+      "id": "D-2653c635751dd1aa27ef",
+      "split": "validation",
+      "source_key": "S-22233697005af538",
+      "source_sha256": "d41a7b020609a89321becf8a01d24257b7a7dadfd1e4bad614965bb6ded8ad0c",
+      "document": "---\nfrom: hipfire (C:/code/hipfire, main checkout). Upstream hipfire's own report (git authors Kaden Schutt and \"Bjoern Agent\"; NPU stack folded in by c8fb82c22 on 2026-10-04). Third-party results, not rerun here.\ndate: 2026-10-05\nevidence: hearsay\nstack: Strix Halo, NOT Strix Point. Host \"hipx\": Ryzen AI MAX+ 395 (MS-S1 MAX), Ubuntu 26.04.1, kernel 7.0.0-31-generic (2026-09-16) then 7.0.0-38-generic (2026-10-02), in-tree amdxdna (DRM driver 0.7.0), NPU 1022:17f0 rev 0x11 \"RyzenAI-npu5\", firmware 1.1.2.65 (`amdnpu/17f0_11/npu_7.sbin`), iommu=pt (identity domain), HIP 7.15.26333 / ROCm core 10.0.0, gfx1151 iGPU; XRT 2.21.75 installed but not used by this path. A second Strix Halo box \"halo\" ran Linux 7.2 (firmware not stated) for commit a053503c8. No Windows.\n---\n\n# Linux amdxdna without XRT: raw ioctl dispatch, sync rules, GPU buffer imports, errors and a QoS wedge (upstream hipfire report)\n\n## GPU buffer imports (gfx1151 iGPU)\n\n- `SYNC_BO` on an imported dma-buf handle oopses the kernel (7.0.0-31). Imported buffers use CPU flush only. The command BO must be of CMD type.\n- XDNA\u2192XDNA PRIME import ran correctly, but mmap of the imported BO returned EINVAL, and importer-side sync or a direct dma-buf mmap killed the probe session.\n- NPU\u2192GPU import fails: KFD rejects dma-bufs that amdgpu did not export (`amdgpu_amdkfd_get_dmabuf_info`).\n- GPU `hipMalloc` buffers imported into amdxdna were read and written bit-exactly by an NPU kernel (control 6/6, read 12/12, write 36/36). Import setup took 0.8-3.9 ms, once.\n- A HIP VMM host allocation exported with `hipMemGetHandleForAddressRange` aliases only bytes written before the export. After the amdxdna import, GPU writes do not show through the dma-buf and dma-buf writes do not reach the GPU (64 KiB to 16 MiB, pinned or uncached). This withdrew the source's 2026-10-02 \"zero-copy\" verdict.\n- Live sharing works with anonymous host pages pinned by amdxdna as a userptr BO and `hipHostRegister`ed for the GPU. A three-way alias check (CPU, GPU kernel, NPU map) passes on it.\n- All 16 page and flag mixes (4k, THP, hugetlb 2M, 1G \u00d7 hipHostRegister 0 / Portable / Mapped / CoarseGrained) were accepted by amdxdna. The GPU read 238-241 GB/s and wrote 220-227 GB/s on the shared pages.\n- Linux 7.2 amdxdna refuses mmap of a userptr BO with EINVAL. The caller's own map of the same pinned pages works as the CPU view (commit a053503c8).",
+      "body": "- `SYNC_BO` on an imported dma-buf handle oopses the kernel (7.0.0-31). Imported buffers use CPU flush only. The command BO must be of CMD type.\n- XDNA\u2192XDNA PRIME import ran correctly, but mmap of the imported BO returned EINVAL, and importer-side sync or a direct dma-buf mmap killed the probe session.\n- NPU\u2192GPU import fails: KFD rejects dma-bufs that amdgpu did not export (`amdgpu_amdkfd_get_dmabuf_info`).\n- GPU `hipMalloc` buffers imported into amdxdna were read and written bit-exactly by an NPU kernel (control 6/6, read 12/12, write 36/36). Import setup took 0.8-3.9 ms, once.\n- A HIP VMM host allocation exported with `hipMemGetHandleForAddressRange` aliases only bytes written before the export. After the amdxdna import, GPU writes do not show through the dma-buf and dma-buf writes do not reach the GPU (64 KiB to 16 MiB, pinned or uncached). This withdrew the source's 2026-10-02 \"zero-copy\" verdict.\n- Live sharing works with anonymous host pages pinned by amdxdna as a userptr BO and `hipHostRegister`ed for the GPU. A three-way alias check (CPU, GPU kernel, NPU map) passes on it.\n- All 16 page and flag mixes (4k, THP, hugetlb 2M, 1G \u00d7 hipHostRegister 0 / Portable / Mapped / CoarseGrained) were accepted by amdxdna. The GPU read 238-241 GB/s and wrote 220-227 GB/s on the shared pages.\n- Linux 7.2 amdxdna refuses mmap of a userptr BO with EINVAL. The caller's own map of the same pinned pages works as the CPU view (commit a053503c8).",
+      "source_start": 2880,
+      "source_end": 4334,
+      "heading": "## GPU buffer imports (gfx1151 iGPU)",
+      "title": "# Linux amdxdna without XRT: raw ioctl dispatch, sync rules, GPU buffer imports, errors and a QoS wedge (upstream hipfire report)",
+      "task": "extraction"
+    },
+    {
+      "id": "D-74e44ba147c0ad5c238b",
+      "split": "validation",
+      "source_key": "S-5e09f2836f76d3c0",
+      "source_sha256": "f9fdc96551ffa06c8d8ee3e354907dcc60522940cc8c4703a39fcfc9a3950a2d",
+      "document": "---\nfrom: hipfire (C:/code/hipfire, main checkout). Upstream hipfire's own report (git authors Kaden Schutt and \"Bjoern Agent\"; NPU stack folded in by c8fb82c22 on 2026-10-04, co-op numbers in commit b92f636bc). Third-party results, not rerun here.\ndate: 2026-10-05\nevidence: hearsay\nstack: Strix Halo, NOT Strix Point. Host \"hipx\" (Ryzen AI MAX+ 395, Ubuntu 26.04.1, kernel 7.0.0-31-generic on 2026-09-16 and 7.0.0-38-generic on 2026-10-02/03, in-tree amdxdna DRM driver 0.7.0, firmware 1.1.2.65); the 2026-10-05 co-op bench ran on a second Strix Halo box \"halo\" with Linux 7.2 (firmware not stated). Raw amdxdna ioctls (railgun::npu), no XRT; XRT 2.21.75 only for the 2026-09-16 comparison. iGPU fabric clock pinned. NPU power mode not stated. Linux only.\n---\n\n# Strix Halo on Linux: per-submit cost, transaction-stream size, retained and chained commands, and a CPU-free GPU\u2192NPU ring (upstream hipfire report)\n\n## CPU-free work ring\n\n- The ring is one START_CU whose stream loops over slots. A self-looping shim BD copies the slot's `seq` word from DDR into memtile memory, and the stream MASKPOLLs that word; after the C SYNCs one 64 B DMA write posts the done line.\n- With the CPU as producer: publish \u2192 done seen p50 4.5 \u00b5s (min 1.4-2.6, p99 51-73 \u00b5s on each round's first slot); done \u2192 done 5.3 \u00b5s when slots were published ahead. Paced and published-ahead runs gave the same 897 \u00b5s per GEMM slot.\n- Ring plus lean streams: gate_up 29.93 busy / 29.90 wall TOPS (897 \u00b5s per slot), down 31.87 / 31.80 (421 \u00b5s).\n- With the gfx1151 iGPU as producer (shared userptr pages): GPU publish \u2192 NPU done \u2192 GPU observe p50 3.13 \u00b5s (min 2.73); one uncached poll load costs 0.24 \u00b5s.\n- Full GPU \u2192 NPU \u2192 GPU round trip with a 512\u00d71280\u00d72560 int8 GEMM per run: 271 \u2192 128 \u00b5s per run (`--slots 8 --nslots 4 --rounds 16`: 8 runs per command over 4 ring slots; median of 3 processes; byte-exact), on the Linux 7.2 \"halo\" box. 512\u00d72560\u00d7640: 164 \u2192 113 \u00b5s. Steps: two GPU streams, lean re-arm, rounds queued one ahead, B kept resident in the memtile.",
+      "body": "- The ring is one START_CU whose stream loops over slots. A self-looping shim BD copies the slot's `seq` word from DDR into memtile memory, and the stream MASKPOLLs that word; after the C SYNCs one 64 B DMA write posts the done line.\n- With the CPU as producer: publish \u2192 done seen p50 4.5 \u00b5s (min 1.4-2.6, p99 51-73 \u00b5s on each round's first slot); done \u2192 done 5.3 \u00b5s when slots were published ahead. Paced and published-ahead runs gave the same 897 \u00b5s per GEMM slot.\n- Ring plus lean streams: gate_up 29.93 busy / 29.90 wall TOPS (897 \u00b5s per slot), down 31.87 / 31.80 (421 \u00b5s).\n- With the gfx1151 iGPU as producer (shared userptr pages): GPU publish \u2192 NPU done \u2192 GPU observe p50 3.13 \u00b5s (min 2.73); one uncached poll load costs 0.24 \u00b5s.\n- Full GPU \u2192 NPU \u2192 GPU round trip with a 512\u00d71280\u00d72560 int8 GEMM per run: 271 \u2192 128 \u00b5s per run (`--slots 8 --nslots 4 --rounds 16`: 8 runs per command over 4 ring slots; median of 3 processes; byte-exact), on the Linux 7.2 \"halo\" box. 512\u00d72560\u00d7640: 164 \u2192 113 \u00b5s. Steps: two GPU streams, lean re-arm, rounds queued one ahead, B kept resident in the memtile.",
+      "source_start": 3622,
+      "source_end": 4716,
+      "heading": "## CPU-free work ring",
+      "title": "# Strix Halo on Linux: per-submit cost, transaction-stream size, retained and chained commands, and a CPU-free GPU\u2192NPU ring (upstream hipfire report)",
+      "task": "extraction"
+    },
+    {
+      "id": "D-8c9613abd8e8c1fb1162",
+      "split": "validation",
+      "source_key": "S-5e09f2836f76d3c0",
+      "source_sha256": "f9fdc96551ffa06c8d8ee3e354907dcc60522940cc8c4703a39fcfc9a3950a2d",
+      "document": "---\nfrom: hipfire (C:/code/hipfire, main checkout). Upstream hipfire's own report (git authors Kaden Schutt and \"Bjoern Agent\"; NPU stack folded in by c8fb82c22 on 2026-10-04, co-op numbers in commit b92f636bc). Third-party results, not rerun here.\ndate: 2026-10-05\nevidence: hearsay\nstack: Strix Halo, NOT Strix Point. Host \"hipx\" (Ryzen AI MAX+ 395, Ubuntu 26.04.1, kernel 7.0.0-31-generic on 2026-09-16 and 7.0.0-38-generic on 2026-10-02/03, in-tree amdxdna DRM driver 0.7.0, firmware 1.1.2.65); the 2026-10-05 co-op bench ran on a second Strix Halo box \"halo\" with Linux 7.2 (firmware not stated). Raw amdxdna ioctls (railgun::npu), no XRT; XRT 2.21.75 only for the 2026-09-16 comparison. iGPU fabric clock pinned. NPU power mode not stated. Linux only.\n---\n\n# Strix Halo on Linux: per-submit cost, transaction-stream size, retained and chained commands, and a CPU-free GPU\u2192NPU ring (upstream hipfire report)\n\n## Doubtful\n\n- The commit title says 164 \u2192 112 \u00b5s for the down shape; CHANGELOG.md says 113 \u00b5s.\n- F-0022 found re-executed XRT runlists slower than fresh runs on FLM kernels (Windows); here retained and chained raw commands were faster than eager ones. Different stack and mechanism.\n- F-0064 gives ~4 ms for a first dispatch on Strix Point/Windows; here 1.6 ms (first ring command) and ~2.5 ms (tiny GEMM after context recreate, 2026-09-16).\n- Bears on Q-0005: on Linux the no-op round trip is 59 \u00b5s (20-25 \u00b5s queued), but firmware execution of the transaction stream adds roughly 150 \u00b5s per 51 KB. Stream size may explain part of the spread in per-call floors.\n- Bears on Q-0006: a design switch inside one context costs ~1.0-1.2 ms per alternating submit at these sizes.\n- Bears on Q-0013: on Linux/Halo one context ran 20626 submits in one loop and a 935 KB 64-expert stream with no timeout.\n",
+      "body": "- The commit title says 164 \u2192 112 \u00b5s for the down shape; CHANGELOG.md says 113 \u00b5s.\n- F-0022 found re-executed XRT runlists slower than fresh runs on FLM kernels (Windows); here retained and chained raw commands were faster than eager ones. Different stack and mechanism.\n- F-0064 gives ~4 ms for a first dispatch on Strix Point/Windows; here 1.6 ms (first ring command) and ~2.5 ms (tiny GEMM after context recreate, 2026-09-16).\n- Bears on Q-0005: on Linux the no-op round trip is 59 \u00b5s (20-25 \u00b5s queued), but firmware execution of the transaction stream adds roughly 150 \u00b5s per 51 KB. Stream size may explain part of the spread in per-call floors.\n- Bears on Q-0006: a design switch inside one context costs ~1.0-1.2 ms per alternating submit at these sizes.\n- Bears on Q-0013: on Linux/Halo one context ran 20626 submits in one loop and a 935 KB 64-expert stream with no timeout.\n",
+      "source_start": 4731,
+      "source_end": 5614,
+      "heading": "## Doubtful",
+      "title": "# Strix Halo on Linux: per-submit cost, transaction-stream size, retained and chained commands, and a CPU-free GPU\u2192NPU ring (upstream hipfire report)",
+      "task": "extraction"
+    },
+    {
+      "id": "D-4b57f363a78d5d55d512",
+      "split": "test",
+      "source_key": "S-d03598e9a0f80ca6",
+      "source_sha256": "f8545518103416871b63546addc201178df18bd0e8e98486f6de6dc5952e7b01",
+      "document": "---\nfrom: ggml-xdna (C:/code/npu-prefill-engine), relaying a third-party fork and public issue threads\ndate: 2026-10-12\nevidence: hearsay\nstack: third-party runs on Ryzen AI 9 HX 370 under Ubuntu 24.04 with XRT 2.25 and Ubuntu 26.04 with XRT 2.21 (kernel and amdxdna driver versions not stated); ggml-xdna's own checks were in WSL (Ubuntu 24.04), which has no NPU; no Linux run on NPU hardware by ggml-xdna as of this note\n---\n\n# Linux/XRT facts reported by a fork (Nulifyer/llama-xdna-hybrid), and related public NPU reports\n\n## Measured by ggml-xdna (WSL, 2026-10-12)\n\n- WSL's Ubuntu 24.04 has no `/dev/accel`, the node the Linux NPU driver creates. WSL passes the GPU through (`/dev/dxg`) but not the NPU, so nothing NPU-side can be run or timed from WSL; only builds and host-only tests.",
+      "body": "- WSL's Ubuntu 24.04 has no `/dev/accel`, the node the Linux NPU driver creates. WSL passes the GPU through (`/dev/dxg`) but not the NPU, so nothing NPU-side can be run or timed from WSL; only builds and host-only tests.",
+      "source_start": 946,
+      "source_end": 1166,
+      "heading": "## Measured by ggml-xdna (WSL, 2026-10-12)",
+      "title": "# Linux/XRT facts reported by a fork (Nulifyer/llama-xdna-hybrid), and related public NPU reports",
+      "task": "extraction"
+    },
+    {
+      "id": "D-94becbcc50724f7f2cc3",
+      "split": "test",
+      "source_key": "S-d03598e9a0f80ca6",
+      "source_sha256": "f8545518103416871b63546addc201178df18bd0e8e98486f6de6dc5952e7b01",
+      "document": "---\nfrom: ggml-xdna (C:/code/npu-prefill-engine), relaying a third-party fork and public issue threads\ndate: 2026-10-12\nevidence: hearsay\nstack: third-party runs on Ryzen AI 9 HX 370 under Ubuntu 24.04 with XRT 2.25 and Ubuntu 26.04 with XRT 2.21 (kernel and amdxdna driver versions not stated); ggml-xdna's own checks were in WSL (Ubuntu 24.04), which has no NPU; no Linux run on NPU hardware by ggml-xdna as of this note\n---\n\n# Linux/XRT facts reported by a fork (Nulifyer/llama-xdna-hybrid), and related public NPU reports\n\n## Reported by the fork (hearsay)\n\n- Fork: Nulifyer/llama-xdna-hybrid, a fork of ggml-xdna at v0.1.0 (f5fe5b4), 10 commits from 2026-10-06.\n- Hardware runs on a Ryzen AI 9 HX 370 under Ubuntu 24.04 with XRT 2.25 and Ubuntu 26.04 with XRT 2.21: the NPU tests passed (start-up test multiply, claiming, matmul accuracy, the NaN catch, the memory limit), and an 8,192-token prompt took 7-20% less time than the GPU alone (Qwen3.5-2B, two sittings).\n- Built against ggml-xdna's vendored XRT 2.20 headers, it ran with XRT 2.25 (headers older than runtime worked).\n- The NPU code needed almost no change from Windows on the same chip; the change was mostly platform bits (finding the add-on folder with `dladdr`, memory info from `/proc/meminfo` and a container memory limit).",
+      "body": "- Fork: Nulifyer/llama-xdna-hybrid, a fork of ggml-xdna at v0.1.0 (f5fe5b4), 10 commits from 2026-10-06.\n- Hardware runs on a Ryzen AI 9 HX 370 under Ubuntu 24.04 with XRT 2.25 and Ubuntu 26.04 with XRT 2.21: the NPU tests passed (start-up test multiply, claiming, matmul accuracy, the NaN catch, the memory limit), and an 8,192-token prompt took 7-20% less time than the GPU alone (Qwen3.5-2B, two sittings).\n- Built against ggml-xdna's vendored XRT 2.20 headers, it ran with XRT 2.25 (headers older than runtime worked).\n- The NPU code needed almost no change from Windows on the same chip; the change was mostly platform bits (finding the add-on folder with `dladdr`, memory info from `/proc/meminfo` and a container memory limit).",
+      "source_start": 1203,
+      "source_end": 1937,
+      "heading": "## Reported by the fork (hearsay)",
+      "title": "# Linux/XRT facts reported by a fork (Nulifyer/llama-xdna-hybrid), and related public NPU reports",
+      "task": "extraction"
+    },
+    {
+      "id": "D-67113b2f7eeb685c2042",
+      "split": "test",
+      "source_key": "S-61cd80f8f800ebe8",
+      "source_sha256": "7fc935037ec0e88b752395dee0b72034661ccc52c6b7499c99f066f5d6616222",
+      "document": "---\nfrom: ggml-xdna (C:/code/npu-prefill-engine)\ndate: 2026-10-08\nevidence: measured\nstack: Ryzen AI 9 HX 370 + Radeon 890M laptop; NPU driver 32.0.20102.3930 (README \"Tested with\", not stated for these runs); Radeon driver 32.0.31041.1004 (README); llama.cpp b10944 Vulkan; OpenFlowLM (Atomic-Germ/OpenFlowLM-Next) version or commit not stated; NPU power mode not stated; run date not stated (committed 2026-10-08)\n---\n\n# Qwen3.6 35B-A3B on one HX 370: OpenFlowLM (all on NPU) against llama.cpp with and without the ggml-xdna add-on\n\n## OpenFlowLM, whole model on the NPU\n\n- q4_1: prompt reading 134 / 136 / 139 / 137 tok/s.\n- q4_1: reply writing (32 tokens after the prompt) 12.4 / 12.0 / 10.8 / 8.9 tok/s.\n- 8-bit weights with 4-bit experts: prompt reading 112 / 116 / 118 / 114 tok/s.\n- 8-bit weights with 4-bit experts: reply writing 7.0 / 8.2 / 7.8 / 6.6 tok/s.\n- OpenFlowLM's reply speed drops as the prompt grows (12.4 to 8.9 tok/s from 1k to 8k), while the GPU engines hold steady (`README.md:287-288`).",
+      "body": "- q4_1: prompt reading 134 / 136 / 139 / 137 tok/s.\n- q4_1: reply writing (32 tokens after the prompt) 12.4 / 12.0 / 10.8 / 8.9 tok/s.\n- 8-bit weights with 4-bit experts: prompt reading 112 / 116 / 118 / 114 tok/s.\n- 8-bit weights with 4-bit experts: reply writing 7.0 / 8.2 / 7.8 / 6.6 tok/s.\n- OpenFlowLM's reply speed drops as the prompt grows (12.4 to 8.9 tok/s from 1k to 8k), while the GPU engines hold steady (`README.md:287-288`).",
+      "source_start": 821,
+      "source_end": 1259,
+      "heading": "## OpenFlowLM, whole model on the NPU",
+      "title": "# Qwen3.6 35B-A3B on one HX 370: OpenFlowLM (all on NPU) against llama.cpp with and without the ggml-xdna add-on",
+      "task": "extraction"
+    },
+    {
+      "id": "D-ac65a301dc94089c12ef",
+      "split": "test",
+      "source_key": "S-61cd80f8f800ebe8",
+      "source_sha256": "7fc935037ec0e88b752395dee0b72034661ccc52c6b7499c99f066f5d6616222",
+      "document": "---\nfrom: ggml-xdna (C:/code/npu-prefill-engine)\ndate: 2026-10-08\nevidence: measured\nstack: Ryzen AI 9 HX 370 + Radeon 890M laptop; NPU driver 32.0.20102.3930 (README \"Tested with\", not stated for these runs); Radeon driver 32.0.31041.1004 (README); llama.cpp b10944 Vulkan; OpenFlowLM (Atomic-Germ/OpenFlowLM-Next) version or commit not stated; NPU power mode not stated; run date not stated (committed 2026-10-08)\n---\n\n# Qwen3.6 35B-A3B on one HX 370: OpenFlowLM (all on NPU) against llama.cpp with and without the ggml-xdna add-on\n\n## llama.cpp with the add-on (NPU matmuls, GPU for the rest)\n\n- Q4_K_M, prompt reading: with the add-on 223 / 216 / 259 / 235; GPU alone 223 / 202 / 197 / 202. Lead of up to 1.31x.\n- Q8_0, prompt reading: with the add-on 170 / 196 / 199 / 198; GPU alone 181 / 168 / 199 / 187. Lead of up to 1.17x.\n- The add-on leaves replies to the GPU, so its reply rows should equal the GPU-alone rows. They differ by up to 14%; the source reads 14% as the noise on any figure in these tables (`README.md:278-280`).\n- The NPU cannot take the expert step in this add-on, so only attention and shared weights reach the NPU on this model (`README.md:375-377`).",
+      "body": "- Q4_K_M, prompt reading: with the add-on 223 / 216 / 259 / 235; GPU alone 223 / 202 / 197 / 202. Lead of up to 1.31x.\n- Q8_0, prompt reading: with the add-on 170 / 196 / 199 / 198; GPU alone 181 / 168 / 199 / 187. Lead of up to 1.17x.\n- The add-on leaves replies to the GPU, so its reply rows should equal the GPU-alone rows. They differ by up to 14%; the source reads 14% as the noise on any figure in these tables (`README.md:278-280`).\n- The NPU cannot take the expert step in this add-on, so only attention and shared weights reach the NPU on this model (`README.md:375-377`).",
+      "source_start": 1323,
+      "source_end": 1904,
+      "heading": "## llama.cpp with the add-on (NPU matmuls, GPU for the rest)",
+      "title": "# Qwen3.6 35B-A3B on one HX 370: OpenFlowLM (all on NPU) against llama.cpp with and without the ggml-xdna add-on",
+      "task": "extraction"
+    }
+  ]
+}

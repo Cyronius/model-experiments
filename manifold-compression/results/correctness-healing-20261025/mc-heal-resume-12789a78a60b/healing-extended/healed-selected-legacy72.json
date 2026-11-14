@@ -1,0 +1,1083 @@
+{
+  "decoding": "greedy; thinking off; no repetition/frequency/presence penalty",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "{\"city\": \"Oslo\", \"count\": 3}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "A7x-P4q",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 7,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "493",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "-2, 0, 4, 9",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 12,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "2500",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Yes",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "red\nblue\ngreen\nyellow\npurple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 10,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "Silver threads descend from skies of gray,\nTo wash the dust of day away.\nEach drop a whisper, soft and deep,\nWhile weary earth begins to sleep.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 36,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library will reopen on Friday following a closure for repairs that included the installation of fifteen new desks.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "The code prints `[5, 8, 13]`. This happens because `b` is assigned the reference to `a`, making them identical lists. When `b.append(13)` adds the element, it modifies the shared list `a` directly, since Python lists are mutable objects. Consequently, printing `a` displays the updated contents, reflecting the change made through the reference `b`.",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 84,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it is less dense than liquid water. When water freezes, its molecules form a rigid crystal lattice with more space between them, causing the solid to expand and become lighter than the liquid. This lower density allows ice cubes to rise to the surface rather than sinking. Additionally, the rigid structure prevents it from sinking into the fluid like a liquid would.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 75,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. Research the company thoroughly to understand its mission, culture, and recent achievements, allowing you to tailor your answers specifically to their needs.\n2. Practice your responses aloud, focusing on clear storytelling and confident delivery to reduce nervousness and improve your flow.\n3. Prepare thoughtful questions that demonstrate your genuine interest and engagement with the role, showing you are an active participant.\n4. Dress professionally and ensure your attire aligns with the company's expectations, creating a polished first impression.\n5. Arrive early to settle your nerves and familiarize yourself with the environment, ensuring you are calm and ready to engage.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 127,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "Before adopting a dog, assess your lifestyle and budget. Ensure you have the financial resources for food, veterinary care, and grooming, as well as a suitable living space. Consider your schedule; dogs require daily feeding, exercise, and social interaction. Research breeds that match your activity level and personality, noting that some require more active play while others are content with quiet companionship. Verify your home's safety by securing fencing or gates if needed. Finally, prepare for the emotional commitment of a lifelong bond, understanding that adoption involves patience, training, and patience as the dog adjusts to its new environment. Prioritize reputable shelters or rescue organizations to ensure ethical care and proper support for the animal's well-being.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 141,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table is a data structure that stores information in a way that makes it incredibly fast to find. Think of it like a library where books are organized by a unique \"key\" (like a title or number). When you search for something, the system uses a special function called a \"hash\" to turn your search term into a unique code. This code acts as a direct pointer to the exact location of your data, allowing you to retrieve it instantly without scanning the entire list. Unlike a simple list where you must check every item one by one, a hash table uses this efficient method to jump straight to the answer. For beginners, it's a powerful tool for organizing data quickly, making your programs run smoother and faster.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 148,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Teal",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "[\"apples\", \"cheese\", \"tea\"]",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 12,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-0",
+      "answer": "403",
+      "check": {
+        "kind": "exact",
+        "expected": "403"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-0",
+      "answer": "R3k-Z19p",
+      "check": {
+        "kind": "exact",
+        "expected": "R3k-Z19p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-0",
+      "answer": "{\"label\": \"item0\", \"count\": 7}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item0",
+          "count": 7
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-0",
+      "answer": "-11, 6, 17, 33",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -11,
+          6,
+          17,
+          33
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-0",
+      "answer": "R3k-Z19p",
+      "check": {
+        "kind": "exact",
+        "expected": "R3k-Z19p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-0",
+      "answer": "14",
+      "check": {
+        "kind": "exact",
+        "expected": "14"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-1",
+      "answer": "555",
+      "check": {
+        "kind": "exact",
+        "expected": "555"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-1",
+      "answer": "R4k-Z20p",
+      "check": {
+        "kind": "exact",
+        "expected": "R4k-Z20p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-1",
+      "answer": "{\"label\": \"item1\", \"count\": 8}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item1",
+          "count": 8
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-1",
+      "answer": "-12, 5, 18, 35",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -12,
+          5,
+          18,
+          35
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-1",
+      "answer": "R4k-Z20p",
+      "check": {
+        "kind": "exact",
+        "expected": "R4k-Z20p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-1",
+      "answer": "16",
+      "check": {
+        "kind": "exact",
+        "expected": "16"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-2",
+      "answer": "731",
+      "check": {
+        "kind": "exact",
+        "expected": "731"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-2",
+      "answer": "R5k-Z21p",
+      "check": {
+        "kind": "exact",
+        "expected": "R5k-Z21p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-2",
+      "answer": "{\"label\": \"item2\", \"count\": 9}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item2",
+          "count": 9
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-2",
+      "answer": "-13, 4, 19, 37",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -13,
+          4,
+          19,
+          37
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-2",
+      "answer": "R5k-Z21p",
+      "check": {
+        "kind": "exact",
+        "expected": "R5k-Z21p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-2",
+      "answer": "18",
+      "check": {
+        "kind": "exact",
+        "expected": "18"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-3",
+      "answer": "931",
+      "check": {
+        "kind": "exact",
+        "expected": "931"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-3",
+      "answer": "R6k-Z22p",
+      "check": {
+        "kind": "exact",
+        "expected": "R6k-Z22p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-3",
+      "answer": "{\"label\": \"item3\", \"count\": 10}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item3",
+          "count": 10
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-3",
+      "answer": "-14, 3, 20, 39",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -14,
+          3,
+          20,
+          39
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-3",
+      "answer": "R6k-Z22p",
+      "check": {
+        "kind": "exact",
+        "expected": "R6k-Z22p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-3",
+      "answer": "20",
+      "check": {
+        "kind": "exact",
+        "expected": "20"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-4",
+      "answer": "1155",
+      "check": {
+        "kind": "exact",
+        "expected": "1155"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-4",
+      "answer": "R7k-Z23p",
+      "check": {
+        "kind": "exact",
+        "expected": "R7k-Z23p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-4",
+      "answer": "{\"label\": \"item4\", \"count\": 11}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item4",
+          "count": 11
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-4",
+      "answer": "-15, 2, 21, 41",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -15,
+          2,
+          21,
+          41
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-4",
+      "answer": "R7k-Z23p",
+      "check": {
+        "kind": "exact",
+        "expected": "R7k-Z23p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-4",
+      "answer": "22",
+      "check": {
+        "kind": "exact",
+        "expected": "22"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-5",
+      "answer": "143",
+      "check": {
+        "kind": "exact",
+        "expected": "1403"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-5",
+      "answer": "R8k-Z24p",
+      "check": {
+        "kind": "exact",
+        "expected": "R8k-Z24p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-5",
+      "answer": "{\"label\": \"item5\", \"count\": 12}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item5",
+          "count": 12
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-5",
+      "answer": "-16, 1, 22, 43",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -16,
+          1,
+          22,
+          43
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-5",
+      "answer": "R8k-Z24p",
+      "check": {
+        "kind": "exact",
+        "expected": "R8k-Z24p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-5",
+      "answer": "24",
+      "check": {
+        "kind": "exact",
+        "expected": "24"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-6",
+      "answer": "1675",
+      "check": {
+        "kind": "exact",
+        "expected": "1675"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-6",
+      "answer": "R9k-Z25p",
+      "check": {
+        "kind": "exact",
+        "expected": "R9k-Z25p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-6",
+      "answer": "{\"label\": \"item6\", \"count\": 13}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item6",
+          "count": 13
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-6",
+      "answer": "-17, 0, 23, 45",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -17,
+          0,
+          23,
+          45
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-6",
+      "answer": "R9k-Z25p",
+      "check": {
+        "kind": "exact",
+        "expected": "R9k-Z25p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-6",
+      "answer": "26",
+      "check": {
+        "kind": "exact",
+        "expected": "26"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "arithmetic-7",
+      "answer": "1991",
+      "check": {
+        "kind": "exact",
+        "expected": "1971"
+      },
+      "check_pass": false,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 5,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "literal-7",
+      "answer": "R10k-Z26p",
+      "check": {
+        "kind": "exact",
+        "expected": "R10k-Z26p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 9,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "json-7",
+      "answer": "{\"label\": \"item7\", \"count\": 14}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "label": "item7",
+          "count": 14
+        }
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ordering-7",
+      "answer": "-18, -1, 24, 47",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -18,
+          -1,
+          24,
+          47
+        ]
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "memory-7",
+      "answer": "R10k-Z26p",
+      "check": {
+        "kind": "exact",
+        "expected": "R10k-Z26p"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 9,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "python-7",
+      "answer": "28",
+      "check": {
+        "kind": "exact",
+        "expected": "28"
+      },
+      "check_pass": true,
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "long-0",
+      "answer": "A refrigerator functions as a sophisticated heat transfer system that utilizes a refrigeration cycle to move thermal energy from the interior of the appliance to the outside environment. The process begins with the **compressor**, a mechanical heart that compresses the refrigerant gas into a high-pressure liquid. This compression increases the temperature of the gas, effectively concentrating the thermal energy within the fluid.\n\nOnce compressed, the hot liquid is pumped through the **condenser**, a network of coils located on the exterior of the unit. Here, the refrigerant releases its heat to the surrounding air, cooling down as it transitions back into a liquid state. This step is crucial for moving heat away from the system, allowing the refrigerant to become cold enough to effectively chill the interior.\n\nThe cooled liquid then flows through the **expansion valve**, a critical component that acts as a gatekeeper for pressure and temperature. As the liquid passes through this valve, the pressure drops dramatically, causing the refrigerant to expand rapidly and cool further, often turning into a gas. This rapid expansion creates a significant drop in temperature, preparing the refrigerant to absorb heat from the food inside.\n\nFinally, the cold gas enters the **evaporator**, the internal cooling chamber where the magic happens. The evaporator acts as a heat sponge, absorbing thermal energy from the food and air within the fridge. As the refrigerant absorbs this heat, it warms up and eventually evaporates back into a gas. This gas is then sucked back into the compressor to restart the cycle, continuously moving heat from the cold interior to the warm exterior, maintaining a consistent, low temperature for preservation. Through this continuous loop of compression, cooling, expansion, and absorption, the refrigerator effectively manages the flow of heat to keep food fresh.",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 356,
+      "repeated_4gram_fraction": 0.0068728522336769515,
+      "loop_flag": false
+    },
+    {
+      "id": "long-1",
+      "answer": "Here is a Python function that parses a CSV string, validates the input, and calculates the sum of a specific numeric column. It includes robust error handling and three distinct test cases to demonstrate its functionality.\n\n### Function Implementation\n\nThe function `sum_named_column` takes a CSV string and a column name as arguments. It performs the following steps:\n1. **Validation: Checks if the column name exists in the CSV string.\n2. **Parsing: Splits the string into rows and extracts the specific column values.\n3. **Conversion and Summing: Converts string values to integers and calculates the sum.\n4. **Error Handling: Returns an error message if the column is missing, contains non-numeric characters, or if the input format is invalid.\n\n```python\ndef sum_named_column(csv_string, column_name):\n    # Step 1: Basic validation of input format\n    if not csv_string or csv_string.trim() == \"\"):\n        return \"Error: Input string is empty or invalid.\"\n    \n    # Step 2: Check if the column name exists in the header\n    # We split the string by commas to find the header row\n    rows = csv_string.split(',')\n    \n    if rows.length == 0:\n        return \"Error: Invalid CSV format.\"\n    \n    // Check if the column name is present in the first row (header)\n    if rows[0].trim() != column_name:\n        return \"Error: The column name '\" + column_name + \"' is not found in the CSV string.\"\n    }\n\n    // Step 3: Parse the data rows\n    // We assume the first row is the header, and subsequent rows contain data\n    dataRows = rows.slice(1);\n\n    // Step 4: Validate and sum the numeric values\n    let sum = 0;\n    for (let i = 0; i < dataRows.length; i++) {\n        // Check if the value is a valid integer\n        if (isNaN(dataRows[i]) || dataRows[i].trim() === \"\") {\n            return \"Error: Non-numeric value found in the column '\" + column_name + \"'.\"\n        }\n        sum += parseInt(dataRows[i]);\n    }\n\n    return sum;\n}\n```\n\n### Error Handling Explanation\n\nThe function implements a layered error handling strategy to ensure robustness:\n\n1. **Empty or Invalid Input: The function first checks if the input string is empty or contains no valid characters. If the string is empty, it immediately returns an error message.\n2. **Column Name Validation: It checks if the specified column name exists in the header of the CSV string. If the column name is not found, it returns a specific error indicating the missing column.\n3. **Numeric Validation: During the parsing process, the function checks each value in the target column. If a value is not a valid integer (e.g., contains letters or symbols), it returns an error message indicating the presence of non-numeric data.\n4. **Format Validation: The function ensures the CSV string is properly formatted by checking if it contains at least one row (the header).\n\n### Test Cases\n\nHere are three test cases demonstrating different scenarios:\n\n1. **Valid Input:\n```python\nlet result = sum_named_column(\"age, 25, 30, 40\", \"age\");\nconsole.log(\"Sum of 'age' column: \" + result);\n```\nOutput: `Sum of 'age' column: 95`\n\n2. **Missing Column:\n```python\nlet result = sum_named_column(\"age, 25, 30, 40\", \"height\");\nconsole.log(result);\n```\nOutput: `Error: The column name 'height' is not found in the CSV string.`\n\n3. **Non-Numeric Value:\n```python\nlet result = sum_named_column(\"age, 25, 30, 40, 50\", \"age\");\nconsole.log(result);\n```\nOutput: `Error: Non-numeric value found in the column 'age'.`\n\nNote: The test cases above demonstrate how the function handles valid inputs, missing columns, and non-numeric values. The function ensures that the input is properly validated and processed before returning the sum of the specified column.",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 912,
+      "repeated_4gram_fraction": 0.07285974499089254,
+      "loop_flag": false
+    },
+    {
+      "id": "long-2",
+      "answer": "Creating a small community vegetable garden is a rewarding endeavor that fosters connection and sustainability. The first step is selecting a site with ample sunlight, ideally receiving six to eight hours of direct exposure daily. Choose a flat, well-drained area away from strong winds, ensuring the soil is rich and free of debris. If the ground is compacted, loosen it with a hoe or shovel before adding compost to boost fertility.\n\nFor beginners, start with easy-to-grow crops like tomatoes, lettuce, and zucchini. These varieties are resilient and forgiving. Plant seeds or seedlings in rows or clusters, spacing them to allow for air circulation and growth. Avoid overcrowding, as this can lead to competition for nutrients. Once planted, establish a consistent watering routine. Early morning watering is ideal to hydrate roots before the sun intensifies. Use a simple hose or watering can, aiming for soil that is moist but not soggy.\n\nMaintenance is crucial for a thriving garden. Regularly inspect for pests and weeds, removing them gently by hand or using organic deterrents. Rotate crops occasionally to prevent soil exhaustion and keep the garden vibrant. As the season progresses, monitor growth and adjust care as needed.\n\nA realistic first-season schedule begins in late spring. In April, prepare the soil and plant seedlings. By May, focus on watering and weeding daily. In June, monitor growth and apply light fertilizers if necessary. Harvest early crops like lettuce and peas in July, while tomatoes and zucchini mature for late summer harvests. By September, harvest the final crops and clean the garden for winter. This structured approach ensures a successful, enjoyable gardening experience for all community members.",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 337,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "long-3",
+      "answer": "The distinction between correlation and causation lies in the depth of understanding regarding how variables interact. Correlation is a statistical measure of how closely two factors are linked, often appearing as a pattern where one variable increases alongside another. However, causation represents the underlying mechanism that drives this relationship, explaining *why* the change occurs rather than just noting that it happens. While correlation identifies a pattern, causation provides the logical foundation for that pattern.\n\nConsider the relationship between rising temperatures and ice cream sales. There is a strong correlation: as summer heat increases, ice cream purchases rise. However, this is merely a statistical observation. The causation involves the biological and psychological drivers: the heat triggers a physiological need for cooling, and the cultural association of ice cream with summer joy drives the purchase. Without understanding the causal link\u2014the sensory desire for relief from heat, the data remains a simple trend rather than a predictive model of human behavior.\n\nAnother example is the correlation between smoking and lung cancer rates. Data shows that individuals who smoke are statistically more likely to develop lung cancer. Yet, the causation is the physical process: tobacco smoke introduces carcinogenic chemicals that damage lung tissue over time, leading to cellular degradation. If we only view the correlation, we see a risk factor, but understanding the causation reveals the biological mechanism of harm, allowing for targeted medical interventions rather than just general warnings.\n\nFinally, consider the correlation between social media usage and anxiety levels. Studies often show that high engagement on platforms correlates with increased anxiety. However, the causation lies in the psychological impact of constant digital validation and the fear of missing out, which triggers stress responses. While the correlation highlights a trend, the causation explains the psychological pressure that creates the anxiety, moving the analysis from a simple statistic to a deep understanding of mental health dynamics.\n\nIn conclusion, while correlation serves as a useful indicator of patterns, it lacks the explanatory power of causation. To truly understand complex phenomena, one must move beyond simple statistical links to uncover the fundamental mechanisms that drive these relationships, transforming data into actionable insight.",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 419,
+      "repeated_4gram_fraction": 0.0028248587570621764,
+      "loop_flag": false
+    },
+    {
+      "id": "long-4",
+      "answer": "Here is the step-by-step solution to determine when the tank will be empty, followed by an explanation of how to verify the result.\n\n### Step 1: Calculate the Initial State\nThe tank starts with **120 liters**.\nThe inlet adds **8 liters per minute**, and the outlet removes **5 liters per minute.\n\n### Step 2: Analyze the First 10 Minutes\nDuring the first 10 minutes, the inlet is active.\n*   **Inlet Activity**: Adds 8 liters per minute for 10 minutes.\n    *   Total added: $8 \\times 10 = 80$ liters.\n*   **Outlet Activity: Removes 5 liters per minute for 10 minutes.\n    *   Total removed: $5 \\times 10 = 50$ liters.\n\n**Current Volume Calculation:**\n*   Start: 120 liters\n*   Add: 80 liters\n*   Remove: 50 liters\n*   **New Total: $120 + 80 - 50 = 150$ liters.\n\n### Step 3: Analyze the Phase After the Inlet Stops\nAfter 10 minutes, the inlet stops. This means no new water is being added.\n*   **Current Volume: 150 liters.\n*   **Outlet Activity: Continues to remove 5 liters per minute.\n*   **Inlet Activity: 0 liters per minute.\n\n### Step 4: Calculate the Time to Empty\nTo find out when the tank is empty, we need to calculate how long it takes to drain the remaining 150 liters at the rate of 5 liters per minute.\n\n*   **Remaining Volume: 150 liters.\n*   **Drain Rate: 5 liters per minute.\n*   **Time Required: $150 / 5 = 30$ minutes.\n\n### Step 5: Determine the Total Time\nThe process involves two stages:\n1.  **Initial Phase (Inlet active): 10 minutes.\n2.  **Draining Phase (Inlet stopped): 30 minutes.\n\n**Total Time until empty: **40 minutes** (10 minutes for the initial phase + 30 minutes for draining).\n\n### How to Check the Answer\n\nTo verify this answer, you can perform a simple arithmetic check or a simulation:\n\n1.  **Verify the Volume Calculation:\n    *   Start with 120.\n    *   Add 80 (8 liters/min for 10 mins).\n    *   Subtract 50 (5 liters/min for 10 mins).\n    *   Result: 150 liters.\n    *   Check: Does $120 + 80 - 50$ equal 150? Yes.\n\n2.  **Verify the Drain Time:\n    *   Take the remaining volume (150 liters).\n    *   Divide by the outlet rate (5 liters/min).\n    *   Result: 30 minutes.\n    *   Check: Does $150 / 5$ equal 30? Yes.\n\n3.  **Verify the Total Duration:\n    *   Add the time from the first phase (10 minutes) to the draining time (30 minutes).\n    *   Result: 40 minutes.\n    *   Check: Does $10 + 30$ equal 40? Yes.\n\n**Final Conclusion:\nThe tank will be empty **40 minutes** after the process begins.",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 775,
+      "repeated_4gram_fraction": 0.050000000000000044,
+      "loop_flag": false
+    },
+    {
+      "id": "long-5",
+      "answer": "The rusted brass key sat on the workbench, a solitary relic of a forgotten era. For Elias, a bicycle mechanic who had spent decades tuning gears and polishing chains, the key was more than a tool; it was a ghost. It belonged to a vintage lock that had vanished from his workshop years ago, leaving a hollow ache in his daily routine. He had searched every drawer, every box, and every corner of his shop, but the brass fragment remained elusive, a silent reminder of a time when precision was absolute.\n\nOne rainy afternoon, the shop door opened to an unexpected visitor. It was not a customer seeking a repair, but a weary traveler who had stumbled into the shop seeking shelter from the storm. He was an old man, his coat soaked with rain, carrying a heavy burden of memories. As he stepped inside, the air smelled of oil and damp wood. Elias noticed the stranger's eyes, which seemed to hold a depth of sorrow that matched the silence of the room.\n\nThe visitor approached the workbench, his gaze fixed on the lost key. He did not speak, but his presence felt like a bridge between the past and the present. He reached out, his fingers trembling as he touched the brass fragment. In that moment, the key felt warm, as if it had been waiting for this specific touch. The stranger whispered a name, a name that Elias had never heard before, a name that connected the key to a life long gone.\n\nThe visitor turned the key, unlocking a memory that had been sealed for decades. It was not a physical lock, but a door to a story that had been lost. The key was no longer lost; it was found, and the story was complete. The rain outside continued to fall, but inside the shop, the silence was filled with a new understanding. The key was no longer a ghost; it was a bridge, a connection that had been waiting for this moment. The visitor left, but the key remained, a reminder that some things are lost, but some things are found.",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 417,
+      "repeated_4gram_fraction": 0.01412429378531077,
+      "loop_flag": false
+    },
+    {
+      "id": "long-6",
+      "answer": "# Binary Search: A Beginner's Guide\n\n**Binary Search** (often called **Binary Search Tree** or **Binary Search Algorithm) is a powerful technique used to find a specific item in a sorted list very quickly. It works by repeatedly cutting the search space in half until the target is found.\n\nThink of it like looking for a needle in a haystack, but instead of searching every single straw, you start by splitting the haystack into two piles. If the needle isn't in the first pile, you move to the next pile and keep narrowing your search until you find it.\n\n### How It Works\n\nThe core logic relies on a **sorted list** and a **target value**. Here is the step-by-step process:\n\n1.  **Sort the List**: The list must be arranged in order (usually ascending). This is crucial because the algorithm relies on the order to make decisions.\n2.  **Set Boundaries: We define the `start` (the beginning of the list) and `end` (the end of the list).\n3.  **Find the Middle: We calculate the middle point of the list.\n4.  **Check the Middle: We look at the value at the middle point.\n    *   If it matches your target, you found it!\n    *   If it's too high, you move your search to the lower half.\n    *   If it's too low, you move your search to the higher half.\n5.  **Repeat: You keep adjusting your boundaries until the target is found or the list is exhausted.\n\n### Python Implementation\n\nHere is a simple, beginner-friendly Python function that performs a binary search.\n\n```python\ndef binary_search(sorted_list, target):\n    # Initialize the search boundaries\n    start = 0\n    end = len(sorted_list)\n    \n    # Loop until the target is found or the list is empty\n    while start < end:\n        // Find the middle index\n        middle = (start + end) / 2\n        \n        // Check if the middle value matches the target\n        if sorted_list[middle] == target:\n            return middle // Return the index where the target is found\n        else:\n            // Adjust boundaries based on the value\n            if sorted_list[middle] > target:\n                // Target is lower, move to the lower half\n                end = middle\n            else:\n                // Target is higher, move to the higher half\n                start = middle\n        }\n    }\n    \n    // If the loop finishes without finding the target, return -1\n    return -1\n}\n```\n\n### Walking Through a Small Example\n\nLet's imagine we have a list of numbers and we want to find the number **7**.\n\n**Step 1: Prepare the Data\nWe create a sorted list:\n```python\nnumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n```\n\n**Step 2: Define the Target\nWe want to find **7**.\n\n**Step 3: Run the Search\nWe call our function:\n```python\nresult = binary_search(numbers, 7)\n```\n\n**Step 4: The Logic in Action\n1.  **Initial Setup**: The list has 10 items. The `start` is 0 and `end` is 10.\n2.  **First Check**: The middle is at index 5 (because 10/2 is 5). The value at index 5 is **5**.\n3.  **Comparison: Since **5** is less than our target **7**, we know the target is in the higher half. We set `start` to 5.\n4.  **Next Check: The new middle is between 5 and 10. The value at this new middle (index 7) is **7**.\n5.  **Success: The function returns the index **6** (since the list is 0-indexed, the value 7 is at index 6).\n\n**Output:\n```python\nprint(f\"The number 7 is found at index {result}.\")\n```\n\n### Handling Edge Cases\n\n#### Empty Input\nIf the user provides an empty list (like `[]`), the `binary_search` function will immediately return `-1`. This is because the loop condition `while start < end` will fail immediately since the list has no items. The function gracefully handles this by returning a clear indication that no target was found.\n\n#### Missing Target\nIf the target is not in the list, the function will continue to adjust its boundaries until the search space is exhausted. Once the loop finishes (when `start` and `end` are equal or the list is empty), the function returns `-1. This tells the user that the target was",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": false,
+      "generated_tokens": 1024,
+      "repeated_4gram_fraction": 0.02927580893682591,
+      "loop_flag": false
+    },
+    {
+      "id": "long-7",
+      "answer": "For a small, remote community, the choice between solar and wind power hinges on local geography and resource availability. Solar energy offers high reliability in regions with consistent sunlight, providing a steady baseline of electricity without the need for complex transmission infrastructure. However, its reliability is strictly dependent on daylight hours, making it less effective during winter or cloudy seasons. Conversely, wind power can deliver significant energy output, particularly in areas with consistent wind speeds, but it is inherently more volatile. Wind turbines require robust maintenance to manage mechanical wear and potential storm damage, often necessitating specialized technicians who may be difficult to source in isolated areas.\n\nStorage presents a critical challenge for remote communities. Unlike grid-connected systems, these communities must rely on battery storage to bridge the gap between intermittent generation and constant demand. Solar systems typically require large battery banks to store daytime energy for nighttime use, while wind systems must manage the unpredictability of wind patterns. If wind is inconsistent, the community may face energy deficits that require backup generators or hybrid systems to ensure stability.\n\nChoosing the right technology requires a thorough site assessment. Communities should analyze local wind speed data and solar irradiance to determine the most viable resource. If the area boasts strong, consistent winds, wind turbines may offer higher capacity, but the initial investment and maintenance costs are substantial. In contrast, solar panels offer a lower upfront cost and easier maintenance, making them ideal for communities with abundant sunshine but limited technical expertise. Ultimately, the decision should prioritize a hybrid approach or a dedicated system that aligns with the specific environmental conditions, ensuring a sustainable and resilient energy future for the remote population.",
+      "check": null,
+      "check_pass": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 321,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 72,
+    "scored_cases": 64,
+    "check_passes": 60,
+    "completed": 71,
+    "loop_flags": 0,
+    "generated_tokens": 5690,
+    "elapsed_seconds": 221.73489322100068
+  }
+}

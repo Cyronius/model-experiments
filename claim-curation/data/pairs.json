@@ -1,0 +1,82 @@
+[
+  {
+    "id": "same-run-different-result",
+    "claim_a": "Run R17: device Cedar, compiler 1.2, ash kernel, batch 2. All 20 repetitions completed successfully.",
+    "claim_b": "Run R17: device Cedar, compiler 1.2, ash kernel, batch 2. None of the 20 repetitions completed successfully.",
+    "synthetic": true,
+    "gold_relation": "contradicts",
+    "gold_reason": "Same run and quantifier, opposite outcomes."
+  },
+  {
+    "id": "different-workload",
+    "claim_a": "For the Granite attention workers, 0x1800 read back NaN; 0x3000 worked.",
+    "claim_b": "For LLMNpuTest GEMV and elementwise workers, stack_size=0xD00 ran successfully.",
+    "synthetic": false,
+    "gold_relation": "different_scope",
+    "gold_reason": "Different kernel workloads; stack requirements may differ."
+  },
+  {
+    "id": "different-versions",
+    "claim_a": "With compiler 1.2, the birch kernel worked at stack 0x1800.",
+    "claim_b": "With compiler 1.3, the birch kernel hung at stack 0x1800.",
+    "synthetic": true,
+    "gold_relation": "different_scope",
+    "gold_reason": "Explicitly different compiler versions."
+  },
+  {
+    "id": "unit-equivalence",
+    "claim_a": "On the same device, core memory capacity is 64 KiB.",
+    "claim_b": "On the same device, core memory capacity is 65536 bytes.",
+    "synthetic": true,
+    "gold_relation": "supports",
+    "gold_reason": "64 KiB equals 65536 bytes."
+  },
+  {
+    "id": "unknown-scope",
+    "claim_a": "A worker with stack 0x1800 ran successfully; compiler version and workload were not recorded.",
+    "claim_b": "Granite attention workers with stack 0x1800 produced NaN.",
+    "synthetic": true,
+    "gold_relation": "insufficient_information",
+    "gold_reason": "Cannot establish matching scope from missing workload and version."
+  },
+  {
+    "id": "same-run-timing",
+    "claim_a": "Run T4 measured the classic ROT13 path at exactly 0.602 ms.",
+    "claim_b": "Run T4 measured the classic ROT13 path at exactly 0.447 ms.",
+    "synthetic": true,
+    "gold_relation": "contradicts",
+    "gold_reason": "Same named measurement and metric have different exact values."
+  },
+  {
+    "id": "different-paths",
+    "claim_a": "The classic ROT13 path completed in 0.602 ms.",
+    "claim_b": "The ELF ROT13 path completed in 0.447 ms.",
+    "synthetic": false,
+    "gold_relation": "different_scope",
+    "gold_reason": "Different load paths, not competing values for one path."
+  },
+  {
+    "id": "partial-versus-universal",
+    "claim_a": "Every tested input produced a finite result in run V9.",
+    "claim_b": "One tested input produced NaN in run V9.",
+    "synthetic": true,
+    "gold_relation": "contradicts",
+    "gold_reason": "A counterexample refutes the universal statement for the same run."
+  },
+  {
+    "id": "untested-not-failed",
+    "claim_a": "Compiler 1.3 was not tested for the birch kernel.",
+    "claim_b": "Compiler 1.3 fails for the birch kernel.",
+    "synthetic": true,
+    "gold_relation": "insufficient_information",
+    "gold_reason": "Absence of testing does not establish a failure or its negation."
+  },
+  {
+    "id": "table-paraphrase",
+    "claim_a": "Granite attention workers: 0x1800 returns NaN from position 4 onward; 0x3000 works.",
+    "claim_b": "The Granite attention test succeeded with stack 0x3000, but stack 0x1800 gave NaN at pos >= 4.",
+    "synthetic": false,
+    "gold_relation": "supports",
+    "gold_reason": "Same scoped observations, paraphrased."
+  }
+]

@@ -1,0 +1,277 @@
+{
+  "post_hoc": true,
+  "used_for_selection": false,
+  "selected_step": 16,
+  "source_sha256": {
+    "unhealed_75-test.json": "0004c173aac5c4e9cd1c784452e2954dbf35241c237df1f8b77068aa682ded62",
+    "healed-selected-test.json": "e164be1beb33cf4877d952bf7ab9516d92868e4f12a464450a6682bb50a1f537"
+  },
+  "summary": {
+    "primary_gains": 12,
+    "primary_losses": 1,
+    "value_or_order_repairs": 9,
+    "completed_correct_answer": 1,
+    "presentation_repairs": 2,
+    "new_content_errors": 1
+  },
+  "changed_cases": [
+    {
+      "id": "2510252-python-2",
+      "manual_category": "value_or_order_repair",
+      "before": "18",
+      "after": "27",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-arithmetic-7",
+      "manual_category": "value_or_order_repair",
+      "before": "58",
+      "after": "576",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-sorting-15",
+      "manual_category": "value_or_order_repair",
+      "before": "```json\n[26, -56, 56, -38, -55]\n```",
+      "after": "[-56, -55, -38, 26, 56]",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-python-43",
+      "manual_category": "value_or_order_repair",
+      "before": "29",
+      "after": "19",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-python-50",
+      "manual_category": "value_or_order_repair",
+      "before": "33",
+      "after": "31",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-arithmetic-61",
+      "manual_category": "value_or_order_repair",
+      "before": "48",
+      "after": "468",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-sorting-62",
+      "manual_category": "value_or_order_repair",
+      "before": "```json\n[8, -65, 64, 31, -40]\n```",
+      "after": "[-65, -40, 8, 31, 64]",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-arithmetic-75",
+      "manual_category": "value_or_order_repair",
+      "before": "242",
+      "after": "2424",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-python-105",
+      "manual_category": "value_or_order_repair",
+      "before": "33",
+      "after": "31",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "e223e7fd4c8174aca796ec132b8992b76f1bd8c7c3cff486e9e8db7482e6de4f",
+      "manual_category": "completed_correct_answer",
+      "before": "Based on the logic provided in the reference code snippet, the function attempts to validate the remaining amount `N` by checking if the remaining funds (calculated as `100 - N`) can be divided by 3 and also satisfy a specific condition regarding the remainder modulo 7.\n\nHowever, the provided input `N` is **0.\n\nIn the logic described:\n1. The variable `target` is calculated as `100 - N`. Since `N` is 0, `target` becomes 100.\n2. The code iterates through a range based on `target // 3 + 1`.\n3. Inside the loop, it checks if the remainder is non-negative and if the remainder modulo 7 is 0.\n4. If the condition is met, the function returns 1; otherwise, it returns 0.\n\nSince the input `N` is 0, the calculation `100 - 0` results in 100. The logic implies that if the remaining amount (100) can be successfully processed according to the specific arithmetic checks (divisibility by 3 and the modulo 7 check), the function will return 1.\n\nHowever,",
+      "after": "{\"output\": 1}",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-python-91",
+      "manual_category": "presentation_repair",
+      "before": "8 8 17",
+      "after": "[8, 8, 17]",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": false
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "fec37e2a409a1216846d749b51310e9cc81647e51dfba7cdd5b24552cf65a36c",
+      "manual_category": "presentation_repair",
+      "before": "```json\n{\"output\": {\"category1\": [\"Item_0\", \"Item_1\", \"Item_2\", \"Item_3\", \"Item_4\"], \"category2\": [\"Tech_0\", \"Tech_1\"]}\n```",
+      "after": "{\"output\": {\"category1\": [\"Item_0\", \"Item_1\", \"Item_2\", \"Item_3\", \"Item_4\"], \"category2\": [\"Tech_0\", \"Tech_1\"]}}",
+      "before_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      }
+    },
+    {
+      "id": "2510252-sorting-1",
+      "manual_category": "new_content_error",
+      "before": "```json\n[\n  -6,\n  18,\n  35,\n  36,\n  78\n]\n```",
+      "after": "[18, -6, 35, 36, 78]",
+      "before_grade": {
+        "correct": true,
+        "format_pass": false,
+        "parsed": true
+      },
+      "after_grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      }
+    }
+  ],
+  "long_form_review": [
+    {
+      "id": "test-long-2",
+      "manual_review": "Repetition worsened: formerly ended; now reaches 1024-token cap.",
+      "before": {
+        "ended": true,
+        "generated_tokens": 598,
+        "repeated_4gram_fraction": 0.27403846153846156,
+        "combined_loop_flag": true
+      },
+      "after": {
+        "ended": false,
+        "generated_tokens": 1024,
+        "repeated_4gram_fraction": 0.5387500000000001,
+        "combined_loop_flag": true
+      }
+    },
+    {
+      "id": "test-long-3",
+      "manual_review": "Still invalid Python; executable interval audit fails syntax parsing.",
+      "before": {
+        "ended": true,
+        "generated_tokens": 799,
+        "repeated_4gram_fraction": 0.2922374429223744,
+        "combined_loop_flag": true
+      },
+      "after": {
+        "ended": true,
+        "generated_tokens": 571,
+        "repeated_4gram_fraction": 0.20307692307692304,
+        "combined_loop_flag": true
+      }
+    },
+    {
+      "id": "test-long-4",
+      "manual_review": "Still loops on false claims about photosynthesis and reaches token cap.",
+      "before": {
+        "ended": false,
+        "generated_tokens": 1024,
+        "repeated_4gram_fraction": 0.9418439716312057,
+        "combined_loop_flag": true
+      },
+      "after": {
+        "ended": false,
+        "generated_tokens": 1024,
+        "repeated_4gram_fraction": 0.8785834738617201,
+        "combined_loop_flag": true
+      }
+    }
+  ]
+}

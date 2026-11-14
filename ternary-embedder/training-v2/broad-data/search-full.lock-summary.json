@@ -1,0 +1,40 @@
+{
+  "sources": [
+    {
+      "request_sha256": "ec2c9eed4ebe052c356dcffbbc42d052cfedab0ec95d3b461f80aefd10e27ade",
+      "source": {
+        "id": "msmarco-full",
+        "repo": "sentence-transformers/msmarco-bm25",
+        "revision": "ce8a493a65af5e872c3c92f72a89e2e99e175f02",
+        "declared_license": null,
+        "config": "triplet",
+        "query": "query",
+        "positive": "positive",
+        "target": 502931,
+        "max_rows": 502931,
+        "files": [
+          "triplet/train-00000-of-00001.parquet"
+        ],
+        "negative_policy": "Discard all supplied mined negatives; retain positives only"
+      },
+      "complete": true,
+      "accepted": 454490,
+      "scanned": 502931,
+      "selected_compressed_bytes": 128398344,
+      "rejections": {
+        "parser_or_quality_gate": 0,
+        "positive_too_long": 48427,
+        "text_shape": 4,
+        "corrupt_or_link_list": 10
+      },
+      "domains": {
+        "msmarco-full": 454490
+      },
+      "parts": 503,
+      "target_met": false,
+      "status": "Candidates only; global benchmark exclusions, deduplication and group split still required"
+    }
+  ],
+  "teacher_targets": false,
+  "paid_services_used": false
+}

@@ -1,0 +1,79 @@
+{
+  "local_suite": "test_correctness_healing.py test_correctness_pod.py test_scale_pod.py",
+  "suite_result": "27 passed in 13.84s",
+  "code_sha256": {
+    "correctness_eval.py": "116fe574d6551e4c1647e3c58fd3a1650f7f439fdd0b90eb688e27d2811b6fdf",
+    "correctness_prepare.py": "065dff313fd9a9da3ee2f65f28eaa4baefc126e2d4a35136e4fd2d101977149a",
+    "correctness_heal.py": "741e6d3619e24476a824402eed6297e223573809f9e9301ddfdd3e7892d614d8",
+    "correctness_worker.py": "7e6db68b6ac9b54763dd3fce6ac5ed9f7c1dbcb2186a54de885f876156ef3639",
+    "correctness_verify.py": "fabe66db6ede26771759122e55fdc7d8ac3105e7cdb87a0a163742497ed0c5bf",
+    "correctness_summary.py": "4b1b921ee2fdfab2e7f8e16255b4f804f14ffb6801fe86fdb562833ad3391012",
+    "horizon_fetch.py": "cdd96719de86e1b0441ac28fe43e0ddeebe01e476f4a88a3eff243da507f4480",
+    "horizon_data.py": "0c43af6e23e2862b5b8d9b14e1165815a891f6645d59f597d3886608aac3048a",
+    "run_correctness_pod.py": "e3463fec294e3ee3d87a51338843ba55023231f32b496b2c3f24e0f7707a6c5e",
+    "run_scale_pod.py": "b325b78eb67d748f603c7bb7c3d2b5ede5ecd76e2687379878be3f785d40f69b",
+    "test_correctness_healing.py": "2dd8f65bf39956b12712a94d018f6906b31b97973db5b79fc5d7e6c9242de188",
+    "test_correctness_pod.py": "bc6ef377c7d562a7995a03e6a7ab718f3fd409b5ca0c95059aa20e29710956e2",
+    "test_scale_pod.py": "de0522f68386db01faae9fbec177b263a88e6c1d3553d2d2c4f87c0d6cbe3a72"
+  },
+  "bf16_smoke": {
+    "device": "cpu",
+    "first_ce": 5.580907821655273,
+    "final_ce": 5.386448860168457,
+    "updates": [
+      {
+        "mean_answer_ce": 5.580907821655273,
+        "assistant_tokens": 32,
+        "input_tokens": 96,
+        "rows": 1,
+        "grad_norm": 0.6617743372917175,
+        "lr": 0.001,
+        "seconds": 0.06175622400769498
+      },
+      {
+        "mean_answer_ce": 5.522721767425537,
+        "assistant_tokens": 32,
+        "input_tokens": 96,
+        "rows": 1,
+        "grad_norm": 0.663522481918335,
+        "lr": 0.001,
+        "seconds": 0.06270708900410682
+      },
+      {
+        "mean_answer_ce": 5.457910060882568,
+        "assistant_tokens": 32,
+        "input_tokens": 96,
+        "rows": 1,
+        "grad_norm": 0.702197253704071,
+        "lr": 0.001,
+        "seconds": 0.07873632801056374
+      }
+    ],
+    "adapter": {
+      "rank": 4,
+      "alpha": 8,
+      "modules": [
+        "model.layers.0.linear_attn.out_proj",
+        "model.layers.0.linear_attn.in_proj_qkv",
+        "model.layers.0.linear_attn.in_proj_z",
+        "model.layers.0.linear_attn.in_proj_b",
+        "model.layers.0.linear_attn.in_proj_a",
+        "model.layers.0.mlp.gate_proj",
+        "model.layers.0.mlp.up_proj",
+        "model.layers.0.mlp.down_proj",
+        "model.layers.1.self_attn.q_proj",
+        "model.layers.1.self_attn.k_proj",
+        "model.layers.1.self_attn.v_proj",
+        "model.layers.1.self_attn.o_proj",
+        "model.layers.1.mlp.gate_proj",
+        "model.layers.1.mlp.up_proj",
+        "model.layers.1.mlp.down_proj"
+      ],
+      "trainable_parameters": 33040
+    }
+  },
+  "gpu_validation": "pending; no paid GPU job started",
+  "data_sha256": "4983f874e1f47d35071c7bc683a3f86285860b7c8e8fdcfe60eb54c109c4b3c2",
+  "final_bundle_guard_tests": "2 passed after final bundle additions",
+  "bundle_sha256": "4721b43ea63a6b5037acd6e21bc0e5c6e73dcbbdab3bcc4036f681536bcb696d"
+}

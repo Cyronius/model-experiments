@@ -1,0 +1,111 @@
+{
+  "experiment": "xdna2-claim-distillation-v1",
+  "objective": "Test whether teacher-supervised LoRA improves source-grounded atomic claim extraction and scope retention.",
+  "student": {
+    "id": "numind/NuExtract3",
+    "revision": "c99dc8f5641b866aa0192b6ea78f84bf9f3535f1",
+    "license": "Apache-2.0",
+    "architecture": "Dense Qwen3.5-4B conditional-generation model; vision and all original weights frozen"
+  },
+  "teacher": {
+    "id": "unsloth/Qwen3.5-27B-GGUF",
+    "revision": "3221f178a6b842d04f1fb42f1c413534adcc0a6a",
+    "file": "Qwen3.5-27B-Q4_K_M.gguf",
+    "sha256": "84b5f7f112156d63836a01a69dc3f11a6ba63b10a23b8ca7a7efaf52d5a2d806",
+    "license": "Apache-2.0",
+    "role": "Larger candidate teacher; superior label quality is a hypothesis, not established by model size"
+  },
+  "data": {
+    "documents": 10,
+    "passages": 20,
+    "train_projects": [
+      "phlegm",
+      "fastflowlm",
+      "openflowlm-next"
+    ],
+    "validation_projects": [
+      "hipfire"
+    ],
+    "test_projects": [
+      "ggml-xdna"
+    ],
+    "earlier_benchmark_sources": "excluded",
+    "split_selection": "Deterministic filename-hash order; two documents per project; two intact substantive blocks per document",
+    "source_status": "Project-note snapshots; their upstream references have not been independently verified",
+    "context": "Full source metadata, document title and nearest section heading accompany every selected block; unresolved external references are not invented.",
+    "eligible_train": 9,
+    "eligible_validation": 1,
+    "eligible_test": 4,
+    "unannotated_validation": 3
+  },
+  "supervision": {
+    "citation_checks": "Both supplied passage and full source snapshot must contain every quote and condition verbatim",
+    "semantic_check": "Separate same-teacher critique; rejects and uncertain cases quarantined",
+    "human_gold": false,
+    "repeatability": "Pinned checkpoints, snapshot hashes, exact prompt/request/response caches, deterministic splits and optimization seed",
+    "evidence_alignment": "A unique whitespace-only match may restore original source characters; original fragment and restored text are both logged. Words, punctuation and numbers are never repaired.",
+    "repair": "At most two candidate attempts per passage. Checker feedback may guide the second attempt. Rejected attempts and exact requests remain cached.",
+    "concurrency": 2,
+    "final_policy": "Nine source-reviewed local-teacher training proposals; one source-reviewed critic rejection restored and three accepted proposals excluded. Validation/test references are separately authored by the interactive Codex agent before student document training or inference. No independent human gold.",
+    "annotation_artifacts": [
+      "labels/teacher-pass-20261025.jsonl",
+      "labels/review-decisions.json",
+      "labels/final-supervision.json",
+      "finalize_annotations.py"
+    ],
+    "teacher_splits": [
+      "train"
+    ]
+  },
+  "optimization": {
+    "method": "LoRA supervised fine-tuning",
+    "rank": 8,
+    "alpha": 16,
+    "dropout": 0,
+    "last_text_layers": 8,
+    "targets": [
+      "MLP gate/up/down",
+      "full-attention q/k/v/o",
+      "linear-attention in_proj_qkv/in_proj_z/out_proj"
+    ],
+    "steps": 24,
+    "gradient_accumulation": 2,
+    "learning_rate": 0.0001,
+    "max_tokens": 5120,
+    "seed": 3271,
+    "loss": "Assistant target tokens only; prompt masked; never truncate evidence"
+  },
+  "evaluation": {
+    "test_labels": "Never passed to optimizer or validation",
+    "paired_decoding": "Greedy base versus final adapter, identical native NuExtract3 prompt",
+    "diagnostics": [
+      "valid JSON/schema",
+      "verbatim citation validity",
+      "teacher-reference quotation overlap",
+      "qualifier retention",
+      "truncation"
+    ],
+    "required_review": "Inspect generated claims against source; quote overlap and teacher-forced loss do not measure semantic truth",
+    "promotion": "No automatic deployment or claim verification",
+    "references": "Agent-authored source-assertion references, not teacher self-audits or independently human-certified truth"
+  },
+  "resource_policy": {
+    "hosted_services": false,
+    "paid_cost_usd": 0,
+    "teacher": "Local Vulkan GPU under Dibs gpu+port-8400",
+    "student_training": "Local BF16 under Dibs gpu with isolated official AMD ROCm runtime when device check succeeds; CPU execution remains supported under Dibs cpu",
+    "performance_claims": "None; use dibs --measure for any future speed comparison"
+  },
+  "commands": [
+    "dibs run gpu port-8400 --label 'Generate local claim-distillation supervision' --eta 90m -- <python> training/pilot.py label",
+    "dibs run gpu --label 'Train source-grounded NuExtract3 LoRA pilot' --eta 90m -- training/rocm-env/bin/python training/pilot.py train --device cuda",
+    "dibs run gpu --label 'Compare held-out base and LoRA extractions' --eta 90m -- training/rocm-env/bin/python training/pilot.py evaluate --device cuda"
+  ],
+  "runtime": {
+    "torch_rocm": "2.13.0+rocm10.0.0",
+    "peft": "0.21.0",
+    "dependency_provenance": "rocm-install-plan.json retains official URLs and archive hashes; existing CPU environment supplies Transformers 5.14.1",
+    "torch_native_triton_overrides": "Disabled in base and adapter runs; use precompiled ATen HIP operators because the host has no C development sysroot"
+  },
+  "amendment": "The initial local-teacher pass was ended after all training passages had proposals because dense validation output exceeded its cap. Rejected/truncated responses and the initial failed supervisor status remain archived. The four fixed test cases remain included; the first fixed validation passage has an agent-authored reference and the other three remain unannotated."
+}

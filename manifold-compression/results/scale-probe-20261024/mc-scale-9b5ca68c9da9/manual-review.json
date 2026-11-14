@@ -1,0 +1,81 @@
+{
+  "scope": "Post-hoc assistant review of all stock-correct short cases lost by each large 75%-retained arm. Not blinded and not a replacement primary metric. Categories describe the inspected answer; no aggregate semantic-accuracy claim.",
+  "qwen27": {
+    "format_only": [
+      "json",
+      "json-0",
+      "json-1",
+      "json-2",
+      "json-3",
+      "json-4",
+      "json-5",
+      "json-6",
+      "json-7"
+    ],
+    "clear_content_error": [
+      "multiply",
+      "alias",
+      "arithmetic-0",
+      "arithmetic-1",
+      "arithmetic-2",
+      "arithmetic-3",
+      "arithmetic-4",
+      "arithmetic-5",
+      "arithmetic-6",
+      "arithmetic-7",
+      "python-3",
+      "python-7",
+      "ordering-6"
+    ],
+    "ambiguous_order_and_format": [
+      "multi-edit"
+    ],
+    "counts": {
+      "format_only": 9,
+      "clear_content_error": 13,
+      "ambiguous_order_and_format": 1
+    }
+  },
+  "mistral24": {
+    "format_or_punctuation_only": [
+      "sort",
+      "units",
+      "logic",
+      "five-lines",
+      "arithmetic-0",
+      "arithmetic-1",
+      "arithmetic-6",
+      "ordering-0",
+      "ordering-1",
+      "ordering-2",
+      "ordering-3",
+      "ordering-6"
+    ],
+    "word_limit_only": [
+      "dog"
+    ],
+    "clear_content_error": [
+      "multiply",
+      "alias",
+      "python-1",
+      "python-2",
+      "arithmetic-2",
+      "arithmetic-3",
+      "arithmetic-4",
+      "arithmetic-5",
+      "ordering-4",
+      "ordering-5",
+      "ordering-7"
+    ],
+    "counts": {
+      "format_or_punctuation_only": 12,
+      "word_limit_only": 1,
+      "clear_content_error": 11
+    }
+  },
+  "notes": [
+    "Qwen multi-edit preserves the relative order of apples and tea but inserts cheese between them. The scorer expects appending cheese, although the prompt only says add cheese and keep remaining order; do not count this as an unambiguous content error. It also adds JSON fences.",
+    "Some strict failures are benign punctuation/capitalization, or correct content with extra explanatory text. Raw check counts must not be called general accuracy.",
+    "Word-limit-only checks can pass semantically empty or repetitive answers; Qwen27 half-size passes dog and hash-table despite broken content."
+  ]
+}

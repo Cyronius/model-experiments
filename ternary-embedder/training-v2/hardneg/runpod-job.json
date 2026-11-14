@@ -1,0 +1,108 @@
+{
+  "status": "preflight passed; independent original-parent hard-negative comparison",
+  "resource": "one RTX 4090 24GB RunPod Secure Cloud pod",
+  "listed_rate_usd_per_hour": 0.89,
+  "maximum_gpu_rate_usd_per_hour": 0.9,
+  "maximum_elapsed_hours": 2.0,
+  "expected_elapsed_hours": [
+    1.0,
+    1.7
+  ],
+  "expected_total_usd": [
+    0.9,
+    1.6
+  ],
+  "proposed_total_cap_usd": 2.0,
+  "disk_gb": 60,
+  "retained_paid_volumes": false,
+  "work_deadline_minutes": 100,
+  "watchdog_delete_minutes": 110,
+  "training": {
+    "arms": [
+      {
+        "id": "float-pairs",
+        "checkpoint": "training-v2/work/hardneg/starts/float.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false
+      },
+      {
+        "id": "float-hard",
+        "checkpoint": "training-v2/work/hardneg/starts/float.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": true
+      },
+      {
+        "id": "ternary-pairs",
+        "checkpoint": "training-v2/work/hardneg/starts/ternary.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false
+      },
+      {
+        "id": "ternary-hard",
+        "checkpoint": "training-v2/work/hardneg/starts/ternary.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": true
+      }
+    ],
+    "parent_selection": "Fixed original pre-data-first float/ternary parents at LR4e-5, independent of the two ongoing comparisons.",
+    "epochs_each": 2,
+    "seed": 29,
+    "eval_every": 200,
+    "save_every": 100,
+    "source_floor": 2.0,
+    "validation_negatives": true,
+    "teacher_targets": false,
+    "train_rows": 780743,
+    "dev_rows": 15929,
+    "data_sha256": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502",
+    "negative_train_rows": 182553,
+    "negative_dev_rows": 2847,
+    "comparison": "Same parents, batch, LR, token cap, source schedule and FP32 cached logits; only explicit training-negative inclusion differs. Both conditions validate against the same augmented disjoint held corpus.",
+    "selection": "Maximum full-source macro nDCG with each source within two points of its initialization; null control included; freeze all four before external scoring."
+  },
+  "recovery": {
+    "remote_save_every_steps": 500,
+    "remote_save_every_seconds": 120,
+    "local_backup_attempt_interval_seconds": 60,
+    "sha256_verified_local_copies": true,
+    "full_optimizer_rng_sampler_resume": true,
+    "remote_resume_copies_retained": 2
+  },
+  "pricing_source": "https://www.runpod.io/pricing",
+  "data_center_ids": [
+    "EU-RO-1"
+  ],
+  "cuda_versions": [
+    "13.2"
+  ],
+  "gpu_type_id": "NVIDIA GeForce RTX 4090",
+  "campaign_cap_usd": 10.0,
+  "resource_change": "A5000 did not allocate; using available 4090 within explicitly authorized $10 multi-experiment campaign",
+  "profile": "hardneg",
+  "data_inputs": {
+    "train": {
+      "path": "training-v2/work/hardneg/data/train.jsonl",
+      "sha256": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502"
+    },
+    "dev": {
+      "path": "training-v2/work/hardneg/data/dev.jsonl",
+      "sha256": "9ac846cb11f3b28c9280f9b369aba9c3f2377284a4a9d04f7a3baaa1428b0037"
+    }
+  },
+  "data_audit_files": [
+    "training-v2/hardneg/data-audit.json",
+    "training-v2/hardneg/dev-audit.json"
+  ]
+}

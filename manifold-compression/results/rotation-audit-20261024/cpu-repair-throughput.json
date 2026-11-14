@@ -1,0 +1,26 @@
+{
+  "device": "cpu",
+  "threads": 12,
+  "sequence_length": 512,
+  "batch_rows": 1,
+  "synthetic_text": "Explain how to check whether a Python function correctly computes the mean of a list. Include empty lists, negative numbers, and fractions. ",
+  "purpose": "Timing only; updated weights are discarded. No quality claim.",
+  "precision_runs": {
+    "fp32": {
+      "step_seconds": [
+        16.967985651001072,
+        16.817077067000355,
+        16.80562664199897
+      ],
+      "tokens_per_second_after_warmup": 30.45561144822271
+    },
+    "bf16_autocast": {
+      "step_seconds": [
+        8.917204917001072,
+        8.940776046998508,
+        9.005874491998838
+      ],
+      "tokens_per_second_after_warmup": 57.05800075478649
+    }
+  }
+}

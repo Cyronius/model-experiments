@@ -1,0 +1,28 @@
+{
+  "selection_frozen_before_external_scoring": true,
+  "models": [
+    "selected float",
+    "selected ternary",
+    "int4 derived from selected float",
+    "int8 derived from selected float"
+  ],
+  "development_tasks": [
+    "SciFact",
+    "NFCorpus",
+    "ArguAna",
+    "STSBenchmark"
+  ],
+  "reserved_tests": [
+    "FiQA2018",
+    "SCIDOCS"
+  ],
+  "reserved_test_condition": "Open reserved judgments only if at least one frozen precision tier clears both bge-micro and MiniLM on both core retrieval tasks; otherwise retain them for a later improved candidate",
+  "scope": "Data-first training quality evaluation; no checkpoint reselection after external development scores",
+  "baseline_reports": [
+    "training-v2/round2/quality.json",
+    "training-v2/analysis/summary.json"
+  ],
+  "native_validation": "Actual NPU fixture agreement and latency for frozen ternary; full NPU retrieval if primary CPU quality improves",
+  "precision_runtime": "Int4/int8 packed reference exports and accuracy simulation; native speed not validated",
+  "recorded_before_external_scoring_utc": "2026-10-25T07:11:02.437565+00:00"
+}

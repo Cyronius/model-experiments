@@ -1,0 +1,152 @@
+{
+  "started_utc": "2026-11-06T23:46:45.057344+00:00",
+  "rules": {
+    "_note": "Fixed before any training or evaluation. Changes after the first training step are recorded in README.md, not made silently here.",
+    "seed": 20261106,
+    "decoder": {
+      "path": "models/context-memory/qwen3-4b-stock",
+      "id": "Qwen/Qwen3-4B-Instruct-2507",
+      "revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+    },
+    "encoder": {
+      "checkpoint": "models/context-memory/lclm-4x",
+      "id": "latent-context/0.6b-4b-LCLM-4x",
+      "revision": "d45629704bbc8de96d4b847c0098bf7ccebb3aa4",
+      "upstream": "target/context-memory/LCLM",
+      "upstream_revision": "45de65087d910c7d6e5e478e0930a716c34d4d10",
+      "window_tokens": 1024,
+      "compression_ratio": 4,
+      "frozen": true
+    },
+    "data": {
+      "work": "target/context-memory/xattn",
+      "squad": {
+        "repo": "rajpurkar/squad_v2",
+        "revision": "3ffb306f725f7d2ce8394bc1873b24868140c412"
+      },
+      "fineweb": {
+        "repo": "HuggingFaceFW/fineweb-edu",
+        "revision": "87f09149ef4734204d70ed1d046ddc9ca3f2b8f9",
+        "file": "sample/10BT/000_00000.parquet",
+        "docs": 9000,
+        "heldout_docs": 400,
+        "min_tokens": 640
+      },
+      "recon_tokens": [
+        128,
+        512
+      ],
+      "continue_memory_tokens": [
+        256,
+        1024
+      ],
+      "continue_target_tokens": [
+        128,
+        256
+      ],
+      "squad_recon_paragraphs": 6000,
+      "qa_removed": 12000,
+      "distractors": [
+        0,
+        11
+      ],
+      "mix": {
+        "qa": 0.55,
+        "qa_removed": 0.07,
+        "recon": 0.24,
+        "continue": 0.14
+      }
+    },
+    "xattn": {
+      "before_layers": [
+        2,
+        6,
+        10,
+        14,
+        18,
+        22,
+        26,
+        30,
+        34
+      ],
+      "heads": 16,
+      "kv_heads": 4,
+      "head_dim": 128,
+      "max_slot": 256,
+      "memory_adapter_init": "lclm-mlp",
+      "out_proj_init": "zero"
+    },
+    "train": {
+      "lr": 0.0002,
+      "min_lr_ratio": 0.1,
+      "warmup_steps": 100,
+      "weight_decay": 0.0,
+      "grad_clip": 1.0,
+      "step_tokens": 16384,
+      "micro_tokens": 4096,
+      "max_steps": null,
+      "checkpoint_minutes": 30,
+      "probe_every_steps": 250,
+      "probe_items": 120
+    },
+    "eval": {
+      "squad_qa": {
+        "answerable": 400,
+        "unanswerable": 100,
+        "removed": 100,
+        "distractors": [
+          0,
+          11
+        ]
+      },
+      "recon": {
+        "fineweb": 100,
+        "squad": 100
+      },
+      "continue": {
+        "fineweb": 100
+      },
+      "max_new_tokens": 32,
+      "xdna_max_new_tokens": 40,
+      "conditions": [
+        "memory",
+        "no_memory",
+        "wrong_memory",
+        "full_text"
+      ],
+      "primary": "SQuAD v2 held-out answerable F1 with memory, against no_memory and wrong_memory (controls) and full_text (stock upper bound)"
+    }
+  },
+  "train": {
+    "lr": 0.0002,
+    "min_lr_ratio": 0.1,
+    "warmup_steps": 100,
+    "weight_decay": 0.0,
+    "grad_clip": 1.0,
+    "step_tokens": 16384,
+    "micro_tokens": 4096,
+    "max_steps": 12,
+    "checkpoint_minutes": 30,
+    "probe_every_steps": 250,
+    "probe_items": 120
+  },
+  "trainable_params": 127849728,
+  "device": "cuda",
+  "torch": "2.14.1+rocm7.14",
+  "python": "3.12.15",
+  "examples": {
+    "train.jsonl": "72e0559cdf1bbc6bce1c70944493d3b1d5aa3595a42e8a5aaa5be6d87a7fbd12"
+  },
+  "train_memory": {
+    "split": "train",
+    "passages": 27629,
+    "slots": 1695027,
+    "source_tokens": 6738509,
+    "width": 1024,
+    "seconds": 7107.159599578001,
+    "device": "cpu",
+    "file_sha256": "ae393c53c2ff774a44829452b42a76bedf5e5e280aa47f5f2cb4ca033672b41e",
+    "passages_sha256": "5d04c2dde57a4e9391e9d99eaab4a5b692c2f5b42497c890fdf3f87fc63a1939"
+  },
+  "paid_compute_cost_usd": 0
+}

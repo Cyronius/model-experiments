@@ -1,0 +1,248 @@
+{
+  "arch": "smollm2",
+  "label": "legacy-before",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "<\n\n{\n  \"city\": \"Osslo\",\n  \"count\": 3\n}",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 22,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "\"A7x-P4q\" is an acronym and it's not a code or a specific instruction. It's a short phrase or a short expression.",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 34,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "29 times 17 is 483.",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "1. -2, 0, 4, 9.",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "2.5",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "No.",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Your preferred color is teal.",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 8,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "Your updated list is: [apples, \"cheese\"]",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 13,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "1. Red\n2. Blue\n3. Green\n4. Yellow\n5. Purple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 20,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "Rain, a gentle touch, on the earth's surface, a soothing, soft, and wet, a soothing, soft, and wet, a soothing, soft, and wet, a soothing, soft, and wet.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 45,
+      "repeated_4gram_fraction": 0.46153846153846156,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library will reopen on Friday after it was closed for repairs, with fifteen new desks installed.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 23,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "a = [5, 8]; b = a; b.append(13); print(a)",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 24,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it's less dense than water. The ice's molecules are packed together more tightly than water's molecules, which allows it to float.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 33,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. First, ensure you're well-presented: Dress appropriately and avoid overly casual attire.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 21,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "1. Choose the breed: Dogs can range from puppies to puppies, and each breed has its own characteristics. Puppies are generally easier to maintain. \n\n2. Location: Dogs require a suitable environment. \n\n3. hygi: Dogs require hygi for hygi hygi. hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi hygi",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 77,
+      "repeated_4gram_fraction": 0.35593220338983056,
+      "loop_flag": true
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table, also known as a hash or hashmap, is a data structure in programming that stores its elements in an array using a hash function. The hash function identifies each element's position in the array. The hash function usually uses an array's index to identify each element.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 58,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 4,
+    "completed": 16,
+    "loop_flags": 1,
+    "generated_tokens": 413,
+    "elapsed_seconds": 56.17668663400036
+  },
+  "rubric_revision": 2
+}

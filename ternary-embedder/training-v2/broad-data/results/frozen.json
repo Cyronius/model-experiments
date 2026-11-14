@@ -1,0 +1,504 @@
+{
+  "frozen_utc": "2026-10-26T03:06:21.724654+00:00",
+  "selected_before_external_scores": true,
+  "continuation_resources": [],
+  "rule": "Highest held-source macro nDCG with every source within2 points of initialization; unchanged step0 remains eligible. Freeze all four arms before external development scoring.",
+  "models": {
+    "ternary-repeat": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/broad-data-run/backups/broad-data-ternary-repeat/best.pt",
+      "sha256": "a987f7610e4f6a20c00eeb49296892985e5dcf4e86ebc3fda12a309e0fa0bd1e",
+      "step": 3688,
+      "precision": "ternary",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 5343,
+            "documents": 5253,
+            "mrr": 0.9483095407485962,
+            "ndcg10": 95.95094919204712,
+            "recall10": 0.9938236474990845
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 4557,
+            "documents": 3898,
+            "mrr": 0.9240540266036987,
+            "ndcg10": 93.96384954452515,
+            "recall10": 0.9881501197814941
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 1368,
+            "documents": 1132,
+            "mrr": 0.9369896054267883,
+            "ndcg10": 94.86087560653687,
+            "recall10": 0.9853801131248474
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9671657681465149,
+            "ndcg10": 97.41360545158386,
+            "recall10": 0.9956236481666565
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7207152843475342,
+            "ndcg10": 75.23621916770935,
+            "recall10": 0.8668493032455444
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.9038572907447815,
+            "ndcg10": 91.33078455924988,
+            "recall10": 0.9468690752983093
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8931489586830139,
+            "ndcg10": 92.06701517105103,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7158008217811584,
+            "ndcg10": 75.73765516281128,
+            "recall10": 0.9020459055900574
+          },
+          "IFM/SFT-Reasoning": {
+            "queries": 61,
+            "documents": 61,
+            "mrr": 0.9439890384674072,
+            "ndcg10": 95.82687616348267,
+            "recall10": 0.9999999403953552
+          },
+          "sentence-transformers/hotpotqa": {
+            "queries": 700,
+            "documents": 885,
+            "mrr": 0.9022821187973022,
+            "ndcg10": 85.68544387817383,
+            "recall10": 0.9035714268684387
+          },
+          "sentence-transformers/paq": {
+            "queries": 700,
+            "documents": 689,
+            "mrr": 0.9886996150016785,
+            "ndcg10": 99.0308940410614,
+            "recall10": 0.9957142472267151
+          },
+          "rajpurkar/squad": {
+            "queries": 700,
+            "documents": 479,
+            "mrr": 0.7897608280181885,
+            "ndcg10": 83.35939049720764,
+            "recall10": 0.9685714244842529
+          },
+          "HuggingFaceH4/stack-exchange-preferences": {
+            "queries": 700,
+            "documents": 826,
+            "mrr": 0.7915214896202087,
+            "ndcg10": 80.05300164222717,
+            "recall10": 0.875
+          },
+          "sentence-transformers/trivia-qa": {
+            "queries": 700,
+            "documents": 676,
+            "mrr": 0.8239989876747131,
+            "ndcg10": 84.52720046043396,
+            "recall10": 0.9214285612106323
+          }
+        },
+        "macro_ndcg10": 88.93169718129295,
+        "scope": "Each held source ranked against all held positives from that source",
+        "step": 3688,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 88.93169718129295,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 3688,
+        "precision": "ternary",
+        "layers": 3
+      },
+      "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f"
+    },
+    "ternary-broad": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/broad-data-run/backups/broad-data-ternary-broad/best.pt",
+      "sha256": "638f0688410c3b7f01074ade89fffa277b16faf14b43abd137306a2a7bd3d030",
+      "step": 3500,
+      "precision": "ternary",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 5343,
+            "documents": 5253,
+            "mrr": 0.9486740827560425,
+            "ndcg10": 95.99051475524902,
+            "recall10": 0.9941980242729187
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 4557,
+            "documents": 3898,
+            "mrr": 0.9343271255493164,
+            "ndcg10": 94.85998749732971,
+            "recall10": 0.9923195242881775
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 1368,
+            "documents": 1132,
+            "mrr": 0.9377282857894897,
+            "ndcg10": 94.94450688362122,
+            "recall10": 0.9861111044883728
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9688746929168701,
+            "ndcg10": 97.6034164428711,
+            "recall10": 0.9978118538856506
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7198802828788757,
+            "ndcg10": 75.23236870765686,
+            "recall10": 0.8679451942443848
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.8975014090538025,
+            "ndcg10": 90.72254300117493,
+            "recall10": 0.9419062733650208
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8937253355979919,
+            "ndcg10": 92.11217761039734,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7087730169296265,
+            "ndcg10": 75.1283347606659,
+            "recall10": 0.8989460468292236
+          },
+          "IFM/SFT-Reasoning": {
+            "queries": 61,
+            "documents": 61,
+            "mrr": 0.9385245442390442,
+            "ndcg10": 95.43647766113281,
+            "recall10": 0.9999999403953552
+          },
+          "sentence-transformers/hotpotqa": {
+            "queries": 700,
+            "documents": 885,
+            "mrr": 0.933463990688324,
+            "ndcg10": 89.42056894302368,
+            "recall10": 0.9357143044471741
+          },
+          "sentence-transformers/paq": {
+            "queries": 700,
+            "documents": 689,
+            "mrr": 0.9937337636947632,
+            "ndcg10": 99.49347972869873,
+            "recall10": 0.9985713958740234
+          },
+          "rajpurkar/squad": {
+            "queries": 700,
+            "documents": 479,
+            "mrr": 0.81006920337677,
+            "ndcg10": 85.15461087226868,
+            "recall10": 0.9785714149475098
+          },
+          "HuggingFaceH4/stack-exchange-preferences": {
+            "queries": 700,
+            "documents": 826,
+            "mrr": 0.8059884309768677,
+            "ndcg10": 81.33901357650757,
+            "recall10": 0.8849999904632568
+          },
+          "sentence-transformers/trivia-qa": {
+            "queries": 700,
+            "documents": 676,
+            "mrr": 0.8432378172874451,
+            "ndcg10": 86.59002780914307,
+            "recall10": 0.9428571462631226
+          }
+        },
+        "macro_ndcg10": 89.57343058926719,
+        "scope": "Each held source ranked against all held positives from that source",
+        "step": 3500,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 89.57343058926719,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 3689,
+        "precision": "ternary",
+        "layers": 3
+      },
+      "initial_checkpoint_sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f"
+    },
+    "float-repeat": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/broad-data-run/backups/broad-data-float-repeat/best.pt",
+      "sha256": "284cef0fb6a26250d212c1fbd17a385d79b983943c8215a84e4e69e601bba379",
+      "step": 2000,
+      "precision": "float",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 5343,
+            "documents": 5253,
+            "mrr": 0.9565860629081726,
+            "ndcg10": 96.61927223205566,
+            "recall10": 0.9953209757804871
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 4557,
+            "documents": 3898,
+            "mrr": 0.9420509934425354,
+            "ndcg10": 95.44084668159485,
+            "recall10": 0.9925389885902405
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 1368,
+            "documents": 1132,
+            "mrr": 0.9454183578491211,
+            "ndcg10": 95.63071131706238,
+            "recall10": 0.9897660613059998
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9728717803955078,
+            "ndcg10": 97.84064292907715,
+            "recall10": 0.9956236481666565
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7437770366668701,
+            "ndcg10": 77.8666079044342,
+            "recall10": 0.9002739787101746
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.9128207564353943,
+            "ndcg10": 92.17761158943176,
+            "recall10": 0.9529995322227478
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8948782086372375,
+            "ndcg10": 92.19697117805481,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7249819040298462,
+            "ndcg10": 76.70526504516602,
+            "recall10": 0.9119653105735779
+          },
+          "IFM/SFT-Reasoning": {
+            "queries": 61,
+            "documents": 61,
+            "mrr": 0.930327832698822,
+            "ndcg10": 94.79256272315979,
+            "recall10": 0.9999999403953552
+          },
+          "sentence-transformers/hotpotqa": {
+            "queries": 700,
+            "documents": 885,
+            "mrr": 0.9181661605834961,
+            "ndcg10": 87.53630518913269,
+            "recall10": 0.920714259147644
+          },
+          "sentence-transformers/paq": {
+            "queries": 700,
+            "documents": 689,
+            "mrr": 0.9915475845336914,
+            "ndcg10": 99.32381510734558,
+            "recall10": 0.9985713958740234
+          },
+          "rajpurkar/squad": {
+            "queries": 700,
+            "documents": 479,
+            "mrr": 0.7981051802635193,
+            "ndcg10": 84.08119082450867,
+            "recall10": 0.9714285731315613
+          },
+          "HuggingFaceH4/stack-exchange-preferences": {
+            "queries": 700,
+            "documents": 826,
+            "mrr": 0.8020909428596497,
+            "ndcg10": 81.13880753517151,
+            "recall10": 0.8864285349845886
+          },
+          "sentence-transformers/trivia-qa": {
+            "queries": 700,
+            "documents": 676,
+            "mrr": 0.844642162322998,
+            "ndcg10": 86.16582155227661,
+            "recall10": 0.9228571057319641
+          }
+        },
+        "macro_ndcg10": 89.82260227203369,
+        "scope": "Each held source ranked against all held positives from that source",
+        "step": 2000,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 89.82260227203369,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 3688,
+        "precision": "float",
+        "layers": 3
+      },
+      "initial_checkpoint_sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c"
+    },
+    "float-broad": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/broad-data-run/backups/broad-data-float-broad/best.pt",
+      "sha256": "cc7f76ce0fb1cec38b73824fee123b5c4d54e451914430a8ae3dcac6fe76e352",
+      "step": 3000,
+      "precision": "float",
+      "layers": 3,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 5343,
+            "documents": 5253,
+            "mrr": 0.9557502865791321,
+            "ndcg10": 96.54894471168518,
+            "recall10": 0.9949466586112976
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 4557,
+            "documents": 3898,
+            "mrr": 0.9443199634552002,
+            "ndcg10": 95.6750214099884,
+            "recall10": 0.9945139288902283
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 1368,
+            "documents": 1132,
+            "mrr": 0.9468902945518494,
+            "ndcg10": 95.75123190879822,
+            "recall10": 0.9897660613059998
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9729508757591248,
+            "ndcg10": 97.85153865814209,
+            "recall10": 0.9956236481666565
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1825,
+            "documents": 1248,
+            "mrr": 0.7394595742225647,
+            "ndcg10": 77.25274562835693,
+            "recall10": 0.8898630142211914
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 6851,
+            "documents": 6844,
+            "mrr": 0.9084708094596863,
+            "ndcg10": 91.75277352333069,
+            "recall10": 0.9494963884353638
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8930665850639343,
+            "ndcg10": 92.06403493881226,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1613,
+            "documents": 1325,
+            "mrr": 0.7232282161712646,
+            "ndcg10": 76.66523456573486,
+            "recall10": 0.9150651097297668
+          },
+          "IFM/SFT-Reasoning": {
+            "queries": 61,
+            "documents": 61,
+            "mrr": 0.9439890384674072,
+            "ndcg10": 95.82687616348267,
+            "recall10": 0.9999999403953552
+          },
+          "sentence-transformers/hotpotqa": {
+            "queries": 700,
+            "documents": 885,
+            "mrr": 0.9411589503288269,
+            "ndcg10": 90.81624746322632,
+            "recall10": 0.9442856907844543
+          },
+          "sentence-transformers/paq": {
+            "queries": 700,
+            "documents": 689,
+            "mrr": 0.9957518577575684,
+            "ndcg10": 99.64624047279358,
+            "recall10": 0.9985713958740234
+          },
+          "rajpurkar/squad": {
+            "queries": 700,
+            "documents": 479,
+            "mrr": 0.8167786598205566,
+            "ndcg10": 85.72977185249329,
+            "recall10": 0.9800000190734863
+          },
+          "HuggingFaceH4/stack-exchange-preferences": {
+            "queries": 700,
+            "documents": 826,
+            "mrr": 0.8207603096961975,
+            "ndcg10": 82.78109431266785,
+            "recall10": 0.8942856788635254
+          },
+          "sentence-transformers/trivia-qa": {
+            "queries": 700,
+            "documents": 676,
+            "mrr": 0.8597230911254883,
+            "ndcg10": 87.85871863365173,
+            "recall10": 0.9428571462631226
+          }
+        },
+        "macro_ndcg10": 90.44431958879743,
+        "scope": "Each held source ranked against all held positives from that source",
+        "step": 3000,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 90.44431958879743,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 3689,
+        "precision": "float",
+        "layers": 3
+      },
+      "initial_checkpoint_sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c"
+    }
+  }
+}

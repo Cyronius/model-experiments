@@ -1,0 +1,1108 @@
+{
+  "scope": "Frozen checkpoints, observed development tasks. Wider means cover only the fixed 12-task subset. Query confidence intervals do not measure training-seed variation.",
+  "reserved_fiqa_scidocs_scored": false,
+  "resources": {
+    "id": "6ml2q1263v0y6e",
+    "started": 1792940031.7354455,
+    "attempt_started": 1792940031.7354455,
+    "rate": 0.89,
+    "deadline": 1792945431.7354455,
+    "work_deadline": 1792944831.7354455,
+    "approved_total_cap": 1.5,
+    "approved_max_hours": 1.6,
+    "deleted": true,
+    "plan": "scales",
+    "cloud": "SECURE",
+    "package_sha256": "44bef7413442d27a314206dd800c0501e7c659a5b06b74dea3c2906ea1e762e3",
+    "publicIp": "81.27.69.177",
+    "ssh_port": 24726,
+    "end_time": 1792944757.9497662,
+    "reason": "scales job finished or failed; verified local backups retained",
+    "deletion_verified_http_status": 404,
+    "elapsed_hours": 1.3128373112943437,
+    "estimated_compute_usd": 1.1684252070519658,
+    "estimated_disk_usd": 0.010940310927452864,
+    "estimated_total_usd": 1.1793655179794187
+  },
+  "continuation_resources": [
+    {
+      "id": "2okteidvy2u442",
+      "started": 1792945034.7297912,
+      "attempt_started": 1792945034.7297912,
+      "rate": 0.89,
+      "deadline": 1792948214.7297912,
+      "work_deadline": 1792948034.7297912,
+      "approved_total_cap": 0.85,
+      "approved_max_hours": 0.9,
+      "deleted": true,
+      "plan": "scales-rest",
+      "cloud": "SECURE",
+      "package_sha256": "776245ec5336a8c2117952dc24561420ba025e5008bd27a19dd807337a4f583b",
+      "publicIp": "157.157.221.29",
+      "ssh_port": 33161,
+      "end_time": 1792947811.3866148,
+      "reason": "scales-rest job finished or failed; verified local backups retained",
+      "deletion_verified_http_status": 404,
+      "elapsed_hours": 0.7712935621208615,
+      "estimated_compute_usd": 0.6864512702875668,
+      "estimated_disk_usd": 0.00642744635100718,
+      "estimated_total_usd": 0.692878716638574
+    }
+  ],
+  "models": {
+    "fixed": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-fixed/best.pt",
+        "sha256": "d214b5ad5d5cab6712b563878a8c98e2cbfa03303c180606b477974993cb206a",
+        "step": 1000,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9453123211860657,
+              "ndcg10": 95.689857006073,
+              "recall10": 0.9924618005752563
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9199844002723694,
+              "ndcg10": 93.66333484649658,
+              "recall10": 0.9883328676223755
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9744613766670227,
+              "ndcg10": 98.05418252944946,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9570674300193787,
+              "ndcg10": 96.64753079414368,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.6881767511367798,
+              "ndcg10": 72.05292582511902,
+              "recall10": 0.8372603058815002
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.8972915410995483,
+              "ndcg10": 90.7564103603363,
+              "recall10": 0.9432199597358704
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8914526104927063,
+              "ndcg10": 91.93952083587646,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7031466364860535,
+              "ndcg10": 74.44451451301575,
+              "recall10": 0.8896466493606567
+            }
+          },
+          "macro_ndcg10": 89.15603458881378,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.25472617149353,
+            "macro_accuracy": 69.25082008043925,
+            "by_label": {
+              "0": 72.44170904159546,
+              "1": 63.6216938495636,
+              "2": 71.68905735015869
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1000,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.20342733462653,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7"
+      },
+      "core_retrieval": 44.72176797189406,
+      "stsbenchmark": 81.36490792803392,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.24269116684386,
+          "recall10": 73.01111111111112,
+          "top1_relevant_queries": 142,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.01277962327003479,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.20084477694426,
+          "recall10": 14.064738943610006,
+          "top1_relevant_queries": 138,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.023039042949676514,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 44.62171172098481,
+          "recall10": 72.19061166429587,
+          "top1_relevant_queries": 307,
+          "median_first_relevant_rank": 5.0,
+          "median_best_relevant_margin": -0.05684185028076172,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": false
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.593731483369372,
+          "paired_query_bootstrap_95_ci": [
+            1.3644918401074593,
+            3.892108350392226
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.4924635820220258,
+          "paired_query_bootstrap_95_ci": [
+            -2.746465619291228,
+            -0.2119154293430602
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -2.1979102277963154,
+          "paired_query_bootstrap_95_ci": [
+            -3.7661396358013364,
+            -0.5853680813673386
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.593731483369372,
+        "paired_query_bootstrap_95_ci": [
+          1.3644918401074593,
+          3.892108350392226
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 81.36489999999999,
+        "SICK-R": 76.1003,
+        "STS12": 73.22579999999999,
+        "STS13": 78.7627,
+        "STS14": 75.577,
+        "STS15": 83.4031,
+        "STS16": 80.31530000000001,
+        "SciFact": 59.243,
+        "NFCorpus": 30.201,
+        "Banking77Classification": 77.289,
+        "AskUbuntuDupQuestions": 60.3923,
+        "TwitterSemEval2015": 64.8518
+      },
+      "mteb_12_mean": 70.06051666666667
+    },
+    "learned": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-learned/best.pt",
+        "sha256": "0f57f520bce0c29c0aa6f7167e9b55beff5620acf16b610167bbc78f2528c25e",
+        "step": 1004,
+        "precision": "ternary",
+        "layers": 2,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9447131752967834,
+              "ndcg10": 95.64574956893921,
+              "recall10": 0.9924618005752563
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9195057153701782,
+              "ndcg10": 93.61498355865479,
+              "recall10": 0.9878143072128296
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9743486642837524,
+              "ndcg10": 98.0087161064148,
+              "recall10": 0.9973440170288086
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9531100988388062,
+              "ndcg10": 96.35370373725891,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.6904069781303406,
+              "ndcg10": 72.37467169761658,
+              "recall10": 0.8432876467704773
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.8983475565910339,
+              "ndcg10": 90.84885716438293,
+              "recall10": 0.9438037872314453
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8921114206314087,
+              "ndcg10": 91.98892712593079,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7024595141410828,
+              "ndcg10": 74.40841794013977,
+              "recall10": 0.8902665972709656
+            }
+          },
+          "macro_ndcg10": 89.15550336241722,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.39433217048645,
+            "macro_accuracy": 69.39213673273723,
+            "by_label": {
+              "0": 73.73704314231873,
+              "1": 62.76630163192749,
+              "2": 71.67306542396545
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1004,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.27382004757723,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "ternary",
+          "layers": 2
+        },
+        "initial_checkpoint_sha256": "783d60e202155f15d75c83f9cef09252e7b9b695351df5dc6440aa1af7d80bf7"
+      },
+      "core_retrieval": 44.97437045045352,
+      "stsbenchmark": 81.33854591632755,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.542734770907046,
+          "recall10": 72.06666666666666,
+          "top1_relevant_queries": 145,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.009194016456604004,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.40600612999999,
+          "recall10": 14.14604152927935,
+          "top1_relevant_queries": 139,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.02271696925163269,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 45.04495117781025,
+          "recall10": 72.83072546230441,
+          "top1_relevant_queries": 316,
+          "median_first_relevant_rank": 5.0,
+          "median_best_relevant_margin": -0.05819219350814819,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": false
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.8463339619288313,
+          "paired_query_bootstrap_95_ci": [
+            1.5623142053230124,
+            4.162022453368713
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.239861103462566,
+          "paired_query_bootstrap_95_ci": [
+            -2.521742291255566,
+            0.0720295207969598
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -1.9453077492368556,
+          "paired_query_bootstrap_95_ci": [
+            -3.4836832319983793,
+            -0.32629484674788367
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.8463339619288313,
+        "paired_query_bootstrap_95_ci": [
+          1.5623142053230124,
+          4.162022453368713
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 81.3384,
+        "SICK-R": 76.1908,
+        "STS12": 72.93079999999999,
+        "STS13": 78.7308,
+        "STS14": 75.4637,
+        "STS15": 83.3165,
+        "STS16": 80.3612,
+        "SciFact": 59.543,
+        "NFCorpus": 30.406,
+        "Banking77Classification": 77.1429,
+        "AskUbuntuDupQuestions": 60.237899999999996,
+        "TwitterSemEval2015": 64.6078
+      },
+      "mteb_12_mean": 70.02248333333333
+    },
+    "3-learned": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-3-learned/best.pt",
+        "sha256": "2171918721b6110210db2233efc3aa75d8f39d8d9d72042c5024378318cbb343",
+        "step": 1000,
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9511262774467468,
+              "ndcg10": 96.20228409767151,
+              "recall10": 0.9952617287635803
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9332244396209717,
+              "ndcg10": 94.74590420722961,
+              "recall10": 0.9911848306655884
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9858802556991577,
+              "ndcg10": 98.91020655632019,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9662655591964722,
+              "ndcg10": 97.35332727432251,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7209955453872681,
+              "ndcg10": 75.26506185531616,
+              "recall10": 0.8673972487449646
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9041271209716797,
+              "ndcg10": 91.38004779815674,
+              "recall10": 0.9478908181190491
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8896904587745667,
+              "ndcg10": 91.81014895439148,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.7076702117919922,
+              "ndcg10": 75.15954971313477,
+              "recall10": 0.9039057493209839
+            }
+          },
+          "macro_ndcg10": 90.10331630706787,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.94737982749939,
+            "macro_accuracy": 69.94638641675313,
+            "by_label": {
+              "0": 73.36463332176208,
+              "1": 64.97740745544434,
+              "2": 71.49711847305298
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1000,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 80.02485136191049,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "ternary",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7"
+      },
+      "core_retrieval": 44.21471632977658,
+      "stsbenchmark": 81.4474820355905,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 58.652599519131634,
+          "recall10": 72.2,
+          "top1_relevant_queries": 138,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.009141743183135986,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 29.776833140421527,
+          "recall10": 13.666604048957993,
+          "top1_relevant_queries": 130,
+          "median_first_relevant_rank": 3.0,
+          "median_best_relevant_margin": -0.03055483102798462,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 46.115942992145335,
+          "recall10": 74.96443812233285,
+          "top1_relevant_queries": 315,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.05294358730316162,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": false
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.086679841251886,
+          "paired_query_bootstrap_95_ci": [
+            0.532809850161775,
+            3.6360003157208443
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.999515224139511,
+          "paired_query_bootstrap_95_ci": [
+            -3.275351900158279,
+            -0.6908289251198285
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -2.7049618699138014,
+          "paired_query_bootstrap_95_ci": [
+            -4.374978262890825,
+            -1.0736394563608305
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.086679841251886,
+        "paired_query_bootstrap_95_ci": [
+          0.532809850161775,
+          3.6360003157208443
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 81.4474,
+        "SICK-R": 76.5622,
+        "STS12": 73.6966,
+        "STS13": 79.276,
+        "STS14": 76.0388,
+        "STS15": 83.3422,
+        "STS16": 80.60770000000001,
+        "SciFact": 58.653,
+        "NFCorpus": 29.776999999999997,
+        "Banking77Classification": 76.1136,
+        "AskUbuntuDupQuestions": 59.9365,
+        "TwitterSemEval2015": 65.24459999999999
+      },
+      "mteb_12_mean": 70.05796666666667
+    },
+    "3-scales-only": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-3-scales-only/best.pt",
+        "sha256": "bb508072ce7a14ec3ac48fb4af4fa6877f295eb5d1f7ed4279f4b8ed191f7b13",
+        "step": 1000,
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9510693550109863,
+              "ndcg10": 96.19006514549255,
+              "recall10": 0.9950463175773621
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9324193000793457,
+              "ndcg10": 94.68056559562683,
+              "recall10": 0.9911848306655884
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9841381907463074,
+              "ndcg10": 98.78395199775696,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9680241346359253,
+              "ndcg10": 97.48619198799133,
+              "recall10": 0.9956236481666565
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7192769646644592,
+              "ndcg10": 75.23868083953857,
+              "recall10": 0.8701369762420654
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9037140607833862,
+              "ndcg10": 91.35151505470276,
+              "recall10": 0.948036789894104
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8902668356895447,
+              "ndcg10": 91.85270667076111,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.709125280380249,
+              "ndcg10": 75.26764869689941,
+              "recall10": 0.9039057493209839
+            }
+          },
+          "macro_ndcg10": 90.10641574859619,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 69.74871158599854,
+            "macro_accuracy": 69.750581185023,
+            "by_label": {
+              "0": 74.36851859092712,
+              "1": 64.10587430000305,
+              "2": 70.7773506641388
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1000,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.9284984668096,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "ternary",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7"
+      },
+      "core_retrieval": 44.73869044447807,
+      "stsbenchmark": 81.51181517590476,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.51793988602606,
+          "recall10": 73.04444444444445,
+          "top1_relevant_queries": 142,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.007384657859802246,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 29.95944100293007,
+          "recall10": 13.870526326969177,
+          "top1_relevant_queries": 131,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.02787405252456665,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 46.64219744168332,
+          "recall10": 74.89331436699858,
+          "top1_relevant_queries": 322,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.0531841516494751,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": false
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.6106539559533735,
+          "paired_query_bootstrap_95_ci": [
+            1.0766530571452815,
+            4.162681009246385
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.4755411094380235,
+          "paired_query_bootstrap_95_ci": [
+            -2.715262692003333,
+            -0.20419893704000194
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -2.1809877552123127,
+          "paired_query_bootstrap_95_ci": [
+            -3.8347627577283854,
+            -0.49485930806986556
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.6106539559533735,
+        "paired_query_bootstrap_95_ci": [
+          1.0766530571452815,
+          4.162681009246385
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 81.5118,
+        "SICK-R": 76.089,
+        "STS12": 73.67320000000001,
+        "STS13": 79.4107,
+        "STS14": 76.1205,
+        "STS15": 83.1935,
+        "STS16": 80.63550000000001,
+        "SciFact": 59.518,
+        "NFCorpus": 29.959000000000003,
+        "Banking77Classification": 76.0195,
+        "AskUbuntuDupQuestions": 59.6746,
+        "TwitterSemEval2015": 65.04090000000001
+      },
+      "mteb_12_mean": 70.07051666666666
+    },
+    "float-low-lr": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/scales-run/backups/scales-float-low-lr/best.pt",
+        "sha256": "85d29410be0405f6d59c9ad093a2cc32697ce1b3d03f87e422a4faf8803fcce8",
+        "step": 1004,
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": true,
+        "validation": {
+          "by_source": {
+            "sentence-transformers/msmarco-bm25": {
+              "queries": 4643,
+              "documents": 4553,
+              "mrr": 0.9591695070266724,
+              "ndcg10": 96.84969186782837,
+              "recall10": 0.9965539574623108
+            },
+            "sentence-transformers/gooaq": {
+              "queries": 3857,
+              "documents": 3210,
+              "mrr": 0.9484027028083801,
+              "ndcg10": 96.00958824157715,
+              "recall10": 0.9955924153327942
+            },
+            "sentence-transformers/natural-questions": {
+              "queries": 753,
+              "documents": 597,
+              "mrr": 0.9887343645095825,
+              "ndcg10": 99.12884831428528,
+              "recall10": 0.9986720085144043
+            },
+            "sentence-transformers/squad": {
+              "queries": 457,
+              "documents": 114,
+              "mrr": 0.9739463329315186,
+              "ndcg10": 97.98129796981812,
+              "recall10": 0.9978118538856506
+            },
+            "sentence-transformers/stackexchange-duplicates": {
+              "queries": 1825,
+              "documents": 1248,
+              "mrr": 0.7442852258682251,
+              "ndcg10": 77.96663641929626,
+              "recall10": 0.9024657607078552
+            },
+            "sentence-transformers/s2orc": {
+              "queries": 6851,
+              "documents": 6844,
+              "mrr": 0.9147231578826904,
+              "ndcg10": 92.34093427658081,
+              "recall10": 0.9537293910980225
+            },
+            "sentence-transformers/quora-duplicates": {
+              "queries": 1012,
+              "documents": 891,
+              "mrr": 0.8943841457366943,
+              "ndcg10": 92.15816259384155,
+              "recall10": 1.0
+            },
+            "sentence-transformers/all-nli": {
+              "queries": 1613,
+              "documents": 1325,
+              "mrr": 0.72400963306427,
+              "ndcg10": 76.73614025115967,
+              "recall10": 0.9156850576400757
+            }
+          },
+          "macro_ndcg10": 91.1464124917984,
+          "scope": "Each held source ranked against all held positives from that source",
+          "auxiliary_nli": {
+            "accuracy": 67.97680258750916,
+            "macro_accuracy": 67.97656615575154,
+            "by_label": {
+              "0": 72.32836484909058,
+              "1": 61.99160814285278,
+              "2": 69.60972547531128
+            },
+            "examples": 18624,
+            "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+          },
+          "step": 1004,
+          "source_floor_passed": true,
+          "auxiliary_floor_passed": true,
+          "selection_score": 79.56148932377496,
+          "growth_alpha": 1.0,
+          "export_eligible": true
+        },
+        "completion": {
+          "step": 1004,
+          "precision": "float",
+          "layers": 3
+        },
+        "initial_checkpoint_sha256": "c0734c61722fc44aeab1126086664d1d78872458e134921380ebbbe5f303b142"
+      },
+      "core_retrieval": 46.43437752977599,
+      "stsbenchmark": 82.60986688486254,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 61.49003037818551,
+          "recall10": 74.76666666666667,
+          "top1_relevant_queries": 150,
+          "median_first_relevant_rank": 1.5,
+          "median_best_relevant_margin": -0.0001720339059829712,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.37872468136648,
+          "recall10": 14.685216075255683,
+          "top1_relevant_queries": 139,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.02440345287322998,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 48.79089556558245,
+          "recall10": 77.38264580369844,
+          "top1_relevant_queries": 347,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.05045333504676819,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 4.3063410412513,
+          "paired_query_bootstrap_95_ci": [
+            2.6622310537222815,
+            5.952674874810452
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": 0.22014597585990248,
+          "paired_query_bootstrap_95_ci": [
+            -0.8709401417734918,
+            1.3788416616167576
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -0.48530066991438664,
+          "paired_query_bootstrap_95_ci": [
+            -2.015051823711299,
+            1.1865651820424588
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 1.9982524459171156,
+        "paired_query_bootstrap_95_ci": [
+          0.65488127638416,
+          3.3497301119858407
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 82.61,
+        "SICK-R": 76.47890000000001,
+        "STS12": 73.3549,
+        "STS13": 80.4467,
+        "STS14": 77.1168,
+        "STS15": 84.0484,
+        "STS16": 82.0077,
+        "SciFact": 61.49,
+        "NFCorpus": 31.379,
+        "Banking77Classification": 77.2857,
+        "AskUbuntuDupQuestions": 60.6201,
+        "TwitterSemEval2015": 66.18650000000001
+      },
+      "mteb_12_mean": 71.08539166666667
+    }
+  },
+  "matched_depth_contrasts": {},
+  "matched_recipe_contrasts": {
+    "learned minus fixed": {
+      "core": {
+        "mean_delta_ndcg10": 0.25260247855945955,
+        "paired_query_bootstrap_95_ci": [
+          -0.12576651016629276,
+          0.6430580247728175
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "stsbenchmark_delta": -0.026362011706368094,
+      "mean12_delta": -0.038033333333345354
+    },
+    "3-scales-only minus 3-learned": {
+      "core": {
+        "mean_delta_ndcg10": 0.5239741147014876,
+        "paired_query_bootstrap_95_ci": [
+          -0.04501191928484156,
+          1.102967943190804
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "stsbenchmark_delta": 0.06433314031426107,
+      "mean12_delta": 0.012549999999990291
+    }
+  },
+  "parent_contrasts": {
+    "fixed minus parent": {
+      "parent_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/science-ternary/results/summary.json",
+      "parent_arm": "ternary-fresh",
+      "core": {
+        "mean_delta_ndcg10": 0.09244508888076441,
+        "paired_query_bootstrap_95_ci": [
+          -0.4052799493138142,
+          0.5761954413046778
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "stsbenchmark_delta": -0.061288092247579584,
+      "mean12_delta": 0.08920000000000528,
+      "scope": "Continuation plus this arm recipe; parent contrast alone does not isolate learned scales from additional training."
+    },
+    "learned minus parent": {
+      "parent_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/science-ternary/results/summary.json",
+      "parent_arm": "ternary-fresh",
+      "core": {
+        "mean_delta_ndcg10": 0.345047567440224,
+        "paired_query_bootstrap_95_ci": [
+          -0.18440547169548963,
+          0.8761168740295283
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "stsbenchmark_delta": -0.08765010395394768,
+      "mean12_delta": 0.05116666666665992,
+      "scope": "Continuation plus this arm recipe; parent contrast alone does not isolate learned scales from additional training."
+    },
+    "3-learned minus parent": {
+      "parent_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/science-ternary/results/summary.json",
+      "parent_arm": "3-ternary-fresh",
+      "core": {
+        "mean_delta_ndcg10": -0.4646419997623642,
+        "paired_query_bootstrap_95_ci": [
+          -0.9950159969270149,
+          0.042648915686416114
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "stsbenchmark_delta": -0.10446212288955792,
+      "mean12_delta": -0.0220333333333258,
+      "scope": "Continuation plus this arm recipe; parent contrast alone does not isolate learned scales from additional training."
+    },
+    "3-scales-only minus parent": {
+      "parent_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/science-ternary/results/summary.json",
+      "parent_arm": "3-ternary-fresh",
+      "core": {
+        "mean_delta_ndcg10": 0.05933211493912355,
+        "paired_query_bootstrap_95_ci": [
+          -0.2990566298241347,
+          0.4287489237571093
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "stsbenchmark_delta": -0.040128982575296845,
+      "mean12_delta": -0.009483333333335509,
+      "scope": "Continuation plus this arm recipe; parent contrast alone does not isolate learned scales from additional training."
+    },
+    "float-low-lr minus parent": {
+      "parent_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/science-float/results/summary.json",
+      "parent_arm": "3-float-fresh",
+      "core": {
+        "mean_delta_ndcg10": -0.23597298364023273,
+        "paired_query_bootstrap_95_ci": [
+          -0.5762026764217548,
+          0.08929418701739039
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "stsbenchmark_delta": -0.06717385656156694,
+      "mean12_delta": -0.024633333333341056,
+      "scope": "Continuation plus this arm recipe; parent contrast alone does not isolate learned scales from additional training."
+    }
+  }
+}

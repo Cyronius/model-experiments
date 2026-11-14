@@ -1,0 +1,164 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/human-similarity-head/results/parent-float.pt",
+    "sha256": "e33764690de3e8071a525e21f91e1eee45d17d128b59ee6696bbe2fdc98353d6",
+    "precision": "float",
+    "layers": 3,
+    "eligible_for_promotion": false
+  },
+  "token_cap": 128,
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 61.083168977008484,
+      "recall10": 75.28888888888889,
+      "top1_relevant_queries": 143,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.003553628921508789,
+      "queries": 300,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "NFCorpus": {
+      "ndcg10": 31.975738098178724,
+      "recall10": 14.889631623318266,
+      "top1_relevant_queries": 143,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.014653205871582031,
+      "queries": 323,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "ArguAna": {
+      "ndcg10": 48.6828703157118,
+      "recall10": 77.38264580369844,
+      "top1_relevant_queries": 346,
+      "median_first_relevant_rank": 4.0,
+      "median_best_relevant_margin": -0.042867302894592285,
+      "queries": 1406,
+      "judged_documents_absent_from_corpus": 5
+    }
+  },
+  "scope": "Observed external development tasks; reserved FiQA/SCIDOCS labels not used",
+  "stsbenchmark_spearman": 83.95632354969837,
+  "mean_core_retrieval": 46.529453537593604,
+  "reference_report_sha256": "804a497e5ab5861cffc1dd26ca0a4dbdff46b232e17f5ba43706f1f7b6d4a4ef",
+  "paired": {
+    "original": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": 6.2299706438775795,
+        "paired_bootstrap_95_ci": [
+          3.5036550677395355,
+          8.934931418652013
+        ],
+        "queries_improved": 66,
+        "queries_worsened": 35,
+        "top1_gained": 23,
+        "top1_lost": 13
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 2.572863454260238,
+        "paired_bootstrap_95_ci": [
+          1.2889375926627764,
+          3.8588367051842267
+        ],
+        "queries_improved": 123,
+        "queries_worsened": 66,
+        "top1_gained": 26,
+        "top1_lost": 14
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": 5.968633691411247,
+        "paired_bootstrap_95_ci": [
+          4.62249662754211,
+          7.3773033970493485
+        ],
+        "queries_improved": 504,
+        "queries_worsened": 296,
+        "top1_gained": 132,
+        "top1_lost": 78
+      }
+    },
+    "bge_micro": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -0.24726687678385653,
+        "paired_bootstrap_95_ci": [
+          -2.1839137048853794,
+          1.6474646664230865
+        ],
+        "queries_improved": 49,
+        "queries_worsened": 42,
+        "top1_gained": 12,
+        "top1_lost": 15
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 0.8777108441388795,
+        "paired_bootstrap_95_ci": [
+          0.029215474844552627,
+          1.7618171072541635
+        ],
+        "queries_improved": 101,
+        "queries_worsened": 77,
+        "top1_gained": 18,
+        "top1_lost": 13
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -3.124836985161722,
+        "paired_bootstrap_95_ci": [
+          -4.08678310804979,
+          -2.1612916949410406
+        ],
+        "queries_improved": 253,
+        "queries_worsened": 400,
+        "top1_gained": 50,
+        "top1_lost": 95
+      }
+    },
+    "minilm": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -1.3027939030008602,
+        "paired_bootstrap_95_ci": [
+          -4.147590187964433,
+          1.7026738750850485
+        ],
+        "queries_improved": 54,
+        "queries_worsened": 69,
+        "top1_gained": 24,
+        "top1_lost": 25
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 0.5223445788073044,
+        "paired_bootstrap_95_ci": [
+          -0.6590184373587723,
+          1.730761441018787
+        ],
+        "queries_improved": 95,
+        "queries_worsened": 103,
+        "top1_gained": 20,
+        "top1_lost": 16
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -0.08128566394548435,
+        "paired_bootstrap_95_ci": [
+          -1.5385274281360783,
+          1.365123448014813
+        ],
+        "queries_improved": 433,
+        "queries_worsened": 422,
+        "top1_gained": 111,
+        "top1_lost": 120
+      }
+    }
+  },
+  "gates": {
+    "original": {
+      "each_core_retrieval": true,
+      "stsbenchmark": true
+    },
+    "bge_micro": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    },
+    "minilm": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    }
+  }
+}

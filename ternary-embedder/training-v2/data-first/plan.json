@@ -1,0 +1,99 @@
+{
+  "objective": "Improve external embedding retrieval through broader directly supervised data",
+  "teacher_targets": false,
+  "architecture": "Keep two layers / width 384 / output 384 for first comparison",
+  "precision_family": [
+    "ternary",
+    "int4",
+    "int8"
+  ],
+  "initial_candidate_pairs": 1000000,
+  "loss": "multi-positive query-to-passage contrastive loss; no teacher-vector or ranking distillation",
+  "hard_negatives": "Exclude supplied mined negatives initially; mine and review candidates in a separate phase",
+  "sources": [
+    {
+      "id": "sentence-transformers/msmarco-bm25",
+      "config": "triplet",
+      "query": "query",
+      "positive": "positive",
+      "quota": 250000,
+      "relation": "search relevance"
+    },
+    {
+      "id": "sentence-transformers/gooaq",
+      "config": "pair",
+      "query": "question",
+      "positive": "answer",
+      "quota": 200000,
+      "relation": "question answer; weak supervision"
+    },
+    {
+      "id": "sentence-transformers/natural-questions",
+      "config": "pair",
+      "query": "query",
+      "positive": "answer",
+      "quota": 75000,
+      "relation": "question passage relevance"
+    },
+    {
+      "id": "sentence-transformers/squad",
+      "config": "pair",
+      "query": "question",
+      "positive": "answer",
+      "quota": 50000,
+      "relation": "question passage relevance"
+    },
+    {
+      "id": "sentence-transformers/stackexchange-duplicates",
+      "config": "title-title-pair",
+      "query": "title1",
+      "positive": "title2",
+      "quota": 100000,
+      "relation": "duplicate question"
+    },
+    {
+      "id": "sentence-transformers/s2orc",
+      "config": "title-abstract-pair",
+      "query": "title",
+      "positive": "abstract",
+      "quota": 200000,
+      "relation": "scientific title abstract; weak supervision"
+    },
+    {
+      "id": "sentence-transformers/quora-duplicates",
+      "config": "pair",
+      "query": "anchor",
+      "positive": "positive",
+      "quota": 50000,
+      "relation": "duplicate question"
+    },
+    {
+      "id": "sentence-transformers/all-nli",
+      "config": "pair-class",
+      "query": "premise",
+      "positive": "hypothesis",
+      "label": 0,
+      "quota": 75000,
+      "relation": "entailment auxiliary; cap training weight"
+    }
+  ],
+  "sampling": "One unique canonical query per source, bounded-buffer streaming shuffle (8192); pinned revisions; not a uniform full-corpus reservoir",
+  "validation": "Hold connected query/passage groups together; full held-corpus ranking by source and independent-domain development retrieval",
+  "acceptance": "Existing SciFact/NFCorpus/ArguAna/STSB are observed development tasks; reserve new tests before training",
+  "limits": "Exact/canonical and model-visible duplicate checks do not establish exhaustive near-duplicate removal; audit source and length balance before training",
+  "paid_training_authorized": false,
+  "reserved_unscored_tests": [
+    "FiQA2018",
+    "SCIDOCS"
+  ],
+  "exclusion_policy": "Exclude exact model-visible query/passage identities from observed and reserved benchmark TEXT; relevance judgments not read",
+  "prepared_complete_input_pairs": 796672,
+  "prepared_training_pairs": 780743,
+  "prepared_development_pairs": 15929,
+  "first_training_data": "training-v2/work/data-first/capfit",
+  "long_pair_policy": "Retain long pairs in audited source pool; exclude at-cap inputs from first run; extract answer-preserving windows before adding them",
+  "local_preflight": "six focused tests plus eight-step float and ternary CPU smokes passed; quality unmeasured",
+  "authorization_scope": "Only the separately approved $1.50 / four-hour data-first job; not standing approval for later jobs",
+  "status": "completed; retrieval improved; target not yet met; pod deleted",
+  "approval_consumed": true
+}

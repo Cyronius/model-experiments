@@ -1,0 +1,5246 @@
+{
+  "balanced-plain-anchor1.0": {
+    "initial": {
+      "step": 0,
+      "alpha": 1.0,
+      "validation": {
+        "ranking_kl": 0.16340820057482658,
+        "mrr": 0.8642087024839187,
+        "recall1": 0.7305077968812475,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      }
+    },
+    "best": {
+      "step": 900,
+      "alpha": 1.0,
+      "ranking_kl": 0.1945888102054596,
+      "anchor": 0.0299912691116333,
+      "lr": 1.7848242256913022e-05,
+      "validation": {
+        "ranking_kl": 0.14309279648940773,
+        "mrr": 0.8869061899049904,
+        "recall1": 0.7756897241103559,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763188,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7993742368742368,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9638846737481033,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 105.28063924901653,
+      "token_counts": {
+        "train_real": 2932510,
+        "train_padded": 11023584
+      },
+      "best_full_qat_step": 900
+    },
+    "final": {
+      "step": 4000,
+      "alpha": 1.0,
+      "ranking_kl": 0.06797637790441513,
+      "anchor": 0.020877361297607422,
+      "lr": 2.0000027758260955e-06,
+      "validation": {
+        "ranking_kl": 0.12956739103869547,
+        "mrr": 0.8792193079478167,
+        "recall1": 0.7608956417433027,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9887766554433222,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7830615564990564,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9625695498229639,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 447.8333935419796,
+      "token_counts": {
+        "train_real": 12988404,
+        "train_padded": 48981331
+      },
+      "best_full_qat_step": 900
+    },
+    "curve": [
+      {
+        "step": 0,
+        "mrr": 0.8642087024839187,
+        "kl": 0.16340820057482658,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 100,
+        "mrr": 0.86688294379218,
+        "kl": 0.1630045007678527,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9814814814814815,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7637480574980575,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9589023773394032,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 200,
+        "mrr": 0.8698569614299875,
+        "kl": 0.16004317725383782,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7684793754298065,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9604704097116844,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 300,
+        "mrr": 0.8786823365891737,
+        "kl": 0.15177522703439375,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9828843995510663,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7852573641636141,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9616843702579666,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 400,
+        "mrr": 0.8757963481274156,
+        "kl": 0.14943838581631455,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7771100427350427,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9651492159838139,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 500,
+        "mrr": 0.8807958449273351,
+        "kl": 0.1478396838978876,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7858203056863771,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9653515427415275,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 600,
+        "mrr": 0.8798847127815541,
+        "kl": 0.1493661942172654,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9828843995510663,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7872662927350428,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.962443095599393,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 700,
+        "mrr": 0.8789289046286246,
+        "kl": 0.14638785508614552,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7839486034798535,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9602933737986847,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 800,
+        "mrr": 0.8826509724203279,
+        "kl": 0.14440462747706642,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7888893361755204,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9650625045162223,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 900,
+        "mrr": 0.8869061899049904,
+        "kl": 0.14309279648940773,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763188,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7993742368742368,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9638846737481033,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1000,
+        "mrr": 0.8780492465018654,
+        "kl": 0.13990315512011323,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9887766554433222,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.779581596288327,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9647192716236722,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1100,
+        "mrr": 0.878467044554727,
+        "kl": 0.14099756118994725,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.780352092760181,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9656044511886696,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1200,
+        "mrr": 0.8763738094505787,
+        "kl": 0.13837794393678254,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7758233686719264,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9677541729893778,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1300,
+        "mrr": 0.8815787970526077,
+        "kl": 0.1395928405130966,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9869528619528619,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7881639194139194,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.96350531107739,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1400,
+        "mrr": 0.8805407995531946,
+        "kl": 0.1372044114749643,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9886363636363636,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.785175646113146,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9637076378351037,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1500,
+        "mrr": 0.8807215209154433,
+        "kl": 0.1387540052020097,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9877946127946128,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7857381333943834,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.964087000505817,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1600,
+        "mrr": 0.8814344290295086,
+        "kl": 0.13600249267831632,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9877946127946128,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.786539134884723,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9652756702073851,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1700,
+        "mrr": 0.8788571527910576,
+        "kl": 0.1343222525489481,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.989618406285073,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.781801607209216,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9628224582701063,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1800,
+        "mrr": 0.8816572577318279,
+        "kl": 0.13629491023624998,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7864972845441596,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658212298576487,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1900,
+        "mrr": 0.8816495810639329,
+        "kl": 0.13493176681708685,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9886363636363636,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7861957282913166,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9659838138593828,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2000,
+        "mrr": 0.8820509891281584,
+        "kl": 0.13340707377919667,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9886363636363636,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7876678876678878,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9647192716236722,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2100,
+        "mrr": 0.8812830222701055,
+        "kl": 0.13607379935587507,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7869492373568461,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9653154129633643,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2200,
+        "mrr": 0.8808314769330363,
+        "kl": 0.13468926428239555,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7832398504273504,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9691090396704963,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2300,
+        "mrr": 0.8792508104983116,
+        "kl": 0.13443454930299445,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7815221237096236,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.966363176530096,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2400,
+        "mrr": 0.8815631323228285,
+        "kl": 0.13736167304877994,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7877585955710956,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.964592817400101,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2500,
+        "mrr": 0.8835765693722513,
+        "kl": 0.13293866086987,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7909254807692309,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9647192716236722,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2600,
+        "mrr": 0.8790622162273501,
+        "kl": 0.1366198616974716,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9837261503928171,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7833477052227052,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9659838138593828,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2700,
+        "mrr": 0.880838345665318,
+        "kl": 0.13420740029291262,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7853712894035474,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9666160849772383,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2800,
+        "mrr": 0.878619980579197,
+        "kl": 0.1333648054094254,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7813263125763126,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9648457258472432,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2900,
+        "mrr": 0.8779945164791227,
+        "kl": 0.13192499235649652,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9877946127946128,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.780139652014652,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9643399089529591,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3000,
+        "mrr": 0.8802137478341996,
+        "kl": 0.13219082393223727,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7849208733974359,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9656044511886696,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3100,
+        "mrr": 0.8790912206545952,
+        "kl": 0.12997760501088976,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7829384157509158,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9643399089529591,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3200,
+        "mrr": 0.8800168821360346,
+        "kl": 0.13198118864358227,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763188,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7851940883190883,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9645928174001013,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3300,
+        "mrr": 0.8830227598882928,
+        "kl": 0.13089890240491192,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763188,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.79081724557742,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9653515427415275,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3400,
+        "mrr": 0.8806144208983073,
+        "kl": 0.13024394544242304,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7859909188034189,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9643399089529591,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3500,
+        "mrr": 0.8805555158888826,
+        "kl": 0.13015199980781048,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7844038556929183,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3600,
+        "mrr": 0.8791591055885336,
+        "kl": 0.13016949678900874,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7821396285338593,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9645928174001013,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3700,
+        "mrr": 0.8814243533355888,
+        "kl": 0.1296759388303455,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598205,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7870798405654175,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9648457258472432,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3800,
+        "mrr": 0.8819917747186838,
+        "kl": 0.12943971638060822,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9869528619528619,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.787081807081807,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9671219018715224,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3900,
+        "mrr": 0.8817481160672918,
+        "kl": 0.12918715872153452,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.787213553265042,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9650625045162223,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 4000,
+        "mrr": 0.8792193079478167,
+        "kl": 0.12956739103869547,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9887766554433222,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7830615564990564,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9625695498229639,
+            "queries": 659
+          }
+        }
+      }
+    ]
+  },
+  "balanced-plain06-anchor1.0": {
+    "initial": {
+      "step": 0,
+      "alpha": 1.0,
+      "validation": {
+        "ranking_kl": 0.16252650650618952,
+        "mrr": 0.8642087024839187,
+        "recall1": 0.7305077968812475,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      }
+    },
+    "best": {
+      "step": 3700,
+      "alpha": 1.0,
+      "ranking_kl": 0.07655616104602814,
+      "anchor": 0.02153879404067993,
+      "lr": 2.250323543421298e-06,
+      "total_loss": 0.09809495508670807,
+      "validation": {
+        "ranking_kl": 0.12460282039415987,
+        "mrr": 0.8804604824736773,
+        "recall1": 0.7636945221911235,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180695,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7874853098290598,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9611785533636824,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 412.57026590697933,
+      "token_counts": {
+        "train_real": 12007402,
+        "train_padded": 45300819
+      },
+      "best_full_qat_step": 3700
+    },
+    "final": {
+      "step": 4000,
+      "alpha": 1.0,
+      "ranking_kl": 0.11254742741584778,
+      "anchor": 0.02049046754837036,
+      "lr": 2.0000027758260955e-06,
+      "total_loss": 0.13303789496421814,
+      "validation": {
+        "ranking_kl": 0.12472130801481536,
+        "mrr": 0.8768846307630792,
+        "recall1": 0.7568972411035586,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180695,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.780653147600263,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.960546282245827,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 445.6404957009945,
+      "token_counts": {
+        "train_real": 12988404,
+        "train_padded": 48981331
+      },
+      "best_full_qat_step": 3700
+    },
+    "curve": [
+      {
+        "step": 0,
+        "mrr": 0.8642087024839187,
+        "kl": 0.16252650650618952,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 100,
+        "mrr": 0.8640221104540641,
+        "kl": 0.15206593529710286,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.983726150392817,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7581217667566351,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9566767830045524,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 200,
+        "mrr": 0.871148783147462,
+        "kl": 0.14867378337473808,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9814814814814815,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7691317628086023,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9648963075366718,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 300,
+        "mrr": 0.8724863677717319,
+        "kl": 0.14695564968676506,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9820426487093152,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7744832311408398,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9593323216995449,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 400,
+        "mrr": 0.8752367451287882,
+        "kl": 0.14159893980131874,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7756947913197914,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.962670713201821,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 500,
+        "mrr": 0.8760943241750919,
+        "kl": 0.1427290570698207,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7813797313797313,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9597116843702579,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 600,
+        "mrr": 0.8769008770760701,
+        "kl": 0.14108506957941416,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7821547224096566,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9613050075872535,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 700,
+        "mrr": 0.8750846328135412,
+        "kl": 0.13815836297183098,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7771527777777778,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9593323216995449,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 800,
+        "mrr": 0.8767742902838864,
+        "kl": 0.13791067040042032,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7800313835470085,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9618108244815375,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 900,
+        "mrr": 0.8733417744013507,
+        "kl": 0.13641849414834492,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7739538817663817,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9610520991401111,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1000,
+        "mrr": 0.8734277553346477,
+        "kl": 0.1373072834331778,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7729643291335102,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9632524026302478,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1100,
+        "mrr": 0.8747579643091004,
+        "kl": 0.13591209817913513,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9820426487093155,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.77774584262356,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9617746947033746,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1200,
+        "mrr": 0.8737053477928556,
+        "kl": 0.13379267141034332,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7753235108145822,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9605968639352553,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1300,
+        "mrr": 0.8786137925782069,
+        "kl": 0.13458582221329968,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598203,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7814474587912087,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9648457258472434,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1400,
+        "mrr": 0.8755274396617858,
+        "kl": 0.13459599423634855,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7757698663948664,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9643904906423874,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1500,
+        "mrr": 0.8745650012013032,
+        "kl": 0.1321659209796145,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7766723301317783,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9592817400101162,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1600,
+        "mrr": 0.880119380819101,
+        "kl": 0.1305059873605076,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015712,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7854185744810744,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9622805115976587,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1700,
+        "mrr": 0.878795902274011,
+        "kl": 0.1311676507886452,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9887766554433219,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7832337295227919,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.960636606691235,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1800,
+        "mrr": 0.8748425968978926,
+        "kl": 0.134333956845199,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9887766554433219,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7755926828325018,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9601036924633282,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1900,
+        "mrr": 0.8774932883989263,
+        "kl": 0.1316136669697641,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9890572390572391,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7788203983516484,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9637979622805115,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2000,
+        "mrr": 0.8769237646556285,
+        "kl": 0.13016337156295776,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9868125701459034,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7805312516589691,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9604198280222559,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2100,
+        "mrr": 0.8771995963519355,
+        "kl": 0.13147781459213811,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015712,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7813034188034188,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.958992701784811,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2200,
+        "mrr": 0.8774047956574945,
+        "kl": 0.1321805237403399,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180695,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7822297494172494,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9595346484572583,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2300,
+        "mrr": 0.8777648248060083,
+        "kl": 0.12993750362833845,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598203,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7819019522144521,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9607630609148059,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2400,
+        "mrr": 0.8782289407117525,
+        "kl": 0.13211256218484685,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7832136063462283,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9620637329286799,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2500,
+        "mrr": 0.8747131184156374,
+        "kl": 0.12892119869401183,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7775033460129614,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9587759231158322,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2600,
+        "mrr": 0.8768994724990375,
+        "kl": 0.12977654600067984,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7788800059188778,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9629489124936773,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2700,
+        "mrr": 0.8777178017681817,
+        "kl": 0.12902926540450205,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763186,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7823228276353276,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9613050075872535,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2800,
+        "mrr": 0.8768459282953484,
+        "kl": 0.12836131670429737,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180695,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7815104166666667,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9587759231158319,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2900,
+        "mrr": 0.8776209093082344,
+        "kl": 0.12770046595531173,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7821286545244879,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9602933737986847,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3000,
+        "mrr": 0.8764272068950197,
+        "kl": 0.12667866456734983,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7794025997150997,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9601669195751138,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3100,
+        "mrr": 0.8788951546877409,
+        "kl": 0.12634621428537973,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9887766554433219,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.783814194877703,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9599140111279717,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3200,
+        "mrr": 0.8763106013006052,
+        "kl": 0.12798794019448606,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598203,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7792356948606949,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.960293373798685,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3300,
+        "mrr": 0.8794911797185887,
+        "kl": 0.1266431194506114,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015712,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7845412183302809,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9615579160343954,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3400,
+        "mrr": 0.8790407646465223,
+        "kl": 0.12475917243127581,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015712,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7838389041514042,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9611785533636823,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3500,
+        "mrr": 0.8770563663935348,
+        "kl": 0.12549103692739824,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015712,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7804154235101814,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9601307897969507,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3600,
+        "mrr": 0.8788042454975681,
+        "kl": 0.12577796699125557,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015712,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7837846374304708,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9603836982440928,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3700,
+        "mrr": 0.8804604824736773,
+        "kl": 0.12460282039415987,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180695,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7874853098290598,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9611785533636824,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3800,
+        "mrr": 0.8787624632686608,
+        "kl": 0.12490697884106938,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7846166564916565,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9599140111279716,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3900,
+        "mrr": 0.8759591401534624,
+        "kl": 0.12463825677014605,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763186,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.780200702075702,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.958649468892261,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 4000,
+        "mrr": 0.8768846307630792,
+        "kl": 0.12472130801481536,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180695,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.780653147600263,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.960546282245827,
+            "queries": 659
+          }
+        }
+      }
+    ]
+  },
+  "balanced-prompted-anchor.1": {
+    "initial": {
+      "step": 0,
+      "alpha": 1.0,
+      "validation": {
+        "ranking_kl": 0.17713962834847125,
+        "mrr": 0.8642087024839187,
+        "recall1": 0.7305077968812475,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      }
+    },
+    "best": {
+      "step": 500,
+      "alpha": 1.0,
+      "ranking_kl": 0.12093900889158249,
+      "anchor": 0.0650712251663208,
+      "lr": 1.931761825757905e-05,
+      "validation": {
+        "ranking_kl": 0.139641193743748,
+        "mrr": 0.8992651981353051,
+        "recall1": 0.8004798080767693,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8248139552018862,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9600826167593998,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 60.96795325499261,
+      "token_counts": {
+        "train_real": 1624377,
+        "train_padded": 6124928
+      },
+      "best_full_qat_step": 500
+    },
+    "final": {
+      "step": 4000,
+      "alpha": 1.0,
+      "ranking_kl": 0.03974629193544388,
+      "anchor": 0.062172889709472656,
+      "lr": 2.0000027758260955e-06,
+      "validation": {
+        "ranking_kl": 0.12095161433084102,
+        "mrr": 0.8954473766049135,
+        "recall1": 0.7936825269892043,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.818287037037037,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9609888720283257,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 451.7066496289917,
+      "token_counts": {
+        "train_real": 12988404,
+        "train_padded": 48981331
+      },
+      "best_full_qat_step": 500
+    },
+    "curve": [
+      {
+        "step": 0,
+        "mrr": 0.8642087024839187,
+        "kl": 0.17713962834847125,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 100,
+        "mrr": 0.8829947142022312,
+        "kl": 0.1532453984210763,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675644,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8026867897060205,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9465604451188669,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 200,
+        "mrr": 0.8854732020235384,
+        "kl": 0.15133752970944478,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9826038159371494,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8029194537346711,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.954261507334345,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 300,
+        "mrr": 0.8889672702347631,
+        "kl": 0.1431706169549423,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9837261503928171,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8073965964590964,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.958031649685671,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 400,
+        "mrr": 0.890828054743015,
+        "kl": 0.13994286794073973,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8098311684660369,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9602301466868994,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 500,
+        "mrr": 0.8992651981353051,
+        "kl": 0.139641193743748,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8248139552018862,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9600826167593998,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 600,
+        "mrr": 0.8939490870318538,
+        "kl": 0.13534516445066355,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8157184829059828,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9594081942336874,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 700,
+        "mrr": 0.8968861077123036,
+        "kl": 0.13205709440421454,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8241607624831309,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9545668039598237,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 800,
+        "mrr": 0.8944892461485823,
+        "kl": 0.13368579688705975,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8185338966588966,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9561264060505335,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 900,
+        "mrr": 0.894291331086613,
+        "kl": 0.1311376942675325,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8179258241758242,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9572855697666016,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1000,
+        "mrr": 0.893461504287174,
+        "kl": 0.1291161526136006,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598205,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8139066951566951,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9597243297926149,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1100,
+        "mrr": 0.8930229495503386,
+        "kl": 0.13116870650762244,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9852693602693603,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8145413614163614,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9585019389647615,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1200,
+        "mrr": 0.8949841275610967,
+        "kl": 0.13157493017519575,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8164238539238539,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.96149468892261,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1300,
+        "mrr": 0.8975681156108984,
+        "kl": 0.1309707085543041,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9844276094276094,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8246928418803419,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9572855697666018,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1400,
+        "mrr": 0.8937060096596282,
+        "kl": 0.13137696796580206,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9844276094276094,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8170787545787546,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9570477153936942,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1500,
+        "mrr": 0.8958701543537174,
+        "kl": 0.12937661034019687,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8189450947603121,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9598297083122577,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1600,
+        "mrr": 0.8923273230390384,
+        "kl": 0.1289942542774768,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8124652777777778,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9573909482862443,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1700,
+        "mrr": 0.8959282953485272,
+        "kl": 0.1270922175313853,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9837261503928171,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8200186965811965,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.960546282245827,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1800,
+        "mrr": 0.8945897831343653,
+        "kl": 0.12647199097879325,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9845679012345679,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8181375915750915,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9582701062215478,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1900,
+        "mrr": 0.895930516682216,
+        "kl": 0.125940780898061,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8205350783475784,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9578064407351206,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2000,
+        "mrr": 0.8936880218672764,
+        "kl": 0.12515646549342554,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8186853351327035,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9550750295059854,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2100,
+        "mrr": 0.8951316827766248,
+        "kl": 0.12694772153715544,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.820622625830959,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9576438567333865,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2200,
+        "mrr": 0.8961236018413147,
+        "kl": 0.12562879886996897,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8232145792241946,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9564997470915527,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2300,
+        "mrr": 0.8934968705457063,
+        "kl": 0.12524247018596793,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8164672671676981,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9577913866608859,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2400,
+        "mrr": 0.896037418365987,
+        "kl": 0.1248148196388649,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.821873330662393,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9587126960040465,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2500,
+        "mrr": 0.8980652183571016,
+        "kl": 0.12390206485420843,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.823878205128205,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9595767998651155,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2600,
+        "mrr": 0.8952528512404561,
+        "kl": 0.12413655942942523,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8198069291819292,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.958889731917046,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2700,
+        "mrr": 0.8947081167532986,
+        "kl": 0.12437413180176216,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9814814814814815,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8188755341880342,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9601036924633282,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2800,
+        "mrr": 0.8915353771911151,
+        "kl": 0.12229265338635142,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8107335372960373,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9596882000144518,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2900,
+        "mrr": 0.8952154432344709,
+        "kl": 0.12176960933057568,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8197586726998491,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9588391502276176,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3000,
+        "mrr": 0.8949808965302769,
+        "kl": 0.1213601774335662,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9814814814814815,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8194221866096866,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9601036924633284,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3100,
+        "mrr": 0.8938174730107957,
+        "kl": 0.12139117104720466,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8170906784188033,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.957827516439049,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3200,
+        "mrr": 0.8944755431160868,
+        "kl": 0.12164650848017464,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9806397306397306,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.817073985042735,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.963391502276176,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3300,
+        "mrr": 0.8944748767159804,
+        "kl": 0.12168201474072057,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8178071581196581,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9604830551340413,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3400,
+        "mrr": 0.8951434577684079,
+        "kl": 0.12116421424323999,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8184792637917637,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9602301466868993,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3500,
+        "mrr": 0.8935125949620151,
+        "kl": 0.12028232914737508,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8153445512820513,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9599772382397572,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3600,
+        "mrr": 0.8937480563330222,
+        "kl": 0.12126475676328322,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8166176994301994,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9599772382397572,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3700,
+        "mrr": 0.8960617713698834,
+        "kl": 0.12032691997629177,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8189573906485671,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9635685381891753,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3800,
+        "mrr": 0.8939190990270558,
+        "kl": 0.12161355965499636,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.816292735042735,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9604830551340413,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3900,
+        "mrr": 0.892988042878087,
+        "kl": 0.12082420567734332,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8148275335775336,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9597243297926149,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 4000,
+        "mrr": 0.8954473766049135,
+        "kl": 0.12095161433084102,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.818287037037037,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9609888720283257,
+            "queries": 659
+          }
+        }
+      }
+    ]
+  },
+  "balanced-prompted-anchor1.0": {
+    "initial": {
+      "step": 0,
+      "alpha": 1.0,
+      "validation": {
+        "ranking_kl": 0.17713962834847125,
+        "mrr": 0.8642087024839187,
+        "recall1": 0.7305077968812475,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      }
+    },
+    "best": {
+      "step": 500,
+      "alpha": 1.0,
+      "ranking_kl": 0.1284959316253662,
+      "anchor": 0.03452807664871216,
+      "lr": 1.931761825757905e-05,
+      "validation": {
+        "ranking_kl": 0.13782794933907594,
+        "mrr": 0.899696686981773,
+        "recall1": 0.8012794882047181,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.825211247086247,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9609677963243973,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 60.531283666961826,
+      "token_counts": {
+        "train_real": 1624377,
+        "train_padded": 6124928
+      },
+      "best_full_qat_step": 500
+    },
+    "final": {
+      "step": 4000,
+      "alpha": 1.0,
+      "ranking_kl": 0.05978802219033241,
+      "anchor": 0.022486507892608643,
+      "lr": 2.0000027758260955e-06,
+      "validation": {
+        "ranking_kl": 0.11941430774293368,
+        "mrr": 0.8926807054955795,
+        "recall1": 0.7876849260295882,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8132211538461538,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9593238914179734,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 448.8594785199966,
+      "token_counts": {
+        "train_real": 12988404,
+        "train_padded": 48981331
+      },
+      "best_full_qat_step": 500
+    },
+    "curve": [
+      {
+        "step": 0,
+        "mrr": 0.8642087024839187,
+        "kl": 0.17713962834847125,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 100,
+        "mrr": 0.8867453018792483,
+        "kl": 0.15307218307935738,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675644,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8054620726495726,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9555386949924128,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 200,
+        "mrr": 0.8835885559196233,
+        "kl": 0.1499875649526904,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9823232323232324,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7979797979797979,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9567165257605318,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 300,
+        "mrr": 0.8899588312823019,
+        "kl": 0.14103712226393855,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9837261503928171,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8091910018993352,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9583965604451189,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 400,
+        "mrr": 0.8895596523295444,
+        "kl": 0.1372742511426346,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8054053151709402,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9615217862562323,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 500,
+        "mrr": 0.899696686981773,
+        "kl": 0.13782794933907594,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.825211247086247,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9609677963243973,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 600,
+        "mrr": 0.8909671425547427,
+        "kl": 0.13366895989526675,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8074723479135243,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9621901871522508,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 700,
+        "mrr": 0.8949746767959484,
+        "kl": 0.13308793966528737,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.817807158119658,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.959344967121902,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 800,
+        "mrr": 0.8937331877284928,
+        "kl": 0.13294890032538884,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8144622794320375,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.960461979430113,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 900,
+        "mrr": 0.8935444869671179,
+        "kl": 0.13226851339958892,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9837261503928171,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8166304181929182,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9579160343955488,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1000,
+        "mrr": 0.890255619363976,
+        "kl": 0.12976216006128094,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598205,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8068000375692682,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9610159693619482,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1100,
+        "mrr": 0.8942205072858075,
+        "kl": 0.1314224193367777,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598205,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8132099077822762,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9639244165040827,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1200,
+        "mrr": 0.894338931094229,
+        "kl": 0.13040224962596653,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8133279914529914,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9649089529590288,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1300,
+        "mrr": 0.8941064599801106,
+        "kl": 0.13049176665423792,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9844276094276094,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8167015943458251,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9592817400101165,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1400,
+        "mrr": 0.8926257274867831,
+        "kl": 0.13027111799279345,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9845679012345679,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8136852297008547,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9592480188838306,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1500,
+        "mrr": 0.8921809054156117,
+        "kl": 0.12957926584949978,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763188,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8109508547008547,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9619794301129658,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1600,
+        "mrr": 0.8927366831045359,
+        "kl": 0.12586066593663603,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8124652777777778,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9594503456415445,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1700,
+        "mrr": 0.8947775002553091,
+        "kl": 0.12647980413859403,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598205,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.815676510989011,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9613670851151882,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1800,
+        "mrr": 0.8967056034728965,
+        "kl": 0.12434124998465369,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8184046855921856,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9640237733940314,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1900,
+        "mrr": 0.8942089830734374,
+        "kl": 0.12456605088295816,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8153311965811966,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9611279716742541,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2000,
+        "mrr": 0.893585898973744,
+        "kl": 0.12351856630625604,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8176949786324785,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9565629742033384,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2100,
+        "mrr": 0.8952565379077126,
+        "kl": 0.12553208920208714,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.818556749622926,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9605125611195414,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2200,
+        "mrr": 0.8962655517503144,
+        "kl": 0.12435441869723646,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8196796033073206,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9591805766312596,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2300,
+        "mrr": 0.8923126174366856,
+        "kl": 0.12584502372560621,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8096523064353947,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9639268251559604,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2400,
+        "mrr": 0.8959281049484968,
+        "kl": 0.12370145773585839,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8197702991452992,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9600043355733795,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2500,
+        "mrr": 0.8950119952019193,
+        "kl": 0.12358608988078335,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8172809829059828,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9612417804754677,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2600,
+        "mrr": 0.8937565030010406,
+        "kl": 0.12442521279371238,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8134151897938663,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9645566876219379,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2700,
+        "mrr": 0.8962852954056472,
+        "kl": 0.12285420223127437,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8188167735042734,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9624069658212299,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2800,
+        "mrr": 0.8921598027455684,
+        "kl": 0.12243264545745487,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8113648504273504,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9623798684876074,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2900,
+        "mrr": 0.893357577603879,
+        "kl": 0.12143488369787796,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8145922364672364,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9615723679456609,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3000,
+        "mrr": 0.8959716113554578,
+        "kl": 0.12165382561049884,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8189102564102564,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9617981790591806,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3100,
+        "mrr": 0.8928847264512999,
+        "kl": 0.11983781081588962,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8140306541748848,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9578064407351206,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3200,
+        "mrr": 0.8947575731612116,
+        "kl": 0.12176734152473981,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8176248664529914,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9603836982440928,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3300,
+        "mrr": 0.8940357190457151,
+        "kl": 0.12120616803818111,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8158787393162392,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9609509357612545,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3400,
+        "mrr": 0.8959997955704935,
+        "kl": 0.12013048357978652,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8171094804318488,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9630392369390851,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3500,
+        "mrr": 0.8938510066059046,
+        "kl": 0.11956448211700102,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8141642011834319,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9627381554543922,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3600,
+        "mrr": 0.8946818098157562,
+        "kl": 0.12066941717757454,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8163633241758241,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9609677963243973,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3700,
+        "mrr": 0.8967831670750505,
+        "kl": 0.11933905777486065,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8208415516107823,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9619794301129658,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3800,
+        "mrr": 0.8971219592970893,
+        "kl": 0.1201038557706,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8213869463869463,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.960714887877255,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3900,
+        "mrr": 0.8939002176907016,
+        "kl": 0.11996336969770963,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8157719017094016,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9598802900016861,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 4000,
+        "mrr": 0.8926807054955795,
+        "kl": 0.11941430774293368,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8132211538461538,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9593238914179734,
+            "queries": 659
+          }
+        }
+      }
+    ]
+  },
+  "balanced-prompted-anchor1.0-positive.2": {
+    "initial": {
+      "step": 0,
+      "alpha": 1.0,
+      "validation": {
+        "ranking_kl": 0.17713962834847125,
+        "mrr": 0.8642087024839187,
+        "recall1": 0.7305077968812475,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      }
+    },
+    "best": {
+      "step": 3600,
+      "alpha": 1.0,
+      "ranking_kl": 0.0776146650314331,
+      "anchor": 0.026472926139831543,
+      "lr": 2.4426783055051144e-06,
+      "total_loss": 0.17223933339118958,
+      "validation": {
+        "ranking_kl": 0.12041580172467835,
+        "mrr": 0.9077480119063486,
+        "recall1": 0.8172730907636945,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8403445512820513,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9636233350193897,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 412.52320639800746,
+      "token_counts": {
+        "train_real": 11687191,
+        "train_padded": 44079891
+      },
+      "best_full_qat_step": 3600
+    },
+    "final": {
+      "step": 4000,
+      "alpha": 1.0,
+      "ranking_kl": 0.06402593851089478,
+      "anchor": 0.025803864002227783,
+      "lr": 2.0000027758260955e-06,
+      "total_loss": 0.14931264519691467,
+      "validation": {
+        "ranking_kl": 0.11842462472334693,
+        "mrr": 0.9064112450257992,
+        "recall1": 0.8148740503798481,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.98989898989899,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8369057158119659,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9627863284919431,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 457.99610033800127,
+      "token_counts": {
+        "train_real": 12988404,
+        "train_padded": 48981331
+      },
+      "best_full_qat_step": 3600
+    },
+    "curve": [
+      {
+        "step": 0,
+        "mrr": 0.8642087024839187,
+        "kl": 0.17713962834847125,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 100,
+        "mrr": 0.8950791112126578,
+        "kl": 0.1511211979992782,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675644,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8205872252747253,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.95852301466869,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 200,
+        "mrr": 0.8910514469160575,
+        "kl": 0.14625512751974637,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9831649831649831,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8111993682645855,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9592456102319531,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 300,
+        "mrr": 0.8963724034195845,
+        "kl": 0.13987144865567172,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.984006734006734,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8205414377289377,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9609888720283257,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 400,
+        "mrr": 0.8969973915195826,
+        "kl": 0.13456555503078654,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8189484126984126,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9633427270756558,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 500,
+        "mrr": 0.9057703585232575,
+        "kl": 0.1391559800581087,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9890572390572391,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8355021367521366,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9637708649468892,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 600,
+        "mrr": 0.9016726642676262,
+        "kl": 0.1335318868484678,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8281917735042734,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9635811836115327,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 700,
+        "mrr": 0.9025723044115685,
+        "kl": 0.13263127170031583,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8325721153846154,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9594587759231158,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 800,
+        "mrr": 0.9032513661202186,
+        "kl": 0.13332140558882605,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598205,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8326976495726495,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9612923621648961,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 900,
+        "mrr": 0.9029621484739437,
+        "kl": 0.13425556508989273,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8331463675213675,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9613682346990389,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1000,
+        "mrr": 0.901758344281335,
+        "kl": 0.12834582925785945,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9890572390572391,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8280486874236874,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.962659874268372,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1100,
+        "mrr": 0.9014165762266522,
+        "kl": 0.1314965476623819,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8290064102564102,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9605607341570922,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1200,
+        "mrr": 0.9030847660935625,
+        "kl": 0.12875327878171886,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9887766554433222,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8296260683760684,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9649595346484572,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1300,
+        "mrr": 0.9036312459143327,
+        "kl": 0.1293597591545763,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9877946127946128,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.832843660968661,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.961825276392803,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1400,
+        "mrr": 0.9034374554271859,
+        "kl": 0.13000824792852886,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9869528619528619,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8332419590643274,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9610942505479683,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1500,
+        "mrr": 0.9052109315004158,
+        "kl": 0.12833160360025453,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8360615079365079,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9631175181251054,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1600,
+        "mrr": 0.9035185925629747,
+        "kl": 0.12582648102241226,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8317085113960113,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9631680998145338,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1700,
+        "mrr": 0.9049130347860855,
+        "kl": 0.1272339716647999,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8349192040598289,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9641502276176024,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1800,
+        "mrr": 0.906202903454003,
+        "kl": 0.12648237157094327,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8377712031558184,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.963391502276176,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1900,
+        "mrr": 0.9055655515571549,
+        "kl": 0.12490914563966703,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8361712072649572,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9624852470072501,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2000,
+        "mrr": 0.9054575139641113,
+        "kl": 0.12290236052078536,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9837261503928171,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8398164335664335,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9592185128983308,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2100,
+        "mrr": 0.9069568997797706,
+        "kl": 0.125427403168965,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8405353327228327,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9617771033552521,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2200,
+        "mrr": 0.9042468482692394,
+        "kl": 0.12507143112111696,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.833795611439842,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.962738155454392,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2300,
+        "mrr": 0.902596739082145,
+        "kl": 0.1238924823229826,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8289529914529914,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9648878772551003,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2400,
+        "mrr": 0.9077247775837903,
+        "kl": 0.12531614709126798,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8413142186919359,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9624575475106583,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2500,
+        "mrr": 0.9069605491136878,
+        "kl": 0.12310034451605398,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8387286324786323,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9636949924127467,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2600,
+        "mrr": 0.9054518248722919,
+        "kl": 0.12409940550598918,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8368526897938663,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9622805115976587,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2700,
+        "mrr": 0.9048218807715008,
+        "kl": 0.12372331462706192,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8356570512820514,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9629127827155142,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2800,
+        "mrr": 0.9012828202052512,
+        "kl": 0.12151975071505655,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8276442307692309,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9623798684876074,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2900,
+        "mrr": 0.9050613088098094,
+        "kl": 0.12139562625862375,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8364850427350428,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9630121396054628,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3000,
+        "mrr": 0.9046281487405039,
+        "kl": 0.12251990835500669,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8360176282051281,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9622534142640364,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3100,
+        "mrr": 0.9041150206584033,
+        "kl": 0.12091023182567162,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8351228632478631,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9604830551340413,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3200,
+        "mrr": 0.9061183219020084,
+        "kl": 0.12176816736029673,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8379355687047996,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9635179564997471,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3300,
+        "mrr": 0.9052379048380648,
+        "kl": 0.12176114933777459,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8345886752136752,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9657561962569551,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3400,
+        "mrr": 0.9060609089697454,
+        "kl": 0.12038091452249998,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8360844017094018,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9645295902883156,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3500,
+        "mrr": 0.9036163312452796,
+        "kl": 0.12062318740954882,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8324652777777777,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9621058843365368,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3600,
+        "mrr": 0.9077480119063486,
+        "kl": 0.12041580172467835,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8403445512820513,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9636233350193897,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3700,
+        "mrr": 0.906765071749078,
+        "kl": 0.11923573642403265,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.83850827991453,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9633704265722475,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3800,
+        "mrr": 0.9071215958061218,
+        "kl": 0.11948035921477064,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9848484848484849,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8403579059829058,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9634968807958186,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3900,
+        "mrr": 0.9060447249671559,
+        "kl": 0.11853491642241236,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8361044337606839,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.964430233398367,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 4000,
+        "mrr": 0.9064112450257992,
+        "kl": 0.11842462472334693,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.98989898989899,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8369057158119659,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9627863284919431,
+            "queries": 659
+          }
+        }
+      }
+    ]
+  },
+  "balanced-prompted-floatanchor1.0-positive.2": {
+    "initial": {
+      "step": 0,
+      "alpha": 1.0,
+      "validation": {
+        "ranking_kl": 0.17713962834847125,
+        "mrr": 0.8642087024839187,
+        "recall1": 0.7305077968812475,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      }
+    },
+    "best": {
+      "step": 3800,
+      "alpha": 1.0,
+      "ranking_kl": 0.059100326150655746,
+      "anchor": 0.038608551025390625,
+      "lr": 2.1119134462549602e-06,
+      "total_loss": 0.17185360193252563,
+      "validation": {
+        "ranking_kl": 0.11859355456655539,
+        "mrr": 0.9076718518941628,
+        "recall1": 0.8176729308276689,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763188,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8403922466422467,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9650143314786714,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 370.43873232702026,
+      "token_counts": {
+        "train_real": 12333465,
+        "train_padded": 46527059
+      },
+      "best_full_qat_step": 3800
+    },
+    "final": {
+      "step": 4000,
+      "alpha": 1.0,
+      "ranking_kl": 0.06588324159383774,
+      "anchor": 0.03699350357055664,
+      "lr": 2.0000027758260955e-06,
+      "total_loss": 0.16036349534988403,
+      "validation": {
+        "ranking_kl": 0.1170949925067304,
+        "mrr": 0.9047396914250173,
+        "recall1": 0.8112754898040784,
+        "queries": 2501,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8348913817663817,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.962533420044801,
+            "queries": 659
+          }
+        }
+      },
+      "seconds": 389.66815512400353,
+      "token_counts": {
+        "train_real": 12988404,
+        "train_padded": 48981331
+      },
+      "best_full_qat_step": 3800
+    },
+    "curve": [
+      {
+        "step": 0,
+        "mrr": 0.8642087024839187,
+        "kl": 0.17713962834847125,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9812008978675646,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.7548498650472334,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9658573596358119,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 100,
+        "mrr": 0.8942489670798346,
+        "kl": 0.14969115270466743,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9828843995510661,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8175213675213674,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9596611026808296,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 200,
+        "mrr": 0.8905857570391756,
+        "kl": 0.14643753951863397,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9837261503928171,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8099990287490286,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9592456102319531,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 300,
+        "mrr": 0.8960220509497351,
+        "kl": 0.1396452141336248,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9837261503928171,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.821608826996758,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9578907435508346,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 400,
+        "mrr": 0.8956577369052379,
+        "kl": 0.13562811703621586,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8162713675213675,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.964087000505817,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 500,
+        "mrr": 0.9062382293459428,
+        "kl": 0.13961135133912292,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8379087699739872,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9632650480526049,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 600,
+        "mrr": 0.9013424933057081,
+        "kl": 0.1326162802833545,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8284649378399379,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9618108244815375,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 700,
+        "mrr": 0.9026142789637392,
+        "kl": 0.13198437400256532,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.832301379176379,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.959372064455524,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 800,
+        "mrr": 0.9017380227396221,
+        "kl": 0.13222596799082395,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8296248356344511,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9606095093576125,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 900,
+        "mrr": 0.9037915136975514,
+        "kl": 0.13426811502704136,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9845679012345679,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8343410062160063,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9625063227111785,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1000,
+        "mrr": 0.9007746107906044,
+        "kl": 0.12788730001525034,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9877946127946128,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8271456552706553,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9617746947033746,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1100,
+        "mrr": 0.9040596215726164,
+        "kl": 0.1310587175944938,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8327272353714662,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9635450538333693,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1200,
+        "mrr": 0.9026313284210127,
+        "kl": 0.12928855862421326,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9887766554433222,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8294986263736265,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9634800202326759,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1300,
+        "mrr": 0.902501142400183,
+        "kl": 0.13002549441932124,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9852693602693603,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8319143963675213,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9615723679456609,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1400,
+        "mrr": 0.9056460749033719,
+        "kl": 0.13044717464643188,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9869528619528619,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8364549946581198,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.963391502276176,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1500,
+        "mrr": 0.9057554755875429,
+        "kl": 0.12827934716132622,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8374198717948718,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9626117012308211,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1600,
+        "mrr": 0.9031733711744061,
+        "kl": 0.12477670327017579,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9886363636363636,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8311769419306183,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9624852470072501,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1700,
+        "mrr": 0.9037151805944289,
+        "kl": 0.12662611019950878,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9877946127946128,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8315170940170941,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9646560445118866,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1800,
+        "mrr": 0.906919613107138,
+        "kl": 0.12518084360451637,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.839781746031746,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9623039959534648,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 1900,
+        "mrr": 0.9043603071591877,
+        "kl": 0.12435047139849843,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.98989898989899,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8330970578566732,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9622154779969649,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2000,
+        "mrr": 0.903778171271174,
+        "kl": 0.12222281994321678,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9862514029180697,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8341918498168497,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9612207047715394,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2100,
+        "mrr": 0.90743585606693,
+        "kl": 0.12421154480757593,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8409209120557805,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9621058843365368,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2200,
+        "mrr": 0.9041080537481977,
+        "kl": 0.122264228666885,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9879349046015713,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8309962606837606,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9670069434864579,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2300,
+        "mrr": 0.9013489842158373,
+        "kl": 0.12290945705733722,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763188,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8272283272283272,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9659476840812198,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2400,
+        "mrr": 0.9071109651377545,
+        "kl": 0.12298476332916489,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8393763354700854,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9630392369390851,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2500,
+        "mrr": 0.9051945888311341,
+        "kl": 0.12304554912674276,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598205,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8363514957264957,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9617475973697521,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2600,
+        "mrr": 0.9058432182682482,
+        "kl": 0.12297855987201763,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.836850071225071,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9637708649468892,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2700,
+        "mrr": 0.9058233849317414,
+        "kl": 0.12325107542019856,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8357944139194138,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9656947756340776,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2800,
+        "mrr": 0.9013077308759035,
+        "kl": 0.12032168396288835,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8285065628815628,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.962358792783679,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 2900,
+        "mrr": 0.9040661513172509,
+        "kl": 0.11986718821940542,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8336894586894587,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9637708649468892,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3000,
+        "mrr": 0.9033124845299976,
+        "kl": 0.11981865367557429,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8330471611721612,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9621269600404653,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3100,
+        "mrr": 0.9035485805677728,
+        "kl": 0.1186214796255661,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8343215811965811,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9590920586747599,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3200,
+        "mrr": 0.9065945050551207,
+        "kl": 0.11997634059266199,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9865319865319865,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8371394230769231,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9660741383047907,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3300,
+        "mrr": 0.9048444114417724,
+        "kl": 0.12038885387061518,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9856902356902357,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8329899267399267,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.968049232844377,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3400,
+        "mrr": 0.9049285047885607,
+        "kl": 0.12051535779728165,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8344684829059827,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9640508707276538,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3500,
+        "mrr": 0.9032564751877026,
+        "kl": 0.11946322745348834,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9870931537598205,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8318198005698005,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9629742033383913,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3600,
+        "mrr": 0.9067444450791111,
+        "kl": 0.11906306459745274,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9882154882154882,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8385225885225884,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9625063227111785,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3700,
+        "mrr": 0.9075718918781694,
+        "kl": 0.11858217036233673,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8386561355311355,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.966152419490811,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3800,
+        "mrr": 0.9076718518941628,
+        "kl": 0.11859355456655539,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9854096520763188,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8403922466422467,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9650143314786714,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 3900,
+        "mrr": 0.9053489715225019,
+        "kl": 0.11754955393792707,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9890572390572391,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8352029914529914,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.9627381554543922,
+            "queries": 659
+          }
+        }
+      },
+      {
+        "step": 4000,
+        "mrr": 0.9047396914250173,
+        "kl": 0.1170949925067304,
+        "by_source": {
+          "sentence-transformers/quora-duplicates": {
+            "mrr": 0.9873737373737373,
+            "queries": 594
+          },
+          "sentence-transformers/msmarco-bm25": {
+            "mrr": 0.8348913817663817,
+            "queries": 1248
+          },
+          "sentence-transformers/all-nli": {
+            "mrr": 0.962533420044801,
+            "queries": 659
+          }
+        }
+      }
+    ]
+  }
+}

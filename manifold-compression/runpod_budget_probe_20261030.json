@@ -1,0 +1,24 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-30",
+  "user_authorization": "Asked: 'I'd hold off on a longer run of the same recipe. Instead I'd spend about $1-1.50 on one pod running two checks: 1. Rerun the 16 questions with 32-bit state, to see whether the 16-bit format causes the loops. 2. Test the healed model with a router that always picks the right experts, to see how much of the remaining 0.61 is still the router's fault.' User: 'do it'",
+  "scope": "One pod for the checks on the healed Qwen3.5-9B student (heal_probe.py evaluate, state and generate): learned, perfect and all-neuron routing on the v2 eval documents, the DeltaNet state check split into its parts, and the 16 GSM8K generations with fp32 state under the learned and the perfect router.",
+  "total_cap_usd": 1.5,
+  "spent_usd": 0.7912891789840326,
+  "restrictions": [
+    "Not a standing authorization for other jobs; on-policy distillation or a longer healing run needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "active_job": "target/manifold-probe/mc-probe-f797b6f35b52/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "High",
+    "checked_at": 1793338604.0388176
+  },
+  "pod_id": "03s42gne2k6km4",
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1793343432.254832
+}

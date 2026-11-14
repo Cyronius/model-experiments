@@ -1,0 +1,78 @@
+{
+  "experiment": "xdna2-claim-distillation-v1",
+  "state": "complete",
+  "decision": "Do not promote this adapter; retain base NuExtract3 as proposal extractor with source review. This small pilot does not establish that fine-tuning is generally unhelpful.",
+  "training": {
+    "steps_completed": 24,
+    "train_examples": 9,
+    "validation_examples": 1,
+    "trainable_parameters": 3809280,
+    "changed_adapter_tensors": 100,
+    "vision_frozen": true,
+    "base_frozen": true,
+    "validation_loss_before": 0.12851426005363464,
+    "validation_loss_after": 0.13182368874549866
+  },
+  "held_out": {
+    "base-test": {
+      "cases": 4,
+      "schema_and_citations_valid": 4,
+      "truncated": 0,
+      "reference_claims": 22
+    },
+    "adapter-test": {
+      "cases": 4,
+      "schema_and_citations_valid": 3,
+      "truncated": 0,
+      "reference_claims": 22
+    }
+  },
+  "qualitative_review": [
+    {
+      "case": "D-94becbcc50724f7f2cc3",
+      "finding": "Adapter recovers the fork identity and XRT 2.20-header/2.25-runtime compatibility observation that the base omitted. Both still phrase third-party physical results as facts without explicit reported/hearsay wording in the statement or conditions."
+    },
+    {
+      "case": "D-67113b2f7eeb685c2042",
+      "finding": "Base emits a README-tested NPU driver version as an unqualified run fact and calls the commit date a run date despite the source saying the run date was not stated. Adapter removes those metadata assertions but omits the four numeric rate observations and generates a non-verbatim condition: prompt grows from 1k to 8k tokens."
+    },
+    {
+      "case": "D-ac65a301dc94089c12ef",
+      "finding": "Both omit the Q4_K_M and Q8_0 prompt-rate comparisons and their reported gains. Adapter combines multiple assertions into fewer records; fewer records do not establish better atomicity."
+    },
+    {
+      "case": "D-4b57f363a78d5d55d512",
+      "finding": "Adapter retains the /dev/dxg path that the base statement omitted, but combines GPU passthrough, absent NPU execution/timing and host-only availability into one record."
+    }
+  ],
+  "metric_limits": [
+    "Citation validity is mechanical, not semantic support.",
+    "The exact qualifier diagnostic requires entire reference headlines in generated statements/conditions and is too strict to interpret as scope accuracy here.",
+    "Quote-overlap counts can match a wrong or compound statement and are not semantic recall.",
+    "Nine training passages, one validation passage and four fixed test passages are a bounded pilot, not a broad capability estimate.",
+    "All held-out references and review decisions are agent-authored; no independent human adjudication or upstream-log verification."
+  ],
+  "checks": {
+    "unit_tests_passed": 16,
+    "training_signature_matches_retained_supervision": true,
+    "raw_generations_unchanged_during_reference_metadata_correction": true
+  },
+  "raw_output_sha256": {
+    "base-test": [
+      "95264f25247edf1387209d70661e598d529f93e218c4f48f8cc5b16b73c72ac8",
+      "7328d89fa4ae7926f1346a26577ab0796f9602cacdca0282e9d9849f2b195a6c",
+      "865a3bc1dda169a839250d5aa0d0ed3b5eb381965f8941dcc8565590330f51b2",
+      "75315e18008b6c237e864d05d32faed11c17fbccbc81914aa958399d6e67c020"
+    ],
+    "adapter-test": [
+      "8d9b1b5a1753e2f8e4c24d155f4750b5f3819f7a896ca92d6bb1dea9060bdb1d",
+      "9a19bcb636a17329bc85e0d0e6f785c2fa4284846c08a1b425562039f0921e20",
+      "e0c82a2a0f787da38389fa08ecb232bc03b585c7f829df9f792d93b238eec7f8",
+      "ecee685fa0ffab65c183af11d718943509123d796189120623dd42b269ecf9f2"
+    ]
+  },
+  "paid_compute_cost_usd": 0,
+  "adapter": "runs/lora-pilot/final",
+  "protocol": "protocol.json",
+  "metadata_correction": "Original generated outputs and original summaries remain in *.initial.* files; reference provenance wording was corrected after inference. Future evaluation code records the annotation provenance directly."
+}

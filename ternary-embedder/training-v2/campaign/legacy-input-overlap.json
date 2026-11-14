@@ -1,0 +1,45 @@
+{
+  "scope": "Exact student-visible input overlap with the ten newly observed nonretrieval test sets. Text overlap alone is not evidence of shared evaluation labels. The original SciFact/NFCorpus/ArguAna/STSB/FiQA/SCIDOCS exclusions remain separate.",
+  "exclusion_texts_sha256": "8eef5795ca40b2d7468f5178343b7aa967ddf47974ae1bbd41f3181d4cd7bab9",
+  "splits": {
+    "train": {
+      "data_sha256": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502",
+      "totals": {
+        "positive": 972,
+        "pair_rows": 1645,
+        "query": 696
+      },
+      "by_source": {
+        "sentence-transformers/stackexchange-duplicates": {
+          "positive": 590,
+          "pair_rows": 747,
+          "query": 176
+        },
+        "sentence-transformers/all-nli": {
+          "positive": 382,
+          "pair_rows": 898,
+          "query": 520
+        }
+      }
+    },
+    "dev": {
+      "data_sha256": "9ac846cb11f3b28c9280f9b369aba9c3f2377284a4a9d04f7a3baaa1428b0037",
+      "totals": {
+        "positive": 6,
+        "pair_rows": 17,
+        "query": 11
+      },
+      "by_source": {
+        "sentence-transformers/stackexchange-duplicates": {
+          "positive": 5,
+          "pair_rows": 5
+        },
+        "sentence-transformers/all-nli": {
+          "positive": 1,
+          "pair_rows": 12,
+          "query": 11
+        }
+      }
+    }
+  }
+}

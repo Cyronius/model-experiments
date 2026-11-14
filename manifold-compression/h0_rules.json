@@ -1,0 +1,38 @@
+{
+  "seed": 26102771,
+  "corpus": {
+    "salt": "h0-native-mlp-20261027",
+    "min_tokens": 64,
+    "max_tokens": 1024,
+    "domains": {
+      "chat": {"train": 75000, "dev": 7500, "test": 12000},
+      "prose": {"train": 75000, "dev": 7500, "test": 12000},
+      "code": {"train": 75000, "dev": 7500, "test": 12000},
+      "math": {"train": 32000, "dev": 4000, "test": 4000}
+    },
+    "copy": {"docs": 32, "min_passage": 64, "max_passage": 128}
+  },
+  "runtime": {"threads": 16, "eval_batch": 4, "max_hours": {"collect": 1.5, "fit": 6, "evaluate": 8}},
+  "sites": [2, 12, 20],
+  "budgets": [
+    {"name": "moderate", "k": 1536, "m": 4096},
+    {"name": "aggressive", "k": 768, "m": 2560}
+  ],
+  "chart": {"hidden": 1024, "steps": 4000, "lr": 0.001, "batch": 512, "eval_every": 250, "samples_per_doc": 4},
+  "native": {"steps": 6000, "lr": 0.0003, "batch": 512, "eval_every": 250},
+  "restricted": {"ridge": 0.001},
+  "curve": {"budget": "aggressive", "fractions": [0.25, 0.5]},
+  "gate": {
+    "primary_arm": "learned",
+    "baseline_arm": "restricted",
+    "budget": "aggressive",
+    "margin": 0.75,
+    "draws": 10000,
+    "seed": 26102772,
+    "copy_quantile": 0.99,
+    "curve_improvement": 0.1,
+    "sites_required": 2,
+    "min_baseline_kl": 0.001,
+    "weighting": "domain_equal"
+  }
+}

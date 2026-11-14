@@ -1,0 +1,108 @@
+{
+  "status": "shape_only_no_model_forward_no_selected_layout",
+  "teacher": "SmolLM2-1.7B-Instruct",
+  "source_config_sha256": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea",
+  "safetensors_header_sha256": "1170537db4e288234d31b97e1fcf49cfb9ef48ea376fe308b2ab768777e50114",
+  "teacher_stored_scalars": {
+    "embedding": 100663296,
+    "mlp": 1207959552,
+    "attention": 402653184,
+    "norms_other": 100352
+  },
+  "teacher_non_embedding_scalars": 1610713088,
+  "primary_axis": "Transformer non-embedding parameters; vocabulary/embedding tables excluded per user clarification relayed in paird251.",
+  "assumptions": [
+    "24 layers, bias-free dense MHA, 32 query and 32 KV heads, same k for query/key/value/output widths in the native column, SwiGLU MLP with three k-by-m matrices, two RMSNorms per layer plus final norm.",
+    "Non-embedding native parameter formula: 24 * (4*k*k + 3*k*m + 2*k) + k. It reproduces the teacher count at k=2048, m=8192.",
+    "The fixed-attention column retains the 2048-wide concatenated teacher head space; it is not equivalent to the native head-scaled architecture.",
+    "FLOPs count one multiply and add as two; linear layers only. Attention score/value products are separately shown. Causal prefill has a different cost. Norms, activations, softmax, position transforms, the output head, training/backward and memory traffic are not included.",
+    "KV bytes equal cache scalars times bytes per element. No measured latency or feasibility claim.",
+    "Chart and adaptation overhead is not yet designed; rows are candidate base architectures, not final deployment parameter bills."
+  ],
+  "candidates": [
+    {
+      "residual_width": 1536,
+      "mlp_width": 4096,
+      "native_non_embedding_scalars": 679552512,
+      "native_compression": 2.370255513086824,
+      "fixed_teacher_attention_width_scalars": 755049984,
+      "fixed_attention_compression": 2.1332535886789716,
+      "native_head_dim_at_32_heads": 48,
+      "native_linear_matmul_flops_per_token": 1358954496,
+      "attention_mix_flops_per_decode_token_at_context_S": "4 * layers * context_length * residual_width",
+      "kv_cache_scalars_per_sequence_token": 73728
+    },
+    {
+      "residual_width": 1024,
+      "mlp_width": 3072,
+      "native_non_embedding_scalars": 327205888,
+      "native_compression": 4.922628678369015,
+      "fixed_teacher_attention_width_scalars": 427869184,
+      "fixed_attention_compression": 3.764498936198219,
+      "native_head_dim_at_32_heads": 32,
+      "native_linear_matmul_flops_per_token": 654311424,
+      "attention_mix_flops_per_decode_token_at_context_S": "4 * layers * context_length * residual_width",
+      "kv_cache_scalars_per_sequence_token": 49152
+    },
+    {
+      "residual_width": 768,
+      "mlp_width": 2560,
+      "native_non_embedding_scalars": 198218496,
+      "native_compression": 8.125947479694327,
+      "fixed_teacher_attention_width_scalars": 292590336,
+      "fixed_attention_compression": 5.505011238648702,
+      "native_head_dim_at_32_heads": 24,
+      "native_linear_matmul_flops_per_token": 396361728,
+      "attention_mix_flops_per_decode_token_at_context_S": "4 * layers * context_length * residual_width",
+      "kv_cache_scalars_per_sequence_token": 36864
+    },
+    {
+      "residual_width": 768,
+      "mlp_width": 2048,
+      "native_non_embedding_scalars": 169906944,
+      "native_compression": 9.479972095784385,
+      "fixed_teacher_attention_width_scalars": 264278784,
+      "fixed_attention_compression": 6.094749883516945,
+      "native_head_dim_at_32_heads": 24,
+      "native_linear_matmul_flops_per_token": 339738624,
+      "attention_mix_flops_per_decode_token_at_context_S": "4 * layers * context_length * residual_width",
+      "kv_cache_scalars_per_sequence_token": 36864
+    },
+    {
+      "residual_width": 512,
+      "mlp_width": 2560,
+      "native_non_embedding_scalars": 119562752,
+      "native_compression": 13.471696335661461,
+      "fixed_teacher_attention_width_scalars": 195060224,
+      "fixed_attention_compression": 8.257516857973053,
+      "native_head_dim_at_32_heads": 16,
+      "native_linear_matmul_flops_per_token": 239075328,
+      "attention_mix_flops_per_decode_token_at_context_S": "4 * layers * context_length * residual_width",
+      "kv_cache_scalars_per_sequence_token": 24576
+    },
+    {
+      "residual_width": 512,
+      "mlp_width": 2048,
+      "native_non_embedding_scalars": 100688384,
+      "native_compression": 15.997010022526531,
+      "fixed_teacher_attention_width_scalars": 176185856,
+      "fixed_attention_compression": 9.142124825275419,
+      "native_head_dim_at_32_heads": 16,
+      "native_linear_matmul_flops_per_token": 201326592,
+      "attention_mix_flops_per_decode_token_at_context_S": "4 * layers * context_length * residual_width",
+      "kv_cache_scalars_per_sequence_token": 24576
+    },
+    {
+      "residual_width": 384,
+      "mlp_width": 1536,
+      "native_non_embedding_scalars": 56641920,
+      "native_compression": 28.436767115239032,
+      "fixed_teacher_attention_width_scalars": 117983616,
+      "fixed_attention_compression": 13.652006461642946,
+      "native_head_dim_at_32_heads": 12,
+      "native_linear_matmul_flops_per_token": 113246208,
+      "attention_mix_flops_per_decode_token_at_context_S": "4 * layers * context_length * residual_width",
+      "kv_cache_scalars_per_sequence_token": 18432
+    }
+  ]
+}

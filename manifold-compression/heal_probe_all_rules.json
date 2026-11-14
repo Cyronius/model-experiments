@@ -1,0 +1,26 @@
+{
+  "folder": "probe_all",
+  "earlier": ["probe"],
+  "evaluate": {
+    "arms": ["learned", "all", {"name": "all_unhealed", "router": "all", "healed": false}],
+    "check": {"kl": 0.01, "bpb": 0.01},
+    "max_hours": 0.4
+  },
+  "generate": {
+    "arms": {
+      "all": {"router": "all", "state": "fp32"},
+      "all_unhealed": {"router": "all", "state": "fp32", "healed": false}
+    },
+    "max_hours": 0.6
+  },
+  "loop": {"window": 20, "last": 1000, "threshold": 0.45},
+  "reading": "A set of 16 generations loops if at least 5 hit the cap stuck in a loop, is clean with at most 2, and is unclear in between. Both clean: the 25% sparsity causes the loops (next: a bigger expert budget or full expert training). Unhealed clean, healed looping: the healing causes them (next: on-policy distillation from the 9B). Unhealed looping: the low-rank DeltaNet cut or the 64K vocabulary does.",
+  "predictions": {
+    "reproduce": "With rebuilt low-rank factors and the saved adapter, the learned-router student reproduces the healing run's last milestone: KL within 0.01 of 0.612 and 64K bits per byte within 1% of 0.734.",
+    "all_reproduce": "With every neuron, the healed student reproduces the first probe: KL within 0.01 of 0.242.",
+    "unhealed_kl": "Without the adapter, every neuron running drifts less than with it (0.242): the adapter, trained with 25% of the neurons, overshoots when all of them run. Before healing the low-rank DeltaNet cut alone cost 0.156.",
+    "loops_unhealed": "Without the adapter, at most 2 of the 16 generations loop (dense: 0; dense with int8 state, KL 0.083: 1).",
+    "loops_healed": "With the adapter and every neuron, at least 3 of the 16 loop: the healing is at least part of the cause.",
+    "short_answers": "The healed student's finished answers stay short with every neuron (median under 600 tokens; at 25% they ran 108-531, the dense model's 647-1,588), and the unhealed student's do not."
+  }
+}

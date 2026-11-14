@@ -1,0 +1,4440 @@
+{
+  "protocol": {
+    "model": "Qwen/Qwen3.5-2B",
+    "source_manifest": {
+      "repo": "Qwen/Qwen3.5-2B",
+      "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "files": {
+        "chat_template.jinja": {
+          "size": 7755,
+          "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+        },
+        "config.json": {
+          "size": 2908,
+          "sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4"
+        },
+        "model.safetensors-00001-of-00001.safetensors": {
+          "size": 4548221488,
+          "sha256": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"
+        },
+        "tokenizer.json": {
+          "size": 12807982,
+          "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+        },
+        "tokenizer_config.json": {
+          "size": 16709,
+          "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c"
+        }
+      }
+    },
+    "device": "cpu",
+    "dtype": "float32",
+    "whole_model_healing": false,
+    "cloud_spend_usd": 0,
+    "data_sha256": "8f8e8ae2db90adb7a9682502bda7e251f7ca88c371ec3eea7b3ec60af3dc8026",
+    "calibration": {
+      "small": {
+        "rows": 36,
+        "tokens": 16486,
+        "max_length": 606
+      },
+      "large": {
+        "rows": 141,
+        "tokens": 65968,
+        "max_length": 634
+      },
+      "broad": {
+        "rows": 438,
+        "tokens": 65759,
+        "max_length": 1552
+      },
+      "validation": {
+        "rows": 16,
+        "tokens": 7755,
+        "max_length": 594
+      }
+    },
+    "plan": {
+      "model_type": "qwen3_5_text",
+      "source_width": 2048,
+      "source_parameters": 1881825088,
+      "source_bf16_weight_gb": 3.763650176,
+      "source_fp32_weight_gb": 7.527300352,
+      "arms": [
+        {
+          "target_fraction": 0.75,
+          "width": 1520,
+          "parameters": 1399093040,
+          "retained_fraction": 0.7434766647132722,
+          "bf16_weight_gb": 2.79818608,
+          "output_matrix_parameters": 2310400
+        }
+      ],
+      "fixed_parameters": 448320,
+      "parameters_per_residual_coordinate": 918641,
+      "count_scope": "text causal model, including embeddings, output head, and output adapter; no vision/MTP"
+    },
+    "global_width": 1520,
+    "local_matched_width": 1456,
+    "arms": [
+      "stock",
+      "shared-small",
+      "shared-large",
+      "shared-broad",
+      "layer-large-matched",
+      "layer-large-samewidth",
+      "shared-large-dynamic"
+    ],
+    "controls": "Fresh source load per arm. Shared and local bases use identical large calibration corpus. Same-width local arm explicitly exceeds shared storage. No selection on held-out generations.",
+    "rms_fit": "33 quadratic/linear features of retained coordinates; ridge 0.01; bounded by calibration quantiles. No model-loss training.",
+    "generation": {
+      "closed_cases": 56,
+      "code_cases": 4,
+      "explanations": 2,
+      "greedy": true,
+      "thinking": false,
+      "penalties": false,
+      "limits": "256 closed / 512 code / 1024 explanation; caps reported separately from repetition"
+    },
+    "scope": "Small mechanism screen; does not establish 27B transfer or broad intelligence parity.",
+    "calibration_precision": "CPU BF16 autocast; FP32 covariance accumulation; FP64 eigensolve. Projection construction and evaluation FP32.",
+    "sampled_states": "Up to 32 evenly spaced states per complete conversation for RMS fitting and decoder probes; RMS fitting is token-weighted. PCA covariance uses every token.",
+    "pre_result_amendment": "Enabled native CPU BF16 calibration before any activation packet or model result completed; all calibration arms use identical precision.",
+    "per_layer_transport": "Skip path maps P_i.T @ P_next before the MLP residual addition; the MLP writer projects directly to P_next. Initial whole-block transport implementation was corrected before any candidate answer evaluation; its numerical audits are archived.",
+    "additional_arms": [
+      "shared-extended",
+      "shared-extended-linear"
+    ],
+    "calibration_extension": "Added a nested 256k-token arm using the exact original three-tokenizer sampler; declared before any compressed candidate answer evaluation. Extends beyond the original 64k recipe.",
+    "grading_clarification": "After inspecting stock, before inspecting any compressed candidate answers: sorting content credit normalizes exact integer strings, with original strict type/format score retained. Uniform rule for every arm; no change to prompts or decoding.",
+    "supplemental_repetition": "Uniform post-run repeated-line scan (>=8 identical nonempty lines), reusing summarize_scale_probe.repeated_line_run. Detects punctuation/code-fence loops missed by the separately retained word-gram metric.",
+    "additional_decoder_probe": {
+      "data": "extended 256k calibration, sampled states",
+      "fixed_projection": "shared-large 64k basis",
+      "steps": [
+        400,
+        1600
+      ],
+      "purpose": "Separate limited samples/fitting from absence of useful nonlinear recovery; same held-out states, no language-model healing."
+    },
+    "linear_decoder_followup": {
+      "baseline": "shared-extended",
+      "fit": "Per-site standardized zero-intercept ridge 0.1 from all 262293 calibration tokens; same encoder, RMS scales and deployed parameter count",
+      "reason": "Post-diagnostic follow-up after larger-sample linear reconstruction recovered more dropped energy; answer evaluation held out and unchanged."
+    },
+    "program_requirement_review": "Report automated execution-test passes separately from manually reviewed full requirements. In particular, linear scanning does not satisfy the explicit binary-search instruction. No prompts, generations or execution tests changed."
+  },
+  "arms": [
+    {
+      "arm": "stock",
+      "parameters": 1881825088,
+      "stored_scalars": 1881825088,
+      "retained_fraction": 1.0,
+      "closed_correct": 51,
+      "closed_total": 56,
+      "typed_closed_correct": 43,
+      "runtime_closed_correct": 43,
+      "closed_format_pass": 32,
+      "programs_correct": 2,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 2,
+      "syntax_pass": 3,
+      "ended": 61,
+      "capped": 1,
+      "word_loop_flags": 1,
+      "loop_flags": 1,
+      "mean_kl": 0.0,
+      "target_nll": 2.011937141418457,
+      "target_top1": 0.609375,
+      "families": {
+        "arithmetic": {
+          "correct": 6,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 8,
+          "total": 8
+        },
+        "python": {
+          "correct": 5,
+          "total": 8
+        },
+        "units": {
+          "correct": 8,
+          "total": 8
+        },
+        "json": {
+          "correct": 8,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 8,
+          "total": 8
+        },
+        "memory": {
+          "correct": 8,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [],
+          "closed_gained": [],
+          "closed_lost": []
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "code-dedup",
+            "code-search"
+          ],
+          "lost": [],
+          "closed_gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54"
+          ],
+          "closed_lost": []
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "code-dedup",
+            "code-search"
+          ],
+          "lost": [],
+          "closed_gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53"
+          ],
+          "closed_lost": []
+        }
+      }
+    },
+    {
+      "arm": "shared-small",
+      "parameters": 1399093040,
+      "stored_scalars": 1399093089,
+      "retained_fraction": 0.743476690751824,
+      "closed_correct": 8,
+      "closed_total": 56,
+      "typed_closed_correct": 8,
+      "runtime_closed_correct": 8,
+      "closed_format_pass": 2,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 4,
+      "ended": 51,
+      "capped": 11,
+      "word_loop_flags": 2,
+      "loop_flags": 11,
+      "mean_kl": 0.9257480349006266,
+      "target_nll": 2.523020029067993,
+      "target_top1": 0.5,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 0,
+          "total": 8
+        },
+        "memory": {
+          "correct": 8,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [],
+          "closed_gained": [],
+          "closed_lost": []
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-memory-41"
+          ],
+          "lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "closed_gained": [
+            "2510258-memory-41"
+          ],
+          "closed_lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ]
+        }
+      }
+    },
+    {
+      "arm": "shared-large",
+      "parameters": 1399093040,
+      "stored_scalars": 1399093089,
+      "retained_fraction": 0.743476690751824,
+      "closed_correct": 8,
+      "closed_total": 56,
+      "typed_closed_correct": 8,
+      "runtime_closed_correct": 8,
+      "closed_format_pass": 7,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 4,
+      "ended": 31,
+      "capped": 31,
+      "word_loop_flags": 6,
+      "loop_flags": 28,
+      "mean_kl": 0.8103791103419534,
+      "target_nll": 2.430015802383423,
+      "target_top1": 0.5078125,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 0,
+          "total": 8
+        },
+        "memory": {
+          "correct": 8,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [],
+          "closed_gained": [],
+          "closed_lost": []
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-memory-41"
+          ],
+          "lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "closed_gained": [
+            "2510258-memory-41"
+          ],
+          "closed_lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ]
+        }
+      }
+    },
+    {
+      "arm": "shared-broad",
+      "parameters": 1399093040,
+      "stored_scalars": 1399093089,
+      "retained_fraction": 0.743476690751824,
+      "closed_correct": 24,
+      "closed_total": 56,
+      "typed_closed_correct": 24,
+      "runtime_closed_correct": 24,
+      "closed_format_pass": 19,
+      "programs_correct": 1,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 3,
+      "ended": 61,
+      "capped": 1,
+      "word_loop_flags": 2,
+      "loop_flags": 2,
+      "mean_kl": 1.1332725864512136,
+      "target_nll": 2.7232511043548584,
+      "target_top1": 0.5078125,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 5,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 3,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 8,
+          "total": 8
+        },
+        "memory": {
+          "correct": 8,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-arithmetic-42",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "code-dedup"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-arithmetic-42",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-sorting-15",
+            "2510258-grounding-19",
+            "2510258-units-24",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-sorting-36",
+            "2510258-grounding-40",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-grounding-47",
+            "2510258-sorting-50",
+            "2510258-grounding-54",
+            "code-search"
+          ],
+          "lost": [],
+          "closed_gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-sorting-15",
+            "2510258-grounding-19",
+            "2510258-units-24",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-sorting-36",
+            "2510258-grounding-40",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-grounding-47",
+            "2510258-sorting-50",
+            "2510258-grounding-54"
+          ],
+          "closed_lost": []
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-sorting-15",
+            "2510258-units-24",
+            "2510258-sorting-36",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-sorting-50",
+            "code-search"
+          ],
+          "lost": [],
+          "closed_gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-sorting-15",
+            "2510258-units-24",
+            "2510258-sorting-36",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-sorting-50"
+          ],
+          "closed_lost": []
+        }
+      }
+    },
+    {
+      "arm": "layer-large-matched",
+      "parameters": 1388868080,
+      "stored_scalars": 1388868129,
+      "retained_fraction": 0.7380431570694417,
+      "closed_correct": 1,
+      "closed_total": 56,
+      "typed_closed_correct": 1,
+      "runtime_closed_correct": 1,
+      "closed_format_pass": 0,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 4,
+      "ended": 34,
+      "capped": 28,
+      "word_loop_flags": 9,
+      "loop_flags": 23,
+      "mean_kl": 0.8718418266192887,
+      "target_nll": 2.520414352416992,
+      "target_top1": 0.484375,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 0,
+          "total": 8
+        },
+        "memory": {
+          "correct": 1,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-memory-13",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-memory-20",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-memory-27",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-memory-34",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-memory-48",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "2510258-memory-55",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-memory-13",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-memory-20",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-memory-27",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-memory-34",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-memory-48",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "2510258-memory-55"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-memory-13",
+            "2510258-memory-20",
+            "2510258-memory-27",
+            "2510258-memory-34",
+            "2510258-memory-41",
+            "2510258-memory-48",
+            "2510258-memory-55"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-memory-13",
+            "2510258-memory-20",
+            "2510258-memory-27",
+            "2510258-memory-34",
+            "2510258-memory-41",
+            "2510258-memory-48",
+            "2510258-memory-55"
+          ]
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-memory-13",
+            "2510258-grounding-19",
+            "2510258-memory-20",
+            "2510258-grounding-26",
+            "2510258-memory-27",
+            "2510258-grounding-33",
+            "2510258-memory-34",
+            "2510258-grounding-47",
+            "2510258-memory-48",
+            "2510258-grounding-54",
+            "2510258-memory-55"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-memory-13",
+            "2510258-grounding-19",
+            "2510258-memory-20",
+            "2510258-grounding-26",
+            "2510258-memory-27",
+            "2510258-grounding-33",
+            "2510258-memory-34",
+            "2510258-grounding-47",
+            "2510258-memory-48",
+            "2510258-grounding-54",
+            "2510258-memory-55"
+          ]
+        }
+      }
+    },
+    {
+      "arm": "layer-large-samewidth",
+      "parameters": 1452232240,
+      "stored_scalars": 1452232289,
+      "retained_fraction": 0.7717148093415152,
+      "closed_correct": 1,
+      "closed_total": 56,
+      "typed_closed_correct": 1,
+      "runtime_closed_correct": 1,
+      "closed_format_pass": 1,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 4,
+      "ended": 26,
+      "capped": 36,
+      "word_loop_flags": 3,
+      "loop_flags": 31,
+      "mean_kl": 0.7196140318397992,
+      "target_nll": 2.3836231231689453,
+      "target_top1": 0.5078125,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 0,
+          "total": 8
+        },
+        "memory": {
+          "correct": 1,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-memory-13",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-memory-20",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-memory-27",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-memory-34",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-memory-48",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "2510258-memory-55",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-memory-13",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-memory-20",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-memory-27",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-memory-34",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-memory-48",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "2510258-memory-55"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-memory-13",
+            "2510258-memory-20",
+            "2510258-memory-27",
+            "2510258-memory-34",
+            "2510258-memory-41",
+            "2510258-memory-48",
+            "2510258-memory-55"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-memory-13",
+            "2510258-memory-20",
+            "2510258-memory-27",
+            "2510258-memory-34",
+            "2510258-memory-41",
+            "2510258-memory-48",
+            "2510258-memory-55"
+          ]
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-memory-13",
+            "2510258-grounding-19",
+            "2510258-memory-20",
+            "2510258-grounding-26",
+            "2510258-memory-27",
+            "2510258-grounding-33",
+            "2510258-memory-34",
+            "2510258-grounding-47",
+            "2510258-memory-48",
+            "2510258-grounding-54",
+            "2510258-memory-55"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-memory-13",
+            "2510258-grounding-19",
+            "2510258-memory-20",
+            "2510258-grounding-26",
+            "2510258-memory-27",
+            "2510258-grounding-33",
+            "2510258-memory-34",
+            "2510258-grounding-47",
+            "2510258-memory-48",
+            "2510258-grounding-54",
+            "2510258-memory-55"
+          ]
+        }
+      }
+    },
+    {
+      "arm": "shared-large-dynamic",
+      "parameters": 1399093040,
+      "stored_scalars": 1399098038,
+      "retained_fraction": 0.7434793206455541,
+      "closed_correct": 8,
+      "closed_total": 56,
+      "typed_closed_correct": 8,
+      "runtime_closed_correct": 8,
+      "closed_format_pass": 7,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 4,
+      "ended": 26,
+      "capped": 36,
+      "word_loop_flags": 6,
+      "loop_flags": 34,
+      "mean_kl": 0.8080208187361771,
+      "target_nll": 2.4310903549194336,
+      "target_top1": 0.5,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 0,
+          "total": 8
+        },
+        "memory": {
+          "correct": 8,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [],
+          "closed_gained": [],
+          "closed_lost": []
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-memory-41"
+          ],
+          "lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "closed_gained": [
+            "2510258-memory-41"
+          ],
+          "closed_lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ]
+        }
+      }
+    },
+    {
+      "arm": "shared-extended",
+      "parameters": 1399093040,
+      "stored_scalars": 1399093089,
+      "retained_fraction": 0.743476690751824,
+      "closed_correct": 14,
+      "closed_total": 56,
+      "typed_closed_correct": 14,
+      "runtime_closed_correct": 14,
+      "closed_format_pass": 7,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 1,
+      "ended": 54,
+      "capped": 8,
+      "word_loop_flags": 8,
+      "loop_flags": 8,
+      "mean_kl": 0.7932544398695242,
+      "target_nll": 2.4072279930114746,
+      "target_top1": 0.5078125,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 7,
+          "total": 8
+        },
+        "memory": {
+          "correct": 7,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "lost": [
+            "2510258-memory-41"
+          ],
+          "closed_gained": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "closed_lost": [
+            "2510258-memory-41"
+          ]
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [],
+          "closed_gained": [],
+          "closed_lost": []
+        }
+      }
+    },
+    {
+      "arm": "shared-extended-linear",
+      "parameters": 1399093040,
+      "stored_scalars": 1399093089,
+      "retained_fraction": 0.743476690751824,
+      "closed_correct": 7,
+      "closed_total": 56,
+      "typed_closed_correct": 7,
+      "runtime_closed_correct": 7,
+      "closed_format_pass": 7,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 2,
+      "ended": 53,
+      "capped": 9,
+      "word_loop_flags": 10,
+      "loop_flags": 10,
+      "mean_kl": 0.6263012750403062,
+      "target_nll": 2.395306348800659,
+      "target_top1": 0.5234375,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 0,
+          "total": 8
+        },
+        "memory": {
+          "correct": 7,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-memory-41"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-memory-41"
+          ]
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ]
+        }
+      }
+    }
+  ],
+  "fullwidth": {
+    "positions": 128,
+    "max_abs_logit_error": 5.626678466796875e-05,
+    "rms_logit_error": 5.3320436345650595e-06,
+    "mean_kl": 1.0583406529718461e-11,
+    "max_token_kl": 8.30083190870429e-11,
+    "top1_agreement": 1.0,
+    "numerical_pass": true,
+    "target_nll": 2.011936664581299,
+    "target_top1": 0.609375,
+    "cache": {
+      "positions": 8,
+      "max_abs_logit_error": 8.001923561096191e-05,
+      "rms_logit_error": 1.2013704367735289e-05,
+      "mean_kl": 4.4665352371761506e-11,
+      "max_token_kl": 1.0524412570506106e-10,
+      "top1_agreement": 1.0,
+      "numerical_pass": true
+    }
+  },
+  "roundtrip": {
+    "positions": 16,
+    "max_abs_logit_error": 0.0,
+    "rms_logit_error": 0.0,
+    "mean_kl": 0.0,
+    "max_token_kl": 0.0,
+    "top1_agreement": 1.0,
+    "numerical_pass": true,
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "checkpoint": "layer-large-matched.safetensors",
+    "checkpoint_bytes": 5555519236,
+    "sha256": "a3a341d5de8b6cecb76c69ef4e7f27405ed39666ccd84c6d790dc04d0489c75a"
+  },
+  "rms_fit": {
+    "shared-small": {
+      "width": 1520,
+      "local": false,
+      "heldout_rms": [
+        {
+          "constant_mse": 0.0036793178878724575,
+          "predicted_mse": 0.0007362433825619519,
+          "target_std": 0.059766363352537155,
+          "scale": 1.1001859903335571
+        },
+        {
+          "constant_mse": 0.00016209753812290728,
+          "predicted_mse": 4.443683064891957e-05,
+          "target_std": 0.01246838178485632,
+          "scale": 1.1426879167556763
+        },
+        {
+          "constant_mse": 0.0004020189226139337,
+          "predicted_mse": 0.0001428088144166395,
+          "target_std": 0.019576096907258034,
+          "scale": 1.1323442459106445
+        },
+        {
+          "constant_mse": 0.0004039733321405947,
+          "predicted_mse": 9.125636279350147e-05,
+          "target_std": 0.019592061638832092,
+          "scale": 1.1330355405807495
+        },
+        {
+          "constant_mse": 0.0004971425514668226,
+          "predicted_mse": 0.000174359607626684,
+          "target_std": 0.02159058302640915,
+          "scale": 1.1235507726669312
+        },
+        {
+          "constant_mse": 0.00033196559525094926,
+          "predicted_mse": 7.555629417765886e-05,
+          "target_std": 0.01778932474553585,
+          "scale": 1.1357098817825317
+        },
+        {
+          "constant_mse": 0.0004364401975180954,
+          "predicted_mse": 0.00015814832295291126,
+          "target_std": 0.020061636343598366,
+          "scale": 1.124452829360962
+        },
+        {
+          "constant_mse": 0.00042348698480054736,
+          "predicted_mse": 0.00015143562632147223,
+          "target_std": 0.019429882988333702,
+          "scale": 1.1271758079528809
+        },
+        {
+          "constant_mse": 0.0004404587089084089,
+          "predicted_mse": 0.00018316632485948503,
+          "target_std": 0.019653135910630226,
+          "scale": 1.12497878074646
+        },
+        {
+          "constant_mse": 0.0003722556575667113,
+          "predicted_mse": 0.00016310268256347626,
+          "target_std": 0.017822453752160072,
+          "scale": 1.1275790929794312
+        },
+        {
+          "constant_mse": 0.0003529671230353415,
+          "predicted_mse": 0.00015308808360714465,
+          "target_std": 0.017303768545389175,
+          "scale": 1.1277637481689453
+        },
+        {
+          "constant_mse": 0.00030360519303940237,
+          "predicted_mse": 0.0001520155929028988,
+          "target_std": 0.015588011592626572,
+          "scale": 1.1299989223480225
+        },
+        {
+          "constant_mse": 0.000274188001640141,
+          "predicted_mse": 0.0001302649761782959,
+          "target_std": 0.014911769889295101,
+          "scale": 1.1311724185943604
+        },
+        {
+          "constant_mse": 0.0002601906599011272,
+          "predicted_mse": 0.00013196807412896305,
+          "target_std": 0.013940343633294106,
+          "scale": 1.131919026374817
+        },
+        {
+          "constant_mse": 0.00019608819275163114,
+          "predicted_mse": 9.976154251489788e-05,
+          "target_std": 0.012044715695083141,
+          "scale": 1.134473204612732
+        },
+        {
+          "constant_mse": 0.00024108718207571656,
+          "predicted_mse": 0.00012915805564261973,
+          "target_std": 0.013161277398467064,
+          "scale": 1.13239324092865
+        },
+        {
+          "constant_mse": 0.00020121620036661625,
+          "predicted_mse": 0.00010421085607958958,
+          "target_std": 0.011969123966991901,
+          "scale": 1.1350772380828857
+        },
+        {
+          "constant_mse": 0.00022841540339868516,
+          "predicted_mse": 0.0001255812676390633,
+          "target_std": 0.012316044420003891,
+          "scale": 1.1336877346038818
+        },
+        {
+          "constant_mse": 0.0002037516242126003,
+          "predicted_mse": 0.00010970519360853359,
+          "target_std": 0.01177577767521143,
+          "scale": 1.1350810527801514
+        },
+        {
+          "constant_mse": 0.00022005900973454118,
+          "predicted_mse": 0.0001251898502232507,
+          "target_std": 0.011646497994661331,
+          "scale": 1.1349631547927856
+        },
+        {
+          "constant_mse": 0.00020950699399691075,
+          "predicted_mse": 0.00011406232079025358,
+          "target_std": 0.011529968120157719,
+          "scale": 1.1345919370651245
+        },
+        {
+          "constant_mse": 0.00021938262216281146,
+          "predicted_mse": 0.0001289952197112143,
+          "target_std": 0.011313996277749538,
+          "scale": 1.1346406936645508
+        },
+        {
+          "constant_mse": 0.00018914368411060423,
+          "predicted_mse": 0.00010625596041791141,
+          "target_std": 0.01089716237038374,
+          "scale": 1.1361663341522217
+        },
+        {
+          "constant_mse": 0.00023094034986570477,
+          "predicted_mse": 0.00013799563748762012,
+          "target_std": 0.011763491667807102,
+          "scale": 1.1342504024505615
+        },
+        {
+          "constant_mse": 0.00024946057237684727,
+          "predicted_mse": 0.00014179198478814214,
+          "target_std": 0.012554354965686798,
+          "scale": 1.132838487625122
+        },
+        {
+          "constant_mse": 0.00028637461946345866,
+          "predicted_mse": 0.00017337493773084134,
+          "target_std": 0.013085753656923771,
+          "scale": 1.1339471340179443
+        },
+        {
+          "constant_mse": 0.0003101555339526385,
+          "predicted_mse": 0.00017630046932026744,
+          "target_std": 0.013999318704009056,
+          "scale": 1.132538914680481
+        },
+        {
+          "constant_mse": 0.0003539251338224858,
+          "predicted_mse": 0.00020263687474653125,
+          "target_std": 0.014862960204482079,
+          "scale": 1.1329472064971924
+        },
+        {
+          "constant_mse": 0.00036777061177417636,
+          "predicted_mse": 0.00019496573077049106,
+          "target_std": 0.01543342974036932,
+          "scale": 1.1310244798660278
+        },
+        {
+          "constant_mse": 0.0003850563080050051,
+          "predicted_mse": 0.00022135904873721302,
+          "target_std": 0.015356035903096199,
+          "scale": 1.1311473846435547
+        },
+        {
+          "constant_mse": 0.0003762088599614799,
+          "predicted_mse": 0.00019320550200063735,
+          "target_std": 0.015926625579595566,
+          "scale": 1.131519079208374
+        },
+        {
+          "constant_mse": 0.00039861799450591207,
+          "predicted_mse": 0.00023676185810472816,
+          "target_std": 0.015882261097431183,
+          "scale": 1.1301379203796387
+        },
+        {
+          "constant_mse": 0.0004418915486894548,
+          "predicted_mse": 0.0002710547123569995,
+          "target_std": 0.01656586304306984,
+          "scale": 1.1303898096084595
+        },
+        {
+          "constant_mse": 0.00048166740452870727,
+          "predicted_mse": 0.0003096901345998049,
+          "target_std": 0.017060739919543266,
+          "scale": 1.1329342126846313
+        },
+        {
+          "constant_mse": 0.0005868032458238304,
+          "predicted_mse": 0.000368461012840271,
+          "target_std": 0.019047541543841362,
+          "scale": 1.1312661170959473
+        },
+        {
+          "constant_mse": 0.0006261130911298096,
+          "predicted_mse": 0.0004036503960378468,
+          "target_std": 0.019679076969623566,
+          "scale": 1.1331778764724731
+        },
+        {
+          "constant_mse": 0.0006919630686752498,
+          "predicted_mse": 0.00044012817670591176,
+          "target_std": 0.02067597024142742,
+          "scale": 1.1318306922912598
+        },
+        {
+          "constant_mse": 0.0006908600335009396,
+          "predicted_mse": 0.00045452004997059703,
+          "target_std": 0.02076648734509945,
+          "scale": 1.1332086324691772
+        },
+        {
+          "constant_mse": 0.0007123214309103787,
+          "predicted_mse": 0.0004650724586099386,
+          "target_std": 0.02108941413462162,
+          "scale": 1.1337449550628662
+        },
+        {
+          "constant_mse": 0.0007034284644760191,
+          "predicted_mse": 0.00046787477913312614,
+          "target_std": 0.020510386675596237,
+          "scale": 1.1336323022842407
+        },
+        {
+          "constant_mse": 0.0007497498882003129,
+          "predicted_mse": 0.00048695711302571,
+          "target_std": 0.02132132649421692,
+          "scale": 1.1322226524353027
+        },
+        {
+          "constant_mse": 0.0006575417937710881,
+          "predicted_mse": 0.0004370597598608583,
+          "target_std": 0.020188847556710243,
+          "scale": 1.135284662246704
+        },
+        {
+          "constant_mse": 0.0007074928726069629,
+          "predicted_mse": 0.0004504389362409711,
+          "target_std": 0.02074325643479824,
+          "scale": 1.1330350637435913
+        },
+        {
+          "constant_mse": 0.0006923571927472949,
+          "predicted_mse": 0.0004467573598958552,
+          "target_std": 0.020648350939154625,
+          "scale": 1.134736180305481
+        },
+        {
+          "constant_mse": 0.0007097049965523183,
+          "predicted_mse": 0.0004387935914564878,
+          "target_std": 0.020841121673583984,
+          "scale": 1.1325932741165161
+        },
+        {
+          "constant_mse": 0.0006826565368101001,
+          "predicted_mse": 0.000425978098064661,
+          "target_std": 0.020606109872460365,
+          "scale": 1.133474588394165
+        },
+        {
+          "constant_mse": 0.0008442061953246593,
+          "predicted_mse": 0.0005171390948817134,
+          "target_std": 0.022233257070183754,
+          "scale": 1.1284756660461426
+        },
+        {
+          "constant_mse": 0.0007695966050960124,
+          "predicted_mse": 0.00044158758828416467,
+          "target_std": 0.022206583991646767,
+          "scale": 1.1302603483200073
+        },
+        {
+          "constant_mse": 0.0010077017359435558,
+          "predicted_mse": 0.0005151685909368098,
+          "target_std": 0.026851842179894447,
+          "scale": 1.123854398727417
+        }
+      ],
+      "mean_rms_constant_mse": 0.0005094556194939176,
+      "mean_rms_predicted_mse": 0.00025611214569297013
+    },
+    "shared-large": {
+      "width": 1520,
+      "local": false,
+      "heldout_rms": [
+        {
+          "constant_mse": 0.003373107872903347,
+          "predicted_mse": 0.0006045586196705699,
+          "target_std": 0.057926543056964874,
+          "scale": 1.0962785482406616
+        },
+        {
+          "constant_mse": 0.00014938446111045778,
+          "predicted_mse": 3.2452640880364925e-05,
+          "target_std": 0.01215625274926424,
+          "scale": 1.1421090364456177
+        },
+        {
+          "constant_mse": 0.00036087079206481576,
+          "predicted_mse": 0.00010069998097606003,
+          "target_std": 0.018900251016020775,
+          "scale": 1.1310235261917114
+        },
+        {
+          "constant_mse": 0.000397507450543344,
+          "predicted_mse": 6.185166421346366e-05,
+          "target_std": 0.019831640645861626,
+          "scale": 1.131537914276123
+        },
+        {
+          "constant_mse": 0.0004571766476146877,
+          "predicted_mse": 0.00010518934141146019,
+          "target_std": 0.02127685397863388,
+          "scale": 1.1213271617889404
+        },
+        {
+          "constant_mse": 0.00031541349017061293,
+          "predicted_mse": 3.630090577644296e-05,
+          "target_std": 0.01768549345433712,
+          "scale": 1.134324073791504
+        },
+        {
+          "constant_mse": 0.00037902727490291,
+          "predicted_mse": 8.122171857394278e-05,
+          "target_std": 0.019391898065805435,
+          "scale": 1.1217546463012695
+        },
+        {
+          "constant_mse": 0.0003601269272621721,
+          "predicted_mse": 6.332829798338935e-05,
+          "target_std": 0.018844176083803177,
+          "scale": 1.1244467496871948
+        },
+        {
+          "constant_mse": 0.0003490758826956153,
+          "predicted_mse": 9.272688475903124e-05,
+          "target_std": 0.01856844872236252,
+          "scale": 1.1218806505203247
+        },
+        {
+          "constant_mse": 0.00028906570514664054,
+          "predicted_mse": 7.232149073388427e-05,
+          "target_std": 0.016858668997883797,
+          "scale": 1.1244693994522095
+        },
+        {
+          "constant_mse": 0.00026742974296212196,
+          "predicted_mse": 6.916141865076497e-05,
+          "target_std": 0.01621886156499386,
+          "scale": 1.1247143745422363
+        },
+        {
+          "constant_mse": 0.00021345959976315498,
+          "predicted_mse": 5.5246418924070895e-05,
+          "target_std": 0.014472082257270813,
+          "scale": 1.1267098188400269
+        },
+        {
+          "constant_mse": 0.0001860861520981416,
+          "predicted_mse": 5.0166861910838634e-05,
+          "target_std": 0.013511347584426403,
+          "scale": 1.128147840499878
+        },
+        {
+          "constant_mse": 0.0001666088355705142,
+          "predicted_mse": 4.238181281834841e-05,
+          "target_std": 0.012664937414228916,
+          "scale": 1.1287347078323364
+        },
+        {
+          "constant_mse": 0.00012062647147104144,
+          "predicted_mse": 3.314230343676172e-05,
+          "target_std": 0.010763806290924549,
+          "scale": 1.1317418813705444
+        },
+        {
+          "constant_mse": 0.00014365058450493962,
+          "predicted_mse": 4.068224734510295e-05,
+          "target_std": 0.011713608168065548,
+          "scale": 1.1292716264724731
+        },
+        {
+          "constant_mse": 0.00012195943418191746,
+          "predicted_mse": 3.7844485632376745e-05,
+          "target_std": 0.01077971700578928,
+          "scale": 1.1325196027755737
+        },
+        {
+          "constant_mse": 0.00013288333138916641,
+          "predicted_mse": 4.423923746799119e-05,
+          "target_std": 0.011095057241618633,
+          "scale": 1.1308642625808716
+        },
+        {
+          "constant_mse": 0.0001202579151140526,
+          "predicted_mse": 4.149650703766383e-05,
+          "target_std": 0.010567545890808105,
+          "scale": 1.132630467414856
+        },
+        {
+          "constant_mse": 0.00012269576836843044,
+          "predicted_mse": 4.6624852984678e-05,
+          "target_std": 0.010475425980985165,
+          "scale": 1.1321206092834473
+        },
+        {
+          "constant_mse": 0.00012046104529872537,
+          "predicted_mse": 4.2963372834492475e-05,
+          "target_std": 0.010424865409731865,
+          "scale": 1.1319921016693115
+        },
+        {
+          "constant_mse": 0.00011764332157326862,
+          "predicted_mse": 4.5406883145915344e-05,
+          "target_std": 0.010155347175896168,
+          "scale": 1.1317049264907837
+        },
+        {
+          "constant_mse": 0.00010515696340007707,
+          "predicted_mse": 3.773898788494989e-05,
+          "target_std": 0.009766357019543648,
+          "scale": 1.1334865093231201
+        },
+        {
+          "constant_mse": 0.0001286157057620585,
+          "predicted_mse": 4.714115129900165e-05,
+          "target_std": 0.010742204263806343,
+          "scale": 1.1311527490615845
+        },
+        {
+          "constant_mse": 0.00013886515807826072,
+          "predicted_mse": 5.060922194388695e-05,
+          "target_std": 0.011311911046504974,
+          "scale": 1.1296905279159546
+        },
+        {
+          "constant_mse": 0.00014511719928123057,
+          "predicted_mse": 5.349093407858163e-05,
+          "target_std": 0.0114747891202569,
+          "scale": 1.13051438331604
+        },
+        {
+          "constant_mse": 0.00015896729019004852,
+          "predicted_mse": 5.786691326647997e-05,
+          "target_std": 0.012090111151337624,
+          "scale": 1.1290966272354126
+        },
+        {
+          "constant_mse": 0.000177964277099818,
+          "predicted_mse": 6.450428190873936e-05,
+          "target_std": 0.012776756659150124,
+          "scale": 1.1291579008102417
+        },
+        {
+          "constant_mse": 0.0001895163004519418,
+          "predicted_mse": 6.826716708019376e-05,
+          "target_std": 0.013231323100626469,
+          "scale": 1.1271387338638306
+        },
+        {
+          "constant_mse": 0.00018697329505812377,
+          "predicted_mse": 6.784695142414421e-05,
+          "target_std": 0.013071461580693722,
+          "scale": 1.1269850730895996
+        },
+        {
+          "constant_mse": 0.00021148030646145344,
+          "predicted_mse": 6.702107930323109e-05,
+          "target_std": 0.01410262007266283,
+          "scale": 1.1275768280029297
+        },
+        {
+          "constant_mse": 0.0002156316622858867,
+          "predicted_mse": 7.336378621403128e-05,
+          "target_std": 0.014153874479234219,
+          "scale": 1.1261651515960693
+        },
+        {
+          "constant_mse": 0.00022219851962290704,
+          "predicted_mse": 9.08630172489211e-05,
+          "target_std": 0.014202929101884365,
+          "scale": 1.1260268688201904
+        },
+        {
+          "constant_mse": 0.0002345308312214911,
+          "predicted_mse": 9.450815559830517e-05,
+          "target_std": 0.01448681578040123,
+          "scale": 1.1287771463394165
+        },
+        {
+          "constant_mse": 0.0002988235792145133,
+          "predicted_mse": 0.00012260071525815874,
+          "target_std": 0.016495604068040848,
+          "scale": 1.1264680624008179
+        },
+        {
+          "constant_mse": 0.0003210346039850265,
+          "predicted_mse": 0.00013143604155629873,
+          "target_std": 0.01710151694715023,
+          "scale": 1.128399133682251
+        },
+        {
+          "constant_mse": 0.00035092647885903716,
+          "predicted_mse": 0.00013866981316823512,
+          "target_std": 0.01791638508439064,
+          "scale": 1.126621961593628
+        },
+        {
+          "constant_mse": 0.0003703083493746817,
+          "predicted_mse": 0.00015444253222085536,
+          "target_std": 0.018374336883425713,
+          "scale": 1.1281646490097046
+        },
+        {
+          "constant_mse": 0.00038238620618358254,
+          "predicted_mse": 0.00016209813475143164,
+          "target_std": 0.018666137009859085,
+          "scale": 1.12861967086792
+        },
+        {
+          "constant_mse": 0.00038576690712943673,
+          "predicted_mse": 0.00015367186279036105,
+          "target_std": 0.018552273511886597,
+          "scale": 1.128443956375122
+        },
+        {
+          "constant_mse": 0.000413674337323755,
+          "predicted_mse": 0.00016795228293631226,
+          "target_std": 0.019336897879838943,
+          "scale": 1.1268802881240845
+        },
+        {
+          "constant_mse": 0.0003796611272264272,
+          "predicted_mse": 0.00014650578668806702,
+          "target_std": 0.01860504224896431,
+          "scale": 1.1305673122406006
+        },
+        {
+          "constant_mse": 0.0004018252657260746,
+          "predicted_mse": 0.00014689285308122635,
+          "target_std": 0.01911531761288643,
+          "scale": 1.1279047727584839
+        },
+        {
+          "constant_mse": 0.00039842992555350065,
+          "predicted_mse": 0.00014814133464824408,
+          "target_std": 0.019059818238019943,
+          "scale": 1.1298671960830688
+        },
+        {
+          "constant_mse": 0.0004054900200571865,
+          "predicted_mse": 0.00014161555736791342,
+          "target_std": 0.019287826493382454,
+          "scale": 1.1274008750915527
+        },
+        {
+          "constant_mse": 0.0003960300236940384,
+          "predicted_mse": 0.0001400206529069692,
+          "target_std": 0.019127260893583298,
+          "scale": 1.1283526420593262
+        },
+        {
+          "constant_mse": 0.0004615666111931205,
+          "predicted_mse": 0.00016254876391030848,
+          "target_std": 0.020440176129341125,
+          "scale": 1.12236750125885
+        },
+        {
+          "constant_mse": 0.0004673365911003202,
+          "predicted_mse": 0.00015391767374239862,
+          "target_std": 0.020775774493813515,
+          "scale": 1.1248306035995483
+        },
+        {
+          "constant_mse": 0.0006785533623769879,
+          "predicted_mse": 0.00022870118846185505,
+          "target_std": 0.025386381894350052,
+          "scale": 1.118201732635498
+        }
+      ],
+      "mean_rms_constant_mse": 0.0003365581551963482,
+      "mean_rms_predicted_mse": 9.943764873279012e-05
+    },
+    "layer-large-matched": {
+      "width": 1456,
+      "local": true,
+      "heldout_rms": [
+        {
+          "constant_mse": 0.002506901742890477,
+          "predicted_mse": 0.001037772512063384,
+          "target_std": 0.04909037426114082,
+          "scale": 1.1632287502288818
+        },
+        {
+          "constant_mse": 0.00013837439473718405,
+          "predicted_mse": 5.876741124666296e-05,
+          "target_std": 0.011559255421161652,
+          "scale": 1.1769431829452515
+        },
+        {
+          "constant_mse": 0.0003088387893512845,
+          "predicted_mse": 0.0001663386938162148,
+          "target_std": 0.017057104036211967,
+          "scale": 1.1749897003173828
+        },
+        {
+          "constant_mse": 0.00038439323543570936,
+          "predicted_mse": 0.00017887316062115133,
+          "target_std": 0.01903301291167736,
+          "scale": 1.1738277673721313
+        },
+        {
+          "constant_mse": 0.000531057536136359,
+          "predicted_mse": 0.0003206099208910018,
+          "target_std": 0.02207883447408676,
+          "scale": 1.1682370901107788
+        },
+        {
+          "constant_mse": 0.0003609552513808012,
+          "predicted_mse": 0.0001680926070548594,
+          "target_std": 0.018333619460463524,
+          "scale": 1.1730167865753174
+        },
+        {
+          "constant_mse": 0.0004673816147260368,
+          "predicted_mse": 0.00024099617439787835,
+          "target_std": 0.020715128630399704,
+          "scale": 1.166602373123169
+        },
+        {
+          "constant_mse": 0.0004294960235711187,
+          "predicted_mse": 0.00021439224656205624,
+          "target_std": 0.019694818183779716,
+          "scale": 1.1677428483963013
+        },
+        {
+          "constant_mse": 0.00036540761357173324,
+          "predicted_mse": 0.0001930967264343053,
+          "target_std": 0.018085604533553123,
+          "scale": 1.166579008102417
+        },
+        {
+          "constant_mse": 0.0003192904405295849,
+          "predicted_mse": 0.0001684500020928681,
+          "target_std": 0.01677628420293331,
+          "scale": 1.1675751209259033
+        },
+        {
+          "constant_mse": 0.00027760659577324986,
+          "predicted_mse": 0.00014606607146561146,
+          "target_std": 0.015664078295230865,
+          "scale": 1.167525053024292
+        },
+        {
+          "constant_mse": 0.00022967426048126072,
+          "predicted_mse": 0.00012611024430952966,
+          "target_std": 0.013985357247292995,
+          "scale": 1.168687343597412
+        },
+        {
+          "constant_mse": 0.00019439109019003808,
+          "predicted_mse": 0.00010218704119324684,
+          "target_std": 0.012893901206552982,
+          "scale": 1.169464111328125
+        },
+        {
+          "constant_mse": 0.00016973179299384356,
+          "predicted_mse": 9.017975389724597e-05,
+          "target_std": 0.01173522137105465,
+          "scale": 1.1698707342147827
+        },
+        {
+          "constant_mse": 0.00011864324915222824,
+          "predicted_mse": 6.304964335868135e-05,
+          "target_std": 0.009740549139678478,
+          "scale": 1.1716282367706299
+        },
+        {
+          "constant_mse": 0.00015547382645308971,
+          "predicted_mse": 8.491484186379239e-05,
+          "target_std": 0.010903462767601013,
+          "scale": 1.1692661046981812
+        },
+        {
+          "constant_mse": 0.00012381011038087308,
+          "predicted_mse": 7.108810677891597e-05,
+          "target_std": 0.010028243996202946,
+          "scale": 1.1713184118270874
+        },
+        {
+          "constant_mse": 0.00014041224494576454,
+          "predicted_mse": 8.013592014322057e-05,
+          "target_std": 0.010393528267741203,
+          "scale": 1.169964075088501
+        },
+        {
+          "constant_mse": 0.00010876766464207321,
+          "predicted_mse": 6.029170981491916e-05,
+          "target_std": 0.009251668117940426,
+          "scale": 1.1708834171295166
+        },
+        {
+          "constant_mse": 0.00011545434244908392,
+          "predicted_mse": 6.728016887791455e-05,
+          "target_std": 0.009156748652458191,
+          "scale": 1.1706340312957764
+        },
+        {
+          "constant_mse": 0.00010613876656861976,
+          "predicted_mse": 5.818401405122131e-05,
+          "target_std": 0.008884493261575699,
+          "scale": 1.170148491859436
+        },
+        {
+          "constant_mse": 0.00011318523320369422,
+          "predicted_mse": 6.584056973224506e-05,
+          "target_std": 0.008875485509634018,
+          "scale": 1.1699117422103882
+        },
+        {
+          "constant_mse": 0.00010106826084665954,
+          "predicted_mse": 5.625782432616688e-05,
+          "target_std": 0.008702992461621761,
+          "scale": 1.1710959672927856
+        },
+        {
+          "constant_mse": 0.00013181207759771496,
+          "predicted_mse": 7.595170609420165e-05,
+          "target_std": 0.009760983288288116,
+          "scale": 1.1695209741592407
+        },
+        {
+          "constant_mse": 0.00012347529991529882,
+          "predicted_mse": 6.697674689348787e-05,
+          "target_std": 0.009656116366386414,
+          "scale": 1.1686054468154907
+        },
+        {
+          "constant_mse": 0.00013450783444568515,
+          "predicted_mse": 7.512676529586315e-05,
+          "target_std": 0.009963016025722027,
+          "scale": 1.1691652536392212
+        },
+        {
+          "constant_mse": 0.0001620214752620086,
+          "predicted_mse": 8.887612784747034e-05,
+          "target_std": 0.011239290237426758,
+          "scale": 1.1680970191955566
+        },
+        {
+          "constant_mse": 0.00017550252960063517,
+          "predicted_mse": 9.699957445263863e-05,
+          "target_std": 0.01160583645105362,
+          "scale": 1.1684465408325195
+        },
+        {
+          "constant_mse": 0.00020460275118239224,
+          "predicted_mse": 0.00011062070552725345,
+          "target_std": 0.012773082591593266,
+          "scale": 1.166845679283142
+        },
+        {
+          "constant_mse": 0.0001993528421735391,
+          "predicted_mse": 0.00011313680442981422,
+          "target_std": 0.012462886050343513,
+          "scale": 1.1676608324050903
+        },
+        {
+          "constant_mse": 0.00022137718042358756,
+          "predicted_mse": 0.00011932133929803967,
+          "target_std": 0.01361856795847416,
+          "scale": 1.1678810119628906
+        },
+        {
+          "constant_mse": 0.00025358531274832785,
+          "predicted_mse": 0.0001331829116679728,
+          "target_std": 0.014476223848760128,
+          "scale": 1.1671295166015625
+        },
+        {
+          "constant_mse": 0.0002507668104954064,
+          "predicted_mse": 0.00014084356371313334,
+          "target_std": 0.014179070480167866,
+          "scale": 1.1666951179504395
+        },
+        {
+          "constant_mse": 0.00027492453227750957,
+          "predicted_mse": 0.00016011390835046768,
+          "target_std": 0.014746792614459991,
+          "scale": 1.168508768081665
+        },
+        {
+          "constant_mse": 0.00033113404060713947,
+          "predicted_mse": 0.00018930852820631117,
+          "target_std": 0.016158239915966988,
+          "scale": 1.1666141748428345
+        },
+        {
+          "constant_mse": 0.00035623894655145705,
+          "predicted_mse": 0.00020965287694707513,
+          "target_std": 0.016873102635145187,
+          "scale": 1.1676690578460693
+        },
+        {
+          "constant_mse": 0.0003980026813223958,
+          "predicted_mse": 0.00023869294091127813,
+          "target_std": 0.017795002087950706,
+          "scale": 1.1660311222076416
+        },
+        {
+          "constant_mse": 0.0004236809036228806,
+          "predicted_mse": 0.00026145862648263574,
+          "target_std": 0.018389828503131866,
+          "scale": 1.1668806076049805
+        },
+        {
+          "constant_mse": 0.0004373131087049842,
+          "predicted_mse": 0.00026020873337984085,
+          "target_std": 0.018816737458109856,
+          "scale": 1.1664139032363892
+        },
+        {
+          "constant_mse": 0.00046675215708091855,
+          "predicted_mse": 0.00027388663147576153,
+          "target_std": 0.019103514030575752,
+          "scale": 1.1659284830093384
+        },
+        {
+          "constant_mse": 0.0005140270222909749,
+          "predicted_mse": 0.00030313365277834237,
+          "target_std": 0.020421644672751427,
+          "scale": 1.1650207042694092
+        },
+        {
+          "constant_mse": 0.0004775341658387333,
+          "predicted_mse": 0.0002776574110612273,
+          "target_std": 0.019863463938236237,
+          "scale": 1.1674730777740479
+        },
+        {
+          "constant_mse": 0.0004886834067292511,
+          "predicted_mse": 0.00029192783404141665,
+          "target_std": 0.019999369978904724,
+          "scale": 1.1662085056304932
+        },
+        {
+          "constant_mse": 0.0004803484189324081,
+          "predicted_mse": 0.00027553283143788576,
+          "target_std": 0.01994727924466133,
+          "scale": 1.1676446199417114
+        },
+        {
+          "constant_mse": 0.00048447848530486226,
+          "predicted_mse": 0.0002656936412677169,
+          "target_std": 0.019961712881922722,
+          "scale": 1.166297435760498
+        },
+        {
+          "constant_mse": 0.0004614658828359097,
+          "predicted_mse": 0.000249075994361192,
+          "target_std": 0.019527627155184746,
+          "scale": 1.1671464443206787
+        },
+        {
+          "constant_mse": 0.0005109011544845998,
+          "predicted_mse": 0.00030346596031449735,
+          "target_std": 0.020214656367897987,
+          "scale": 1.1624796390533447
+        },
+        {
+          "constant_mse": 0.0004623493296094239,
+          "predicted_mse": 0.00022522715153172612,
+          "target_std": 0.019481420516967773,
+          "scale": 1.1661419868469238
+        },
+        {
+          "constant_mse": 0.0005510863265953958,
+          "predicted_mse": 0.0002515202504582703,
+          "target_std": 0.02178071439266205,
+          "scale": 1.164141297340393
+        }
+      ],
+      "mean_rms_constant_mse": 0.00034168119912335115,
+      "mean_rms_predicted_mse": 0.00018115446088201253
+    },
+    "layer-large-samewidth": {
+      "width": 1520,
+      "local": true,
+      "heldout_rms": [
+        {
+          "constant_mse": 0.001791607472114265,
+          "predicted_mse": 0.0007913911831565201,
+          "target_std": 0.04144950583577156,
+          "scale": 1.1421688795089722
+        },
+        {
+          "constant_mse": 0.00010005600051954389,
+          "predicted_mse": 4.3164178350707516e-05,
+          "target_std": 0.009824384935200214,
+          "scale": 1.1532667875289917
+        },
+        {
+          "constant_mse": 0.00022505322704091668,
+          "predicted_mse": 0.0001239010161953047,
+          "target_std": 0.014538454823195934,
+          "scale": 1.1516613960266113
+        },
+        {
+          "constant_mse": 0.0002797308552544564,
+          "predicted_mse": 0.00013364979531615973,
+          "target_std": 0.01620972901582718,
+          "scale": 1.1507211923599243
+        },
+        {
+          "constant_mse": 0.00038423240766860545,
+          "predicted_mse": 0.00023530480393674225,
+          "target_std": 0.018748817965388298,
+          "scale": 1.145961880683899
+        },
+        {
+          "constant_mse": 0.0002628992951940745,
+          "predicted_mse": 0.00012526672799140215,
+          "target_std": 0.0156264565885067,
+          "scale": 1.1499345302581787
+        },
+        {
+          "constant_mse": 0.00034537853207439184,
+          "predicted_mse": 0.00018337318033445626,
+          "target_std": 0.017766164615750313,
+          "scale": 1.14459228515625
+        },
+        {
+          "constant_mse": 0.0003184759698342532,
+          "predicted_mse": 0.00016415942809544504,
+          "target_std": 0.016917414963245392,
+          "scale": 1.1455553770065308
+        },
+        {
+          "constant_mse": 0.00026949861785396934,
+          "predicted_mse": 0.0001453091826988384,
+          "target_std": 0.015496286563575268,
+          "scale": 1.1445947885513306
+        },
+        {
+          "constant_mse": 0.00023470773885492235,
+          "predicted_mse": 0.00012652126315515488,
+          "target_std": 0.014337670989334583,
+          "scale": 1.1454330682754517
+        },
+        {
+          "constant_mse": 0.00020519137615337968,
+          "predicted_mse": 0.00011120619456050918,
+          "target_std": 0.013445734046399593,
+          "scale": 1.145369529724121
+        },
+        {
+          "constant_mse": 0.00016858793969731778,
+          "predicted_mse": 9.457876876695082e-05,
+          "target_std": 0.011962011456489563,
+          "scale": 1.1463496685028076
+        },
+        {
+          "constant_mse": 0.00014062764239497483,
+          "predicted_mse": 7.521277439082041e-05,
+          "target_std": 0.010936245322227478,
+          "scale": 1.1470026969909668
+        },
+        {
+          "constant_mse": 0.0001232452632393688,
+          "predicted_mse": 6.652101001236588e-05,
+          "target_std": 0.009977687150239944,
+          "scale": 1.1473501920700073
+        },
+        {
+          "constant_mse": 8.729174442123622e-05,
+          "predicted_mse": 4.742246892419644e-05,
+          "target_std": 0.008319717831909657,
+          "scale": 1.1488454341888428
+        },
+        {
+          "constant_mse": 0.00011335076851537451,
+          "predicted_mse": 6.278698128880933e-05,
+          "target_std": 0.009265050292015076,
+          "scale": 1.146858811378479
+        },
+        {
+          "constant_mse": 9.134767606155947e-05,
+          "predicted_mse": 5.3692110668634996e-05,
+          "target_std": 0.008607862517237663,
+          "scale": 1.1485960483551025
+        },
+        {
+          "constant_mse": 0.00010243995347991586,
+          "predicted_mse": 5.9591060562524945e-05,
+          "target_std": 0.008870484307408333,
+          "scale": 1.1474593877792358
+        },
+        {
+          "constant_mse": 7.889655535109341e-05,
+          "predicted_mse": 4.4348918891046196e-05,
+          "target_std": 0.007859664969146252,
+          "scale": 1.148235559463501
+        },
+        {
+          "constant_mse": 8.323096699314192e-05,
+          "predicted_mse": 4.909777999273501e-05,
+          "target_std": 0.007755616679787636,
+          "scale": 1.1480296850204468
+        },
+        {
+          "constant_mse": 7.60475595598109e-05,
+          "predicted_mse": 4.208520476822741e-05,
+          "target_std": 0.007500393316149712,
+          "scale": 1.1476054191589355
+        },
+        {
+          "constant_mse": 8.109711779979989e-05,
+          "predicted_mse": 4.754126712214202e-05,
+          "target_std": 0.007472412195056677,
+          "scale": 1.147399663925171
+        },
+        {
+          "constant_mse": 7.482908404199407e-05,
+          "predicted_mse": 4.218342655804008e-05,
+          "target_std": 0.007467256393283606,
+          "scale": 1.1483895778656006
+        },
+        {
+          "constant_mse": 9.702615352580324e-05,
+          "predicted_mse": 5.662278999807313e-05,
+          "target_std": 0.0083423787727952,
+          "scale": 1.1470776796340942
+        },
+        {
+          "constant_mse": 9.090988896787167e-05,
+          "predicted_mse": 4.992335016140714e-05,
+          "target_std": 0.008251744322478771,
+          "scale": 1.1463171243667603
+        },
+        {
+          "constant_mse": 9.852596849668771e-05,
+          "predicted_mse": 5.567621337831952e-05,
+          "target_std": 0.008497221395373344,
+          "scale": 1.1467835903167725
+        },
+        {
+          "constant_mse": 0.0001204694781336002,
+          "predicted_mse": 6.753399065928534e-05,
+          "target_std": 0.009656524285674095,
+          "scale": 1.1458910703659058
+        },
+        {
+          "constant_mse": 0.0001316490233875811,
+          "predicted_mse": 7.450074190273881e-05,
+          "target_std": 0.010028643533587456,
+          "scale": 1.1461942195892334
+        },
+        {
+          "constant_mse": 0.00015170178085099906,
+          "predicted_mse": 8.350816642632708e-05,
+          "target_std": 0.010985332541167736,
+          "scale": 1.1448395252227783
+        },
+        {
+          "constant_mse": 0.0001473609881941229,
+          "predicted_mse": 8.495969814248383e-05,
+          "target_std": 0.010706475004553795,
+          "scale": 1.1455422639846802
+        },
+        {
+          "constant_mse": 0.0001599738170625642,
+          "predicted_mse": 8.654073462821543e-05,
+          "target_std": 0.011538388207554817,
+          "scale": 1.1456944942474365
+        },
+        {
+          "constant_mse": 0.0001821364276111126,
+          "predicted_mse": 9.611998393665999e-05,
+          "target_std": 0.01221491489559412,
+          "scale": 1.1450914144515991
+        },
+        {
+          "constant_mse": 0.00018400153203401715,
+          "predicted_mse": 0.00010564041440375149,
+          "target_std": 0.012130490504205227,
+          "scale": 1.1447408199310303
+        },
+        {
+          "constant_mse": 0.00020535151998046786,
+          "predicted_mse": 0.0001224532607011497,
+          "target_std": 0.012740184552967548,
+          "scale": 1.1462544202804565
+        },
+        {
+          "constant_mse": 0.00024447686155326664,
+          "predicted_mse": 0.00014335638843476772,
+          "target_std": 0.013861317187547684,
+          "scale": 1.1446974277496338
+        },
+        {
+          "constant_mse": 0.0002627624780870974,
+          "predicted_mse": 0.00015872195945121348,
+          "target_std": 0.014463660307228565,
+          "scale": 1.145576000213623
+        },
+        {
+          "constant_mse": 0.0002933336072601378,
+          "predicted_mse": 0.0001809105888241902,
+          "target_std": 0.015256885439157486,
+          "scale": 1.1442104578018188
+        },
+        {
+          "constant_mse": 0.00031408286304213107,
+          "predicted_mse": 0.00019967686966992915,
+          "target_std": 0.01580236665904522,
+          "scale": 1.1449183225631714
+        },
+        {
+          "constant_mse": 0.0003225300461053848,
+          "predicted_mse": 0.00019562321540433913,
+          "target_std": 0.0161411315202713,
+          "scale": 1.1444880962371826
+        },
+        {
+          "constant_mse": 0.0003436580882407725,
+          "predicted_mse": 0.00020630222570616752,
+          "target_std": 0.016357244923710823,
+          "scale": 1.1441212892532349
+        },
+        {
+          "constant_mse": 0.0003845247847493738,
+          "predicted_mse": 0.00023365928791463375,
+          "target_std": 0.017636213451623917,
+          "scale": 1.1433582305908203
+        },
+        {
+          "constant_mse": 0.00035530043533071876,
+          "predicted_mse": 0.00021278686472214758,
+          "target_std": 0.01710771769285202,
+          "scale": 1.1453758478164673
+        },
+        {
+          "constant_mse": 0.00036053359508514404,
+          "predicted_mse": 0.0002203688636654988,
+          "target_std": 0.0171812791377306,
+          "scale": 1.1443302631378174
+        },
+        {
+          "constant_mse": 0.00035394582664594054,
+          "predicted_mse": 0.00020786267123185098,
+          "target_std": 0.0171235129237175,
+          "scale": 1.14552640914917
+        },
+        {
+          "constant_mse": 0.00034617376513779163,
+          "predicted_mse": 0.00019269477343186736,
+          "target_std": 0.01684615947306156,
+          "scale": 1.1444069147109985
+        },
+        {
+          "constant_mse": 0.0003329200262669474,
+          "predicted_mse": 0.00018269695283379406,
+          "target_std": 0.01656544767320156,
+          "scale": 1.145110845565796
+        },
+        {
+          "constant_mse": 0.00037101207999512553,
+          "predicted_mse": 0.0002231713297078386,
+          "target_std": 0.01720001921057701,
+          "scale": 1.1412098407745361
+        },
+        {
+          "constant_mse": 0.00033402827102690935,
+          "predicted_mse": 0.00016768509522080421,
+          "target_std": 0.016526969149708748,
+          "scale": 1.1442421674728394
+        },
+        {
+          "constant_mse": 0.00039967295015230775,
+          "predicted_mse": 0.00018636937602423131,
+          "target_std": 0.01853806897997856,
+          "scale": 1.1425848007202148
+        }
+      ],
+      "mean_rms_constant_mse": 0.0002495078779804539,
+      "mean_rms_predicted_mse": 0.00013599335780243712
+    },
+    "shared-broad": {
+      "width": 1520,
+      "local": false,
+      "heldout_rms": [
+        {
+          "constant_mse": 0.004244732204824686,
+          "predicted_mse": 0.0006461081211455166,
+          "target_std": 0.061911098659038544,
+          "scale": 1.1080455780029297
+        },
+        {
+          "constant_mse": 0.0001916512701427564,
+          "predicted_mse": 4.459784759092145e-05,
+          "target_std": 0.01307404600083828,
+          "scale": 1.1444600820541382
+        },
+        {
+          "constant_mse": 0.0004369028902146965,
+          "predicted_mse": 0.00011541270214365795,
+          "target_std": 0.019641997292637825,
+          "scale": 1.1343064308166504
+        },
+        {
+          "constant_mse": 0.0004463441437110305,
+          "predicted_mse": 8.97235149750486e-05,
+          "target_std": 0.019878054037690163,
+          "scale": 1.1345689296722412
+        },
+        {
+          "constant_mse": 0.0005419024382717907,
+          "predicted_mse": 0.00017548496543895453,
+          "target_std": 0.02177097089588642,
+          "scale": 1.1240664720535278
+        },
+        {
+          "constant_mse": 0.00036325198016129434,
+          "predicted_mse": 7.73788706283085e-05,
+          "target_std": 0.01808238960802555,
+          "scale": 1.1363186836242676
+        },
+        {
+          "constant_mse": 0.0004855722945649177,
+          "predicted_mse": 0.00014115274825599045,
+          "target_std": 0.020561935380101204,
+          "scale": 1.12354576587677
+        },
+        {
+          "constant_mse": 0.0005250340909697115,
+          "predicted_mse": 0.00014072626072447747,
+          "target_std": 0.02085259184241295,
+          "scale": 1.1263912916183472
+        },
+        {
+          "constant_mse": 0.0005410040030255914,
+          "predicted_mse": 0.0001848400424933061,
+          "target_std": 0.021141430363059044,
+          "scale": 1.1230980157852173
+        },
+        {
+          "constant_mse": 0.00044939221697859466,
+          "predicted_mse": 0.00016580751980654895,
+          "target_std": 0.018909024074673653,
+          "scale": 1.1258331537246704
+        },
+        {
+          "constant_mse": 0.0004296890983823687,
+          "predicted_mse": 0.00015634360897820443,
+          "target_std": 0.018612494692206383,
+          "scale": 1.1256941556930542
+        },
+        {
+          "constant_mse": 0.00039224536158144474,
+          "predicted_mse": 0.0001550204324303195,
+          "target_std": 0.017069872468709946,
+          "scale": 1.1278542280197144
+        },
+        {
+          "constant_mse": 0.00035757245495915413,
+          "predicted_mse": 0.00015616053133271635,
+          "target_std": 0.016757750883698463,
+          "scale": 1.1285817623138428
+        },
+        {
+          "constant_mse": 0.00032758567249402404,
+          "predicted_mse": 0.0001360391324851662,
+          "target_std": 0.015418212860822678,
+          "scale": 1.129007339477539
+        },
+        {
+          "constant_mse": 0.00023209143546409905,
+          "predicted_mse": 9.405976015841588e-05,
+          "target_std": 0.013021418824791908,
+          "scale": 1.1314507722854614
+        },
+        {
+          "constant_mse": 0.000282772583886981,
+          "predicted_mse": 0.00011557749530766159,
+          "target_std": 0.01417991891503334,
+          "scale": 1.1294325590133667
+        },
+        {
+          "constant_mse": 0.00024693176965229213,
+          "predicted_mse": 0.00011393560998840258,
+          "target_std": 0.013665096834301949,
+          "scale": 1.1316955089569092
+        },
+        {
+          "constant_mse": 0.00025701496633701026,
+          "predicted_mse": 0.0001194029682665132,
+          "target_std": 0.01332011353224516,
+          "scale": 1.1302365064620972
+        },
+        {
+          "constant_mse": 0.0002297713654115796,
+          "predicted_mse": 0.00010683001892175525,
+          "target_std": 0.012765591032803059,
+          "scale": 1.131821632385254
+        },
+        {
+          "constant_mse": 0.00024449118063785136,
+          "predicted_mse": 0.00011386270489310846,
+          "target_std": 0.012331918813288212,
+          "scale": 1.1315765380859375
+        },
+        {
+          "constant_mse": 0.00023436681658495218,
+          "predicted_mse": 0.0001076025509973988,
+          "target_std": 0.012240341864526272,
+          "scale": 1.1316802501678467
+        },
+        {
+          "constant_mse": 0.00023554397921543568,
+          "predicted_mse": 0.00010809241211973131,
+          "target_std": 0.011569125577807426,
+          "scale": 1.1316359043121338
+        },
+        {
+          "constant_mse": 0.00021320364612620324,
+          "predicted_mse": 9.99298645183444e-05,
+          "target_std": 0.011805723421275616,
+          "scale": 1.1329028606414795
+        },
+        {
+          "constant_mse": 0.00025620864471420646,
+          "predicted_mse": 0.00012721317762043327,
+          "target_std": 0.012467147782444954,
+          "scale": 1.1310615539550781
+        },
+        {
+          "constant_mse": 0.00029432718292810023,
+          "predicted_mse": 0.0001433180586900562,
+          "target_std": 0.013399980962276459,
+          "scale": 1.130190372467041
+        },
+        {
+          "constant_mse": 0.0003484303888399154,
+          "predicted_mse": 0.00018212382565252483,
+          "target_std": 0.014161616563796997,
+          "scale": 1.1309362649917603
+        },
+        {
+          "constant_mse": 0.0003551328263711184,
+          "predicted_mse": 0.00016888386744540185,
+          "target_std": 0.014197193086147308,
+          "scale": 1.1302721500396729
+        },
+        {
+          "constant_mse": 0.0004248537588864565,
+          "predicted_mse": 0.0001984547998290509,
+          "target_std": 0.015361719764769077,
+          "scale": 1.130526065826416
+        },
+        {
+          "constant_mse": 0.0004664297739509493,
+          "predicted_mse": 0.00020042234973516315,
+          "target_std": 0.016494587063789368,
+          "scale": 1.1289974451065063
+        },
+        {
+          "constant_mse": 0.0004634711076505482,
+          "predicted_mse": 0.0002109667257172987,
+          "target_std": 0.016054943203926086,
+          "scale": 1.1286311149597168
+        },
+        {
+          "constant_mse": 0.00038166012382134795,
+          "predicted_mse": 0.0001593757187947631,
+          "target_std": 0.015340790152549744,
+          "scale": 1.128368616104126
+        },
+        {
+          "constant_mse": 0.0003855950490105897,
+          "predicted_mse": 0.0001696895487839356,
+          "target_std": 0.0149992061778903,
+          "scale": 1.127246618270874
+        },
+        {
+          "constant_mse": 0.00045455037616193295,
+          "predicted_mse": 0.0001995847123907879,
+          "target_std": 0.015560444444417953,
+          "scale": 1.1280155181884766
+        },
+        {
+          "constant_mse": 0.0004772266838699579,
+          "predicted_mse": 0.00023258227156475186,
+          "target_std": 0.01560031808912754,
+          "scale": 1.1302579641342163
+        },
+        {
+          "constant_mse": 0.0006138103199191391,
+          "predicted_mse": 0.0002756610338110477,
+          "target_std": 0.017325429245829582,
+          "scale": 1.1293573379516602
+        },
+        {
+          "constant_mse": 0.0006353915086947381,
+          "predicted_mse": 0.00031114864395931363,
+          "target_std": 0.01773003675043583,
+          "scale": 1.1309934854507446
+        },
+        {
+          "constant_mse": 0.0007257114630192518,
+          "predicted_mse": 0.00034978403709828854,
+          "target_std": 0.01886982098221779,
+          "scale": 1.1296213865280151
+        },
+        {
+          "constant_mse": 0.000734994828235358,
+          "predicted_mse": 0.0003502911713439971,
+          "target_std": 0.019152194261550903,
+          "scale": 1.131253719329834
+        },
+        {
+          "constant_mse": 0.000769902253523469,
+          "predicted_mse": 0.0003598330949898809,
+          "target_std": 0.01988293044269085,
+          "scale": 1.1315728425979614
+        },
+        {
+          "constant_mse": 0.0007842103950679302,
+          "predicted_mse": 0.00037764813168905675,
+          "target_std": 0.019742093980312347,
+          "scale": 1.1317734718322754
+        },
+        {
+          "constant_mse": 0.0008598917629569769,
+          "predicted_mse": 0.00040170326246879995,
+          "target_std": 0.020841630175709724,
+          "scale": 1.130922555923462
+        },
+        {
+          "constant_mse": 0.0007746455376036465,
+          "predicted_mse": 0.00037603502278216183,
+          "target_std": 0.020217299461364746,
+          "scale": 1.1339738368988037
+        },
+        {
+          "constant_mse": 0.0008673107367940247,
+          "predicted_mse": 0.0004259197157807648,
+          "target_std": 0.021028734743595123,
+          "scale": 1.1320469379425049
+        },
+        {
+          "constant_mse": 0.0008326032548211515,
+          "predicted_mse": 0.0004191397165413946,
+          "target_std": 0.020754419267177582,
+          "scale": 1.1337182521820068
+        },
+        {
+          "constant_mse": 0.0008935126243159175,
+          "predicted_mse": 0.00043726415606215596,
+          "target_std": 0.02129882201552391,
+          "scale": 1.131818413734436
+        },
+        {
+          "constant_mse": 0.0008726672967895865,
+          "predicted_mse": 0.00042988918721675873,
+          "target_std": 0.02111916057765484,
+          "scale": 1.1326886415481567
+        },
+        {
+          "constant_mse": 0.0010513768065720797,
+          "predicted_mse": 0.0005084647564217448,
+          "target_std": 0.022186053916811943,
+          "scale": 1.1274198293685913
+        },
+        {
+          "constant_mse": 0.001032987842336297,
+          "predicted_mse": 0.0004533187602646649,
+          "target_std": 0.022976815700531006,
+          "scale": 1.1305146217346191
+        },
+        {
+          "constant_mse": 0.001238494529388845,
+          "predicted_mse": 0.0005411653546616435,
+          "target_std": 0.026878828182816505,
+          "scale": 1.1241379976272583
+        }
+      ],
+      "mean_rms_constant_mse": 0.0005898870395886122,
+      "mean_rms_predicted_mse": 0.00023212185275339408
+    }
+  },
+  "reconstruction": {
+    "0": {
+      "train_states": 4512,
+      "test_states": 512,
+      "discarded_zero_mse": 9.372655767947435e-05,
+      "linear_mse": 8.815435285214335e-05,
+      "linear_plus_nonlinear_mse": 8.809074643068016e-05,
+      "linear_recovered_fraction": 0.0594517174778445,
+      "linear_plus_nonlinear_recovered_fraction": 0.060130355667894264,
+      "extra_network_parameters": 131664,
+      "scope": "Independent calibration/test conversations; representation MSE only, not evidence of improved answers."
+    },
+    "24": {
+      "train_states": 4512,
+      "test_states": 512,
+      "discarded_zero_mse": 0.0037070864345878363,
+      "linear_mse": 0.003506135195493698,
+      "linear_plus_nonlinear_mse": 0.0035510696470737457,
+      "linear_recovered_fraction": 0.05420732498147984,
+      "linear_plus_nonlinear_recovered_fraction": 0.04208609382787076,
+      "extra_network_parameters": 131664,
+      "scope": "Independent calibration/test conversations; representation MSE only, not evidence of improved answers."
+    },
+    "48": {
+      "train_states": 4512,
+      "test_states": 512,
+      "discarded_zero_mse": 0.18390430510044098,
+      "linear_mse": 0.15819860994815826,
+      "linear_plus_nonlinear_mse": 0.16009555757045746,
+      "linear_recovered_fraction": 0.13977756060818325,
+      "linear_plus_nonlinear_recovered_fraction": 0.1294626980971444,
+      "extra_network_parameters": 131664,
+      "scope": "Independent calibration/test conversations; representation MSE only, not evidence of improved answers."
+    }
+  },
+  "reconstruction_extended": {
+    "0": {
+      "train_states": 18656,
+      "test_states": 512,
+      "discarded_zero_mse": 9.372655767947435e-05,
+      "linear_mse": 6.211888830875978e-05,
+      "linear_plus_nonlinear_mse": 6.0247293731663376e-05,
+      "linear_recovered_fraction": 0.33723279882748214,
+      "linear_plus_nonlinear_recovered_fraction": 0.3572014675104489,
+      "extra_network_parameters": 131664,
+      "data": "extended",
+      "steps": 1600,
+      "fixed_projection": "shared-large",
+      "learning_curve": [
+        {
+          "step": 400,
+          "heldout_mse": 6.071477400837466e-05,
+          "train_mse": 4.3180039938306436e-05
+        },
+        {
+          "step": 1600,
+          "heldout_mse": 6.0247293731663376e-05,
+          "train_mse": 4.1717248677741736e-05
+        }
+      ],
+      "scope": "Independent calibration/test conversations; representation MSE only, not evidence of improved answers."
+    },
+    "24": {
+      "train_states": 18656,
+      "test_states": 512,
+      "discarded_zero_mse": 0.0037070864345878363,
+      "linear_mse": 0.0027896275278180838,
+      "linear_plus_nonlinear_mse": 0.002808977384120226,
+      "linear_recovered_fraction": 0.2474878649199228,
+      "linear_plus_nonlinear_recovered_fraction": 0.2422681710596436,
+      "extra_network_parameters": 131664,
+      "data": "extended",
+      "steps": 1600,
+      "fixed_projection": "shared-large",
+      "learning_curve": [
+        {
+          "step": 400,
+          "heldout_mse": 0.0027953865937888622,
+          "train_mse": 0.0022940097842365503
+        },
+        {
+          "step": 1600,
+          "heldout_mse": 0.002808977384120226,
+          "train_mse": 0.0022528483532369137
+        }
+      ],
+      "scope": "Independent calibration/test conversations; representation MSE only, not evidence of improved answers."
+    },
+    "48": {
+      "train_states": 18656,
+      "test_states": 512,
+      "discarded_zero_mse": 0.1839042752981186,
+      "linear_mse": 0.13047705590724945,
+      "linear_plus_nonlinear_mse": 0.1315072923898697,
+      "linear_recovered_fraction": 0.2905164619161832,
+      "linear_plus_nonlinear_recovered_fraction": 0.28491443618322965,
+      "extra_network_parameters": 131664,
+      "data": "extended",
+      "steps": 1600,
+      "fixed_projection": "shared-large",
+      "learning_curve": [
+        {
+          "step": 400,
+          "heldout_mse": 0.13081513345241547,
+          "train_mse": 0.10683677345514297
+        },
+        {
+          "step": 1600,
+          "heldout_mse": 0.1315072923898697,
+          "train_mse": 0.10468047857284546
+        }
+      ],
+      "scope": "Independent calibration/test conversations; representation MSE only, not evidence of improved answers."
+    }
+  },
+  "linear_decoder": {
+    "tokens": 262293,
+    "ridge": 0.1,
+    "heldout": [
+      {
+        "site": 0,
+        "orthogonal_mse": 2.409637272648979e-05,
+        "fitted_mse": 1.4603959243686404e-05,
+        "recovered_discarded_fraction": 0.3939353690511319,
+        "retained_coordinate_error": 5.380762890805357e-08
+      },
+      {
+        "site": 1,
+        "orthogonal_mse": 8.02966533228755e-05,
+        "fitted_mse": 4.0280516259372234e-05,
+        "recovered_discarded_fraction": 0.49835373465189203,
+        "retained_coordinate_error": 5.71689403594533e-08
+      },
+      {
+        "site": 2,
+        "orthogonal_mse": 0.00013046051026321948,
+        "fitted_mse": 8.177108247764409e-05,
+        "recovered_discarded_fraction": 0.37321199869093513,
+        "retained_coordinate_error": 4.3440082420076465e-08
+      },
+      {
+        "site": 3,
+        "orthogonal_mse": 0.00017773229046724737,
+        "fitted_mse": 0.00012113111006328836,
+        "recovered_discarded_fraction": 0.31846312369664487,
+        "retained_coordinate_error": 5.365457722561473e-08
+      },
+      {
+        "site": 4,
+        "orthogonal_mse": 0.00025874836137518287,
+        "fitted_mse": 0.00018888598424382508,
+        "recovered_discarded_fraction": 0.2700012350225397,
+        "retained_coordinate_error": 3.189487174370953e-08
+      },
+      {
+        "site": 5,
+        "orthogonal_mse": 0.0003302284749224782,
+        "fitted_mse": 0.00023868867720011622,
+        "recovered_discarded_fraction": 0.27720140652271474,
+        "retained_coordinate_error": 4.930466102059938e-08
+      },
+      {
+        "site": 6,
+        "orthogonal_mse": 0.0003871951485052705,
+        "fitted_mse": 0.0002763707598205656,
+        "recovered_discarded_fraction": 0.286223598390971,
+        "retained_coordinate_error": 4.594118852008222e-08
+      },
+      {
+        "site": 7,
+        "orthogonal_mse": 0.00046177630429156125,
+        "fitted_mse": 0.0003335492219775915,
+        "recovered_discarded_fraction": 0.27768224814110065,
+        "retained_coordinate_error": 5.062337893324553e-08
+      },
+      {
+        "site": 8,
+        "orthogonal_mse": 0.0004667367320507765,
+        "fitted_mse": 0.00033802667167037725,
+        "recovered_discarded_fraction": 0.2757658687261769,
+        "retained_coordinate_error": 5.402025726741755e-08
+      },
+      {
+        "site": 9,
+        "orthogonal_mse": 0.0005377401830628514,
+        "fitted_mse": 0.0003928715595975518,
+        "recovered_discarded_fraction": 0.2694026372367402,
+        "retained_coordinate_error": 4.136697373535725e-08
+      },
+      {
+        "site": 10,
+        "orthogonal_mse": 0.0005009151645936072,
+        "fitted_mse": 0.0003572420682758093,
+        "recovered_discarded_fraction": 0.28682121539354866,
+        "retained_coordinate_error": 5.363476884845397e-08
+      },
+      {
+        "site": 11,
+        "orthogonal_mse": 0.0006050079828128219,
+        "fitted_mse": 0.0004310736258048564,
+        "recovered_discarded_fraction": 0.28749101160501134,
+        "retained_coordinate_error": 4.8942639163662705e-08
+      },
+      {
+        "site": 12,
+        "orthogonal_mse": 0.0005467329174280167,
+        "fitted_mse": 0.0003861698496621102,
+        "recovered_discarded_fraction": 0.2936773379609914,
+        "retained_coordinate_error": 3.7030166599727465e-08
+      },
+      {
+        "site": 13,
+        "orthogonal_mse": 0.0006925784982740879,
+        "fitted_mse": 0.00048664474161341786,
+        "recovered_discarded_fraction": 0.2973435605839033,
+        "retained_coordinate_error": 2.169021784403924e-08
+      },
+      {
+        "site": 14,
+        "orthogonal_mse": 0.0006606223760172725,
+        "fitted_mse": 0.00044363888446241617,
+        "recovered_discarded_fraction": 0.32845313666635945,
+        "retained_coordinate_error": 5.816208914488641e-08
+      },
+      {
+        "site": 15,
+        "orthogonal_mse": 0.0007241974817588925,
+        "fitted_mse": 0.0005274906288832426,
+        "recovered_discarded_fraction": 0.2716204596540418,
+        "retained_coordinate_error": 2.6512725792571246e-08
+      },
+      {
+        "site": 16,
+        "orthogonal_mse": 0.0005968336481601,
+        "fitted_mse": 0.00042316847248002887,
+        "recovered_discarded_fraction": 0.2909775214843209,
+        "retained_coordinate_error": 5.7380246776261856e-08
+      },
+      {
+        "site": 17,
+        "orthogonal_mse": 0.0006945472559891641,
+        "fitted_mse": 0.0005101861897855997,
+        "recovered_discarded_fraction": 0.26544063721193467,
+        "retained_coordinate_error": 6.41780210086651e-08
+      },
+      {
+        "site": 18,
+        "orthogonal_mse": 0.000599095830693841,
+        "fitted_mse": 0.0004239578847773373,
+        "recovered_discarded_fraction": 0.2923371136027907,
+        "retained_coordinate_error": 2.807923549230651e-08
+      },
+      {
+        "site": 19,
+        "orthogonal_mse": 0.0007412683917209506,
+        "fitted_mse": 0.0005363614181987941,
+        "recovered_discarded_fraction": 0.2764275069741452,
+        "retained_coordinate_error": 5.7547071774521896e-08
+      },
+      {
+        "site": 20,
+        "orthogonal_mse": 0.0007030527340248227,
+        "fitted_mse": 0.0005054802750237286,
+        "recovered_discarded_fraction": 0.28102082452625576,
+        "retained_coordinate_error": 4.238435846737332e-08
+      },
+      {
+        "site": 21,
+        "orthogonal_mse": 0.0008453917107544839,
+        "fitted_mse": 0.0006231451407074928,
+        "recovered_discarded_fraction": 0.2628918254339677,
+        "retained_coordinate_error": 2.7590011719702545e-08
+      },
+      {
+        "site": 22,
+        "orthogonal_mse": 0.0007978481589816511,
+        "fitted_mse": 0.0005539466510526836,
+        "recovered_discarded_fraction": 0.3056991548871604,
+        "retained_coordinate_error": 1.5873989012149536e-08
+      },
+      {
+        "site": 23,
+        "orthogonal_mse": 0.0009680851944722235,
+        "fitted_mse": 0.0007151286699809134,
+        "recovered_discarded_fraction": 0.2612957267972845,
+        "retained_coordinate_error": 3.8153578518773656e-08
+      },
+      {
+        "site": 24,
+        "orthogonal_mse": 0.0009172848658636212,
+        "fitted_mse": 0.0006638758350163698,
+        "recovered_discarded_fraction": 0.27625990603111883,
+        "retained_coordinate_error": 6.280260855806574e-08
+      },
+      {
+        "site": 25,
+        "orthogonal_mse": 0.0010891662677749991,
+        "fitted_mse": 0.0008012418984435499,
+        "recovered_discarded_fraction": 0.2643529990325857,
+        "retained_coordinate_error": 6.536756280706157e-08
+      },
+      {
+        "site": 26,
+        "orthogonal_mse": 0.0011737727327272296,
+        "fitted_mse": 0.0008492099586874247,
+        "recovered_discarded_fraction": 0.27651244997461477,
+        "retained_coordinate_error": 3.447246088583711e-08
+      },
+      {
+        "site": 27,
+        "orthogonal_mse": 0.0014785396633669734,
+        "fitted_mse": 0.001084468443877995,
+        "recovered_discarded_fraction": 0.2665273237185859,
+        "retained_coordinate_error": 2.4146350474651967e-08
+      },
+      {
+        "site": 28,
+        "orthogonal_mse": 0.0017305645160377026,
+        "fitted_mse": 0.001241941237822175,
+        "recovered_discarded_fraction": 0.2823490679990819,
+        "retained_coordinate_error": 6.348739312045382e-08
+      },
+      {
+        "site": 29,
+        "orthogonal_mse": 0.0021451348438858986,
+        "fitted_mse": 0.0015454132808372378,
+        "recovered_discarded_fraction": 0.27957289713418143,
+        "retained_coordinate_error": 1.4108301860105144e-08
+      },
+      {
+        "site": 30,
+        "orthogonal_mse": 0.0027771026361733675,
+        "fitted_mse": 0.0018931066151708364,
+        "recovered_discarded_fraction": 0.31831593455998775,
+        "retained_coordinate_error": 5.149800319514952e-08
+      },
+      {
+        "site": 31,
+        "orthogonal_mse": 0.0034239026717841625,
+        "fitted_mse": 0.0024570701643824577,
+        "recovered_discarded_fraction": 0.2823773337277422,
+        "retained_coordinate_error": 2.3377218494324836e-08
+      },
+      {
+        "site": 32,
+        "orthogonal_mse": 0.00426495261490345,
+        "fitted_mse": 0.003047967329621315,
+        "recovered_discarded_fraction": 0.28534555836083664,
+        "retained_coordinate_error": 2.237171559116291e-08
+      },
+      {
+        "site": 33,
+        "orthogonal_mse": 0.0048462278209626675,
+        "fitted_mse": 0.0035086837597191334,
+        "recovered_discarded_fraction": 0.2759969424998763,
+        "retained_coordinate_error": 2.4816403376703988e-08
+      },
+      {
+        "site": 34,
+        "orthogonal_mse": 0.006219189614057541,
+        "fitted_mse": 0.004654570482671261,
+        "recovered_discarded_fraction": 0.2515792616854283,
+        "retained_coordinate_error": 4.681131882122713e-08
+      },
+      {
+        "site": 35,
+        "orthogonal_mse": 0.00682190153747797,
+        "fitted_mse": 0.005172851495444775,
+        "recovered_discarded_fraction": 0.2417287955526316,
+        "retained_coordinate_error": 4.855358359812101e-08
+      },
+      {
+        "site": 36,
+        "orthogonal_mse": 0.008151959627866745,
+        "fitted_mse": 0.006276906467974186,
+        "recovered_discarded_fraction": 0.23001256697627126,
+        "retained_coordinate_error": 5.575227579601716e-08
+      },
+      {
+        "site": 37,
+        "orthogonal_mse": 0.008904758840799332,
+        "fitted_mse": 0.006880052387714386,
+        "recovered_discarded_fraction": 0.22737353018570894,
+        "retained_coordinate_error": 2.083500127980642e-08
+      },
+      {
+        "site": 38,
+        "orthogonal_mse": 0.010512158274650574,
+        "fitted_mse": 0.008060428313910961,
+        "recovered_discarded_fraction": 0.23322802955239075,
+        "retained_coordinate_error": 5.389206680916914e-08
+      },
+      {
+        "site": 39,
+        "orthogonal_mse": 0.012113118544220924,
+        "fitted_mse": 0.00964619405567646,
+        "recovered_discarded_fraction": 0.20365725634885445,
+        "retained_coordinate_error": 5.144896475517413e-08
+      },
+      {
+        "site": 40,
+        "orthogonal_mse": 0.014335145242512226,
+        "fitted_mse": 0.011320178396999836,
+        "recovered_discarded_fraction": 0.21031993708520103,
+        "retained_coordinate_error": 5.660401136697857e-08
+      },
+      {
+        "site": 41,
+        "orthogonal_mse": 0.015523616224527359,
+        "fitted_mse": 0.012238680385053158,
+        "recovered_discarded_fraction": 0.2116089313187215,
+        "retained_coordinate_error": 4.776648310222953e-08
+      },
+      {
+        "site": 42,
+        "orthogonal_mse": 0.018815362825989723,
+        "fitted_mse": 0.014836430549621582,
+        "recovered_discarded_fraction": 0.21147252450917553,
+        "retained_coordinate_error": 4.9693124060112837e-08
+      },
+      {
+        "site": 43,
+        "orthogonal_mse": 0.01996682584285736,
+        "fitted_mse": 0.0156159158796072,
+        "recovered_discarded_fraction": 0.21790694211952522,
+        "retained_coordinate_error": 3.4310914664992254e-08
+      },
+      {
+        "site": 44,
+        "orthogonal_mse": 0.02443525195121765,
+        "fitted_mse": 0.0191362202167511,
+        "recovered_discarded_fraction": 0.2168601226230652,
+        "retained_coordinate_error": 5.5167645562903544e-08
+      },
+      {
+        "site": 45,
+        "orthogonal_mse": 0.025691727176308632,
+        "fitted_mse": 0.020055964589118958,
+        "recovered_discarded_fraction": 0.2193609852897176,
+        "retained_coordinate_error": 4.847310086653067e-08
+      },
+      {
+        "site": 46,
+        "orthogonal_mse": 0.0323784276843071,
+        "fitted_mse": 0.024851590394973755,
+        "recovered_discarded_fraction": 0.23246457063081505,
+        "retained_coordinate_error": 4.563430033854843e-08
+      },
+      {
+        "site": 47,
+        "orthogonal_mse": 0.03386376425623894,
+        "fitted_mse": 0.025313491001725197,
+        "recovered_discarded_fraction": 0.25249033715850033,
+        "retained_coordinate_error": 1.8503316656648394e-08
+      },
+      {
+        "site": 48,
+        "orthogonal_mse": 0.04547301307320595,
+        "fitted_mse": 0.031078599393367767,
+        "recovered_discarded_fraction": 0.31654849122632245,
+        "retained_coordinate_error": 3.5403232012676256e-08
+      }
+    ],
+    "deployment_parameter_increase": 0,
+    "scope": "Analytic activation reconstruction folded into weights, without whole-model training. Held-out answer tests determine usefulness."
+  },
+  "manual_review": {
+    "scope": "Qualitative review of saved text; never used to fit projections or predictors. Closed-answer ordering and format are scored separately in answer-review files. Programming execution scores are supplemented by manual requirement review; binary-search outputs must actually implement binary search, not a linear scan.",
+    "criteria": {
+      "photosynthesis": "Correct core inputs and outputs of photosynthesis and aerobic respiration, their connection, and no central contradiction.",
+      "metal_spoon": "Equal starting temperatures; metal draws heat from the warmer hand faster and therefore feels colder, not hotter."
+    },
+    "arms": {
+      "stock": {
+        "explanation-0": {
+          "core_correct": true,
+          "notes": "Core inputs/outputs and carbon/oxygen connection correct; roots-at-night statement is an oversimplification and plant respiration is not explained."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "notes": "Describes heat leaving the hand but explicitly concludes metal feels hot and wood cool; central conclusion is reversed."
+        },
+        "code-intervals": {
+          "true_repetition": true,
+          "notes": "Repeats merge2 through merge21 helper definitions without a functioning merging algorithm; capped at 512 tokens."
+        },
+        "code-dedup": {
+          "requirements_pass": true,
+          "notes": "Working order-preserving deduplication; execution tests pass."
+        },
+        "code-search": {
+          "requirements_pass": true,
+          "notes": "Uses low/high bounds and a midpoint loop for binary search; execution tests pass."
+        }
+      },
+      "shared-small": {
+        "explanation-0": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Defines photosynthesis and respiration as animals turning food into liquid; then repeats food/liquid claims through the cap."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Repeats that a metal spoon is a metal spoon, without the heat-transfer explanation."
+        },
+        "programs": {
+          "notes": "All four lack a function; empty code fences. Interval answer repeats fences through the cap. Parser syntax acceptance of empty code is not functional correctness."
+        }
+      },
+      "shared-large-dynamic": {
+        "explanation-0": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Generic energy-to-energy claims and repeated input/output paragraphs; fails to identify required reactants/products."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Repeats identical conductivity claims for metal and wood; no correct sensory conclusion."
+        },
+        "programs": {
+          "notes": "All four repeat empty code fences through the cap, with no function."
+        }
+      },
+      "shared-extended": {
+        "explanation-0": {
+          "core_correct": false,
+          "true_repetition": false,
+          "notes": "Finishes, but incorrectly defines both photosynthesis and respiration as nutrient breakdown. Repeats several claims; automatic flag reflects redundancy, not an endless loop."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Contradictory heat-transfer statements repeated through the cap."
+        },
+        "programs": {
+          "notes": "Dedup, intervals and search repeat comments or return statements through the cap and fail syntax extraction. Word count finishes but calls input, counts characters, returns a scalar and has an undefined top-level count; all tests fail."
+        }
+      },
+      "shared-broad": {
+        "code-search": {
+          "requirements_pass": false,
+          "notes": "Passes the three return-value tests, but uses `target in values` and `values.index(target)`: a linear scan, contrary to the requested binary-search algorithm. Count separately from full requirement correctness."
+        },
+        "programs": {
+          "notes": "Dedup returns indices early; intervals returns starting endpoints without merging. Word count is an unfinished fence around incorrect index-counting code. Binary-search return values pass, but its algorithm requirement fails."
+        },
+        "explanation-0": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Finishes after repeating the same input/output paragraph nine times. Incorrectly describes both photosynthesis and respiration as light capturing body energy; required reactants/products absent."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Contradicts equal starting temperatures, claiming the metal spoon is hotter, and repeats that claim through the cap."
+        }
+      },
+      "layer-large-matched": {
+        "explanation-0": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Incorrectly treats photosynthesis and respiration as human-body processes for creating images, then repeats through the cap."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Discusses repeated environment-to-material heat transfer rather than heat leaving the hand; never gives the required conductivity/sensation distinction."
+        },
+        "programs": {
+          "notes": "All four repeat empty code fences through the cap; no working function."
+        }
+      },
+      "shared-large": {
+        "explanation-0": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Repeats energy, sunlight and nutrients as both inputs and outputs without the required reactants/products; continues through the cap."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Repeats that both metal and wood efficiently transfer heat; fails to explain their sensory difference."
+        },
+        "programs": {
+          "notes": "All four repeat empty code fences through the cap; no function."
+        }
+      },
+      "shared-extended-linear": {
+        "explanation-0": {
+          "core_correct": false,
+          "true_repetition": false,
+          "notes": "Finishes with redundant paragraphs defining both processes as breaking down nutrients from the sun and saying the sun supplies energy to the sun. Wrong core facts; flag is repetition within a completed answer."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "true_repetition": false,
+          "notes": "Finishes without a repetition flag but explains room-to-spoon heat transfer and claims both feel cool and stable; omits heat flow from hand and the needed contrast."
+        },
+        "programs": {
+          "notes": "Dedup has a malformed function signature and a long numeric example through the cap. Intervals only sorts without merging. Search has invalid indentation. Word count returns a scalar whitespace-token count. No execution-passing programs."
+        }
+      },
+      "layer-large-samewidth": {
+        "explanation-0": {
+          "core_correct": false,
+          "true_repetition": false,
+          "notes": "Finishes with redundant text, but says air supplies body energy and respiration outputs air. Does not give correct reactants/products; automatic repetition flag is not a cap."
+        },
+        "explanation-1": {
+          "core_correct": false,
+          "true_repetition": true,
+          "notes": "Claims solid objects cannot absorb heat because they are not liquid; repeats the same paragraph through the cap."
+        },
+        "programs": {
+          "notes": "All four repeat empty code fences through the cap; no working function."
+        }
+      }
+    }
+  },
+  "geometry": {
+    "small_large_mean_squared_subspace_overlap": 0.9114349365234375,
+    "width": 1520,
+    "scope": "Representation diagnostics on sampled states; not answer-quality scores. Overlap is mean squared cosine of principal angles.",
+    "heldout_sampled_retained_energy": {
+      "shared-small": {
+        "per_site": [
+          0.8950412362643682,
+          0.9601642703352639,
+          0.9391315534839607,
+          0.9454561181379998,
+          0.9242600789764551,
+          0.9512935060030062,
+          0.9320632095708912,
+          0.934417912441779,
+          0.9324075279615623,
+          0.9362635240444191,
+          0.9364331137285632,
+          0.9391857966800048,
+          0.9410461029632293,
+          0.9630306051536878,
+          0.9660066970712842,
+          0.9608068430774714,
+          0.9638669637084362,
+          0.9599597665316865,
+          0.9621689454681028,
+          0.9583525677466413,
+          0.9583572821367157,
+          0.9552655546713069,
+          0.9593027766341347,
+          0.9509919756723824,
+          0.9463252206048614,
+          0.9443276038118503,
+          0.9408334841316749,
+          0.93845055315887,
+          0.9348563677814662,
+          0.9324023951510113,
+          0.9628281222924496,
+          0.9294813766884086,
+          0.9278437399410366,
+          0.9305793539897284,
+          0.9259054030243499,
+          0.9283836412875748,
+          0.9244104360857378,
+          0.9275582864218702,
+          0.9284579042112518,
+          0.927399713533244,
+          0.9236061375751551,
+          0.9316638907723307,
+          0.9258045388752278,
+          0.9296642457561671,
+          0.925065526735735,
+          0.9275319830383271,
+          0.9142617085852179,
+          0.9225451046277993,
+          0.9154713646135987
+        ],
+        "mean": 0.9385904496154754,
+        "min": 0.8950412362643682
+      },
+      "shared-large": {
+        "per_site": [
+          0.8973311368358416,
+          0.9617859750658158,
+          0.9413091383578573,
+          0.9470395007931216,
+          0.9263187757766377,
+          0.9527540691496306,
+          0.9342266183864116,
+          0.9372610001951742,
+          0.935714291580302,
+          0.9394472117122898,
+          0.9398093994950485,
+          0.9430013641954679,
+          0.9447307387885385,
+          0.9654094403845062,
+          0.9682685345036067,
+          0.9635581914097826,
+          0.9667700239316349,
+          0.9631211729058113,
+          0.9652322836162699,
+          0.9616466494278092,
+          0.961637688859366,
+          0.9587966780985228,
+          0.9624900163967045,
+          0.954858324423339,
+          0.9507345814232488,
+          0.949645275468804,
+          0.9463606773036997,
+          0.9444985617100149,
+          0.9406970765924466,
+          0.9389105058365759,
+          0.9662032069649356,
+          0.93635343511826,
+          0.9346271904133764,
+          0.9386013215366624,
+          0.9344182266386686,
+          0.9376115672569956,
+          0.9341181979468194,
+          0.9367762079899301,
+          0.9377144773912054,
+          0.936331710021716,
+          0.9333018382539033,
+          0.9410885802352418,
+          0.9355828454311401,
+          0.9395326933206913,
+          0.9349472666688214,
+          0.9370820575314129,
+          0.9245302905291466,
+          0.9312786389909001,
+          0.9238844411000441
+        ],
+        "mean": 0.9440275325706969,
+        "min": 0.8973311368358416
+      },
+      "shared-broad": {
+        "per_site": [
+          0.8927525722738275,
+          0.9592296257835341,
+          0.9375165705958369,
+          0.943800949294023,
+          0.92095132829182,
+          0.9492528979825225,
+          0.9283617651609893,
+          0.9294711972465133,
+          0.9266643280213488,
+          0.9307156689715846,
+          0.9308272488944555,
+          0.9328204685394783,
+          0.9350119203391051,
+          0.9594485602543599,
+          0.9627947953729897,
+          0.9573408635571141,
+          0.9604793912222311,
+          0.9564047052349495,
+          0.9587826628495137,
+          0.9543411433167149,
+          0.9549198169583574,
+          0.9514652491316755,
+          0.9558854950664264,
+          0.9469737292925954,
+          0.9417749107907114,
+          0.9383521932178652,
+          0.9353285038808333,
+          0.9316769949521891,
+          0.9280921736782598,
+          0.9252961080324367,
+          0.959444460975392,
+          0.9242453136684079,
+          0.9212152761001349,
+          0.9234698394229406,
+          0.9178473711227622,
+          0.9202099363826988,
+          0.9154389282229021,
+          0.9189893975684731,
+          0.9196810610775398,
+          0.9189588874000831,
+          0.915607520977699,
+          0.9238068403646816,
+          0.9173136679246555,
+          0.9215594117091619,
+          0.9163720249884807,
+          0.9183909770232491,
+          0.9037963924683579,
+          0.913636150412496,
+          0.9067264422949952
+        ],
+        "mean": 0.9329274232308036,
+        "min": 0.8927525722738275
+      },
+      "layer-large-matched": {
+        "per_site": [
+          0.9528433570995944,
+          0.97815471520375,
+          0.9711814291491279,
+          0.9717550633441603,
+          0.9550276271066368,
+          0.970387776185627,
+          0.9593980865053113,
+          0.9607651277756818,
+          0.9602370913822184,
+          0.961935429561078,
+          0.9623933251302551,
+          0.9641349554146658,
+          0.96574566420564,
+          0.9787815819928061,
+          0.980891153646223,
+          0.9762102125799555,
+          0.9791656716891127,
+          0.9761136056108425,
+          0.9780645618171536,
+          0.97548949089163,
+          0.9753305620283963,
+          0.9729405053292722,
+          0.9760358909113902,
+          0.9702333974141908,
+          0.9679462972804429,
+          0.9669197072657552,
+          0.9644745415513439,
+          0.9632828529947569,
+          0.9603543221110323,
+          0.9604931516898407,
+          0.9784683338030067,
+          0.9586908499290053,
+          0.9569411838419432,
+          0.9590609603361947,
+          0.9547516677068393,
+          0.9564810509518412,
+          0.9529484603892144,
+          0.9543751562814279,
+          0.9544213794811053,
+          0.9518204315483066,
+          0.9505109930016454,
+          0.9562510885642563,
+          0.95307555399277,
+          0.9563130670204527,
+          0.9532655879215829,
+          0.9552918321645728,
+          0.9450509382979682,
+          0.954182455317786,
+          0.9535313448865695
+        ],
+        "mean": 0.963512642659273,
+        "min": 0.9450509382979682
+      },
+      "layer-large-samewidth": {
+        "per_site": [
+          0.9596375037190171,
+          0.9813824136214963,
+          0.9751995733206763,
+          0.9757319092333794,
+          0.9611909618553024,
+          0.9744292983520844,
+          0.9648499958689937,
+          0.9660289855505139,
+          0.9656747891950038,
+          0.9671387229926602,
+          0.9676036372361055,
+          0.9691625773197472,
+          0.9705641545120449,
+          0.9817870738526912,
+          0.9835730204098809,
+          0.9795425410963143,
+          0.9821623434139443,
+          0.9795534157827553,
+          0.9812421437847509,
+          0.9790581180261629,
+          0.9789170564895399,
+          0.9768192822224417,
+          0.9794261583955592,
+          0.9744250387284794,
+          0.9724794205344828,
+          0.9716109019692658,
+          0.9694226528183885,
+          0.9683996268907552,
+          0.9659388239887183,
+          0.9661061882885389,
+          0.9815161932300519,
+          0.9645363219041061,
+          0.9630610047237278,
+          0.9648093962268942,
+          0.9611373894626347,
+          0.9625971367009308,
+          0.9596093619833863,
+          0.9607407078369552,
+          0.9607710478943741,
+          0.9585415700226401,
+          0.9573548702603839,
+          0.9622996442558694,
+          0.9597327636658776,
+          0.9625148986231886,
+          0.959967467770317,
+          0.9616660213274687,
+          0.9527873139756017,
+          0.9606051616081321,
+          0.9601268286446872
+        ],
+        "mean": 0.9686414985629984,
+        "min": 0.9527873139756017
+      },
+      "shared-extended": {
+        "per_site": [
+          0.8976178999541723,
+          0.9626323127186747,
+          0.9422849880856514,
+          0.9480092273177098,
+          0.927304820373929,
+          0.9532402202073734,
+          0.9348214989799472,
+          0.9383218324832867,
+          0.9366816518113414,
+          0.9404347831469331,
+          0.9408043345711323,
+          0.9441299086998723,
+          0.9459584904500123,
+          0.9663723517901451,
+          0.9690353434034441,
+          0.9645057989381318,
+          0.9678507200560585,
+          0.9642767498531338,
+          0.9665039620839656,
+          0.9630880130579754,
+          0.9630415212031853,
+          0.9602948073397047,
+          0.9638399608025647,
+          0.9566939276943957,
+          0.9527165086511287,
+          0.9517672135369173,
+          0.9487259872626391,
+          0.9469041731981409,
+          0.9430392947497994,
+          0.9413306190733818,
+          0.9673792574726203,
+          0.9388864884891858,
+          0.9368545854752927,
+          0.9418360406765887,
+          0.9375204061209156,
+          0.9407956976607271,
+          0.9373979840784215,
+          0.9403484832528697,
+          0.9409887708872873,
+          0.9399048930370096,
+          0.9368425399433522,
+          0.9445120116241352,
+          0.9391792646184006,
+          0.9431604534526247,
+          0.9383699158055673,
+          0.9403507305525718,
+          0.9279365908382236,
+          0.9345183739617006,
+          0.9269986056351021
+        ],
+        "mean": 0.9460410207158642,
+        "min": 0.8976178999541723
+      }
+    },
+    "large_extended_mean_squared_subspace_overlap": 0.9483936510587994
+  },
+  "extended_calibration": {
+    "tokens": 262293,
+    "rows": 583,
+    "exact_64k_prefix": true,
+    "sampler": "scale_data.prepare, same three tokenizers, seed 24027, complete responses, max_length 768",
+    "whole_model_healing": false,
+    "cloud_spend_usd": 0,
+    "heldout_prompt_overlap": 0
+  },
+  "grading": "Independent answer grading, sandboxed program tests, interval input-immutability check. programs_correct counts execution passes; programs_with_reviewed_requirements additionally checks explicit algorithm requirements by manual review. Sorting accepts unambiguous integer strings for ordering correctness and records strict type/format separately, uniformly for all arms. Supplemental repetition scan applies the established project rule of >=8 identical nonempty lines; original word-n-gram flags are also retained. Explanation correctness requires manual review.",
+  "cloud_spend_usd": 0,
+  "limits": "56 closed cases across seven synthetic families and four programming problems: a mechanism screen, not broad intelligence or a 27B result."
+}

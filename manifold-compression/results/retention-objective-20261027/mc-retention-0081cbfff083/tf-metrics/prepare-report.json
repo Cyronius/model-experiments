@@ -1,0 +1,136 @@
+{
+  "manifest_sha256": "5f753cf4487909dacbe3e0eecf61642d30bde361146e0e2a2575b13793507927",
+  "tokenizer": "models/manifold-audit/Qwen3.5-2B",
+  "ngram": 13,
+  "max_length": 1024,
+  "chunk": 512,
+  "chunks_per_doc": 2,
+  "gsm8k_sample": 400,
+  "inputs": {
+    "../models/manifold-compression/eval-data/converted/humaneval.jsonl:humaneval": "e708a7b56c6a6a07753a55fcca1dc4ed35e20aefe6f3a64a78e47661a057ba12",
+    "../models/manifold-compression/eval-data/converted/ultrachat-heldout.jsonl:ultrachat-fresh": "d81279fca4b307300b96eb9dea72e3d3bdcbc8d506109b0032bcca77ba01f362",
+    "../models/manifold-compression/eval-data/converted/wikitext.jsonl:wikitext": "eb31afa70dbd776c23acdb9577307a8e96ed0afc05583ca2e15bd567a4c3dbef",
+    "../models/manifold-compression/eval-data/converted/mmlu.jsonl:mmlu:letter": "8a361b460162b65753e66e34f6479ada7d7cdff5094bc07391b2710f19c142e4",
+    "../models/manifold-compression/eval-data/converted/arc-challenge.jsonl:arc-challenge:cloze": "ad57daf9d3dd1236aafd222cad733aeb4f9afe6e97141d245bb5bf809e14ed90",
+    "../models/manifold-compression/eval-data/converted/arc-easy.jsonl:arc-easy:cloze": "82cba245ae8582f5a4059e8b4d80aa2a3c718789202ad9a85a0b06227f28fc14",
+    "../models/manifold-compression/eval-data/converted/hellaswag.jsonl:hellaswag:continue": "c19116977be76e358b28ab442967750e432c313c7c4380fefdba48bda8622c95"
+  },
+  "too_long_dropped": 84,
+  "overlap_dropped": {
+    "ultrachat-heldout": 4,
+    "wikitext": 1,
+    "humaneval": 47,
+    "ultrachat-fresh": 30,
+    "mmlu": 2
+  },
+  "excluded_corpora": [
+    {
+      "path": "manifold-compression/results/local-projection-20261025/data.json",
+      "keys": [
+        "small",
+        "large",
+        "broad"
+      ],
+      "sha256": "8f8e8ae2db90adb7a9682502bda7e251f7ca88c371ec3eea7b3ec60af3dc8026",
+      "strings": 1647
+    },
+    {
+      "path": "manifold-compression/results/local-projection-20261025/extended-calibration-source.json",
+      "keys": [
+        "calibration"
+      ],
+      "sha256": "0eb229004aeaa5173e3e279fbb719d39cdb577e7777f9ce55ccd10b5b47e8492",
+      "strings": 2319
+    },
+    {
+      "path": "manifold-compression/results/correctness-healing-20261025/data.json",
+      "keys": [
+        "train"
+      ],
+      "sha256": "4983f874e1f47d35071c7bc683a3f86285860b7c8e8fdcfe60eb54c109c4b3c2",
+      "strings": 38853
+    },
+    {
+      "path": "manifold-compression/results/broad-healing-20261025/data.json",
+      "keys": [
+        "train"
+      ],
+      "sha256": "df485610e1ba698b2ad2307cf54b63e8fb00cbcba9c98f1ac013cf47eb00beaf",
+      "strings": 2932
+    },
+    {
+      "path": "manifold-compression/results/curriculum-healing-20261026/data.json",
+      "keys": [
+        "train"
+      ],
+      "sha256": "48754cfade52ae5ee398db499377acf296c102c917c189582c6009d227456792",
+      "strings": 7097
+    },
+    {
+      "path": "manifold-compression/results/capacity-projection-20261026/data.json",
+      "keys": [
+        "train"
+      ],
+      "sha256": "265ae13612c202b2e00dc12051116cdda9d8546ca9ecb03a09e6e78ba86f70a8",
+      "strings": 7097
+    },
+    {
+      "path": "manifold-compression/results/broad-more-20261025/data.json",
+      "keys": [
+        "calibration"
+      ],
+      "sha256": "512f58bf8cf3533a6b809ff9883a95cd5540615289189d48794fddf5a3183532",
+      "strings": 3682
+    }
+  ],
+  "training_ngrams": 2644704,
+  "sources": {
+    "ultrachat-heldout": {
+      "rows": 28,
+      "groups": 28,
+      "scored_tokens": 6883
+    },
+    "gsm8k": {
+      "rows": 400,
+      "groups": 400,
+      "scored_tokens": 50038
+    },
+    "wikitext": {
+      "rows": 117,
+      "groups": 60,
+      "scored_tokens": 59787
+    },
+    "humaneval": {
+      "rows": 116,
+      "groups": 116,
+      "scored_tokens": 22641
+    },
+    "ultrachat-fresh": {
+      "rows": 207,
+      "groups": 207,
+      "scored_tokens": 48793
+    },
+    "mmlu": {
+      "rows": 1138,
+      "groups": 57,
+      "scored_tokens": 0
+    },
+    "arc-challenge": {
+      "rows": 600,
+      "groups": 600,
+      "scored_tokens": 0
+    },
+    "arc-easy": {
+      "rows": 400,
+      "groups": 400,
+      "scored_tokens": 0
+    },
+    "hellaswag": {
+      "rows": 600,
+      "groups": 101,
+      "scored_tokens": 0
+    }
+  },
+  "mc_prompt": "raw text, no chat template; letter style lists choices and scores \" A\"..\" D\"; cloze style scores \" <choice>\" after \"Question: ...\\nAnswer:\"",
+  "limitations": "13-gram token overlap screen against the listed corpora only; it is not group-level disjointness (paraphrases or shared upstream sources can remain). A diagnostic pool, not the fresh selection suite."
+}

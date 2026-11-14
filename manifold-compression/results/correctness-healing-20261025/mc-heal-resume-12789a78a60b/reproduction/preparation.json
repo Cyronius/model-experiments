@@ -1,0 +1,190 @@
+{
+  "data_sha256": "4983f874e1f47d35071c7bc683a3f86285860b7c8e8fdcfe60eb54c109c4b3c2",
+  "prepared_source_manifest": {
+    "counts": {
+      "code:scanned": 27410,
+      "instruction:scanned": 25829,
+      "instruction:accepted": 1798,
+      "instruction:too_long": 129,
+      "duplicate": 4,
+      "math:scanned": 27112,
+      "math:accepted": 2047,
+      "code:accepted": 11697,
+      "code:reference_rejected": 432
+    },
+    "max_length": 2048,
+    "tokenizer": "target/manifold-scale/qwen27",
+    "raw_manifest": {
+      "seed": 251025,
+      "groups_per_source": 4,
+      "sources": {
+        "math": {
+          "repo": "IFM/Math-Reasoning",
+          "revision": "e249295774c3a66943e1483dbf53e0c811bc41dd",
+          "config": "math-thinking-qwen"
+        },
+        "code": {
+          "repo": "IFM/Code-Reasoning",
+          "revision": "e971bd7801485b24bb217dcde9d46f4bad42ea00",
+          "config": "codeio"
+        },
+        "instruction": {
+          "repo": "IFM/SFT-Reasoning",
+          "revision": "4d4dbbe65e478a2ca179c4cce43b5e1f051aacd2",
+          "config": "3efforts-pretrain"
+        }
+      },
+      "files": [
+        {
+          "file": "math-00.jsonl",
+          "source_file": "datasets/IFM/Math-Reasoning@e249295774c3a66943e1483dbf53e0c811bc41dd/math-thinking-qwen/math_qwen_no_think_dataset_filtered.chunk1-f19d65aa30-00089.parquet",
+          "row_group": 96,
+          "rows": 6724,
+          "compressed_bytes": 19450191,
+          "sha256": "fa7dc80de3b23a5b4792d340a69b847be93aba56ff15a7e419cbe68ebd1d479e"
+        },
+        {
+          "file": "math-01.jsonl",
+          "source_file": "datasets/IFM/Math-Reasoning@e249295774c3a66943e1483dbf53e0c811bc41dd/math-thinking-qwen/math_qwen_no_think_dataset_filtered.chunk0-c5b2085db4-00008.parquet",
+          "row_group": 44,
+          "rows": 6765,
+          "compressed_bytes": 19465470,
+          "sha256": "c4fb0372f06f15c0a3976d3d0bedd5634a1c287a09179cc9875f91ace787d64c"
+        },
+        {
+          "file": "math-02.jsonl",
+          "source_file": "datasets/IFM/Math-Reasoning@e249295774c3a66943e1483dbf53e0c811bc41dd/math-thinking-qwen/math_qwen_no_think_dataset_filtered.chunk1-f19d65aa30-00176.parquet",
+          "row_group": 49,
+          "rows": 6785,
+          "compressed_bytes": 19419194,
+          "sha256": "c5c1f979267f5814e8f0e41a91a02a774c2c6bc90b5a63e00a70a174b4945911"
+        },
+        {
+          "file": "math-03.jsonl",
+          "source_file": "datasets/IFM/Math-Reasoning@e249295774c3a66943e1483dbf53e0c811bc41dd/math-thinking-qwen/math_qwen_no_think_dataset_filtered.chunk0-c5b2085db4-00042.parquet",
+          "row_group": 19,
+          "rows": 6838,
+          "compressed_bytes": 19496164,
+          "sha256": "d42d23fccd29dd5cb7f56163ecb02cddd9bdb8124bc11ec6e78721eafc9fc09e"
+        },
+        {
+          "file": "code-00.jsonl",
+          "source_file": "datasets/IFM/Code-Reasoning@e971bd7801485b24bb217dcde9d46f4bad42ea00/codeio/codeio.chunk0-3b19cd463b-00001.parquet",
+          "row_group": 84,
+          "rows": 6813,
+          "compressed_bytes": 17658552,
+          "sha256": "1cd6878089da7f6a6e7df45480369b1f88ea50d8a27a22563ecb5e66b6ef354a"
+        },
+        {
+          "file": "code-01.jsonl",
+          "source_file": "datasets/IFM/Code-Reasoning@e971bd7801485b24bb217dcde9d46f4bad42ea00/codeio/codeio.chunk0-3b19cd463b-00007.parquet",
+          "row_group": 44,
+          "rows": 6891,
+          "compressed_bytes": 17773623,
+          "sha256": "f5b55b28140f76ae772dcd3178c823d51d3c4824fca7d8d9ebec0fcec9cada0c"
+        },
+        {
+          "file": "code-02.jsonl",
+          "source_file": "datasets/IFM/Code-Reasoning@e971bd7801485b24bb217dcde9d46f4bad42ea00/codeio/codeio.chunk0-3b19cd463b-00004.parquet",
+          "row_group": 48,
+          "rows": 6776,
+          "compressed_bytes": 17669275,
+          "sha256": "4b6bce397204f6644a91838fd7382e3ea2a03c75ec34e95936c2c3d3f2c0e1ff"
+        },
+        {
+          "file": "code-03.jsonl",
+          "source_file": "datasets/IFM/Code-Reasoning@e971bd7801485b24bb217dcde9d46f4bad42ea00/codeio/codeio.chunk0-3b19cd463b-00011.parquet",
+          "row_group": 64,
+          "rows": 6930,
+          "compressed_bytes": 17521426,
+          "sha256": "d135cd01019eb9d2430d6e0be5dcc408eeb9efdf1ef8d6cb5f7135106788c178"
+        },
+        {
+          "file": "instruction-00.jsonl",
+          "source_file": "datasets/IFM/SFT-Reasoning@4d4dbbe65e478a2ca179c4cce43b5e1f051aacd2/3efforts-pretrain/3efforts_pretrain_16k.chunk0-a9b71abcd1-00040.parquet",
+          "row_group": 79,
+          "rows": 6378,
+          "compressed_bytes": 23125746,
+          "sha256": "6241ba0836c8b027587aa3f37e5483660b2f5ea0c9d001d44024bdafd78312c7"
+        },
+        {
+          "file": "instruction-01.jsonl",
+          "source_file": "datasets/IFM/SFT-Reasoning@4d4dbbe65e478a2ca179c4cce43b5e1f051aacd2/3efforts-pretrain/3efforts_pretrain_16k.chunk0-a9b71abcd1-00052.parquet",
+          "row_group": 49,
+          "rows": 6490,
+          "compressed_bytes": 23226402,
+          "sha256": "907e340885199bf9375be1fb409546638e27f2cc0278fa5e43c5b5fdb44b5291"
+        },
+        {
+          "file": "instruction-02.jsonl",
+          "source_file": "datasets/IFM/SFT-Reasoning@4d4dbbe65e478a2ca179c4cce43b5e1f051aacd2/3efforts-pretrain/3efforts_pretrain_16k.chunk0-a9b71abcd1-00018.parquet",
+          "row_group": 49,
+          "rows": 6489,
+          "compressed_bytes": 23261864,
+          "sha256": "330308fa15eb9598365473c62fc7cd9c40ecb4c62ddc75d2c40821424aa046d7"
+        },
+        {
+          "file": "instruction-03.jsonl",
+          "source_file": "datasets/IFM/SFT-Reasoning@4d4dbbe65e478a2ca179c4cce43b5e1f051aacd2/3efforts-pretrain/3efforts_pretrain_16k.chunk0-a9b71abcd1-00032.parquet",
+          "row_group": 46,
+          "rows": 6472,
+          "compressed_bytes": 23071274,
+          "sha256": "9ec700d6382b5021fccb3c2075f01e4153a63998b994091073370b0e2c325bb2"
+        }
+      ]
+    },
+    "splits": {
+      "train": {
+        "rows": 13968,
+        "by_kind": {
+          "code": 10508,
+          "instruction": 1616,
+          "math": 1844
+        },
+        "assistant_tokens": 1158836,
+        "input_tokens": 6349789,
+        "sha256": "7d665ee7ba85c732964bb320e8fa8b5af41548898e30c366f7b5579c841d38fd"
+      },
+      "validation": {
+        "rows": 781,
+        "by_kind": {
+          "code": 586,
+          "math": 109,
+          "instruction": 86
+        },
+        "assistant_tokens": 55053,
+        "input_tokens": 343678,
+        "sha256": "64778112cdc3b8d3fdb9c86e8b4d8c1234d9275f189e18cc61dcc9e7904f3b31"
+      },
+      "test": {
+        "rows": 793,
+        "by_kind": {
+          "code": 603,
+          "instruction": 96,
+          "math": 94
+        },
+        "assistant_tokens": 67226,
+        "input_tokens": 370515,
+        "sha256": "456ede387f895756366755ac461e12759a2832f0a7d2c1e86c02dcff31111cee"
+      }
+    },
+    "instruction_quality": "Source-curated final responses with explicit boundaries; not a factual correctness guarantee.",
+    "code_quality": "Reference-program agreement in a networkless bwrap sandbox; not a proof the reference matches every natural-language requirement.",
+    "math_quality": "Targets recomputed independently; original reasoning is excluded."
+  },
+  "recipe_sha256": {
+    "basis.pt": "c2221d86dccd0ee78fcc90f1bfba327079b5551057de51015be2ae840fa5a9b8",
+    "rms-scales.json": "ff8d409944e610e27b2a18e7fd4e1a3f9007c9a97f4a3e9585758b16e29b7712",
+    "result.json": "4b1c58fddc624218ee18399c33e52e6f571d8b8e0e461b580bb8eb699b5ccff1"
+  },
+  "rows": 5964,
+  "steps": 32,
+  "assistant_tokens_by_kind": {
+    "math": 10541,
+    "code": 94746
+  },
+  "input_tokens": 2106214,
+  "dev_cases": 66,
+  "test_cases": 134,
+  "unpaid_preparation": true
+}

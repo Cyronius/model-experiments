@@ -1,0 +1,378 @@
+{
+ "note": "Short local healing runs comparing carve geometries, written 2026-11-02 before either run. The user: 'ok, let's keep going with the 128 and no shared expert healing run'. Same student, data, LoRA and loss as the 2026-10-29 pilot (heal_rules.json); only the MLP carve differs. 1M tokens each with a full cosine schedule, so neither run matches the pilot's 1M milestone, which was taken at near-peak learning rate. Today's carve is healed the same way so the comparison is like for like. Local GPU (Radeon 8060S), no pod. Code: heal_geometry.py (slim_heal.py's heal stage with the carve swapped).",
+ "threads": 8,
+ "data": {
+  "salt": "heal-20261029",
+  "tokens": 10000000,
+  "seq_len": 2048,
+  "slack": 1.15,
+  "max_item_tokens": {
+   "default": 4096,
+   "code": 32768,
+   "code_cpp": 32768
+  },
+  "min_item_tokens": 32,
+  "max_file_bytes": 200000,
+  "overlap_tokens": 32,
+  "domains": [
+   "chat",
+   "code",
+   "code_cpp",
+   "math",
+   "math_word",
+   "wiki",
+   "reasoning",
+   "science"
+  ],
+  "held_out": [
+   "biomed",
+   "argument"
+  ]
+ },
+ "student": {
+  "budget": "0.25",
+  "lora_rank": 64,
+  "lora_alpha": 64,
+  "seed": 26102921
+ },
+ "train": {
+  "tokens": 1015808,
+  "batch_sequences": 8,
+  "micro_batch": 2,
+  "lr": 0.0001,
+  "router_lr": 0.001,
+  "betas": [
+   0.9,
+   0.99
+  ],
+  "warmup_steps": 5,
+  "lr_floor": 0.1,
+  "clip": 1.0,
+  "ce_weight": 0.5,
+  "router_weight": 1.0,
+  "router_stride": 4,
+  "loss_chunk": 1024,
+  "milestones": [
+   507904,
+   1015808
+  ],
+  "log_every": 10,
+  "check": {
+   "kl": 0.01,
+   "bpb": 0.01
+  },
+  "seed": 26102922,
+  "max_hours": 4,
+  "reserve_minutes": 0,
+  "resume": {
+   "heal": "results/moe-carve-v2-20261029/heal_geometry/S0_K24_4M/heal.json",
+   "state": "/home/cyrus/code/model-experiments/manifold-compression/results/moe-carve-v2-20261029/heal_geometry/S0_K24_4M/state.pt",
+   "step": 0,
+   "kl": 0.6105033661425113,
+   "bpb_student": 0.7354266046138256
+  }
+ },
+ "predictions": {
+  "start": "Before training, S0_K24 starts below S1536_K9 by about the MLP-only learned-router gap (1.167 vs 1.288): combined KL about 1.37 against 1.49.",
+  "baseline_1m": "S1536_K9 reaches KL 0.70-0.76 at 1M tokens (the pilot's 1M milestone was 0.766 at near-peak learning rate; a finished schedule should do a little better).",
+  "ranking": "S0_K24 is still below S1536_K9 at 1M tokens, paired document bootstrap within domains, upper 95% bound below 0.",
+  "gap": "The gap shrinks with healing: at 1M it is under two thirds of the gap at 0 tokens.",
+  "recall": "Router recall rises during healing for both; S0_K24 stays above S1536_K9 (0.76 vs 0.68 before healing, MLP-only)."
+ },
+ "criteria": {
+  "screening": "If ranking holds, unhealed learned-router KL is a usable screen for carve geometry, and later geometries can be screened locally without healing; if it fails, only healed comparisons count."
+ },
+ "factors_copy": "../target/manifold-heal-geometry/factors.pt",
+ "runs": {
+  "S0_K24": {
+   "set": "results/moe-carve-v2-20261029/sweep/set_S0_K24.pt",
+   "routers": "results/moe-carve-v2-20261029/sweep/routers_S0_K24.pt",
+   "check": {
+    "kl": 100,
+    "bpb": 100
+   },
+   "note": "c=128, 96 experts, 24 per token, no shared expert. No combined-model measurement exists for this carve, so the start is recorded, not checked."
+  },
+  "S1536_K9": {
+   "set": "results/moe-carve-v2-20261029/sets.pt",
+   "key": "0.25",
+   "routers": "results/moe-carve-v2-20261029/routers.pt",
+   "note": "today's carve (c=168, 50% shared, 9 per token); must reproduce the combined model (KL 1.491) before training, as the pilot did"
+  },
+  "S0_K24_4M": {
+   "set": "results/moe-carve-v2-20261029/sweep/set_S0_K24.pt",
+   "routers": "results/moe-carve-v2-20261029/sweep/routers_S0_K24.pt",
+   "check": {
+    "kl": 0.01,
+    "bpb": 0.01
+   },
+   "note": "S0_K24 healed on from its 1M state to about 4M tokens, written 2026-11-03 before the run. The user: 'heal locally, outputting new results every hour.' The data order continues where S0_K24 stopped (step 62, so every token is new); the optimizers start fresh (S0_K24 kept no optimizer state) with a 5-step warmup back to the peak rate and a cosine over the 184 remaining steps. A milestone about every hour (28 steps): KL on the eval set and a GSM8K probe on the first 48 check prompts, sampled at 2,048 and greedy at 1,024. The first milestone, before training, must reproduce S0_K24's last (0.730) and gives the probe's baseline.",
+   "train": {
+    "tokens": 4030464,
+    "milestones": [
+     1474560,
+     1933312,
+     2392064,
+     2850816,
+     3309568,
+     3768320,
+     4030464
+    ],
+    "max_hours": 11,
+    "resume": {
+     "heal": "results/moe-carve-v2-20261029/heal_geometry/S0_K24/heal.json",
+     "state": "results/moe-carve-v2-20261029/heal_geometry/S0_K24/state.pt"
+    }
+   },
+   "probe": {
+    "check_rules": "geometry_check_rules.json",
+    "prompts": 48,
+    "caps": {
+     "sampled": 2048,
+     "greedy": 1024
+    }
+   },
+   "predictions": {
+    "reproduce": "The first milestone reproduces 0.730 within 0.01.",
+    "restart": "The warm restart costs a little at first: KL at the first milestone after training (1.47M) is within 0.02 of 0.730, above or below.",
+    "kl_4m": "KL at 4.03M is 0.60 to 0.67 (the 9-expert pod heal reached 0.766 at 1M; S0_K24 is 0.047 better at 1M and the gap shrinks with healing).",
+    "sampled": "Sampled right answers at 2,048 rise from the start's (about 7 of 48) to 12 to 20 of 48 by 4M; the 9-expert pod model after 8.2M got 48 of 96 at 4,096.",
+    "greedy": "Greedy loops at 1,024 fall, but most of the 48 still loop at 4M (over 30)."
+   },
+   "outcome": {
+    "written": "2026-11-04, after the heal (S0_K24_4M/heal.json, probe_*.jsonl); the full 96-prompt check is separate (S0_K24_4M/check).",
+    "kl": {
+     "tokens": [
+      1015808,
+      1474560,
+      1933312,
+      2392064,
+      2850816,
+      3309568,
+      3768320,
+      4030464
+     ],
+     "kl": [
+      0.73,
+      0.711,
+      0.68,
+      0.654,
+      0.63,
+      0.624,
+      0.617,
+      0.611
+     ],
+     "held_out": [
+      0.843,
+      0.808,
+      0.792,
+      0.762,
+      0.752,
+      0.741,
+      0.732,
+      0.733
+     ],
+     "router_recall": [
+      0.763,
+      0.732,
+      0.744,
+      0.757,
+      0.772,
+      0.779,
+      0.781,
+      0.782
+     ]
+    },
+    "probe": {
+     "sampled_2048_right": [
+      10,
+      8,
+      16,
+      13,
+      20,
+      17,
+      16,
+      16
+     ],
+     "sampled_2048_finished": [
+      44,
+      31,
+      29,
+      39,
+      35,
+      34,
+      33,
+      29
+     ],
+     "greedy_1024_right": [
+      7,
+      7,
+      6,
+      12,
+      14,
+      11,
+      9,
+      9
+     ],
+     "greedy_1024_loops": [
+      36,
+      42,
+      42,
+      29,
+      33,
+      43,
+      42,
+      41
+     ]
+    },
+    "paired_start_to_end": "Sampled right gained 11, lost 5 (p 0.11); greedy right gained 6, lost 4 (p 0.38); greedy loops fixed 4, new 9. At 2.85M sampled was gained 13, lost 3 (p 0.011), the only significant reading.",
+    "predictions": {
+     "reproduce": "Held: 0.730 exactly.",
+     "restart": "Held narrowly: 0.711 at 1.47M (-0.019); router recall dipped 0.763 to 0.732 and recovered by 2.85M.",
+     "kl_4m": "Held: 0.611, inside 0.60 to 0.67, at the low end.",
+     "sampled": "Held at 16 (12 to 20 predicted), but not significant at 4M against the start (p 0.11); it peaked at 20 at 2.85M.",
+     "greedy": "Held: 41 of 48 loop at 4M; loops did not fall at all, despite KL falling 0.12."
+    },
+    "reading": "Three more million tokens of the same distillation improve KL steadily (0.730 to 0.611, held-out 0.843 to 0.733) and roughly double sampled accuracy by 2.85M, then plateau as the learning rate decays. Greedy looping does not respond to KL: 36 loops at the start, 41 at the end, with a transient dip to 29 at 2.39M. Matching the dense model on fixed text is not teaching the student to escape its own repetition.",
+    "check": {
+     "written": "2026-11-04, after S0_K24_4M/check/check.json (geometry_check_rules.json, all 96 prompts, 4,096 cap), compared with S0_K24/check (1M).",
+     "reproduce": "Held: KL 0.611, difference 0.0.",
+     "counts": "Greedy 22 right, 9 finished, 86 loops (at 2,048: 21, 9, 86); 1M was 6, 1, 88 (9, 1, 88). Sampled 29 right, 78 finished, 0 loops (at 2,048: 27, 68, 0); 1M was 14, 85, 0 (14, 80, 0).",
+     "paired": "Greedy right gained 20, lost 4 (p 0.0008); greedy loops fixed 8, new 6 (p 0.40). Sampled right gained 23, lost 8 (p 0.005); sampled finished gained 10, lost 17.",
+     "where_right": "Of the 22 greedy right answers, 18 are in answers that later loop (the answer is reached, then the model repeats); 4 finish. Of the 29 sampled right, 27 finish.",
+     "reading": "On all 96 prompts the 4M student is clearly better than the 1M student at GSM8K: right answers roughly double, greedy (6 to 22) and sampled (14 to 29), both significant, where the 48-prompt probe was too small to show it. Looping is unchanged (88 to 86 greedy): the extra healing lets the student reach the right answer more often, but it still does not stop. Sampled answers got longer (median finished length 283 to 402) and fewer finish within 4,096. Dense reference: greedy 60 right, 7 loops; sampled 73 right. The 9-expert pod heal after 8.2M got 48 sampled.",
+     "loop_shape": "Most greedy loops are a failure to end the turn, not looping reasoning: 81 of 96 greedy answers at 4M (74 at 1M) emit </think> 5 or more times. The student reasons, writes </think> and the answer, then writes '</think>: <answer>' again and again instead of <|im_end|> (e.g. gsm8k-test-18 repeats '</think>: 7.' to the 4,096 cap). Cause in the data: every one of the 1,053 think blocks in heal/data.npz is empty (UltraChat through the chat template: <think>, newline, </think>); OpenThoughts' reasoning is plain text without think markers. The student has never been distilled on a non-empty think block that closes and is followed by an answer and <|im_end|>, which is exactly where it breaks."
+    }
+   }
+  },
+  "S0_K24_T1M": {
+   "set": "results/moe-carve-v2-20261029/sweep/set_S0_K24.pt",
+   "routers": "results/moe-carve-v2-20261029/sweep/routers_S0_K24.pt",
+   "check": {
+    "kl": 0.01,
+    "bpb": 0.01
+   },
+   "data": "template",
+   "note": "S0_K24_4M healed on for 62 steps (1,015,808 tokens) on the template dataset, written 2026-11-04 before the run. The user: 'do it'. Same loss, LoRA, routers, rates and schedule shape as S0_K24_4M; fresh optimizers, 5-step warmup, cosine over 62 steps; the data order starts at step 0 of the new data. Milestones at 0, 31 and 62 steps with the 48-prompt probe; then the full check (geometry_check_rules.json). Control: S0_K24_4M's 3M tokens of the old mix moved greedy loops by nothing (88 to 86 of 96), so a large change in 1M tokens comes from the data, not from more healing.",
+   "train": {
+    "tokens": 1015808,
+    "milestones": [
+     507904,
+     1015808
+    ],
+    "max_hours": 4,
+    "resume": {
+     "heal": "results/moe-carve-v2-20261029/heal_geometry/S0_K24_4M/heal.json",
+     "state": "results/moe-carve-v2-20261029/heal_geometry/S0_K24_4M/state.pt",
+     "from_start": true
+    }
+   },
+   "probe": {
+    "check_rules": "geometry_check_rules.json",
+    "prompts": 48,
+    "caps": {
+     "sampled": 2048,
+     "greedy": 1024
+    }
+   },
+   "predictions": {
+    "reproduce": "The first milestone reproduces S0_K24_4M's 0.611 within 0.01.",
+    "kl": "Eval KL at 1M is within 0.03 of 0.611 either way: half the data is the old mix, and the templated half is math, close to two in-mix domains.",
+    "loop_shape": "In the full check, greedy answers with 5 or more </think> fall from 81 to under 20 of 96.",
+    "greedy_loops": "Greedy loops at 4,096 fall from 86 to under 45, paired fixed against new with p below 0.05. Confidence about 65%: if the ending is fixed but the student then loops inside its reasoning instead, loop_shape holds and this fails.",
+    "greedy_finished": "Greedy finished rises from 9 to over 40.",
+    "greedy_right": "Greedy right is at least 22 (18 of 4M's 22 were right before looping, so ending properly should keep them), likely 25 to 40.",
+    "sampled": "Sampled right is 29 to 45; sampled finished at 4,096 is at least 78."
+   },
+   "criteria": "Paired by prompt against S0_K24_4M/check: one-sided exact sign test on discordant prompts, p below 0.05."
+  }
+ },
+ "outcome": {
+  "written": "2026-11-03, after both runs",
+  "kl": {
+   "S0_K24": [
+    1.366,
+    0.872,
+    0.803,
+    0.73
+   ],
+   "S1536_K9": [
+    1.49,
+    0.939,
+    0.837,
+    0.776
+   ],
+   "tokens": [
+    0,
+    262144,
+    507904,
+    1015808
+   ]
+  },
+  "S0_K24_minus_S1536_K9": {
+   "0": [
+    -0.124,
+    -0.139,
+    -0.108
+   ],
+   "262144": [
+    -0.066,
+    -0.078,
+    -0.055
+   ],
+   "507904": [
+    -0.034,
+    -0.048,
+    -0.018
+   ],
+   "1015808": [
+    -0.047,
+    -0.055,
+    -0.038
+   ]
+  },
+  "predictions": {
+   "start": "held (1.366 vs 1.490; baseline reproduces the combined model, 1.490 vs 1.491)",
+   "baseline_1m": "failed narrowly: 0.776, above the 0.70-0.76 range and the pilot 1M milestone (0.766) despite the finished schedule",
+   "ranking": "held: -0.047 [-0.055, -0.038]",
+   "gap": "held: 0.047 is 0.38 of the 0.124 start gap",
+   "recall": "half: S1536_K9 rose 0.680 -> 0.698; S0_K24 dipped and came back (0.765 -> 0.763); S0_K24 stayed above"
+  },
+  "reading": "The unhealed ranking survives 1M tokens of healing, at about 40% of its size. Unhealed learned-router KL is usable as a screen for order, not for magnitude.",
+  "local": "Training runs on the local GPU: 126 tokens/s, 26 GB, micro-batch 2 held; 1M tokens plus four evaluations take about 2.6 hours per run."
+ },
+ "datasets": {
+  "template": {
+   "note": "Written 2026-11-04 before building, after the 4M check found that 81 of 96 greedy answers loop by writing '</think>: <answer>' again instead of <|im_end|>, and that all 1,053 think blocks in heal/data.npz are empty. Half the sequences put train-split problems through the chat template with a non-empty think block, the answer and <|im_end|>, the format the check's prompts ask for; the other half are pilot sequences S0_K24_4M never saw, so the old mix keeps being healed.",
+   "folder": "data_template",
+   "templated": {
+    "math_word": {
+     "source": "GSM8K train, the pilot's fetch windows (cached pages)",
+     "reasoning": "the answer's working with the <<...>> calculator notes removed",
+     "content": "The answer is N.",
+     "share": 0.4
+    },
+    "math": {
+     "source": "Hendrycks MATH train, the pilot's fetch windows",
+     "reasoning": "the solution",
+     "content": "The answer is $\\boxed{X}$. (X from the solution's last \\boxed{}; items without one are skipped)",
+     "share": 0.4
+    },
+    "reasoning": {
+     "source": "OpenThoughts-114k, the pilot's fetch windows",
+     "reasoning": "deepseek_reasoning",
+     "content": "deepseek_solution",
+     "share": 0.2
+    }
+   },
+   "template": "tokenizer.apply_chat_template([user question, assistant {reasoning_content, content}]): <|im_start|>user ... <|im_end|> <|im_start|>assistant <think> reasoning </think> content <|im_end|>, then <|endoftext|> as between pilot items.",
+   "max_item_tokens": 2047,
+   "item_rule": "An item longer than max_item_tokens is skipped, not cut, so every item keeps its ending. Items join into one stream and are cut into 2,048-token sequences as the pilot's are (an item can straddle two sequences).",
+   "exclude": "Items the benchmark corpus uses (same idents as the pilot's domains) are skipped; sequences sharing a 32-token window with an eval document are dropped.",
+   "templated_sequences": 248,
+   "old_sequences": 248,
+   "old_rule": "From the pilot's data.npz in the pilot's training order (seed 26102922): positions 1,968 onward, the first 248, which no S0_K24 run has trained on.",
+   "old_after": "results/moe-carve-v2-20261029/heal_geometry/S0_K24_4M/heal.json"
+  }
+ }
+}

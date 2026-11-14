@@ -1,0 +1,124 @@
+{
+  "scope": "Frozen checkpoints, observed development tasks. Wider means cover only the fixed 12-task subset. Query confidence intervals do not measure training-seed variation.",
+  "reserved_fiqa_scidocs_scored": false,
+  "resources": {
+    "local_only": true,
+    "paid_resource_allocated": false
+  },
+  "continuation_resources": [],
+  "models": {
+    "q4-mse": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-mse/model-q4-mse.pt",
+        "sha256": "1c260f0bf05cbec17fa82ef89665fa1095c63d74aa7eb5b71ad78ba3981cc1b4",
+        "precision": "q4",
+        "layers": 3,
+        "eligible_for_promotion": false,
+        "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+        "weight_scale_method": "Per-group minimum weight-MSE over21 BF16 scale candidates; includes original maxabs scale.",
+        "bits": 4,
+        "activation_bits": 8,
+        "group_size": 64,
+        "note": "Accuracy/reference packed artifact. No native packed-kernel speed claim; float parent is a development blend."
+      },
+      "core_retrieval": 45.41196604231249,
+      "stsbenchmark": 83.5448450797032,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.29957906141134,
+          "recall10": 71.62222222222222,
+          "top1_relevant_queries": 141,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.006119340658187866,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.524353023213642,
+          "recall10": 14.846792927934112,
+          "top1_relevant_queries": 142,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.01566678285598755,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 49.16372268736058,
+          "recall10": 77.16927453769559,
+          "top1_relevant_queries": 356,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.03230610489845276,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 3.2839295537877997,
+          "paired_query_bootstrap_95_ci": [
+            1.8878291075766949,
+            4.666792241910419
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -0.802265511603598,
+          "paired_query_bootstrap_95_ci": [
+            -1.8127751676734,
+            0.2182151169389522
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -1.5077121573778876,
+          "paired_query_bootstrap_95_ci": [
+            -3.0012246771588114,
+            -0.005071567957100304
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 0.9758409584536147,
+        "paired_query_bootstrap_95_ci": [
+          -0.14450009762775706,
+          2.081229809684431
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 83.5447,
+        "SICK-R": 75.2445,
+        "STS12": 74.6554,
+        "STS13": 81.503,
+        "STS14": 77.85119999999999,
+        "STS15": 85.14150000000001,
+        "STS16": 82.8242,
+        "SciFact": 59.3,
+        "NFCorpus": 31.524,
+        "Banking77Classification": 76.6558,
+        "AskUbuntuDupQuestions": 60.11339999999999,
+        "TwitterSemEval2015": 66.9709
+      },
+      "mteb_12_mean": 71.27738333333333
+    }
+  },
+  "matched_depth_contrasts": {},
+  "matched_recipe_contrasts": {},
+  "parent_contrasts": {}
+}

@@ -1,0 +1,23 @@
+{
+  "packet_sha256": "a81a4586cc4f836d3fd4d39b624986d76da2ad4c6d425cc988ae44aebd8609a4",
+  "approved_by": [
+    "claude",
+    "codex"
+  ],
+  "rule": "Strict: each required rubric proposition must be stated (any wording), not inferred from a different proposition; a claim reversing the scenario disqualifies. The same rule applies to the test packet.",
+  "process": "Independent blind ratings first (both files preserved, unmodified). Adjudication proposals crossed twice (pair messages 115-118); final agreement is the strict rule from msg 115, accepted by Codex in msg 118 and confirmed by Claude in msg 119. Arm key not opened.",
+  "grades": {
+    "c9f9a2c63c4a": {
+      "correct": false,
+      "reason": "States nutrient lock-up and unavailability to plants, but never states that undecomposed dead matter accumulates (required point 1); \"decomposition slows\" is also imprecise when every decomposer is removed."
+    },
+    "1c17a8b5c2d8": {
+      "correct": false,
+      "reason": "States nutrients stay trapped and are not released to the soil, but omits the accumulation of dead matter and the consequence for plants."
+    },
+    "24151e2931f0": {
+      "correct": false,
+      "reason": "Asserts the dead matter decomposes into maggot and fungal mats although all decomposers were removed (fungi are decomposers); this reverses the required failure-to-break-down mechanism."
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "arch": "qwen35",
+  "arm": "corrected",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "settings": {
+    "lr": 2e-05,
+    "steps": 3,
+    "rows_per_step": 2,
+    "ce_weight": 0.1,
+    "precision": "FP32 parameters; CPU BF16 autocast training; FP32 evaluation",
+    "seed": 137,
+    "head_chunk": 64,
+    "trainable": "all parameters, including matrix in both arms"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "loss": 0.17974625527858734,
+      "grad_norm": 28.756702423095703,
+      "input_tokens": 115,
+      "assistant_tokens": 31,
+      "ending_tokens": 2,
+      "elapsed_seconds": 4.640761700000439
+    },
+    {
+      "step": 2,
+      "loss": 0.5182294249534607,
+      "grad_norm": 42.65156936645508,
+      "input_tokens": 91,
+      "assistant_tokens": 37,
+      "ending_tokens": 2,
+      "elapsed_seconds": 3.0642350439993606
+    },
+    {
+      "step": 3,
+      "loss": 0.9684965014457703,
+      "grad_norm": 31.31635284423828,
+      "input_tokens": 637,
+      "assistant_tokens": 342,
+      "ending_tokens": 2,
+      "elapsed_seconds": 7.354306842000369
+    }
+  ],
+  "spend_usd": 0,
+  "training_seconds": 15.061782535998645
+}

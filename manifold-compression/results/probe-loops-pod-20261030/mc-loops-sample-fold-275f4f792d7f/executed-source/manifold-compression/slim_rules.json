@@ -1,0 +1,25 @@
+{
+ "note": "Separate slimming measurements on Qwen3.5-9B, written 2026-10-29 before any run. Corpus, expert sets and learned routers come from moe_carve_rules_v2.json. Every KL is from the stock dense model on the same tokens.",
+ "threads": 8,
+ "trim": {"size": 65536},
+ "vocab": {"max_hours": 0.5},
+ "cache": {"sizes": [4096, 16384], "warm_tokens": 20480, "ridge": 0.001, "recall": 0.95, "seed": 26102911,
+           "max_hours": 0.75},
+ "state": {"seed": 26102912, "max_hours": 1.0},
+ "deltanet": {"drop": [4, 8], "select_per_domain": 2, "moment_per_domain": 6, "eps": 0.0001, "max_hours": 0.75},
+ "combined": {"cache": 16384, "state": "int16_row", "seed": 26102913, "max_hours": 1.0},
+ "generate": {"prompts": "slim_prompts.json", "count": 16, "max_new_tokens": 2048, "seed": 26102914,
+              "max_hours": 1.0},
+ "predictions": {
+  "vocab": "Domain-equal bits per byte rise by less than 2% with the 64K vocabulary; science and biomed change most.",
+  "cache": "With 16,384 rows the model's own top pick is outside the cache at under 5% of eval positions, and the detector falls back on under 25% of positions at 95% recall of those misses. 4,096 rows misses the top pick at least twice as often.",
+  "state": "int16_row and fp16_sr stay within 3x of fp32_jitter's KL from stock; bf16 is at least 10x fp32_jitter's; int8_row is worse than bf16.",
+  "generate": "int16_row and fp16_sr answers finish within 10% of fp32's mean length; bf16 differs by more.",
+  "deltanet": "Dropping the 4 least important DeltaNet blocks costs under 0.3 nats; 8 costs more than twice as much. Low rank at the same parameter saving is worse than dropping blocks.",
+  "combined": "The combined body's KL is within 30% of the sum of the separate KLs (learned router, int16 state, chosen DeltaNet cut). The 16K cache with its detector lowers greedy agreement with the dense model by under 2 points."
+ },
+ "criteria": {
+  "cheap": "A step is cheap if it costs under 0.05 nats of domain-equal KL (under 1% bits per byte for the vocabulary) and its copy-span p99 KL is no more than 25% above its reference's.",
+  "detector": "The detector's threshold keeps 95% recall of top-pick misses on calibration positions; eval recall is reported, not tuned."
+ }
+}

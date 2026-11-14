@@ -11,8 +11,9 @@ import pandas as pd
 import torch
 import torch.nn.functional as F
 from huggingface_hub import snapshot_download
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoTokenizer
 from transformers.masking_utils import create_causal_mask, create_recurrent_attention_mask
+from projection_models import load_causal_model
 
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent
@@ -37,7 +38,7 @@ def _local_or_download(name, **kw):
 def load_model(name, dtype=torch.float32, device=DEVICE):
     path = _local_or_download(name)
     tok = AutoTokenizer.from_pretrained(path)
-    model = AutoModelForCausalLM.from_pretrained(path, dtype=dtype).to(device).eval()
+    model = load_causal_model(path, dtype=dtype).to(device).eval()
     for p in model.parameters():
         p.requires_grad_(False)
     return model, tok

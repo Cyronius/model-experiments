@@ -1,0 +1,148 @@
+{
+  "status": "preflight passed; independently compare human NLI strengths from original parents",
+  "resource": "one RTX 4090 24GB RunPod Secure Cloud pod",
+  "listed_rate_usd_per_hour": 0.89,
+  "maximum_gpu_rate_usd_per_hour": 0.9,
+  "maximum_elapsed_hours": 3.0,
+  "expected_elapsed_hours": [
+    1.8,
+    2.2
+  ],
+  "expected_total_usd": [
+    1.65,
+    2.05
+  ],
+  "proposed_total_cap_usd": 3.0,
+  "disk_gb": 60,
+  "retained_paid_volumes": false,
+  "work_deadline_minutes": 160,
+  "watchdog_delete_minutes": 170,
+  "training": {
+    "arms": [
+      {
+        "id": "float-0.0",
+        "checkpoint": "training-v2/work/nli-aux/starts/float.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "aux_encoder_weight": 0.0
+      },
+      {
+        "id": "float-0.1",
+        "checkpoint": "training-v2/work/nli-aux/starts/float.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "aux_encoder_weight": 0.1
+      },
+      {
+        "id": "float-0.25",
+        "checkpoint": "training-v2/work/nli-aux/starts/float.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "aux_encoder_weight": 0.25
+      },
+      {
+        "id": "ternary-0.0",
+        "checkpoint": "training-v2/work/nli-aux/starts/ternary.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "aux_encoder_weight": 0.0
+      },
+      {
+        "id": "ternary-0.1",
+        "checkpoint": "training-v2/work/nli-aux/starts/ternary.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "aux_encoder_weight": 0.1
+      },
+      {
+        "id": "ternary-0.25",
+        "checkpoint": "training-v2/work/nli-aux/starts/ternary.pt",
+        "layers": 2,
+        "batch": 1024,
+        "micro_batch": 128,
+        "lr": 4e-05,
+        "use_negatives": false,
+        "aux_encoder_weight": 0.25
+      }
+    ],
+    "parent_selection": "Fixed original pre-data-first float/ternary parents, chosen for their stronger broader quality. Independent of the ongoing batch comparison; all six choices fixed before any new external scoring.",
+    "epochs_each": 2,
+    "seed": 29,
+    "eval_every": 200,
+    "save_every": 100,
+    "source_floor": 2.0,
+    "validation_negatives": false,
+    "teacher_targets": false,
+    "train_rows": 780743,
+    "dev_rows": 15929,
+    "data_sha256": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502",
+    "negative_train_rows": 182553,
+    "negative_dev_rows": 2847,
+    "comparison": "Every arm trains the same disposable NLI head on the same human labels. Encoder gradient weight0 is the control; weight0.25 adds human NLI supervision to retrieval. Inference architecture and ternary format remain unchanged.",
+    "selection": "At full depth maximize mean(held-source macro nDCG, held-out NLI macro classifier accuracy), with each retrieval source within2 points and auxiliary accuracy within1 point of post-head-warmup initialization. Both control/joint arms get identical head training; null encoder control included. Freeze all four before external scoring.",
+    "auxiliary_nli": true,
+    "aux_batch": 64,
+    "aux_lr_multiplier": 25.0,
+    "aux_warmup_steps": 100,
+    "aux_train_rows": 300000,
+    "aux_dev_rows": 18624,
+    "trainable_head": "Linear classifier over [u,v,abs(u-v)] times10. It is discarded from inference checkpoints; all head weights, optimizer and auxiliary source cursor/RNG are retained in resumable states."
+  },
+  "recovery": {
+    "remote_save_every_steps": 500,
+    "remote_save_every_seconds": 120,
+    "local_backup_attempt_interval_seconds": 60,
+    "sha256_verified_local_copies": true,
+    "full_optimizer_rng_sampler_resume": true,
+    "remote_resume_copies_retained": 2
+  },
+  "pricing_source": "https://www.runpod.io/pricing",
+  "data_center_ids": [
+    "EU-RO-1"
+  ],
+  "cuda_versions": [
+    "13.2"
+  ],
+  "gpu_type_id": "NVIDIA GeForce RTX 4090",
+  "campaign_cap_usd": 10.0,
+  "resource_change": "A5000 did not allocate; using available 4090 within explicitly authorized $10 multi-experiment campaign",
+  "profile": "nli-aux",
+  "data_inputs": {
+    "train": {
+      "path": "training-v2/work/hardneg/data/train.jsonl",
+      "sha256": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502"
+    },
+    "dev": {
+      "path": "training-v2/work/hardneg/data/dev.jsonl",
+      "sha256": "9ac846cb11f3b28c9280f9b369aba9c3f2377284a4a9d04f7a3baaa1428b0037"
+    },
+    "aux_train": {
+      "path": "training-v2/work/nli-aux-global/train.jsonl",
+      "sha256": "8ba8c91dab77fe2c969a569351eb38e08379444b202b8491141333b94020fcd0"
+    },
+    "aux_dev": {
+      "path": "training-v2/work/nli-aux-global/dev.jsonl",
+      "sha256": "9b9bf1fe2ef257ef7b149125801e801fb5c0237957562626b85de24fd6e91895"
+    }
+  },
+  "data_audit_files": [
+    "training-v2/hardneg/data-audit.json",
+    "training-v2/hardneg/dev-audit.json",
+    "training-v2/nli-aux/data-audit.json"
+  ]
+}

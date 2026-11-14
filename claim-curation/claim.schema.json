@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Model extraction payload",
+  "type": "object",
+  "required": ["claims"],
+  "additionalProperties": false,
+  "properties": {
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["statement", "quote", "conditions"],
+        "additionalProperties": false,
+        "properties": {
+          "statement": {"type": "string", "minLength": 1},
+          "quote": {"type": "string", "minLength": 1},
+          "conditions": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    }
+  }
+}

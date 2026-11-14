@@ -1,0 +1,34 @@
+{
+  "model_id": "latent-context/0.6b-4b-LCLM-4x",
+  "model_revision": "d45629704bbc8de96d4b847c0098bf7ccebb3aa4",
+  "upstream_code_revision": "45de65087d910c7d6e5e478e0930a716c34d4d10",
+  "config": {
+    "compression_ratio": 4,
+    "encoder_window_size": 1024,
+    "pooling": "mean",
+    "encoder_mask_type": "causal",
+    "boundary_overlap": 0,
+    "adapter_type": "mlp"
+  },
+  "dtype": "bfloat16",
+  "banks": {
+    "original": {
+      "source_sha256": "24a880eb020404d4a43ac9fb2441b4b1821c447fb1e709ff21c72f532e73aeb1",
+      "source_tokens": 1929,
+      "memory_slots": 483,
+      "hidden_size": 2560,
+      "memory_bytes": 2472960,
+      "file_sha256": "656c6af39c9b13c5b6881bde39400bcc19e1e242c3f9c81ac59d8da11b5a66eb",
+      "encode_seconds": 1.3544657099992037
+    },
+    "counterfactual": {
+      "source_sha256": "434ccbd9d4d9177eb6bbb83a69daa9a7769245b5a118c09d84d1c815142a1012",
+      "source_tokens": 1928,
+      "memory_slots": 482,
+      "hidden_size": 2560,
+      "memory_bytes": 2467840,
+      "file_sha256": "9fc2b2d04a69523b9574e7404dc488cb13bddd64dbef15b5f0d3e38a0885a4f4",
+      "encode_seconds": 1.3188107309979387
+    }
+  }
+}

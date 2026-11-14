@@ -1,0 +1,113 @@
+{
+ "note": "Hierarchical blockwise healing with overlapping windows, on the S0_K24 carve of Qwen3.5-9B. Written 2026-11-06, before any run. The user's proposal: heal single layers first, then jointly heal progressively larger groups (2, 4, 8, ... layers), each block trained on the current student's own activations against the dense teacher's targets; at each scale also heal windows shifted across the block boundaries; check the whole model between stages for held-out cross-entropy and repetition; overlapping passes applied one after another. The user asked for a separate experiment: the healing sessions (heal_sessions*.json) continue on S0_K24_T3M and are not touched. This run starts from the unhealed carve and writes only to this rules file's folder. Prior art for the method (cited, not reproduced): BRECQ (block-wise reconstruction beats layer-wise, ICLR 2021), CBQ (overlapping sliding windows of blocks for LLM quantization, ICLR 2025), EfficientQAT (block-wise training of all parameters, then an end-to-end stage, ACL 2025). None of them heals an MLP carve. Local GPU (Radeon 8060S) through dibs, no pod, $0. Code: blockwise_heal.py; tests: test_blockwise_heal.py.",
+ "folder": "results/blockwise-heal-20261106",
+ "threads": 8,
+ "data": {
+  "salt": "heal-20261029",
+  "tokens": 10000000,
+  "seq_len": 2048,
+  "slack": 1.15,
+  "max_item_tokens": {
+   "default": 4096,
+   "code": 32768,
+   "code_cpp": 32768
+  },
+  "min_item_tokens": 32,
+  "max_file_bytes": 200000,
+  "overlap_tokens": 32,
+  "domains": [
+   "chat",
+   "code",
+   "code_cpp",
+   "math",
+   "math_word",
+   "wiki",
+   "reasoning",
+   "science"
+  ],
+  "held_out": [
+   "biomed",
+   "argument"
+  ]
+ },
+ "student": {
+  "budget": "0.25",
+  "lora_rank": 64,
+  "lora_alpha": 64,
+  "seed": 26102921
+ },
+ "train": {
+  "tokens": 1000000,
+  "batch_sequences": 8,
+  "micro_batch": 2,
+  "lr": 0.0001,
+  "router_lr": 0.001,
+  "betas": [
+   0.9,
+   0.99
+  ],
+  "warmup_steps": 5,
+  "lr_floor": 0.1,
+  "clip": 1.0,
+  "ce_weight": 0.5,
+  "router_weight": 1.0,
+  "router_stride": 4,
+  "loss_chunk": 1024,
+  "log_every": 5,
+  "check": {
+   "kl": 0.01,
+   "bpb": 0.01
+  },
+  "seed": 26102922,
+  "max_hours": 6,
+  "reserve_minutes": 0
+ },
+ "blockwise": {
+  "stages": [
+   {"width": 1, "steps": 10},
+   {"width": 2, "steps": 10},
+   {"width": 4, "steps": 10},
+   {"width": 8, "steps": 10},
+   {"width": 16, "steps": 10},
+   {"width": 32, "steps": 12}
+  ],
+  "shift": "On odd steps of a stage the windows start at width/2: the first window is width/2 layers long and the last ends at the final layer. On even steps they start at layer 0. Width 1 and the full width have only the one partition. So every block boundary of a stage also sits inside a window, and the two partitions are applied one after the other, each to the student the previous step left.",
+  "inputs": "Every window reads the current student's stream at its first layer, detached, so no gradient crosses a window boundary. All windows of one step train at once on that step's batch (the blocks of a pass in parallel). The next step's windows read the stream the updated student produces.",
+  "loss": "A window that ends before the last layer: the student's residual stream after its last layer against the dense teacher's at the same layer, as the squared error over the teacher's squared norm, per position, from position 1 on (position 0 runs every neuron), summed and scaled as the healing loss is (1 / (batch x (seq_len - 1))). A window that ends at the last layer: S0_K24's healing loss, KL over the kept 64K rows plus ce_weight x CE. With one window of all 32 layers, a step is exactly S0_K24's step.",
+  "mse_weight": 1.0,
+  "optimizer": "A fresh AdamW for the LoRA at the start of each stage, because the loss each layer sees changes; after the first stage, a 2-step linear warmup inside the stage, under the run's single cosine schedule (S0_K24's: 5 warmup steps, floor 0.1, 62 steps). The routers keep one Adam over the whole run and train exactly as in S0_K24 (router-target loss at every layer and every step, router_lr times the cosine).",
+  "clip": "Gradient norm clipped to train.clip per window, over that window's LoRA, so the windows stay independent. In the full-width stage that is S0_K24's global clip.",
+  "stage_warmup": 2,
+  "boundary_docs": 3,
+  "boundary": "At each milestone, the student's relative squared error from the teacher at every layer output, on the first 3 eval documents of each of the 10 domains (30 documents), domain-equal. This is the 'local' measure; the eval KL is the 'global' one."
+ },
+ "runs": {
+  "HB_1M": {
+   "set": "results/moe-carve-v2-20261029/sweep/set_S0_K24.pt",
+   "routers": "results/moe-carve-v2-20261029/sweep/routers_S0_K24.pt",
+   "note": "The six stages above over S0_K24's 62 batches in S0_K24's order: 1,015,808 tokens, every LoRA parameter updated once per step as in S0_K24. Milestones at each stage end: steps 10, 20, 30, 40, 50 and 62 (163,840 to 1,015,808 tokens). Before training the student must reproduce S0_K24's own start (eval KL 1.3659) within train.check."
+  }
+ },
+ "baseline": {
+  "run": "S0_K24",
+  "rules": "heal_geometry_rules.json",
+  "folder": "results/moe-carve-v2-20261029/heal_geometry/S0_K24",
+  "what": "End-to-end LoRA healing of the same carve on the same 62 batches in the same order, finished schedule, 2026-11-03. Eval KL 1.366 at 0, 0.872 at 262,144, 0.803 at 507,904, 0.730 at 1,015,808 tokens (held-out 0.843). GSM8K check (geometry_check_rules.json, 96 prompts, 4,096-token cap): greedy 6 right, 1 finished, 88 loops; sampled 14 right, 85 finished, 0 loops. The healing text has empty think blocks, which is why both loop greedy; the comparison is paired, same data.",
+  "boundary": "The baseline stage measures the same boundary profile for S0_K24 unhealed and at 1M, so local and global can be compared between the two methods."
+ },
+ "predictions": {
+  "start": "The student reproduces S0_K24's start: eval KL 1.366 within 0.01, and its boundary profile equals the baseline stage's unhealed profile.",
+  "local_first": "After the single-layer stage (163,840 tokens) the median per-layer relative error falls by at least 30% from the start, while eval KL is still 0.95 to 1.25. Local repair runs ahead of global repair: this is the user's observation that layer-wise healing looks good locally.",
+  "mid": "At 491,520 tokens (end of the 4-layer stage) eval KL is 0.85 to 1.05, worse than S0_K24's 0.803 at 507,904.",
+  "final": "At 1,015,808 tokens eval KL is 0.71 to 0.80. Most likely slightly worse than S0_K24's 0.730 (point difference -0.02 to +0.07): only the last 12 steps train on the output loss, at the bottom of the cosine.",
+  "held_out": "Held-out domains lose about the same share of their drift as the in-mix domains, as in every earlier heal (share within 0.1).",
+  "boundary_final": "At 1M the blockwise student's mean per-layer relative error is at least 10% below S0_K24's at 1M: it trains on that measure and S0_K24 does not.",
+  "check": "GSM8K check on the same data problem: greedy loops at least 80 of 96 (S0_K24 88); sampled right 8 to 20 (S0_K24 14)."
+ },
+ "criteria": {
+  "test": "Paired document bootstrap of the final eval KL against S0_K24's eval_1015808.jsonl: per-document difference, resampled within each of the 10 domains, domains weighted equally, 10,000 draws, percentile 95% interval (h0_mlp_probe.paired_interval, margin 1).",
+  "better": "Upper bound below 0 and greedy loops no more than 5 above S0_K24's: blockwise healing beats end-to-end per token here. Then (a) the same schedule without shifted windows, to measure the overlap on its own, and (b) a run on the templated data, against S0_K24_T1M-style end-to-end at matched tokens.",
+  "tie": "Interval contains 0, or the whole interval within +-0.03: no gain per token at 9B. Blockwise stays useful only as a memory tool (full-rank expert training, a 27B student on one machine), and the overlap ablation is worth running only for that use.",
+  "worse": "Lower bound above 0: the hierarchy costs quality per token on this carve. Stop the line at 9B, report, keep the code."
+ }
+}

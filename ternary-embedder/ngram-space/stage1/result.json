@@ -1,0 +1,310 @@
+{
+ "counting_corpus": {
+  "tokens": 460869998,
+  "local_tokens": 364428779,
+  "local_docs": 8329179,
+  "jaswanth_train_tokens": 96441219,
+  "local_sources": {
+   "df/all-nli": {
+    "kept": 139565,
+    "tokens": 1544843,
+    "dup": 9357,
+    "validation": 1078
+   },
+   "df/gooaq": {
+    "kept": 358489,
+    "tokens": 11192848,
+    "dup": 38657,
+    "validation": 2854
+   },
+   "df/msmarco-bm25": {
+    "kept": 491777,
+    "tokens": 20873913,
+    "dup": 4409,
+    "validation": 3814
+   },
+   "df/natural-questions": {
+    "kept": 132840,
+    "tokens": 8660420,
+    "dup": 16097,
+    "validation": 1063
+   },
+   "df/quora-duplicates": {
+    "kept": 86147,
+    "tokens": 1014602,
+    "dup": 13166,
+    "validation": 687
+   },
+   "df/s2orc": {
+    "kept": 396801,
+    "tokens": 29973522,
+    "dup": 41,
+    "validation": 3158
+   },
+   "df/squad": {
+    "kept": 61396,
+    "tokens": 2329955,
+    "dup": 38124,
+    "validation": 480
+   },
+   "df/stackexchange-duplicates": {
+    "kept": 161920,
+    "tokens": 2259049,
+    "dup": 36798,
+    "validation": 1282
+   },
+   "bd/gooaq": {
+    "kept": 1716974,
+    "tokens": 45945648,
+    "dup": 669533,
+    "validation": 13493
+   },
+   "bd/horizon": {
+    "kept": 0,
+    "tokens": 0,
+    "dup": 0,
+    "validation": 0
+   },
+   "bd/horizon-structured": {
+    "kept": 4692,
+    "tokens": 292196,
+    "dup": 299,
+    "validation": 31
+   },
+   "bd/hotpot": {
+    "kept": 155711,
+    "tokens": 7556133,
+    "dup": 101123,
+    "validation": 1254
+   },
+   "bd/lcqa-pilot": {
+    "kept": 148,
+    "tokens": 11566,
+    "dup": 0,
+    "validation": 0
+   },
+   "bd/msmarco-full": {
+    "kept": 447627,
+    "tokens": 17360766,
+    "dup": 457876,
+    "validation": 3477
+   },
+   "bd/nq-recovered": {
+    "kept": 40195,
+    "tokens": 3178811,
+    "dup": 74465,
+    "validation": 298
+   },
+   "bd/paq": {
+    "kept": 360143,
+    "tokens": 23217971,
+    "dup": 8039,
+    "validation": 2756
+   },
+   "bd/paq-00": {
+    "kept": 378713,
+    "tokens": 23454379,
+    "dup": 118348,
+    "validation": 2939
+   },
+   "bd/paq-01": {
+    "kept": 362108,
+    "tokens": 21492236,
+    "dup": 135123,
+    "validation": 2769
+   },
+   "bd/paq-02": {
+    "kept": 348179,
+    "tokens": 19786778,
+    "dup": 149129,
+    "validation": 2692
+   },
+   "bd/paq-03": {
+    "kept": 336308,
+    "tokens": 18321417,
+    "dup": 161002,
+    "validation": 2690
+   },
+   "bd/squad": {
+    "kept": 71554,
+    "tokens": 4766675,
+    "dup": 102760,
+    "validation": 554
+   },
+   "bd/squad-exact": {
+    "kept": 1097,
+    "tokens": 132063,
+    "dup": 174063,
+    "validation": 8
+   },
+   "bd/stack": {
+    "kept": 38895,
+    "tokens": 2719677,
+    "dup": 4616,
+    "validation": 251
+   },
+   "bd/stack-balanced": {
+    "kept": 192403,
+    "tokens": 13992457,
+    "dup": 44705,
+    "validation": 1474
+   },
+   "bd/trivia": {
+    "kept": 5625,
+    "tokens": 286151,
+    "dup": 259,
+    "validation": 46
+   },
+   "bd/trivia-recovered": {
+    "kept": 111336,
+    "tokens": 7738408,
+    "dup": 9724,
+    "validation": 830
+   },
+   "bd/yahoo": {
+    "kept": 1280494,
+    "tokens": 40996684,
+    "dup": 9193,
+    "validation": 10313
+   },
+   "ready/train": {
+    "kept": 648042,
+    "tokens": 35329611,
+    "dup": 6889905,
+    "validation": 5059
+   }
+  },
+  "note": "all local strings after exact-duplicate removal and the validation rule, each cut to 504 tokens; under the 1e9 cap so no sampling"
+ },
+ "method": {
+  "sketch": "2x2^27 uint32",
+  "threshold": 20,
+  "exact_second_pass": true
+ },
+ "selection": {
+  "n2": {
+   "exact_ge_thresh": 1606055,
+   "drop_unk_special": 697,
+   "drop_boring": 22822,
+   "kept": 1582536,
+   "T1_min_count": 194,
+   "T1_size": 250000,
+   "T2_min_count": 36,
+   "T2_size": 1000000,
+   "T3_min_count": 20,
+   "T3_size": 1582536
+  },
+  "n3": {
+   "exact_ge_thresh": 2253491,
+   "drop_unk_special": 976,
+   "drop_boring": 114089,
+   "kept": 2138426,
+   "T1_min_count": 126,
+   "T1_size": 250000,
+   "T2_min_count": 39,
+   "T2_size": 1000000,
+   "T3_min_count": 21,
+   "T3_size": 2000000
+  }
+ },
+ "tier_sizes": {
+  "2": {
+   "T1": 250000,
+   "T2": 1000000,
+   "T3": 1582536
+  },
+  "3": {
+   "T1": 250000,
+   "T2": 1000000,
+   "T3": 2000000
+  }
+ },
+ "coverage_validation": {
+  "le128": {
+   "texts": 7118,
+   "tokens": 246668,
+   "unk_share": 7.297257852660257e-05,
+   "n2_T1": 0.507347109163014,
+   "n2_T2": 0.6373617198914632,
+   "n2_T3": 0.6699311208515968,
+   "n2_positions": 239550,
+   "n3_T1": 0.22364390445377572,
+   "n3_T2": 0.3312108487643698,
+   "n3_T3": 0.3893611895091898,
+   "n3_positions": 232432
+  },
+  "gt128": {
+   "texts": 2086,
+   "tokens": 521217,
+   "unk_share": 0.00027243931030645585,
+   "n2_T1": 0.4886011430640821,
+   "n2_T2": 0.6181118060759231,
+   "n2_T3": 0.6505968628342365,
+   "n2_positions": 519131,
+   "n3_T1": 0.20538251022638263,
+   "n3_T2": 0.3082362270208589,
+   "n3_T3": 0.3664168495972304,
+   "n3_positions": 517045
+  },
+  "all": {
+   "texts": 9204,
+   "tokens": 767885,
+   "unk_share": 0.00020836453375179878,
+   "n2_T1": 0.494520094743377,
+   "n2_T2": 0.6241898769047861,
+   "n2_T3": 0.656701564952859,
+   "n2_positions": 758681,
+   "n3_T1": 0.21104583596294482,
+   "n3_T2": 0.31536124524168185,
+   "n3_T3": 0.37353247664704853,
+   "n3_positions": 749477
+  }
+ },
+ "unigram": {
+  "tokens": 460869998,
+  "ids_seen": 29016,
+  "p_max": 0.047951498461394744,
+  "argmax": 1996
+ },
+ "table_bytes_w512": {
+  "T1": {
+   "rows_bi_plus_tri": 500000,
+   "float32_GB": 1.024,
+   "int8_plus_row_scale_GB": 0.258,
+   "index_GB_load_0.5": 0.008
+  },
+  "T2": {
+   "rows_bi_plus_tri": 2000000,
+   "float32_GB": 4.096,
+   "int8_plus_row_scale_GB": 1.032,
+   "index_GB_load_0.5": 0.032
+  },
+  "T3": {
+   "rows_bi_plus_tri": 3582536,
+   "float32_GB": 7.337033728,
+   "int8_plus_row_scale_GB": 1.848588576,
+   "index_GB_load_0.5": 0.057320576
+  }
+ },
+ "unigram_table_bytes": {
+  "d1024_float32_MB": 125.018112,
+  "d1024_int8_MB": 31.376616
+ },
+ "surfaces": {
+  "n2": {
+   "seen": 1569488,
+   "unseen_decode_fallback": 13048,
+   "T1_unseen": 130,
+   "T2_unseen": 2851,
+   "T3_unseen": 13048
+  },
+  "n3": {
+   "seen": 1969974,
+   "unseen_decode_fallback": 30026,
+   "T1_unseen": 1323,
+   "T2_unseen": 8795,
+   "T3_unseen": 30026
+  },
+  "seconds": 901.5528652667999
+ }
+}

@@ -1,0 +1,565 @@
+{
+  "frozen_utc": "2026-10-25T11:49:09.110110+00:00",
+  "selected_before_external_scores": true,
+  "rule": "At full depth maximize mean(held-source macro nDCG, held-out NLI macro classifier accuracy), with each retrieval source within2 points and auxiliary accuracy within1 point of post-head-warmup initialization. Both control/joint arms get identical head training; null encoder control included. Freeze all four before external scoring.",
+  "models": {
+    "float-0.0": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-float-0.0/best.pt",
+      "sha256": "8e2e7b9143557c6e1764b9bc1a833f5ba59671ba568d4230c76b5819cc130bec",
+      "step": 1534,
+      "precision": "float",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.957427978515625,
+            "ndcg10": 96.6703712940216,
+            "recall10": 0.9948309659957886
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9352838397026062,
+            "ndcg10": 94.90932822227478,
+            "recall10": 0.9919626116752625
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9849663972854614,
+            "ndcg10": 98.80739450454712,
+            "recall10": 0.9973440170288086
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9623263478279114,
+            "ndcg10": 97.10094332695007,
+            "recall10": 0.9978118538856506
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1830,
+            "documents": 1251,
+            "mrr": 0.7202968597412109,
+            "ndcg10": 75.07482171058655,
+            "recall10": 0.8601093292236328
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 1752,
+            "documents": 1751,
+            "mrr": 0.9243789315223694,
+            "ndcg10": 93.05244088172913,
+            "recall10": 0.9537670612335205
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8933135867118835,
+            "ndcg10": 92.08382368087769,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1625,
+            "documents": 1333,
+            "mrr": 0.7211054563522339,
+            "ndcg10": 76.23323202133179,
+            "recall10": 0.905846118927002
+          }
+        },
+        "macro_ndcg10": 90.49154445528984,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 59.3427836894989,
+          "macro_accuracy": 59.32613015174866,
+          "by_label": {
+            "0": 56.670981645584106,
+            "1": 57.39186406135559,
+            "2": 63.915544748306274
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 1534,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 74.90883730351925,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 1534,
+        "precision": "float",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+    },
+    "float-0.1": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-float-0.1/best.pt",
+      "sha256": "d2aadb2b13cbf9d2e63bd0c32b6f99f522d631a0cf566b22cbd88d9ee40be0cf",
+      "step": 1534,
+      "precision": "float",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9566341638565063,
+            "ndcg10": 96.61000967025757,
+            "recall10": 0.9948309659957886
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9348864555358887,
+            "ndcg10": 94.8863685131073,
+            "recall10": 0.9922218918800354
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.984969973564148,
+            "ndcg10": 98.80738854408264,
+            "recall10": 0.9973440170288086
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9602380990982056,
+            "ndcg10": 96.94980978965759,
+            "recall10": 0.9978118538856506
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1830,
+            "documents": 1251,
+            "mrr": 0.7185088992118835,
+            "ndcg10": 74.91371035575867,
+            "recall10": 0.8590164184570312
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 1752,
+            "documents": 1751,
+            "mrr": 0.9238101840019226,
+            "ndcg10": 92.97629594802856,
+            "recall10": 0.9526255130767822
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8926548957824707,
+            "ndcg10": 92.03442335128784,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1625,
+            "documents": 1333,
+            "mrr": 0.7177223563194275,
+            "ndcg10": 75.91210007667542,
+            "recall10": 0.9039999842643738
+          }
+        },
+        "macro_ndcg10": 90.38626328110695,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 66.60760641098022,
+          "macro_accuracy": 66.60620768864949,
+          "by_label": {
+            "0": 69.86722350120544,
+            "1": 61.717236042022705,
+            "2": 68.23416352272034
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 1534,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 78.49623548487821,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 1534,
+        "precision": "float",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+    },
+    "float-0.25": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-float-0.25/best.pt",
+      "sha256": "dd8763660eeb43fa43765b8b378f5f3602adc726ae39781ebfc3d09efe0589ce",
+      "step": 1534,
+      "precision": "float",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9563037157058716,
+            "ndcg10": 96.57938480377197,
+            "recall10": 0.9946155548095703
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9341612458229065,
+            "ndcg10": 94.80844140052795,
+            "recall10": 0.9914441108703613
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.983597457408905,
+            "ndcg10": 98.70529770851135,
+            "recall10": 0.9973440170288086
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9612457752227783,
+            "ndcg10": 97.02165722846985,
+            "recall10": 0.9978118538856506
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1830,
+            "documents": 1251,
+            "mrr": 0.7147331237792969,
+            "ndcg10": 74.54482316970825,
+            "recall10": 0.8557377457618713
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 1752,
+            "documents": 1751,
+            "mrr": 0.9224809408187866,
+            "ndcg10": 92.86556243896484,
+            "recall10": 0.9520547389984131
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8929842114448547,
+            "ndcg10": 92.05794334411621,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1625,
+            "documents": 1333,
+            "mrr": 0.712891161441803,
+            "ndcg10": 75.31225681304932,
+            "recall10": 0.8953846096992493
+          }
+        },
+        "macro_ndcg10": 90.23692086338997,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 68.54059100151062,
+          "macro_accuracy": 68.54131619135539,
+          "by_label": {
+            "0": 72.2959816455841,
+            "1": 63.686251640319824,
+            "2": 69.64171528816223
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 1534,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 79.38911852737269,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 1534,
+        "precision": "float",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95"
+    },
+    "ternary-0.0": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-ternary-0.0/best.pt",
+      "sha256": "6a9d905b99b21786f47ab08ef84b4f1c56283af6f4dc23fe8eb0510157fec12d",
+      "step": 1534,
+      "precision": "ternary",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9482340216636658,
+            "ndcg10": 95.8847165107727,
+            "recall10": 0.9916002750396729
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9223579168319702,
+            "ndcg10": 93.85177493095398,
+            "recall10": 0.9885921478271484
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9761567711830139,
+            "ndcg10": 98.1831967830658,
+            "recall10": 0.9986720085144043
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9548051357269287,
+            "ndcg10": 96.48302793502808,
+            "recall10": 0.9956236481666565
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1830,
+            "documents": 1251,
+            "mrr": 0.6963176131248474,
+            "ndcg10": 72.83239960670471,
+            "recall10": 0.8431694507598877
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 1752,
+            "documents": 1751,
+            "mrr": 0.915104866027832,
+            "ndcg10": 92.31882095336914,
+            "recall10": 0.951483964920044
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8921442627906799,
+            "ndcg10": 91.98758602142334,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1625,
+            "documents": 1333,
+            "mrr": 0.7116292119026184,
+            "ndcg10": 75.32178163528442,
+            "recall10": 0.8984615206718445
+          }
+        },
+        "macro_ndcg10": 89.60791304707527,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 59.30519700050354,
+          "macro_accuracy": 59.29946303367615,
+          "by_label": {
+            "0": 59.94170904159546,
+            "1": 56.520336866378784,
+            "2": 61.4363431930542
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 1534,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 74.45368804037571,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 1534,
+        "precision": "ternary",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+    },
+    "ternary-0.1": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-ternary-0.1/best.pt",
+      "sha256": "8f0acb44504bc365f40bfb120174ffb211a5e8a2d7329497de9c4ed95f3ba19c",
+      "step": 1534,
+      "precision": "ternary",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9484817981719971,
+            "ndcg10": 95.89734673500061,
+            "recall10": 0.9913849234580994
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.9218243360519409,
+            "ndcg10": 93.80714297294617,
+            "recall10": 0.9883328676223755
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.9760714769363403,
+            "ndcg10": 98.13666939735413,
+            "recall10": 0.9973440170288086
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9548956751823425,
+            "ndcg10": 96.4945137500763,
+            "recall10": 0.9956236481666565
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1830,
+            "documents": 1251,
+            "mrr": 0.6962981820106506,
+            "ndcg10": 72.75105118751526,
+            "recall10": 0.8404371738433838
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 1752,
+            "documents": 1751,
+            "mrr": 0.9167268872261047,
+            "ndcg10": 92.44873523712158,
+            "recall10": 0.951483964920044
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8917819857597351,
+            "ndcg10": 91.96540117263794,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1625,
+            "documents": 1333,
+            "mrr": 0.706121027469635,
+            "ndcg10": 74.79429244995117,
+            "recall10": 0.8941538333892822
+          }
+        },
+        "macro_ndcg10": 89.5368941128254,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 66.19415879249573,
+          "macro_accuracy": 66.19738737742107,
+          "by_label": {
+            "0": 69.98056769371033,
+            "1": 62.13686466217041,
+            "2": 66.47472977638245
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 1534,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 77.86714074512324,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 1534,
+        "precision": "ternary",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+    },
+    "ternary-0.25": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/nli-aux-run/backups/nli-aux-ternary-0.25/best.pt",
+      "sha256": "2813c16eb81a9223e937a3aff49e1fb88afa11f544896a2852ef9c48a72c777a",
+      "step": 1534,
+      "precision": "ternary",
+      "layers": 2,
+      "eligible_for_promotion": true,
+      "validation": {
+        "by_source": {
+          "sentence-transformers/msmarco-bm25": {
+            "queries": 4643,
+            "documents": 4553,
+            "mrr": 0.9479290246963501,
+            "ndcg10": 95.86259722709656,
+            "recall10": 0.9916002750396729
+          },
+          "sentence-transformers/gooaq": {
+            "queries": 3857,
+            "documents": 3210,
+            "mrr": 0.923138439655304,
+            "ndcg10": 93.90833377838135,
+            "recall10": 0.9885921478271484
+          },
+          "sentence-transformers/natural-questions": {
+            "queries": 753,
+            "documents": 597,
+            "mrr": 0.971363365650177,
+            "ndcg10": 97.82284498214722,
+            "recall10": 0.9986720085144043
+          },
+          "sentence-transformers/squad": {
+            "queries": 457,
+            "documents": 114,
+            "mrr": 0.9526326656341553,
+            "ndcg10": 96.25288248062134,
+            "recall10": 0.9934354424476624
+          },
+          "sentence-transformers/stackexchange-duplicates": {
+            "queries": 1830,
+            "documents": 1251,
+            "mrr": 0.694675087928772,
+            "ndcg10": 72.66278266906738,
+            "recall10": 0.8415300846099854
+          },
+          "sentence-transformers/s2orc": {
+            "queries": 1752,
+            "documents": 1751,
+            "mrr": 0.9173732995986938,
+            "ndcg10": 92.42895841598511,
+            "recall10": 0.9492008686065674
+          },
+          "sentence-transformers/quora-duplicates": {
+            "queries": 1012,
+            "documents": 891,
+            "mrr": 0.8937088847160339,
+            "ndcg10": 92.10460186004639,
+            "recall10": 1.0
+          },
+          "sentence-transformers/all-nli": {
+            "queries": 1625,
+            "documents": 1333,
+            "mrr": 0.7011634707450867,
+            "ndcg10": 74.30426478385925,
+            "recall10": 0.88984614610672
+          }
+        },
+        "macro_ndcg10": 89.41840827465057,
+        "scope": "Each held source ranked against all held positives from that source",
+        "auxiliary_nli": {
+          "accuracy": 68.34192276000977,
+          "macro_accuracy": 68.34350029627483,
+          "by_label": {
+            "0": 71.34067416191101,
+            "1": 64.79986906051636,
+            "2": 68.8899576663971
+          },
+          "examples": 18624,
+          "scope": "Disjoint official human-NLI dev labels; disposable classifier, not an embedding test benchmark"
+        },
+        "step": 1534,
+        "source_floor_passed": true,
+        "auxiliary_floor_passed": true,
+        "selection_score": 78.8809542854627,
+        "growth_alpha": 1.0,
+        "export_eligible": true
+      },
+      "completion": {
+        "step": 1534,
+        "precision": "ternary",
+        "layers": 2
+      },
+      "initial_checkpoint_sha256": "9edcc8f9a044fc7c06effea46d51af2263256dfa1745b7de5fbdde9b25622315"
+    }
+  }
+}

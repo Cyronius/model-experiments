@@ -1,0 +1,36 @@
+{
+  "parameter_count": 15467520,
+  "models": {
+    "float": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/data-first/float.pt",
+      "sha256": "2a0fbcb6c8711fdb34c278890911377f321c5d173f72c5a89cb0e1c16ac901a9",
+      "selected_step": 9000,
+      "loader": "Student.load",
+      "experimental": true
+    },
+    "ternary": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/data-first/ternary.pt",
+      "sha256": "be60d47681d63a71c6c64412337d4a1ef7099065245e08eb5b425624a081d7b6",
+      "selected_step": 12206,
+      "loader": "Student.load",
+      "experimental": true
+    },
+    "q4": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/data-first/q4.pt",
+      "sha256": "3be3a3b7b698229a97ea95b0f1280d6f3d5d220dcc122c165a141f9962f4ab0e",
+      "bytes": 49610957,
+      "loader": "export_pair_precision.load_reference",
+      "scope": "Packed accuracy/reference artifact; native low-bit runtime not validated",
+      "experimental": true
+    },
+    "q8": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/data-first/q8.pt",
+      "sha256": "3fcd29efdf2add6f2f7f1126140ec920bcf9a09405d1240854b1cd87c3873ae4",
+      "bytes": 51380429,
+      "loader": "export_pair_precision.load_reference",
+      "scope": "Packed accuracy/reference artifact; native low-bit runtime not validated",
+      "experimental": true
+    }
+  },
+  "default_deployment_changed": false
+}

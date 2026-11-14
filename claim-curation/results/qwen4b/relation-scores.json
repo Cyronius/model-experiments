@@ -1,0 +1,100 @@
+{
+  "correct": 10,
+  "total": 10,
+  "valid": 10,
+  "contradiction_true_positives": 3,
+  "contradiction_predictions": 3,
+  "contradictions_in_gold": 3,
+  "pairs": [
+    {
+      "id": "same-run-different-result",
+      "synthetic": true,
+      "expected": "contradicts",
+      "actual": "contradicts",
+      "reason": "The same run with identical conditions reports incompatible outcomes for the same 20 repetitions.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "different-workload",
+      "synthetic": false,
+      "expected": "different_scope",
+      "actual": "different_scope",
+      "reason": "The claims refer to different worker types and test contexts (Granite attention vs. LLMNpuTest GEMV and elementwise), indicating different scopes and workloads.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "different-versions",
+      "synthetic": true,
+      "expected": "different_scope",
+      "actual": "different_scope",
+      "reason": "The claims refer to different compiler versions (1.2 vs. 1.3) and different outcomes (worked vs. hung), so they operate within different scopes of configuration and behavior.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "unit-equivalence",
+      "synthetic": true,
+      "expected": "supports",
+      "actual": "supports",
+      "reason": "64 KiB is equivalent to 65536 bytes, as 1 KiB = 1024 bytes, and 64 \u00d7 1024 = 65536.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "unknown-scope",
+      "synthetic": true,
+      "expected": "insufficient_information",
+      "actual": "insufficient_information",
+      "reason": "The claims differ in subject (general worker vs. Granite attention workers) and lack information about workload, compiler version, or whether the stack 0x1800 is the same, making it impossible to determine if they are compatible or contradictory.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "same-run-timing",
+      "synthetic": true,
+      "expected": "contradicts",
+      "actual": "contradicts",
+      "reason": "The same run (T4) and the same path (classic ROT13) have incompatible measured values (0.602 ms vs. 0.447 ms).",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "different-paths",
+      "synthetic": false,
+      "expected": "different_scope",
+      "actual": "different_scope",
+      "reason": "The claims refer to different paths (classic ROT13 vs. ELF ROT13), which may have different implementations and performance characteristics.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "partial-versus-universal",
+      "synthetic": true,
+      "expected": "contradicts",
+      "actual": "contradicts",
+      "reason": "Both claims refer to the same run (V9) and the same set of tested inputs, but Claim A states all inputs produced finite results, while Claim B states at least one produced NaN, which is incompatible.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "untested-not-failed",
+      "synthetic": true,
+      "expected": "insufficient_information",
+      "actual": "insufficient_information",
+      "reason": "Claim A states that Compiler 1.3 was not tested, while Claim B states it fails; however, failure implies testing occurred. The absence of testing in Claim A contradicts the implication of failure in Claim B, but without explicit confirmation of testing or failure conditions, the relationship cannot be definitively established.",
+      "valid": true,
+      "correct": true
+    },
+    {
+      "id": "table-paraphrase",
+      "synthetic": false,
+      "expected": "supports",
+      "actual": "supports",
+      "reason": "Both claims describe the same behavior: stack 0x3000 works and stack 0x1800 returns NaN from position 4 onward, with equivalent wording and meaning.",
+      "valid": true,
+      "correct": true
+    }
+  ]
+}

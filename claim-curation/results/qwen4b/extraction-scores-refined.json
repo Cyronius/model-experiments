@@ -1,0 +1,787 @@
+{
+  "totals": {
+    "passages": 12,
+    "schema_valid_passages": 10,
+    "claims": 35,
+    "verbatim_cited_claims": 26,
+    "gold_anchors": 33,
+    "anchor_matches": 26,
+    "scoped_anchor_matches": 26,
+    "scoped_and_cited_matches": 17,
+    "empty_control_passages": 1,
+    "empty_control_correct": 1,
+    "claims_on_empty_control": 0,
+    "truncated_passages": 0,
+    "possible_compound_claims": 5
+  },
+  "passages": [
+    {
+      "id": "core-dma",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 312,
+      "truncated": false,
+      "claims": 5,
+      "targets": [
+        {
+          "id": "two-inputs",
+          "patterns": [
+            "(?:core|compute.?tile)",
+            "(?:2|two).{0,15}input"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-adcf49a361f860f47f40",
+            "C-3d9cb66c8bac40111dd9",
+            "C-165a6a0ce06ab09dd226"
+          ],
+          "scoped_claims": [
+            "C-adcf49a361f860f47f40",
+            "C-3d9cb66c8bac40111dd9",
+            "C-165a6a0ce06ab09dd226"
+          ],
+          "scoped_and_cited_claims": [
+            "C-adcf49a361f860f47f40",
+            "C-3d9cb66c8bac40111dd9",
+            "C-165a6a0ce06ab09dd226"
+          ]
+        },
+        {
+          "id": "two-outputs",
+          "patterns": [
+            "(?:core|compute.?tile)",
+            "(?:2|two).{0,15}output"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-adcf49a361f860f47f40",
+            "C-3d9cb66c8bac40111dd9",
+            "C-165a6a0ce06ab09dd226"
+          ],
+          "scoped_claims": [
+            "C-adcf49a361f860f47f40",
+            "C-3d9cb66c8bac40111dd9",
+            "C-165a6a0ce06ab09dd226"
+          ],
+          "scoped_and_cited_claims": [
+            "C-adcf49a361f860f47f40",
+            "C-3d9cb66c8bac40111dd9",
+            "C-165a6a0ce06ab09dd226"
+          ]
+        },
+        {
+          "id": "third-input",
+          "patterns": [
+            "(?:third|3).{0,25}input|input.{0,25}(?:third|3)",
+            "cannot|can't|not |unavailable|only"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-165a6a0ce06ab09dd226",
+            "C-cc1bd2b80254246bff04"
+          ],
+          "scoped_claims": [
+            "C-165a6a0ce06ab09dd226",
+            "C-cc1bd2b80254246bff04"
+          ],
+          "scoped_and_cited_claims": [
+            "C-165a6a0ce06ab09dd226",
+            "C-cc1bd2b80254246bff04"
+          ]
+        }
+      ],
+      "possible_compound_claims": [
+        {
+          "claim_id": "C-adcf49a361f860f47f40",
+          "anchors": [
+            "two-inputs",
+            "two-outputs"
+          ]
+        },
+        {
+          "claim_id": "C-3d9cb66c8bac40111dd9",
+          "anchors": [
+            "two-inputs",
+            "two-outputs"
+          ]
+        },
+        {
+          "claim_id": "C-165a6a0ce06ab09dd226",
+          "anchors": [
+            "two-inputs",
+            "two-outputs",
+            "third-input"
+          ]
+        }
+      ],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "shim-wrap",
+      "synthetic": false,
+      "schema_errors": [
+        "Extra data: line 1 column 1177 (char 1176)"
+      ],
+      "output_tokens": 344,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "wrap-64",
+          "patterns": [
+            "(?:outermost|outer).{0,30}dimension|dimension.{0,20}(?:outermost|outer)",
+            "wrap",
+            "64"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "split-hang",
+          "patterns": [
+            "split|several fills",
+            "hung|hang"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "middle-dimension",
+          "patterns": [
+            "(?:large|count)",
+            "middle",
+            "dimension"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "granite-stack",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 139,
+      "truncated": false,
+      "claims": 2,
+      "targets": [
+        {
+          "id": "granite-nan",
+          "patterns": [
+            "0x1800",
+            "nan"
+          ],
+          "scope_patterns": [
+            "granite",
+            "(?:pos|position).{0,12}(?:>=|\u2265|at least|4|four)"
+          ],
+          "matched_claims": [
+            "C-15106b16f687cf0115b7"
+          ],
+          "scoped_claims": [
+            "C-15106b16f687cf0115b7"
+          ],
+          "scoped_and_cited_claims": [
+            "C-15106b16f687cf0115b7"
+          ]
+        },
+        {
+          "id": "granite-working",
+          "patterns": [
+            "0x3000",
+            "\\bwork(?:s|ed|ing)?\\b|succeed|correct|resolve"
+          ],
+          "scope_patterns": [
+            "granite"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "tree-spill",
+          "patterns": [
+            "unrolled",
+            "tree",
+            "spill"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-a5c761d53036235eee62"
+          ],
+          "scoped_claims": [
+            "C-a5c761d53036235eee62"
+          ],
+          "scoped_and_cited_claims": [
+            "C-a5c761d53036235eee62"
+          ]
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "softmax-stack",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 207,
+      "truncated": false,
+      "claims": 2,
+      "targets": [
+        {
+          "id": "five-kb-frame",
+          "patterns": [
+            "5\\s*(?:kb|kilobyte)",
+            "frame"
+          ],
+          "scope_patterns": [
+            "four|4",
+            "exponential"
+          ],
+          "matched_claims": [
+            "C-e258dfbb4df1fa97a827"
+          ],
+          "scoped_claims": [
+            "C-e258dfbb4df1fa97a827"
+          ],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "four-kb-fault",
+          "patterns": [
+            "4\\s*(?:kb|kilobyte)",
+            "hang|hung|nan"
+          ],
+          "scope_patterns": [
+            "softmax|attn_fa"
+          ],
+          "matched_claims": [
+            "C-e258dfbb4df1fa97a827"
+          ],
+          "scoped_claims": [
+            "C-e258dfbb4df1fa97a827"
+          ],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "softmax-working",
+          "patterns": [
+            "0x2000",
+            "\\bwork(?:s|ed|ing)?\\b|succeed|resolve"
+          ],
+          "scope_patterns": [
+            "softmax|attn_fa"
+          ],
+          "matched_claims": [
+            "C-29223bc91c1e73d19788"
+          ],
+          "scoped_claims": [
+            "C-29223bc91c1e73d19788"
+          ],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [
+        {
+          "claim_id": "C-e258dfbb4df1fa97a827",
+          "anchors": [
+            "five-kb-frame",
+            "four-kb-fault"
+          ]
+        }
+      ],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "transfer-size",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 473,
+      "truncated": false,
+      "claims": 5,
+      "targets": [
+        {
+          "id": "small-transfer-zero",
+          "patterns": [
+            "128",
+            "(?:transfer|shim)",
+            "zero|empty"
+          ],
+          "scope_patterns": [
+            "attention|128"
+          ],
+          "matched_claims": [
+            "C-4f63a65829d359669af7"
+          ],
+          "scoped_claims": [
+            "C-4f63a65829d359669af7"
+          ],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "padding-fix",
+          "patterns": [
+            "1024",
+            "pad",
+            "fix|resolve|correct"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-830a8e72bccf820a6efa"
+          ],
+          "scoped_claims": [
+            "C-830a8e72bccf820a6efa"
+          ],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "gemv-exception",
+          "patterns": [
+            "gemv",
+            "exact|correct|\\bwork(?:s|ed|ing)?\\b"
+          ],
+          "scope_patterns": [
+            "(?:whole|entire|full).{0,20}drain"
+          ],
+          "matched_claims": [
+            "C-df13a721d93dacea937d"
+          ],
+          "scoped_claims": [
+            "C-df13a721d93dacea937d"
+          ],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "transfer-not-element",
+          "patterns": [
+            "transfer",
+            "(?:not|rather than).{0,40}(?:element|objectfifo)"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-df13a721d93dacea937d"
+          ],
+          "scoped_claims": [
+            "C-df13a721d93dacea937d"
+          ],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [
+        {
+          "claim_id": "C-df13a721d93dacea937d",
+          "anchors": [
+            "gemv-exception",
+            "transfer-not-element"
+          ]
+        }
+      ],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "l1-budget",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 335,
+      "truncated": false,
+      "claims": 6,
+      "targets": [
+        {
+          "id": "budget",
+          "patterns": [
+            "62208",
+            "budget|available|memory|64\\s*kb"
+          ],
+          "scope_patterns": [
+            "0xd00"
+          ],
+          "matched_claims": [
+            "C-c7016f086667efb7284b"
+          ],
+          "scoped_claims": [
+            "C-c7016f086667efb7284b"
+          ],
+          "scoped_and_cited_claims": [
+            "C-c7016f086667efb7284b"
+          ]
+        },
+        {
+          "id": "batch-fit",
+          "patterns": [
+            "61952",
+            "built|ran|fit|\\bwork(?:s|ed|ing)?\\b|succeed"
+          ],
+          "scope_patterns": [
+            "batch.{0,5}2"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "wrong-rule",
+          "patterns": [
+            "61184|63\\s*kb",
+            "reject|incorrect|wrong|would"
+          ],
+          "scope_patterns": [
+            "rule|budget"
+          ],
+          "matched_claims": [
+            "C-63fafa85af826d0c00b6"
+          ],
+          "scoped_claims": [
+            "C-63fafa85af826d0c00b6"
+          ],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "rot13",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 231,
+      "truncated": false,
+      "claims": 5,
+      "targets": [
+        {
+          "id": "classic-time",
+          "patterns": [
+            "classic",
+            "0[.]602"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-1279c317670c0fee9fae"
+          ],
+          "scoped_claims": [
+            "C-1279c317670c0fee9fae"
+          ],
+          "scoped_and_cited_claims": [
+            "C-1279c317670c0fee9fae"
+          ]
+        },
+        {
+          "id": "elf-time",
+          "patterns": [
+            "elf",
+            "0[.]447"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-c4155ed67fadcdbbce77"
+          ],
+          "scoped_claims": [
+            "C-c4155ed67fadcdbbce77"
+          ],
+          "scoped_and_cited_claims": [
+            "C-c4155ed67fadcdbbce77"
+          ]
+        },
+        {
+          "id": "state-complete",
+          "patterns": [
+            "state.{0,6}4|4.{0,12}state",
+            "complet"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-fb2fb3dfe4aabdf14d0d"
+          ],
+          "scoped_claims": [
+            "C-fb2fb3dfe4aabdf14d0d"
+          ],
+          "scoped_and_cited_claims": [
+            "C-fb2fb3dfe4aabdf14d0d"
+          ]
+        },
+        {
+          "id": "byte-exact",
+          "patterns": [
+            "byte.exact"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-6a7484b2bad050d23754"
+          ],
+          "scoped_claims": [
+            "C-6a7484b2bad050d23754"
+          ],
+          "scoped_and_cited_claims": [
+            "C-6a7484b2bad050d23754"
+          ]
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "softmax-mask",
+      "synthetic": false,
+      "schema_errors": [
+        "Extra data: line 1 column 423 (char 422)"
+      ],
+      "output_tokens": 122,
+      "truncated": false,
+      "claims": 0,
+      "targets": [
+        {
+          "id": "lowest",
+          "patterns": [
+            "softmax|mask",
+            "bf16|bfloat16",
+            "lowest"
+          ],
+          "scope_patterns": [
+            "mask"
+          ],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "avoid-infinity",
+          "patterns": [
+            "-inf|negative infinity",
+            "finite|not|avoid|cannot|should"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [],
+          "scoped_claims": [],
+          "scoped_and_cited_claims": []
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": true
+    },
+    {
+      "id": "rounding",
+      "synthetic": false,
+      "schema_errors": [],
+      "output_tokens": 337,
+      "truncated": false,
+      "claims": 4,
+      "targets": [
+        {
+          "id": "default-floor",
+          "patterns": [
+            "floor",
+            "start|default"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-e87acbf3b299e2b2bf2e"
+          ],
+          "scoped_claims": [
+            "C-e87acbf3b299e2b2bf2e"
+          ],
+          "scoped_and_cited_claims": [
+            "C-e87acbf3b299e2b2bf2e"
+          ]
+        },
+        {
+          "id": "first-dispatch",
+          "patterns": [
+            "first.{0,35}dispatch",
+            "(?:2x|twice|2 times)|1[.]8e-4"
+          ],
+          "scope_patterns": [
+            "context|load"
+          ],
+          "matched_claims": [
+            "C-93ec2f14ac09d37ee8b1"
+          ],
+          "scoped_claims": [
+            "C-93ec2f14ac09d37ee8b1"
+          ],
+          "scoped_and_cited_claims": []
+        },
+        {
+          "id": "rounding-fix",
+          "patterns": [
+            "rounding",
+            "first",
+            "every|each"
+          ],
+          "scope_patterns": [
+            "kernel|dispatch"
+          ],
+          "matched_claims": [
+            "C-5b4b0d23d857beb47c95"
+          ],
+          "scoped_claims": [
+            "C-5b4b0d23d857beb47c95"
+          ],
+          "scoped_and_cited_claims": [
+            "C-5b4b0d23d857beb47c95"
+          ]
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "synthetic-negation",
+      "synthetic": true,
+      "schema_errors": [],
+      "output_tokens": 139,
+      "truncated": false,
+      "claims": 3,
+      "targets": [
+        {
+          "id": "ash-latency",
+          "patterns": [
+            "ash",
+            "7\\s*ms"
+          ],
+          "scope_patterns": [
+            "cedar",
+            "1[.]2",
+            "batch.{0,5}2"
+          ],
+          "matched_claims": [
+            "C-1fb5929bea89749e835a"
+          ],
+          "scoped_claims": [
+            "C-1fb5929bea89749e835a"
+          ],
+          "scoped_and_cited_claims": [
+            "C-1fb5929bea89749e835a"
+          ]
+        },
+        {
+          "id": "firmware-unknown",
+          "patterns": [
+            "firmware",
+            "not.{0,20}recorded|unknown|unspecified"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-bf8537632869d6bffac1"
+          ],
+          "scoped_claims": [
+            "C-bf8537632869d6bffac1"
+          ],
+          "scoped_and_cited_claims": [
+            "C-bf8537632869d6bffac1"
+          ]
+        },
+        {
+          "id": "batch-limitation",
+          "patterns": [
+            "(?:not|cannot|unknown|unestablished)",
+            "other.{0,15}batch|batch.{0,15}(?:other|sizes)"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-9a669d03a96569afc647"
+          ],
+          "scoped_claims": [
+            "C-9a669d03a96569afc647"
+          ],
+          "scoped_and_cited_claims": [
+            "C-9a669d03a96569afc647"
+          ]
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    },
+    {
+      "id": "synthetic-questions",
+      "synthetic": true,
+      "schema_errors": [],
+      "output_tokens": 5,
+      "truncated": false,
+      "claims": 0,
+      "targets": [],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": true,
+      "empty_actual": true
+    },
+    {
+      "id": "synthetic-version-scope",
+      "synthetic": true,
+      "schema_errors": [],
+      "output_tokens": 159,
+      "truncated": false,
+      "claims": 3,
+      "targets": [
+        {
+          "id": "version-only",
+          "patterns": [
+            "0x1800",
+            "sufficient|\\bwork(?:s|ed|ing)?\\b"
+          ],
+          "scope_patterns": [
+            "birch",
+            "only",
+            "1[.]2"
+          ],
+          "matched_claims": [
+            "C-45349410a2bfb2289cb9"
+          ],
+          "scoped_claims": [
+            "C-45349410a2bfb2289cb9"
+          ],
+          "scoped_and_cited_claims": [
+            "C-45349410a2bfb2289cb9"
+          ]
+        },
+        {
+          "id": "version-untested",
+          "patterns": [
+            "1[.]3",
+            "not.{0,20}test|untested"
+          ],
+          "scope_patterns": [],
+          "matched_claims": [
+            "C-e67149d0e67ac3187b74"
+          ],
+          "scoped_claims": [
+            "C-e67149d0e67ac3187b74"
+          ],
+          "scoped_and_cited_claims": [
+            "C-e67149d0e67ac3187b74"
+          ]
+        }
+      ],
+      "possible_compound_claims": [],
+      "annotation_present": true,
+      "empty_expected": false,
+      "empty_actual": false
+    }
+  ]
+}

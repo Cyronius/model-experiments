@@ -1,0 +1,42 @@
+{
+  "folder": "probe_loops",
+  "earlier": [
+    "probe_loops_control",
+    "probe_loops_fold",
+    "probe_loops_order",
+    "probe_loops_track",
+    "probe_loops_sample",
+    "probe_loops_sample_fold"
+  ],
+  "generate": {
+    "arms": {},
+    "prompts": "probe_prompts_48.json",
+    "count": 48
+  },
+  "loop": {
+    "window": 20,
+    "last": 1000,
+    "threshold": 0.45
+  },
+  "pods": {
+    "control": "heal_probe_loops_control_rules.json",
+    "fold": "heal_probe_loops_fold_rules.json",
+    "order": "heal_probe_loops_order_rules.json",
+    "track": "heal_probe_loops_track_rules.json",
+    "sample": "heal_probe_loops_sample_rules.json",
+    "sample_fold": "heal_probe_loops_sample_fold_rules.json"
+  },
+  "design": "The user (2026-10-30), after a quarter of the fold lowered KL by 0.015 and looped in 4 of 16 (section 13): keep pursuing this line, see if the looping can be eliminated, run several experiments in parallel. Six pods, each with the healed student, its learned routers and the 25% budget, no training, greedy generations unless sampled, all on 48 GSM8K test prompts the student has never been generated on (rows 16-63; healing used the train split). control: the student alone. fold: section 13's fold at strengths 0.1-0.3, generating at the strength with the lowest KL. order: the fold fitted layer by layer in order, each layer on the inputs of the student folded before it (rules' named next step); strengths 0.125-1, generating at the lowest KL. track: also in order, but each layer's fold predicts the gap between the every-neuron student's layer output and the routed student's, so it makes up for drift from the layers before as well as what this layer skips; same strengths and choice. sample: the student alone with the model card's recommended sampling (temperature 1, top-p 0.95, top-k 20, presence penalty 1.5), which Qwen recommends over greedy decoding because greedy can repeat endlessly. sample_fold: a quarter of the fold with that sampling.",
+  "reading": "Out of 48: clean is at most 3 loops (the every-neuron student looped in 0 of 16), looping at least 10. A fold arm reduces loops if a one-sided Fisher exact test against control gives p < 0.05; the sampled arms are compared with each other the same way. Eliminated means clean and at least 40 of 48 finished (every neuron finished 14 of 16). A greedy fold arm eliminates the loops: next is making that fold part of the model (fitted before healing, or trained by it) and checking it with sampling. Folds reduce loops but do not eliminate them: next is healing from the best fold, which needs a separate budget decision. No fold reduces loops: the fold line ends, and the next options are a bigger shared expert or on-policy distillation. Sampled control clean: the loops are mostly a greedy-decoding effect, and further work is judged on sampled generations as well.",
+  "predictions": {
+    "reproduce": "In every pod, the learned student reproduces the healing run's last milestone: KL within 0.01 of 0.612 and 64K bits per byte within 1% of 0.734; fold and sample_fold reproduce a quarter of the fold at KL 0.597 within 0.005.",
+    "control_loops": "The learned student loops in at least 15 of the 48 (it looped in 7-8 of 16 in sections 9-13).",
+    "fold_best": "The best strength is between 0.15 and 0.25, and its KL is within 0.005 of 0.597.",
+    "fold_loops": "The best global fold loops in more than half as many prompts as control: a KL gain of 0.015 does not halve the loops, so section 13's 4 of 16 was partly luck.",
+    "order_strength": "Fitted in order, the fold's best strength is at least 0.5 and its KL is below the global fold's best: overshoot came from layers fitted alone.",
+    "track_kl": "The tracking fold's best KL is below 0.58, the lowest of the three folds.",
+    "fold_eliminates": "No greedy fold arm is clean.",
+    "sample_loops": "With the recommended sampling, the learned student loops in at most 5 of 48, but finishes fewer than 40: the presence penalty breaks exact repeats, not the drift.",
+    "sample_fold": "With sampling, the quarter fold finishes at least as many as the learned student."
+  }
+}

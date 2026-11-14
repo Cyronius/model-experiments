@@ -1,0 +1,88 @@
+{
+  "architectures": [
+    "qwen35",
+    "smollm2"
+  ],
+  "arms": [
+    "corrected",
+    "legacy"
+  ],
+  "steps_per_arm": 32,
+  "conversations_per_step": 2,
+  "passes": 1,
+  "lr": 2e-05,
+  "warmup_updates": 2,
+  "optimizer": "AdamW, betas=(0.9,0.95), weight_decay=0, clip_grad_norm=1",
+  "objective": "full-vocabulary forward KL + 0.1 * hard-target CE, final assistant tokens including EOS only",
+  "precision": "FP32 parameters, BF16 CPU autocast training, FP32 evaluation",
+  "legacy_control": "same adapter capacity and projected body; diagonal(old-scale) initialization only",
+  "evaluation": "12 held-out corpus conversations, 16 full-generation cases; greedy/thinking off/no repetition penalty/512 new tokens",
+  "loop_flag": ">=40 words and repeated four-gram fraction >0.20; diagnostic, not a proof of looping",
+  "selection": "use final fixed-budget checkpoint; no tuning or selection using held-out results",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "data_counts": {
+    "qwen35": {
+      "train": {
+        "rows": 64,
+        "input_tokens": 14021,
+        "assistant_tokens": 7870,
+        "ending_tokens": 64
+      },
+      "validation": {
+        "rows": 12,
+        "input_tokens": 3057,
+        "assistant_tokens": 1806,
+        "ending_tokens": 12
+      }
+    },
+    "smollm2": {
+      "train": {
+        "rows": 64,
+        "input_tokens": 15512,
+        "assistant_tokens": 8072,
+        "ending_tokens": 64
+      },
+      "validation": {
+        "rows": 12,
+        "input_tokens": 3346,
+        "assistant_tokens": 1847,
+        "ending_tokens": 12
+      }
+    }
+  },
+  "source_dataset": "https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k",
+  "source_revision": "8049631c405ae6576f93f445c6b8166f76f5505a",
+  "scope": "small recovery pilot, not broad quality parity or a definitive test of recoverability",
+  "threads_per_training_process": 8,
+  "execution": "two matched arms concurrently on local CPU; no paid resources",
+  "generation_case_order": [
+    "json",
+    "copy",
+    "multiply",
+    "sort",
+    "units",
+    "logic",
+    "multi-memory",
+    "multi-edit",
+    "five-lines",
+    "poem",
+    "summary",
+    "alias",
+    "ice",
+    "interview",
+    "dog",
+    "hash-table"
+  ],
+  "generation_grouping": "fixed anticipated answer lengths, selected before generation",
+  "additional_reference": "Recovered Qwen 500M-token checkpoint on identical generation cases; not a matched training arm",
+  "script_sha256": {
+    "healing_pilot.py": "aac34341591e8c0fe2e20c33d21119a1d78ea04b1883de797478e3c757d4931e",
+    "healing_data.py": "75d53c1d1cde12f5d6416f983f782fca5e2ae63601d6121ebcca91aa910061cc",
+    "projection_models.py": "c30778bb4450d01557180de16e170baeb94924cb923e8bd4f5cb2b66379946ad"
+  },
+  "scoring_amendment": {
+    "revision": 2,
+    "reason": "Stock baseline exposed casing-only false failures for Yes and Teal; those prompts did not require lowercase. Case-insensitive matching applies to logic and multi-memory only, uniformly to all arms. Code copying remains case sensitive.",
+    "timing": "after stock generation began; before candidate generations were viewed; training data, loss, and budgets unchanged"
+  }
+}

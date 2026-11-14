@@ -1,0 +1,201 @@
+{
+  "cases": [
+    {
+      "id": "cp-dev-add_subtract-0",
+      "family": "math_add_subtract",
+      "answer": "11",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-multiply-0",
+      "family": "math_multiply",
+      "answer": "459",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-divide-0",
+      "family": "math_divide",
+      "answer": "72",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-fraction-0",
+      "family": "math_fraction",
+      "answer": "11/18",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 6,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-percent-0",
+      "family": "math_percent",
+      "answer": "130",
+      "grade": {
+        "correct": true,
+        "format_pass": true,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-equation-0",
+      "family": "math_equation",
+      "answer": "-10",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-remainder-0",
+      "family": "math_remainder",
+      "answer": "2",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cp-dev-multi_step-0",
+      "family": "math_multi_step",
+      "answer": "115",
+      "grade": {
+        "correct": false,
+        "format_pass": false,
+        "parsed": true
+      },
+      "max_new_tokens": 256,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cdev-product",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(values):\n    if not values:\n        return []\n    result = []\n    current = 1\n    for value in values:\n        current *= value\n        result.append(current)\n    return result\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 4,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 54,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cdev-palindrome",
+      "family": "code_generation",
+      "answer": "```python\ndef main_solution(text):\n    return text == text[::-1]\n```",
+      "grade": {
+        "correct": true,
+        "syntax_pass": true,
+        "passed_tests": 4,
+        "tests": 4
+      },
+      "max_new_tokens": 512,
+      "ended": true,
+      "generated_tokens": 20,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cscience-compass",
+      "family": "explanation",
+      "answer": "A freely turning compass needle points north because it aligns itself with the Earth's **magnetic field lines**.\n\nThe Earth acts like a giant magnet with a magnetic pole at the geographic North Pole (which is actually a magnetic south pole) and a magnetic pole at the geographic South Pole (which is actually a magnetic north pole). The compass needle is a small magnet that experiences a torque when placed in a magnetic field, causing it to rotate until its north pole points toward the Earth's magnetic south pole. Since the Earth's magnetic south pole is located near the geographic North Pole, the needle naturally aligns with the north direction.",
+      "grade": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 127,
+      "repeated_4gram_fraction": 0.1009174311926605,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "cscience-mirage",
+      "family": "explanation",
+      "answer": "This phenomenon occurs due to **refraction**.\n\nWhen sunlight hits the hot asphalt, the surface heats up and becomes less dense than the cooler air above it. This creates a layer of hot air that is optically thinner than the surrounding cooler air. As light rays from the distant patch of water travel through this layer of hot air before reaching the observer's eye, they bend (refract) toward the normal. This bending makes the light rays appear to originate from a point lower in the sky than their actual position, creating the illusion that the water is located on the road surface.",
+      "grade": null,
+      "max_new_tokens": 1024,
+      "ended": true,
+      "generated_tokens": 118,
+      "repeated_4gram_fraction": 0.010101010101010055,
+      "loop_flag": false,
+      "combined_loop_flag": false
+    }
+  ],
+  "summary": {
+    "closed_correct": 2,
+    "closed_total": 8,
+    "programs_correct": 2,
+    "programs_total": 2,
+    "syntax_pass": 2,
+    "ended": 12,
+    "capped": 0,
+    "loop_flags": 0,
+    "word_loop_flags": 0
+  }
+}

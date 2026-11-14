@@ -1,0 +1,51 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/campaign-20261025/model-float.pt",
+    "sha256": "dcc555d9776cdda449c0e243bf1b4b697686e7973151c2d3774f50ed8ac1645c",
+    "precision": "float",
+    "layers": 3,
+    "eligible_for_promotion": false,
+    "child_fraction": 0.5,
+    "note": "Development blend; no new training or paid resource.",
+    "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/final-float-blends/results/summary.json",
+    "source_arm": "float-50",
+    "source_summary_sha256": "42bf49a54d7b033dc37cac378b8148846b48820cd790e816592459f0141e404b",
+    "bytes": 68984193,
+    "parameters": 17241984,
+    "additional_query_parameters": 0,
+    "query_head": false
+  },
+  "token_cap": 128,
+  "query_instructions": false,
+  "scope": "Previously opened FiQA/SCIDOCS development judgments",
+  "tasks": {
+    "FiQA": {
+      "ndcg10": 26.814834284517907,
+      "recall10": 33.34233496270534,
+      "top1_relevant_queries": 163,
+      "median_first_relevant_rank": 9.0,
+      "median_best_relevant_margin": -0.058184683322906494,
+      "queries": 648,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+        "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+        "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+      }
+    },
+    "SCIDOCS": {
+      "ndcg10": 17.73963022012747,
+      "recall10": 18.451666666666668,
+      "top1_relevant_queries": 213,
+      "median_first_relevant_rank": 8.0,
+      "median_best_relevant_margin": -0.07023307681083679,
+      "queries": 1000,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+        "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+        "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+      }
+    }
+  }
+}

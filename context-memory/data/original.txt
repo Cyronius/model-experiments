@@ -1,0 +1,114 @@
+
+===== findings/F-0006-program-memory-16kb.md =====
+---
+id: F-0006
+evidence: measured
+last_verified: 2026-09-03
+stack: mlir-aie 1.4.2, Peano, XRT master, NPU driver version not recorded
+sources: [phlegm-open-kernels, raw/phlegm/2026-09-03-open-kernels-notes.md, raw/phlegm/2026-09-02-array-resource-limits-dma-l1-program-memory.md, S-am027-aie-ml-v2-tile, S-mlir-aie-target-model, raw/LLMNpuTest/2026-09-01-dma-l1-program-memory-limits-and-silent-faults.md, raw/OpenFlowLM-Next3/2026-10-19-oflm-core-memory-arithmetic-and-compiler-traps.md]
+---
+
+# F-0006: program-memory-16kb
+
+**Claim:** Core program memory is 16 KB. Python-unrolled loops, per-K template copies, and static per-TU copies of shared kernel bodies overflow it (`XAIE_INVALID_ELF`).
+
+**What to do:** Use `range_`, pass K at runtime, mark shared bodies `inline` + `noinline`, build with `-Os`.
+
+**Where it was found:** phlegm open_kernels/designs (commit history to 2026-09-03).
+
+
+===== findings/F-0009-worker-stack-size.md =====
+---
+id: F-0009
+evidence: measured
+last_verified: 2026-09-02
+stack: mlir-aie 1.4.2, Peano, XRT master, NPU driver version not recorded
+sources: [phlegm-open-kernels, raw/phlegm/2026-09-03-open-kernels-notes.md, raw/phlegm/2026-09-26-aie2p-arithmetic-and-stack-traps.md]
+---
+
+# F-0009: worker-stack-size
+
+**Claim:** A worker stack of 0xD00 hangs with fp32 vector code. 0x1800 works.
+
+**What to do:** Set the stack to at least 0x1800 for fp32 vector kernels.
+
+**Where it was found:** phlegm open_kernels/designs (commit history to 2026-09-03).
+
+**Disputed:** Q-0028: LLMNpuTest GEMV and elementwise workers ran at 0xD00, and Granite attention workers read NaN at 0x1800 and needed 0x3000 (raw/LLMNpuTest/2026-09-01-dma-l1-program-memory-limits-and-silent-faults.md, raw/OpenFlowLM-Next3/2026-10-19-oflm-iron-peano-aiecc-dma-traps-and-hangs.md).
+
+
+===== findings/F-0014-aie-api-pitfalls.md =====
+---
+id: F-0014
+evidence: measured
+last_verified: 2026-09-02
+stack: mlir-aie 1.4.2, Peano, XRT master, NPU driver version not recorded
+sources: [phlegm-open-kernels, raw/phlegm/2026-09-03-open-kernels-notes.md]
+---
+
+# F-0014: aie-api-pitfalls
+
+**Claim:** On device: aie_api int32->float `to_float` on 16 lanes gives NaN. int16 `bit_and` scalarises. `get_cycles()` is unlinkable under Peano. Static vars in core code are not zeroed.
+
+**What to do:** Mask through a uint8 view. Zero statics yourself. Avoid `get_cycles()`.
+
+**Where it was found:** phlegm open_kernels/designs (commit history to 2026-09-03).
+
+
+===== findings/F-0038-elf-vs-classic-load.md =====
+---
+id: F-0038
+evidence: measured
+last_verified: 2026-09-02
+stack: XRT runtime 32.00.20102.3931 (FLM drive work), XRT master 2.26.0 xclbinutil/aiebu-asm, mlir-aie 1.4.2, Peano 21.0.0; driver and firmware not stated
+sources: [raw/phlegm/2026-09-02-instruction-stream-ddr-patch-and-kernel-abi.md, raw/fastflowlm/2026-09-02-oflm-kernel-measurements-and-requirements.md]
+---
+
+# F-0038: elf-vs-classic-load
+
+**Claim:** ROT13 on one xclbin completed with state 4 on both load paths, the classic mlir-aie flow in 0.602 ms and the `xrt::elf` flow in 0.447 ms, with byte-exact output.
+
+**What to do:** Keep ROT13 as a smoke test. The ELF path has the lower fixed cost here.
+
+**Where it was found:** 2026-09-01 smoke test.
+
+
+===== findings/F-0066-masked-softmax-lowest.md =====
+---
+id: F-0066
+evidence: measured
+last_verified: 2026-09-26
+stack: mlir-aie 1.4.2, Peano 21.0.0.2026080301, Ryzen AI 9 HX 370 (dit_* numbers in turbo power mode); XRT and driver not stated
+sources: [raw/phlegm/2026-09-26-aie2p-arithmetic-and-stack-traps.md]
+---
+
+# F-0066: masked-softmax-lowest
+
+**Claim:** Masked softmax scores must be bf16 `lowest`, not -inf, because the exp argument is `S*c - m*c` in fp32 and -inf stays -inf on a path that expects finite values.
+
+**What to do:** Mask with `lowest`.
+
+**Where it was found:** dit_fa trap 5.
+
+
+===== findings/F-0101-ctx-switch-decode-sized.md =====
+---
+id: F-0101
+evidence: measured
+last_verified: 2026-09-13
+stack: mlir-aie 1.4.2, Peano 21.0.0; XRT 2.26.0, amdxdna 2.26.0_20260817, firmware 1.1.2.64 for the 2026-09-24 runs only; other runs not stated; the XRT 2.26.0 / amdxdna 2.26.0_20260817 runs were on a Linux Ryzen AI 9 365 box (F-0178)
+sources: [raw/phlegm/2026-09-13-context-switch-costs-and-submit-ahead.md, raw/fastflowlm/2026-09-02-oflm-kernel-measurements-and-requirements.md]
+---
+
+# F-0101: ctx-switch-decode-sized
+
+**Claim:** With decode-sized kernels (floor.cfg, 2026-09-02) a dispatch costs 0.23-0.25 ms back to back in one context and 0.65-0.79 ms when the previous dispatch used another xclbin context; silu_mul after a switch costs 0.29-0.37 ms.
+
+**What to do:** Plan ~0.4-0.5 ms per switch between xclbins at decode sizes. 132 dispatches times ~0.45 ms was ~60 ms of a 208 ms 27B step. See Q-0006 for other figures.
+
+**Where it was found:** decode_chain/floor.cfg, driver `runlist` and `runx`.
+
+# Synthetic recall controls (not hardware findings)
+The code for the memory recall pilot is velvet-heron-7316.
+The recovery phrase for the pilot memory bank is mosaic-lantern-4829.
+These arbitrary strings are test fixtures, not XDNA2 recommendations.

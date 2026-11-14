@@ -1,0 +1,71 @@
+{
+  "arms": [
+    "projected-r16",
+    "projected-r64",
+    "stock-r16",
+    "stock-r64"
+  ],
+  "initialization": "Fresh zero-output adapters on unhealed stock or identical frozen shared-broad projection. No parent adapter or optimizer state. Nested random A directions within each architecture.",
+  "ranks": [
+    16,
+    64
+  ],
+  "alpha_over_rank": 2,
+  "seed": 26102680,
+  "steps": 8,
+  "lr": 3e-05,
+  "optimizer": "fresh AdamW betas=(0.9,0.95), weight_decay=0, clip=1; no warmup",
+  "assistant_tokens_per_arm": 32975,
+  "training_data_sha256": "48754cfade52ae5ee398db499377acf296c102c917c189582c6009d227456792",
+  "recipe_sha256": "ec653cba925a2931c66881510caed01f717fe3083f2bedeed5fb4770c6c3a547",
+  "source_manifest": {
+    "repo": "Qwen/Qwen3.5-2B",
+    "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+    "files": {
+      "chat_template.jinja": {
+        "size": 7755,
+        "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+      },
+      "config.json": {
+        "size": 2908,
+        "sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4"
+      },
+      "model.safetensors-00001-of-00001.safetensors": {
+        "size": 4548221488,
+        "sha256": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"
+      },
+      "tokenizer.json": {
+        "size": 12807982,
+        "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+      },
+      "tokenizer_config.json": {
+        "size": 16709,
+        "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c"
+      }
+    }
+  },
+  "primary_endpoint": "Fixed step 8, compare paired correctness gains from step 0 and stock-minus-projected gaps separately by rank. No best-checkpoint selection.",
+  "capacity_interaction": "(projected64_final - projected16_final) - (stock64_final - stock16_final); positive means rank benefits projection more on that metric, conditional on this budget.",
+  "evaluation_steps": [
+    0,
+    4,
+    8
+  ],
+  "test_evaluation_steps": [
+    0,
+    8
+  ],
+  "train_precision": "CPU BF16 autocast, FP32 stored weights",
+  "eval_precision": "CPU FP32, four threads, greedy nonthinking, no repetition penalties",
+  "train_fit_sample": "first scheduled row from each curriculum kind; teacher-forced CE only, not generation or generalization",
+  "limitations": [
+    "Single seed, short fixed-token pilot, no claim of irrecoverable damage from a negative result.",
+    "Rank changes both capacity and optimization geometry; equal learning rate is not independently tuned.",
+    "Stock versus projected isolates the effect of the compression pipeline, not which individual projection operation damages capability.",
+    "New arithmetic operands and science wording; shared families/topics. Code and dev science are known regression sets.",
+    "This pilot restarts healing and does not directly compare against the previous 99k-token selected checkpoint.",
+    "Equal training tokens and optimizer steps, not equal FLOPs or trainable parameters.",
+    "A different matched-size projection method is a follow-up, not one of these arms."
+  ],
+  "cloud_spend": 0
+}

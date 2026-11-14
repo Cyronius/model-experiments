@@ -1,0 +1,55 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/models/campaign-20261025/model-ternary.pt",
+    "sha256": "51ba2cd7d9ef1a4a31904ff8523fa0a218c6de0ea684195d3a721822da86de8f",
+    "precision": "ternary",
+    "layers": 3,
+    "eligible_for_promotion": false,
+    "blend": {
+      "parent_sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9",
+      "trained_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+      "trained_fraction": 0.25
+    },
+    "eligibility_note": "Development diagnostic; new held-source/NLI guards and independent confirmation not established.",
+    "source_summary": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/ternary-blends/results/summary.json",
+    "source_arm": "ternary-3-25",
+    "source_summary_sha256": "0735b1902c479c7580ed733c2c0296e7918043cb047b35ee8822514786bc21ab",
+    "bytes": 68984257,
+    "parameters": 17241984,
+    "additional_query_parameters": 0,
+    "query_head": false
+  },
+  "token_cap": 128,
+  "query_instructions": false,
+  "scope": "Previously opened FiQA/SCIDOCS development judgments",
+  "tasks": {
+    "FiQA": {
+      "ndcg10": 24.83543153957857,
+      "recall10": 31.17351270129048,
+      "top1_relevant_queries": 151,
+      "median_first_relevant_rank": 11.0,
+      "median_best_relevant_margin": -0.05484038591384888,
+      "queries": 648,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+        "queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+        "qrels/test.tsv": "6adc2a640dcdd22bb8b3858f89107adef2a7c3db20a63550dfa7a0f71e379e44"
+      }
+    },
+    "SCIDOCS": {
+      "ndcg10": 16.78898306009079,
+      "recall10": 17.17666666666667,
+      "top1_relevant_queries": 214,
+      "median_first_relevant_rank": 9.0,
+      "median_best_relevant_margin": -0.06819337606430054,
+      "queries": 1000,
+      "judged_documents_absent_from_corpus": 0,
+      "source_sha256": {
+        "corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+        "queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+        "qrels/test.tsv": "dcd3d7f77417294bb6f338537f3c28d8a5ea72b30fe6633f407fa85528767e35"
+      }
+    }
+  }
+}

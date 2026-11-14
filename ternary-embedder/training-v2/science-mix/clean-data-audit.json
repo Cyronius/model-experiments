@@ -1,0 +1,56 @@
+{
+  "scope": "Prepared only; clean base plus fresh science, and matched repeat control.",
+  "teacher_targets": false,
+  "inputs_sha256": {
+    "training-v2/work/benchmark-clean/train.jsonl": "e62c96cf6b7e72a1e57dbc720104693e6a66909a617d26ed138edd5854891675",
+    "training-v2/work/benchmark-clean/dev.jsonl": "7c33246ef2b38a58bd71fcbdb1a5394ff54b27a84fcb2023aa3d487a30bc29f1",
+    "training-v2/work/science-global/train.jsonl": "439e3fc0bd2798960e83c18d4ffcb42e4867c6db568d574831cba8f43377d276",
+    "training-v2/work/science-global/dev.jsonl": "a3607ec36e3d61e93ef08f428cd97764d103f63f07be82d9d617a458a274d199",
+    "training-v2/work/nli-aux-global/train.jsonl": "8ba8c91dab77fe2c969a569351eb38e08379444b202b8491141333b94020fcd0",
+    "training-v2/work/nli-aux-global/dev.jsonl": "9b9bf1fe2ef257ef7b149125801e801fb5c0237957562626b85de24fd6e91895"
+  },
+  "base_audit_sha256": "71c73ed093fd0a7c1cf23a2dcc82a5859dfc7e8f55be73816de5919c3fe6f087",
+  "science_audit_sha256": "93f4a98f2cbc5964e48e8b33f16d8f973fe8f0550a4e4bb056365e4fcde1ac1c",
+  "output_sha256": {
+    "train": "efe619b2f333c32309c5225768455fac2a86fde4d0da54cac7606c6217d45e21",
+    "dev": "e9b016967bbb96e38f0054fe63dbf249147c0ab867a7ea590c694ceaead2df98",
+    "train-repeat": "98ada57d328c2540e990d6d04d6fe6b80a60278395858b362f42ff4c95fa9f8c"
+  },
+  "rows": {
+    "train": 1023999,
+    "dev": 21011
+  },
+  "by_source": {
+    "train": {
+      "sentence-transformers/msmarco-bm25": 220323,
+      "sentence-transformers/gooaq": 195687,
+      "sentence-transformers/natural-questions": 38511,
+      "sentence-transformers/squad": 19759,
+      "sentence-transformers/stackexchange-duplicates": 97260,
+      "sentence-transformers/s2orc": 331472,
+      "sentence-transformers/quora-duplicates": 48925,
+      "sentence-transformers/all-nli": 72062
+    },
+    "dev": {
+      "sentence-transformers/msmarco-bm25": 4643,
+      "sentence-transformers/gooaq": 3857,
+      "sentence-transformers/natural-questions": 753,
+      "sentence-transformers/squad": 457,
+      "sentence-transformers/stackexchange-duplicates": 1825,
+      "sentence-transformers/s2orc": 6851,
+      "sentence-transformers/quora-duplicates": 1012,
+      "sentence-transformers/all-nli": 1613
+    }
+  },
+  "repeat_rows": 1023999,
+  "repeated_science_pairs": 244901,
+  "available_old_science_pairs": 86571,
+  "repeat_seed": 67,
+  "train_dev_shared_visible_inputs": 0,
+  "auxiliary_cross_holdout_overlap": {
+    "train_vs_relevance_dev": 0,
+    "dev_vs_relevance_train": 0
+  },
+  "known_legacy_test_overlap": 0,
+  "limits": "Inherited exact model-visible exclusions, not an exhaustive semantic near-duplicate audit or claim about historical pretraining."
+}

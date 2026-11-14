@@ -1,0 +1,410 @@
+{
+  "args": {
+    "model": "models/manifold-audit/Qwen3.5-2B",
+    "out": "manifold-compression/results/output-fix-20261024/qwen35-2b-1792.json",
+    "save_model": "models/manifold-compression/output-fix-qwen35-1792",
+    "width": 1792,
+    "max_tokens": 256,
+    "max_new": 96,
+    "threads": 12
+  },
+  "arms": {
+    "stock": {
+      "generation": {
+        "decoding": "greedy diagnostic, thinking off",
+        "max_new_tokens": 96,
+        "elapsed_seconds": 28.7526512000004,
+        "answers": [
+          {
+            "prompt": "Why does ice float on water?",
+            "answer": "Ice floats on water because of a unique property called **density**, which is caused by the way water molecules arrange themselves when they freeze.\n\nHere is the step-by-step breakdown of why this happens:\n\n1.  **The Structure of Liquid Water**: In liquid water, molecules are constantly moving and sliding past one another. They are relatively close together, but they are not packed as tightly as they can be.\n2.  **The Formation of a Crystal Structure**: When",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "How should I prepare for a job interview? Give five tips.",
+            "answer": "Preparing for a job interview is a strategic process that blends knowledge of the company with your own unique value proposition. Here are five essential tips to help you succeed:\n\n1.  **Research the Company Deeply**\n    Go beyond the website's \"About Us\" page. Look for recent news, read customer reviews, analyze their product roadmap, and understand their current challenges. Knowing the company's mission, recent projects, and culture allows you to tailor your answers to show how",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "What does this Python code print? x = [1, 2, 3]; y = x; y.append(4); print(x)",
+            "answer": "The code prints:\n```text\n[1, 2, 3, 4]\n```\n\n**Explanation:**\n1.  `x = [1, 2, 3]` creates a list.\n2.  `y = x` creates a **reference** to the same list object in memory. Both `x` and `y` point to the exact same list object.\n3.  `y.append(4)` modifies",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "What should I consider when adopting a dog?",
+            "answer": "Adopting a dog is one of the most rewarding decisions you can make, but it also requires careful planning. Here is a comprehensive checklist of what to consider before bringing a new furry friend into your life:\n\n### 1. Your Lifestyle and Space\n*   **Time Commitment:** Do you have the energy for daily walks, playtime, and training? Dogs need mental stimulation and physical exercise to stay happy.\n*   **Living Situation:** Is your home large",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          }
+        ]
+      }
+    },
+    "legacy_diagonal_divide": {
+      "comparison": {
+        "positions": 78,
+        "max_abs_logit_error": 15.0849609375,
+        "rms_logit_error": 2.16472333536711,
+        "mean_kl": 0.6184963290458382,
+        "max_token_kl": 7.3582767785554895,
+        "top1_agreement": 0.7692307692307693,
+        "numerical_pass": false
+      },
+      "parameters": 1646652992,
+      "generation": {
+        "decoding": "greedy diagnostic, thinking off",
+        "max_new_tokens": 96,
+        "elapsed_seconds": 27.744441660997836,
+        "answers": [
+          {
+            "prompt": "Why does ice float on water?",
+            "answer": "Ice floats on water because of the fundamental principle of **density**.\n\nHere is the step-by-step breakdown of why this happens:\n\n### 1. The Difference in Density\nDensity refers to how much mass is packed into a specific volume of space. It is calculated as:\n$$ \\text{Density} = \\frac{\\text{Mass}}{\\text{Volume}} $$\n\n*   **Water:** Water consists mainly of water molecules ($H_2O$).",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "How should I prepare for a job interview? Give five tips.",
+            "answer": "Here are five essential tips to prepare for a job interview:\n\n1. **Review Your Resume and Prepare a List of Questions**\nBefore you arrive at the meeting, have your resume ready so you can quickly list your contact information. Additionally, prepare a list of questions you might ask during the interview process (such as \"What are the next steps in the hiring process?\" or \"How do I proceed with the application?\" or \"What are the next steps in the hiring process",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.10256410256410253
+          },
+          {
+            "prompt": "What does this Python code print? x = [1, 2, 3]; y = x; y.append(4); print(x)",
+            "answer": "The code prints `[1, 2, 3, 4]`.\n\nHere is the step-by-step breakdown:\n\n1.  **`x = [1, 2, 3]`**: This creates a list containing three elements.\n2.  **`y = x`**: This creates a copy of the list `x`. In Python, lists are mutable objects, so assigning `x` to `y` simply copies the contents of `",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "What should I consider when adopting a dog?",
+            "answer": "Adopting a dog is a significant decision that involves balancing emotional rewards against practical realities. Here are the key considerations you should evaluate before making your choice:\n\n### 1. Cost and Financial Reality\n*   **Upfront Cost:** Most dogs cost between **$500 and $1,000** upfront. This includes the price of the dog itself plus fees for grooming services, vaccinations, and sometimes a brief period of care before you can adopt it officially",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          }
+        ]
+      }
+    },
+    "dense_divide": {
+      "comparison": {
+        "positions": 78,
+        "max_abs_logit_error": 14.431221008300781,
+        "rms_logit_error": 1.7809604850800842,
+        "mean_kl": 0.5700496563774939,
+        "max_token_kl": 7.206197732058762,
+        "top1_agreement": 0.782051282051282,
+        "numerical_pass": false
+      },
+      "parameters": 1649864256,
+      "generation": {
+        "decoding": "greedy diagnostic, thinking off",
+        "max_new_tokens": 96,
+        "elapsed_seconds": 27.735586333001265,
+        "answers": [
+          {
+            "prompt": "Why does ice float on water?",
+            "answer": "Ice floats on water because of the fundamental difference in their **density** and the way they interact with heat.\n\nHere is the step-by-step breakdown of why this happens:\n\n### 1. The Difference in Density\nThe most critical factor is that **ice is less dense than water**.\n*   **Water** is a liquid with a density of approximately **0.023 grams per cubic centimeter**.\n*   **Ice** is a solid frozen water",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "How should I prepare for a job interview? Give five tips.",
+            "answer": "Here are five essential tips to prepare for a job interview:\n\n1.  **Review Your Resume and Notes**\n    Before you arrive at the meeting, have your physical or digital copy of your resume ready. It should be organized, with clear headings for your contact information, professional summary, and list of qualifications. Having this ready ensures you can quickly reference your name or title if you need to check your schedule or verify details.\n\n2.  **Prepare a Written Summary",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "What does this Python code print? x = [1, 2, 3]; y = x; y.append(4); print(x)",
+            "answer": "The code prints:\n\n```python\n[1, 2, 3, 4]\n```\n\nHere is the step-by-step breakdown:\n\n1.  **`x = [1, 2, 3]`**: Creates a list with three elements.\n2.  **`y = x`**: Creates a new list `y` that is a copy of `x`. Both lists contain `[1, 2, 3]`.",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "What should I consider when adopting a dog?",
+            "answer": "Adopting a dog is a significant decision that involves balancing your lifestyle, budget, and the specific needs of the animal. Here are the key factors you should consider before making the choice:\n\n### 1. Budget and Cost\n*   **Upfront Cost:** Decide if you are willing to pay a lump sum upfront for a dog or if you prefer to buy it later.\n*   **Ongoing Expenses:** Remember that owning a dog involves recurring costs, including food",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          }
+        ]
+      }
+    },
+    "dense_multiply": {
+      "comparison": {
+        "positions": 78,
+        "max_abs_logit_error": 15.472468376159668,
+        "rms_logit_error": 1.8099722231715298,
+        "mean_kl": 0.5779413883520472,
+        "max_token_kl": 7.627576404830793,
+        "top1_agreement": 0.782051282051282,
+        "numerical_pass": false
+      },
+      "parameters": 1649864256,
+      "generation": {
+        "decoding": "greedy diagnostic, thinking off",
+        "max_new_tokens": 96,
+        "elapsed_seconds": 28.213007541999104,
+        "answers": [
+          {
+            "prompt": "Why does ice float on water?",
+            "answer": "Ice floats on water because of the fundamental difference in their **density** and the way they interact with heat.\n\nHere is the step-by-step breakdown of why this happens:\n\n### 1. The Difference in Density\nThe most critical factor is that **ice is less dense than water**.\n*   **Water** is a liquid with a density of approximately **0.023 grams per cubic centimeter**.\n*   **Ice** is a solid frozen water",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "How should I prepare for a job interview? Give five tips.",
+            "answer": "Here are five essential tips to prepare for a job interview:\n\n1.  **Review Your Resume and Notes**\n    Before you arrive at the meeting, have your physical or digital copy of your resume ready. It should be organized, with clear headings for your contact information, professional summary, and list of qualifications. Having this ready ensures you can quickly reference your name or title if you need to check your schedule or verify details.\n\n2.  **Prepare a Written Summary",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "What does this Python code print? x = [1, 2, 3]; y = x; y.append(4); print(x)",
+            "answer": "The code prints:\n\n```python\n[1, 2, 3, 4]\n```\n\nHere is the step-by-step breakdown:\n\n1.  **`x = [1, 2, 3]`**: Creates a list with three elements.\n2.  **`y = x`**: Creates a new list `y` that is a copy of `x`. Both lists contain `[1, 2, 3]`.",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          },
+          {
+            "prompt": "What should I consider when adopting a dog?",
+            "answer": "Adopting a dog is a significant decision that involves balancing your lifestyle, budget, and the specific needs of the animal. Here are the key factors you should consider before making the choice:\n\n### 1. Budget and Cost\n*   **Upfront Cost:** Decide if you are willing to pay a lump sum upfront for a dog or if you prefer to buy it later.\n*   **Ongoing Expenses:** Remember that owning a dog involves recurring costs, including food",
+            "tokens": 96,
+            "ended": false,
+            "repeated_4gram_fraction": 0.0
+          }
+        ]
+      }
+    }
+  },
+  "timings": {
+    "reference": 6.846812388001126,
+    "stock_generation": 28.753704046001076,
+    "pca": 19.87032587000067,
+    "rms_scales": 19.553100209999684,
+    "project_body": 11.738747319999675,
+    "projected_hidden": 7.630265599997074,
+    "legacy_diagonal_divide_generation": 27.74578146699787,
+    "dense_divide_generation": 27.736447087998386,
+    "dense_multiply_generation": 28.214172258998587,
+    "save_fp32": 3.902431649999926,
+    "reload_fp32": 0.055776460001652595
+  },
+  "device": "cpu",
+  "dtype": "float32",
+  "spend_usd": 0,
+  "source_manifest": {
+    "repo": "Qwen/Qwen3.5-2B",
+    "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+    "files": {
+      "chat_template.jinja": {
+        "size": 7755,
+        "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+      },
+      "config.json": {
+        "size": 2908,
+        "sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4"
+      },
+      "model.safetensors-00001-of-00001.safetensors": {
+        "size": 4548221488,
+        "sha256": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"
+      },
+      "tokenizer.json": {
+        "size": 12807982,
+        "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+      },
+      "tokenizer_config.json": {
+        "size": 16709,
+        "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c"
+      }
+    }
+  },
+  "data": {
+    "calibration_ids": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38
+    ],
+    "evaluation_ids": [
+      1,
+      7,
+      11,
+      17,
+      21,
+      27,
+      33,
+      39
+    ],
+    "generation_ids": [
+      7,
+      11,
+      21,
+      33
+    ],
+    "calibration_tokens": 4051,
+    "reference_answer_sha256": "828b2f30ba14ffa6d827f64ac666bda7ecaeb2d11fc6fbd3c4af119f6a97b668",
+    "source": "Cached stock Qwen2B greedy answers, used as prefixes only; not correctness labels."
+  },
+  "original_parameters": 1881825088,
+  "source_width": 2048,
+  "pca": {
+    "sites": 49,
+    "tokens_per_site": [
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051,
+      4051
+    ],
+    "eigenvalue_min": 0.0027151077665022536
+  },
+  "rms_scales": [
+    1.050538500218708,
+    1.0623705846767195,
+    1.058883869450818,
+    1.0594325690644961,
+    1.0558647573862332,
+    1.0605049227467587,
+    1.0569423985345898,
+    1.0578254289139761,
+    1.0564976741401864,
+    1.0576954561232108,
+    1.057261131510738,
+    1.0585447286447165,
+    1.0585269273519222,
+    1.059116584817382,
+    1.059728148306661,
+    1.0591707420302037,
+    1.059640342469452,
+    1.0594464775015766,
+    1.0596753696958625,
+    1.0598559317192129,
+    1.0594078700532445,
+    1.0598814302066377,
+    1.0600952538288073,
+    1.0596760053217955,
+    1.0588162096598448,
+    1.059290419564192,
+    1.05856494814106,
+    1.0588423070481487,
+    1.0578276390088868,
+    1.0583611438669296,
+    1.0578127832537492,
+    1.0578822830640895,
+    1.0580015989975469,
+    1.0589814319106803,
+    1.0587933619679772,
+    1.0594810706190168,
+    1.0593037328670656,
+    1.0596785261671622,
+    1.0600866413328331,
+    1.0600255393181515,
+    1.0598195145907623,
+    1.0605700042506143,
+    1.0601266914166159,
+    1.0605768577106733,
+    1.0599471755864678,
+    1.06019491055841,
+    1.058636835079904,
+    1.0591467229032834,
+    1.0560552210491165
+  ],
+  "adapter_parameters": 3211264,
+  "loading": {
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "mismatched_keys": [],
+    "error_msgs": []
+  },
+  "roundtrip": {
+    "positions": 78,
+    "max_abs_logit_error": 0.0,
+    "rms_logit_error": 0.0,
+    "mean_kl": 0.0,
+    "max_token_kl": 0.0,
+    "top1_agreement": 1.0,
+    "numerical_pass": true
+  },
+  "cache": {
+    "positions": 8,
+    "max_abs_logit_error": 3.3855438232421875e-05,
+    "rms_logit_error": 5.04406834724833e-06,
+    "mean_kl": 1.57317426789523e-11,
+    "max_token_kl": 3.4340848655493156e-11,
+    "top1_agreement": 1.0,
+    "numerical_pass": true
+  },
+  "elapsed_seconds": 200.83324799299953
+}

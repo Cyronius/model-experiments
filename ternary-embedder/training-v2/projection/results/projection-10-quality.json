@@ -1,0 +1,184 @@
+{
+  "selection": {
+    "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/projection/projection-10.pt",
+    "sha256": "7a0a351e654a4f2d0f0a606f927c9a3286b82e63ffbfc47a9803f2af936dcf66",
+    "precision": "ternary",
+    "layers": 3,
+    "eligible_for_promotion": true,
+    "validation": {
+      "by_source": {
+        "sentence-transformers/msmarco-bm25": 96.15283012390137,
+        "sentence-transformers/gooaq": 94.58390474319458,
+        "sentence-transformers/natural-questions": 98.58134984970093,
+        "sentence-transformers/squad": 97.57542014122009,
+        "sentence-transformers/stackexchange-duplicates": 75.25104880332947,
+        "sentence-transformers/s2orc": 91.33520126342773,
+        "sentence-transformers/quora-duplicates": 91.84972047805786,
+        "sentence-transformers/all-nli": 76.11350417137146,
+        "human-nli-triplets": 82.350754737854
+      },
+      "macro_ndcg10": 89.31041492356195
+    },
+    "step": 478,
+    "initial_checkpoint_sha256": "ba0ba3410518e816d1cc386ee908256939513b6fb8149a094defe5e95c2084e7",
+    "regularizer": 10.0,
+    "operator_change": "Existing float output matrix composed in place; ternary backbone unchanged.",
+    "validation_guard": "Every held relevance/human-NLI retrieval source within2 nDCG points of identity; classifier guard is not this experiment objective.",
+    "matrix_condition_number": 1.6663711071014404
+  },
+  "token_cap": 128,
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 59.41718905263599,
+      "recall10": 73.25,
+      "top1_relevant_queries": 139,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.00922006368637085,
+      "queries": 300,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "NFCorpus": {
+      "ndcg10": 29.797809389009615,
+      "recall10": 13.888594702204458,
+      "top1_relevant_queries": 129,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.02185073494911194,
+      "queries": 323,
+      "judged_documents_absent_from_corpus": 0
+    },
+    "ArguAna": {
+      "ndcg10": 46.049893212635666,
+      "recall10": 73.96870554765292,
+      "top1_relevant_queries": 317,
+      "median_first_relevant_rank": 4.0,
+      "median_best_relevant_margin": -0.05332919955253601,
+      "queries": 1406,
+      "judged_documents_absent_from_corpus": 5
+    }
+  },
+  "scope": "Observed external development tasks; reserved FiQA/SCIDOCS labels not used",
+  "stsbenchmark_spearman": 82.08019276555459,
+  "mean_core_retrieval": 44.6074992208228,
+  "reference_report_sha256": "804a497e5ab5861cffc1dd26ca0a4dbdff46b232e17f5ba43706f1f7b6d4a4ef",
+  "paired": {
+    "original": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": 4.563990719505089,
+        "paired_bootstrap_95_ci": [
+          1.8095105001141816,
+          7.370296736573838
+        ],
+        "queries_improved": 69,
+        "queries_worsened": 41,
+        "top1_gained": 25,
+        "top1_lost": 19
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": 0.39493474509113374,
+        "paired_bootstrap_95_ci": [
+          -0.8995478806201829,
+          1.689438876154597
+        ],
+        "queries_improved": 105,
+        "queries_worsened": 86,
+        "top1_gained": 23,
+        "top1_lost": 25
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": 3.335656588335113,
+        "paired_bootstrap_95_ci": [
+          1.9880974198170103,
+          4.711902751966757
+        ],
+        "queries_improved": 451,
+        "queries_worsened": 348,
+        "top1_gained": 114,
+        "top1_lost": 89
+      }
+    },
+    "bge_micro": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -1.9132468011563468,
+        "paired_bootstrap_95_ci": [
+          -4.082320108741201,
+          0.3139261957051837
+        ],
+        "queries_improved": 44,
+        "queries_worsened": 59,
+        "top1_gained": 15,
+        "top1_lost": 22
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": -1.3002178650302252,
+        "paired_bootstrap_95_ci": [
+          -2.3792661796640506,
+          -0.17715943626792535
+        ],
+        "queries_improved": 77,
+        "queries_worsened": 111,
+        "top1_gained": 14,
+        "top1_lost": 23
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -5.757814088237856,
+        "paired_bootstrap_95_ci": [
+          -7.0002224209391395,
+          -4.473763240263735
+        ],
+        "queries_improved": 280,
+        "queries_worsened": 492,
+        "top1_gained": 72,
+        "top1_lost": 146
+      }
+    },
+    "minilm": {
+      "SciFact": {
+        "ndcg10_delta_right_minus_left": -2.968773827373351,
+        "paired_bootstrap_95_ci": [
+          -5.950254281353519,
+          0.11316855033330002
+        ],
+        "queries_improved": 44,
+        "queries_worsened": 77,
+        "top1_gained": 25,
+        "top1_lost": 30
+      },
+      "NFCorpus": {
+        "ndcg10_delta_right_minus_left": -1.6555841303618,
+        "paired_bootstrap_95_ci": [
+          -2.872975278826519,
+          -0.39176638552506016
+        ],
+        "queries_improved": 82,
+        "queries_worsened": 121,
+        "top1_gained": 17,
+        "top1_lost": 27
+      },
+      "ArguAna": {
+        "ndcg10_delta_right_minus_left": -2.714262767021619,
+        "paired_bootstrap_95_ci": [
+          -4.3207538275307815,
+          -1.1270738956385624
+        ],
+        "queries_improved": 386,
+        "queries_worsened": 472,
+        "top1_gained": 111,
+        "top1_lost": 149
+      }
+    }
+  },
+  "gates": {
+    "original": {
+      "each_core_retrieval": true,
+      "stsbenchmark": true
+    },
+    "bge_micro": {
+      "each_core_retrieval": false,
+      "stsbenchmark": false
+    },
+    "minilm": {
+      "each_core_retrieval": false,
+      "stsbenchmark": true
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+ "rules_sha256": "1c4b0cde74f7541085e743d304fee7422eceaea028ebf8cdd00afaab4c5564e0",
+ "generate": {
+  "vllm": "0.33.0",
+  "parts": {
+   "check_thinking_on": {
+    "rows": 96,
+    "generated_tokens": 208573,
+    "seconds": 205.65598368644714,
+    "tokens_per_second": 1014.1839603266798
+   },
+   "check_thinking_off": {
+    "rows": 96,
+    "generated_tokens": 39676,
+    "seconds": 119.61715459823608,
+    "tokens_per_second": 331.69155488827414
+   },
+   "throughput": {
+    "problems": 512,
+    "samples": 2048,
+    "generated_tokens": 5233998,
+    "seconds": 3784.6153655052185,
+    "tokens_per_second": 1382.9669582027127,
+    "batch_prompts": 128
+   }
+  }
+ },
+ "check_thinking_on": {
+  "prompts": 96,
+  "correct": 72,
+  "finished": 79,
+  "mean_length": 2172.6354166666665,
+  "loops": 0,
+  "finished_median_length": 1417.0
+ },
+ "check_thinking_off": {
+  "prompts": 96,
+  "correct": 83,
+  "finished": 96,
+  "mean_length": 413.2916666666667,
+  "loops": 0,
+  "finished_median_length": 350.0
+ },
+ "throughput_answers": {
+  "samples": 2048,
+  "correct": 1034,
+  "finished": 1365,
+  "note": "GSM8K by final number; MATH by exact match of the last \\boxed{} after light normalization (undercounts)."
+ },
+ "fidelity": {
+  "answers": 32,
+  "positions": 55156,
+  "sampled_logprob_abs_diff_mean": 0.0074553742889273775,
+  "sampled_logprob_abs_diff_p99": 0.11272968053817739,
+  "top1_agreement": 0.9928203640583073,
+  "top20_kl_mean": 0.00025602263832043135,
+  "top20_mass_outside_64k": 0.009105707944333533
+ },
+ "verdict": {
+  "accuracy": true,
+  "logprobs": true,
+  "throughput": true,
+  "vocab": true
+ }
+}

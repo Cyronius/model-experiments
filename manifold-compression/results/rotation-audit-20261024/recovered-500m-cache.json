@@ -1,0 +1,53 @@
+{
+  "args": {
+    "model": "models/manifold-compression/distill-08b/continuation-500m/ckpt_500M",
+    "out": "manifold-compression/results/rotation-audit-20261024/recovered-500m-cache.json",
+    "threads": 12,
+    "max_tokens": 96,
+    "cache_only": true
+  },
+  "environment": {
+    "torch": "2.14.1+cpu",
+    "transformers": "5.14.1",
+    "platform": "Linux-7.2.11-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "dtype": "float32",
+    "device": "cpu"
+  },
+  "calibration_prompts": [
+    "Explain how a bicycle's gears help a rider climb a hill. Use a concrete example.",
+    "Write a Python function that counts the occurrences of each word in a sentence.",
+    "A train travels 180 kilometres in two and a half hours. Explain how to find its average speed.",
+    "Rewrite this politely: Your report is late and I need it before tomorrow's meeting."
+  ],
+  "evaluation_prompts": [
+    "What causes the seasons on Earth? Answer in two sentences.",
+    "Calculate 17 times 23 and briefly explain your calculation.",
+    "Write a JavaScript function that removes duplicate items from an array.",
+    "Give exactly three practical steps for planning a small vegetable garden."
+  ],
+  "timings_seconds": {
+    "load": 0.2735079529993527,
+    "reference_forward": 1.2829129860001558,
+    "original_cache": 1.5615038739997544
+  },
+  "checks": {
+    "original_cache": {
+      "positions": 8,
+      "max_abs_logit_error": 1.71661376953125e-05,
+      "rms_logit_error": 2.590890761308601e-06,
+      "mean_kl": 2.5467319050812613e-12,
+      "max_token_kl": 1.558990384059784e-11,
+      "top1_agreement": 1.0,
+      "numerical_pass": true
+    }
+  },
+  "loading": {
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "mismatched_keys": [],
+    "error_msgs": []
+  },
+  "model_type": "qwen3_5_text",
+  "parameters": 752393024,
+  "elapsed_seconds": 4.034982228997251
+}

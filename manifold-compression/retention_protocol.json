@@ -1,0 +1,68 @@
+{
+  "status": "design_only",
+  "pair_session": "Manifold",
+  "consensus": "PAIR_PLAN_20261026.md, agreed v3",
+  "scope": "Scaffolding and unit tests only; no model experiments launched",
+  "parent": "results/curriculum-healing-20261026/selected",
+  "projection": "Existing shared-broad residual width 1520",
+  "arms": {
+    "A0": "Unchanged selected projected parent; default if no candidate passes",
+    "A1": "Parent expanded to rank64; verified SFT with replay",
+    "A2": "Same initialization, examples, order and updates as A1; add replay-only forward KL",
+    "S1": "Stock with fresh zero-output rank64 adapter; same SFT schedule",
+    "S2": "Same stock initialization as S1; add replay-only forward KL"
+  },
+  "training": {
+    "rank": 64,
+    "alpha_over_rank": 2,
+    "optimizer": "Fresh AdamW for every trained arm; no transplanted parent moments",
+    "seed": 26102691,
+    "learning_rate": null,
+    "answer_token_budget": null,
+    "curriculum_token_mix": null,
+    "teacher": "Pinned uncompressed source; no test/dev outputs used",
+    "kl_direction": "teacher || student",
+    "kl_temperature": 1.0,
+    "kl_weight": 1.0,
+    "kl_positions": "Answer tokens, including EOS, on explicitly tagged verified replay rows only",
+    "loss_normalization": "Sum CE over all answer tokens plus lambda times sum KL over replay tokens, divided by all answer tokens in the optimizer update",
+    "teacher_cache": "Absolute top-k log probabilities plus an omitted-mass bucket; token chunks",
+    "teacher_cache_k": null,
+    "teacher_cache_identity": "Ordered row ID + SHA256 of the complete encoded sequence + prediction position; reject missing or reordered identities",
+    "cache_caveat": "Coarsened KL is a lower bound, not exact full KL; measure sampled full-KL gap and retained mass before fixing k"
+  },
+  "evaluation_requirements": [
+    "Fresh development/test groups disjoint from training, replay and calibration; group manifests and overlap audit",
+    "Historical inspected tests used only for regression diagnostics",
+    "Paired per-family gained/lost counts, denominators and task-group uncertainty",
+    "Frozen practical primary-gain threshold and retention noninferiority margin",
+    "Separate per-family code and science no-net-loss gates; rubric grades required before selection",
+    "No new loop cases, even if old loops improve; at most one previously completed answer lost",
+    "Every selection candidate receives code edge/property tests and long-form generation checks",
+    "Stratified train/held-out CE and generation diagnostics; no inference from one training row per kind",
+    "Parent/expanded logit tolerance, cached/full-forward checks, fixed baseline generations and saved-adapter reload",
+    "Fixed precision, decoding, batch composition, token limits and thread count per protocol",
+    "Test evaluated once after development selection; no test-driven hyperparameter changes"
+  ],
+  "freeze": {
+    "data_manifest": null,
+    "source_manifest": null,
+    "code_manifest": null,
+    "numerical_gates": null,
+    "selection_policy": null,
+    "paired_comparison": null,
+    "runtime_bounds": null,
+    "peer_review": null
+  },
+  "limitations": [
+    "S1/S2 check the training recipe on stock; their adaptation history differs from the continued projected parent, so an interaction does not isolate projection causally",
+    "Equal answer tokens and updates do not imply equal compute; report teacher-cache and geometry construction costs separately",
+    "T=1 and lambda=1 are predeclared pilot choices, not tuned optima",
+    "No dataset has been created, no protocol frozen, and no model improvement established by these helpers"
+  ],
+  "resources": {
+    "cloud_spend_authorized": false,
+    "new_paid_resources": "Require explicit bounded user approval",
+    "local_runs": "Dibs lease and peer-reviewed frozen protocol required; multi-hour runs excluded from this turn"
+  }
+}

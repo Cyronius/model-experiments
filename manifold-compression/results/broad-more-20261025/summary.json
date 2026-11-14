@@ -1,0 +1,1421 @@
+{
+  "protocol": {
+    "model": "Qwen/Qwen3.5-2B",
+    "source_manifest": {
+      "repo": "Qwen/Qwen3.5-2B",
+      "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "files": {
+        "chat_template.jinja": {
+          "size": 7755,
+          "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+        },
+        "config.json": {
+          "size": 2908,
+          "sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4"
+        },
+        "model.safetensors-00001-of-00001.safetensors": {
+          "size": 4548221488,
+          "sha256": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"
+        },
+        "tokenizer.json": {
+          "size": 12807982,
+          "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+        },
+        "tokenizer_config.json": {
+          "size": 16709,
+          "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c"
+        }
+      }
+    },
+    "data_sha256": "512f58bf8cf3533a6b809ff9883a95cd5540615289189d48794fddf5a3183532",
+    "base_directory": "/home/cyrus/code/model-experiments/manifold-compression/results/local-projection-20261025",
+    "base_data_sha256": "8f8e8ae2db90adb7a9682502bda7e251f7ca88c371ec3eea7b3ec60af3dc8026",
+    "plan": {
+      "model_type": "qwen3_5_text",
+      "source_width": 2048,
+      "source_parameters": 1881825088,
+      "source_bf16_weight_gb": 3.763650176,
+      "source_fp32_weight_gb": 7.527300352,
+      "arms": [
+        {
+          "target_fraction": 0.75,
+          "width": 1520,
+          "parameters": 1399093040,
+          "retained_fraction": 0.7434766647132722,
+          "bf16_weight_gb": 2.79818608,
+          "output_matrix_parameters": 2310400
+        }
+      ],
+      "fixed_parameters": 448320,
+      "parameters_per_residual_coordinate": 918641,
+      "count_scope": "text causal model, including embeddings, output head, and output adapter; no vision/MTP"
+    },
+    "arm": "shared-broad-extended",
+    "width": 1520,
+    "requested_tokens": 262144,
+    "actual_tokens": 262691,
+    "rows": 1737,
+    "by_kind": {
+      "chat": {
+        "tokens": 131517,
+        "rows": 131
+      },
+      "math": {
+        "tokens": 65583,
+        "rows": 1464
+      },
+      "code": {
+        "tokens": 65591,
+        "rows": 142
+      }
+    },
+    "exact_64k_prefix": true,
+    "prefix_rows": 438,
+    "additional_rows": 1299,
+    "heldout_exact_prompt_overlap": 0,
+    "max_length": 2048,
+    "sampling": "Original broad corpus unchanged, then new examples from the same seeded long-chat ordering and verified Horizon training ordering; same 50/25/25 token targets. No repeated examples.",
+    "activation_reuse": "Original broad activation packet plus a new packet for only added conversations; uncentered covariance sums combine additively. Per-conversation sampled states retain token weighting.",
+    "precision": "CPU BF16 autocast; FP32 covariance accumulation; FP64 eigensolve. Projection construction and evaluation FP32.",
+    "generation": {
+      "closed_cases": 56,
+      "code_cases": 4,
+      "explanations": 2,
+      "greedy": true,
+      "thinking": false,
+      "penalties": false,
+      "limits": "256 closed / 512 code / 1024 explanation; caps reported separately from repetition"
+    },
+    "comparison": "Complete 2x2: chat-only/broad x 64k/256k. Same 74.35% shared projection, constant RMS correction, frozen 62 prompts and original four-thread FP32 decoding.",
+    "whole_model_healing": false,
+    "cloud_spend_usd": 0,
+    "limits": "One fixed corpus and small repeated evaluation screen; transfer and general intelligence unproven."
+  },
+  "baselines": [
+    {
+      "arm": "stock",
+      "parameters": 1881825088,
+      "stored_scalars": 1881825088,
+      "retained_fraction": 1.0,
+      "closed_correct": 51,
+      "closed_total": 56,
+      "typed_closed_correct": 43,
+      "runtime_closed_correct": 43,
+      "closed_format_pass": 32,
+      "programs_correct": 2,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 2,
+      "syntax_pass": 3,
+      "ended": 61,
+      "capped": 1,
+      "word_loop_flags": 1,
+      "loop_flags": 1,
+      "mean_kl": 0.0,
+      "target_nll": 2.011937141418457,
+      "target_top1": 0.609375,
+      "families": {
+        "arithmetic": {
+          "correct": 6,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 8,
+          "total": 8
+        },
+        "python": {
+          "correct": 5,
+          "total": 8
+        },
+        "units": {
+          "correct": 8,
+          "total": 8
+        },
+        "json": {
+          "correct": 8,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 8,
+          "total": 8
+        },
+        "memory": {
+          "correct": 8,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [],
+          "closed_gained": [],
+          "closed_lost": []
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "code-dedup",
+            "code-search"
+          ],
+          "lost": [],
+          "closed_gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54"
+          ],
+          "closed_lost": []
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "code-dedup",
+            "code-search"
+          ],
+          "lost": [],
+          "closed_gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53"
+          ],
+          "closed_lost": []
+        }
+      }
+    },
+    {
+      "arm": "shared-large",
+      "parameters": 1399093040,
+      "stored_scalars": 1399093089,
+      "retained_fraction": 0.743476690751824,
+      "closed_correct": 8,
+      "closed_total": 56,
+      "typed_closed_correct": 8,
+      "runtime_closed_correct": 8,
+      "closed_format_pass": 7,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 4,
+      "ended": 31,
+      "capped": 31,
+      "word_loop_flags": 6,
+      "loop_flags": 28,
+      "mean_kl": 0.8103791103419534,
+      "target_nll": 2.430015802383423,
+      "target_top1": 0.5078125,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 0,
+          "total": 8
+        },
+        "memory": {
+          "correct": 8,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-grounding-5",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-grounding-12",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-grounding-19",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-grounding-26",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-grounding-33",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-grounding-47",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "2510258-grounding-54"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [],
+          "closed_gained": [],
+          "closed_lost": []
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-memory-41"
+          ],
+          "lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "closed_gained": [
+            "2510258-memory-41"
+          ],
+          "closed_lost": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ]
+        }
+      }
+    },
+    {
+      "arm": "shared-extended",
+      "parameters": 1399093040,
+      "stored_scalars": 1399093089,
+      "retained_fraction": 0.743476690751824,
+      "closed_correct": 14,
+      "closed_total": 56,
+      "typed_closed_correct": 14,
+      "runtime_closed_correct": 14,
+      "closed_format_pass": 7,
+      "programs_correct": 0,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 1,
+      "ended": 54,
+      "capped": 8,
+      "word_loop_flags": 8,
+      "loop_flags": 8,
+      "mean_kl": 0.7932544398695242,
+      "target_nll": 2.4072279930114746,
+      "target_top1": 0.5078125,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 0,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 0,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 7,
+          "total": 8
+        },
+        "memory": {
+          "correct": 7,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "code-dedup",
+            "code-search"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-sorting-15",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-units-24",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-sorting-36",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-arithmetic-42",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-sorting-50",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "lost": [
+            "2510258-memory-41"
+          ],
+          "closed_gained": [
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-grounding-19",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-grounding-47",
+            "2510258-grounding-54"
+          ],
+          "closed_lost": [
+            "2510258-memory-41"
+          ]
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [],
+          "closed_gained": [],
+          "closed_lost": []
+        }
+      }
+    },
+    {
+      "arm": "shared-broad",
+      "parameters": 1399093040,
+      "stored_scalars": 1399093089,
+      "retained_fraction": 0.743476690751824,
+      "closed_correct": 24,
+      "closed_total": 56,
+      "typed_closed_correct": 24,
+      "runtime_closed_correct": 24,
+      "closed_format_pass": 19,
+      "programs_correct": 1,
+      "programs_total": 4,
+      "programs_with_reviewed_requirements": 0,
+      "syntax_pass": 3,
+      "ended": 61,
+      "capped": 1,
+      "word_loop_flags": 2,
+      "loop_flags": 2,
+      "mean_kl": 1.1332725864512136,
+      "target_nll": 2.7232511043548584,
+      "target_top1": 0.5078125,
+      "families": {
+        "arithmetic": {
+          "correct": 0,
+          "total": 8
+        },
+        "sorting": {
+          "correct": 5,
+          "total": 8
+        },
+        "python": {
+          "correct": 0,
+          "total": 8
+        },
+        "units": {
+          "correct": 3,
+          "total": 8
+        },
+        "json": {
+          "correct": 0,
+          "total": 8
+        },
+        "grounding": {
+          "correct": 8,
+          "total": 8
+        },
+        "memory": {
+          "correct": 8,
+          "total": 8
+        }
+      },
+      "paired": {
+        "stock": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [],
+          "lost": [
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-arithmetic-42",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53",
+            "code-dedup"
+          ],
+          "closed_gained": [],
+          "closed_lost": [
+            "2510258-json-4",
+            "2510258-arithmetic-7",
+            "2510258-sorting-8",
+            "2510258-python-9",
+            "2510258-units-10",
+            "2510258-json-11",
+            "2510258-arithmetic-14",
+            "2510258-python-16",
+            "2510258-units-17",
+            "2510258-json-18",
+            "2510258-arithmetic-21",
+            "2510258-sorting-22",
+            "2510258-python-23",
+            "2510258-json-25",
+            "2510258-sorting-29",
+            "2510258-units-31",
+            "2510258-json-32",
+            "2510258-arithmetic-35",
+            "2510258-python-37",
+            "2510258-units-38",
+            "2510258-json-39",
+            "2510258-arithmetic-42",
+            "2510258-json-46",
+            "2510258-arithmetic-49",
+            "2510258-python-51",
+            "2510258-units-52",
+            "2510258-json-53"
+          ]
+        },
+        "shared-large": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-sorting-15",
+            "2510258-grounding-19",
+            "2510258-units-24",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-sorting-36",
+            "2510258-grounding-40",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-grounding-47",
+            "2510258-sorting-50",
+            "2510258-grounding-54",
+            "code-search"
+          ],
+          "lost": [],
+          "closed_gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-grounding-5",
+            "2510258-grounding-12",
+            "2510258-sorting-15",
+            "2510258-grounding-19",
+            "2510258-units-24",
+            "2510258-grounding-26",
+            "2510258-grounding-33",
+            "2510258-sorting-36",
+            "2510258-grounding-40",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-grounding-47",
+            "2510258-sorting-50",
+            "2510258-grounding-54"
+          ],
+          "closed_lost": []
+        },
+        "shared-extended": {
+          "scope": "Closed answers plus program execution tests; algorithm-requirement review is separate.",
+          "gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-sorting-15",
+            "2510258-units-24",
+            "2510258-sorting-36",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-sorting-50",
+            "code-search"
+          ],
+          "lost": [],
+          "closed_gained": [
+            "2510258-sorting-1",
+            "2510258-units-3",
+            "2510258-sorting-15",
+            "2510258-units-24",
+            "2510258-sorting-36",
+            "2510258-grounding-40",
+            "2510258-memory-41",
+            "2510258-sorting-43",
+            "2510258-units-45",
+            "2510258-sorting-50"
+          ],
+          "closed_lost": []
+        }
+      }
+    }
+  ],
+  "combined": {
+    "arm": "shared-broad-extended",
+    "parameters": 1399093040,
+    "stored_scalars": 1399093089,
+    "retained_fraction": 0.743476690751824,
+    "closed_correct": 25,
+    "closed_total": 56,
+    "typed_closed_correct": 25,
+    "closed_format_pass": 12,
+    "programs_correct": 1,
+    "programs_total": 4,
+    "programs_with_reviewed_requirements": 0,
+    "explanations_core_correct": 0,
+    "ended": 58,
+    "capped": 4,
+    "word_loop_flags": 2,
+    "loop_flags": 2,
+    "mean_kl": 1.0211241592509985,
+    "target_nll": 2.5667014122009277,
+    "families": {
+      "arithmetic": {
+        "correct": 0,
+        "total": 8
+      },
+      "sorting": {
+        "correct": 5,
+        "total": 8
+      },
+      "python": {
+        "correct": 0,
+        "total": 8
+      },
+      "units": {
+        "correct": 4,
+        "total": 8
+      },
+      "json": {
+        "correct": 0,
+        "total": 8
+      },
+      "grounding": {
+        "correct": 8,
+        "total": 8
+      },
+      "memory": {
+        "correct": 8,
+        "total": 8
+      }
+    },
+    "paired": {
+      "stock": {
+        "closed_gained": [],
+        "closed_lost": [
+          "2510258-json-4",
+          "2510258-arithmetic-7",
+          "2510258-sorting-8",
+          "2510258-python-9",
+          "2510258-units-10",
+          "2510258-json-11",
+          "2510258-arithmetic-14",
+          "2510258-python-16",
+          "2510258-units-17",
+          "2510258-json-18",
+          "2510258-arithmetic-21",
+          "2510258-sorting-22",
+          "2510258-python-23",
+          "2510258-json-25",
+          "2510258-units-31",
+          "2510258-json-32",
+          "2510258-arithmetic-35",
+          "2510258-python-37",
+          "2510258-units-38",
+          "2510258-json-39",
+          "2510258-arithmetic-42",
+          "2510258-sorting-43",
+          "2510258-json-46",
+          "2510258-arithmetic-49",
+          "2510258-python-51",
+          "2510258-json-53"
+        ],
+        "net": -26
+      },
+      "shared-large": {
+        "closed_gained": [
+          "2510258-sorting-1",
+          "2510258-units-3",
+          "2510258-grounding-5",
+          "2510258-grounding-12",
+          "2510258-sorting-15",
+          "2510258-grounding-19",
+          "2510258-units-24",
+          "2510258-grounding-26",
+          "2510258-sorting-29",
+          "2510258-grounding-33",
+          "2510258-sorting-36",
+          "2510258-grounding-40",
+          "2510258-units-45",
+          "2510258-grounding-47",
+          "2510258-sorting-50",
+          "2510258-units-52",
+          "2510258-grounding-54"
+        ],
+        "closed_lost": [],
+        "net": 17
+      },
+      "shared-extended": {
+        "closed_gained": [
+          "2510258-sorting-1",
+          "2510258-units-3",
+          "2510258-sorting-15",
+          "2510258-units-24",
+          "2510258-sorting-29",
+          "2510258-sorting-36",
+          "2510258-grounding-40",
+          "2510258-memory-41",
+          "2510258-units-45",
+          "2510258-sorting-50",
+          "2510258-units-52"
+        ],
+        "closed_lost": [],
+        "net": 11
+      },
+      "shared-broad": {
+        "closed_gained": [
+          "2510258-sorting-29",
+          "2510258-units-52"
+        ],
+        "closed_lost": [
+          "2510258-sorting-43"
+        ],
+        "net": 1
+      }
+    }
+  },
+  "manual_review": {
+    "scope": "Manual review of saved output, separate from automatic execution tests; no model fitting uses these judgments.",
+    "code-dedup": {
+      "requirements_pass": false,
+      "notes": "Copies input elements unchanged, retaining duplicates. Only the empty-list test passes."
+    },
+    "code-intervals": {
+      "requirements_pass": false,
+      "notes": "Returns interval start values without merging or producing interval pairs. Only the empty-list test passes."
+    },
+    "code-search": {
+      "requirements_pass": false,
+      "notes": "Passes all return-value tests using membership and list.index, but does linear scanning instead of the requested binary search."
+    },
+    "code-counts": {
+      "requirements_pass": false,
+      "notes": "Counts character positions and returns inside the loop, rather than producing lowercase ASCII-word counts. No execution test passes."
+    },
+    "explanation-0": {
+      "core_correct": false,
+      "true_repetition": true,
+      "notes": "Incorrectly describes both processes as light-to-energy conversion, omits the required reactants/products, and repeats the same connection sentence through the 1024-token cap."
+    },
+    "explanation-1": {
+      "core_correct": false,
+      "true_repetition": true,
+      "notes": "Explains hardness and softness rather than heat transfer, then repeats the steel/hardness claim through the 1024-token cap."
+    }
+  },
+  "fit": {
+    "heldout_rms": [
+      {
+        "constant_mse": 0.004075555130839348,
+        "predicted_mse": 0.0006118108867667615,
+        "target_std": 0.06126435101032257,
+        "scale": 1.1066477298736572
+      },
+      {
+        "constant_mse": 0.00017645220214035362,
+        "predicted_mse": 3.6059875128557906e-05,
+        "target_std": 0.012806291691958904,
+        "scale": 1.1440562009811401
+      },
+      {
+        "constant_mse": 0.0003979779430665076,
+        "predicted_mse": 9.501419845037162e-05,
+        "target_std": 0.019221501424908638,
+        "scale": 1.1332645416259766
+      },
+      {
+        "constant_mse": 0.0004198177484795451,
+        "predicted_mse": 7.160380482673645e-05,
+        "target_std": 0.019739748910069466,
+        "scale": 1.1335997581481934
+      },
+      {
+        "constant_mse": 0.0004961828817613423,
+        "predicted_mse": 0.0001370111567666754,
+        "target_std": 0.02146117016673088,
+        "scale": 1.1227319240570068
+      },
+      {
+        "constant_mse": 0.00033802195684984326,
+        "predicted_mse": 4.958010686095804e-05,
+        "target_std": 0.017882661893963814,
+        "scale": 1.135305404663086
+      },
+      {
+        "constant_mse": 0.0004370243987068534,
+        "predicted_mse": 0.00011241094034630805,
+        "target_std": 0.020051652565598488,
+        "scale": 1.1225764751434326
+      },
+      {
+        "constant_mse": 0.00044151474139653146,
+        "predicted_mse": 9.124131611315534e-05,
+        "target_std": 0.01998068578541279,
+        "scale": 1.1253173351287842
+      },
+      {
+        "constant_mse": 0.00044265598990023136,
+        "predicted_mse": 0.00012215340393595397,
+        "target_std": 0.019979219883680344,
+        "scale": 1.1219700574874878
+      },
+      {
+        "constant_mse": 0.00035722815664485097,
+        "predicted_mse": 0.00010582192044239491,
+        "target_std": 0.017843270674347878,
+        "scale": 1.1245548725128174
+      },
+      {
+        "constant_mse": 0.000331660732626915,
+        "predicted_mse": 0.0001006346574285999,
+        "target_std": 0.017271053045988083,
+        "scale": 1.1245265007019043
+      },
+      {
+        "constant_mse": 0.00027086486807093024,
+        "predicted_mse": 7.812451076461002e-05,
+        "target_std": 0.015400911681354046,
+        "scale": 1.126607060432434
+      },
+      {
+        "constant_mse": 0.0002567912742961198,
+        "predicted_mse": 8.764080121181905e-05,
+        "target_std": 0.015209032222628593,
+        "scale": 1.1273776292800903
+      },
+      {
+        "constant_mse": 0.00022400594025384635,
+        "predicted_mse": 6.956282595638186e-05,
+        "target_std": 0.01390132401138544,
+        "scale": 1.127844214439392
+      },
+      {
+        "constant_mse": 0.0001616110821487382,
+        "predicted_mse": 5.513845098903403e-05,
+        "target_std": 0.011858954094350338,
+        "scale": 1.130600929260254
+      },
+      {
+        "constant_mse": 0.00019344541942700744,
+        "predicted_mse": 6.45201580482535e-05,
+        "target_std": 0.012908638454973698,
+        "scale": 1.12831711769104
+      },
+      {
+        "constant_mse": 0.00017863459652289748,
+        "predicted_mse": 7.232087227748707e-05,
+        "target_std": 0.012571882456541061,
+        "scale": 1.1309312582015991
+      },
+      {
+        "constant_mse": 0.00017950256005860865,
+        "predicted_mse": 7.258608093252406e-05,
+        "target_std": 0.012260746210813522,
+        "scale": 1.1292622089385986
+      },
+      {
+        "constant_mse": 0.00016262473945971578,
+        "predicted_mse": 7.040725904516876e-05,
+        "target_std": 0.011781683191657066,
+        "scale": 1.130950927734375
+      },
+      {
+        "constant_mse": 0.00016820400196593255,
+        "predicted_mse": 7.12959881639108e-05,
+        "target_std": 0.011424943804740906,
+        "scale": 1.1305789947509766
+      },
+      {
+        "constant_mse": 0.00016487468383274972,
+        "predicted_mse": 7.046754762995988e-05,
+        "target_std": 0.011380107142031193,
+        "scale": 1.13088059425354
+      },
+      {
+        "constant_mse": 0.0001595847716089338,
+        "predicted_mse": 6.660878716502339e-05,
+        "target_std": 0.01075951848179102,
+        "scale": 1.130685806274414
+      },
+      {
+        "constant_mse": 0.00015235035971272737,
+        "predicted_mse": 6.564507202710956e-05,
+        "target_std": 0.011079289950430393,
+        "scale": 1.1320449113845825
+      },
+      {
+        "constant_mse": 0.0001763776526786387,
+        "predicted_mse": 7.482978980988264e-05,
+        "target_std": 0.011723517440259457,
+        "scale": 1.129980206489563
+      },
+      {
+        "constant_mse": 0.0002050860202871263,
+        "predicted_mse": 8.757467003306374e-05,
+        "target_std": 0.012597493827342987,
+        "scale": 1.1291353702545166
+      },
+      {
+        "constant_mse": 0.00022163520043250173,
+        "predicted_mse": 9.265293192584068e-05,
+        "target_std": 0.01284168940037489,
+        "scale": 1.1297073364257812
+      },
+      {
+        "constant_mse": 0.00023571458586957306,
+        "predicted_mse": 9.636893082642928e-05,
+        "target_std": 0.013046922162175179,
+        "scale": 1.1290993690490723
+      },
+      {
+        "constant_mse": 0.00027145547210238874,
+        "predicted_mse": 9.876579861156642e-05,
+        "target_std": 0.01382296159863472,
+        "scale": 1.1292433738708496
+      },
+      {
+        "constant_mse": 0.00030794681515544653,
+        "predicted_mse": 0.00010700084385462105,
+        "target_std": 0.014822841621935368,
+        "scale": 1.1277680397033691
+      },
+      {
+        "constant_mse": 0.00029226590413600206,
+        "predicted_mse": 0.00010692510841181502,
+        "target_std": 0.014324385672807693,
+        "scale": 1.1273239850997925
+      },
+      {
+        "constant_mse": 0.0002577679988462478,
+        "predicted_mse": 8.880234963726252e-05,
+        "target_std": 0.014097034931182861,
+        "scale": 1.1271883249282837
+      },
+      {
+        "constant_mse": 0.00025594321778044105,
+        "predicted_mse": 8.682830957695842e-05,
+        "target_std": 0.014057071879506111,
+        "scale": 1.12594735622406
+      },
+      {
+        "constant_mse": 0.0002880537649616599,
+        "predicted_mse": 0.00010499908967176452,
+        "target_std": 0.01419132761657238,
+        "scale": 1.1265463829040527
+      },
+      {
+        "constant_mse": 0.00028109399136155844,
+        "predicted_mse": 0.0001070858706953004,
+        "target_std": 0.014081940054893494,
+        "scale": 1.128756046295166
+      },
+      {
+        "constant_mse": 0.00037551290006376803,
+        "predicted_mse": 0.0001348584337392822,
+        "target_std": 0.01589910313487053,
+        "scale": 1.127463459968567
+      },
+      {
+        "constant_mse": 0.0003802406426984817,
+        "predicted_mse": 0.00014749808178748935,
+        "target_std": 0.016262032091617584,
+        "scale": 1.1290339231491089
+      },
+      {
+        "constant_mse": 0.0004320905718486756,
+        "predicted_mse": 0.00015826881281100214,
+        "target_std": 0.01731862686574459,
+        "scale": 1.127419114112854
+      },
+      {
+        "constant_mse": 0.000440911651821807,
+        "predicted_mse": 0.0001529542205389589,
+        "target_std": 0.017539724707603455,
+        "scale": 1.1291309595108032
+      },
+      {
+        "constant_mse": 0.0004629269242286682,
+        "predicted_mse": 0.00014937174273654819,
+        "target_std": 0.018023300915956497,
+        "scale": 1.1295229196548462
+      },
+      {
+        "constant_mse": 0.00047064825776033103,
+        "predicted_mse": 0.0001511791197117418,
+        "target_std": 0.018034588545560837,
+        "scale": 1.129435658454895
+      },
+      {
+        "constant_mse": 0.0005359675851650536,
+        "predicted_mse": 0.00017424774705432355,
+        "target_std": 0.019181933254003525,
+        "scale": 1.1287622451782227
+      },
+      {
+        "constant_mse": 0.0004756072594318539,
+        "predicted_mse": 0.00015399935364257544,
+        "target_std": 0.018477434292435646,
+        "scale": 1.1319639682769775
+      },
+      {
+        "constant_mse": 0.0005447872681543231,
+        "predicted_mse": 0.00018226413521915674,
+        "target_std": 0.01946186274290085,
+        "scale": 1.1298878192901611
+      },
+      {
+        "constant_mse": 0.0005250533577054739,
+        "predicted_mse": 0.00017725041834637523,
+        "target_std": 0.019259946420788765,
+        "scale": 1.1317121982574463
+      },
+      {
+        "constant_mse": 0.0005722693167626858,
+        "predicted_mse": 0.00019105695537291467,
+        "target_std": 0.019922075793147087,
+        "scale": 1.1296778917312622
+      },
+      {
+        "constant_mse": 0.0005624910700134933,
+        "predicted_mse": 0.0001864177902461961,
+        "target_std": 0.019793812185525894,
+        "scale": 1.1305649280548096
+      },
+      {
+        "constant_mse": 0.0006454428657889366,
+        "predicted_mse": 0.00020848450367338955,
+        "target_std": 0.020412545651197433,
+        "scale": 1.1249747276306152
+      },
+      {
+        "constant_mse": 0.0006654519820585847,
+        "predicted_mse": 0.00017890801245812327,
+        "target_std": 0.02123742178082466,
+        "scale": 1.1283276081085205
+      },
+      {
+        "constant_mse": 0.0008528269827365875,
+        "predicted_mse": 0.0002531840873416513,
+        "target_std": 0.025280844420194626,
+        "scale": 1.121902346611023
+      }
+    ],
+    "heldout_retained_energy": [
+      0.8938849094340491,
+      0.9606079676018747,
+      0.9391401027268789,
+      0.945119049970407,
+      0.9226896191678617,
+      0.9505074090397063,
+      0.9301075268817204,
+      0.9326385802362018,
+      0.929801726213365,
+      0.9339778630493334,
+      0.9342908115984777,
+      0.9375180070877618,
+      0.9391118266525649,
+      0.962230937392942,
+      0.965351552589401,
+      0.9602668528529833,
+      0.9631977367889388,
+      0.9592993957890323,
+      0.9616193879155658,
+      0.9573780201857708,
+      0.9579182193407716,
+      0.9546695398088151,
+      0.9587251852448413,
+      0.9506420195335518,
+      0.9458417885928287,
+      0.9434212444102698,
+      0.9400989069045006,
+      0.937144737691425,
+      0.93333470663666,
+      0.9313080308064429,
+      0.9624085635528106,
+      0.9303104122423842,
+      0.9275378561699951,
+      0.931521047672002,
+      0.9259328731623638,
+      0.9293074380137502,
+      0.9249698443716684,
+      0.9284062613389819,
+      0.928993769030789,
+      0.9282374532181306,
+      0.9249525735543206,
+      0.9333548871275379,
+      0.9269333159671479,
+      0.931326132617843,
+      0.9259942832569725,
+      0.9278362242592,
+      0.9140316711527722,
+      0.9229228655256002,
+      0.915849419676412
+    ],
+    "mean_heldout_retained_energy": 0.9382177664092984,
+    "broad_64k_256k_mean_squared_subspace_overlap": 0.9477624190481085,
+    "calibration_sample_states": 55582,
+    "weighted_tokens": 262691.0,
+    "scope": "Representation diagnostics only; answer correctness is the selection criterion."
+  },
+  "observed_interaction_in_correct_answers": -5,
+  "interaction_scope": "Difference of observed gains in this small fixed task set; not a statistical estimate of general intelligence.",
+  "controls": {
+    "inherited_fullwidth_and_reload": "/home/cyrus/code/model-experiments/manifold-compression/results/local-projection-20261025",
+    "fresh_cache": {
+      "positions": 8,
+      "max_abs_logit_error": 3.528594970703125e-05,
+      "rms_logit_error": 7.20098049592705e-06,
+      "mean_kl": 1.992984343832476e-11,
+      "max_token_kl": 4.7232079881263406e-11,
+      "top1_agreement": 1.0,
+      "numerical_pass": true
+    },
+    "incremental_unit_test": ".                                                                        [100%]\n1 passed in 2.13s\n"
+  },
+  "grading": "Same content grading as prior experiment. Execution tests and full program requirements are separate. Repetition flags require qualitative review; caps alone do not imply looping.",
+  "cloud_spend_usd": 0
+}

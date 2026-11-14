@@ -1,0 +1,13 @@
+{
+  "stage": "Preparation-only engineering corrections; no model trained or selected on these data yet",
+  "unstructured_horizon": "Instruction-following inspected502000rows but yielded0unambiguous complete pairs. Kept out of training; structured3efforts and curated-local pilots retained.",
+  "stack_sampling": "Initial shard sample overrepresented335StackOverflow shards. Excluded that draft. Current sample uses one pinned shard per community and a750part preparation bound. Community caps use kind, not versioned sourceID. Earlier per-unit payloads remain valid; final domain counts are recomputed from file paths.",
+  "squad": "Initial first-alias occurrence crop superseded by exact annotated-occurrence crop; draft excluded.",
+  "paq": "Pilot accepted units reused with SHA-identical payloads and provenance in four disjoint shard cohorts, each250k eligible pairs. Final cap1M keeps this synthetic Wikipedia source from dominating the new mix.",
+  "tokenizer_optimization": "ASCII whitespace-word lower bound rejects only provably overlength unannotated positives before WordPiece; it does not crop them. Remote Parquet handles cached to avoid repeated footers.",
+  "input_preservation": "Global build preserves already-curated input strings, avoiding a second HTML cleanup that could erase literal mathematical comparisons.",
+  "local_generation": "LCQA74-example pilot is separate from training; new generation queue is prepared only and no LLM service was called.",
+  "quality_spot_checks": "Yahoo excluded after nonresponsive joke answers. Generic structured Horizon refusals filtered. New candidates get pinned ftfy encoding repair and safe string-list flattening; original raw hashes and answer evidence preserved. Legacy retention inputs unchanged. These spot checks are not a population quality estimate.",
+  "reference_identity_cache": "Full reserved corpus texts are SHA-verified. Unique reference text identities cached as non-pickle NumPy arrays, keyed by text digests, tokenizer files, transform source and library versions. Bounded input prefixes preserve first128 BERT token IDs and avoid overflow allocations on huge documents.",
+  "cross_source_passage_group_check": "117193 distinct full-passage group identities among SQuAD-exact/NQ-recovered/Trivia-recovered; zero cross-source identity intersections. Final-file preflight also checks all train/dev source-group identities for overlap."
+}

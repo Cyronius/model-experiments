@@ -1,7 +1,59 @@
 # Plan (draft): a layer-pipelined embedding engine on the NPU
 
-**Status:** draft, 2026-10-16. Nothing built. Stops for the owner's decision on the target (see the end).
-**Worktree:** `C:\code\openflowlm-embed`, branch `feat/embed-pipeline` (untied, from `upstream/main` 99fe7e4d).
+**Original plan:** draft, 2026-10-16. Historical proposals below are superseded
+where later measured updates say so.
+**Update, 2026-10-22:** Grid 1 is complete (results below). The owner authorized
+the remaining shallow experiments: 2d_512 and 2f_256, final-vector-only recipe,
+150M tokens each, seed 0. Grid 2 is complete: neither candidate improves the
+existing options or clears the quality bar. Isolated RunPod A5000
+`m3ruzkkbr88nf6` ran for about 53 minutes at $0.27/hr (about $0.24 compute,
+excluding storage). All 54 artifact files were downloaded and SHA256-verified
+before deleting the pod. See `README.md`, `grid2-summary.json` and `run_grid2.py`;
+the complete NPU encoder is not implemented.
+**Update, 2026-10-23:** Native ternary probes for K 384, 512, 1536 and 2048
+compiled and ran on Strix, with exact integer outputs. Width 384 has no forced
+512 padding in the custom kernel; keep 384 for hardware development. The
+512 primitive took 21% longer, and 2048 took 28% longer than 1536. See
+`npu-width-probe/README.md` for measurements and their limited scope. The full
+encoder and full-array layout are still unimplemented.
+**Further update, 2026-10-23:** Complete streamed native-384 dense projections
+now pass 36 exact NPU checks against trained 2a_384 activations. FFN-down
+preserves all six 256-channel activation-scale groups. A separate packed CPU
+oracle checks both layers through final vectors at sequence caps 8/32/128
+(worst vector element error 8.65e-7). Quantization/dequantization and nonlinear
+ops remain on the CPU, so this does not complete the one-stage hardware gate.
+See `native-stage/README.md`, `oracle-result.json` and `projection-result.json`
+in that directory for reproduction, scope, compiled budgets and raw samples.
+**Current project:** `C:\code\model-experiments\ternary-embedder`.
+**Quality-control update, 2026-10-23:** The matched 150M-token float-only
+2a_384 control is complete. On one consistent CPU evaluator, mean retrieval
+nDCG@10 is 46.920 MiniLM, 44.436 float-only and 42.132 original QAT. The
+current quantized training recipe costs 2.304 points (paired query-bootstrap
+95% CI 1.320-3.277), while a 2.484-point gap is already present in float.
+Int8 activation quantization has no detected retrieval cost after QAT in this
+subset. This supersedes the earlier inference that the loss was "not ternary".
+See `retrieval-diagnostics/README.md` and its retained reports. The isolated
+A5000 cost about $0.193 compute, excluding storage; 26 artifacts were
+SHA256-verified before pod deletion. No further training is queued.
+**Historical worktree:** `C:\code\openflowlm-embed`, branch `feat/embed-pipeline` (untied, from `upstream/main` 99fe7e4d); no longer present locally.
+**Complete encoder update, 2026-10-23:** Both native-384 encoder layers now run
+on 32 NPU cores (eight columns by four rows) in one dispatch. All 12 projections,
+quantizers, attention, GELU and eps=1e-12 post-residual LayerNorms run on the
+array. Tokenization, input embeddings/norm, pooling and the output projection
+remain on the CPU and are included in the timings. Final-build text-to-vector
+medians: 6.587 ms for four texts at cap 32 (607.3/s), 4.135 ms for one text at
+cap 128 (241.8/s). Bulk cap-128 encoding reaches 326–333/s. Earlier builds and
+timing passes were faster; their code identities and observations are retained
+alongside the final build to show shared-machine variability. Actual NPU mean
+retrieval is 41.9409 versus 42.1322 on CPU for the same checkpoint. Program text
+is 16096 B/core; full routing, batch isolation and NPU retrieval have passed. Weights
+still stream and K/V uses DDR scratch; replicas, resident weights and pooled
+NPU output are unimplemented. The older MiniLM 1305/s NPU result is a different
+batch/workload and has not been rerun; fresh CPU MiniLM timing is reported
+separately. See `native-stage/README.md`, `fused-result.json` and
+`fused-retrieval.json`. The owner considers the 46.92 / 44.44 / 42.13 quality
+gap modest: the acceptance decision is speed versus quality, not a requirement
+to beat MiniLM's retrieval score before measuring performance.
 **Spec impact:** new requirements, named when step 2 starts. No embedding-engine spec exists yet
 (`specs/open-engine` has only `OPEN-EMBED-STRIDE`; `specs/server-api` has `SERVER-EMBED-TASK-PROMPT`).
 
@@ -9,6 +61,72 @@
 
 The fastest text-embedding engine on the Strix NPU. The owner's idea: pipeline the model across the
 array, so each part of the array runs a different layer or task, and data flows between them.
+
+## XDNA evidence review (2026-10-23)
+
+Owner goal: a smart embedder with very high throughput. Keep 2a_384 as the current
+two-layer quality candidate, while measuring the hardware design before fixing
+the replica count or claiming a throughput. The notes repository is
+`C:/code/xdna2-notes` (`C:/code/xdna-notes` does not exist on this machine).
+The following are historical measurements on their stated stacks, not results
+for this embedder. The implementation choices below are proposals.
+
+- **A native 384 kernel is necessary to avoid known software padding.**
+  [F-0347](../../xdna2-notes/findings/F-0347-dit-gemm-shape-padding.md) records
+  `dit_gemm` requirements M % 512, K % 512, N % 1024. Calculated for our FFN,
+  reusing those rules would turn 384 -> 1536 into 512 -> 2048 (1.78x the useful
+  arithmetic), and 1536 -> 384 into 1536 -> 1024 (2.67x), before row padding.
+  These are kernel constraints, not a hardware requirement that width be 512.
+  [F-0346](../../xdna2-notes/findings/F-0346-dit-gemm-small-k-low-rate.md) also
+  shows poor small-K rates: do not extrapolate from large GEMMs.
+- **Four tiles per column and four complete replicas are unvalidated layouts.**
+  [F-0313](../../xdna2-notes/findings/F-0313-memtile-split-reaches-dma-floor.md)
+  measured gains from two or three compute cores per column, but a four-core
+  streaming graph failed to route.
+  [F-0217](../../xdna2-notes/findings/F-0217-memtile-dma-channel-cap.md) records
+  six input and six output DMA channels per memtile; the failed graph needed
+  nine output channels. This is not a universal four-core ban: a resident-weight
+  graph may have different channel requirements. Count every split, join,
+  weight and activation stream before choosing a topology. The embedding raw
+  note also measured a 16-core matmul faster than its 32-core version.
+- **Fuse the two-layer walk and pooling in one context where resources allow.**
+  [R-0003](../../xdna2-notes/recommendations/R-0003-layer-as-one-context.md) and
+  [R-0008](../../xdna2-notes/recommendations/R-0008-context-switching-and-dispatch-cost.md)
+  show why dispatch/context count must be budgeted. Historical direct C++ calls
+  cost about 0.077 ms versus 0.47 ms through IRON's Python path
+  ([F-0179](../../xdna2-notes/findings/F-0179-iron-python-dispatch-overhead.md));
+  those floors must be remeasured for our image. Aim for one batched inference
+  dispatch after weight load, not a host round trip for each projection or norm.
+- **Choose batch/sequence buckets and avoid padded work.**
+  [F-0329](../../xdna2-notes/findings/F-0329-embedding-batch-tiers.md) measured
+  1.650 -> 0.090 s for one bge-large text using batch tiers, with bit-identical
+  vectors. This is a different engine/model, so the 18.3x gain is not transferable.
+  It supports measuring several request sizes. For packed short texts, preserve
+  per-text attention masks, position numbering and pooling boundaries.
+- **Ternary matmuls alone do not guarantee speed or preserve full-model quality.**
+  [F-0317](../../xdna2-notes/findings/F-0317-ternary-2bit-gemv.md) and the
+  [tiny-planner ablations](../../xdna2-notes/raw/openflowlm-next/2026-10-09-wt-tiny-planner-decoder-on-npu-dispatch-floor-ternary.md)
+  put much of the remaining time in streams, attention, scaling, quantization
+  and normalization. Balance these tasks, not just weight counts. Keep 2-bit
+  packed weights and measure a DMA-only/compute-disabled build alongside the
+  real kernel to identify the actual bottleneck.
+- **Gate faster arithmetic on embedding quality.** F-0329 records bge-small
+  failing its bfp16 MTEB gate by 0.5010 points. Our training simulates ternary
+  linear weights and int8 inputs, but does not prove equivalence to every NPU
+  GELU, softmax or norm implementation. Check intermediate states, final vectors
+  and the same MTEB subset before accepting approximations. Set the intended
+  rounding mode explicitly
+  ([F-0074](../../xdna2-notes/findings/F-0074-core-rounding-floor.md)); avoid
+  naive fp32 vector multiplication
+  ([F-0070](../../xdna2-notes/findings/F-0070-fp32-vector-multiply-emulated.md)).
+
+Native-width arithmetic gate is complete (`npu-width-probe/README.md`). Next
+hardware gate: compile and validate a complete native-384 stage, with explicit
+L1/program/memtile/DMA budgets, then compare feasible tile mappings on the same
+real activations. Measure whole-layer time, reductions/joins and host overhead.
+Only then extend to two layers, pooling, packed batches and replicas. Continue
+to report the CPU model's quality separately from any NPU numerical degradation.
+The ~750k tok/s estimate below is still an unvalidated planning estimate.
 
 ## The baseline today (`open_npue`, from `docs/docs/benchmarks/embeddings_results.md`)
 
@@ -182,9 +300,10 @@ miss the teacher by a wide margin. That rules out Ternlight, not 2 layers: see s
   Community RTX 3090 at $0.22/hr (covenant R27 cost $0.45). Per run: 2 × 256 about 10 min,
   the 14M-weight shapes about 1-1.5 h, looped ones 2-3 h. The 2- and 4-layer runs are small
   enough for the laptop CPU at $0.
-- **Quality bar:** the student must beat all-MiniLM-L6-v2 on a small MTEB subset (STS and one
-  retrieval task). If it does not, the speed record uses a worse model than the one that already
-  runs at 1305/s.
+- **Original quality target (superseded on 2026-10-23):** beat MiniLM on STS and
+  retrieval. The current decision instead weighs the measured retrieval loss
+  against complete-pipeline throughput. The historical MiniLM 1305/s number
+  needs a matched-workload rerun before claiming an NPU speed advantage.
 
 ## Costs and risks
 
@@ -335,16 +454,69 @@ Each step has a gate. If a gate fails, stop and report.
    - **The extras did not help at this budget.** Layer-by-layer targets (2b) and pairs (2c) are
      level or worse than plain final-vector distillation (2a), except +0.7 retrieval for 2c_384.
    - **Width matters most.** 256 is 2.4 STS, 7.8 retrieval and 3.1 classification below 384.
-   - **Ternary is nearly free here.** STSB-dev and teacher cosine, float at step 8000 against the
+   - **Early STS/teacher-cosine proxies (not a retrieval control).** Float at step 8000 against the
      final ternary model: 2a_256 0.851/0.890 -> 0.850/0.887; 2a_384 0.868/0.958 -> 0.863/0.942;
-     r0 0.875/0.945 -> 0.867/0.924. (The float point is half trained, so this is a lower bound.)
+     r0 0.875/0.945 -> 0.867/0.924. The float point is half trained; these proxies
+     do not isolate quantization or establish its retrieval cost.
    - **Against the bar:** 2a_384 passes STS (79.3 against 78.9) but is below on retrieval (-5.1),
-     classification (-4.3), reranking (-3.1) and pair classification (-1.3). The loss is capacity
-     and training, not ternary.
+     classification (-4.3), reranking (-3.1) and pair classification (-1.3).
+     The later matched-budget control below separates a float-student gap from
+     a further loss caused by the current quantized training recipe.
    - Cost: pod 01:53-06:30 UTC at $0.22/hr, about $1.02, of which about 2 h idle behind dibs
      blocks. Pod deleted 06:30 UTC after the md5 check; the corpus and teacher vectors were not
      kept (about 25 min to rebuild on a new pod). Runs 1-6 after, only if needed: about 9
    GPU-hours, about $2.
+   **Grid 2 results, 2026-10-22:** 2d_512 and 2f_256 used the winning 2a recipe
+   (final-vector distillation only), 150M tokens, batch 256, seed 0, 50% float
+   followed by 50% ternary. The corpus rebuilt to the same 4,252,720 texts,
+   2,337,599 pairs and 145,428,260 tokens. Both new shapes passed GPU smoke
+   training, checkpoint reload and STS evaluation before their full runs.
+
+   | run | STS | Retrieval | Classif. | Rerank | Pair |
+   |---|---:|---:|---:|---:|---:|
+   | 2d_512 | 78.9 | 41.2 | 75.6 | 59.8 | 65.9 |
+   | 2f_256 | 76.4 | 33.2 | 72.2 | 56.9 | 64.7 |
+
+   - 2d_512 starts from bge-base layers 0 and 11, cut from 768 to 512. It is
+     below 2a_384 in all five categories. This tests the planned wider recipe,
+     not width in isolation, because its initialization also differs.
+   - 2f_256 starts from ELECTRA layers 0 and 1, applied twice with shared weights.
+     It is below 2a_256 in every category despite doubling the layer passes.
+   - Training took 607 s for 2d_512 and 785 s for 2f_256. Final STSB-dev / held
+     teacher cosine: 0.8630 / 0.9403 and 0.8480 / 0.8782 respectively.
+   - Both fail the STS-plus-mean-retrieval target. 2d_512's rounded STS tie with
+     MiniLM hides a small deficit (78.8620 versus 78.9365).
+   - Artifacts: `tern-embed/pulls/grid2` (54 files, SHA256 verified), including
+     final/float/last checkpoints, logs, task results, source and environment.
+     Exact comparisons: `grid2-summary.json`. Pod deleted; no new training queued.
+   - Keep 2a_384 as the best balanced two-layer ternary candidate. The matched
+     float control described next is complete. Longer ternary budgets and an
+     isolated retrieval-objective comparison remain untested. Depth is a fallback.
+
+   **Matched float control and retrieval diagnosis, 2026-10-23:** Same
+   initialization, seed 0, corpus construction/counts, batch 256, vector loss,
+   learning-rate schedule and 17,134 updates (150M-token target); quantization
+   stays off throughout the control. Before the QAT switch their float training
+   traces reproduce closely. Current CPU retrieval scores:
+
+   | model | SciFact | NFCorpus | mean |
+   |---|---:|---:|---:|
+   | MiniLM-L6 | 62.386 | 31.453 | 46.920 |
+   | float-only 2a_384, 150M tokens | 57.403 | 31.470 | 44.436 |
+   | original QAT 2a_384, 150M tokens | 54.856 | 29.409 | 42.132 |
+
+   The float gap is 2.484 points; the current ternary training recipe adds
+   2.304. Turning off activation quantization with ternary weights does not
+   recover the gap. Converting the 75M float checkpoint without adaptation
+   drops mean retrieval from 43.797 to 25.369; QAT recovers most of that damage.
+   Turning off quantization on QAT-trained master weights is not a float-only
+   control (mean score 1.402). Corpus centering also hurts retrieval, so a
+   uniform spacing correction is not sufficient. This single-seed study does
+   not establish a ceiling for shallow or ternary models. Details, intervals,
+   ranking examples and source/environment snapshots are in
+   `retrieval-diagnostics/`. Archived GPU scores above and current CPU scores
+   differ slightly; all new paired comparisons use the same current CPU stack.
+
    0. 3 × 384: ternary conversion of bge-micro-v2 (R33 method), distilled from bge-small. It is
       the smallest model that passed the bar in float, so this measures ternary's cost where it
       matters. Proposed next after step 0b.

@@ -1,0 +1,29 @@
+{
+  "scope": "Manual review of saved output, separate from automatic execution tests; no model fitting uses these judgments.",
+  "code-dedup": {
+    "requirements_pass": false,
+    "notes": "Copies input elements unchanged, retaining duplicates. Only the empty-list test passes."
+  },
+  "code-intervals": {
+    "requirements_pass": false,
+    "notes": "Returns interval start values without merging or producing interval pairs. Only the empty-list test passes."
+  },
+  "code-search": {
+    "requirements_pass": false,
+    "notes": "Passes all return-value tests using membership and list.index, but does linear scanning instead of the requested binary search."
+  },
+  "code-counts": {
+    "requirements_pass": false,
+    "notes": "Counts character positions and returns inside the loop, rather than producing lowercase ASCII-word counts. No execution test passes."
+  },
+  "explanation-0": {
+    "core_correct": false,
+    "true_repetition": true,
+    "notes": "Incorrectly describes both processes as light-to-energy conversion, omits the required reactants/products, and repeats the same connection sentence through the 1024-token cap."
+  },
+  "explanation-1": {
+    "core_correct": false,
+    "true_repetition": true,
+    "notes": "Explains hardness and softness rather than heat transfer, then repeats the steel/hardness claim through the 1024-token cap."
+  }
+}

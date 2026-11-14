@@ -1,0 +1,10 @@
+{
+ "id": "H0-A1",
+ "recorded_utc": "2026-10-28T08:02:18Z",
+ "change": "rules.runtime.max_hours.evaluate 3 -> 8. Nothing else in rules, code, corpus, collection or fits changed.",
+ "reason": "Evaluation ran 2-3x slower than the timing probe because another session ran two CPU training jobs (load average ~39 on 32 threads); 10 of 265 test docs took 1087 s, so the 3 h guard would likely have aborted it. The guard bounds runtime only and does not affect any result.",
+ "aborted_run": "Stopped by Claude after 10 test docs; the partial evaluation.jsonl was deleted unread (only the progress log line was seen). Collection and fits are reused unchanged (hash-checked).",
+ "previous_protocol": "protocol-v1.json",
+ "previous_protocol_sha256": "a1e5aadf9039d1fafa951cd6cf17ca2c084e26c74cc73285a0c2ac9234cd08ae",
+ "previous_rules_sha256": "5a1fc850bb3bd601bfc26cdf643dd1cc20b1da0a76be6349fd9c6afad8cd5d00"
+}

@@ -1,0 +1,1512 @@
+{
+  "revision": "8049631c405ae6576f93f445c6b8166f76f5505a",
+  "seed": 137,
+  "max_length": 384,
+  "train": [
+    {
+      "id": "curated-multi-1",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Start a shopping list with rice and beans."
+        },
+        {
+          "role": "assistant",
+          "content": "Rice, beans."
+        },
+        {
+          "role": "user",
+          "content": "Add carrots and return just a JSON array."
+        },
+        {
+          "role": "assistant",
+          "content": "[\"rice\", \"beans\", \"carrots\"]"
+        }
+      ]
+    },
+    {
+      "id": "curated-7",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Summarize in one sentence: Lina planted basil on Monday. She watered it every morning. New leaves appeared on Friday."
+        },
+        {
+          "role": "assistant",
+          "content": "Lina planted basil on Monday, watered it daily, and saw new leaves by Friday."
+        }
+      ]
+    },
+    {
+      "id": "curated-5",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "List exactly three ways to save water, one per numbered line."
+        },
+        {
+          "role": "assistant",
+          "content": "1. Repair leaking taps.\n2. Take shorter showers.\n3. Run the dishwasher only when full."
+        }
+      ]
+    },
+    {
+      "id": "curated-4",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Return only a JSON object with fruit set to pear and quantity set to 4."
+        },
+        {
+          "role": "assistant",
+          "content": "{\"fruit\": \"pear\", \"quantity\": 4}"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-ed843391935c4cfe6dc0c81d9adc20adae7000fbb2a00071f81edb28eb543037",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Using Swift, develop an iOS application that allows users to create custom animations. The application should include features such as keyframe animation, layer-based animation, and animation controls. The animations should be able to be exported in various formats such as GIF, MOV, and MP4. Additionally, provide a library of pre-built animations that users can use as a starting point.",
+          "role": "user"
+        },
+        {
+          "content": "I don't have the capability to develop such applications. However, I can provide you with an overview of how to develop such an application in swift.\n\n1. Start by creating a new xcode project and select the ios template.\n2. Design the user interface of your application using interface builder.\n3. Add the necessary controls and views to your ui, such as sliders, labels, and image views.\n4. Implement the logic for the keyframe animation and layer-based animation. A keyframe animation is an animation in which you define specific points to transition between. A layer-based animation is when you animate layers within a view.\n5. Add the animation controls, such as play, pause, and stop buttons.\n6. Implement the export functionality by using the avfoundation framework to export the animation in various formats.\n7. Add a library of pre-built animations by creating a data source and displaying the animations in a table view.\n8. Implement the logic to allow users to customize the pre-built animations by modifying the keyframes and layer animations.\n9. Test your application on a simulator or a real device to ensure that it works as expected.\n10. Publish your application to the app store or distribute it through other channels.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-26a584dd0b005bb63f68a374d8d7d44cee4cd6bb39d8da84d0eec3c03f2bd639",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Can you summarize the experience at Lady Elliot Island and the marine life encountered there?\nGenerate according to: A few days at Lady Elliot Island was a great break away from all the rain!\nSunshine every day, water temperature 28 degrees.\nWatching turtles hatching at night.\nTurtles, sharks, manta rays, stingrays and thousands of fish in the sea.\nfabulous, Mieke. What a great time you must have had.",
+          "role": "user"
+        },
+        {
+          "content": "Mieke had a great experience at Lady Elliot Island where she enjoyed sunshine every day and water temperature of 28 degrees. She witnessed the amazing sight of turtles hatching at night and was surrounded by marine life such as turtles, sharks, manta rays, stingrays, and thousands of fish in the sea. It was a fabulous getaway from the rain.",
+          "role": "assistant"
+        },
+        {
+          "content": "Can you provide more information on the types of turtles and sharks that Mieke encountered on Lady Elliot Island?",
+          "role": "user"
+        },
+        {
+          "content": "I don't have access to the specific details of mieke's experience on lady elliot island. However, lady elliot island is known for being a habitat for various species of sea turtles such as green sea turtles, loggerhead sea turtles, and hawksbill sea turtles. There are also different types of sharks that can be seen around the island like reef sharks, whitetip sharks, and blacktip sharks.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-d8d217d4876fccd0bbbaba28de86209915a62be06735ddb6a11738c4ad84a34d",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How do you make avocado deviled eggs using the egg yolks and sour cream?: Pour one cup of water in the Instant Pot and insert the steam rack. Arrange the eggs on the rack, then secure the lid, making sure the vent is closed.\nUsing the display panel select the MANUAL or PRESSURE COOK function*. Use the +/- keys and program the Instant Pot for 5 minutes.\nImmediately move the eggs to an ice bath for at least 5 minutes, then peel.\nCut the eggs in half lengthwise and set the yolks aside. Arrange the emptied eggs on a serving dish.\nIn a medium bowl, roughly mash avocado with a fork, then stir in lime juice, salt, sour cream and two of the egg yolks (reserve the remaining 4 yolks for another use).\nFold in chopped cilantro, chives and jalapeno (if using).\nFill eggs with avocado mixture and top each with a small sprig of cilantro.",
+          "role": "user"
+        },
+        {
+          "content": "Serve chilled and enjoy!",
+          "role": "assistant"
+        },
+        {
+          "content": "Can you suggest any alternative ingredient for cilantro? I don't have it on hand.",
+          "role": "user"
+        },
+        {
+          "content": "If you don't have cilantro on hand, you can try using parsley, basil or chopped green onions instead. They will provide a similar herby flavor and will work well in this recipe.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-d077c88bc5f31c41724bdfb60809a8d90129ce4df162c1c1205acbac17cc6be3",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Ejersbo, Niels ; Greve, Carsten. / Relevance of Management Instruments. Nordic Administrative Reforms: Lessons for Public Management. Editor / Carsten Greve ; Per L\u00e6greid ; Lise H. Rykkja. London : Palgrave Macmillan, 2016. Pp. 129-144 (Public Sector Organizations).\nRelevance of Management Instruments. / Ejersbo, Niels; Greve, Carsten.\nNordic Administrative Reforms: Lessons for Public Management. Ed. / Carsten Greve; Per L\u00e6greid; Lise H. Rykkja. London : Palgrave Macmillan, 2016. P. 129-144. Could you paraphrase the text material to generate a simpler version of the content?",
+          "role": "user"
+        },
+        {
+          "content": "This text discusses the importance of management strategies and tools in public administration. It is a chapter in a book that examines the lessons that can be learned from administrative reforms in Nordic countries. The authors argue that effective management instruments are necessary for improving the quality of public services and achieving policy goals. They also emphasize the need for flexibility in the use of management techniques and the importance of context-specific solutions.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-6a32e605f86b87bb7829d122e2687e5c4c42e4be9017d2647e63deecba3d505a",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How can the L'Oreal Paris Superliner Superstar Felt Liner help me achieve a show-stopping Superstar look?\nGenerate according to: L\u2019OREAL PARIS SUPERLINER Superstar Felt Liner enables you to draw a perfect show-stopping Superstar look. Rich black formula, long lasting and smudge proof. Stealing the spotlight all in one stroke.",
+          "role": "user"
+        },
+        {
+          "content": "By using the L'Oreal Paris Superliner Superstar Felt Liner, you can easily create a bold, striking and show-stopping look that will turn heads. Its rich black formula and ultra-precise felt tip allows you to draw fine, clean lines that won't smudge or fade away. This liner's long-lasting formula is perfect for taking you from daytime to nighttime, without needing to touch up your makeup. It's perfect for creating exaggerated wings and sharp graphic lines, making it highly recommended for achieving a celebrity-inspired look that will capture the attention of everyone around you. Trust in the L'Oreal Paris Superliner Superstar Felt Liner to make sure you're stealing the spotlight, all in just one stroke.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-1f07bfb61edd36daf296976509ff0c140e61b6a654bf1c9d201bd72b7d0f021d",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How has the sourcing of natural resources for musical instrument production changed with the growth of technology?",
+          "role": "user"
+        },
+        {
+          "content": "The sourcing of natural resources for musical instrument production has changed significantly with the growth of technology. In the past, musical instrument makers relied on traditional methods of sourcing natural sources such as wood, bone, and ivory, which often required them to travel long distances to find the necessary materials. This resulted in the depletion of natural resources and the destruction of ecosystems.\n\nWith the growth of technology, however, musical instrument makers now have access to a wide range of sustainable resources for their products. For example, companies can now use advanced simulation tools to model the sound and physical properties of a wide range of materials, allowing them to find materials that are both sustainable and produce high-quality sound.\n\nIn addition, many companies now use recycled and reclaimed materials for their musical instruments, reducing waste and minimizing the environmental impact of their operations. This includes the use of recycled plastic, metal, and even reclaimed wood from old buildings and ships.\n\nOverall, the growth of technology has made it possible to create high-quality musical instruments while minimizing environmental impact and promoting sustainability. As technology continues to advance and new materials and methods are developed, it is likely that the sourcing of natural resources for musical instrument production will continue to evolve in new and innovative ways.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-7b4ac19381dad639cb8fda549cf9a7339431ba4d0f9aceb9e74b08178612a1c8",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "What role do financial institutions play in the economy of Nigeria?",
+          "role": "user"
+        },
+        {
+          "content": "Financial institutions such as banks, insurance companies, and investment firms play a crucial role in the economy of Nigeria. They provide financial services to individuals, businesses, and government agencies, helping to facilitate the movement of money and credit throughout the economy. \n\nBelow are some of the key roles financial institutions play in Nigeria's economy:\n\n1. Mobilizing Savings: Banks and other financial institutions collect savings from individuals and businesses, which they then lend out to those who need it, such as small and medium-sized enterprises (SMEs) and large corporations.\n\n2. Providing Credit: Financial institutions provide loans to individuals and businesses, which enable them to start new businesses or expand existing ones, purchase homes or other assets, and fund other types of investment.\n\n3. Facilitating Payments: Financial institutions offer a variety of payment services, including checks, credit cards, and online banking, which help facilitate transactions between consumers and businesses.\n\n4. Managing Risk: Financial institutions assume and manage risks associated with lending and investing, which helps to promote stability and ensure the smooth functioning of the financial system.\n\n5. Supporting Economic Growth: Financial institutions provide essential services that contribute to economic growth and development, such as capital investment, risk management, and financial education.\n\nIn summary, financial institutions play a critical role in the Nigerian economy, helping to mobilize savings, provide credit, facilitate payments, manage risk, and support economic growth.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-3c23d8cbcb7d34d44286c55702c41dc8b182651e2939e08dd6e176d852cb41ba",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Given the text: Poems about broken friendship. Read and share the sadness of a broken friendship. You can share/send them via Text/SMS, Email, Facebook, Whatsapp, IM or other social networking sites.\nThis friendship was pure and true!\nThere is nothing left now..In this friendship!\nA friend that I lost with time!\nI lost a friend I loved to the core!\nDo you still remember the time spent with me?\nCan you see what I can see?\nWill you ever come back to me?\nThis friendship has lost it all!\nAs it's all over between you and me!\nThere is no one to blame!\nA final goodbye from me!\nNow I don't trust any friend!\nJust the thorns of broken friendship!\nYou were also the same!\nOf my broken bond of friendship!\nShe is no longer with me!\nCoz for me this relationship was number one!\nIt was just not meant to be!\nTranslate the poem \"This friendship was pure and true!\" into Spanish.",
+          "role": "user"
+        },
+        {
+          "content": "\"\u00a1Esta amistad era pura y verdadera!\"",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-8d683e693ee3a2c0a06db07097de6cb61ce8ba5ec3d94bfc41767a990237dc8b",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "1. Select a large, firm squash, such as acorn or butternut.",
+          "role": "user"
+        },
+        {
+          "content": "2. Wash the squash thoroughly and pat it dry with paper towels.\n3. Use a sharp knife to slice off both ends of the squash.\n4. Cut the squash in half lengthwise.\n5. Use a spoon to scoop out the seeds and discard them.\n6. Season the squash with salt, pepper, and any other seasonings of your choice.\n7. Place the squash halves cut-side down on a baking sheet lined with parchment paper.\n8. Roast the squash in a preheated oven at 375\u00b0F (190\u00b0C) for 45-60 minutes, depending on the size of the squash. The flesh should be tender and easily pierced with a fork when done.\n9. Remove the squash from the oven and let it cool slightly.\n10. Use a spoon to scoop out the flesh and serve as desired.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-0b385f79fa03dc9d23ac4097096d5b431dbc65d7c8c4a56d0ab4ae1f2901c0f6",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Can you suggest any off-the-beaten-path attractions in Kingston, Ontario?",
+          "role": "user"
+        },
+        {
+          "content": "Sure, here are a few suggestions:\n\n1. Murney Tower: This 19th-century defensive tower provides a stunning view of the city and Lake Ontario.\n\n2. Prison for Women Memorial: This monument commemorates the women who were incarcerated and died at the Kingston Prison for Women.\n\n3. The Skeleton Park Arts Festival: A community-run event, which features music, art, and poetry in a park that was once a burial ground.\n\n4. The Kingston Symphony: This professional orchestra offers classical music concerts throughout the year.\n\n5. Kingston Penitentiary Tours: Take a guided tour of Canada's oldest and most notorious maximum-security prison.\n\n6. Fort Henry National Historic Site: Explore the fortifications, barracks, and other structures of a 19th-century military fortress, featuring daily reenactments and cannon firings.\n\n7. Tett Centre for Creativity and Learning: Located in a historic limestone building on the waterfront, this center offers workshops, classes, and exhibits that showcase Kingston's artistic and cultural scene.\n\n8. The Kingston Farmers' Market: Every Saturday morning, local farmers and artisans gather to sell fresh produce, crafts, and other goods.\n\n9. The Frontenac Arch Biosphere Reserve: This UNESCO-designated site features unique geological formations, wildlife, and ecosystems that span across eastern Ontario and northeastern New York State.\n\n10. The Kingston WritersFest: Each year, this event brings together acclaimed authors, poets, and playwrights for a series of literary readings, workshops, and discussions.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-4ac3d32652302a41a8047174f9408e193f6fef08ee299736a7efa4129e3d0f68",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Were there any environmental or sustainability considerations taken into account during the creation and installation of The Gates?",
+          "role": "user"
+        },
+        {
+          "content": "Yes, there were environmental and sustainability considerations taken into account during the creation and installation of The Gates in Central Park. The project was designed to have minimal environmental impact and to leave the park in its original condition once the installation was complete.\n\nThe materials used in the project, such as the nylon fabric of the gates and the steel frames, were chosen for their durability and environmental sustainability. The nylon was specially formulated to be recyclable and was collected for recycling once the project was finished. The steel frames were designed to be reused for other projects.\n\nAdditionally, the installation process was planned to minimize damage to the park. The gates were installed without digging into the ground or disturbing the soil. The installation team used existing paths and roads to access the installation sites and worked carefully to protect surrounding plants and trees.\n\nFinally, The Gates project was designed to be a temporary installation, with a planned disassembly and removal date. This ensured that the park returned to its original condition after the project was complete.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-62fc9b6af68e51e8bd82f86cab9d8965417f92daa1a6a687a31e211f6ab134a2",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Home \u203a The Chief of the Imperial General Staff, General Sir Alan Brooke, at his desk at the War Office, 1942.\nThe Chief of the Imperial General Staff, General Sir Alan Brooke at his desk at the War Office in London, 1942.\nThe Chief of the Imperial General Staff, General Sir Alan Brooke, at his desk at the War Office, 1942. Can you provide more information about General Sir Alan Brooke's role as Chief of the Imperial General Staff during World War II?",
+          "role": "user"
+        },
+        {
+          "content": "General Sir Alan Brooke served as Chief of the Imperial General Staff of the British Army from 1941 to 1946, during the crucial years of World War II. In this position, he was responsible for directing the overall strategy and planning of the British Army, working closely with Prime Minister Winston Churchill and other military leaders to coordinate operations across various theaters of the war.\n\nBrooke played a key role in many of the major Allied campaigns during the war, including the North Africa campaign, the invasion of Sicily, and the Normandy landings. He was known for his strategic brilliance and his ability to anticipate enemy movements and respond quickly and decisively.\n\nThroughout the war, Brooke was also a key advisor to Churchill, providing counsel on military strategy and helping to shape the overall direction of the war effort. He was a regular participant in meetings of the War Cabinet and played a lead role in many high-level discussions about the war.\n\nOverall, General Sir Alan Brooke's leadership and strategic acumen were essential to the success of the British Army during World War II, and he remains a respected figure in military history today.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-f6ecd868cd2803a76589405041a36b25b036e2aa21293b97468ed8fe917ae14c",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Our team of professional Montessori/Early Childhood teachers are trained to follow each child individually. In a true Montessori classroom, the child guides the teacher; Dr. Montessori\u2019s research with young children showed that the children are very capable of teaching themselves. Our goal is to help each child succeed independently by actively planning and presenting materials according to each child\u2019s ability and interests.\nOur school\u2019s curriculum is not taught in isolation, but is interwoven. The child will learn language and math skills along side art, practical life, music, zoology, botany and culture. Can you paraphrase the passage on the Montessori teaching style and explain how it prioritizes the child's individual needs and interests?",
+          "role": "user"
+        },
+        {
+          "content": "The Montessori teaching style is centered around the individual needs and interests of each child. Trained teachers follow and observe each child, allowing them to guide the learning experience. The focus is on helping each child succeed independently by presenting materials tailored to their abilities and interests. Curriculum is not taught in isolation, but rather interwoven with various subjects such as language, math, art, practical life, music, zoology, botany, and culture. Overall, the Montessori approach prioritizes the unique learning styles and capabilities of each child.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-b4d52408ad1bf1ba1852716c69e94c4f74d5b0a580b75df29b4b4f79eea0257e",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Kyle Vanden Bosch, entering his third season with the Lions, is coming off one of his better seasons. Here are three reasons Vanden Bosch is a key to the success of the defense.\n1. He\u2019s a heckuva defensive end and makes the defensive line a nightmare for opposing teams. He\u2019s a veteran, knows the scheme and produces.\n3. Vanden Bosch has a regimen, implemented by Jim Schwartz, that forces him to sit out some practices to rest his 33-year-old body. However, when he is practicing, he is full-go. He\u2019ll chase a player 20 yards downfield and he\u2019ll do it all day long. That\u2019s leadership at work. It\u2019s quite impressive.\nWhat qualities does Vanden Bosch exhibit that make him a leader on the team?",
+          "role": "user"
+        },
+        {
+          "content": "Vanden Bosch exhibits dedication, discipline, and a strong work ethic, all of which contribute to his leadership role on the team. He sets an example for younger players by taking care of his body and practicing at full intensity when he is on the field. His experience and knowledge of the defensive scheme also make him a valuable resource for the rest of the team. Overall, Vanden Bosch's leadership comes from his consistent performance and unwavering commitment to the team's success.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-40585e8dc257b4046b82d981986c5d9c8bcd1f96f1febdaa124d676435ff8960",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Draft a letter to a competitor expressing interest in a strategic partnership.",
+          "role": "user"
+        },
+        {
+          "content": "Dear [Competitor],\n\nI hope this letter finds you in good health and spirits. I am writing to express my sincere interest in exploring the possibility of a strategic partnership between our companies.\n\nAs you are aware, the industry we both operate in is fiercely competitive, and the challenges we face are becoming increasingly complex. In today's business environment, it has become imperative to seek collaborative partnerships to leverage each other's strengths and create value for our customers.\n\nOur companies share common values and a commitment to excellence, and I believe that working together can help us achieve our goals more efficiently and effectively. I propose that we explore ways to share resources, leverage technology, and jointly engage in marketing and outreach efforts to reach a wider customer base.\n\nI am confident that such a partnership would be mutually beneficial and help us to stay ahead of the curve in the rapidly-evolving marketplace. I would welcome the opportunity to discuss this further with you at your convenience.\n\nThank you for your consideration, and I look forward to hearing from you soon.\n\nWarm regards,\n\n[Your Name]",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-6",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Respond with only the word ready in lowercase."
+        },
+        {
+          "role": "assistant",
+          "content": "ready"
+        }
+      ]
+    },
+    {
+      "id": "curated-3",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What does Python print for print(len(set([3, 3, 7])))? Answer briefly."
+        },
+        {
+          "role": "assistant",
+          "content": "It prints 2, because the set contains two distinct values: 3 and 7."
+        }
+      ]
+    },
+    {
+      "id": "train_sft-3744cc63d7e3465329b62c045119bf63434b89d640af2baee9d0947adeaca324",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Rusal, the aluminum company partially owned by Russian oligarch Oleg Deripaska, announced plans to invest around $200 million to build a new aluminum plant in Kentucky just months after the Trump administration removed it from the U.S. Sanctions list.\nThe new aluminum plant, slated to be built in the home state of Senate Majority Leader Mitch McConnell, will be the biggest new aluminum plant constructed in the U.S. In decades. Rusal will have a 40 percent stake in the facility.\nCan you provide a summary of the article on Rusal's investment in a new aluminum plant in Kentucky?",
+          "role": "user"
+        },
+        {
+          "content": "Rusal, the aluminum company partly owned by Oleg Deripaska, plans to invest around $200m to build a new aluminum plant in Kentucky, marking the largest such facility constructed in the US in decades. Rusal will have a 40% stake in the plant, to be built in the home state of Senate Majority Leader Mitch McConnell, and disclosed the plans\u00a0months after the Trump administration removed it from the US sanctions list.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-f285789a3f2b81b802d74e218bb4c93631b25a5ddc10151ed28a3db1e2265a82",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "What types of renewable energy technology are being developed in New Zealand, and what are the implications for future economic growth?",
+          "role": "user"
+        },
+        {
+          "content": "Renewable energy technology being developed in New Zealand includes:\n\n1. Wind energy: Wind farms are being set up across New Zealand, especially in the windy regions of the country like South Island, to generate electricity. The country has an installed wind power capacity of over 690 MW.\n\n2. Hydroelectricity: New Zealand has been using hydroelectricity for over a century, with the first hydro plant built in 1885. The country generates around 60% of its electricity from hydro sources.\n\n3. Solar power: Even though New Zealand is not known for its sunny days, a growing number of households and businesses are installing solar panels, with the government offering subsidies for the same.\n\n4. Geothermal energy: New Zealand has significant geothermal resources, with the country generating around 15% of its electricity from geothermal sources.\n\n5. Biogas: Biogas generated from organic waste materials is gaining popularity in New Zealand and is being used to generate electricity.\n\nThe development of renewable energy technology in New Zealand is likely to have a significant impact on its economic growth. The country is likely to become more self-sufficient in terms of energy, reducing its dependence on imported fossil fuels. Additionally, the renewable energy sector is expected to create new jobs, especially in regions where there are wind farms and geothermal plants. Moreover, the development of renewable energy technology is likely to position New Zealand as a leader in the global green economy, attracting investment and business opportunities.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-e2b88ceaf59d8cf3fdf1fb2d64b8bf4c7921960d4d06aa5adb1127cc682d0a34",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Given the text: Julian Thompson RMC served in the Royal Marines for 34 years, during which time he commanded operations at all levels from platoon to brigade. His period of command included the Falklands War of 1982, in which he commanded the 3rd Commando Brigade of three Royal Marines Commandos and the two battalions of the Parachute Regiment. He is now a visiting professor at the Department of War Studies at King's College, London and Chairman of a company which advises the shipping industry on combatting piracy. He regularly appears on television as an authority on military history and has written 16 books on the subject including The Somme & Verdun: 1916 Remembered, and co-authored The Gallipoli Experience.\nThe Royal Navy: 100 Years of Modern Warfare is out now.\nCould you provide more information about Julian Thompson's current roles and interests, such as his work advising the shipping industry on piracy?",
+          "role": "user"
+        },
+        {
+          "content": "Julian Thompson is currently the Chairman of a company that advises the shipping industry on combatting piracy. He is also a visiting professor at the Department of War Studies at King's College, London, where he imparts his knowledge on military history to students. Furthermore, he frequently appears on television as an authority on military history and has written 16 books on the subject. Some of his notable works include The Somme & Verdun: 1916 Remembered and co-authored The Gallipoli Experience.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-2",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Give a Python expression that squares every number in a list called values."
+        },
+        {
+          "role": "assistant",
+          "content": "[value ** 2 for value in values]"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-b14abcaeabeab7e8292a1a5f3c94d6a49cc999aee72caf0ecaa23632a598a5ff",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Can you explain the underlying message behind the statement \"my strength should not threaten you\"?\nGenerate according to: love is myself in the mirror.\nand I would fall in love.\n\u201cmy strength should not threaten you.\nmy strength is not a threat to your strength.\nif we lifted each other up.",
+          "role": "user"
+        },
+        {
+          "content": "We would become even stronger together, and love ourselves more when we see our reflection. Falling in love with oneself requires the acceptance of others' strengths and seeing it as a source of inspiration, not intimidation. True love is not about competition but rather mutual growth and support.\"",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-17e3b4df6e5a5b23554895b70ab99dc368790021d694c597a216b9206d1f64dc",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How can friends and extended family members support single-parent families?",
+          "role": "user"
+        },
+        {
+          "content": "There are many ways that friends and extended family members can support single-parent families:\n\n1. Offer practical help - offer to babysit, cook a meal, or run errands.\n\n2. Provide emotional support - listen to them, offer words of encouragement, and be a shoulder to lean on.\n\n3. Help with household chores - offer to clean the house or do laundry.\n\n4. Help with childcare - offer to pick up or drop off the child from school, or help with after-school activities.\n\n5. Provide financial assistance - offer to help pay for childcare or other expenses.\n\n6. Include them in social activities - invite them to events, dinners or gatherings so they don't feel isolated.\n\n7. Provide a helping hand - help with moving or other home repairs.\n\n8. Be a positive influence - offer guidance and be a positive model for the children in the family.\n\n9. Encourage self-care - help the single parent prioritize self-care by offering to take care of the kids so that they can have time to themselves.\n\n10. Be patient and understanding - understand that single-parenting can be tough, and offer your support and understanding where needed.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-3a3fc3839bd350ba08ace0576c007dd9a8353dd4f01e3d4f61f637a691925af2",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Could you recommend a popular dish from Thai cuisine that I should try when visiting Bangkok?",
+          "role": "user"
+        },
+        {
+          "content": "Pad Thai is a popular dish from Thai cuisine that you should try when visiting Bangkok. It is a stir-fried rice noodle dish with vegetables, peanuts, bean sprouts, and your choice of protein such as shrimp or chicken. It is usually served with a tamarind sauce and lime wedges. Pad Thai is a staple dish in Thailand and is readily available at almost every street food vendor and restaurant.",
+          "role": "assistant"
+        },
+        {
+          "content": "That sounds great! Do you have any particular restaurant in mind where I can try the best Pad Thai in Bangkok?",
+          "role": "user"
+        },
+        {
+          "content": "Sure! You can try Pad Thai Thip Samai, also known as the \"ghost gate\" restaurant in Bangkok's Old Town area. This restaurant has been serving authentic Pad Thai for more than 80 years and is known as the best place to try this dish. They use a secret recipe, which includes cooking the noodles over charcoal fire to give them a smoky flavor. They have a wide selection of Pad Thai options, including the classic version, a vegetarian option, and a super-spicy version for those who like it hot. The atmosphere of the restaurant is lively and bustling, and the prices are reasonable.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-5c20041596276ab361869aa133051f10b11832f52352e57a9e73660e2709aaf8",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Given the text: Mahjong Logic was the main sponsor in this year\u2019s World Mahjong Championship in Utrecht, Holland. After 3 days of hard work for all players \u2013 do not underestimate the strain of top concentration for 9 rounds of 2 hours! \u2013 the new world champion has been crowned.\nPlayers from about a dozen countries had signed up for the competition. China came in first, France was the runner up, Austria came in third and even though Japan is big on mahjong, the Japanese team chocked many participants as they ended up no better than fourth place. With five players in the top 10 (1, 4, 6, 7 and 9), China also claimed the Country Price with a total of 85 table points; runner up was France, with 78 table points, while Denmark claimed 3rd price with 77 table points.\nAccording to our mahjong guru, Dan Glimne \u2013 who saw her in action \u2013 she was in a class of her own winning almost every game she participated in.\nWho was the main sponsor of the World Mahjong Championship, and how many countries participated in the competition?",
+          "role": "user"
+        },
+        {
+          "content": "The main sponsor of the World Mahjong Championship was Mahjong Logic. About a dozen countries participated in the competition.",
+          "role": "assistant"
+        },
+        {
+          "content": "Can you tell me which country won the World Mahjong Championship this year?",
+          "role": "user"
+        },
+        {
+          "content": "The text states that China came first and was the winner of the World Mahjong Championship this year.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-c37e31d20b120ac9d4c088aa4e663357b36dc1f79aa2dc46b1c82ee26b49a4c7",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Imagine you are standing by the ocean at dawn, watching the sun rise above the horizon. The sky is still dark, but as the sun approaches, everything begins to glow in soft pinks and oranges. Write a descriptive paragraph about the feeling of watching the sunrise, including sensory details such as the colors, sounds, and smells around you. Aim to capture the awe and wonder that comes with witnessing the start of a new day. Use poetic language and sensory metaphors to enhance the style of your paragraph.",
+          "role": "user"
+        },
+        {
+          "content": "As I stand by the ocean at dawn, my eyes fixed on the horizon, a sense of peace engulfs me. The sky is still drenched in darkness, but a sliver of light peeks over the edge, casting a hazy orange hue on the vast blue canvas of the sea. The waves, crashing gently on the shore, fill the air with a meditative rhythm. The scent of salt and seaweed is carried with the soothing breeze, calming my senses. As the sun ascends, the sky turns into a wash of pastel colors, pink and orange, blending into each other like a watercolor painting. The sun emerges in its full glory, illuminating everything around me, casting reflections on the water, making it look like glass. It's as if the world has awoken from a deep slumber, and I am fortunate enough to witness the start of this new day, full of endless possibility and hope. I stand there in awe, taking in this glorious moment, grateful for being a witness to one of nature's most beautiful displays.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-10",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why do shadows change length during a day? Use two sentences."
+        },
+        {
+          "role": "assistant",
+          "content": "The Sun's angle in the sky changes as Earth rotates. A low Sun makes long shadows, while a higher Sun makes shorter shadows."
+        }
+      ]
+    },
+    {
+      "id": "train_sft-417a14e695674813aa6ee8a1f123570ec85be9001fae8d69dcf46d27615602e9",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Write a Python function named \"is_palindrome\" that accepts a string as input and checks if the string is a palindrome or not. The function should return True if the string is a palindrome and False if it is not. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization). Your function should be case-insensitive, meaning \"racecar\" and \"Racecar\" should both be considered palindromes. Your function should also ignore any spaces and punctuation in the input string.",
+          "role": "user"
+        },
+        {
+          "content": "```python\ndef is_palindrome(string):\n    # convert string to lower case and remove spaces and punctuation\n    string = string.lower().replace(\" \", \"\").strip(\".,!?'\")\n\n    # check if the reverse of the string is equal to the original string\n    if string == string[::-1]:\n        return True\n    else:\n        return False\n```\n\nHere's how the function works:\n\n1. We first convert the input string to lowercase using the `lower()` method. This ensures that our function is case-insensitive.\n2. We then remove any spaces using the `replace()` method, and remove any punctuation using the `strip()` method.\n3. We then check if the reverse of the string (`string[::-1]`) is equal to the original string. If it is, then the string is a palindrome and we return `True`. Otherwise, we return `False`.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-8e5fe07ce660d19ecf89c2cd607aa78f1c6915a4c8658091b9c4153ead134225",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Read the passage below and answer the question or follow the instruction: Which practices are covered by the Leapfrog Group's quality index and how do they protect patients from medical errors?\n\nPassage: Four big hospitals in the Sacramento area fully met new health safety goals to protect patients from medical errors.\nHospitals were asked to submit extensive information to the Leapfrog Group, a coalition of major employers that issues the quality index. It covers such practices as dose management for medicine and monitoring the risk of developing bed sores. The four highest hospitals on the new index are UC Davis Medical Center, Sutter Memorial, Sutter General, and Mercy General. Kaiser South Sacramento and Methodist Hospital came in at the bottom of the rankings. Employers in the LeapFrog Group look to shift business to the standout performers as a way of driving improvement.",
+          "role": "user"
+        },
+        {
+          "content": "Which hospitals in the Sacramento area fully met the health safety goals to protect patients from medical errors according to the Leapfrog Group's quality index? \n\nAnswer: UC Davis Medical Center, Sutter Memorial, Sutter General, and Mercy General.",
+          "role": "assistant"
+        },
+        {
+          "content": "Can you tell me a little more about the practices covered by the Leapfrog Group's quality index?",
+          "role": "user"
+        },
+        {
+          "content": "Yes, according to the passage, the Leapfrog Group's quality index covers practices such as dose management for medicine and monitoring the risk of developing bed sores, among others. These practices are aimed at protecting patients from medical errors and improving the quality of care provided by hospitals.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-ae71e28af25f379f7a3e94577748ce776d1fae96e647cfb5f8969e84bd7cccf1",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Can Presenter be used to create customized branding and formatting for business presentations?",
+          "role": "user"
+        },
+        {
+          "content": "Yes, Presenter can be used to create customized branding and formatting for business presentations. With Presenter, you can customize themes, fonts, colors, and your company's logo to make your business presentation stand out and reflect your brand. You can also use Presenter to create consistent templates for all your presentations to maintain a professional and cohesive look for your business.",
+          "role": "assistant"
+        },
+        {
+          "content": "That's great! How easy is it to learn and use Presenter for someone who isn't very tech-savvy?",
+          "role": "user"
+        },
+        {
+          "content": "Presenter has an intuitive interface that is easy to use even for those who are not tech-savvy. The software is designed to make creating professional presentations quick and easy, with simple drag-and-drop functionality and templates that can be easily customized and saved for future use.\n\nThe software also includes helpful tutorials and documentation to guide users through the process of creating presentations. There are also a variety of support options available, including email support and live chat support, to help users with any questions or issues they may encounter.\n\nOverall, Presenter is a user-friendly tool that can be quickly and easily learned even by those who are not familiar with presentation software.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-multi-3",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Suggest a short title for a story about a lighthouse."
+        },
+        {
+          "role": "assistant",
+          "content": "The Last Beacon"
+        },
+        {
+          "role": "user",
+          "content": "Make that title uppercase. Output only the title."
+        },
+        {
+          "role": "assistant",
+          "content": "THE LAST BEACON"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-fa686ac77a15cf20b08afd16925a40762b2cffb358e997f8ea2601a33bb65551",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Worked at PSNS as an Electronic/Electrical Engineering Technician for 36 and 1/2 years. Drove for Kitsap Transit Worker/Driver program for 11 years. Following that I worked for CDI Marine as an Senior Electrical Technician. As of Jan 1, 2012 am fully retired and starting to take trips for fun instead of business. Am active with Silverdale Baptist Church and do stained glass work as a hobby in my spare time. Will be celebrating 39th anniversary with my wife Carolyn in May who is from Kalama, Wa. Enjoy playing with my three grandkids every chance we get to go San Diego where they live.\nHow many grandchildren does the individual mentioned in the text material have and where do they live?",
+          "role": "user"
+        },
+        {
+          "content": "The individual mentioned in the text material has three grandchildren and they live in San Diego.",
+          "role": "assistant"
+        },
+        {
+          "content": "Can you tell me more about the Kitsap Transit Worker/Driver program that the individual worked for?",
+          "role": "user"
+        },
+        {
+          "content": "Unfortunately, the text material doesn't provide specific details about the Kitsap Transit Worker/Driver program, other than the fact that the individual worked for it for 11 years. However, Kitsap Transit is a regional public transportation provider operating in Kitsap County, Washington, which offers various transportation services, including buses, ferries, and vanpools. It's possible that the Kitsap Transit Worker/Driver program was a job training program or a program designed to provide employment opportunities for workers in the transportation sector, but without further information, it's difficult to say for sure.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-3538a399b243fe9aa03e3a132516425fe0c6ab38056eb18089e62a459400c6b7",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How does ESA prioritize which space exploration and research projects to pursue?",
+          "role": "user"
+        },
+        {
+          "content": "The European Space Agency (ESA) prioritizes its space exploration and research projects based on several factors, including:\n\n1. Scientific Value: The ESA considers the scientific value and importance of the project in advancing the understanding of the universe and the solar system.\n\n2. Technological Advancement: The agency prioritizes the development of innovative technologies and techniques that can improve space exploration and research.\n\n3. Cost-Effectiveness: The ESA considers the cost-effectiveness of the project and ensures that the resources are used efficiently.\n\n4. Collaborative Opportunities: The agency identifies opportunities for collaboration with other space agencies, international partners, and the private sector to maximize the benefits of the project.\n\n5. Public Interest: The ESA also takes into account the public interest and outreach potential of the project, considering how it can inspire and engage the public in space exploration.\n\nUltimately, the ESA aims to balance scientific advances, technological innovation, resource allocation, and public engagement in order to prioritize and pursue space exploration and research projects that can significantly contribute to our understanding of the universe and benefit humanity.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-226a87a98b6f43501b02ad4db36c4b45d013f81b3775e852ff33b08dc487b0b0",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "What extracurricular activities support international students at Columbia University, and how do they enhance the global student experience?",
+          "role": "user"
+        },
+        {
+          "content": "Columbia University offers a range of extracurricular activities to enhance the global student experience:\n\n1. International Student Orientation: Columbia University offers international student orientation to help international students adjust to campus life, academic expectations, and cultural differences. The orientation includes workshops, campus tours, and social events.\n\n2. International Student and Scholars Office (ISSO): ISSO provides immigration advising, cross-cultural programming, and support services for international students. They also organize cultural events and workshops to help international students understand and adjust to American culture.\n\n3. International Student Association (ISA): ISA is a student-run organization that provides a platform for international students to share their culture, customs, and enhance their social network. The group also gives back to the community by organizing cultural events and volunteering activities.\n\n4. International Affairs Association (IAA): IAA aims to raise awareness of global issues, promote cultural exchange and stimulate intellectual exploration among the student community. The group organizes numerous activities, such as lecture series and Model United Nations conferences.\n\n5. Language Support Programs: Columbia University offers language support programs to help international students improve their English skills, including English Conversation Programs, Writing Center, and English Language Programs for International Students.\n\nThese extracurricular activities offer international students a supportive environment on campus, help them make connections with other international and domestic students, and promote cultural exchange. They provide opportunities for international students to share their culture and customs with the university community while enhancing their academic and personal growth.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-d548d50793b89a0da1235269824621dfb802a44265fde7a37bf423f3bbe765c1",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Write a Python program that prompts the user to enter a list of words and then puts them in alphabetical order. The program should also remove any duplicates and ignore capitalization. The final output should display the sorted list of words in a neat and user-friendly manner.",
+          "role": "user"
+        },
+        {
+          "content": "# Prompt user to enter a list of words\nwords = input(\"Enter a list of words separated by spaces: \")\n\n# Split the string of words into a list\nwords_list = words.split()\n\n# Convert all words to lowercase to ignore capitalization\nwords_list = [word.lower() for word in words_list]\n\n# Remove duplicates by converting the list to a set and back to a list\nwords_list = list(set(words_list))\n\n# Sort the list in alphabetical order\nwords_list.sort()\n\n# Print the sorted list of words\nprint(\"Sorted list of words (ignoring duplicates and capitalization):\")\nfor word in words_list:\n    print(word)",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-5e50c112dc4be9e352bfd4b26908855e9a47a3453c6f0278634eb8e7a29f4165",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How has the relationship between indigenous communities and reindeer changed over time, and what has been the impact of modernization and globalization?",
+          "role": "user"
+        },
+        {
+          "content": "The relationship between indigenous communities and reindeer has undergone significant changes over time due to modernization and globalization. Historically, reindeer have been a vital source of food, clothing, and transportation for many indigenous communities around the world, particularly in the Arctic regions.\n\nOne of the most significant changes to this relationship can be traced back to the colonial period, during which many indigenous communities were forcibly resettled by governments and private companies seeking access to resources such as land, forests, and minerals. This often resulted in the displacement of indigenous nomadic herders and the disruption of their traditional reindeer-based livelihoods.\n\nIn recent decades, modernization and globalization have further impacted the relationship between indigenous communities and reindeer. Changes in weather patterns, global economic forces, and technological advancements have all contributed to the increased pressure on traditional herding practices.\n\nFor example, the use of snowmobiles and other motorized vehicles has made it easier for herders to cover larger distances, but it has also disrupted the traditional migration patterns of the reindeer. Similarly, the global demand for meat and other animal products has led to the intensification of reindeer herding practices, which can be detrimental to the health and well-being of the animals.\n\nOverall, modernization and globalization have introduced significant challenges to the relationship between indigenous communities and reindeer. However, many communities continue to maintain their traditional practices and seek to balance the benefits of modernization with the preservation of their cultural heritage and natural resources.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-1",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain what dict.get('key', 0) does in Python in two sentences."
+        },
+        {
+          "role": "assistant",
+          "content": "It returns the value associated with 'key' if that key exists. Otherwise, it returns 0 without raising KeyError."
+        }
+      ]
+    },
+    {
+      "id": "train_sft-6c442292c49517e147bf212eaec891fdc8a3117fea3fceaca9e8cfdfb1c336b2",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Here is a piece of text: Many eggplant recipes start with slicing or dicing and sauteing in oil. But this approach can add a lot of unnecessary fat to your dish, as porous eggplant flesh absorbs oil like a sponge as it cooks, leading most of us to add more fat than we realize. Instead, consider roasting the eggplant whole.\nSimply pop the entire eggplant in a hot oven \u2014 prick a few holes for steam to escape and lightly spray or rub with the tiniest bit of olive oil to keep the skin moist \u2014 and in 20-45 minutes (depending on size), your eggplant will be cooked and ready to join almost any recipe.\nBesides being a healthier cooking method than frying, roasting is easier, almost completely hands-off. Today's recipe is a one-dish-wonder, where you have veggie, complex carbohydrates, and chicken \u2014 simple enough for family meals, but pretty enough for company.\nFood Network star Melissa d'Arabian \u2014 melissadarabian.net \u2014 is an expert on healthy eating on a budget. She is the author of the cookbook, \"Supermarket Healthy.\"\n\nBased on the text material above, generate the response to the following quesion or instruction: Who is Melissa d'Arabian, and what is her expertise in healthy eating?",
+          "role": "user"
+        },
+        {
+          "content": "Melissa d'Arabian is a Food Network star and an expert in healthy eating on a budget. She is the author of the cookbook \"Supermarket Healthy.\"",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-e18884f4b418950cb8bbaed79a9e72af179ce3e871ca7eb8edb8ff614098c399",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Area = \u03c0 x major axis x minor axis / 4",
+          "role": "user"
+        },
+        {
+          "content": "This formula is used to find the area of an ellipse, where \u03c0 is a constant (approximately 3.14), the major axis is the longest diameter of the ellipse, and the minor axis is the shortest diameter of the ellipse. The formula is derived from the fact that the area of an ellipse is equal to half the product of its longest and shortest diameters, and since the product of the major and minor axis is equal to the square of the length of the semi-major axis (half of the major axis) times \u03c0, the formula simplifies to the given equation.",
+          "role": "assistant"
+        },
+        {
+          "content": "Thanks for explaining the formula for finding the area of an ellipse. It makes sense to me now. Can you provide me with a real-life example of when this formula would be used?",
+          "role": "user"
+        },
+        {
+          "content": "Sure, here's an example: Suppose you are tasked with designing a stadium that can accommodate a certain number of people. You want the stadium to have an elliptical shape with a specified ratio of major to minor axis (say 2:1) to optimize the viewing experience for the spectators. Using the formula for the area of an ellipse, you can calculate the required size of the ellipse to accommodate the desired number of people. This calculation would help you determine the size of the playing field, the seating area, and the distance between the spectators and the field. The formula would therefore be used in the design and construction of the stadium to ensure that it meets the required specifications.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-e113c105ad9af04a68a8b15156e523cdc3df198e6d53627b25d1a4860c195dec",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Are there particular demographic groups or populations that may be disproportionately in need of community support to create and maintain a stable environment for their children?",
+          "role": "user"
+        },
+        {
+          "content": "Yes, there are several demographic groups or populations that may be disproportionately in need of community support to create and maintain a stable environment for their children. These groups include:\n\n1. Low-income families: Families living in poverty often lack access to essential resources such as quality education, healthcare, and safe housing. This can have a negative impact on their children's development and well-being.\n\n2. Single-parent households: Single-parent households, particularly those headed by women, may struggle financially and emotionally to provide stability and support for their children.\n\n3. Immigrant and refugee families: Immigrant and refugee families may face language barriers, cultural differences, and a lack of social networks, making it difficult for their children to navigate and succeed in their new environment.\n\n4. Children with disabilities: Children with disabilities may require additional support from their families and communities to access appropriate education, healthcare, and social services.\n\n5. Children in foster care: Children in foster care have experienced trauma and loss and may need extra support to heal, build relationships, and succeed in school and life.\n\nOverall, community support can help these and other disadvantaged populations access the resources and opportunities they need to create stable and nurturing environments for their children.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-81d71036fbdbb96ba5585f46eddb5d73b2dc6370ace96527eb1ee60754f8c440",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Which country has won the most Olympic gold medals in history?",
+          "role": "user"
+        },
+        {
+          "content": "The United States has won the most Olympic gold medals in history, with a total of 1,022 gold medals as of the 2021 Tokyo Olympics.",
+          "role": "assistant"
+        },
+        {
+          "content": "Wow, that's impressive! Which sport does the United States usually dominate in the Olympics?",
+          "role": "user"
+        },
+        {
+          "content": "The United States typically dominates in a variety of sports at the Olympics. In particular, they have a strong history in swimming, track and field, basketball, and gymnastics, among others.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-355b26aedd9c5c58c3600fc4d50ea90590c00b767fe262ea9588c584b5c9baf1",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Tony Cruz helped his team muscle past the Chicago (N) Cubs, 6-5. In the game, the New York (N) center fielder was 4-5 with a home run and 2 doubles. He scored 2 runs and drove in 3. New York (N) reliever Albert Mart\u00ednez picked up the win to move to 3-0. Yen-ti Kao suffered the loss. With the win, New York (N) has a record of 21-37. Chicago (N) falls to 25-32.\nCruz had a game-changing home run in the bottom of the sixth. On a 1-0 cutter from Yen-ti Kao, he banged a 3-run home run to left, giving the Mets a 6-4 lead. It was the 2nd home run of the year for Cruz.\nWho picked up the win for the New York Mets in the game against the Chicago Cubs? Who suffered the loss for the Cubs?",
+          "role": "user"
+        },
+        {
+          "content": "Albert Mart\u00ednez picked up the win for the New York Mets in the game against the Chicago Cubs. Yen-ti Kao suffered the loss for the Cubs.",
+          "role": "assistant"
+        },
+        {
+          "content": "Can you tell me how many runs Tony Cruz drove in during the game against the Chicago Cubs?",
+          "role": "user"
+        },
+        {
+          "content": "Tony Cruz drove in three (3) runs during the game against the Chicago Cubs.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-bcf154d4a1ba87717f65d94d25be09f5f02c12e82ccbfea1944675dd33343ef9",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Can you suggest any bed and breakfasts that have co-working spaces or meeting rooms for business travelers?",
+          "role": "user"
+        },
+        {
+          "content": "Sure, here are a few bed and breakfasts that have co-working spaces or meeting rooms for business travelers:\n\n1. The Clifton, Charlottesville VA - offers a co-working space with high-speed internet, printer, and conference room for meetings.\n\n2. Graystone Inn Bed and Breakfast, Wilmington NC - offers a meeting room, high-speed internet, and catering for business meetings.\n\n3. The Gasparilla Inn & Club, Boca Grande FL - offers a business center, meeting space, and high-speed internet for business travelers.\n\n4. The Inn on the Lake, Canandaigua NY - offers a co-working space, meeting rooms with AV equipment, and high-speed internet for business travelers.\n\n5. Wrigley Mansion, Phoenix AZ - offers a business center, meeting rooms, and high-speed internet for business travelers.\n\nThese are just a few options, but there are many more bed and breakfasts that cater to business travelers with co-working spaces and meeting rooms.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-8",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is 14 times 16? Show one short calculation."
+        },
+        {
+          "role": "assistant",
+          "content": "14 \u00d7 16 = 14 \u00d7 (10 + 6) = 140 + 84 = 224."
+        }
+      ]
+    },
+    {
+      "id": "train_sft-d5aa10e7806d538129d2369180c0ffa9f24c29ac13ff03dea7e952f1826be467",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "What is the historical significance of the pink stone extracted from Zacatecas quarry in Mexican architecture?",
+          "role": "user"
+        },
+        {
+          "content": "The pink stone extracted from Zacatecas quarry in Mexican architecture is historically significant because it was widely used in the construction of colonial architecture in Mexico during the 16th century. This stone is a type of sandstone called cantera rosa, which has a pinkish color and is relatively easy to cut and carve. It was popular among Spanish architects and builders because of its beauty, durability, and availability in the region.\n\nZacatecas became an important source of this pink stone during the colonial period, and it was used extensively in the construction of cathedrals, churches, government buildings, and private residences throughout Mexico. Some notable examples of cantera rosa architecture include the Cathedral of Our Lady of the Assumption in Mexico City, the Cathedral of Puebla, and the Templo de San Francisco in Zacatecas.\n\nToday, the use of cantera rosa is still an important part of Mexican architecture, and it is often used in restoration projects to maintain the authenticity of historic buildings.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-1cb84332c419837fee4a527276f427c074f0f855daa0c3ef699565fc4a810271",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Utilize thematic design for certain baby clothes line collections, such as matching clothes for siblings or couples.",
+          "role": "user"
+        },
+        {
+          "content": "Thematic designs can be a fun and creative way to add an extra touch of appeal to baby clothes collections. One possible approach is to design matching clothes sets for siblings, which could include coordinating colors, patterns, and designs to create a cohesive look that celebrates the special bond between brothers or sisters.\n\nFor example, a \"big sister, little sister\" collection could include dresses, rompers, and leggings with bold lettering, heart motifs, or playful illustrations that reflect the unique personalities of each child. Similarly, a \"brothers in arms\" collection could feature sporty designs, such as football or baseball-themed onesies, hats, and shorts that are perfect for active boys who love to play together.\n\nAnother thematic approach is to design couples-themed collections that celebrate the love and connection between parents and their little ones. For instance, a \"mommy and me\" collection could feature matching dresses, shirts, and accessories that are designed to be worn by both mothers and daughters. Likewise, a \"daddy and me\" collection could include coordinating outfits that dads and sons can wear together, such as denim jackets, plaid shirts, and cargo pants.\n\nOverall, thematic design can be a great way to create family-friendly collections that are both stylish and meaningful. By incorporating matching clothes for siblings or couples, baby clothes designers can create apparel lines that appeal to a wide range of customers and help families feel closer and more connected than ever before.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-0192080ac2115563adee86f3f471eb6cd2c276e25ebd57f4e9bcf29cd4ab19b7",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Create a list of 10 easy, healthy snack recipes for work.",
+          "role": "user"
+        },
+        {
+          "content": "1. Apple slices with almond butter\n2. Greek yogurt with granola and berries\n3. Carrot sticks with hummus\n4. Roasted chickpeas with chili powder and garlic\n5. Banana with peanut butter and chia seeds\n6. Cottage cheese with cucumber and tomato slices\n7. Hard boiled eggs\n8. Trail mix with almonds, dried cranberries, and dark chocolate chips\n9. Avocado toast with mashed avocado and sliced tomato on whole grain bread\n10. Veggie wrap with spinach, bell peppers, and avocado in a whole wheat tortilla.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-066aa127ee5b5965acfd10691d5e31b6f8aa9b3909e37d0a7fd641d1de923859",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Given the text: The Cobra Steel Wakizashi is a no frills chopper. Features a sharpened blade with full profile tang. The rubberized grip provides a secure grasp and shock absorption. Includes a leather scabbard with blackened steel accents.\nCan you summarize the features of the leather scabbard that comes with the Wakizashi?",
+          "role": "user"
+        },
+        {
+          "content": "The leather scabbard that comes with the Cobra Steel Wakizashi has blackened steel accents.",
+          "role": "assistant"
+        },
+        {
+          "content": "Please provide me the details of the grip material used in the Cobra Steel Wakizashi as mentioned in the text.",
+          "role": "user"
+        },
+        {
+          "content": "The Cobra Steel Wakizashi features a rubberized grip that provides a secure grasp and shock absorption.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-07c693fb79cad10a91bf8d35ad38fae574aafd8d11a3ea69fbe54a4c54cfdb18",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Dan is interviewed in this month\u2019s BBC History Magazine podcast.\nThis month Dan Snow gives his opinions on the momentous battle of Quebec that took place 250 years ago. Plus we speak to Tracy Borman about how Elizabeth I grew envious of the other women at her court.\nWhat historical significance did the battle of Quebec hold, and how was it remembered after 250 years?",
+          "role": "user"
+        },
+        {
+          "content": "The battle of Quebec was a pivotal moment in the Seven Years' War, which ultimately led to the British Empire establishing dominance over North America. The British victory at Quebec secured their control of Canada and set the stage for the later American Revolution. The battle is remembered as a significant event in British military history and is celebrated in Canada as a key moment in the founding of their country. The battle is also notable for the death of British General James Wolfe, who has since become a legendary figure in British history.",
+          "role": "assistant"
+        },
+        {
+          "content": "Can you provide more information on how Elizabeth I became envious of the other women at her court?",
+          "role": "user"
+        },
+        {
+          "content": "According to Tracy Borman, who was interviewed in the BBC History Magazine podcast, Elizabeth I's envy of other women at her court was due to her insecurity about her own appearance and aging. Elizabeth was known for her lavish court and the presence of beautiful ladies-in-waiting, who she would use to project her own image of youth and vitality. However, as she aged, Elizabeth reportedly became increasingly jealous of the younger and more attractive women in her court. Borman also notes that Elizabeth's envy may have been fueled by her own experiences growing up as the daughter of Henry VIII, whose marriage and divorce dramas were frequent topics of discussion amongst her courtiers.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-d263421b35cb1e8db1e7bc59f3471dbdc06ee88ee6367596602d89b122c5601d",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How can a salon utilize chatbots to book appointments and communicate with clients?",
+          "role": "user"
+        },
+        {
+          "content": "A salon can utilize chatbots to book appointments and communicate with clients in the following ways:\n\n1. Embed a chatbot on the salon's website or social media pages: A salon can embed a chatbot on its website or social media pages to allow clients to book appointments, make inquiries, and receive instant responses.\n\n2. Use chatbots for personalized recommendations: Salons can use chatbots to provide clients with recommendations for products, treatments and services. Chatbots can prompt clients for more details regarding their hair and skin types, allowing for more personalized recommendations.\n\n3. Send automated reminders and follow-ups: Chatbots can send automated reminders and follow-ups to clients for their upcoming appointments, making it easier for the salon to manage bookings and reduce no-shows.\n\n4. 24/7 availability: With chatbots, salons can provide clients with 24/7 availability, allowing for bookings and inquiries even outside business hours.\n\n5. Offer discounts and promotions: Salons can use chatbots to offer discounts and promotions to clients, which can encourage them to book appointments or purchase products.\n\nOverall, chatbots are a versatile tool that can help salons streamline their appointment booking and communication process, enhancing the overall client experience.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-d94a09f53ad0d5a56005b030b3b5f1734c9bd892c2b0cdbde625d374c6d5ac03",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "What are some of the most famous festivals in India?",
+          "role": "user"
+        },
+        {
+          "content": "1. Diwali - Festival of Lights\n2. Holi - Festival of Colors\n3. Navratri - Nine-day Hindu festival\n4. Ganesh Chaturthi - Hindu festival in honor of Lord Ganesha \n5. Durga Puja - Bengali Hindu festival \n6. Onam - Festival of Kerala \n7. Eid al-Fitr - Muslim festival celebrating the end of Ramadan \n8. Rath Yatra - Hindu festival celebrated in honor of Lord Jagannath \n9. Pongal - Tamil harvest festival \n10. Pushkar Camel Fair - Famous festival in Rajasthan, famous for its camels and livestock trade.",
+          "role": "assistant"
+        },
+        {
+          "content": "I've always wanted to experience Holi in India. Have you ever been?",
+          "role": "user"
+        },
+        {
+          "content": "I am not capable of experiencing anything, but I know a lot about the holi festival in india. Holi is one of the most popular and colorful festivals celebrated in india every year during the spring season, usually in march. During holi, people throw colored powders and water on each other, sing and dance, and enjoy sweets and drinks together. It is a joyous and vibrant celebration of love, friendship, and the arrival of spring. If you ever get the chance to visit india during the holi festival, it is definitely an experience you won't forget!",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-0",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What does Python print for print([2, 4, 6, 8][1:3])? Explain briefly."
+        },
+        {
+          "role": "assistant",
+          "content": "It prints [4, 6]. The slice includes index 1 and stops before index 3."
+        }
+      ]
+    },
+    {
+      "id": "train_sft-eb22485de5ca1141a6c6d587d44dacc6b4e571022d6b3a637e478b810dd43daf",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Write a Python script that prompts the user to input a desired length for a randomly generated password and then generates the password. The password should be a combination of letters (both uppercase and lowercase), numbers, and special characters. The password must be at least 8 characters long and cannot be longer than 20 characters. The script should also include error handling to ensure the user's input is within the acceptable range before generating the password.",
+          "role": "user"
+        },
+        {
+          "content": "Import random\nimport string\n\ndef generate_password(length):\n    # Define the possible characters to be used in the password\n    all_chars = string.ascii_letters + string.digits + string.punctuation\n    # Ensure the length of the password is within the acceptable range\n    if length < 8 or length > 20:\n        return \"Error: Password length must be between 8 and 20 characters.\"\n    # Use the random module to generate a password by selecting random characters from the possible characters\n    password = \"\".join(random.sample(all_chars, length))\n    return password\n\n# Prompt the user to input a desired length for the password\nwhile True:\n    try:\n        length = int(input(\"Please enter the desired password length (8-20 characters): \"))\n        # Generate the password if the user's input is valid\n        password = generate_password(length)\n        print(\"Your new password is: \", password)\n        break\n    except ValueError:\n        print(\"Error: Please enter a valid integer value for password length.\")",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-7fedc8092425fbd584009aec768f2d156a732f101a6743487cb4a23241692ba2",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Develop a dropdown mobile-responsive navigation menu that can efficiently handle a considerable amount of content, provides an easily recognizable hierarchy, and accommodates different screen sizes, ensuring smooth and seamless user experience across multiple devices.",
+          "role": "user"
+        },
+        {
+          "content": "To develop a dropdown mobile-responsive navigation menu, we can follow the below steps:\n\n1. Determine the hierarchy of the website's pages and create categories for the navigation menu.\n\n2. Use an easily recognizable icon or button to indicate the presence of a dropdown menu.\n\n3. Ensure that the dropdown menu can accommodate a considerable amount of content by creating submenu categories under each main category.\n\n4. Use clear and concise labeling for each category and subcategory within the dropdown menu.\n\n5. Make the dropdown menu mobile-friendly by ensuring it is responsive and can fit on different screen sizes.\n\n6. Optimize the dropdown menu for touch screen devices by ensuring that sizes of the hit targets (the clickable areas) are large enough to tap easily.\n\n7. Use animation and transitions to make the dropdown menu feel smooth and seamless.\n\n8. Test the menu on different browsers and devices to ensure it provides a straightforward and efficient user experience.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-multi-2",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "We have 12 chairs."
+        },
+        {
+          "role": "assistant",
+          "content": "There are 12 chairs."
+        },
+        {
+          "role": "user",
+          "content": "We lend 5 chairs to a neighbor. How many remain?"
+        },
+        {
+          "role": "assistant",
+          "content": "12 \u2212 5 = 7 chairs remain."
+        }
+      ]
+    },
+    {
+      "id": "curated-multi-0",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Remember that the parcel code is R8T2."
+        },
+        {
+          "role": "assistant",
+          "content": "The parcel code is R8T2."
+        },
+        {
+          "role": "user",
+          "content": "What is the code? Return only the code."
+        },
+        {
+          "role": "assistant",
+          "content": "R8T2"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-363bf1f00a0250b6b2fe41ef71e04686f4ae5ef9390c1fa411d0d0c1aca4e992",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "What types of crops and livestock are commonly raised by the Fulani people?",
+          "role": "user"
+        },
+        {
+          "content": "The Fulani people commonly raise cattle, sheep, goats, camels, and horses. They also cultivate crops such as millet, sorghum, corn, and vegetables.",
+          "role": "assistant"
+        },
+        {
+          "content": "Do the Fulani people sell their crops and livestock, or do they use them solely for their own needs?",
+          "role": "user"
+        },
+        {
+          "content": "The Fulani people usually sell their crops and livestock in the local markets for income. While they use some of the produce for their own consumption and sustenance, they also depend on agriculture and animal husbandry for economic survival. They also trade animals and crops with neighboring communities and traders for goods and services they cannot produce themselves.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "train_sft-1e98d0e443037745b0b1dc0380c0a9c84f118964beb8e7b10abfb886d9a3ca19",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How do the reporting requirements for officer-involved injuries or deaths caused by the discharge of a firearm and injuries or deaths of peace officers caused by a civilian using a firearm differ from each other according to the Texas Code of Criminal Procedure? Answer according to: - As required by Art. 2.139 of the Texas Code of Criminal Procedure, law enforcement agencies shall report all officer-involved injuries or deaths caused by the discharge of a firearm (humans only).\n- As required by Art. 2.1395 of the Texas Code of Criminal Procedure, law enforcement agencies shall report all injuries or deaths of peace officers in the performance of an official duty caused by a person who is not a peace officer while discharging a firearm.",
+          "role": "user"
+        },
+        {
+          "content": "The reporting requirements for officer-involved injuries or deaths caused by the discharge of a firearm and injuries or deaths of peace officers caused by a civilian using a firearm differ in terms of the specific reporting requirements stated in the Texas Code of Criminal Procedure. Law enforcement agencies are required to report all officer-involved injuries or deaths caused by the discharge of a firearm under Art. 2.139. On the other hand, law enforcement agencies are required to report all injuries or deaths of peace officers in the performance of an official duty caused by a person who is not a peace officer while discharging a firearm under Art. 2.1395. Therefore, the reporting requirements differ depending on the circumstances surrounding the incident involving the use of a firearm.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "curated-11",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain why a metal spoon feels colder than a wooden spoon at the same room temperature."
+        },
+        {
+          "role": "assistant",
+          "content": "Metal conducts heat away from your hand faster than wood. Your skin cools more quickly, making the metal feel colder even though both spoons started at the same temperature."
+        }
+      ]
+    },
+    {
+      "id": "curated-9",
+      "source": "locally reviewed pilot example",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A book costs 18 dollars and a pen costs 3 dollars. What do two books and one pen cost?"
+        },
+        {
+          "role": "assistant",
+          "content": "Two books cost 2 \u00d7 18 = 36 dollars. Adding the pen gives 36 + 3 = 39 dollars."
+        }
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "id": "test_sft-e422a6373fed404fd41c6b246c591dd12ef0e95d86fbdb3cd414cfa5128ec415",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Could you recommend a substitution for the whipped cream cheese in the recipe for lactose-intolerant individuals? Answer according to: Punch up your bagel with delicious & fresh avocado, tomato, cucumbers, and sprouts. Don\u2019t forget to add our cream cheese spread that packs a kick!\nSlice avocado, tomato and cucumber.\nMix together whipped cream cheese, Simply Orange, hot sauce, salt, pepper and coriander.\nHalve bagels, toast if desired.\nSpread cream cheese mixture on bagels.\nTop with avocado, tomato, cucumber, sprouts, salt & pepper.",
+          "role": "user"
+        },
+        {
+          "content": "A substitution for whipped cream cheese that would be suitable for lactose-intolerant individuals could be a vegan cream cheese alternative made from nut milk, such as almond or cashew. Another option could be a lactose-free cream cheese made with milk from cows that have been specifically bred to produce milk with lower levels of lactose.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-3623df0db075c4158ea1c62952504e33027b20b7eabaa14b8cd8266fee73e89b",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Founded in the heart of the Alps following the Winter Olympic Games held in Grenoble, the group that would ultimately give rise to GO Sport and then Courir was created in the late 1970s.\nOver the years, GO Sport has developed into one of the leading sporting goods stores, while Courir has set a new benchmark for the sneaker fashion industry. Incorporated into GO Sport Group in 2014, Twinner is a network of stores that emphasizes the values of authenticity and connection to nature.\nThese three brands gradually grew in France and steadily developed in other countries, first in Poland, where GO Sport launched in 1999, and then on all continents, with the rapid success of the master franchise and a leading position in the Middle East.\nPerformance, teamwork, enjoyment and customer focus motivate our 4,600 employees in France and abroad every day.\nGroupe GO Sport is owned by Rallye, a reference in the distribution sector.\nGO Sport was voted this year\u2019s \u201cFavorite Company\u201d by students of the Grenoble School of Management! Based on the passage above, Who owns Groupe GO Sport and what is their reputation in the distribution sector?",
+          "role": "user"
+        },
+        {
+          "content": "Groupe GO Sport is owned by Rallye, who is a reference in the distribution sector.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-88cb8d3bcd6b328cc419f4e91461802c777696e176ee9d37a1d1808795fece69",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Create a list of 10 things to do when feeling burnt out.",
+          "role": "user"
+        },
+        {
+          "content": "1. Take a break - Time off is essential to recharge your batteries.\n\n2. Meditate or practice yoga - Mindfulness exercises can help you relax and destress.\n\n3. Get outdoors - Nature has a way of calming us and helping us find clarity.\n\n4. Connect with family and friends - Reach out to loved ones and spend time connecting with them.\n\n5. Treat yourself - Do something nice for yourself, like go out for a nice dinner or buy yourself a new book.\n\n6. Listen to music or watch a movie - Sometimes getting lost in a story can take your mind off things.\n\n7. Exercise - Exercise can be a great way to release endorphins and feel better about yourself.\n\n8. Sleep - Make sure you\u2019re getting enough sleep to restore your energy levels and recharge your brain.\n\n9. Get creative - Write, paint, dance, sing, or do anything that allows you to express yourself.\n\n10. Set boundaries - Learn to say no when you need to and don\u2019t allow yourself to be overloaded with work or responsibilities.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-7f864ee3e5364282290881ac902177e91fb93745dec3a320593c2612430745e3",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "What was the significance of the Prophet's Mosque in Medina during the early development of Islam?",
+          "role": "user"
+        },
+        {
+          "content": "The Prophet's Mosque, also known as Masjid al-Nabawi, was significant during the early development of Islam as it served as the first Islamic center for education, politics, and social interaction. It was established by Prophet Muhammad after his migration from Mecca to Medina in the year 622 CE. The mosque was the focal point for the Muslim community, where the Prophet and his followers gathered for prayer, worship, and religious instruction. It also served as a place where important decisions were made, disputes were settled, and treaties were signed. The mosque played a critical role in the growth of Islam, and even today, it remains a place of great significance for Muslims all around the world.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-b680b2637ac8bc8d2c9d08719a9aab633793fbfc70090af2c2305def39ccccfa",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Build a C++ program that prompts the user to enter a number and calculates the sum of its digits.",
+          "role": "user"
+        },
+        {
+          "content": "#include <iostream>\n\nusing namespace std;\n\nint main() {\n    int num, sum = 0, digit;\n    cout << \"Enter a number: \";\n    cin >> num;\n    while (num != 0) {\n        digit = num % 10;\n        sum += digit;\n        num = num / 10;\n    }\n    cout << \"The sum of the digits of the number is: \" << sum;\n    return 0;\n}",
+          "role": "assistant"
+        },
+        {
+          "content": "Wow, that was quick and easy! Thanks for helping me out with this program, I really appreciate it!",
+          "role": "user"
+        },
+        {
+          "content": "You're welcome! I'm glad I could help you out. If you have any more questions or need further assistance, feel free to ask.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-2a6b225e331a8d49b2b2b1eba5565ca6dcd99ec9c03568681feab897c9f31e00",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "What are the current legislative efforts to address homelessness in Oregon?",
+          "role": "user"
+        },
+        {
+          "content": "I do not have access to real-time information about legislative efforts in oregon. However, I can provide a general overview of some of the legislative efforts that have been made in recent years:\n\n1. House bill 4001 - in 2019, oregon lawmakers passed hb 4001, which increased funding for emergency shelters and rental assistance programs to help those experiencing homelessness.\n\n2. House bill 3115 - in 2021, lawmakers proposed hb 3115, which would establish a rental assistance program for low-income tenants in oregon. The funds would specifically help tenants who owe back rent and are at risk of losing their homes due to the pandemic.\n\n3. House bill 2006 - recently, oregon lawmakers have been considering hb 2006, which would lift the statewide ban on rent control to provide greater protections for tenants struggling to keep up with rising housing costs.\n\n4. Statewide housing plan - the state of oregon is working on a comprehensive housing plan to address the housing crisis in the state, with specific attention paid to the needs of those experiencing homelessness.\n\n5. Emergency relief funds - in response to the covid-19 pandemic, oregon has received significant emergency funding to provide assistance to tenants who are struggling to pay rent and avoid homelessness.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-bc6658a78e0b75e05ecd829f11e64ae949e0d51af56c2f08f051578c6cb364f7",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Can you discuss the theological differences between the Eastern Orthodox and Roman Catholic churches in the early Christian period?",
+          "role": "user"
+        },
+        {
+          "content": "In the early Christian period, there were several theological differences between the Eastern Orthodox and the Roman Catholic churches. Here are some of the main differences:\n\n1. Papal Supremacy: The Eastern Orthodox Church did not recognize the supremacy of the Roman Pope over other patriarchs, while the Roman Catholic Church believed that the Pope had supreme authority over all other bishops.\n\n2. Filioque Controversy: The Eastern Orthodox Church believed that the Holy Spirit proceeded only from the Father, while the Roman Catholic Church added the word \"filioque\" to the Nicene Creed, asserting that the Holy Spirit proceeded from both the Father and the Son.\n\n3. Iconoclasm: The Eastern Orthodox Church was more accepting of icons and their use in worship, while the Roman Catholic Church sometimes frowned upon their use as an act of idolatry.\n\n4. Clerical Celibacy: The Eastern Orthodox Church allowed priests to marry, but the Roman Catholic Church required celibacy.\n\n5. Liturgical Practices: The Eastern Orthodox Church had a different liturgical calendar and practice than Roman Catholic Church.\n\nThese theological differences, among numerous other cultural and historical differences, eventually led to the Great Schism of 1054, which resulted in a formal split between the two churches.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-ba4e9d5a047f9f8102ba28e92ba4662c3e6f7ddea2f17ee19a67f116ce0c24b6",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Can underwater vehicles be used to search for sunken ships and other cultural artifacts, and if so, what kind of methodologies are involved?",
+          "role": "user"
+        },
+        {
+          "content": "Yes, underwater vehicles can be used to search for sunken ships and other cultural artifacts. The methodology involved varies depending on the specific goals and resources of the expedition, but generally involves the following steps:\n\n1. Site Selection: Researchers will review historical records, geographical data, and other records to determine potential locations of shipwrecks or artifacts. High-resolution sonar or satellite imagery can also aid in site selection. \n\n2. Survey and Mapping: Once a site has been identified, underwater vehicles equipped with sonar and video equipment will map the site to identify any visual evidence of the site's potentially submerged remains.\n\n3. Excavation: Once mapped, researchers will carefully excavate the area using underwater robotics to confirm the presence of cultural objects and to document and record the objects' location and condition.\n\n4. Analysis and Conservation: Once cultural objects have been retrieved, they will be analyzed to gain insights into their significance to the area's history and potential conservation plans.\n\nOverall, the methodology behind using underwater vehicles to search for sunken ships and cultural artifacts involves a combination of historical research, scientific data, and advanced technological tools to gather evidence, data, and artifacts. Although the process is challenging, it can lead to significant contributions to archaeological, historical, and scientific research.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-4ea4b008532857e37d3f2d2575ce8d357ebeb1b704c63b81f16df85a111bf755",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "How can I place an order for a custom DogAlong carrier with the additional feature of side bolts for tethering my pup?\nGenerate according to: DogAlong 4 Moped Scooters Motorcycles Take your Best Friend Riding!\nThis custom pet carrier \"DogAlong\" will fit on the back of most mopeds, scooters and motorcycles. It is custom made and features carpeted interior, collapsable food bowl, doggy sport water bottle with drinking tray, a windshield, Water cooler/cozy, double safety chains and heavy duty tie-off ring. It is rated for up to 11 lbs.\ni need a side cart for my dog shes too big.\nWe can make those too!\nI'd alike to see a picture on a scooter too... Coming when?\nI would also like to see this mounted on a scooter.\nCould you mount side bolts to be able to tether your pup on the side.",
+          "role": "user"
+        },
+        {
+          "content": "To place an order for a custom DogAlong carrier with side bolts for tethering your pup, please send us an email at orders@dogalong.com with your request. Our team will be happy to work with you to create the perfect carrier for your furry friend. Thank you for choosing DogAlong 4 Moped Scooters Motorcycles Take your Best Friend Riding!",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-22db94b5f3c8e01533d52888cdbfef0f416ebe8233cdafb2e3493d1fadef4c45",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Generate response to the question/instruction based on a piece of given material\n\nQuestion/Instruction: How does Nora Roberts' backlist contribute to her continued presence on the Top-Earning Authors ranking?\n\nGiven material: Nora Roberts has written over 220 novels -- a colossal backlist that ensures she remains on the Top-Earning Authors ranking. Like Stephen King and Danielle Steel, her new titles do not perform as well as they once did. Between June 2014 through June 2015, her bestseller was 2014's \"Shadow Spell,\" which shifted a modest 298,600 units in the U.S., according to Nielsen BookScan.",
+          "role": "user"
+        },
+        {
+          "content": "Nora Roberts' extensive backlist plays a significant role in her continued presence on the Top-Earning Authors ranking. With over 220 novels, she has built a loyal fan base over the years, contributing to consistent sales of her older titles. Like other successful authors such as Stephen King and Danielle Steel, her new releases may not perform as well as they once did. However, her extensive collection of previously published books ensures that her overall earnings remain consistent. In fact, her backlist remains a key factor in her financial success as a writer.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-d65b9201cdc5a2600dbb8d42a7e0dcf11b97d6b2306676856f8a3b44f3179092",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Is the sample provided showcasing a promo video for a particular band, and how can we book the live room for our own video shoots? Answer according to: Shoot your next video in our unique and professionally designed live room.\nDesigned for doing video promotion for your band.\nCheck out a sample below.",
+          "role": "user"
+        },
+        {
+          "content": "Yes, the sample provided is showcasing a promo video for a particular band. To book the live room for your own video shoots, you can contact the company or venue that owns the live room and inquire about their booking process and availability.",
+          "role": "assistant"
+        },
+        {
+          "content": "That's great to know. Can you provide me with the contact information of the company or venue that owns the live room?",
+          "role": "user"
+        },
+        {
+          "content": "I do not have access to specific information about companies or venues that own live rooms. However, you can search online for local venues or studios that offer live rooms for video shoots, or consider reaching out to local music industry associations or networks for recommendations. Once you have a few options, you can inquire about availability and booking procedures directly with the venue or company.",
+          "role": "assistant"
+        }
+      ]
+    },
+    {
+      "id": "test_sft-0d738fd208be79bf436b21ab156aa70d9d8f7729bbaeafb9a0501a1e0a0ae428",
+      "source": "HuggingFaceH4/ultrachat_200k",
+      "messages": [
+        {
+          "content": "Develop a social media strategy to promote our new product launch.",
+          "role": "user"
+        },
+        {
+          "content": "I may not have a direct way of creating a social media strategy, but I can still suggest some general steps that a company can follow to create a social media plan to promote a new product launch:\n\n1. Define your target audience: identify your customer base including their interests, needs, buying behaviors, and the social media platform they prefer. \n2. Set goals: outline what you want to achieve through social media promotions such as increased reach, brand awareness, conversion rates, customer engagement, and sales. \n3. Choose your social media platforms: select the platforms that your target audience uses frequently, mainly instagram, twitter and facebook. \n4. Create engaging content: develop a content calendar to update postings to keep your audiences engaged with your offerings. Make sure your content is in line with your brand voice using quality photos, creative graphics, or videos. \n5. Create a hashtag strategy: develop a unique hashtag for the new product launch or use relevant popular hashtags.\n6. Partner with influencers: partner with social media influencers to promote the product and reach out to a new audience. \n7. Run ad campaigns: utilize various ad campaigns to promote new product launch to your target audience.\n8. Monitor your performance: analyze your social media metrics regularly to measure your success towards your goals and modify your strategy accordingly.",
+          "role": "assistant"
+        }
+      ]
+    }
+  ],
+  "generation_eval": [
+    {
+      "id": "json",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Return only a JSON object with city set to Oslo and count set to 3."
+        }
+      ],
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      }
+    },
+    {
+      "id": "copy",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Repeat exactly this code and nothing else: A7x-P4q"
+        }
+      ],
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      }
+    },
+    {
+      "id": "multiply",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is 29 times 17? Return only the number."
+        }
+      ],
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      }
+    },
+    {
+      "id": "sort",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Sort these numbers in ascending order: 9, -2, 4, 0. Return only a comma-separated list."
+        }
+      ],
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      }
+    },
+    {
+      "id": "units",
+      "messages": [
+        {
+          "role": "user",
+          "content": "How many milliliters are in 2.5 liters? Return only the number."
+        }
+      ],
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      }
+    },
+    {
+      "id": "logic",
+      "messages": [
+        {
+          "role": "user",
+          "content": "All fens are lums. All lums are peks. Are all fens peks? Answer only yes or no."
+        }
+      ],
+      "check": {
+        "kind": "exact",
+        "expected": "yes"
+      }
+    },
+    {
+      "id": "five-lines",
+      "messages": [
+        {
+          "role": "user",
+          "content": "List these five colors, one per line and nothing else: red, blue, green, yellow, purple."
+        }
+      ],
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      }
+    },
+    {
+      "id": "poem",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Write a four-line poem about rain. Output only the poem, with no title."
+        }
+      ],
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      }
+    },
+    {
+      "id": "summary",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Summarize in one sentence: The Redwood library will reopen on Friday. It was closed for repairs. Fifteen new desks were installed."
+        }
+      ],
+      "check": {
+        "kind": "summary",
+        "expected": null
+      }
+    },
+    {
+      "id": "alias",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What does this Python code print, and why? a = [5, 8]; b = a; b.append(13); print(a). Answer in at most 60 words."
+        }
+      ],
+      "check": {
+        "kind": "alias",
+        "expected": null
+      }
+    },
+    {
+      "id": "ice",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why does ice float on water? Answer in at most 80 words."
+        }
+      ],
+      "check": {
+        "kind": "ice",
+        "expected": null
+      }
+    },
+    {
+      "id": "interview",
+      "messages": [
+        {
+          "role": "user",
+          "content": "How should I prepare for a job interview? Give five numbered tips in at most 150 words."
+        }
+      ],
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      }
+    },
+    {
+      "id": "dog",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What should I consider when adopting a dog? Give a concise checklist in at most 150 words."
+        }
+      ],
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      }
+    },
+    {
+      "id": "hash-table",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain what a hash table is to a beginner programmer. Keep your answer under 150 words."
+        }
+      ],
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      }
+    },
+    {
+      "id": "multi-memory",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Remember: my preferred color is teal."
+        },
+        {
+          "role": "assistant",
+          "content": "Your preferred color is teal."
+        },
+        {
+          "role": "user",
+          "content": "What is my preferred color? Output only the color."
+        }
+      ],
+      "check": {
+        "kind": "exact",
+        "expected": "teal"
+      }
+    },
+    {
+      "id": "multi-edit",
+      "messages": [
+        {
+          "role": "user",
+          "content": "My list is apples, bread, and tea."
+        },
+        {
+          "role": "assistant",
+          "content": "Your list is apples, bread, and tea."
+        },
+        {
+          "role": "user",
+          "content": "Remove bread and add cheese. Return only the updated list as a JSON array, keeping the remaining order."
+        }
+      ],
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      }
+    }
+  ],
+  "counts": {
+    "qwen35": {
+      "train": {
+        "rows": 64,
+        "input_tokens": 14021,
+        "assistant_tokens": 7870,
+        "ending_tokens": 64
+      },
+      "validation": {
+        "rows": 12,
+        "input_tokens": 3057,
+        "assistant_tokens": 1806,
+        "ending_tokens": 12
+      }
+    },
+    "smollm2": {
+      "train": {
+        "rows": 64,
+        "input_tokens": 15512,
+        "assistant_tokens": 8072,
+        "ending_tokens": 64
+      },
+      "validation": {
+        "rows": 12,
+        "input_tokens": 3346,
+        "assistant_tokens": 1847,
+        "ending_tokens": 12
+      }
+    }
+  },
+  "source_sha256": {
+    "train_sft-00000-of-00003-a3ecf92756993583.parquet": "afa8fa7426081b2a0e732fb50dbb5cd402a28ad5f0dbe66c0d996d63e7220727",
+    "test_sft-00000-of-00001-f7dfac4afe5b93f4.parquet": "c18fd6e77395577652bdefbc5a87044ea799e989451ecfca5c6cf977ae5c6f70"
+  }
+}

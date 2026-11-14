@@ -1,0 +1,124 @@
+{
+  "status": "design_consensus_not_frozen_no_run_authorized_by_this_file",
+  "pair_session": "Manifold",
+  "agreement_messages": [
+    245,
+    246,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    259,
+    260,
+    261,
+    262,
+    263
+  ],
+  "purpose": "Test compact functions fitted on activation manifolds in a simpler native architecture before returning to hybrid Qwen. This does not establish 128B-to-9B feasibility.",
+  "primary_teacher": "local SmolLM2-1.7B-Instruct, LlamaForCausalLM; not Meta Llama weights",
+  "replication": "Qwen3.5 hybrid later; differences in tokenizer/training prevent causal architecture attribution.",
+  "parameter_axis": "Non-embedding transformer parameters; vocab tables excluded from the experiment.",
+  "stages": [
+    "H0a: shape-only accounting and reviewed protocol.",
+    "H0b: isolated native MLP input-code to output-code fits at early/mid/late sites, PCA and learned charts against restricted-weight baseline and full-state control.",
+    "H0c: separately activated composition of adjacent native blocks including attention, preserving sequence/KV conditioning."
+  ],
+  "controls": [
+    "Hold out whole documents/prompts.",
+    "Freeze reconstruction-anchored charts before fitting native maps.",
+    "Measure downstream teacher KL on common outputs; code-space MSE only within chart.",
+    "Normalized wide-space update error uses identity=1 baseline.",
+    "Report training/collection/chart/target costs as well as inference parameters.",
+    "Inference must carry compact states directly; wide decoder/teacher continuation permitted only as labelled diagnostic."
+  ],
+  "budget_proposal": "Two non-embedding whole-stack proxy budgets around 2.5x and 8x; 14.2x accounting reference, no width selected yet.",
+  "decision_proposal": "Exploratory learned-chart primary at the aggressive budget: paired document bootstrap CI of KL_new - 0.75 * KL_baseline; require upper 95% < 0 and a copy-tail guard, at two of three prespecified sites. Exact data, resource, tail and budget rules remain unfrozen.",
+  "open_before_freeze": [
+    "Exact corpus provenance, document-group splits, contexts and collection, storage and runtime caps.",
+    "Exact k/m and head layout; the native attention port must be audited for correctness.",
+    "Charts used offline versus resident deployment costs must be explicit.",
+    "An improving data curve means budget-inconclusive when the required criterion is not met; a clear gain need not be rejected for still improving.",
+    "Hard copy-tail failures, near-zero KL baseline handling and gate interpretations.",
+    "Signed exact code and protocol, plus meaningful synthetic tests."
+  ],
+  "owners": {
+    "codex": [
+      "architecture accounting",
+      "rules/protocol",
+      "peer review"
+    ],
+    "claude": [
+      "native MLP probe",
+      "Llama port",
+      "collection",
+      "synthetic tests"
+    ]
+  },
+  "execution": "G1 continues unchanged. No H0 model forward before G1 stops and both agents acknowledge a frozen protocol. This design does not authorize a paid resource.",
+  "bottleneck_audit": {
+    "status": "Confirmed by both agents in paird 254 and subsequent Codex review.",
+    "finding": "Historical warp reconstruction consumed an exact k-wide PCA channel plus a learned k-wide code. It did not enforce a single k-dimensional bottleneck. This confounds equal-width comparisons; it does not prove the entire gain was due to extra width.",
+    "requirement": "Every H0 learned chart must reconstruct from only its declared k-wide code. No exact PCA bypass or full-state side channel.",
+    "historical_sources": [
+      "m_autoencoder_kl.py:76",
+      "m_autoencoder_all.py:78",
+      "heal_layerwise.py:78"
+    ]
+  },
+  "selected_h0b_shapes": [
+    {
+      "residual_width": 1536,
+      "mlp_width": 4096,
+      "whole_stack_proxy_non_embedding_scalars": 679552512
+    },
+    {
+      "residual_width": 768,
+      "mlp_width": 2560,
+      "whole_stack_proxy_non_embedding_scalars": 198218496
+    }
+  ],
+  "shape_scope": "These are H0b MLP probe shapes and whole-stack parameter proxies. H0c attention head count/head dimension is not selected. No runtime deployment is claimed.",
+  "user_success_paths": [
+    {
+      "goal": "Create a useful MoE from a dense teacher using manifold regions.",
+      "comparison": "Separately activated branch; compare routing/expert baselines with active computation, total stored parameters and routing overhead reported separately."
+    },
+    {
+      "goal": "Beat logit distillation on the training budget for a smaller model.",
+      "comparison": "Hold architecture and initialization fixed for the supervision comparison; count teacher collection, chart fitting, block fitting and final healing. Separate initialization ablations from loss-function claims."
+    },
+    {
+      "goal": "Produce stronger task performance than comparable-size public models.",
+      "comparison": "Use a frozen evaluation suite and report post-healing quality. Public models are quality references, not controls for unknown pretraining cost."
+    },
+    {
+      "goal": "Provide an initialization that reduces subsequent pretraining cost.",
+      "comparison": "Compare full learning curves at matched total compute. A weak unhealed output does not rule out a useful starting point."
+    },
+    {
+      "goal": "Project a small model into a larger architecture.",
+      "comparison": "Later growth branch, compared against function-preserving growth and ordinary initialization; no activation under H0."
+    },
+    {
+      "goal": "Combine model weights with projections.",
+      "comparison": "Separate same-coordinate algebraic combinations from learned cross-model alignment; evaluate after matched healing with host-model regression checks."
+    },
+    {
+      "goal": "Project selected pieces of a large model into a smaller host.",
+      "comparison": "Use a fixed host and matched-size adapter/stitch baseline; shared tokenizer does not establish hidden-state alignment."
+    },
+    {
+      "goal": "Create a small domain expert from domain-specific activation measurements.",
+      "comparison": "Measure in-domain quality versus a domain-distilled or domain-fine-tuned baseline at matched domain exposure and total compute. Report out-of-domain tradeoffs without requiring degradation. Lower task-relevant dimension is a hypothesis to test."
+    }
+  ],
+  "healing_policy": "Healing is permitted. Main practical comparisons use post-healing outcomes and full cost accounting; pre-healing metrics remain diagnostics. H0 failure at a chosen representation or budget is not a universal rejection of these success paths.",
+  "scope_control": "Preserve useful domain groups in collection, but MoE, domain specialization, stitching and growth remain separately agreed branches. They are not silently added to the primary H0 comparison."
+}

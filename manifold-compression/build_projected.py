@@ -8,6 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from common import KLAccumulator, Runner, add_session_args, kl_per_token, load_model, save_json, session_from
+from projection_models import install_output_matrix, projected_output_matrix
 
 ap = argparse.ArgumentParser()
 add_session_args(ap, bs=8)
@@ -19,11 +20,17 @@ ap.add_argument("--batch", type=int, default=8)
 ap.add_argument("--final-steps", type=int, default=300, help="steps fitting the final norm on KL to the teacher")
 ap.add_argument("--ls-tokens", type=int, default=65536, help="tokens used for the MLP neuron choice and least-squares refit")
 ap.add_argument("--identity-test", action="store_true", help="full-width basis, no shrink, no healing: must reproduce the teacher")
+ap.add_argument("--rotation-test", action="store_true", help="full-width PCA rotation, no shrink or healing: must reproduce the teacher")
+ap.add_argument("--output-norm", choices=["matrix", "legacy-diagonal"], default="matrix",
+                help="matrix preserves coordinate mixing; legacy-diagonal reproduces the old approximation")
 ap.add_argument("--force-untie", action="store_true", help="dry-run aid: give a tied teacher its own head copy")
 ap.add_argument("--no-curve", action="store_true", help="skip the KL checks every 4 layers (they need spare GPU memory)")
 ap.add_argument("--out", default="")
 ap.add_argument("--tag", default="")
 args = ap.parse_args()
+if args.identity_test and args.rotation_test:
+    ap.error("choose identity-test or rotation-test")
+audit_only = args.identity_test or args.rotation_test
 
 S = session_from(args)
 r, teacher, tok, dev = S.runner, S.model, S.tok, S.device
@@ -56,7 +63,7 @@ def self_chat_seqs(n):
     return [("selfchat", stream[k:k + S.T], [1] * S.T) for k in range(0, len(stream) - S.T, S.T)]
 
 
-calib = S.data["fit"] + (self_chat_seqs(args.self_chat) if args.self_chat and not args.identity_test else [])
+calib = S.data["fit"] + (self_chat_seqs(args.self_chat) if args.self_chat and not audit_only else [])
 IDS = torch.stack([torch.tensor(x[1]) for x in calib])
 n = len(IDS)
 S.eval_batches()
@@ -94,12 +101,12 @@ with torch.no_grad():
             h = step_all(r, s, h)
     ev, V = torch.linalg.eigh(M)
     V = V[:, ev.argsort(descending=True)]
-student = copy.deepcopy(teacher) if args.identity_test else load_model(args.shape_from)[0]
+student = copy.deepcopy(teacher) if audit_only else load_model(args.shape_from)[0]
 ds = student.config.get_text_config().hidden_size if hasattr(student.config, "get_text_config") else student.config.hidden_size
 if args.force_untie:
     teacher.lm_head.weight = nn.Parameter(teacher.lm_head.weight.detach().clone(), requires_grad=False)
 untied = teacher.lm_head.weight.data_ptr() != r.lm.embed_tokens.weight.data_ptr()
-if untied and not args.identity_test:
+if untied:
     student.lm_head = nn.Linear(ds, teacher.lm_head.weight.shape[0], bias=False, device=dev)
     student.lm_head.weight.requires_grad_(False)
     student.config.tie_word_embeddings = False
@@ -122,7 +129,7 @@ T_layers, S_layers = r.lm.layers, sr.lm.layers
 full_mlp = {}
 with torch.no_grad():
     sr.lm.embed_tokens.weight.copy_(r.lm.embed_tokens.weight @ P)
-    if untied and not args.identity_test:
+    if untied:
         student.lm_head.weight.copy_(teacher.lm_head.weight @ P)
     h = torch.cat([r.prepare(IDS[i:i + 8])[0].half() for i in range(0, min(n, 64), 8)])
     sub = IDS[:min(n, 64)]
@@ -149,14 +156,18 @@ with torch.no_grad():
                         tgt.copy_(p)
             else:
                 full_mlp[li] = tuple(w.cpu() for w in (tl.mlp.gate_proj.weight @ read, tl.mlp.up_proj.weight @ read, P.T @ tl.mlp.down_proj.weight))
-                if args.identity_test:
+                if audit_only:
                     for w, full in zip((sl.mlp.gate_proj.weight, sl.mlp.up_proj.weight, sl.mlp.down_proj.weight), full_mlp[li]):
                         w.copy_(full)
             h = torch.cat([(hb.float() + sub_update(r, s, hb.float(), r.prepare(sub[j:j + 8])[1])).half()
                            for j, hb in zip(range(0, len(sub), 8), h.split(8))])
     cf = norm_scale(flat(h))
-    g = torch.diagonal(P.T @ ((1 + r.lm.norm.weight)[:, None] * P)) / cf
-    sr.lm.norm.weight.copy_(g - 1)
+    if args.output_norm == "matrix":
+        matrix = projected_output_matrix(1 + r.lm.norm.weight, P, cf)
+        install_output_matrix(student, matrix)
+    else:
+        g = torch.diagonal(P.T @ ((1 + r.lm.norm.weight)[:, None] * P)) / cf
+        sr.lm.norm.weight.copy_(g - 1)
 log(f"folded; RMS fixes range {min(scales):.3f}-{max(scales):.3f}, final {cf:.3f}")
 
 
@@ -176,10 +187,11 @@ def student_kl(upto=None):
 
 
 out = {"args": vars(args), "basis_energy": (ev.sort(descending=True).values[:ds].sum() / ev.sum()).item(), "curve": []}
-if args.identity_test:
+if audit_only:
     kl = student_kl()
-    log(f"IDENTITY TEST: KL {kl['all']['mean']:.6f} (should be ~0)")
-    save_json({"identity_kl": kl}, S.results / "projected_identity.json")
+    kind = "rotation" if args.rotation_test else "identity"
+    log(f"{kind.upper()} TEST: KL {kl['all']['mean']:.6f} (should be ~0)")
+    save_json({f"{kind}_kl": kl, "output_norm": args.output_norm}, S.results / f"projected_{kind}.json")
     raise SystemExit
 
 out["folded_lift"] = {}
@@ -246,7 +258,7 @@ for s in range(2 * L):
     log(msg)
     save_json(out, S.results / f"projected{args.tag}.json")
 
-# Final norm: the only weight between the last stream and the tied output head, fitted on KL to the teacher.
+# Fit the final coordinate gains; the initialized dense output matrix stays fixed here.
 if args.final_steps:
     w = sr.lm.norm.weight
     w.requires_grad_(True)

@@ -1,0 +1,34 @@
+{
+  "frozen_utc": "2026-10-25T16:16:50.364436+00:00",
+  "local_only": true,
+  "selected_before_external_scores": true,
+  "no_calibration_data_or_labels": true,
+  "models": {
+    "q4-g32": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-groups/q4-g32.pt",
+      "sha256": "811787e7b3bb68569f9f289d1b1c5df195e4d8d84daec0b8a0d13b6633c1273c",
+      "bytes": 50743883,
+      "precision": "q4",
+      "layers": 3,
+      "eligible_for_promotion": false,
+      "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+      "bits": 4,
+      "activation_bits": 8,
+      "group_size": 32,
+      "note": "Four-bit dense codes; more BF16 scales, with embeddings/output still float. Packed accuracy/reference artifact; native kernel speed unmeasured."
+    },
+    "q4-g16": {
+      "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/work/q4-groups/q4-g16.pt",
+      "sha256": "5694e57f47744de60eae46a5b6cd42b78d17ee2346a4ff26c5dc2c875666ff5f",
+      "bytes": 51075659,
+      "precision": "q4",
+      "layers": 3,
+      "eligible_for_promotion": false,
+      "source_float_sha256": "6c7d1c4b4765136082a0513a1b1bd0dc51c758411b8c009143c9fb8c5a0177fe",
+      "bits": 4,
+      "activation_bits": 8,
+      "group_size": 16,
+      "note": "Four-bit dense codes; more BF16 scales, with embeddings/output still float. Packed accuracy/reference artifact; native kernel speed unmeasured."
+    }
+  }
+}

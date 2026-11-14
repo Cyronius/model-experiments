@@ -1,0 +1,71 @@
+{
+  "model": "training-v2/work/qwen-space/runtime/model-300k.tde",
+  "model_sha256": "ba0b89b3f8c99f8735a05677bf1ad355e3fab86e55dde9709af735fa2358dce9",
+  "library_sha256": "caeb4ddf7e475c3d8cf3568d7951e1af713fb81d552a42b93de17f762082848a",
+  "tokenizer": {
+    "texts": 19519,
+    "mismatches": 0,
+    "pass": true
+  },
+  "vnni_vs_reference": {
+    "n": 1000,
+    "min_cos": 0.9998307228088379,
+    "median_cos": 0.9999943375587463,
+    "conf_max_rel_err": 0.007653951644897461,
+    "pass": true,
+    "length_bins": [
+      167,
+      167,
+      167,
+      167,
+      167,
+      165
+    ]
+  },
+  "avx2_vs_reference": {
+    "n": 1000,
+    "min_cos": 0.9998307228088379,
+    "median_cos": 0.9999943375587463,
+    "conf_max_rel_err": 0.007653951644897461,
+    "pass": true,
+    "length_bins": [
+      167,
+      167,
+      167,
+      167,
+      167,
+      165
+    ]
+  },
+  "paths_agree": {
+    "min_cos": 0.9999997615814209,
+    "pass": true
+  },
+  "dev_TS": {
+    "SciFact": {
+      "reference": 63.9417683077643,
+      "vnni": 64.04253106401592,
+      "avx2": 64.04253106401592
+    },
+    "NFCorpus": {
+      "reference": 28.616626130957535,
+      "vnni": 28.65084342950837,
+      "avx2": 28.65084342950837
+    },
+    "ArguAna": {
+      "reference": 50.548341236826985,
+      "vnni": 50.458079304370884,
+      "avx2": 50.458079304370884
+    }
+  },
+  "dev_TS_core_diff_vnni": {
+    "diff": 0.06749002740122734,
+    "pass": true,
+    "per_task_max_abs": 0.10076275625161912
+  },
+  "dev_TS_core_diff_avx2": {
+    "diff": 0.06749002740122734,
+    "pass": true,
+    "per_task_max_abs": 0.10076275625161912
+  }
+}

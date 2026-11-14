@@ -1,0 +1,47 @@
+{
+  "status": "audited; all original positive pairs preserved",
+  "teacher_targets": false,
+  "source": {
+    "id": "sentence-transformers/msmarco-bm25",
+    "config": "triplet",
+    "query": "query",
+    "positive": "positive",
+    "quota": 250000,
+    "relation": "search relevance",
+    "revision": "ce8a493a65af5e872c3c92f72a89e2e99e175f02",
+    "split": "train",
+    "upstream_training_rows": 502931,
+    "card_license": "not specified in derivative card"
+  },
+  "input_positive_pairs_sha256": "f85428a8870ce75179ecbf77a0b0fb0bda10b165d3652c4c78ca317e009d0715",
+  "dev_sha256": "68235d8dfbb0e297379d332e8ab265058a1c7977672a32216a52f1e0b00f3a6d",
+  "output_sha256": "68310d0f5fb7f9e24f2f3d742767ea7dcff76a266a14ea34ca5b4f85c3906502",
+  "stats": {
+    "train_rows": 780743,
+    "source_rows_scanned": 502931,
+    "matching_train_candidates": 220313,
+    "restored_negatives": 182553,
+    "negative_at_token_cap": 15729,
+    "negative_is_known_positive": 19613,
+    "near_duplicate_of_positive": 2290,
+    "negative_dev_overlap": 118,
+    "negative_equals_train_query": 9,
+    "short_negative": 1
+  },
+  "reference_text_files": {
+    "comparisons/qwen06b/data/scifact/corpus.jsonl": "dec31c8182f3d744c7d2c09423756fd1d17cbef75808db13ba01cc0aab4d1ac6",
+    "comparisons/qwen06b/data/scifact/queries.jsonl": "8ff84a7c903f722981cd8d595c022660140c51867b27608a6d4910db86080313",
+    "comparisons/qwen06b/data/nfcorpus/corpus.jsonl": "10cc83ef1826b1425e6a87090b5140b39b27755d5a27e48215a88611c899991f",
+    "comparisons/qwen06b/data/nfcorpus/queries.jsonl": "d024e6621b84925d485ae473d316a0c3af31c62c8068a59fb29d22f7613aef2a",
+    "comparisons/qwen06b/data/arguana/corpus.jsonl": "0627982cec4ee896df6dc98604ef6b499c83fd87a19eaaeb3f23b88bbef6cbce",
+    "comparisons/qwen06b/data/arguana/queries.jsonl": "f8b7c903f95d9a2d291de3915a8fac25085e9db679f19f59fea4145bfd1df618",
+    "comparisons/qwen06b/data/fiqa/corpus.jsonl": "ff593e4df9933955dc3af83be0c3fa28ac7465f627e08c2e53593e734d506517",
+    "comparisons/qwen06b/data/fiqa/queries.jsonl": "eede1e61d4a0188940239b53ebc2da91f577a6a34679c812d1eb9090c29877bc",
+    "comparisons/qwen06b/data/scidocs/corpus.jsonl": "328bb38854179c83ee40d4f49fae2ef7209ede7163785193cbdcd5906b28eecc",
+    "comparisons/qwen06b/data/scidocs/queries.jsonl": "3c85b68419bd579ff52edb58f9e7b32eb3d18bc83435edb71dbb68aaf79531d6",
+    "comparisons/qwen06b/data/stsb-test.json": "a6e8342d9420a0eff494236e0dc5b359839ec232db0e8cebd30eda5f88a649ef"
+  },
+  "benchmark_qrels_read": false,
+  "negative_policy": "MS MARCO original BM25 candidate; discard cap-truncated, benchmark/dev-visible, known-positive, query-identical and lexical Jaccard>0.8 positive near-duplicate negatives",
+  "limits": "These filters do not establish that all remaining candidates are irrelevant. No semantic teacher filtering or target vectors."
+}

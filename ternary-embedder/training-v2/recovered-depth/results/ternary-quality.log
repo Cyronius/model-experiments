@@ -1,0 +1,41 @@
+{"encoded": 32, "total": 5483, "seconds": 0.0}
+{"encoded": 672, "total": 5483, "seconds": 4.4}
+{"encoded": 1312, "total": 5483, "seconds": 11.5}
+{"encoded": 1952, "total": 5483, "seconds": 18.6}
+{"encoded": 2592, "total": 5483, "seconds": 25.7}
+{"encoded": 3232, "total": 5483, "seconds": 32.8}
+{"encoded": 3872, "total": 5483, "seconds": 39.8}
+{"encoded": 4512, "total": 5483, "seconds": 46.8}
+{"encoded": 5152, "total": 5483, "seconds": 53.9}
+ternary SciFact 56.663231117597746
+{"encoded": 32, "total": 3956, "seconds": 0.0}
+{"encoded": 672, "total": 3956, "seconds": 4.2}
+{"encoded": 1312, "total": 3956, "seconds": 12.0}
+{"encoded": 1952, "total": 3956, "seconds": 19.7}
+{"encoded": 2592, "total": 3956, "seconds": 27.4}
+{"encoded": 3232, "total": 3956, "seconds": 35.0}
+{"encoded": 3872, "total": 3956, "seconds": 42.6}
+ternary NFCorpus 29.773489318700115
+{"encoded": 32, "total": 10080, "seconds": 0.1}
+{"encoded": 672, "total": 10080, "seconds": 3.1}
+{"encoded": 1312, "total": 10080, "seconds": 7.4}
+{"encoded": 1952, "total": 10080, "seconds": 13.1}
+{"encoded": 2592, "total": 10080, "seconds": 19.7}
+{"encoded": 3232, "total": 10080, "seconds": 26.3}
+{"encoded": 3872, "total": 10080, "seconds": 33.0}
+{"encoded": 4512, "total": 10080, "seconds": 39.6}
+{"encoded": 5152, "total": 10080, "seconds": 46.3}
+{"encoded": 5792, "total": 10080, "seconds": 53.0}
+{"encoded": 6432, "total": 10080, "seconds": 59.7}
+{"encoded": 7072, "total": 10080, "seconds": 66.8}
+{"encoded": 7712, "total": 10080, "seconds": 73.9}
+{"encoded": 8352, "total": 10080, "seconds": 80.8}
+{"encoded": 8992, "total": 10080, "seconds": 87.9}
+{"encoded": 9632, "total": 10080, "seconds": 94.8}
+ternary ArguAna 46.993806490206595
+{"encoded": 32, "total": 2758, "seconds": 0.0}
+{"encoded": 672, "total": 2758, "seconds": 0.4}
+{"encoded": 1312, "total": 2758, "seconds": 0.8}
+{"encoded": 1952, "total": 2758, "seconds": 1.4}
+{"encoded": 2592, "total": 2758, "seconds": 2.2}
+{"selection": {"path": "/home/cyrus/code/model-experiments/ternary-embedder/tern-embed/pulls/grid1/runs/r0_3x384/model.pt", "sha256": "9299e7ac37c5252c1940db55b06709b0ea90883953004a5f1f9a59f71480faa9", "precision": "ternary", "layers": 3, "parameters": 17241984, "eligible_for_promotion": false, "historical_frozen_checkpoint": true}, "token_cap": 128, "tasks": {"SciFact": {"ndcg10": 56.663231117597746, "recall10": 70.0, "top1_relevant_queries": 132, "median_first_relevant_rank": 2.0, "median_best_relevant_margin": -0.011910289525985718, "queries": 300, "judged_documents_absent_from_corpus": 0}, "NFCorpus": {"ndcg10": 29.773489318700115, "recall10": 13.665581640132366, "top1_relevant_queries": 132, "median_first_relevant_rank": 2.0, "median_best_relevant_margin": -0.018035888671875, "queries": 323, "judged_documents_absent_from_corpus": 0}, "ArguAna": {"ndcg10": 46.993806490206595, "recall10": 74.46657183499289, "top1_relevant_queries": 330, "median_first_relevant_rank": 4.0, "median_best_relevant_margin": -0.028636813163757324, "queries": 1406, "judged_documents_absent_from_corpus": 5}}, "scope": "Observed external development tasks; reserved FiQA/SCIDOCS labels not used", "stsbenchmark_spearman": 82.47748804168096, "mean_core_retrieval": 43.21836021814893, "reference_report_sha256": "804a497e5ab5861cffc1dd26ca0a4dbdff46b232e17f5ba43706f1f7b6d4a4ef", "paired": {"original": {"SciFact": {"ndcg10_delta_right_minus_left": 1.8100327844668491, "paired_bootstrap_95_ci": [-0.1232764331517168, 3.7612899122748935], "queries_improved": 52, "queries_worsened": 34, "top1_gained": 12, "top1_lost": 13}, "NFCorpus": {"ndcg10_delta_right_minus_left": 0.37061467478162835, "paired_bootstrap_95_ci": [-0.7617303533694343, 1.456839256157701], "queries_improved": 100, "queries_worsened": 82, "top1_gained": 17, "top1_lost": 16}, "ArguAna": {"ndcg10_delta_right_minus_left": 4.279569865906042, "paired_bootstrap_95_ci": [3.105752709365209, 5.455818197559717], "queries_improved": 442, "queries_worsened": 270, "top1_gained": 100, "top1_lost": 62}}, "bge_micro": {"SciFact": {"ndcg10_delta_right_minus_left": -4.667204736194586, "paired_bootstrap_95_ci": [-7.046201411129932, -2.271183681450478], "queries_improved": 39, "queries_worsened": 67, "top1_gained": 11, "top1_lost": 25}, "NFCorpus": {"ndcg10_delta_right_minus_left": -1.3245379353397306, "paired_bootstrap_95_ci": [-2.344713515679402, -0.3395365826075444], "queries_improved": 79, "queries_worsened": 102, "top1_gained": 13, "top1_lost": 19}, "ArguAna": {"ndcg10_delta_right_minus_left": -4.813900810666926, "paired_bootstrap_95_ci": [-5.955705623550411, -3.6925394793784942], "queries_improved": 258, "queries_worsened": 472, "top1_gained": 59, "top1_lost": 120}}, "minilm": {"SciFact": {"ndcg10_delta_right_minus_left": -5.722731762411591, "paired_bootstrap_95_ci": [-8.904149435708756, -2.5705062507769068], "queries_improved": 45, "queries_worsened": 79, "top1_gained": 20, "top1_lost": 32}, "NFCorpus": {"ndcg10_delta_right_minus_left": -1.6799042006713056, "paired_bootstrap_95_ci": [-2.9966587990187814, -0.35752510182350206], "queries_improved": 83, "queries_worsened": 119, "top1_gained": 17, "top1_lost": 24}, "ArguAna": {"ndcg10_delta_right_minus_left": -1.7703494894506886, "paired_bootstrap_95_ci": [-3.327988183260751, -0.19399680106327602], "queries_improved": 396, "queries_worsened": 477, "top1_gained": 117, "top1_lost": 142}}}, "gates": {"original": {"each_core_retrieval": true, "stsbenchmark": true}, "bge_micro": {"each_core_retrieval": false, "stsbenchmark": false}, "minilm": {"each_core_retrieval": false, "stsbenchmark": true}}}

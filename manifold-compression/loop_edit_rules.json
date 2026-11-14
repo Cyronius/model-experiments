@@ -1,0 +1,67 @@
+{
+ "note": "Loop-direction edit of the 1M-healed c=128 student (heal_geometry S0_K24), written 2026-11-03 before any run. The user pointed at weight-space programming (rikiyat.github.io/blog/weight-space-programming), where GPT-6 Astra traced Qwen3.5-0.8B's looping to one direction written by the MLPs of layers 15 and 19 and subtracted it from 64 down-projection columns in each (0.016% of weights): GSM8K 13.8% to 67.1%, hitting the 32K cap 93% to 33%. Sean Goedecke's reply (seangoedecke.com/llms-are-not-superhuman-at-reading-and-writing-neural-network-weights) says a researcher would do this by steering: contrast looping and non-looping activations, attribute the difference to weights, trim the top contributors. That is this experiment, with no LLM in the loop. Our student loops for a different reason than the 0.8B: it lost 75% of its MLP and has had 1M healing tokens, and its sampled answers that finish are mostly wrong (14 of 96). The post itself found that an edit 'could remove an obstacle that hid an ability, but it could not add an ability the model lacked' (Gemma 3 270M).",
+ "run": "S0_K24",
+ "source": "heal_geometry/S0_K24/check/gen_healed_greedy.jsonl",
+ "split": {
+  "fit": "Looping greedy answers of prompts 48 to 95: the direction and the neuron choice come from these only.",
+  "test": "Prompts 0 to 47: held-out separation (looping rows) and every generation screen.",
+  "boundary": 48
+ },
+ "onset": {
+  "window": 20,
+  "span": 200,
+  "share": 0.9,
+  "min_pre": 40,
+  "loop_skip": 200,
+  "loop_tokens": 500,
+  "rule": "A generated position repeats if its 20-token span appeared earlier in the answer. The loop starts at the first position from which 90% of the next 200 positions repeat. Before it: the answer's positions before the loop. In it: positions onset+200 to onset+700."
+ },
+ "control": {
+  "source": "heal_geometry/S0_K24/check/gen_healed_sampled.jsonl",
+  "min_length": 500,
+  "early": [0, 150],
+  "late": [300, 500],
+  "rule": "Sampled answers of the test prompts that finished after at least 500 tokens without looping: the projection's rise from early to late positions, to tell position from looping."
+ },
+ "direction": "Per layer, the mean over fit rows of (mean MLP output in the loop - mean before it), unit length.",
+ "edits": [
+  {"name": "none", "generate": false, "rule": "No edit: the KL must reproduce 0.730."},
+  {"name": "top2_all", "layers": 2, "mode": "all", "rule": "The two layers with the largest held-out effect: project the direction out of their whole MLP output."},
+  {"name": "top2_cols", "layers": 2, "mode": "cols", "columns": 64, "rule": "As the post: in the same two layers, remove the direction from the 64 down-projection columns that contribute most to the fit rows' difference."},
+  {"name": "top6_all", "layers": 6, "mode": "all"},
+  {"name": "all_all", "layers": "all", "mode": "all", "rule": "Every layer."}
+ ],
+ "generate": {
+  "prompts": 48,
+  "max_new_tokens": 2048,
+  "state": "fp32",
+  "compact": true,
+  "greedy": true,
+  "seed": 0
+ },
+ "loop": {
+  "window": 20,
+  "last": 1000,
+  "threshold": 0.45
+ },
+ "baseline": "The check's greedy answers of prompts 0 to 47 cut at 2,048 (slim_opd.truncated); at 2,048 the full 96 had 88 loops and 9 right.",
+ "predictions": {
+  "reproduce": "The unedited student's KL is 0.730 within 0.005.",
+  "separation": "Some layers separate loop from pre-loop on held-out rows: the fit direction and the test rows' own difference have cosine at least 0.7 in the best layer, and at least 90% of test rows project higher in the loop.",
+  "position": "In the best layers, the sampled control's early-to-late rise is under a third of the loop effect, so the direction is mostly looping, not position.",
+  "loops": "The best edit cuts greedy loops at 2,048 on the 48 test prompts by at least 10 from the baseline (about 44). Confidence about 40%: the 0.8B's loop was one obstacle in a healthy model; ours comes from broad damage.",
+  "right": "Right answers rise by at most 5 of 48 for every edit: the sampled check already shows the student finishes but answers wrongly.",
+  "kl": "top2 edits raise KL by under 0.02; all_all raises it by more than 0.05."
+ },
+ "criteria": "Loops and right answers paired by prompt against the baseline, one-sided exact sign test on discordant prompts, p below 0.05. With five arms tried, a single p near 0.05 is not evidence.",
+ "outcome": {
+  "written": "2026-11-03, after S0_K24/loop_edit/{find,edit}.json.",
+  "reproduce": "Held: KL 0.7297 with no edit.",
+  "separation": "Held, and more broadly than predicted: in every one of the top 8 layers the fit direction and the test rows' own difference have cosine 0.99 and every test row projects higher in the loop (39 fit rows, median onset 268). Effects 3.9 to 6.5 sd, largest in layers 10, 12, 13, 30 and 18; not two layers as in the 0.8B.",
+  "position": "Held narrowly: the control's rise is 0.17 to 0.31 of the loop effect in the top five layers (layer 10 at 0.31).",
+  "loops": "Failed. Baseline 44 of 48. top2_all 45 (fixed 2, new 3); top2_cols 46 (2, 4); top6_all 47 (1, 4); all_all 39 (9, 4, p 0.13).",
+  "right": "Held: baseline 5; 6, 3, 2 and 8 (all_all gained 5, lost 2, p 0.23).",
+  "kl": "Held: top2 0.7298 and 0.7305, top6 0.7304, all_all 0.7560 (+0.026, under the predicted +0.05).",
+  "reading": "The loop leaves a strong, consistent signature in the MLP outputs, but removing it does not stop the loop: it is a symptom, not the cause. Removing the direction from two or six layers changes neither KL nor behaviour; the loop state survives in the rest of the residual stream (likely attention copying the earlier spans). Only removing it everywhere moves loops at all, and not significantly. Unlike the 0.8B, whose loops hid a working ability, this student's looping comes with broad damage: a one-direction edit is not the fix here."
+ }
+}

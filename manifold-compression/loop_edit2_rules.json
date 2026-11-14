@@ -1,0 +1,133 @@
+{
+ "note": "Second loop-direction edit, this time on the template-healed student (heal_geometry S0_K24_T1M), written 2026-11-04 before any run. The user: 'what if we tried the direct neuron weight editing again?', pointing at the post and its logs (github.com/RikiyaT/lm_understand-logs, exp8_math/runs/p50c). The logs give the recipe the post leaves out, and it differs from the first attempt (loop_edit_rules.json) in three ways. (1) The direction is a residual-stream difference between matched branches: one prefix, continued once productively and once repetitively, teacher-forced (four hand-written pairs, residual outputs after layers 15 and 19). The first attempt contrasted positions in the loop with positions before it in the same answer. (2) The edit is W' = W0 - alpha u (mask * (u^T W0)) on the down projection, alpha 6 on the 64 columns that write most of the contrast, so those columns write -5 times their old component along u. The first attempt used alpha 1 (projection only). (3) Edits were screened cheaply by teacher-forced log-probabilities of the repetitive and productive branches before generation, and checked against a norm-matched random direction. The student is also a different case now: its ending failure is gone (no </think> repeats) and its 25 remaining greedy loops are inside the reasoning, like the 0.8B's. Its sampled answers do not loop: the 21 cut at 4,096 have tail 8-gram repetition 0.03 to 0.14 (one at 0.35), like finished answers, where the 0.8B's cut tails were 0.96. So the target is greedy loops only.",
+ "run": "S0_K24_T1M",
+ "out": "loop_edit2",
+ "fit": {
+  "source": "GSM8K train rows 0 to 499 that the benchmark corpus does not use (the healing data starts at row 500), the first 160, in row order.",
+  "rows": [
+   0,
+   500
+  ],
+  "count": 160,
+  "generate": {
+   "max_new_tokens": 2048,
+   "state": "fp32",
+   "compact": true,
+   "seed": 0
+  },
+  "rule": "The student answers greedily; looping answers (the check's loop rule) with a loop onset give the pairs. Fitting never uses a test prompt."
+ },
+ "onset": {
+  "window": 20,
+  "span": 200,
+  "share": 0.9,
+  "min_pre": 40
+ },
+ "pairs": {
+  "branch_tokens": 128,
+  "productive": "The dense model's greedy continuation of the same prefix (prompt + the student's answer up to the branch point), cut to the repetitive branch's length.",
+  "repetitive": "The student's own tokens from the branch point: the loop's first period (branch point to onset) and 128 tokens after the onset, at most 512 in all.",
+  "drop": "Pairs whose productive branch is under 32 tokens, or repeats (over half its 20-token windows already seen in the prefix or branch).",
+  "split": "Pairs alternate in order between direction (even) and screen (odd).",
+  "max_branch": 512,
+  "branch_point": "Where the 20-token span at the loop onset first appeared in the answer: the prefix holds no copy of the loop body."
+ },
+ "direction": "Per layer l, u_l = the unit mean over direction pairs of (mean residual after layer l over the repetitive branch - over the productive branch).",
+ "layers": "The two layers whose MLP writes the largest share of the residual difference along their own u: over screen pairs, mean (MLP output, repetitive - productive) . u_l divided by mean (residual after layer l, repetitive - productive) . u_l.",
+ "columns": "Per chosen layer, the 64 down columns with the largest (mean activation, repetitive - productive, over direction pairs) x (u_l^T W)_j.",
+ "screen": {
+  "edits": [
+   {
+    "name": "full_a1",
+    "alpha": 1,
+    "columns": "all"
+   },
+   {
+    "name": "full_a2",
+    "alpha": 2,
+    "columns": "all"
+   },
+   {
+    "name": "full_a4",
+    "alpha": 4,
+    "columns": "all"
+   },
+   {
+    "name": "top64_a4",
+    "alpha": 4,
+    "columns": 64
+   },
+   {
+    "name": "top64_a6",
+    "alpha": 6,
+    "columns": 64
+   },
+   {
+    "name": "random_top64_a6",
+    "alpha": 6,
+    "columns": 64,
+    "random": true
+   }
+  ],
+  "random": "A unit direction orthogonal to u_l (seed 0), on the same 64 columns, scaled so that the change to W has the same Frobenius norm as top64_a6's.",
+  "measure": "On the screen pairs, the change from no edit in mean log-probability per token of the student's repetitive and productive branch tokens (64K head)."
+ },
+ "generate": {
+  "arms": [
+   "top64_a6",
+   "full_a2",
+   "random_top64_a6",
+   "best"
+  ],
+  "best": "The screen edit, other than these three, with the largest (repetitive drop - productive drop); skipped if it is full_a1.",
+  "prompts": 96,
+  "max_new_tokens": 2048,
+  "state": "fp32",
+  "compact": true,
+  "seed": 0,
+  "baseline": "The S0_K24_T1M check's greedy answers cut at 2,048 (slim_opd.truncated): 54 right, 24 loops.",
+  "sampled": "If an arm has fewer loops than baseline with p below 0.05 and KL within 0.03 of 0.623, the one with the fewest loops is also checked sampled (the check's settings, 96 prompts, 4,096), against the check's 53 right, 75 finished."
+ },
+ "loop": {
+  "window": 20,
+  "last": 1000,
+  "threshold": 0.45
+ },
+ "predictions": {
+  "pairs": "At least 24 usable pairs from the 160 fit prompts (about a quarter loop greedy).",
+  "separation": "In the two chosen layers, at least 90% of screen pairs project higher on the repetitive branch.",
+  "screen": "top64_a6 lowers the repetitive branch by at least 0.05 nats per token more than the productive branch (the post: -0.103 against -0.009); the random control moves both by under 0.02.",
+  "loops": "top64_a6 cuts greedy loops at 2,048 from 24 to 14 or fewer, with p below 0.05. Confidence about 35%: the first attempt (alpha 1, a within-answer contrast) failed, but this student is healthier, its loops are the 0.8B's kind, and alpha 6 is a much stronger edit.",
+  "random": "The random control changes the loop count by fewer than 4.",
+  "kl": "top64_a6 raises KL by under 0.03; full_a2 by under 0.05.",
+  "right": "No arm loses more than 3 right answers net against the baseline's 54."
+ },
+ "criteria": "Loops and right answers paired by prompt against the baseline, one-sided exact sign test on discordant prompts, p below 0.05. With four arms, one p near 0.05 is not evidence.",
+ "layer_margin": 4,
+ "amendment": {
+  "written": "2026-11-04 08:15, after the fit stage's first pass and before any screen or generation result, which were never run.",
+  "what": "The first pass cut the prefix at the loop onset and ranked all 32 layers. Two rules failed on what they produced. (1) At the onset the loop body has already appeared once, so the dense model, continuing the same prefix, also repeated in 16 of 26 cases: 10 pairs, under the 24 predicted. The branch point is now where the onset's span first appeared, and the repetitive branch covers the first period and 128 tokens of repeats. (2) The MLP share ranked layers 2 and 31 first (0.41 each): next to the embedding a layer's residual difference along u is small, so the share is large, and the last layer writes the next-token prediction. Neither is the 'state' a loop direction lives in; the post's layers were 15 and 19 of 24. Layers 0 to 3 and 28 to 31 are now excluded. In the first pass the next layers were 6 (0.30), 19 (0.21), 10 (0.18) and 17 (0.17).",
+  "kept": "Everything else, and the predictions, unchanged. The first pass's files are pairs_first.json, direction_first.pt and S0_K24_T1M.loop_edit2.first.log."
+ },
+ "outcome": {
+  "written": "2026-11-04, after S0_K24_T1M/loop_edit2/{pairs,screen,edit}.json (amended run).",
+  "fit": "Greedy on the 160 train prompts: 95 right, 132 finished, 27 loops. 14 usable pairs from 26 looping answers with an onset; in 12 the dense model, continuing the student's prefix, repeated too. Layers chosen: 6 and 14 (MLP share of the residual difference along u 0.22 and 0.18; next 10, 4, 17, 19). Top 64 columns carry 0.69 and 0.77 of the writing contrast (the post: about 0.91 and 0.98).",
+  "predictions": {
+   "pairs": "Failed: 14, not at least 24.",
+   "separation": "Held: all 7 screen pairs project higher on the repetitive branch in every candidate layer (cosine with u 0.55 to 0.62).",
+   "screen": "Failed: top64_a6 lowered the repetitive branch by 0.0134 and the productive by 0.0058 nats/token, a selectivity of 0.008, not at least 0.05 (the post's 0.094). Random control +0.0008 and -0.0015 (held).",
+   "loops": "Failed: top64_a6 24 to 20 loops (fixed 11, new 7, p 0.24).",
+   "random": "Failed, and decisively: the norm-matched random direction went 24 to 18 (fixed 16, new 10, p 0.16), the fewest loops of any arm.",
+   "kl": "Held: top64_a6 0.6248, full_a2 0.6277, random 0.6239, top64_a4 0.6239 (unedited 0.623).",
+   "right": "Held: 54, 59 (+10 -5), 54, 55; none lost more than it gained."
+  },
+  "arms": {
+   "top64_a6": "54 right, 76 finished, 20 loops (11 fixed, 7 new)",
+   "full_a2": "59, 75, 21 (11, 8)",
+   "random_top64_a6": "54, 78, 18 (16, 10)",
+   "top64_a4": "55, 76, 20 (13, 9)"
+  },
+  "sampled": "Not run: no arm qualified (p below 0.05).",
+  "reading": "The post's recipe, done as its logs describe (matched branches, alpha 6 on the 64 strongest writer columns, a teacher-forced screen, a random control), does not reduce this student's loops. The direction is real and consistent (every held-out pair separates, the random control does nothing on the branches), but it is weak: the strongest edit shifts the student's own loop by 0.013 nats/token, a seventh of the post's effect, and no two MLPs write most of it. In generation every arm, including the random one, flips about 20 of 96 prompts into or out of loops for a net 3 to 6 fewer: greedy decoding of this student is that sensitive to any small weight change, so a loop count from one perturbed run cannot show an edit works without a random control beside it. Together with the first attempt (loop_edit_rules.json), the loop here is not one removable direction; the post's own Gemma follow-up found the same limit, an edit cannot add reasoning the model lacks."
+ }
+}

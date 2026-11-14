@@ -1,0 +1,28 @@
+{
+  "name": "w8a8",
+  "checkpoint_sha256": "de9fe2f79cd518540adc50a8c94c50e1491888b6e3f1fe741ae344dc1c776e95",
+  "bits": 8,
+  "weight_group_size": 64,
+  "scale": "bf16 absmax",
+  "scope": "Accuracy-only simulation; no native low-bit runtime or speed measurement",
+  "tasks": {
+    "SciFact": {
+      "ndcg10": 57.62860738031951,
+      "recall10": 70.73888888888888,
+      "top1_relevant_queries": 137,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.0064296722412109375,
+      "queries": 300
+    },
+    "NFCorpus": {
+      "ndcg10": 31.446901438821385,
+      "recall10": 14.800054148619338,
+      "top1_relevant_queries": 136,
+      "median_first_relevant_rank": 2.0,
+      "median_best_relevant_margin": -0.008899509906768799,
+      "queries": 323
+    }
+  },
+  "stsbenchmark_spearman": 82.36041804994737,
+  "mean": 44.53775440957045
+}

@@ -1,0 +1,305 @@
+{
+  "schema": "retention-science-eval-v3",
+  "author": "Claude (pair session Manifold), for the track A generation suite",
+  "purpose": "Held-out applications of concepts taught by curriculum_science.py: one item per taught OpenStax chapter, each in a scenario not used by any of the 92 earlier science prompts (curriculum, capacity, broad-healing and local-projection data).",
+  "grading": "Manual rubric, blind to arm. An answer is correct only if it states every 'required' point (any wording) and makes none of the 'disqualifying' errors. Extra correct detail is fine; a false extra claim on the item's core concept counts as disqualifying. Termination, repetition and length are scored separately by the suite, not here.",
+  "limits": "Twelve items, one per chapter: a small, resampled check of factual retention, not a science benchmark. The items apply taught concepts, so they test transfer within taught topics, not unseen-topic knowledge. The reference answers were written by the author and checked against the cited OpenStax pages' content as known to the author; no page was re-fetched for this file.",
+  "max_new_tokens": 512,
+  "layout": "Top-level 'dev' and 'test' lists, as read by retention_prepare.py; each case has messages, family, group, source_url, manual_rubric and reference_answer.",
+  "dev": [
+    {
+      "id": "sci-dev-isotopes",
+      "split": "dev",
+      "family": "isotopes",
+      "source_url": "https://openstax.org/books/biology-2e/pages/2-1-atoms-isotopes-ions-and-molecules-the-building-blocks",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Uranium-235 and uranium-238 are both uranium. What is the same about their nuclei, and what is different? Explain briefly."
+        }
+      ],
+      "reference_answer": "Both nuclei contain 92 protons; the proton count defines the element, so both are uranium. Uranium-235 has 143 neutrons and uranium-238 has 146, so their masses differ.",
+      "manual_rubric": {
+        "required": [
+          "Both have the same number of protons, which is what makes both of them uranium (the count, 92, is optional).",
+          "They differ in their number of neutrons, which is why their mass numbers differ (the counts, 143 and 146, are optional)."
+        ],
+        "disqualifying": [
+          "Says they have different numbers of protons, or that they are different elements.",
+          "Attributes the mass difference to electrons rather than neutrons.",
+          "Supplies proton or neutron counts that are wrong."
+        ]
+      },
+      "group": "science-eval:sci-dev-isotopes"
+    },
+    {
+      "id": "sci-dev-osmosis",
+      "split": "dev",
+      "family": "passive-transport",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A red blood cell is placed in pure distilled water. Which way does water move across its membrane, and what happens to the cell? Explain briefly."
+        }
+      ],
+      "reference_answer": "Pure water is hypotonic to the cell, whose cytoplasm contains dissolved solutes. Water therefore moves into the cell by osmosis, and the cell swells and may burst.",
+      "manual_rubric": {
+        "required": [
+          "Water moves into the cell by osmosis, because the cell's interior has a higher solute concentration (lower water concentration) than pure water; the water is hypotonic to the cell.",
+          "The cell swells and can burst (lyse)."
+        ],
+        "disqualifying": [
+          "Says water moves out of the cell or that the cell shrinks.",
+          "Says the movement requires energy (ATP) or active transport.",
+          "Explains the change mainly as solute moving into the cell."
+        ]
+      },
+      "group": "science-eval:sci-dev-osmosis"
+    },
+    {
+      "id": "sci-dev-impulse",
+      "split": "dev",
+      "family": "momentum",
+      "source_url": "https://openstax.org/books/physics/pages/8-1-linear-momentum-force-and-impulse",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why are cars built with crumple zones that collapse during a crash? Explain briefly in terms of momentum and force."
+        }
+      ],
+      "reference_answer": "The car's momentum must drop to zero either way, and that change equals average force times the time it takes. Collapsing structures stretch the stopping time, so the same momentum change happens with a smaller average force.",
+      "manual_rubric": {
+        "required": [
+          "Stopping the car (or occupants) requires a fixed change in momentum, which equals the impulse: average force multiplied by the collision time.",
+          "Crumple zones lengthen the collision time, so the average force is smaller."
+        ],
+        "disqualifying": [
+          "Says crumple zones reduce or absorb the change in momentum itself.",
+          "Says crumple zones increase the force, or that force does not depend on stopping time."
+        ]
+      },
+      "group": "science-eval:sci-dev-impulse"
+    },
+    {
+      "id": "sci-dev-decomposers",
+      "split": "dev",
+      "family": "ecosystems",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-1-ecology-of-ecosystems",
+      "messages": [
+        {
+          "role": "user",
+          "content": "If every decomposer were removed from a forest, what would happen over time to the nutrients in fallen leaves and dead animals? Explain briefly."
+        }
+      ],
+      "reference_answer": "Without decomposers, dead leaves and bodies would pile up largely intact. The nutrients in them would not be released back into the soil, so they would be unavailable to plants, and the forest's growth would eventually be limited.",
+      "manual_rubric": {
+        "required": [
+          "Dead organic matter would accumulate instead of being broken down.",
+          "Its nutrients would stay locked in the dead material and would not be returned to the soil for plants, so nutrient cycling would stall and plant growth would eventually suffer."
+        ],
+        "disqualifying": [
+          "Says decomposers recycle energy back to producers (energy flows through ecosystems; nutrients cycle).",
+          "Says nothing would change because plants make their own nutrients."
+        ]
+      },
+      "group": "science-eval:sci-dev-decomposers"
+    }
+  ],
+  "test": [
+    {
+      "id": "sci-test-gas-celsius",
+      "split": "test",
+      "family": "gases",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A sealed, rigid steel tank of gas is heated from 27 °C to 327 °C. By what factor does the gas pressure change? Explain briefly."
+        }
+      ],
+      "reference_answer": "Pressure at fixed volume and amount is proportional to kelvin temperature. 27 °C is 300 K and 327 °C is 600 K, so the pressure doubles.",
+      "manual_rubric": {
+        "required": [
+          "Uses absolute temperature: about 300 K rising to about 600 K.",
+          "At constant volume and amount, pressure is proportional to absolute temperature, so the pressure doubles (factor of 2)."
+        ],
+        "disqualifying": [
+          "Uses the Celsius ratio (about 12) or any factor other than about 2.",
+          "Says pressure stays the same or falls."
+        ]
+      },
+      "group": "science-eval:sci-test-gas-celsius"
+    },
+    {
+      "id": "sci-test-ohm",
+      "split": "test",
+      "family": "current-resistance",
+      "source_url": "https://openstax.org/books/physics/pages/19-1-ohms-law",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A 12-volt battery is connected across a 4-ohm resistor, and then across an 8-ohm resistor instead. What current flows in each case? Explain briefly."
+        }
+      ],
+      "reference_answer": "By Ohm's law, I = V/R: 12 V / 4 ohms = 3 A and 12 V / 8 ohms = 1.5 A. Doubling the resistance at the same voltage halves the current.",
+      "manual_rubric": {
+        "required": [
+          "Uses I = V/R.",
+          "Gives 3 A for 4 ohms and 1.5 A for 8 ohms."
+        ],
+        "disqualifying": [
+          "Any other current value.",
+          "Says doubling the resistance doubles the current."
+        ]
+      },
+      "group": "science-eval:sci-test-ohm"
+    },
+    {
+      "id": "sci-test-denaturation",
+      "split": "test",
+      "family": "enzymes",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Why can a very high temperature or a strongly acidic environment stop an enzyme from working? Explain briefly."
+        }
+      ],
+      "reference_answer": "Enzymes work because of their precise folded shape, which forms an active site that fits the substrate. High temperatures or extreme pH disrupt the bonds holding that shape, denaturing the enzyme, so the substrate can no longer bind properly and the reaction is no longer catalyzed.",
+      "manual_rubric": {
+        "required": [
+          "An enzyme's activity depends on its three-dimensional shape, especially the shape of its active site.",
+          "Extreme heat or pH denatures the enzyme (changes its shape), so the substrate no longer fits or binds well and catalysis slows or stops."
+        ],
+        "disqualifying": [
+          "Says the enzyme is used up or consumed by the reaction.",
+          "Says higher temperature always speeds up enzyme reactions without limit.",
+          "Treats the enzyme as a living organism that is killed."
+        ]
+      },
+      "group": "science-eval:sci-test-denaturation"
+    },
+    {
+      "id": "sci-test-water-polarity",
+      "split": "test",
+      "family": "covalent-bonding",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding",
+      "messages": [
+        {
+          "role": "user",
+          "content": "In a water molecule, why does the oxygen end carry a partial negative charge? Explain briefly."
+        }
+      ],
+      "reference_answer": "Oxygen and hydrogen share electrons in covalent bonds, but oxygen is more electronegative and attracts the shared electrons more strongly. The electron density shifts toward oxygen, giving it a partial negative charge and leaving the hydrogens partially positive.",
+      "manual_rubric": {
+        "required": [
+          "The O-H bonds are polar covalent: the electrons are shared, but unequally.",
+          "Oxygen is more electronegative than hydrogen, so it pulls the shared electrons closer, giving oxygen a partial negative charge and the hydrogens partial positive charges."
+        ],
+        "disqualifying": [
+          "Says electrons are fully transferred, or that water is an ionic compound.",
+          "Says hydrogen is more electronegative than oxygen."
+        ]
+      },
+      "group": "science-eval:sci-test-water-polarity"
+    },
+    {
+      "id": "sci-test-s-phase",
+      "split": "test",
+      "family": "cell-division",
+      "source_url": "https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A human body cell has just finished copying its DNA but has not yet started mitosis. Compared with right after its previous division, how much DNA does it have, and how many chromosomes? Explain briefly."
+        }
+      ],
+      "reference_answer": "After S phase the cell holds double its original amount of DNA. It still has 46 chromosomes, but each one is now made of two identical sister chromatids held together at a centromere; they separate only during mitosis.",
+      "manual_rubric": {
+        "required": [
+          "It has twice as much DNA, because the DNA was replicated (S phase).",
+          "The number of chromosomes is unchanged (the human count, 46, is optional); each chromosome now consists of two identical sister chromatids joined at the centromere."
+        ],
+        "disqualifying": [
+          "Says the chromosome number doubles (for example to 92) before mitosis.",
+          "Says the DNA amount is unchanged.",
+          "Supplies a chromosome count that is wrong."
+        ]
+      },
+      "group": "science-eval:sci-test-s-phase"
+    },
+    {
+      "id": "sci-test-antibiotic-resistance",
+      "split": "test",
+      "family": "evolution",
+      "source_url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution",
+      "messages": [
+        {
+          "role": "user",
+          "content": "After a course of antibiotics, most bacteria remaining in a patient are resistant. Did the antibiotic make individual bacteria become resistant because they needed to survive? Explain briefly."
+        }
+      ],
+      "reference_answer": "No. Some bacteria already carried heritable variants that made them resistant. The antibiotic killed the susceptible ones, while the resistant ones survived and multiplied, so resistance became common: natural selection changed the population, not the needs of individuals.",
+      "manual_rubric": {
+        "required": [
+          "No: resistance comes from heritable variation that exists or arises independently of any need, such as random mutations or resistance genes acquired by gene transfer.",
+          "The antibiotic kills susceptible bacteria; resistant ones survive and reproduce, so the resistant fraction of the population increases. Selection changes the population; it does not direct changes in individuals."
+        ],
+        "disqualifying": [
+          "Says bacteria became resistant because they needed to, wanted to, or were directed by the drug to adapt.",
+          "Says the antibiotic itself creates resistance in individual bacteria as a purposeful response. (A factual mention that bacteria can acquire resistance genes during their lifetime, for example by horizontal gene transfer, is acceptable.)"
+        ]
+      },
+      "group": "science-eval:sci-test-antibiotic-resistance"
+    },
+    {
+      "id": "sci-test-falling-ball",
+      "split": "test",
+      "family": "energy",
+      "source_url": "https://openstax.org/books/physics/pages/9-2-mechanical-energy-and-conservation-of-energy",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A ball is dropped from rest 5 meters above the ground. Ignoring air resistance and using g = 9.8 m/s^2, about how fast is it moving just before it hits the ground? Explain briefly."
+        }
+      ],
+      "reference_answer": "Mechanical energy is conserved: mgh = (1/2)mv^2, so v = sqrt(2gh) = sqrt(2 x 9.8 x 5) = sqrt(98), about 9.9 m/s, whatever the ball's mass.",
+      "manual_rubric": {
+        "required": [
+          "Uses a correct relation: energy conservation, mgh = (1/2)mv^2, or the equivalent kinematics v^2 = 2gh; the speed does not depend on mass.",
+          "v = sqrt(2gh) = sqrt(98), about 9.9 m/s (accept 9.8 to 10 m/s)."
+        ],
+        "disqualifying": [
+          "A speed outside 9.8 to 10 m/s, such as 49 or 98 m/s.",
+          "Says the speed depends on the ball's mass."
+        ]
+      },
+      "group": "science-eval:sci-test-falling-ball"
+    },
+    {
+      "id": "sci-test-transcription",
+      "split": "test",
+      "family": "nucleic-acids",
+      "source_url": "https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A DNA template strand reads 3'-TACGGA-5'. Write the mRNA transcribed from it in the 5' to 3' direction, and name the base RNA uses in place of one of DNA's bases. Explain briefly."
+        }
+      ],
+      "reference_answer": "Each mRNA base pairs with the template base (T with A, A with U, C with G, G with C), and the mRNA runs antiparallel to the template, giving 5'-AUGCCU-3'. RNA contains uracil in place of DNA's thymine, so adenine in the template pairs with uracil.",
+      "manual_rubric": {
+        "required": [
+          "The mRNA is complementary and antiparallel to the template: 5'-AUGCCU-3'.",
+          "RNA uses uracil (U) instead of thymine (T), so U pairs with A."
+        ],
+        "disqualifying": [
+          "An mRNA sequence containing T, or any 5' to 3' sequence other than AUGCCU.",
+          "Says RNA replaces adenine or another base instead of thymine."
+        ]
+      },
+      "group": "science-eval:sci-test-transcription"
+    }
+  ]
+}

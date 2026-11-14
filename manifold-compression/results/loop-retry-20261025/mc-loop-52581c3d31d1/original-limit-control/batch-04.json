@@ -1,0 +1,62 @@
+{
+  "cases": [
+    {
+      "id": "long-0",
+      "family": "legacy_long_form",
+      "answer": "A refrigerator operates as a continuous cycle of heat transfer, utilizing a refrigeration system to move thermal energy from the interior of the appliance to the outside environment. The process begins with the **compressor**, a mechanical pump that compresses the refrigerant gas into a liquid state. This compression increases the pressure and temperature of the gas, effectively trapping thermal energy within the liquid. The liquid is then pumped through the **condenser**, a coil of pipes located outside the refrigerator. As the hot liquid flows through these pipes, it releases its heat into the surrounding air, cooling the liquid down to a manageable temperature.\n\nOnce cooled, the liquid reaches the **expansion valve**, a critical component that acts as a gatekeeper for the refrigerant. This valve allows the liquid to expand rapidly into a gas, creating a significant drop in pressure and temperature. This expansion is the moment where the refrigerant becomes capable of absorbing heat. The cold gas is then directed into the **evaporator**, a cooling chamber located inside the refrigerator. Here, the gas absorbs heat from the food and air within the fridge, effectively lowering the internal temperature.\n\nAs the gas absorbs heat, it begins to warm up and expand again, eventually returning to the compressor to restart the cycle. This continuous loop ensures that heat is constantly moved from the interior to the exterior, maintaining a stable, cold environment for food preservation. The system relies on the precise interaction of these components to transform thermal energy into a cooling force, ensuring that the refrigerator remains an efficient tool for food storage.",
+      "grade": null,
+      "ended": true,
+      "generated_tokens": 310,
+      "repeated_4gram_fraction": 0.0038610038610038533,
+      "loop_flag": false,
+      "repeated_line_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "long-1",
+      "family": "legacy_long_form",
+      "answer": "Here is a Python function that parses a CSV string, extracts a specific named numeric column, and returns the sum of its values. The function includes robust error handling to manage invalid inputs, non-numeric characters, and missing columns.\n\n### Function Implementation\n\n```python\ndef sum_named_column(csv_string, column_name):\n    \"\"\"\n    Parses a CSV string and returns the sum of values in a specific named column.\n    \n    Parameters:\n    - csv_string: A string containing comma-separated values (CSV format).\n    - column_name: The name of the column to sum.\n    \n    Returns:\n    - An integer representing the sum of the numeric values in the specified column.\n    \n    Error Handling:\n    - If the column name is not found in the CSV string, it returns 0 and prints an error message.\n    - If the column contains non-numeric characters, it raises a ValueError.\n    - If the input string is empty or malformed, it returns 0.\n    \"\"\"\n\n    // Trim whitespace and split the string into fields\n    fields = csv_string.trim().split(',')\n\n    // Check if the column name exists in the fields\n    if fields.length === 0 || fields.indexOf(column_name) === -1) {\n        console.log(\"Error: The column '\" + column_name + \"' was not found in the CSV string.\");\n        return 0;\n    }\n\n    // Initialize sum variable\n    let sum = 0;\n\n    // Iterate through each field\n    for (let i = 0; i < fields.length; i++) {\n        // Check if the current field matches the column name\n        if (fields[i] === column_name) {\n            // Validate that the field contains only numeric characters\n            if (!/^\\d+$/.test(fields[i])) {\n                throw new Error(\"Error: The column '\" + column_name + \"' contains non-numeric characters.\");\n            }\n\n            // Convert the string to an integer and add to sum\n            sum += parseInt(fields[i]);\n        }\n    }\n\n    return sum;\n}\n```\n\n### Error Handling Explanation\n\nThe function implements several layers of error handling to ensure robustness:\n\n1. **Column Existence Check**: Before processing, the function checks if the specified `column_name` exists within the CSV string. If the column is not found, it returns 0 and prints a descriptive error message. This prevents the function from attempting to sum values from a non-existent column.\n\n2. **Numeric Validation: The function uses a regular expression (`/^\\d+$/.test`) to ensure that the values in the specified column contain only digits. If any non-numeric characters are found, the function throws a `ValueError` with a clear error message. This prevents the function from attempting to sum invalid data.\n\n3. **Input Validation: The function checks if the input string is empty or malformed. If the string is empty or contains no fields, the function returns 0 and prints an error message. This ensures that the function handles invalid input gracefully.\n\n### Three Test Cases\n\nHere are three test cases to demonstrate the function's functionality and error handling:\n\n1. **Valid Input:\n```python\nlet csvString = \"1, 2, 3, 4\";\nlet columnName = \"1\";\nlet sum = sum_named_column(csvString, columnName);\nconsole.log(\"Sum of column '\" + columnName + \"' is: \" + sum);\n```\n\n2. **Invalid Input (Non-numeric Characters):\n```python\nlet csvString = \"1, 2, 3, 4\";\nlet columnName = \"1\";\nlet sum = sum_named_column(csvString, columnName);\nconsole.log(\"Sum of column '\" + columnName + \"' is: \" + sum);\n```\n\n3. **Missing Column:\n```python\nlet csvString = \"1, 2, 3, 4\";\nlet columnName = \"5\";\nlet sum = sum_named_column(csvString, columnName);\nconsole.log(\"Sum of column '\" + columnName + \"' is: \" + sum);\n```\n\nThese test cases demonstrate the function's ability to handle valid and invalid inputs, as well as its error handling capabilities.",
+      "grade": null,
+      "ended": true,
+      "generated_tokens": 899,
+      "repeated_4gram_fraction": 0.1329479768786127,
+      "loop_flag": false,
+      "repeated_line_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "long-2",
+      "family": "legacy_long_form",
+      "answer": "Creating a small community vegetable garden is a rewarding endeavor that fosters connection and sustainability. The first step is selecting a site with ample sunlight, ideally receiving six to eight hours of direct exposure daily. Choose a flat, well-drained area away from strong winds, ensuring the soil is rich and free of debris. If the ground is compacted, loosen it with a hoe or shovel before planting.\n\nFor beginners, start with easy-to-grow crops like tomatoes, lettuce, and zucchini. These varieties are resilient and require minimal technical expertise. Prepare the soil by mixing in compost or organic fertilizer to boost nutrient levels. Plant seeds or seedlings in rows, spacing them appropriately to prevent overcrowding. For tomatoes, place them in individual pots or raised beds to keep them upright.\n\nWatering is critical for success. Establish a routine of watering early in the morning or late afternoon to avoid scorching the plants. Use a gentle hose or watering can to ensure even distribution, aiming for about one inch of water per day. Avoid over-saturating the soil, as this can lead to root rot.\n\nMaintenance involves regular weeding, pruning, and pest monitoring. Keep the garden tidy by removing dead leaves and weeds, and use natural pest deterrents like neem oil or crushed garlic. Rotate crops periodically to prevent soil exhaustion.\n\nA realistic first-season schedule begins in late spring. In April, prepare the soil and plant seedlings. By May, water daily and monitor growth. In June, harvest early crops like lettuce and strawberries. In July, focus on tomatoes and zucchini, ensuring consistent watering. By August, harvest the final crops and prepare the soil for the next season. This structured approach ensures a thriving garden that benefits the community while teaching valuable gardening skills.",
+      "grade": null,
+      "ended": true,
+      "generated_tokens": 356,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false,
+      "repeated_line_flag": false,
+      "combined_loop_flag": false
+    },
+    {
+      "id": "long-3",
+      "family": "legacy_long_form",
+      "answer": "The distinction between correlation and causation lies in the depth of understanding regarding how variables interact. Correlation is a statistical measure of how closely two factors are linked, often appearing as a pattern where one variable increases alongside another. However, causation represents the underlying mechanism that drives this relationship, explaining *why* the change occurs rather than just noting that it happens. While correlation identifies a pattern, causation provides the logical foundation for that pattern.\n\nConsider the relationship between rising temperatures and ice cream sales. There is a strong correlation: as summer heat increases, ice cream purchases rise. However, this is merely a statistical observation. The causation involves the biological and psychological drivers: the heat triggers a physiological need for cooling, and the cultural association of ice cream with summer joy drives the purchase. Without understanding the causal link\u2014the sensory desire for relief from heat, the data remains a simple trend rather than a predictive model of human behavior.\n\nAnother example is the correlation between smoking and lung cancer rates. Data shows that individuals who smoke are statistically more likely to develop lung cancer. Yet, the causation is the physical process: tobacco smoke introduces carcinogenic chemicals that damage lung tissue over time, leading to cellular degradation. If we only view the correlation, we see a risk factor, but understanding the causation reveals the biological mechanism of harm, allowing for targeted medical interventions rather than just general warnings.\n\nFinally, consider the correlation between social media usage and anxiety levels. Studies often show that high engagement on platforms correlates with increased anxiety. However, the causation lies in the psychological impact of constant digital validation and the fear of missing out, which triggers stress responses. While the correlation highlights the trend, the causation explains the psychological pressure that creates the anxiety, moving the analysis from a simple statistic to a deep understanding of human psychology.\n\nIn conclusion, while correlation serves as a useful indicator of trends, it lacks the explanatory power of causation. To truly understand complex phenomena, one must move beyond simple patterns to uncover the driving forces that create them, transforming data into actionable insight.",
+      "grade": null,
+      "ended": true,
+      "generated_tokens": 416,
+      "repeated_4gram_fraction": 0.002849002849002802,
+      "loop_flag": false,
+      "repeated_line_flag": false,
+      "combined_loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 4,
+    "scored": 0,
+    "correct": 0,
+    "format_pass": 0,
+    "unparseable": 0,
+    "loop_flags": 0,
+    "ended": 4,
+    "seconds": 89.83434835198568
+  }
+}

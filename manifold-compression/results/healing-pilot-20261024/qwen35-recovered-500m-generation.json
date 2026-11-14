@@ -1,0 +1,258 @@
+{
+  "arch": "qwen35",
+  "label": "recovered-500m",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "checkpoint_signature": "7603b4e6c18552a82ff68d3ebe9663d8052aacae3832e6d4996fed610c75fc7d",
+  "generation_batch": 4,
+  "threads": 4,
+  "cases": [
+    {
+      "id": "json",
+      "answer": "Here is the JSON object with the specified city and count:\n\n```json\n{\n  \"city\": \" Oslo\",\n  \"count\": 3\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 37,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "A7x-P4q",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 7,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "29 times 17 equals **4,561**.",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 15,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "Here are the numbers sorted in ascending order:\n\n**9, -2, 4, 0**\n\n### Explanation:\n- **9** is the largest number.\n- **4** is the second largest number.\n- **0** is the third largest number.\n- **(-2)** is the smallest number.\n- **4** is the largest number.\n- **0** is the largest number.\n- **9** is the largest number.\n- **4** is the second largest number.\n- **0** is the third largest number.\n- **(-2)** is the smallest number.\n- **4** is the largest number.\n- **0** is the largest number.\n- **9** is the largest number.\n- **4** is the second largest number.\n- **0** is the third largest number.\n- **(-2)** is the smallest number.\n- **4** is the largest number.\n- **0** is the largest number.\n- **9** is the largest number.\n- **4** is the second largest number.\n- **0** is the third largest number.\n- **(-2)** is the smallest number.\n- **4** is the largest number.\n- **0** is the largest number.\n- **9** is the largest number.\n- **4** is the second largest number.\n- **0** is the third largest number.\n- **(-2)** is the smallest number.\n- **4** is the largest number.\n- **0** is the largest number.\n- **9** is the largest number.\n- **4** is the second largest number.\n- **0** is the third largest number.\n- **(-2)** is the smallest number.\n- **4** is the largest number.\n- **0** is the largest number.\n- **9** is the largest number.\n- **4** is the second largest number.\n- **0** is the third largest number.\n- **(-2)** is the smallest number.\n- **4** is the largest number.\n- **0** is the largest number.\n- **9** is the largest number.\n- **4** is the second largest number.\n- **0** is the third largest number.\n- **(-2)** is the smallest number.\n-",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": false,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.84375,
+      "loop_flag": true
+    },
+    {
+      "id": "units",
+      "answer": "To convert 2.5 liters to milliliters, you multiply the number of milliliters in a liter by 10.\n\nTherefore, there are **2500** milliliters in 2.5 liters.",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 50,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "No, all fens are **not** peks.\n\nThe statement \"All fens are lums\" and \"All lums are peks\" implies that fens are lums, and lums are peks. Therefore, the question is whether **all** fens are peks.\n\nSince the text explicitly states that \"All fens are lums,\" it means that **all** fens are indeed lums.\n\nTherefore, the answer is **No**.\n\nIf the text were to say \"All fens are peks,\" it would imply that **all** fens are peks.\n\n**Answer: No**",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 134,
+      "repeated_4gram_fraction": 0.07999999999999996,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Teal",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "Here is the updated list, with the items removed from \"bread\" and added to \"cheese\":\n\n```json\n[\n  \"apple\",\n  \"cheese\",\n  \"tea\"\n]\n```",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 47,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "Red\nBlue\nGreen\nYellow\nPurple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 10,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "Rain falls softly,\nA gentle, quiet song.\nIt washes away the day,\nAnd leaves the world in green.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 28,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library will reopen on Friday after a 15-day repair period, with 15 new desks installed.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 26,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "The output of the code is `5 8 13`.\n\nThis is because the list `a` is initially `[5, 8]`, and the `append(13)` operation adds the value `13` to the end of this list. The resulting list `[5, 8, 13]` is then printed.",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 74,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it is a solid substance that does not have a liquid or gas component, making it unable to dissolve in water. This lack of liquid allows the ice to remain stationary and float without moving.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 44,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "To prepare for a job interview, start by researching the company's culture and recent news. Research the company's mission, values, and recent achievements to understand what you can bring to the table.\n\nNext, practice answering common interview questions. Practice answering questions about your work experience, your skills, and your personality. Practice answering questions about your past projects and how you can apply them to the current role.\n\nNext, prepare for the interview itself. Practice answering questions about your work experience, your skills, and your personality. Practice answering questions about your past projects and how you can apply them to the current role.\n\nNext, prepare for the interview itself. Practice answering questions about your work experience, your skills, and your personality. Practice answering questions about your past projects and how you can apply them to the current role.\n\nNext, prepare for the interview itself. Practice answering questions about your work experience, your skills, and your personality. Practice answering questions about your past projects and how you can apply them to the current role.\n\nFinally, dress professionally and arrive early. Dress professionally and arrive early to show that you are prepared and ready to work.\n\nRemember to stay positive and confident during the interview.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 244,
+      "repeated_4gram_fraction": 0.49751243781094523,
+      "loop_flag": true
+    },
+    {
+      "id": "dog",
+      "answer": "Adopting a dog is a rewarding journey, but it requires careful planning to ensure a successful and happy relationship. Here is a concise checklist to help you navigate the process:\n\n1.  **Choose the Right Dog**: Look for a breed that fits your lifestyle, age, and temperament. Consider the dog's size, energy level, and health history.\n2.  **Select a Training Program**: Choose a reputable trainer who can provide consistent guidance and a structured routine.\n3.  **Establish a Routine**: Create a consistent schedule for feeding, walking, and playtime to build trust and discipline.\n4.  **Provide Proper Care**: Ensure the dog receives regular veterinary check-ups, nutrition, and a safe environment free of stressors.\n5.  **Set Boundaries**: Establish clear rules for behavior and establish boundaries to protect your dog's privacy and safety.\n6.  **Monitor Health**: Keep an eye on your dog's physical and mental well-being, and address any issues promptly.\n7.  **Build Trust**: Spend time together regularly to establish a bond and create a sense of security.\n8.  **Seek Professional Help**: If you encounter challenges or have questions, consult a veterinarian or a certified trainer for expert advice.\n9.  **Celebrate Successes**: Recognize and celebrate milestones, such as your dog's first steps or milestones, to maintain motivation.\n10.  **Be Patient**: Adopting a dog takes time, and it's okay to have setbacks. Be patient with yourself and your dog.\n\nRemember, every dog is unique, and the best approach depends on your specific needs and the dog's personality.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 342,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table is a data structure that stores data in a way that makes it fast to find, insert, and delete items. It uses a **hash function** to determine the index of each item, which is then used to map the key to a specific position in the array.\n\nFor a beginner, this means understanding that:\n*   **Hashing** is the process of converting data into a unique identifier (hash) so you can quickly look it up.\n*   **Indexing** is the process of finding the correct position in the array based on the key.\n*   **Accessing** items is the process of finding the specific index where the item is stored.\n\nTo use it effectively, you need to:\n*   Use a **hash function** to create a unique number for each item.\n*   Use a **map** to store the hash values.\n*   Use a **list** to store the actual data.\n\nIn short, a hash table is like a **hash table** (a data structure) that stores data in a way that makes it fast to find, insert, and delete items.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 235,
+      "repeated_4gram_fraction": 0.13690476190476186,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 4,
+    "completed": 15,
+    "loop_flags": 2,
+    "generated_tokens": 1808,
+    "elapsed_seconds": 297.53274540799976
+  },
+  "validation": {
+    "assistant_tokens": 1806,
+    "kl": 0.4326022575926015,
+    "nll": 1.6623793576378891,
+    "eos_nll": 0.9788156654685736,
+    "teacher_top1_agreement": 0.7414174972314507
+  },
+  "rubric_revision": 2
+}

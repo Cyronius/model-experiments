@@ -1,0 +1,430 @@
+{
+  "scope": "Frozen checkpoints, observed development tasks. Wider means cover only the fixed 12-task subset. Query confidence intervals do not measure training-seed variation.",
+  "reserved_fiqa_scidocs_scored": false,
+  "resources": {
+    "local_only": true,
+    "paid_resource_allocated": false
+  },
+  "continuation_resources": [],
+  "models": {
+    "parent-float": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/human-similarity-head/results/parent-float.pt",
+        "sha256": "e33764690de3e8071a525e21f91e1eee45d17d128b59ee6696bbe2fdc98353d6",
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": false
+      },
+      "core_retrieval": 46.529453537593604,
+      "stsbenchmark": 83.95632354969837,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 61.083168977008484,
+          "recall10": 75.28888888888889,
+          "top1_relevant_queries": 143,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.003553628921508789,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.975738098178724,
+          "recall10": 14.889631623318266,
+          "top1_relevant_queries": 143,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.014653205871582031,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 48.6828703157118,
+          "recall10": 77.38264580369844,
+          "top1_relevant_queries": 346,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.042867302894592285,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 4.401417049068909,
+          "paired_query_bootstrap_95_ci": [
+            2.944943618837639,
+            5.909755524115823
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": 0.3152219836775115,
+          "paired_query_bootstrap_95_ci": [
+            -0.7307592157412296,
+            1.3500176519814169
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -0.39022466209677786,
+          "paired_query_bootstrap_95_ci": [
+            -1.9357549333050021,
+            1.2170699641033054
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.093328453734724,
+        "paired_query_bootstrap_95_ci": [
+          0.8817084742260083,
+          3.256531542451296
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 83.9563,
+        "SICK-R": 76.6236,
+        "STS12": 74.7829,
+        "STS13": 81.9414,
+        "STS14": 78.66720000000001,
+        "STS15": 85.20400000000001,
+        "STS16": 83.1389,
+        "SciFact": 61.083,
+        "NFCorpus": 31.976,
+        "Banking77Classification": 77.5,
+        "AskUbuntuDupQuestions": 60.4306,
+        "TwitterSemEval2015": 67.6569
+      },
+      "mteb_12_mean": 71.9134
+    },
+    "broad-float": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/human-similarity-head/results/broad-float.pt",
+        "sha256": "798cc09d95846c2dcc886b11c2d211c7b456186325427c00f94aaeb91bb6aeb1",
+        "precision": "float",
+        "layers": 3,
+        "eligible_for_promotion": false
+      },
+      "core_retrieval": 46.14226033960393,
+      "stsbenchmark": 82.96457524072042,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 60.592822315640305,
+          "recall10": 73.22222222222223,
+          "top1_relevant_queries": 147,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.004534244537353516,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.69169836356755,
+          "recall10": 15.171467058735018,
+          "top1_relevant_queries": 139,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.022953510284423828,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 45.06497865781965,
+          "recall10": 71.62162162162163,
+          "top1_relevant_queries": 325,
+          "median_first_relevant_rank": 5.0,
+          "median_best_relevant_margin": -0.05693817138671875,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 4.014223851079233,
+          "paired_query_bootstrap_95_ci": [
+            2.4012161875332554,
+            5.625462840458325
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -0.07197121431216486,
+          "paired_query_bootstrap_95_ci": [
+            -1.1499341014552793,
+            1.0340751592651805
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -0.7774178600864541,
+          "paired_query_bootstrap_95_ci": [
+            -2.407634763429109,
+            0.8882698763815048
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 1.7061352557450478,
+        "paired_query_bootstrap_95_ci": [
+          0.3771686172137114,
+          3.0263691425225754
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 82.9646,
+        "SICK-R": 73.9102,
+        "STS12": 72.77550000000001,
+        "STS13": 80.4708,
+        "STS14": 76.8127,
+        "STS15": 84.7252,
+        "STS16": 81.19579999999999,
+        "SciFact": 60.592999999999996,
+        "NFCorpus": 31.691999999999997,
+        "Banking77Classification": 77.9318,
+        "AskUbuntuDupQuestions": 60.3815,
+        "TwitterSemEval2015": 64.5492
+      },
+      "mteb_12_mean": 70.66685833333334
+    },
+    "parent-ternary": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/human-similarity-head/results/parent-ternary.pt",
+        "sha256": "ab63967994e014872f8f52bc592fb36983a28241df91fbc34b930db57932a748",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false
+      },
+      "core_retrieval": 44.893782077808275,
+      "stsbenchmark": 82.43105615550562,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.27236484326299,
+          "recall10": 71.34444444444445,
+          "top1_relevant_queries": 144,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.005019038915634155,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 30.515199312353563,
+          "recall10": 13.980876613720113,
+          "top1_relevant_queries": 134,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.022334158420562744,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 46.58028843726271,
+          "recall10": 74.32432432432432,
+          "top1_relevant_queries": 324,
+          "median_first_relevant_rank": 4.0,
+          "median_best_relevant_margin": -0.03675505518913269,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": true
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 2.765745589283585,
+          "paired_query_bootstrap_95_ci": [
+            1.475190273070818,
+            4.053763695381645
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -1.3204494761078127,
+          "paired_query_bootstrap_95_ci": [
+            -2.4982697716185283,
+            -0.09724339880778421
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -2.0258961218821026,
+          "paired_query_bootstrap_95_ci": [
+            -3.6615844830457966,
+            -0.35988091549889273
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 2.765745589283585,
+        "paired_query_bootstrap_95_ci": [
+          1.475190273070818,
+          4.053763695381645
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 82.4319,
+        "SICK-R": 74.8081,
+        "STS12": 74.4876,
+        "STS13": 80.3219,
+        "STS14": 76.84299999999999,
+        "STS15": 84.0316,
+        "STS16": 81.6716,
+        "SciFact": 59.272000000000006,
+        "NFCorpus": 30.514999999999997,
+        "Banking77Classification": 75.4968,
+        "AskUbuntuDupQuestions": 60.0032,
+        "TwitterSemEval2015": 65.9355
+      },
+      "mteb_12_mean": 70.48485
+    },
+    "broad-ternary": {
+      "selection": {
+        "path": "/home/cyrus/code/model-experiments/ternary-embedder/training-v2/human-similarity-head/results/broad-ternary.pt",
+        "sha256": "f38e15a6dd570805915fc445822a09cf6523c86095823038a89125e155cb93bc",
+        "precision": "ternary",
+        "layers": 3,
+        "eligible_for_promotion": false
+      },
+      "core_retrieval": 45.470923170320134,
+      "stsbenchmark": 81.90737019549292,
+      "tasks": {
+        "SciFact": {
+          "ndcg10": 59.623979464299005,
+          "recall10": 71.6111111111111,
+          "top1_relevant_queries": 143,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.010158658027648926,
+          "queries": 300,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "NFCorpus": {
+          "ndcg10": 31.317866876341267,
+          "recall10": 14.374192020932576,
+          "top1_relevant_queries": 140,
+          "median_first_relevant_rank": 2.0,
+          "median_best_relevant_margin": -0.033693552017211914,
+          "queries": 323,
+          "judged_documents_absent_from_corpus": 0
+        },
+        "ArguAna": {
+          "ndcg10": 42.02545888255821,
+          "recall10": 68.27880512091038,
+          "top1_relevant_queries": 297,
+          "median_first_relevant_rank": 5.0,
+          "median_best_relevant_margin": -0.06452780961990356,
+          "queries": 1406,
+          "judged_documents_absent_from_corpus": 5
+        }
+      },
+      "gates": {
+        "original": {
+          "each_core_retrieval": true,
+          "stsbenchmark": true
+        },
+        "bge_micro": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        },
+        "minilm": {
+          "each_core_retrieval": false,
+          "stsbenchmark": false
+        }
+      },
+      "core_delta": {
+        "original": {
+          "mean_delta_ndcg10": 3.342886681795444,
+          "paired_query_bootstrap_95_ci": [
+            1.859158163728503,
+            4.777028049614027
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "bge_micro": {
+          "mean_delta_ndcg10": -0.7433083835959537,
+          "paired_query_bootstrap_95_ci": [
+            -1.98317204089112,
+            0.5265401398406521
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        },
+        "minilm": {
+          "mean_delta_ndcg10": -1.448755029370243,
+          "paired_query_bootstrap_95_ci": [
+            -3.0044238964262453,
+            0.19262314162837202
+          ],
+          "scope": "Query sampling only; not training-seed variation"
+        }
+      },
+      "original_reference_precision": "ternary",
+      "matched_original_delta": {
+        "mean_delta_ndcg10": 3.342886681795444,
+        "paired_query_bootstrap_95_ci": [
+          1.859158163728503,
+          4.777028049614027
+        ],
+        "scope": "Query sampling only; not training-seed variation"
+      },
+      "mteb_12": {
+        "STSBenchmark": 81.9074,
+        "SICK-R": 71.9939,
+        "STS12": 72.3794,
+        "STS13": 79.17729999999999,
+        "STS14": 75.2719,
+        "STS15": 83.6985,
+        "STS16": 80.0105,
+        "SciFact": 59.624,
+        "NFCorpus": 31.318,
+        "Banking77Classification": 76.71430000000001,
+        "AskUbuntuDupQuestions": 59.874300000000005,
+        "TwitterSemEval2015": 62.8598
+      },
+      "mteb_12_mean": 69.56910833333333
+    }
+  },
+  "matched_depth_contrasts": {},
+  "matched_recipe_contrasts": {},
+  "parent_contrasts": {}
+}

@@ -1,0 +1,248 @@
+{
+  "arch": "qwen35",
+  "label": "legacy-before",
+  "max_new_tokens": 512,
+  "decoding": "greedy, thinking disabled, no repetition penalty",
+  "precision": "float32",
+  "data_sha256": "c522d2e0e4c67f8a2116cdc4a4a692235ce539bb9ebd79b42c7d5d4a2880fd34",
+  "cases": [
+    {
+      "id": "json",
+      "answer": "```json\n{\n  \"city\": \"Oslo\",\n  \"count\": 3\n}\n```",
+      "check": {
+        "kind": "json",
+        "expected": {
+          "city": "Oslo",
+          "count": 3
+        }
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 25,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "copy",
+      "answer": "A7x-P4q",
+      "check": {
+        "kind": "exact",
+        "expected": "A7x-P4q"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 7,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multiply",
+      "answer": "493",
+      "check": {
+        "kind": "exact",
+        "expected": "493"
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "sort",
+      "answer": "-2, 0, 4, 9",
+      "check": {
+        "kind": "numbers",
+        "expected": [
+          -2,
+          0,
+          4,
+          9
+        ]
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 12,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "units",
+      "answer": "500",
+      "check": {
+        "kind": "exact",
+        "expected": "2500"
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 4,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "logic",
+      "answer": "Yes",
+      "check": {
+        "kind": "exact",
+        "expected": "yes",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 2,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-memory",
+      "answer": "Teal",
+      "check": {
+        "kind": "exact",
+        "expected": "teal",
+        "case_insensitive": true
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 3,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "multi-edit",
+      "answer": "```json\n[\"apples\", \"cheese\"]\n```",
+      "check": {
+        "kind": "json",
+        "expected": [
+          "apples",
+          "tea",
+          "cheese"
+        ]
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 14,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "five-lines",
+      "answer": "red\nblue\ngreen\nyellow\npurple",
+      "check": {
+        "kind": "lines",
+        "expected": [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "purple"
+        ]
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 10,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "poem",
+      "answer": "The sky turns gray and heavy,\nA soft, cold, silent sigh.\nThe leaves begin to turn to dust,\nAnd the world begins to sleep.",
+      "check": {
+        "kind": "line_count",
+        "expected": 4
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 34,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "summary",
+      "answer": "The Redwood library reopened on Friday after fifteen new desks were installed following repairs.",
+      "check": {
+        "kind": "summary",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 17,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "alias",
+      "answer": "The output is `[5, 8, 13]`. This happens because `a` and `b` are identical references to the same list object. When `b.append(13)` is called, it adds `13` to the original list object directly without creating a new list. Since `a` points to that same object, it automatically receives the new value appended by `b`.",
+      "check": {
+        "kind": "alias",
+        "expected": null
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 84,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "ice",
+      "answer": "Ice floats on water because it is less dense than liquid water due to its molecular structure. Water molecules are packed tightly together in water, whereas ice molecules are arranged in a crystalline lattice that creates more space between them. This increased volume means that ice requires less energy per unit mass than water to maintain its temperature. Consequently, when placed in water, the ice naturally rises to the surface because it is lighter than the surrounding liquid, creating a buoyancy effect that keeps it suspended above the water level.",
+      "check": {
+        "kind": "ice",
+        "expected": null
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 101,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "interview",
+      "answer": "1. Research the company thoroughly before arriving to ensure you know their policies and recent news.\n2. Dress professionally and arrive early to show respect for your time.\n3. Prepare a concise list of your key strengths and relevant experiences relevant to the role.\n4. Review your resume beforehand so you can quickly explain your background during the interview.\n5. Maintain a calm demeanor throughout the entire process to convey professionalism.",
+      "check": {
+        "kind": "numbered",
+        "expected": 5,
+        "max_words": 150
+      },
+      "check_pass": true,
+      "ended": true,
+      "generated_tokens": 86,
+      "repeated_4gram_fraction": 0.0,
+      "loop_flag": false
+    },
+    {
+      "id": "dog",
+      "answer": "Before adopting a dog, prioritize health and safety first. Verify the dog is not a \"puppy\" or \"pug\" and ensure it has been properly vetted by a reputable breeder or vet. Check for visible injuries or signs of illness during the purchase process. Confirm the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Ensure the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Verify the dog is not a \"pug\" or \"pug\" before buying. Check for visible injuries or signs of illness during the purchase process. Ensure the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Verify the dog is not a \"pug\" or \"pug\" before buying. Check for visible injuries or signs of illness during the purchase process. Ensure the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Verify the dog is not a \"pug\" or \"pug\" before buying. Check for visible injuries or signs of illness during the purchase process. Ensure the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Verify the dog is not a \"pug\" or \"pug\" before buying. Check for visible injuries or signs of illness during the purchase process. Ensure the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Verify the dog is not a \"pug\" or \"pug\" before buying. Check for visible injuries or signs of illness during the purchase process. Ensure the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Verify the dog is not a \"pug\" or \"pug\" before buying. Check for visible injuries or signs of illness during the purchase process. Ensure the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Verify the dog is not a \"pug\" or \"pug\" before buying. Check for visible injuries or signs of illness during the purchase process. Ensure the dog has been properly trained and is not a \"pug\" or \"pug\" before buying. Verify the dog is not a \"pug\" or \"pug\" before buying. Check for visible injuries or signs of illness during the purchase process. Ensure the",
+      "check": {
+        "kind": "word_limit",
+        "expected": 150
+      },
+      "check_pass": false,
+      "ended": false,
+      "generated_tokens": 512,
+      "repeated_4gram_fraction": 0.8135135135135135,
+      "loop_flag": true
+    },
+    {
+      "id": "hash-table",
+      "answer": "A hash table is simply a data structure that stores items efficiently by using their keys directly as indices. Think of it like a giant, sorted list where every item has a unique number written next to it. When you add an item, you just write down its number; when you look for it later, you immediately find it because the number matches exactly.\n\nThis makes lookups incredibly fast. If you have thousands of items, checking for one specific item takes only one step instead of scanning through every single one. It's also great for sorting items automatically because they are stored in order by their keys.\n\nHowever, there are two main types:\n1. **Set**: Stores unique items only. If you try to add an item already in the set, nothing happens.\n2. **Map**: Stores items with their own custom properties alongside them. This allows you to retrieve specific details easily while keeping all items organized.\n\nIn short, a hash table is a fast, organized way to store data where searching is instant and duplicates are automatically removed.",
+      "check": {
+        "kind": "word_limit",
+        "expected": 149
+      },
+      "check_pass": false,
+      "ended": true,
+      "generated_tokens": 213,
+      "repeated_4gram_fraction": 0.005681818181818232,
+      "loop_flag": false
+    }
+  ],
+  "summary": {
+    "cases": 16,
+    "check_passes": 10,
+    "completed": 15,
+    "loop_flags": 1,
+    "generated_tokens": 1128,
+    "elapsed_seconds": 221.856870257001
+  },
+  "rubric_revision": 2
+}

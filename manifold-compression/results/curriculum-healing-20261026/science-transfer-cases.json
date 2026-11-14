@@ -1,0 +1,84 @@
+{
+  "scope": "within-topic application diagnostic; not unseen-topic generalization; not checkpoint selection",
+  "created_before_first_training_log": true,
+  "cases": [
+    {
+      "id": "ion-transfer",
+      "family": "explanation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "If a neutral atom loses two electrons, what changes and what stays unchanged? Explain briefly."
+        }
+      ],
+      "check": null,
+      "manual_rubric": "Charge becomes +2; proton count and element identity stay unchanged.",
+      "max_new_tokens": 512
+    },
+    {
+      "id": "enzyme-transfer",
+      "family": "explanation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A catalyst speeds both forward and reverse reactions. Does it change their equilibrium position? Explain briefly."
+        }
+      ],
+      "check": null,
+      "manual_rubric": "No; it lowers activation barriers, without changing the equilibrium position.",
+      "max_new_tokens": 512
+    },
+    {
+      "id": "current-transfer",
+      "family": "explanation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Six coulombs pass a point in three seconds. What is the average current, and why?"
+        }
+      ],
+      "check": null,
+      "manual_rubric": "Two amperes: charge divided by elapsed time.",
+      "max_new_tokens": 512
+    },
+    {
+      "id": "diffusion-transfer",
+      "family": "explanation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "At uniform concentration in a sealed container, are the molecules stationary? Explain briefly."
+        }
+      ],
+      "check": null,
+      "manual_rubric": "No; random molecular motion continues without net concentration-driven flow.",
+      "max_new_tokens": 512
+    },
+    {
+      "id": "dna-transfer",
+      "family": "explanation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Can changing DNA base order change its information without changing its backbone type? Explain briefly."
+        }
+      ],
+      "check": null,
+      "manual_rubric": "Yes; base sequence encodes information while the sugar-phosphate backbone remains.",
+      "max_new_tokens": 512
+    },
+    {
+      "id": "energy-transfer",
+      "family": "explanation",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A block slides to a stop on a rough surface. Where does its kinetic energy go?"
+        }
+      ],
+      "check": null,
+      "manual_rubric": "Into internal energy of the block and surroundings; energy is conserved.",
+      "max_new_tokens": 512
+    }
+  ]
+}

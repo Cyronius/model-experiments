@@ -1,0 +1,901 @@
+{
+  "status": "peer_reviewed_ready_for_suite_freeze",
+  "authored_by": "codex",
+  "source_checked_utc_date": "2026-10-27",
+  "scope": "Forty newly authored applications in twenty concept groups. Some concepts recur in earlier material; no claim of concept or pretraining disjointness.",
+  "grading_policy": "Both requested essentials and no core contradiction. Optional omissions are not failures. Accept equivalent explanations; record optional errors separately.",
+  "items": [
+    {
+      "id": "ug1-science-buoyancy-1",
+      "family": "buoyancy",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A rigid capsule is fully submerged, first in fresh water and then in denser salt water. Does its buoyant force change? Explain why."
+        }
+      ],
+      "reference_answer": "The buoyant force is greater in salt water. The unchanged displaced volume now contains heavier fluid.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/11-7-archimedes-principle",
+      "manual_rubric": {
+        "essential": [
+          "Buoyant force increases in the denser salt water.",
+          "Equal displaced volumes have greater fluid weight at greater density."
+        ],
+        "optional": [
+          "The capsule itself has unchanged weight."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-buoyancy-2",
+      "family": "buoyancy",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A floating platform remains afloat after a small cargo is added. How does the volume of water it displaces change, and why?"
+        }
+      ],
+      "reference_answer": "It displaces more water, settling deeper until the greater buoyant force balances its increased weight.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/11-7-archimedes-principle",
+      "manual_rubric": {
+        "essential": [
+          "Displaced water volume increases.",
+          "The added weight requires a larger buoyant force to maintain floating equilibrium."
+        ],
+        "optional": [
+          "The platform need not sink completely."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-circuits-1",
+      "family": "circuits",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Two fixed resistors are in parallel across an ideal constant-voltage battery. One branch is disconnected. What happens to current through the other resistor, and why?"
+        }
+      ],
+      "reference_answer": "Its current stays unchanged because its resistance and the voltage across it are unchanged.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/21-1-resistors-in-series-and-parallel",
+      "manual_rubric": {
+        "essential": [
+          "Current through the remaining resistor is unchanged.",
+          "The ideal battery still applies the same voltage across that resistance."
+        ],
+        "optional": [
+          "The total battery current decreases."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-circuits-2",
+      "family": "circuits",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "One fixed resistor is connected to an ideal battery. An identical resistor is added in series. How does circuit current change, and why?"
+        }
+      ],
+      "reference_answer": "Current halves: the total resistance doubles while the applied voltage stays constant.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/21-1-resistors-in-series-and-parallel",
+      "manual_rubric": {
+        "essential": [
+          "The current is half its original value.",
+          "Series resistance doubles with unchanged battery voltage."
+        ],
+        "optional": [
+          "The same current passes through both resistors."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-refraction-1",
+      "family": "refraction",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A light ray enters glass from air at an oblique angle. Does the transmitted ray bend toward or away from the normal? Relate this to speed."
+        }
+      ],
+      "reference_answer": "It bends toward the normal because light travels more slowly in glass than in air.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/25-3-the-law-of-refraction",
+      "manual_rubric": {
+        "essential": [
+          "The ray bends toward the normal.",
+          "Light speed decreases on entering the higher-index glass."
+        ],
+        "optional": [
+          "The frequency is unchanged at the boundary."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-refraction-2",
+      "family": "refraction",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A ray leaves glass for air at a nonzero angle below the critical angle. Which way does it bend relative to the normal, and why?"
+        }
+      ],
+      "reference_answer": "It bends away from the normal as its speed increases in the lower-index air.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/25-3-the-law-of-refraction",
+      "manual_rubric": {
+        "essential": [
+          "The transmitted ray bends away from the normal.",
+          "Its speed increases in air, whose refractive index is lower."
+        ],
+        "optional": [
+          "The stated angle avoids total internal reflection."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-ideal_gas-1",
+      "family": "ideal_gas",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A fixed amount of ideal gas is slowly compressed to half its volume while temperature stays constant. What happens to pressure? Explain."
+        }
+      ],
+      "reference_answer": "Pressure doubles because pressure times volume is constant for a fixed gas amount at constant temperature.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+      "manual_rubric": {
+        "essential": [
+          "Pressure doubles.",
+          "At fixed amount and temperature, pressure is inversely proportional to volume."
+        ],
+        "optional": [
+          "Use absolute pressure."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-ideal_gas-2",
+      "family": "ideal_gas",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A fixed amount of ideal gas under a freely moving piston warms from 300 K to 450 K at constant pressure. How does volume change? Explain."
+        }
+      ],
+      "reference_answer": "Volume increases to one and a half times its initial value because volume follows absolute temperature at constant pressure.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+      "manual_rubric": {
+        "essential": [
+          "Volume increases by a factor of 1.5.",
+          "At fixed pressure and amount, volume is proportional to kelvin temperature."
+        ],
+        "optional": [
+          "This is a 50 percent increase."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-momentum-1",
+      "family": "momentum",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Two skaters initially at rest push apart on frictionless ice. One has twice the mass. Compare their momentum magnitudes and their speeds."
+        }
+      ],
+      "reference_answer": "Their momenta are equal in magnitude and opposite in direction. The lighter skater moves twice as fast.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/8-3-conservation-of-momentum",
+      "manual_rubric": {
+        "essential": [
+          "The two momenta have equal magnitude and opposite directions.",
+          "The lighter skater has twice the speed."
+        ],
+        "optional": [
+          "Total momentum remains zero."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-momentum-2",
+      "family": "momentum",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A cart moving at speed v sticks to an equal-mass stationary cart on a frictionless track. Find their shared speed and name the determining conservation law."
+        }
+      ],
+      "reference_answer": "Their common speed is v/2 in the original direction, determined by conservation of total momentum.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/8-3-conservation-of-momentum",
+      "manual_rubric": {
+        "essential": [
+          "The final speed is v/2 in the moving cart’s original direction.",
+          "Total momentum of the isolated two-cart system is conserved."
+        ],
+        "optional": [
+          "Kinetic energy is not conserved in this sticking collision."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-circular_motion-1",
+      "family": "circular_motion",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A toy car travels around a circular track at constant speed. Is its acceleration zero? State its direction and explain."
+        }
+      ],
+      "reference_answer": "Acceleration is nonzero and directed toward the center because the velocity direction keeps changing.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/6-2-centripetal-acceleration",
+      "manual_rubric": {
+        "essential": [
+          "Acceleration is nonzero and points toward the circle’s center.",
+          "Constant speed does not mean constant velocity; its direction changes."
+        ],
+        "optional": [
+          "Its magnitude is speed squared divided by radius."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-circular_motion-2",
+      "family": "circular_motion",
+      "domain": "physics",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A vehicle follows a circular bend at fixed speed. If the bend’s radius doubles, how does centripetal acceleration change? Explain."
+        }
+      ],
+      "reference_answer": "Its magnitude halves, since centripetal acceleration is inversely proportional to radius at fixed speed.",
+      "source_url": "https://openstax.org/books/college-physics-2e/pages/6-2-centripetal-acceleration",
+      "manual_rubric": {
+        "essential": [
+          "The centripetal acceleration magnitude halves.",
+          "At fixed speed, centripetal acceleration is inversely proportional to radius (a = v²/r); either the proportionality or the formula suffices."
+        ],
+        "optional": [
+          "Acceleration still points inward."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-buffers-1",
+      "family": "buffers",
+      "domain": "chemistry",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A buffer contains acetic acid and acetate. After a small addition of strong acid, which component consumes the added hydrogen ions, and why is pH change limited?"
+        }
+      ],
+      "reference_answer": "Acetate accepts the hydrogen ions to form acetic acid, preventing most added acid from remaining as free hydrogen ions.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/14-6-buffers",
+      "manual_rubric": {
+        "essential": [
+          "Acetate reacts with added hydrogen ions to produce acetic acid.",
+          "This reaction limits the rise in free hydrogen-ion concentration and the pH decrease."
+        ],
+        "optional": [
+          "Buffer pH is not perfectly constant."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-buffers-2",
+      "family": "buffers",
+      "domain": "chemistry",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Strong acid is added to a buffer until its conjugate-base reserve is nearly exhausted. What happens to further acid additions, and why?"
+        }
+      ],
+      "reference_answer": "Further acid can lower pH sharply because little conjugate base remains to bind the added hydrogen ions.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/14-6-buffers",
+      "manual_rubric": {
+        "essential": [
+          "Further acid can cause a much larger pH decrease.",
+          "The finite supply of the acid-consuming buffer component has been depleted."
+        ],
+        "optional": [
+          "This exceeds the buffer’s capacity."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-equilibrium-1",
+      "family": "equilibrium",
+      "domain": "chemistry",
+      "messages": [
+        {
+          "role": "user",
+          "content": "For A(g) in equilibrium with 2B(g), temperature is fixed and the vessel is compressed. Which way does equilibrium shift, and why?"
+        }
+      ],
+      "reference_answer": "It shifts toward A, the side with fewer gas particles, opposing the pressure increase.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle",
+      "manual_rubric": {
+        "essential": [
+          "The equilibrium shifts toward A.",
+          "The A side contains fewer moles of gas and is favored by compression."
+        ],
+        "optional": [
+          "The equilibrium constant is unchanged at fixed temperature."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-equilibrium-2",
+      "family": "equilibrium",
+      "domain": "chemistry",
+      "messages": [
+        {
+          "role": "user",
+          "content": "The forward reaction A to B releases heat. An equilibrium mixture is heated. Which direction is favored, and why?"
+        }
+      ],
+      "reference_answer": "The reverse direction, toward A, is favored because it absorbs heat rather than releasing it.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle",
+      "manual_rubric": {
+        "essential": [
+          "Heating shifts equilibrium toward A.",
+          "The reverse, endothermic direction consumes heat."
+        ],
+        "optional": [
+          "The forward equilibrium constant decreases as temperature rises."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-catalysis-1",
+      "family": "catalysis",
+      "domain": "chemistry",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A catalyst speeds a reaction at unchanged temperature. What changes about the reaction pathway’s activation barrier, and how does that increase rate?"
+        }
+      ],
+      "reference_answer": "An alternative pathway has a lower activation barrier, so more reacting particles can cross it at the same temperature.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis",
+      "manual_rubric": {
+        "essential": [
+          "The catalyst provides a pathway with a lower activation barrier.",
+          "A greater fraction of particles can react at the unchanged temperature."
+        ],
+        "optional": [
+          "Reactant and product energies need not change."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-catalysis-2",
+      "family": "catalysis",
+      "domain": "chemistry",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A catalyst participates in intermediate reaction steps. Must it be consumed in the overall balanced reaction? Explain its fate."
+        }
+      ],
+      "reference_answer": "No. It is regenerated by later steps, so it is not consumed stoichiometrically in the overall reaction.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis",
+      "manual_rubric": {
+        "essential": [
+          "A catalyst is not consumed in the overall reaction.",
+          "It is regenerated even if intermediate steps temporarily consume it."
+        ],
+        "optional": [
+          "Real catalysts may separately become deactivated."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-redox-1",
+      "family": "redox",
+      "domain": "chemistry",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A copper ion undergoes Cu2+ + 2e− → Cu. Is this oxidation or reduction? Explain using electrons and oxidation state."
+        }
+      ],
+      "reference_answer": "It is reduction: copper gains two electrons and its oxidation state falls from +2 to zero.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/17-1-review-of-redox-chemistry",
+      "manual_rubric": {
+        "essential": [
+          "The process is reduction because electrons are gained.",
+          "Copper’s oxidation state decreases from +2 to 0."
+        ],
+        "optional": [
+          "The product is neutral copper."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-redox-2",
+      "family": "redox",
+      "domain": "chemistry",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A zinc atom becomes Zn2+ by transferring two electrons to another species. Is zinc oxidized, and is it the reducing or oxidizing agent? Explain."
+        }
+      ],
+      "reference_answer": "Zinc is oxidized by losing electrons. It is the reducing agent because it supplies electrons to the species being reduced.",
+      "source_url": "https://openstax.org/books/chemistry-2e/pages/17-1-review-of-redox-chemistry",
+      "manual_rubric": {
+        "essential": [
+          "Zinc is oxidized because it loses electrons.",
+          "Zinc is the reducing agent, supplying electrons to another species."
+        ],
+        "optional": [
+          "Its oxidation state increases from 0 to +2."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-osmosis-1",
+      "family": "osmosis",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A flexible bag holds concentrated sugar solution in more dilute sugar solution. Only water crosses its membrane. Initially, which way does net water move, and why?"
+        }
+      ],
+      "reference_answer": "Water moves into the bag by osmosis, toward the higher concentration of membrane-impermeable solute.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport",
+      "manual_rubric": {
+        "essential": [
+          "The initial net movement of water is into the bag.",
+          "Osmosis favors the side with more impermeable solute under these conditions."
+        ],
+        "optional": [
+          "The sugar itself does not cross."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-osmosis-2",
+      "family": "osmosis",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A turgid plant cell is moved into a strongly hypertonic solution of an impermeable solute. Predict initial water movement and the effect on turgor pressure."
+        }
+      ],
+      "reference_answer": "Water leaves the cell by osmosis, reducing turgor pressure as the cell contents lose water.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport",
+      "manual_rubric": {
+        "essential": [
+          "Net water movement is out of the cell.",
+          "Turgor pressure decreases because the cell loses water."
+        ],
+        "optional": [
+          "Severe water loss can cause plasmolysis."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-enzyme_inhibition-1",
+      "family": "enzyme_inhibition",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A reversible competitive inhibitor occupies an enzyme’s active site. Can enough additional substrate overcome the inhibition? Explain the competition."
+        }
+      ],
+      "reference_answer": "Yes. More substrate can outcompete the inhibitor for active sites, allowing the original maximal rate to be approached.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes",
+      "manual_rubric": {
+        "essential": [
+          "Sufficiently high substrate can overcome reversible competitive inhibition.",
+          "Substrate and inhibitor compete for occupancy of the active site."
+        ],
+        "optional": [
+          "The maximal rate is unchanged in the ideal competitive model."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-enzyme_inhibition-2",
+      "family": "enzyme_inhibition",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A pure noncompetitive inhibitor reduces an enzyme’s active catalytic capacity. Can arbitrarily more substrate restore its original maximal rate? Explain."
+        }
+      ],
+      "reference_answer": "No. More substrate cannot restore the lost catalytic capacity, so the inhibited maximal rate remains lower.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes",
+      "manual_rubric": {
+        "essential": [
+          "Adding substrate does not restore the original maximal rate.",
+          "The inhibitor reduces available catalytic activity rather than merely competing for substrate occupancy."
+        ],
+        "optional": [
+          "This describes pure noncompetitive inhibition, not every allosteric effect."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-meiosis-1",
+      "family": "meiosis",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A diploid animal species has 12 chromosomes in ordinary body cells. How many are in normal gametes and in a newly fertilized zygote? Explain."
+        }
+      ],
+      "reference_answer": "Gametes have six after meiosis halves the chromosome set. Fertilization combines two gametes to restore twelve in the zygote.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/11-1-the-process-of-meiosis",
+      "manual_rubric": {
+        "essential": [
+          "Normal gametes have six chromosomes because meiosis halves the set.",
+          "The zygote has twelve because fertilization combines two gamete sets."
+        ],
+        "optional": [
+          "The gametes are haploid."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-meiosis-2",
+      "family": "meiosis",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "During normal meiosis, homologous chromosomes exchange corresponding DNA segments. How can this affect allele combinations, and does it increase chromosome number?"
+        }
+      ],
+      "reference_answer": "Crossing over can create new allele combinations on chromosomes without increasing their number.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/11-1-the-process-of-meiosis",
+      "manual_rubric": {
+        "essential": [
+          "Exchange can produce new combinations of existing alleles.",
+          "Normal crossing over does not increase chromosome number."
+        ],
+        "optional": [
+          "The exchange involves nonsister chromatids."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-rna_processing-1",
+      "family": "rna_processing",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A eukaryotic pre-mRNA contains exon A, intron I, then exon B. After ordinary splicing, what happens to I and how are A and B arranged?"
+        }
+      ],
+      "reference_answer": "Intron I is removed, and exon A is joined directly to exon B in the same order.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes",
+      "manual_rubric": {
+        "essential": [
+          "The intron is removed from the RNA.",
+          "The exons are joined in the original A-then-B order."
+        ],
+        "optional": [
+          "This alters the RNA rather than deleting DNA from the gene."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-rna_processing-2",
+      "family": "rna_processing",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A eukaryotic mRNA loses its 5-prime cap. What two problems can follow for RNA stability and initiation of translation?"
+        }
+      ],
+      "reference_answer": "It is more vulnerable to degradation, and translation initiation can be impaired because the cap also helps recruit initiation machinery.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes",
+      "manual_rubric": {
+        "essential": [
+          "Loss of the cap reduces protection against RNA degradation.",
+          "Cap-dependent translation initiation can become less efficient."
+        ],
+        "optional": [
+          "The cap has both protective and recognition functions."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-selection-1",
+      "family": "selection",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "On dark rocks, birds catch light beetles more often than dark beetles. Color is inherited. Predict the population’s trend across generations and explain."
+        }
+      ],
+      "reference_answer": "Dark coloration tends to become more common because dark beetles survive and reproduce more successfully, passing that trait to offspring.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/19-3-adaptive-evolution",
+      "manual_rubric": {
+        "essential": [
+          "Inherited dark coloration tends to increase in frequency.",
+          "Differential survival and reproduction transmit the advantageous inherited trait."
+        ],
+        "optional": [
+          "Individual beetles need not change their color."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-selection-2",
+      "family": "selection",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "One beetle is physically stronger but leaves no offspring; another leaves many surviving offspring. Which has greater evolutionary fitness, and why?"
+        }
+      ],
+      "reference_answer": "The second beetle has greater fitness because it contributes more successfully to the next generation, regardless of physical strength.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/19-3-adaptive-evolution",
+      "manual_rubric": {
+        "essential": [
+          "The beetle with surviving offspring has greater evolutionary fitness.",
+          "Fitness concerns reproductive contribution, not strength alone."
+        ],
+        "optional": [
+          "Fitness is relative to the environment and other individuals."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-trophic_energy-1",
+      "family": "trophic_energy",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "In a plant–insect–bird food chain, does all chemical energy consumed by insects become available to birds? Explain the main reason."
+        }
+      ],
+      "reference_answer": "No. Insects use energy in metabolism and release heat, while some food is uneaten or lost as waste rather than becoming bird-accessible biomass.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-2-energy-flow-through-ecosystems",
+      "manual_rubric": {
+        "essential": [
+          "Only part of the consumed energy becomes available to birds.",
+          "Metabolism and heat loss, or other transfer losses, reduce stored transferable energy."
+        ],
+        "optional": [
+          "There is no universal exact ten-percent efficiency."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-trophic_energy-2",
+      "family": "trophic_energy",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A lake has less phytoplankton biomass than zooplankton biomass at one instant. Can phytoplankton still support the consumers? Explain without violating energy conservation."
+        }
+      ],
+      "reference_answer": "Yes. Rapid phytoplankton growth and turnover can supply substantial energy despite a small standing biomass measured at one instant.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/46-2-energy-flow-through-ecosystems",
+      "manual_rubric": {
+        "essential": [
+          "A smaller standing producer biomass can still support consumers.",
+          "Rapid replacement and production distinguish energy flow over time from snapshot biomass."
+        ],
+        "optional": [
+          "An energy-flow pyramid remains upright."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-feedback-1",
+      "family": "feedback",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Blood glucose falls, triggering a response that raises it toward its usual range. Is this positive or negative feedback, and why?"
+        }
+      ],
+      "reference_answer": "It is negative feedback because the response counteracts the initial fall, even though the response itself raises glucose.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/33-3-homeostasis",
+      "manual_rubric": {
+        "essential": [
+          "The loop is negative feedback.",
+          "The response opposes the original deviation rather than amplifying it."
+        ],
+        "optional": [
+          "Negative feedback need not decrease the controlled variable."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-feedback-2",
+      "family": "feedback",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "At an injury, activated platelets recruit and activate more platelets until a clot forms. What feedback type describes this recruitment loop, and why?"
+        }
+      ],
+      "reference_answer": "It is positive feedback because platelet activation promotes further activation, amplifying the local response.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/33-3-homeostasis",
+      "manual_rubric": {
+        "essential": [
+          "The recruitment loop is positive feedback.",
+          "Activation reinforces or amplifies further activation."
+        ],
+        "optional": [
+          "Completing the clot can end the response."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-innate_defense-1",
+      "family": "innate_defense",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Airway cilia stop beating while mucus still traps inhaled microbes. What happens to clearance, and which defensive mechanism has been impaired?"
+        }
+      ],
+      "reference_answer": "Clearance slows because cilia normally move microbe-containing mucus out of the airway, providing a physical innate defense.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/42-1-innate-immune-response",
+      "manual_rubric": {
+        "essential": [
+          "Trapped microbes are cleared less effectively.",
+          "Cilia normally transport pathogen-containing mucus away mechanically."
+        ],
+        "optional": [
+          "This is an innate barrier rather than specific immune memory."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-innate_defense-2",
+      "family": "innate_defense",
+      "domain": "biology",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A macrophage encounters a bacterium the animal has never encountered before. Must prior exposure occur before innate recognition? Explain."
+        }
+      ],
+      "reference_answer": "No. Innate receptors can recognize shared microbial patterns without prior exposure to that particular bacterium.",
+      "source_url": "https://openstax.org/books/biology-2e/pages/42-1-innate-immune-response",
+      "manual_rubric": {
+        "essential": [
+          "Prior exposure to that particular bacterium is not required.",
+          "Innate receptors recognize microbial patterns shared by classes of pathogens."
+        ],
+        "optional": [
+          "An adaptive response may develop afterward."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-moon-1",
+      "family": "moon",
+      "domain": "astronomy",
+      "messages": [
+        {
+          "role": "user",
+          "content": "At first quarter, how much of the whole Moon is sunlit, and why does an observer on Earth see only half the disk illuminated?"
+        }
+      ],
+      "reference_answer": "About half the Moon is sunlit. The viewing geometry exposes only part of that illuminated hemisphere, making half the visible disk bright.",
+      "source_url": "https://openstax.org/books/astronomy-2e/pages/4-5-phases-and-motions-of-the-moon",
+      "manual_rubric": {
+        "essential": [
+          "About half of the entire Moon is illuminated by the Sun.",
+          "From Earth we see only part of the Moon’s sunlit hemisphere because of the viewing angle (half the visible disk at first quarter)."
+        ],
+        "optional": [
+          "Earth’s shadow is relevant to lunar eclipses instead."
+        ],
+        "core_contradictions": [
+          "Attributing the ordinary phase to Earth’s shadow fails."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-moon-2",
+      "family": "moon",
+      "domain": "astronomy",
+      "messages": [
+        {
+          "role": "user",
+          "content": "The Moon keeps nearly the same face toward Earth. Does that mean it never rotates? State how its rotation and orbital periods compare."
+        }
+      ],
+      "reference_answer": "It does rotate, completing roughly one turn in the time it takes to orbit Earth once; the matched periods keep the same face toward Earth.",
+      "source_url": "https://openstax.org/books/astronomy-2e/pages/4-5-phases-and-motions-of-the-moon",
+      "manual_rubric": {
+        "essential": [
+          "The Moon rotates rather than remaining nonrotating.",
+          "Its rotation period matches its orbital period around Earth."
+        ],
+        "optional": [
+          "This is synchronous rotation."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-doppler-1",
+      "family": "doppler",
+      "domain": "astronomy",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A star’s familiar spectral lines shift to longer wavelengths solely because of its motion relative to us. Is it approaching or receding? Explain."
+        }
+      ],
+      "reference_answer": "It is receding: increasing separation stretches the observed wave spacing, producing a redshift.",
+      "source_url": "https://openstax.org/books/astronomy-2e/pages/5-6-the-doppler-effect",
+      "manual_rubric": {
+        "essential": [
+          "The star is moving away along our line of sight.",
+          "Recession increases observed wavelengths, producing a redshift."
+        ],
+        "optional": [
+          "The shift does not require different chemical elements."
+        ]
+      }
+    },
+    {
+      "id": "ug1-science-doppler-2",
+      "family": "doppler",
+      "domain": "astronomy",
+      "messages": [
+        {
+          "role": "user",
+          "content": "At speeds far below light speed, a star moves exactly perpendicular to our line of sight. What first-order Doppler shift is expected, and why?"
+        }
+      ],
+      "reference_answer": "No first-order Doppler shift is expected because the star has no velocity component toward or away from us.",
+      "source_url": "https://openstax.org/books/astronomy-2e/pages/5-6-the-doppler-effect",
+      "manual_rubric": {
+        "essential": [
+          "There is no first-order radial Doppler shift.",
+          "The line-of-sight velocity component is zero."
+        ],
+        "optional": [
+          "The question excludes the smaller relativistic transverse effect."
+        ]
+      }
+    }
+  ],
+  "reviewers": [
+    "codex",
+    "claude"
+  ],
+  "pair_review_messages": [
+    215,
+    216,
+    220
+  ]
+}

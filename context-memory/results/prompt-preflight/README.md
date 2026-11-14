@@ -1,0 +1,1 @@
+Prompt preflight, excluded from recall results. The initial assistant prefix allowed reasoning; the 40-token cap truncated before the final answer. The scored pilot explicitly prefills an empty, closed <think> block. The fixed questions and scoring patterns did not change.

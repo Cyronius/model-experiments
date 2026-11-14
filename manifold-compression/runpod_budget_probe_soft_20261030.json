@@ -1,0 +1,24 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-30",
+  "user_authorization": "Asked: 'This would cost about $0.60 on one A40; I'd cap it at $1. ... For about $0.30 more, the same pod could also run the 18-group version ... Should I go ahead with the soft-edge check, with or without that?' User: 'i am not interested in making more experts activate -- if the cmoe routing doesn't fix it, we should look at different things like adding more back into the shared expert, weighing it more, doing a little more merging of neurons into each expert, etc' and 'if you need to do the runpod to learn more then that is ok too, but more experts can't be the final answer'",
+  "scope": "One pod for the soft-edge check on the healed Qwen3.5-9B student at the same 25% budget (heal_probe.py with heal_probe_soft_rules.json): evaluate (learned reproduction check, soft edge), the 16 GSM8K generations with the soft edge and fp32 state, and the sensitivity check for the learned router, every neuron and the soft edge. No more-experts arm.",
+  "total_cap_usd": 1.0,
+  "spent_usd": 0.5058326086892022,
+  "restrictions": [
+    "Not a standing authorization for other jobs; a new carve, a healing run or on-policy distillation needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "active_job": "target/manifold-probe-soft/mc-probe-soft-560daff5ce59/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "High",
+    "checked_at": 1793360779.9182348
+  },
+  "pod_id": "4obexljz6pbe7k",
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1793363866.369011
+}

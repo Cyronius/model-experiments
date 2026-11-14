@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "design_status": "agreed_before_main_generation; rehearsal exposure quarantined",
+  "pair_session": "Manifold",
+  "agreement_messages": [
+    199,
+    201,
+    202,
+    203,
+    205,
+    206,
+    208,
+    209,
+    211,
+    217,
+    218,
+    219,
+    220
+  ],
+  "arms": [
+    "stock",
+    "P0",
+    "P1"
+  ],
+  "purpose": "Compare fixed unhealed constructions on generated answers. This screen neither trains nor promotes a model.",
+  "runtime": {
+    "device": "cpu",
+    "precision": "float32",
+    "threads": 16,
+    "batch": 16,
+    "arm_order": [
+      "P0",
+      "P1",
+      "stock"
+    ],
+    "part_order": [
+      "track-a",
+      "gsm8k",
+      "humaneval",
+      "science-new"
+    ],
+    "maximum_total_hours": 8,
+    "maximum_hours_per_part": {
+      "stock": 1.25,
+      "P0": 1.0,
+      "P1": 1.0
+    },
+    "deadline_policy": "One persistent protocol-bound start/deadline across all part commands; the earliest shared or per-part deadline wins. A timeout is incomplete, never an implicit extension.",
+    "cloud_spend_usd": 0
+  },
+  "bootstrap": {
+    "draws": 10000,
+    "seed": 26102761,
+    "interval": "two-sided percentile 95 percent",
+    "pairing": "The same sampled case groups and weights are used for every arm in a draw.",
+    "arithmetic_and_replay": "Stratify by the fixed known family; resample original item groups within each family; retain fixed eligible family case-count weights after rehearsal quarantine.",
+    "gsm8k": "Cluster by problem group.",
+    "humaneval": "Cluster by task group, using the frozen primary mask for primary metrics.",
+    "science_new": "Cluster by concept group (two authored applications per group).",
+    "horizon": "Cluster by original source group.",
+    "science_legacy": "Cluster by original item group; descriptive only.",
+    "macro": "Equal weight for the four prespecified primary automatic categories; independent resampling between category strata.",
+    "bad_events": "Stratify by reporting category, retaining eligible category case-count weights. Include HumanEval training-overlap cases as a fixed separate stratum. Exclude every rehearsal-exposed case from all gated event rates; report their events separately.",
+    "sensitivity": "Family-as-cluster for arithmetic/replay and item-as-cluster for new science; never used to choose the favorable decision.",
+    "limits": "Exploratory uncorrected intervals on a fixed diagnostic suite. Known-family inference is conditional on those families. No new-family, pretraining-disjointness or population-representativeness claim. Few-cluster sensitivity intervals are approximate."
+  },
+  "progression": {
+    "base": "P0",
+    "candidate": "P1",
+    "requires_all_arms_and_parts_complete": true,
+    "requires_both_science_reviews_and_adjudication": true,
+    "primary_categories": [
+      "arithmetic",
+      "replay",
+      "gsm8k",
+      "humaneval_primary"
+    ],
+    "macro_improvement_lower_ci_strictly_greater_than": 0.0,
+    "per_category_improvement_lower_ci_at_least": -0.05,
+    "bad_event_rate_upper_ci_at_most": 0.02,
+    "bad_event_definitions": {
+      "loop": "mean(loop_P1 - loop_P0)",
+      "nontermination": "mean((1-ended_P1) - (1-ended_P0))"
+    },
+    "conditions": [
+      "All three arms and every part are complete and provenance-valid; both science reviews and adjudication are complete.",
+      "The equal-weight four-category P1-minus-P0 accuracy macro has lower 95-percent CI strictly above zero.",
+      "Each primary automatic category has P1-minus-P0 lower 95-percent CI at least -0.05.",
+      "The net loop-rate difference has upper 95-percent CI at most +0.02.",
+      "The net nontermination-rate difference has upper 95-percent CI at most +0.02.",
+      "New-science essential-pass count does not decrease from P0 to P1.",
+      "Horizon fence-tolerant content-correct count does not decrease from P0 to P1."
+    ],
+    "all_conditions_required": true,
+    "pass": "Supports considering the separately activated P1 original-down-weight control; does not automatically launch it, authorize healing or promote a model.",
+    "inconclusive": "A required progression interval straddles its boundary or required progression artifacts/categories are incomplete. Separate unassessable stock floors do not silently change the progression rule. No automatic follow-on run.",
+    "fail": "A hard count condition is violated or a required interval lies wholly on the failing side of its boundary. No automatic follow-on run.",
+    "nonrefit_control": "P1 kept neuron indices with the projected model's original down[:, keep] weights; excluded from this screen's arms."
+  },
+  "stock_floors": {
+    "arms": [
+      "P0",
+      "P1"
+    ],
+    "categories": [
+      "arithmetic",
+      "replay",
+      "gsm8k",
+      "humaneval_primary",
+      "science_new"
+    ],
+    "retained_fraction": 0.9,
+    "paired_margin": "p_arm - 0.9 * p_stock",
+    "pass_requires_lower_ci_at_least": 0.0,
+    "zero_stock_successes": "unassessable",
+    "role": "Separate stock-relative quality diagnostics. Report every category; these floors do not imply promotion and are not substituted for the P1-versus-P0 research progression rule."
+  },
+  "science": {
+    "new_items": 40,
+    "new_concept_groups": 20,
+    "items_per_concept_group": 2,
+    "legacy_items": 12,
+    "new_grade": "All explicitly requested essential clauses must be correct; a core contradiction fails. Optional omissions do not fail. Accept equivalent wording; record optional errors separately.",
+    "legacy_grade": "Apply each item's original required/disqualifying rubric. Do not revise Track A grades or reinterpret legacy items with the new rubric.",
+    "progression_new_minimum_net_correct_change": 0,
+    "legacy_role": "Separate descriptive regression diagnostic, excluded from the automatic macro and the new-science count gate.",
+    "reviewers": [
+      "codex",
+      "claude"
+    ],
+    "blind_review": "Shuffle arm-hidden answers with stable packet identifiers. Both independent rating files must be saved before either reviewer reads the other's ratings or the arm map. Adjudicate disagreements with explicit reasons before revealing arms.",
+    "sources": "Newly authored application questions checked against primary OpenStax sources. Text-overlap screen before freezing; concepts may recur in previous material. No claim of unseen concepts or pretraining disjointness."
+  },
+  "horizon": {
+    "items": 18,
+    "minimum_net_correct_change": 0,
+    "primary_grade": "Fence-tolerant code extraction followed by the same frozen per-case Horizon tests. Report the unchanged Track A extraction grade and fence-closure compliance alongside; no Track A result is revised.",
+    "role": "Separate fixed regression check, never pooled with HumanEval to determine a primary code score.",
+    "transitions": "List every P0-correct/P1-wrong and P0-wrong/P1-correct case.",
+    "eligible_items": 17
+  },
+  "reporting": {
+    "automatic_categories": [
+      "arithmetic",
+      "replay",
+      "gsm8k",
+      "humaneval_primary"
+    ],
+    "category_mapping": {
+      "arithmetic": "Track A test category primary, 128 items; no development arithmetic.",
+      "replay": "Track A test retention: 112 generated, 111 eligible after rehearsal quarantine.",
+      "horizon": "Track A program: test 12 plus development 6, 18 generated, 17 eligible after rehearsal quarantine.",
+      "science_legacy": "Track A science: test 8 plus development 4, 12 items.",
+      "gsm8k": "The 200 deterministically sampled, overlap-screened GSM8K problems outside the TF manifest.",
+      "humaneval_primary": "HumanEval-derived cases with the frozen primary_mask true.",
+      "humaneval_overlap": "HumanEval training_overlap true and rehearsal_exposed false; separate correctness diagnostic, included in bad-event rates.",
+      "science_new": "The 40 newly authored science items in 20 concept groups.",
+      "rehearsal_exposed": "Four generated non-GSM cases, excluded from all gates/floors/event rates; report individually with original category and flags."
+    },
+    "human_eval_label": "HumanEval-derived chat diagnostic: custom prompt, 512-token cap, opened examples; not an official leaderboard result.",
+    "human_eval_primary": "Only tasks passing the frozen training/calibration overlap screen and not rehearsal-exposed; require at least 100 primary tasks. Expected 114 primary, 48 overlap, 2 quarantined. Generate all 164 with all tags.",
+    "gsm8k_primary": "Unambiguous final-answer content from the unchanged final_numeric parser. Preserve parse method and bare-final-line compliance separately. Last-number extraction is secondary only.",
+    "overlap": "Exclude the 400 teacher-forced GSM8K items, then screen the remaining pool against the declared calibration/healing corpora before sampling 200. Screen new science text. Report all exclusions and overlap scope.",
+    "transitions": "Publish correctness changes, new/repaired loops and lost/gained termination, globally and by category.",
+    "sealing": "Freeze suite, rules, sources, recipes and code before main model generation. The documented pre-freeze rehearsal is quarantined. Interpret main outputs/grades only after the full fixed screen; no adaptive changes or candidate selection during execution.",
+    "integrity": "Reject missing, duplicate, mismatched or incomplete generation rows and metadata; validate source/recipe hashes before loading and bind all final artifacts by hash.",
+    "parent": "Current parent remains the default; no promotion in G1.",
+    "expected_generated_counts": {
+      "track-a": 270,
+      "gsm8k": 200,
+      "humaneval": 164,
+      "science-new": 40
+    },
+    "expected_eligible_counts": {
+      "arithmetic": 128,
+      "replay": 111,
+      "horizon": 17,
+      "science_legacy": 12,
+      "gsm8k": 200,
+      "humaneval_primary": 114,
+      "humaneval_overlap": 48,
+      "science_new": 40
+    }
+  },
+  "quarantine": {
+    "excluded_ids": [
+      "rh-test-retain-arithmetic-0",
+      "rh-test-program-3",
+      "HumanEval-0",
+      "HumanEval-23",
+      "gsm8k-1",
+      "gsm8k-1199"
+    ],
+    "record": "results/unhealed-generation-20261027/rehearsal/record.json",
+    "policy": "Rehearsal-exposed cases are excluded from every progression gate, stock floor and bad-event rate, and reported separately. GSM8K exposed cases are excluded before deterministic sampling. Non-GSM exposed cases remain generated diagnostics.",
+    "scope": "Real P1 and stock rehearsals exposed six real cases before the main freeze; the code-fence correction was prompted by one of them. Prior timing probes used development replay items outside this suite and no outputs were read."
+  }
+}

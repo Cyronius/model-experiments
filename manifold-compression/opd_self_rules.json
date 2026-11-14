@@ -1,0 +1,104 @@
+{
+  "note": "On-policy distillation of the healed Qwen3.5-9B student at 25% of MLP neurons from the healed student itself with every neuron (slim_opd.py with opd_self_rules.json), written 2026-10-31 before the run. The dense-teacher run (opd_rules.json) was at round 15 of its training when its halfway check showed no fewer loops (19 of 48 against the healed control's 18), far fewer finished answers (9 against 30) and a rising on-policy loop share (54% in round 0, about 85% after): the student copied the dense model's long thinking, two thirds of whose training answers did not end within 2,048 tokens. The user asked whether the teacher's being dense was the problem and suggested a bigger MoE teacher (Qwen3.6-35B-A3B); I recommended this teacher instead, which never loops on the 48 check prompts (40 right, 45 finished) and differs from the student only in the skipped neurons, and the user said 'Actually start it now'. Everything is as in opd_rules.json except the teacher, finished_only and the folder, so the two runs compare round by round.",
+  "folder": "opd_self",
+  "prompts": {
+    "file": "opd_prompts.json",
+    "gsm8k": [
+      [
+        500,
+        7000
+      ]
+    ],
+    "per_kind": 2400,
+    "max_prompt_tokens": 384,
+    "salt": "opd-20261031"
+  },
+  "rollout": {
+    "per_round": 48,
+    "max_new_tokens": 2048,
+    "state": "fp32",
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "presence_penalty": 0.0,
+      "note": "the model card's thinking-mode sampling without its presence penalty, so the teacher's and the student's sampled answers are their own distributions, filtered"
+    },
+    "loop": {
+      "window": 20,
+      "run": 40,
+      "every": 16
+    }
+  },
+  "train": {
+    "steps_per_round": 6,
+    "micro_batch": 2,
+    "lr": 5e-05,
+    "betas": [
+      0.9,
+      0.99
+    ],
+    "warmup_steps": 6,
+    "lr_floor": 0.1,
+    "clip": 1.0,
+    "loss_chunk": 1024,
+    "max_hours": 7.5,
+    "reserve_minutes": 50,
+    "first_round_minutes": 15,
+    "mid_check": 0.5,
+    "checkpoint_every": 3,
+    "max_rounds": null,
+    "seed": 26103101,
+    "teacher": {
+      "kind": "every_neuron",
+      "finished_only": true,
+      "note": "the healed student with every neuron running and the healing run's adapter, frozen while the student's copy trains; only its answers that end within 2,048 tokens train, so the student never learns thinking that does not end"
+    }
+  },
+  "eval": {
+    "prompts": "probe_prompts_48.json",
+    "count": 48,
+    "max_new_tokens": 2048,
+    "state": "fp32",
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "presence_penalty": 1.5,
+      "source": "Qwen3.5-9B model card, thinking mode for general tasks (as heal_probe_loops_sample_rules.json)"
+    },
+    "seed": 26103102,
+    "check": {
+      "kl": 0.01,
+      "bpb": 0.01
+    },
+    "padding_prompts": 4,
+    "padding_limit": {
+      "student": 0.1,
+      "dense": 0.01
+    },
+    "before_hours": 1.2,
+    "after_hours": 0.7
+  },
+  "loop": {
+    "window": 20,
+    "last": 1000,
+    "threshold": 0.45
+  },
+  "design": "One A40 pod, the same stages, prompts, seeds and schedule as the dense-teacher run (opd_rules.json). before: the healed student must reproduce the healing run (KL 0.612), padding must not change outputs, then batched generations on the 48 GSM8K check prompts, greedy and sampled, for the healed student (the control, on this pod), the healed student with every neuron (this run's teacher) and the dense model. train: rounds of 96 prompts (GSM8K training questions and UltraChat first turns, alternating, none from the benchmark); the teacher (the healed student with every neuron and the healing adapter, frozen) answers 48 sampled, and only the answers that end train; the student answers 48, half greedy and half sampled, cut at its first long repeat; 6 optimizer steps per round, forward KL on the teacher's answers and reverse KL on the student's, over the 64K rows; LoRA only, routers frozen, learning rate 5e-5 with a cosine over the time budget, 7.5 hours at most; halfway, the student so far answers the 48 check prompts greedily. after: the distilled student's drift from the dense model on the benchmark and its generations, greedy and sampled.",
+  "reading": "All generation counts are out of 48, batched, and compared with the healed student's batched generations from the same pod. Clean is at most 3 greedy loops. Reduced means a one-sided Fisher exact p < 0.05 for fewer greedy loops than the healed student. The drift guard: the distilled student's benchmark KL from the dense model may rise by at most 0.03 over the healed student's. Clean and within the guard: a teacher that differs from the student only in the skipped neurons teaches it to hold long answers at the 25% budget; next is a decision on a longer run and on the deployment settings (int16 state, the row cache). Reduced but not clean, within the guard: it helps where the dense teacher did not; whether to run longer depends on the on-policy loop share over the rounds (still falling or flat). Not reduced: even this teacher cannot teach the 25% student to hold a long answer at this length; if the on-policy loop share was still falling, a longer run is the open question, otherwise the 25% hard routing is the limit and the next options are structural (a bigger shared expert at the same budget, every MLP weight trained), not another teacher. Above the guard: matching the every-neuron model costs drift from the dense one, so dense-teacher text goes back into the mix before anything longer. The dense-teacher run (opd/) is the comparison for what the teacher changes: its distilled student's counts against this one's, on two pods, descriptive only.",
+  "predictions": {
+    "reproduce": "The healed student reproduces the healing run's last milestone: KL within 0.01 of 0.612.",
+    "padding": "Left padding changes the next-token distributions by under 0.05 nats for the student and 0.005 for the dense model (the before stage stops above 0.1 and 0.01, which only a broken padding would reach).",
+    "batched_control": "Batched on this pod, the healed student loops in 12 to 24 of 48 greedy generations (the dense-teacher pod: 18) and in at most 3 sampled ones (that pod: 0).",
+    "references": "The healed student with every neuron loops in at most 3 of 48 greedy generations and finishes at least 40 (the dense-teacher pod: 0 loops, 45 finished); the dense model loops in at most 3.",
+    "teacher_finished": "The teacher finishes at least half of its sampled training answers within 2,048 tokens, averaged over the rounds (the dense teacher: about a third).",
+    "on_policy": "The share of the student's greedy training answers cut for a loop is lower in the last quarter of rounds than in the first (the dense teacher: rising, 54% in round 0 and about 85% after).",
+    "distilled_loops": "The distilled student loops in fewer greedy generations than the healed one (one-sided p < 0.05), but is not clean (more than 3).",
+    "finished": "The distilled student finishes at least as many greedy answers as the healed one (the dense-teacher run at halfway: 9 against 30).",
+    "kl": "The distilled student's benchmark KL from the dense model is within the guard and lower than the healed student's (the teacher's: about 0.24).",
+    "correct": "The distilled student gets at least as many greedy answers right as the healed student.",
+    "sampled": "With the model card's sampling, the distilled student finishes at least as many answers as the healed student.",
+    "versus_dense_teacher": "The distilled student loops in fewer greedy generations and finishes more than the dense-teacher run's distilled student."
+  }
+}

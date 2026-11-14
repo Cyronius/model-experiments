@@ -1,0 +1,24 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-29",
+  "user_authorization": "Asked: 'Decision for you: healing is GPU training and needs its own budget. I'd start with a pilot of about 10M tokens, roughly $3-5, to see how much comes back before spending more.' User: 'do it!'",
+  "scope": "One pod for the healing pilot of slim_batch's combined Qwen3.5-9B student (slim_heal.py heal, final and generate): about 10M tokens of LoRA and router distillation, then evaluation.",
+  "total_cap_usd": 5.0,
+  "spent_usd": 3.6975836887598037,
+  "restrictions": [
+    "Not a standing authorization for other jobs; a longer healing run needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "active_job": "target/manifold-heal/mc-heal-f5bb254a00a8/pod.json",
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA RTX 6000 Ada Generation",
+    "rate": 0.99,
+    "stock_status": "Low",
+    "checked_at": 1793307658.6794949
+  },
+  "pod_id": "712iix63vydb0g",
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "terminated_at": 1793321104.459593
+}

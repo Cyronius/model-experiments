@@ -1,0 +1,69 @@
+{
+  "scope": "CPU teacher-forced comparisons for the allocation pilot (PAIR_PLAN_20261026.md, track B). Same device, threads and code for all arms; never compared with CUDA scores.",
+  "device": "cpu",
+  "precision": "FP32, TF32 not applicable",
+  "threads": 16,
+  "manifest": {
+    "file": "manifest.jsonl",
+    "sha256": "5f753cf4487909dacbe3e0eecf61642d30bde361146e0e2a2575b13793507927"
+  },
+  "tf_metrics_code_sha256": "67f89aa69a468290c64ccad1664460df1b0b86b5ecf78cd2e01affcf2af41abd",
+  "scores": {
+    "stock": {
+      "file": "scores-stock.json",
+      "sha256": "0601394c5fe8e73452b1cb753b7a72e21150fad4f9a5ad4833eb7a56da6ce0ec",
+      "seconds": 4439.590012766013
+    },
+    "shared-broad (P0)": {
+      "file": "scores-shared-broad.json",
+      "sha256": "8a7d3ec2f68d533be19f480413b0845c2b43649a6b5a75245fc4efa3e248dc42",
+      "seconds": 4854.114343952009
+    },
+    "p1 (P1)": {
+      "file": "scores-p1.json",
+      "sha256": "344da0a4d0684ad98d6bcb566f09d028bf19a9dbb61d80fa2be7e41205403074",
+      "seconds": 4889.601050944999
+    }
+  },
+  "comparisons": {
+    "compare-stock-vs-shared-broad.json": {
+      "sha256": "c6e25254b1aa9f51958d8e43860606d0d78f996ce88b5844186a3d5acd25fc20",
+      "base": "stock",
+      "arm": "shared-broad",
+      "draws": 10000,
+      "seed": 0
+    },
+    "compare-stock-vs-p1.json": {
+      "sha256": "42464d782fad3959380aadb78c0e42a13d2bb301d67300bddcc137470e835be5",
+      "base": "stock",
+      "arm": "p1",
+      "draws": 10000,
+      "seed": 0
+    },
+    "compare-shared-broad-vs-p1.json": {
+      "sha256": "83c6ce8eace450ff4f9aabb1299de512db6e649c5b7a40c3b9c2de4ed6d8171f",
+      "base": "shared-broad",
+      "arm": "p1",
+      "draws": 10000,
+      "seed": 0
+    }
+  },
+  "choice_audit": {
+    "file": "choice-position-audit.json",
+    "sha256": "7158a827404d56d12250e307511160e5b156226fbf0a98b36ddeef276fa94314"
+  },
+  "multiplicity": "Exploratory per-source intervals; no multiple-comparison correction; no pooled score.",
+  "created_utc": "2026-10-27T03:56:57Z",
+  "allocation_integrity": {
+    "file": "../allocation-pilot-20261027/final-integrity.json",
+    "sha256": "d4bfeecc31ec38883c32262f7508cc43e4ff6015980ee3a4f6729d433fa0ac88",
+    "p1_recipe_sha256": "2fec099fa5a139dca66d2ea4e3562144f5faf10c5162dc9fda2b9c21d7007199",
+    "p0_recipe_sha256": "ec653cba925a2931c66881510caed01f717fe3083f2bedeed5fb4770c6c3a547",
+    "protocol_sha256": "97e827730f14d2d698711d863a2db942aa62c76bd6fd9f59987346b067e2b5b3"
+  },
+  "loaders": {
+    "shared-broad (P0)": "allocation_pilot:load_p0 (shared-broad-recipe.pt + pinned source)",
+    "p1 (P1)": "allocation_pilot:load_p1 (p1-recipe.pt + pinned source)",
+    "stock": "local_projection_probe:load_source"
+  }
+}

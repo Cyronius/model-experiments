@@ -1,0 +1,34 @@
+{
+  "status": "terminated",
+  "session": "dense-to-MoE slimming (manifold-compression), 2026-10-30",
+  "user_authorization": "After the soft-edge check (loops stayed), I proposed screening the user's ideas at the same 25% budget and asked what they meant by merging. User: 'i think i mean folding all experts into each expert, with some kind of averaging, but most preference to the existing neurons in each expert'. Earlier the same day the user approved RunPod checks to learn more: 'if you need to do the runpod to learn more then that is ok too, but more experts can't be the final answer'. This check tests the fold on the healed student with no training, about $0.80.",
+  "scope": "One pod for the fold check on the healed Qwen3.5-9B student at the same 25% budget (heal_probe.py with heal_probe_fold_rules.json): fit the fold and two gain variants on calibration documents, evaluate (learned reproduction check, shared gain, expert gains, fold), and the 16 GSM8K generations with the fold and fp32 state. No training, no more-experts arm.",
+  "total_cap_usd": 1.2,
+  "spent_usd": 0.676971089660459,
+  "restrictions": [
+    "Not a standing authorization for other jobs; a new carve, a healing run or on-policy distillation needs a separate decision",
+    "No automatic retry with another paid pod unless the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "reserved_job_max_usd": 0,
+  "fresh_quote": {
+    "gpu": "NVIDIA A40",
+    "rate": 0.59,
+    "stock_status": "Low",
+    "checked_at": 1793393317.1239343
+  },
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "attempts": [
+    {
+      "pod_id": "tfhlwi1yaaw5mu",
+      "job": "target/manifold-probe-fold/mc-probe-fold-d39408dc3926/pod.json",
+      "spent_usd": 0.13329286268088553,
+      "terminated_at": 1793392958.8510358,
+      "outcome": "evaluate failed: CUDA out of memory after fitting 16 of 32 layers (the fit kept autograd history of the LoRA update); pod deleted, deletion confirmed"
+    }
+  ],
+  "retry": "One retry under the restriction above: the first attempt cost $0.13, the retry is capped at 1.7 hours so the cumulative cost stays within $1.20.",
+  "active_job": "target/manifold-probe-fold/mc-probe-fold-2e87c9e62bef/pod.json",
+  "pod_id": "u91gnrbekcrik4",
+  "terminated_at": 1793396634.4878752
+}
