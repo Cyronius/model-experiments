@@ -99,13 +99,44 @@ one-shot selection:
 
 So the difference between the arms lies in the weights, not in which parts they kept.
 
+### Where the closeness is: by depth
+
+Stream error (relative error against the teacher's hidden state) at selected layers:
+
+| Layer | 0 | 5 | 8 | 11 | 14 | 17 | 20 | 23 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Unhealed | .079 | .204 | .244 | .319 | .308 | .340 | .343 | .399 |
+| One-shot, seed 17 | .083 | .226 | .254 | .278 | .233 | .217 | .215 | .216 |
+| One-shot, seed 2 | .084 | .233 | .257 | .283 | .236 | .218 | .214 | .216 |
+| S5 | **.073** | **.186** | **.211** | **.239** | **.210** | .203 | .205 | .214 |
+| One-shot 10× | .134 | .297 | .327 | .349 | .264 | .225 | .216 | .204 |
+
+- **Beyond seed noise.** The two one-shot seeds agree within .003–.007 at every layer.
+  S5 is about .04 lower through layers 5–11, roughly 15–18% closer to the teacher.
+- **Gone by the output.** From layer 17 on, every model sits near .21. The healing loss targets
+  only the final-layer hidden state and the output distribution, so every arm gets there. How the
+  middle layers get there is left free, and that is where the arms differ.
+- **Two routes to the same output.**
+  - One-shot healing compensates for a large cut by changing every block. Its early layers end
+    slightly further from the teacher than the unhealed model, and 10× training moves them further.
+  - S5 absorbs small cuts one at a time, and its blocks stay at or below the unhealed block error.
+- **Direction, not scale.** One-shot healing restored the early layers' hidden-state size to the
+  teacher's (norm ratio about 1.0). S5's stayed about 9% smaller (about 0.91, like the unhealed
+  model). S5's advantage is in direction: cosine .902 against .890 at layer 5.
+
 ## What this means
 
 - For the final loss at this budget, one-shot pruning is as good as gradual pruning and simpler.
   This agrees with Minitron at light sparsity.
-- Gradual pruning is the better choice when block-level fidelity to the teacher matters. Examples
-  are block-wise healing followed by a joint run, layer-local distillation, and model merging or
-  grafting with the teacher. Whether that fidelity pays off downstream is untested.
+- **Teacher-like blocks did not buy a better output here.** One argument for block-wise healing
+  before a joint run is that it leaves blocks close to the teacher's and so gives the joint run a
+  better start. S5 produced that condition another way: small cuts, each healed jointly, with no
+  block-level loss. It still ended at one-shot's loss. At light sparsity and equal compute, block
+  closeness alone is not worth output quality. Block-local losses could get closer than S5 did,
+  and that remains untested; it is a separate experiment.
+- Gradual pruning may still matter where block-level fidelity is used directly: grafting or merging
+  teacher components (for example dense→MoE expert transplants), or layer-local distillation.
+  These are untested.
 - The heavy cut (63.7%, the 0.8B size) is where staging has the most room, as the plan says. One-shot
   heavy healing stalls near 4.8 val CE.
 
