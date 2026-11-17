@@ -98,10 +98,21 @@ def main():
                          '(follow-up 3), or ramp: teacher with probability 1 - (position inside the window\'s own '
                          'FLOP segment), so each block starts teacher-fed and ends on its own prefix')
     ap.add_argument('--init-from', type=Path, help='Branch checkpoint directory (a trunk run\'s checkpoints/gapNN)')
+    ap.add_argument('--pause-after', type=float, default=None,
+                    help='Seconds per segment: at the first evaluation after this, save resume state and exit 75 '
+                         '(so a driver can yield the GPU and relaunch with --resume)')
+    ap.add_argument('--resume', action='store_true',
+                    help='Continue a paused run in --output from its resume state, exactly as if never paused')
     args = ap.parse_args()
     if str(args.device).startswith('cuda') and args.canary is None:
         raise ValueError('GPU runs need --canary (the local GPU can compute wrong values silently)')
-    if args.output.exists():
+    resume_path = args.output / 'resume' / 'state.pt'
+    if args.resume:
+        if not resume_path.exists():
+            raise FileNotFoundError(resume_path)
+        if args.init_from is not None or args.data_offset:
+            raise ValueError('--resume restores the run\'s own state; drop --init-from/--data-offset')
+    elif args.output.exists():
         raise FileExistsError(args.output)
     if args.data_offset < 0 or (args.data_offset and args.init_from is not None):
         raise ValueError('--data-offset must be >= 0 and cannot be combined with --init-from')
@@ -123,12 +134,13 @@ def main():
     if len(train) < 1 or any(arrays[k].shape[1:] != shape or len(arrays[k]) < 1
                              for k in ('calibration', 'controller', 'validation', 'test')):
         raise ValueError('All splits need nonempty equal-length sequences')
-    args.output.mkdir(parents=True)
-    executed = args.output / 'executed-source'
-    executed.mkdir()
-    for path in Path(__file__).parent.glob('*.py'):
-        shutil.copy2(path, executed / path.name)
-    shutil.copy2(Path(__file__).parent / 'protocol.json', executed / 'protocol.json')
+    if not args.resume:
+        args.output.mkdir(parents=True)
+        executed = args.output / 'executed-source'
+        executed.mkdir()
+        for path in Path(__file__).parent.glob('*.py'):
+            shutil.copy2(path, executed / path.name)
+        shutil.copy2(Path(__file__).parent / 'protocol.json', executed / 'protocol.json')
     torch.set_num_threads(2)
     torch.manual_seed(args.seed)
     if str(args.device).startswith('cuda'):
@@ -143,8 +155,13 @@ def main():
         if args.canary is not None:
             canary[when] = canary_check(teacher, args.teacher, args.data, args.canary, args.device, amp, args.canary_gpu)
 
+    segment = 0
+    if args.resume:
+        resumed = torch.load(resume_path, map_location=args.device, weights_only=False)
+        segment = resumed['segment'] + 1
+        canary.update(resumed['canary'])
     try:
-        run_canary('start')
+        run_canary('start' if not segment else f'start_segment{segment}')
     except CanaryFailure as failure:
         save_json(args.output / 'canary-failed.json', json.loads(str(failure)))
         raise SystemExit(3)
@@ -189,7 +206,12 @@ def main():
                       controller_rows=picks.tolist(), branch=branch,
                       profile=profile, target_ce=args.target_ce, canary_start=canary.get('start'),
                       timing_isolation='Use Dibs --measure for timing claims; ordinary runs are observational')
-    save_json(args.output / 'provenance.json', provenance)
+    if not args.resume:
+        save_json(args.output / 'provenance.json', provenance)
+    else:
+        with (args.output / 'resumes.jsonl').open('a') as f:
+            f.write(json.dumps(dict(segment=segment, source_sha256=provenance['source_sha256'],
+                                    canary=canary.get(f'start_segment{segment}'), torch=torch.__version__)) + '\n')
     consumed = eval_flops = decision_flops = steps = tokens = 0
     history, hits = [], []
     rng = np.random.default_rng(args.seed)
@@ -209,8 +231,49 @@ def main():
         order, cursor = np.asarray(state['data']['order']), state['data']['cursor']
         del state
     saved = set()
+    next_eval = args.budget_flops / args.eval_points
+    decision_every = args.budget_flops / args.controller_points
+    next_decision = decision_every
+    prior_elapsed = 0.0
+    if args.resume:
+        student.load_state_dict(resumed['model'])
+        optimizer.load_state_dict(resumed['optimizer'])
+        updates = dict(resumed['updates'])
+        schedule = resumed['schedule']
+        window_rng = schedule.rng if schedule.rng is not None else window_rng
+        d = resumed['data']
+        rng.bit_generator.state, input_rng.bit_generator.state = d['rng'], d['input_rng']
+        window_rng.bit_generator.state = d['window_rng']
+        order, cursor = np.asarray(d['order']), d['cursor']
+        torch.set_rng_state(resumed['torch_rng'].cpu())
+        if resumed.get('cuda_rng') is not None and torch.cuda.is_available():
+            torch.cuda.set_rng_state_all([x.cpu() for x in resumed['cuda_rng']])
+        c = resumed['counters']
+        consumed, eval_flops, decision_flops, steps, tokens = (c['consumed'], c['eval_flops'], c['decision_flops'],
+                                                               c['steps'], c['tokens'])
+        next_eval, next_decision, prior_elapsed = c['next_eval'], c['next_decision'], c['elapsed']
+        history, hits, saved = resumed['history'], resumed['hits'], set(resumed['saved'])
+        del resumed
+        save_json(args.output / 'curve.json', history)  # drop rows from a segment that died after the save
     synchronize(args.device)
-    start = time.monotonic()
+    start = time.monotonic() - prior_elapsed
+    segment_start = time.monotonic()
+
+    def save_resume():
+        folder = args.output / 'resume'
+        folder.mkdir(exist_ok=True)
+        state = dict(segment=segment, model=student.state_dict(), optimizer=optimizer.state_dict(),
+                     updates=dict(updates), schedule=schedule, canary=canary,
+                     data=dict(rng=rng.bit_generator.state, order=order.tolist(), cursor=cursor,
+                               input_rng=input_rng.bit_generator.state, window_rng=window_rng.bit_generator.state),
+                     torch_rng=torch.get_rng_state(),
+                     cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None,
+                     counters=dict(consumed=consumed, eval_flops=eval_flops, decision_flops=decision_flops,
+                                   steps=steps, tokens=tokens, next_eval=next_eval, next_decision=next_decision,
+                                   elapsed=time.monotonic() - start),
+                     history=history, hits=hits, saved=sorted(saved))
+        torch.save(state, folder / 'state.pt.tmp')
+        (folder / 'state.pt.tmp').replace(folder / 'state.pt')
 
     def milestone():
         nonlocal eval_flops
@@ -262,14 +325,18 @@ def main():
         decision_flops += cost
         schedule.observe(errors, (consumed + decision_flops) / args.budget_flops)
 
-    milestone()
-    if schedule.adaptive:
-        decide()
-    next_eval = args.budget_flops / args.eval_points
-    decision_every = args.budget_flops / args.controller_points
-    next_decision = decision_every
+    if not args.resume:
+        milestone()
+        if schedule.adaptive:
+            decide()
     stop = 'budget'
-    with (args.output / 'steps.jsonl').open('x') as log:
+    kept = []
+    if args.resume:  # keep exactly the steps the resume state covers
+        kept = (args.output / 'steps.jsonl').read_text().splitlines(keepends=True)[:steps]
+        if len(kept) != steps:
+            raise ValueError('steps.jsonl is shorter than the resume state')
+    with (args.output / 'steps.jsonl').open('w' if args.resume else 'x') as log:
+        log.writelines(kept)
         while consumed + decision_flops < args.budget_flops:
             spent = consumed + decision_flops
             window = schedule.choose(spent / args.budget_flops)
@@ -326,6 +393,16 @@ def main():
             if spent >= next_eval:
                 milestone()
                 next_eval = (math.floor(spent / (args.budget_flops / args.eval_points)) + 1) * args.budget_flops / args.eval_points
+                if args.pause_after is not None and time.monotonic() - segment_start >= args.pause_after and spent < args.budget_flops:
+                    try:  # only a segment that passes its canary becomes the resume point
+                        run_canary(f'end_segment{segment}')
+                    except CanaryFailure as failure:
+                        save_json(args.output / f'canary-failed-segment{segment}.json', json.loads(str(failure)))
+                        raise SystemExit(3)
+                    log.flush()
+                    save_resume()
+                    print(json.dumps(dict(paused=True, segment=segment, step=steps)), flush=True)
+                    raise SystemExit(75)
     if history[-1]['step'] != steps:
         milestone()
     # Test data is touched only after optimization and scheduling are finished.
@@ -354,6 +431,7 @@ def main():
     student.save_pretrained(args.output / 'final', safe_serialization=True, max_shard_size='2GB')
     save_json(args.output / 'controller-decisions.json', schedule.observations)
     save_json(args.output / 'summary.json', summary)
+    shutil.rmtree(args.output / 'resume', ignore_errors=True)  # large; only needed while paused
 
 
 if __name__ == '__main__':

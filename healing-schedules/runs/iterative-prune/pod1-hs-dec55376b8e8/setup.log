@@ -1,0 +1,257 @@
+Looking in indexes: https://pypi.org/simple, https://download.pytorch.org/whl/cu126
+Collecting torch==2.14.1 (from -r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://download-r2.pytorch.org/whl/cu126/torch-2.14.1%2Bcu126-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (37 kB)
+Collecting transformers==5.14.1 (from -r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading transformers-5.14.1-py3-none-any.whl.metadata (32 kB)
+Collecting tokenizers==0.22.2 (from -r manifold-compression/../healing-schedules/pod_requirements.txt (line 7))
+  Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+Collecting huggingface-hub==1.33.0 (from -r manifold-compression/../healing-schedules/pod_requirements.txt (line 8))
+  Downloading huggingface_hub-1.33.0-py3-none-any.whl.metadata (16 kB)
+Collecting safetensors==0.8.0 (from -r manifold-compression/../healing-schedules/pod_requirements.txt (line 9))
+  Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting numpy>=2 (from -r manifold-compression/../healing-schedules/pod_requirements.txt (line 10))
+  Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting pyarrow>=20 (from -r manifold-compression/../healing-schedules/pod_requirements.txt (line 11))
+  Downloading pyarrow-26.0.1-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting pytest>=8 (from -r manifold-compression/../healing-schedules/pod_requirements.txt (line 12))
+  Downloading pytest-9.2.0-py3-none-any.whl.metadata (7.9 kB)
+Requirement already satisfied: filelock in /usr/local/lib/python3.11/dist-packages (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5)) (3.13.1)
+Collecting typing-extensions>=4.10.0 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting setuptools>=77.0.3 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading setuptools-84.2.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting sympy>=1.13.3 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.11/dist-packages (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5)) (3.2.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.11/dist-packages (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5)) (3.1.3)
+Requirement already satisfied: fsspec>=0.8.5 in /usr/local/lib/python3.11/dist-packages (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5)) (2024.2.0)
+Collecting cuda-toolkit==12.6.3 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/cuda-toolkit/cuda_toolkit-12.6.3-py2.py3-none-any.whl (2.3 kB)
+Collecting cuda-bindings<13,>=12.9.4 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading cuda_bindings-12.9.10-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.6 kB)
+Collecting nvidia-cudnn-cu12==9.10.2.21 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cudnn-cu12/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl (706.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 706.8/706.8 MB 433.2 MB/s eta 0:00:00
+Collecting nvidia-cusparselt-cu12==0.7.1 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cusparselt-cu12/nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl (287.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 287.2/287.2 MB 424.4 MB/s eta 0:00:00
+Collecting nvidia-nccl-cu12==2.29.3 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-nccl-cu12/nvidia_nccl_cu12-2.29.3-py3-none-manylinux_2_18_x86_64.whl (289.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 289.8/289.8 MB 291.4 MB/s eta 0:00:00
+Collecting nvidia-nvshmem-cu12==3.4.5 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-nvshmem-cu12/nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (139.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.1/139.1 MB 448.4 MB/s eta 0:00:00
+Collecting nvidia-nvjitlink-cu12<13,>=12.6.85 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-nvjitlink-cu12/nvidia_nvjitlink_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (39.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 39.7/39.7 MB 429.5 MB/s eta 0:00:00
+Collecting triton~=3.8.0 (from torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://download-r2.pytorch.org/whl/triton-3.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (978 bytes)
+Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.11/dist-packages (from transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6)) (24.1)
+Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.11/dist-packages (from transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6)) (6.0.2)
+Collecting regex>=2025.10.22 (from transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading regex-2026.11.15-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.5/40.5 kB 325.5 MB/s eta 0:00:00
+Collecting typer (from transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading typer-0.29.1-py3-none-any.whl.metadata (16 kB)
+Collecting tqdm>=4.60 (from transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.4/57.4 kB 348.8 MB/s eta 0:00:00
+Collecting click<9.0.0,>=8.4.2 (from huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8))
+  Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+Collecting hf-xet<2.0.0,>=1.6.0 (from huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8))
+  Downloading hf_xet-1.8.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.11/dist-packages (from huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8)) (0.27.2)
+Collecting nvidia-cublas-cu12==12.6.4.1.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cublas-cu12/nvidia_cublas_cu12-12.6.4.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (393.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 393.1/393.1 MB 213.8 MB/s eta 0:00:00
+Collecting nvidia-cuda-runtime-cu12==12.6.77.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cuda-runtime-cu12/nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (897 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 897.7/897.7 kB 415.2 MB/s eta 0:00:00
+Collecting nvidia-cufft-cu12==11.3.0.4.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cufft-cu12/nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (200.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 200.2/200.2 MB 316.3 MB/s eta 0:00:00
+Collecting nvidia-cufile-cu12==1.11.1.6.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cufile-cu12/nvidia_cufile_cu12-1.11.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 419.2 MB/s eta 0:00:00
+Collecting nvidia-cuda-cupti-cu12==12.6.80.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cuda-cupti-cu12/nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.9/8.9 MB 188.5 MB/s eta 0:00:00
+Collecting nvidia-curand-cu12==10.3.7.77.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-curand-cu12/nvidia_curand_cu12-10.3.7.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (56.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 MB 249.9 MB/s eta 0:00:00
+Collecting nvidia-cusolver-cu12==11.7.1.2.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cusolver-cu12/nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (158.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 158.2/158.2 MB 306.2 MB/s eta 0:00:00
+Collecting nvidia-cusparse-cu12==12.5.4.2.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cusparse-cu12/nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (216.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 216.6/216.6 MB 303.8 MB/s eta 0:00:00
+Collecting nvidia-cuda-nvrtc-cu12==12.6.85.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-cuda-nvrtc-cu12/nvidia_cuda_nvrtc_cu12-12.6.85-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (23.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.6/23.6 MB 304.8 MB/s eta 0:00:00
+Collecting nvidia-nvtx-cu12==12.6.77.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvrtc,nvtx]==12.6.3; platform_system == "Linux"->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading https://pypi.nvidia.com/nvidia-nvtx-cu12/nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (89 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.3/89.3 kB 336.8 MB/s eta 0:00:00
+Collecting iniconfig>=2 (from pytest>=8->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 12))
+  Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Collecting pluggy<2,>=1.6 (from pytest>=8->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 12))
+  Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+Requirement already satisfied: pygments>=2.15 in /usr/local/lib/python3.11/dist-packages (from pytest>=8->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 12)) (2.18.0)
+Collecting cuda-pathfinder~=1.1 (from cuda-bindings<13,>=12.9.4->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5))
+  Downloading cuda_pathfinder-1.9.0-py3-none-any.whl.metadata (1.9 kB)
+Requirement already satisfied: anyio in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8)) (4.6.0)
+Requirement already satisfied: certifi in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8)) (2024.8.30)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8)) (1.0.5)
+Requirement already satisfied: idna in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8)) (3.10)
+Requirement already satisfied: sniffio in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8)) (1.3.1)
+Requirement already satisfied: h11<0.15,>=0.13 in /usr/local/lib/python3.11/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub==1.33.0->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 8)) (0.14.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.11/dist-packages (from sympy>=1.13.3->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5)) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/dist-packages (from jinja2->torch==2.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 5)) (2.1.5)
+Collecting pydantic>=2.5.3 (from typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 141.5/141.5 kB 160.8 MB/s eta 0:00:00
+Collecting shellingham>=1.3.0 (from typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting rich>=13.8.0 (from typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting annotated-doc>=0.0.2 (from typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading annotated_doc-0.0.6-py3-none-any.whl.metadata (6.5 kB)
+Collecting annotated-types>=0.6.0 (from pydantic>=2.5.3->typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.50.4 (from pydantic>=2.5.3->typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading pydantic_core-2.50.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+Collecting typing-inspection>=0.4.4 (from pydantic>=2.5.3->typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.8.0->typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading markdown_it_py-4.3.0-py3-none-any.whl.metadata (7.9 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers==5.14.1->-r manifold-compression/../healing-schedules/pod_requirements.txt (line 6))
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Downloading https://download-r2.pytorch.org/whl/cu126/torch-2.14.1%2Bcu126-cp311-cp311-manylinux_2_28_x86_64.whl (869.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 869.1/869.1 MB 445.3 MB/s eta 0:00:00
+Downloading transformers-5.14.1-py3-none-any.whl (11.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.6/11.6 MB 414.5 MB/s eta 0:00:00
+Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 286.4 MB/s eta 0:00:00
+Downloading huggingface_hub-1.33.0-py3-none-any.whl (846 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 846.4/846.4 kB 453.3 MB/s eta 0:00:00
+Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 516.0/516.0 kB 458.6 MB/s eta 0:00:00
+Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 433.7 MB/s eta 0:00:00
+Downloading pyarrow-26.0.1-cp311-cp311-manylinux_2_28_x86_64.whl (55.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.0/55.0 MB 172.5 MB/s eta 0:00:00
+Downloading pytest-9.2.0-py3-none-any.whl (411 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 411.8/411.8 kB 446.1 MB/s eta 0:00:00
+Downloading click-8.5.1-py3-none-any.whl (126 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 126.2/126.2 kB 399.0 MB/s eta 0:00:00
+Downloading cuda_bindings-12.9.10-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (7.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.6/7.6 MB 278.4 MB/s eta 0:00:00
+Downloading hf_xet-1.8.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 443.8 MB/s eta 0:00:00
+Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+Downloading regex-2026.11.15-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.3/806.3 kB 364.3 MB/s eta 0:00:00
+Downloading setuptools-84.2.1-py3-none-any.whl (876 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.3/876.3 kB 460.6 MB/s eta 0:00:00
+Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 446.7 MB/s eta 0:00:00
+Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80.2/80.2 kB 398.0 MB/s eta 0:00:00
+Downloading https://download-r2.pytorch.org/whl/triton-3.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (246.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 246.8/246.8 MB 255.4 MB/s eta 0:00:00
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 353.6 MB/s eta 0:00:00
+Downloading typer-0.29.1-py3-none-any.whl (121 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.1/121.1 kB 405.6 MB/s eta 0:00:00
+Downloading annotated_doc-0.0.6-py3-none-any.whl (5.3 kB)
+Downloading cuda_pathfinder-1.9.0-py3-none-any.whl (63 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.4/63.4 kB 403.7 MB/s eta 0:00:00
+Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 494.1/494.1 kB 465.7 MB/s eta 0:00:00
+Downloading pydantic_core-2.50.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 421.1 MB/s eta 0:00:00
+Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 310.7/310.7 kB 449.9 MB/s eta 0:00:00
+Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Downloading markdown_it_py-4.3.0-py3-none-any.whl (96 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.0/97.0 kB 397.8 MB/s eta 0:00:00
+Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Installing collected packages: nvidia-cusparselt-cu12, cuda-toolkit, typing-extensions, triton, tqdm, sympy, shellingham, setuptools, safetensors, regex, pyarrow, pluggy, nvidia-nvtx-cu12, nvidia-nvshmem-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufile-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, numpy, mdurl, iniconfig, hf-xet, cuda-pathfinder, click, annotated-types, annotated-doc, typing-inspection, pytest, pydantic-core, nvidia-cusparse-cu12, nvidia-cufft-cu12, nvidia-cudnn-cu12, markdown-it-py, cuda-bindings, rich, pydantic, nvidia-cusolver-cu12, huggingface-hub, typer, tokenizers, transformers, torch
+  Attempting uninstall: typing-extensions
+    Found existing installation: typing_extensions 4.9.0
+    Not uninstalling typing-extensions at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'typing_extensions'. No files were found to uninstall.
+  Attempting uninstall: triton
+    Found existing installation: triton 3.0.0
+    Not uninstalling triton at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'triton'. No files were found to uninstall.
+  Attempting uninstall: sympy
+    Found existing installation: sympy 1.12
+    Not uninstalling sympy at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'sympy'. No files were found to uninstall.
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 65.5.0
+    Uninstalling setuptools-65.5.0:
+      Successfully uninstalled setuptools-65.5.0
+  Attempting uninstall: nvidia-nvtx-cu12
+    Found existing installation: nvidia-nvtx-cu12 12.4.99
+    Not uninstalling nvidia-nvtx-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-nvtx-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-nvjitlink-cu12
+    Found existing installation: nvidia-nvjitlink-cu12 12.4.99
+    Not uninstalling nvidia-nvjitlink-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-nvjitlink-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-nccl-cu12
+    Found existing installation: nvidia-nccl-cu12 2.20.5
+    Not uninstalling nvidia-nccl-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-nccl-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-curand-cu12
+    Found existing installation: nvidia-curand-cu12 10.3.5.119
+    Not uninstalling nvidia-curand-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-curand-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-cuda-runtime-cu12
+    Found existing installation: nvidia-cuda-runtime-cu12 12.4.99
+    Not uninstalling nvidia-cuda-runtime-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-cuda-runtime-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-cuda-nvrtc-cu12
+    Found existing installation: nvidia-cuda-nvrtc-cu12 12.4.99
+    Not uninstalling nvidia-cuda-nvrtc-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-cuda-nvrtc-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-cuda-cupti-cu12
+    Found existing installation: nvidia-cuda-cupti-cu12 12.4.99
+    Not uninstalling nvidia-cuda-cupti-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-cuda-cupti-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-cublas-cu12
+    Found existing installation: nvidia-cublas-cu12 12.4.2.65
+    Not uninstalling nvidia-cublas-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-cublas-cu12'. No files were found to uninstall.
+  Attempting uninstall: numpy
+    Found existing installation: numpy 1.26.3
+    Not uninstalling numpy at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'numpy'. No files were found to uninstall.
+  Attempting uninstall: nvidia-cusparse-cu12
+    Found existing installation: nvidia-cusparse-cu12 12.3.0.142
+    Not uninstalling nvidia-cusparse-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-cusparse-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-cufft-cu12
+    Found existing installation: nvidia-cufft-cu12 11.2.0.44
+    Not uninstalling nvidia-cufft-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-cufft-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-cudnn-cu12
+    Found existing installation: nvidia-cudnn-cu12 9.1.0.70
+    Not uninstalling nvidia-cudnn-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-cudnn-cu12'. No files were found to uninstall.
+  Attempting uninstall: nvidia-cusolver-cu12
+    Found existing installation: nvidia-cusolver-cu12 11.6.0.99
+    Not uninstalling nvidia-cusolver-cu12 at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'nvidia-cusolver-cu12'. No files were found to uninstall.
+  Attempting uninstall: torch
+    Found existing installation: torch 2.4.1+cu124
+    Not uninstalling torch at /usr/local/lib/python3.11/dist-packages, outside environment /workspace/manifold/env
+    Can't uninstall 'torch'. No files were found to uninstall.
+Successfully installed annotated-doc-0.0.6 annotated-types-0.8.0 click-8.5.1 cuda-bindings-12.9.10 cuda-pathfinder-1.9.0 cuda-toolkit-12.6.3 hf-xet-1.8.0 huggingface-hub-1.33.0 iniconfig-2.3.1 markdown-it-py-4.3.0 mdurl-0.1.2 numpy-2.4.6 nvidia-cublas-cu12-12.6.4.1 nvidia-cuda-cupti-cu12-12.6.80 nvidia-cuda-nvrtc-cu12-12.6.85 nvidia-cuda-runtime-cu12-12.6.77 nvidia-cudnn-cu12-9.10.2.21 nvidia-cufft-cu12-11.3.0.4 nvidia-cufile-cu12-1.11.1.6 nvidia-curand-cu12-10.3.7.77 nvidia-cusolver-cu12-11.7.1.2 nvidia-cusparse-cu12-12.5.4.2 nvidia-cusparselt-cu12-0.7.1 nvidia-nccl-cu12-2.29.3 nvidia-nvjitlink-cu12-12.9.86 nvidia-nvshmem-cu12-3.4.5 nvidia-nvtx-cu12-12.6.77 pluggy-1.7.0 pyarrow-26.0.1 pydantic-2.14.3 pydantic-core-2.50.4 pytest-9.2.0 regex-2026.11.15 rich-15.0.0 safetensors-0.8.0 setuptools-84.2.1 shellingham-1.5.4 sympy-1.14.0 tokenizers-0.22.2 torch-2.14.1+cu126 tqdm-4.70.1 transformers-5.14.1 triton-3.8.0 typer-0.29.1 typing-extensions-4.16.0 typing-inspection-0.4.5
+
+[notice] A new release of pip is available: 24.0 -> 26.3
+[notice] To update, run: python -m pip install --upgrade pip

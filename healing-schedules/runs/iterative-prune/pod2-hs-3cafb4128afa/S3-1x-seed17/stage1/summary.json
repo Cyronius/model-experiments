@@ -1,0 +1,123 @@
+{
+  "status": "budget",
+  "steps": 49,
+  "tokens": 100352,
+  "training_flops": 1994338100543488,
+  "decision_flops": 0,
+  "budget_flops": 2000000000000000,
+  "unspent_training_flops": 5661899456512,
+  "parameter_group_updates": {
+    "embedding": 49,
+    "final_norm": 49,
+    "layer0": 49,
+    "layer1": 49,
+    "layer2": 49,
+    "layer3": 49,
+    "layer4": 49,
+    "layer5": 49,
+    "layer6": 49,
+    "layer7": 49,
+    "layer8": 49,
+    "layer9": 49,
+    "layer10": 49,
+    "layer11": 49,
+    "layer12": 49,
+    "layer13": 49,
+    "layer14": 49,
+    "layer15": 49,
+    "layer16": 49,
+    "layer17": 49,
+    "layer18": 49,
+    "layer19": 49,
+    "layer20": 49,
+    "layer21": 49,
+    "layer22": 49,
+    "layer23": 49
+  },
+  "profiling_flops": 40700777562112,
+  "evaluation_flops": 9196822675324928,
+  "total_accounted_flops": 11231861553430528,
+  "final_test": {
+    "ce": 2.7294974476099014,
+    "perplexity": 15.325183376792495,
+    "teacher_kl": 0.24206303199753165,
+    "discrepancy_by_depth": [
+      0.033087743155192584,
+      0.05650896509177983,
+      0.06607215234544128,
+      0.08322739298455417,
+      0.0898875177372247,
+      0.08891726029105484,
+      0.08904716186225414,
+      0.09798618592321873,
+      0.10427875863388181,
+      0.11133808200247586,
+      0.10853265947662294,
+      0.12226071651093662,
+      0.12009698245674372,
+      0.11908136145211756,
+      0.10572095704264939,
+      0.10134586109779775,
+      0.09747161064296961,
+      0.09746616519987583,
+      0.09834690857678652,
+      0.10213816212490201,
+      0.09987995191477239,
+      0.0997299924492836,
+      0.1154859650414437,
+      0.11214146157726645
+    ],
+    "target_tokens": 65504
+  },
+  "reached_target": false,
+  "first_confirmed_target": null,
+  "peak_host_rss_bytes": 4798545920,
+  "peak_device_allocated_bytes": 45917283328,
+  "peak_device_reserved_bytes": 50476351488,
+  "elapsed_seconds": 238.35424047900233,
+  "note": "A time/step-limited run is censored, not an equal-budget result.",
+  "canary": {
+    "start": {
+      "ce": [
+        1.238863229751587,
+        0.8693028092384338,
+        1.2091186046600342,
+        0.3250352442264557
+      ],
+      "cpu_abs_diff": [
+        0.0022096633911132812,
+        0.0001176595687866211,
+        4.553794860839844e-05,
+        0.00037357211112976074
+      ],
+      "cpu_tolerance": 0.05,
+      "ok": true,
+      "device_name": "NVIDIA H100 NVL",
+      "wrote_gpu_reference": "/workspace/manifold/outputs/canary-gpu.json"
+    },
+    "end": {
+      "ce": [
+        1.238863229751587,
+        0.8693028092384338,
+        1.2091186046600342,
+        0.3250352442264557
+      ],
+      "cpu_abs_diff": [
+        0.0022096633911132812,
+        0.0001176595687866211,
+        4.553794860839844e-05,
+        0.00037357211112976074
+      ],
+      "cpu_tolerance": 0.05,
+      "ok": true,
+      "device_name": "NVIDIA H100 NVL",
+      "gpu_abs_diff": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "gpu_tolerance": 0.01
+    }
+  }
+}

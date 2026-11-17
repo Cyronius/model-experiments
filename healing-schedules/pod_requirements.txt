@@ -1,0 +1,16 @@
+# pod_worker.py on the rented GPU. RunPod's image ships torch 2.4; this is the local env's torch (CUDA 12.6
+# build) and transformers, as npu-kernel-coder/train/pod/worker.sh installs them. The image's torchvision and
+# torchaudio are removed before this runs (run_pod.py), since they break against a newer torch.
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.14.1
+transformers==5.14.1
+tokenizers==0.22.2
+huggingface-hub==1.33.0
+safetensors==0.8.0
+numpy>=2
+pyarrow>=20
+pytest>=8
+# Qwen3.5's linear attention: without fla it runs a torch fallback at ~10% GPU use (first pod, 2026-11-16).
+fla-core==0.6.0
+flash-linear-attention==0.6.0
+einops

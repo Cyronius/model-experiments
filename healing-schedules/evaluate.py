@@ -126,6 +126,7 @@ def main():
     ap.add_argument('--mc-examples', type=int, default=None, help='Per multiple-choice task; default all frozen')
     ap.add_argument('--gsm8k-examples', type=int, default=128)
     ap.add_argument('--gsm8k-tokens', type=int, default=1024)
+    ap.add_argument('--splits', default=','.join(SPLITS), help='Comma-separated corpus splits to score')
     ap.add_argument('--canary', type=Path, help='CPU FP32 canary reference (required on a GPU)')
     ap.add_argument('--canary-gpu', type=Path)
     args = ap.parse_args()
@@ -158,7 +159,9 @@ def main():
     arrays = np.load(args.data / 'tokens.npz', allow_pickle=False)
     names = data_meta['domains']
     results = {}
-    for split in SPLITS:
+    for split in args.splits.split(','):
+        if split not in SPLITS:
+            raise ValueError(f'Unknown split: {split}')
         metric, cost = counted(lambda: corpus_metrics(model, teacher, arrays[split][:args.sequences],
                                                       arrays[f'{split}_domain'][:args.sequences], names, args.device, amp))
         results[split] = dict(**metric, accounted_flops=cost)

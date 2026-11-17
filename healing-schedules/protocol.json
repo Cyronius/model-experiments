@@ -256,5 +256,94 @@
     "report": "reports/pilot-v2",
     "settings": "seed 17, 6e15 training FLOPs, lr 1e-4, batch 1, 6 evaluations of 16 sequences",
     "result": "best final validation CE adaptive_plateau 4.445 and fixed 4.454 (61% of the gap to stock 0.8B) from 7.055; joint fastest at the first evaluation (5.38) then flat at 4.8-4.95"
+  },
+  "followup_long_joint_cosine": {
+    "status": "complete 2026-11-15 (training finished 12:57; quick evaluation 16:31 after a reboot killed the first attempt)",
+    "question": "How long does joint-cosine keep improving on the light student? (user, 2026-11-15)",
+    "student": "damaged-light-h1792-n1473244736",
+    "settings": "joint, lr 3e-5 cosine-decayed to 0 over 60e15 training FLOPs (10x the study budget, ~3.2M tokens), batch 1, seed 17, 40 evaluations of 32 sequences (every 1.5e15)",
+    "machine_kindness": "2 h segments with exact resume state (run.py --pause-after/--resume), 600 s GPU breaks between, nice 10, idle I/O, 2 CPU threads, 400% CPU quota, 24G host-memory cap",
+    "caveat": "The cosine schedule is tied to the budget, so this measures where a 10x-budget cosine run stops improving, not a budget-free limit; the 6e15 run (runs/followup-random/joint-cosine-seed17) is the 1x point.",
+    "results": {
+      "final_val_ce": 3.099,
+      "test_ce": 3.083,
+      "test_teacher_kl": 0.58,
+      "gap_closed": 0.505,
+      "quick_eval": "ARC-E .485, ARC-C .305, MMLU .325 (first 200 each), GSM8K .3125 (first 32, 22 finished); the 1x run on the same subsets: .525 / .315 / .320 / .25",
+      "curve": "stuck at 3.14-3.16 while the learning rate was high, 3.10 by 52e15 as it decayed, flat to the end",
+      "files": "runs/long-joint-cosine/joint-cosine-60e15-seed17 (curve.json, eval-quick.json)"
+    },
+    "evaluation_change": "Quick evaluation (~20 min) instead of the full ~1 h one, at the user's request: test split only, first 200 of each multiple-choice task, first 32 GSM8K problems at 1024 tokens (evaluate.py --splits test --mc-examples 200 --gsm8k-examples 32). Subsets are prefixes of the frozen sets, so earlier runs are rescored on the same examples from their eval.json rows.",
+    "block_probe": "block_probe.py on the unhealed, 1x and 10x students (runs/long-joint-cosine/block-probe.json): each block fed the teacher's input moved away from its teacher block, more with more training (update cosine down in all 24 layers); the student's own stream moved toward the teacher in layers 10-23 (cosine 0.82 -> 0.89, logit-lens KL at layer 18 2.28 -> 1.31); early-layer drift at 10x is mostly scale (norm ratio up to 1.14), not direction."
+  },
+  "followup_iterative_prune": {
+    "status": "run 2026-11-16/17 on a rented H100 (1x arms complete; seed-17 one-shot rerun and 10x arms pending at write-up); results-iterative-prune.md",
+    "question": "Does removing 25% of Qwen3.5-2B in ~10% steps, healing after each, beat removing 25% at once and healing once, at equal total training FLOPs? (user, 2026-11-16)",
+    "plan": "plan-iterative-prune.md",
+    "stages": "each removes ~10% of the teacher's non-embedding parameters; residual shrinks 256 coordinates per 25% (aligned to 64), FFN takes the rest; the last stage lands on the light student's geometry exactly (h1792, FFN 4800, 1,473,244,736 parameters)",
+    "reprune": "pruning.py --from-artifact: activation statistics from the healed model being cut (same selection and norm-rescale probe as the first cut); saved indices composed into the teacher's coordinates",
+    "healing": "joint, lr 3e-5 cosine to 0 within each stage, warmup 32, batch 1, seed 17, fresh optimizer per stage, data stream continued across stages (--data-offset), equal FLOP shares per stage",
+    "arms_in_priority_order": [
+      "oneshot-1x-seed17",
+      "S3-1x-seed17 (10/20/25%)",
+      "oneshot-1x-seed2",
+      "S2-1x-seed17 (12.5/25%)",
+      "S5-1x-seed17 (5/10/15/20/25%)",
+      "S3-10x-seed17",
+      "oneshot-10x-seed17"
+    ],
+    "deviation_from_plan": "The plan made the 10x arms conditional on the 1x results; on the pod they run whenever the deadline allows, since they add about $2-3 and the user approved the whole plan. The one-shot baselines are rerun on the pod so every comparison is on the same hardware.",
+    "measurements": "val CE right after each cut (damage), each stage's curve, final val/test CE and gap closed, quick evaluation on the frozen subsets, block probe of the final model, kept-coordinate overlap with the one-shot selection",
+    "predictions": {
+      "primary": "At 6e15, S3 ends within 0.03 of one-shot in either direction.",
+      "damage": "Each cut of a healed model costs 0.4 val CE or less (the one-shot 25% cut cost 1.11 from the teacher).",
+      "finer_steps": "S5 is no better than S3 at 1x.",
+      "scale": "If staging helps at all, it helps more at 10x than at 1x."
+    },
+    "compute": "one RunPod H100 (secure), $20 cap (runpod_budget_iterprune_20261116.json), deadline set so the job cannot exceed it",
+    "deviation_during_run": "2026-11-16 23:50 CST, during the oneshot-1x-seed17 arm: the pod ran Qwen3.5 linear attention on the torch fallback (pod_requirements.txt lacked flash-linear-attention) at about 10% GPU utilization. fla-core 0.6.0 and flash-linear-attention 0.6.0 were installed into the pod venv live (torch stayed 2.14.1+cu126). Every process started after that uses fla chunk_gated_delta_rule (the conv stays on torch: causal-conv1d not installed). Canary under fla passed (max |diff| 0.0022 vs CPU reference, 0.0019 vs the pod GPU reference; tolerances 0.05 / 0.01). Student fwd+bwd at 2048 tokens: 0.23 s with fla vs 1.01 s with the fallback. Consequence: oneshot-1x-seed17 trained on the fallback kernel; every later arm trains on fla. The kernel difference is ~0.002 CE on the canary, well below the 0.03 decision margin, but oneshot-1x-seed2 (fla) is the cleaner same-kernel baseline. The worker averages arm speeds, so the slow first arm makes it skip late arms more readily than needed.",
+    "results": {
+      "val_ce": {
+        "oneshot-1x-seed17 (first pod, torch fallback kernel)": 3.1408,
+        "oneshot-1x-seed2": 3.1223,
+        "S2-1x-seed17": 3.1427,
+        "S3-1x-seed17": 3.134,
+        "S5-1x-seed17": 3.1219
+      },
+      "test_ce": {
+        "oneshot-1x-seed17 (first pod)": 3.1166,
+        "oneshot-1x-seed2": 3.0927,
+        "S2-1x-seed17": 3.1353,
+        "S3-1x-seed17": 3.1169,
+        "S5-1x-seed17": 3.0992
+      },
+      "predictions": {
+        "primary_S3_within_0.03": "confirmed",
+        "damage_per_cut_le_0.4": "confirmed (max 0.38)",
+        "S5_no_better_than_S3": "confirmed within seed noise",
+        "helps_more_at_10x": "pending"
+      },
+      "block_probe_stream_rel_err": {
+        "oneshot-1x-seed2": 0.224,
+        "S2": 0.214,
+        "S3": 0.201,
+        "S5": 0.196
+      },
+      "selection_overlap_with_oneshot": {
+        "S2": [
+          0.97,
+          0.96
+        ],
+        "S3": [
+          0.973,
+          0.959
+        ],
+        "S5": [
+          0.978,
+          0.962
+        ]
+      },
+      "records": "runs/iterative-prune/"
+    }
   }
 }

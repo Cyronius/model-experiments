@@ -1,0 +1,37 @@
+{
+  "status": "running",
+  "session": "healing-schedules: iterative pruning against one-shot pruning (plan-iterative-prune.md), 2026-11-16",
+  "user_authorization": "I estimated the plan at $5-15 on one RunPod H100 and wrote: 'I'd ask for a $20 cap to cover setup and mistakes ... give me a dollar cap and say which plan: just this one, or this plus the big heal.' User: 'Use h100s. Go'. Taken as the $20 cap I proposed, for this plan only (not the larger 100M-token heal).",
+  "scope": "One H100 pod running healing-schedules/pod_worker.py: one-shot 1x (seeds 17, 2), staged S3/S2/S5 at 1x, S3 and one-shot at 10x, each with the quick evaluation and the block probe.",
+  "total_cap_usd": 20.0,
+  "spent_usd": 4.949842143155468,
+  "restrictions": [
+    "Not a standing authorization for other jobs",
+    "No automatic retry with another paid pod; a retry after a failure is a deliberate relaunch and the cumulative cost stays within this cap",
+    "Do not modify, resume or delete pre-existing unrelated pods"
+  ],
+  "reserved_job_max_usd": 14.989333333333335,
+  "fresh_quote": {
+    "gpu": "NVIDIA H100 NVL",
+    "rate": 3.19,
+    "stock_status": "Low",
+    "checked_at": 1794915675.3819137
+  },
+  "attempts": [
+    {
+      "job": "target/healing-schedules/pod/hs-813068470f54",
+      "outcome": "no pod created: the create call failed DNS (rest.runpod.io retired); $0"
+    },
+    {
+      "job": "target/healing-schedules/pod/hs-dec55376b8e8",
+      "pod_id": "1sntrd79wizt99",
+      "outcome": "oneshot-1x-seed17 trained (val 3.1408, test 3.1166), then the worker crashed on a status() keyword clash; pod deleted",
+      "spent_usd": 4.949842143155468,
+      "terminated_at": 1794895893.1819673
+    }
+  ],
+  "billing_basis": "elapsed time at the allocated rate, not the provider invoice",
+  "relaunch_authorization": "2026-11-17 ~00:30: after my report of the crash and the partial smoke, user: 'Relaunch'.",
+  "active_job": "target/healing-schedules/pod/hs-3cafb4128afa/pod.json",
+  "pod_id": "qrmbeqlcw059r4"
+}

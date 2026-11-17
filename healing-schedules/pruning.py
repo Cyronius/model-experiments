@@ -59,10 +59,11 @@ def activation_stats(model, rows):
     """Teacher means over calibration tokens: norm input/output energy per coordinate, FFN activation energy."""
     from engine import stream
     width = model.config.hidden_size
+    device = next(model.parameters()).device
     norms = hidden_norms(model)
-    norm_in = {k: torch.zeros(width, dtype=torch.float64) for k in norms}
-    norm_out = torch.zeros(width, dtype=torch.float64)
-    ffn = [torch.zeros(model.config.intermediate_size, dtype=torch.float64) for _ in model.model.layers]
+    norm_in = {k: torch.zeros(width, dtype=torch.float64, device=device) for k in norms}
+    norm_out = torch.zeros(width, dtype=torch.float64, device=device)
+    ffn = [torch.zeros(model.config.intermediate_size, dtype=torch.float64, device=device) for _ in model.model.layers]
     hooks = []
 
     def on_norm(name):
@@ -90,8 +91,8 @@ def activation_stats(model, rows):
     finally:
         for h in hooks:
             h.remove()
-    return dict(norm_output_energy=norm_out / tokens, ffn_activation_energy=torch.stack(ffn) / tokens,
-                norm_input_energy=torch.stack([norm_in[k] for k in norms]) / tokens,
+    return dict(norm_output_energy=(norm_out / tokens).cpu(), ffn_activation_energy=(torch.stack(ffn) / tokens).cpu(),
+                norm_input_energy=(torch.stack([norm_in[k] for k in norms]) / tokens).cpu(),
                 norm_names=list(norms), tokens=tokens)
 
 
@@ -217,8 +218,9 @@ def plain_ce(model, rows, chunk=256):
     """Student-only next-token CE (FP32), for the start-quality probe."""
     from engine import stream
     total, n = 0.0, 0
+    device = next(model.parameters()).device
     for row in rows:
-        ids = torch.tensor(np.asarray(row)[None], dtype=torch.long)
+        ids = torch.tensor(np.asarray(row)[None], dtype=torch.long, device=device)
         h = model.model.norm(stream(model, ids)[-1])[0, :-1]
         labels = ids[0, 1:]
         for a in range(0, len(labels), chunk):
@@ -226,6 +228,20 @@ def plain_ce(model, rows, chunk=256):
                                                              labels[a:a + chunk], reduction='sum'))
         n += len(labels)
     return total / n
+
+
+def compose(parent, residual, ffn):
+    """Indices into a pruned parent's coordinates -> indices into the original teacher's."""
+    p_res = parent['residual_indices']
+    if len(residual) and max(residual) >= len(p_res):
+        raise ValueError('Residual selection outside the parent')
+    out_ffn = []
+    for layer, keep in enumerate(ffn):
+        p_ffn = parent['ffn_indices'][layer]
+        if len(keep) and max(keep) >= len(p_ffn):
+            raise ValueError(f'FFN selection outside the parent in layer {layer}')
+        out_ffn.append([p_ffn[i] for i in keep])
+    return [p_res[i] for i in residual], out_ffn
 
 
 def verify_artifact(folder):
@@ -248,11 +264,17 @@ def main():
     ap.add_argument('--train-rows', type=int, default=24, help='Train rows added to the calibration split for statistics')
     ap.add_argument('--probe-rows', type=int, default=16, help='Controller/validation rows per probe (0 skips)')
     ap.add_argument('--threads', type=int, default=8)
+    ap.add_argument('--device', default='cpu', help='Device for activation statistics and the start-quality probe')
+    ap.add_argument('--from-artifact', type=Path,
+                    help='Re-prune: --source is a healed model grown from this pruned artifact (iterative pruning). '
+                         'Statistics come from the healed model; saved indices stay in the teacher\'s coordinates.')
     args = ap.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
     torch.set_num_threads(args.threads)
     meta = json.loads((ROOT / 'metadata/Qwen3.5-2B.json').read_text())
+    if args.from_artifact is not None:
+        return reprune(args, meta)
     local_config = json.loads((args.source / 'config.json').read_text())
     if local_config != meta['config']:
         raise ValueError('Source configuration does not match verified revision')
@@ -280,7 +302,7 @@ def main():
         arrays = np.load(args.data / 'tokens.npz', allow_pickle=False)
         train_rows = sorted(np.random.default_rng(0).choice(len(arrays['train']), args.train_rows, replace=False).tolist())
         rows = list(arrays['calibration']) + [arrays['train'][i] for i in train_rows]
-        teacher = load_model(args.source, 'cpu', torch.float32)
+        teacher = load_model(args.source, args.device, torch.float32)
         stats = activation_stats(teacher, rows)
         del teacher
         extra = dict(calibration=dict(splits=['calibration (all)', 'train (seeded sample)'], train_rows=train_rows,
@@ -291,7 +313,7 @@ def main():
             extra['probe'] = {}
             for name, (st, rescale) in variants.items():
                 student, _ = build_student(meta['config'], getter, args.hidden, args.target, st, rescale)
-                student.float()
+                student.float().to(args.device)
                 extra['probe'][name] = {split: plain_ce(student, arrays[split][:args.probe_rows])
                                         for split in ('controller', 'validation')}
                 print(json.dumps({name: extra['probe'][name]}), flush=True)
@@ -311,6 +333,74 @@ def main():
     record.update(source_id=meta['model_id'], source_revision=meta['revision'],
                   source_sha256=source_hashes, code_sha256=sha256(__file__),
                   artifact_sha256={p.name: sha256(p) for p in args.output.iterdir() if p.is_file()})
+    (args.output / 'pruning.json').write_text(json.dumps(record, indent=2) + '\n')
+    print(json.dumps({'output': str(args.output), 'parameters': record['parameter_counts'], 'rescaling': record['rescaling'],
+                      'manifest_sha256': sha256(args.output / 'pruning.json')}))
+
+
+def reprune(args, meta):
+    """One step of iterative pruning: shrink a healed model grown from a pruned artifact.
+
+    Selection uses the healed model's own activation statistics (it has adapted since its parent was cut) by
+    the same rules as the first cut, including the probe that decides norm rescaling. The saved
+    residual_indices / ffn_indices are composed with the parent's, so they index the original teacher (the
+    distillation targets and block_probe.py need that); stage_* keep the indices into the healed model.
+    """
+    from run import load_model
+    parent_dir = args.from_artifact
+    parent = verify_artifact(parent_dir)
+    config = json.loads((args.source / 'config.json').read_text())
+    text = config.get('text_config', config)
+    if text['hidden_size'] != len(parent['residual_indices']) or \
+            text['intermediate_size'] != len(parent['ffn_indices'][0]):
+        raise ValueError('The healed model does not have its parent artifact\'s shape')
+    if args.selection != 'activation' or args.data is None:
+        raise ValueError('Re-pruning uses activation selection and needs --data')
+    if not args.hidden <= text['hidden_size']:
+        raise ValueError('Re-pruning cannot widen the residual')
+    data_meta = json.loads((args.data / 'manifest.json').read_text())
+    for name, digest in data_meta['files_sha256'].items():
+        if sha256(args.data / name) != digest:
+            raise ValueError(f'Data hash mismatch: {name}')
+    source_hashes = {p.name: sha256(p) for p in sorted(args.source.glob('*.safetensors'))}
+    getter = TensorSource(args.source).get
+    arrays = np.load(args.data / 'tokens.npz', allow_pickle=False)
+    train_rows = sorted(np.random.default_rng(0).choice(len(arrays['train']), args.train_rows, replace=False).tolist())
+    rows = list(arrays['calibration']) + [arrays['train'][i] for i in train_rows]
+    healed = load_model(args.source, args.device, torch.float32)
+    stats = activation_stats(healed, rows)
+    del healed
+    probe = {}
+    if args.probe_rows:
+        for name, rescale in (('activation', False), ('activation+norm_scale', True)):
+            student, _ = build_student(config, getter, args.hidden, args.target, stats, rescale)
+            student.float().to(args.device)
+            probe[name] = {split: plain_ce(student, arrays[split][:args.probe_rows]) for split in ('controller', 'validation')}
+            print(json.dumps({name: probe[name]}), flush=True)
+            del student
+        rescale = probe['activation+norm_scale']['controller'] < probe['activation']['controller']
+    else:
+        rescale = True
+    model, record = build_student(config, getter, args.hidden, args.target, stats, rescale)
+    stage_residual, stage_ffn = record['residual_indices'], record['ffn_indices']
+    residual, ffn = compose(parent, stage_residual, stage_ffn)
+    record.update(residual_indices=residual, ffn_indices=ffn, stage_residual_indices=stage_residual,
+                  stage_ffn_indices=stage_ffn,
+                  selection=record['selection'].replace('teacher calibration text', 'healed-model calibration text'),
+                  calibration=dict(splits=['calibration (all)', 'train (seeded sample)'], train_rows=train_rows,
+                                   tokens=stats['tokens'], data_manifest_sha256=sha256(args.data / 'manifest.json')),
+                  probe=probe, norm_rescale_rule='kept if it lowers probe controller CE' if args.probe_rows else 'on (no probe)',
+                  iterative=dict(parent_artifact=str(parent_dir), parent_manifest_sha256=sha256(parent_dir / 'pruning.json'),
+                                 parent_parameters=parent['parameter_counts']['total'],
+                                 healed_source=str(args.source), healed_source_sha256=source_hashes,
+                                 statistics='healed model, FP32 on ' + str(args.device)),
+                  # run.py checks the teacher against source_*: the teacher is still the original model.
+                  source_id=parent['source_id'], source_revision=parent['source_revision'],
+                  source_sha256=parent['source_sha256'], code_sha256=sha256(__file__))
+    args.output.mkdir(parents=True)
+    model.save_pretrained(args.output, max_shard_size='2GB', safe_serialization=True)
+    save_file({k: v.contiguous() for k, v in stats.items() if torch.is_tensor(v)}, args.output / 'activation-stats.safetensors')
+    record['artifact_sha256'] = {p.name: sha256(p) for p in args.output.iterdir() if p.is_file()}
     (args.output / 'pruning.json').write_text(json.dumps(record, indent=2) + '\n')
     print(json.dumps({'output': str(args.output), 'parameters': record['parameter_counts'], 'rescaling': record['rescaling'],
                       'manifest_sha256': sha256(args.output / 'pruning.json')}))

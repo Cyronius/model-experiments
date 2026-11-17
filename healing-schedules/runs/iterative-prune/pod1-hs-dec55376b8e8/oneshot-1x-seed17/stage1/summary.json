@@ -1,0 +1,123 @@
+{
+  "status": "budget",
+  "steps": 157,
+  "tokens": 321536,
+  "training_flops": 5997461439741952,
+  "decision_flops": 0,
+  "budget_flops": 6000000000000000,
+  "unspent_training_flops": 2538560258048,
+  "parameter_group_updates": {
+    "embedding": 157,
+    "final_norm": 157,
+    "layer0": 157,
+    "layer1": 157,
+    "layer2": 157,
+    "layer3": 157,
+    "layer4": 157,
+    "layer5": 157,
+    "layer6": 157,
+    "layer7": 157,
+    "layer8": 157,
+    "layer9": 157,
+    "layer10": 157,
+    "layer11": 157,
+    "layer12": 157,
+    "layer13": 157,
+    "layer14": 157,
+    "layer15": 157,
+    "layer16": 157,
+    "layer17": 157,
+    "layer18": 157,
+    "layer19": 157,
+    "layer20": 157,
+    "layer21": 157,
+    "layer22": 157,
+    "layer23": 157
+  },
+  "profiling_flops": 38200391335936,
+  "evaluation_flops": 23442967266066432,
+  "total_accounted_flops": 29478629097144320,
+  "final_test": {
+    "ce": 3.116563633084297,
+    "perplexity": 22.568691931598742,
+    "teacher_kl": 0.617799180559814,
+    "discrepancy_by_depth": [
+      0.08339433209039271,
+      0.13816827372647822,
+      0.1696240734308958,
+      0.20533866295590997,
+      0.22776076942682266,
+      0.2270435388199985,
+      0.22262367885559797,
+      0.24045091681182384,
+      0.2542868768796325,
+      0.2635022681206465,
+      0.25270777102559805,
+      0.27635091450065374,
+      0.26827262341976166,
+      0.26251526921987534,
+      0.2319126045331359,
+      0.22394963633269072,
+      0.2180009838193655,
+      0.2185630351305008,
+      0.21488720225170255,
+      0.22418818529695272,
+      0.21843033330515027,
+      0.2156554777175188,
+      0.24280546605587006,
+      0.22080327989533544
+    ],
+    "target_tokens": 65504
+  },
+  "reached_target": false,
+  "first_confirmed_target": null,
+  "peak_host_rss_bytes": 4729864192,
+  "peak_device_allocated_bytes": 50180421632,
+  "peak_device_reserved_bytes": 51139051520,
+  "elapsed_seconds": 5232.5209553839995,
+  "note": "A time/step-limited run is censored, not an equal-budget result.",
+  "canary": {
+    "start": {
+      "ce": [
+        1.2369844913482666,
+        0.8693764209747314,
+        1.2084441184997559,
+        0.3253156840801239
+      ],
+      "cpu_abs_diff": [
+        0.00033092498779296875,
+        4.404783248901367e-05,
+        0.0006289482116699219,
+        0.0006540119647979736
+      ],
+      "cpu_tolerance": 0.05,
+      "ok": true,
+      "device_name": "NVIDIA H100 NVL",
+      "wrote_gpu_reference": "/workspace/manifold/outputs/canary-gpu.json"
+    },
+    "end": {
+      "ce": [
+        1.2369844913482666,
+        0.8693764209747314,
+        1.2084441184997559,
+        0.3253156840801239
+      ],
+      "cpu_abs_diff": [
+        0.00033092498779296875,
+        4.404783248901367e-05,
+        0.0006289482116699219,
+        0.0006540119647979736
+      ],
+      "cpu_tolerance": 0.05,
+      "ok": true,
+      "device_name": "NVIDIA H100 NVL",
+      "gpu_abs_diff": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "gpu_tolerance": 0.01
+    }
+  }
+}

@@ -1,0 +1,51 @@
+Collecting fla-core==0.6.0
+  Downloading fla_core-0.6.0-py3-none-any.whl.metadata (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.5/44.5 kB 7.9 MB/s eta 0:00:00
+Collecting flash-linear-attention==0.6.0
+  Downloading flash_linear_attention-0.6.0-py3-none-any.whl.metadata (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.7/44.7 kB 18.5 MB/s eta 0:00:00
+Collecting einops
+  Downloading einops-0.8.2-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: transformers<6,>=5.6.2 in ./env/lib/python3.11/site-packages (from flash-linear-attention==0.6.0) (5.14.1)
+Requirement already satisfied: huggingface-hub<2.0,>=1.5.0 in ./env/lib/python3.11/site-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (1.33.0)
+Requirement already satisfied: numpy>=1.17 in ./env/lib/python3.11/site-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (2.4.6)
+Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.11/dist-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (24.1)
+Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.11/dist-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (6.0.2)
+Requirement already satisfied: regex>=2025.10.22 in ./env/lib/python3.11/site-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (2026.11.15)
+Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in ./env/lib/python3.11/site-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.22.2)
+Requirement already satisfied: typer in ./env/lib/python3.11/site-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.29.1)
+Requirement already satisfied: safetensors>=0.8.0 in ./env/lib/python3.11/site-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.8.0)
+Requirement already satisfied: tqdm>=4.60 in ./env/lib/python3.11/site-packages (from transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (4.70.1)
+Requirement already satisfied: click<9.0.0,>=8.4.2 in ./env/lib/python3.11/site-packages (from huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (8.5.1)
+Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.11/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (3.13.1)
+Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.11/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (2024.2.0)
+Requirement already satisfied: hf-xet<2.0.0,>=1.6.0 in ./env/lib/python3.11/site-packages (from huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (1.8.0)
+Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.11/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.27.2)
+Requirement already satisfied: typing-extensions>=4.1.0 in ./env/lib/python3.11/site-packages (from huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (4.16.0)
+Requirement already satisfied: pydantic>=2.5.3 in ./env/lib/python3.11/site-packages (from typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (2.14.3)
+Requirement already satisfied: shellingham>=1.3.0 in ./env/lib/python3.11/site-packages (from typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (1.5.4)
+Requirement already satisfied: rich>=13.8.0 in ./env/lib/python3.11/site-packages (from typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (15.0.0)
+Requirement already satisfied: annotated-doc>=0.0.2 in ./env/lib/python3.11/site-packages (from typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.0.6)
+Requirement already satisfied: anyio in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (4.6.0)
+Requirement already satisfied: certifi in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (2024.8.30)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (1.0.5)
+Requirement already satisfied: idna in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (3.10)
+Requirement already satisfied: sniffio in /usr/local/lib/python3.11/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (1.3.1)
+Requirement already satisfied: h11<0.15,>=0.13 in /usr/local/lib/python3.11/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.14.0)
+Requirement already satisfied: annotated-types>=0.6.0 in ./env/lib/python3.11/site-packages (from pydantic>=2.5.3->typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.8.0)
+Requirement already satisfied: pydantic-core==2.50.4 in ./env/lib/python3.11/site-packages (from pydantic>=2.5.3->typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (2.50.4)
+Requirement already satisfied: typing-inspection>=0.4.4 in ./env/lib/python3.11/site-packages (from pydantic>=2.5.3->typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.4.5)
+Requirement already satisfied: markdown-it-py>=2.2.0 in ./env/lib/python3.11/site-packages (from rich>=13.8.0->typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (4.3.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.11/dist-packages (from rich>=13.8.0->typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (2.18.0)
+Requirement already satisfied: mdurl~=0.1 in ./env/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers<6,>=5.6.2->flash-linear-attention==0.6.0) (0.1.2)
+Downloading fla_core-0.6.0-py3-none-any.whl (1.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 40.0 MB/s eta 0:00:00
+Downloading flash_linear_attention-0.6.0-py3-none-any.whl (403 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 403.5/403.5 kB 174.1 MB/s eta 0:00:00
+Downloading einops-0.8.2-py3-none-any.whl (65 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 65.6/65.6 kB 205.2 MB/s eta 0:00:00
+Installing collected packages: einops, fla-core, flash-linear-attention
+Successfully installed einops-0.8.2 fla-core-0.6.0 flash-linear-attention-0.6.0
+
+[notice] A new release of pip is available: 24.0 -> 26.3
+[notice] To update, run: python -m pip install --upgrade pip

@@ -1,0 +1,22 @@
+04:42:06 setup {}
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+04:42:20 setup {"gpu": "NVIDIA H100 NVL", "torch": "2.14.1+cu126"}
+04:43:19 setup {"tests": "passed"}
+04:43:19 running {"arm": "oneshot-1x-seed17", "done": []}
+Traceback (most recent call last):
+  File "/workspace/manifold/manifold-compression/../healing-schedules/pod_worker.py", line 305, in main
+    record = run_arm(name, kind, cuts, budget, seed)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/manifold/manifold-compression/../healing-schedules/pod_worker.py", line 249, in run_arm
+    status('running', arm=name, stage=k, of=len(cuts), start_val_ce=stage['start_val_ce'], end_val_ce=stage['end_val_ce'])
+TypeError: status() got multiple values for argument 'stage'
+06:10:59 failed {"error": "TypeError: status() got multiple values for argument 'stage'"}
+Traceback (most recent call last):
+  File "/workspace/manifold/manifold-compression/../healing-schedules/pod_worker.py", line 329, in <module>
+    main()
+  File "/workspace/manifold/manifold-compression/../healing-schedules/pod_worker.py", line 305, in main
+    record = run_arm(name, kind, cuts, budget, seed)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/manifold/manifold-compression/../healing-schedules/pod_worker.py", line 249, in run_arm
+    status('running', arm=name, stage=k, of=len(cuts), start_val_ce=stage['start_val_ce'], end_val_ce=stage['end_val_ce'])
+TypeError: status() got multiple values for argument 'stage'

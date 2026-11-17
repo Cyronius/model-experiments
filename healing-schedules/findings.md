@@ -248,6 +248,61 @@ The 0.8B had its full pretraining budget, tens of trillions of tokens. These run
 tokens to rank methods. Matching the stock small model by prune-and-heal would need a budget
 orders of magnitude larger, and nothing here says whether it would get there.
 
+### 10. Ten times the budget: small gain, blocks drift
+
+Joint-cosine on the light student with 60e15 FLOPs (10×, one cosine), seed 17
+(`runs/long-joint-cosine/`):
+
+| Run | Val CE | Test CE | Gap closed | ARC-E | ARC-C | MMLU | GSM8K |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 1× (6e15) | 3.142 | | 46.7% | .525 | .315 | .320 | .250 |
+| 10× (60e15) | 3.099 | 3.083 | 50.5% | .485 | .305 | .325 | .313 |
+
+The benchmarks are the quick evaluation on the same frozen subsets: 200 questions per task, 32
+GSM8K problems. The differences are within noise. While the learning rate was high, val CE sat
+at 3.14–3.16. It fell to 3.10 only in the decay.
+
+The block probe (`block_probe.py`, `runs/long-joint-cosine/block-probe.json`) shows how the extra
+training got there:
+
+- **The output moved closer to the teacher's.** In layers 10–23 the stream cosine rose from .82 to
+  .89, and the logit-lens KL at layer 18 fell from 2.28 to 1.31.
+- **The individual blocks moved away from the teacher's.** Fed the teacher's own input, the
+  per-block error rose with training:
+  - layer 0: .079 unhealed, .081 at 1×, .123 at 10×;
+  - delta cosine fell in all 24 layers.
+- **Healing works by co-adaptation.** The blocks compensate for one another rather than each
+  recovering its teacher function.
+
+This is one possible route, not a proof that block-wise repair can't work. Block-wise healing
+followed by a joint run is untested.
+
+### 11. Pruning in steps: same loss, closer internals
+
+Is 25% removed in steps, with healing between them, better than 25% at once, at equal FLOPs (6e15)?
+It was run on a rented H100 and pre-registered: [plan](plan-iterative-prune.md),
+[full results](results-iterative-prune.md).
+
+| Arm | Val CE | Test CE | Stream error vs teacher | Stream cosine |
+|---|---:|---:|---:|---:|
+| One-shot, seed 17 | 3.141 | 3.117 | | |
+| One-shot, seed 2 | 3.122 | 3.093 | .224 | .887 |
+| 12.5 → 25% | 3.143 | 3.135 | .214 | .890 |
+| 10 → 20 → 25% | 3.134 | 3.117 | .201 | .895 |
+| 5% steps to 25% | 3.122 | 3.099 | .196 | .897 |
+
+- **Same loss.** Every staged arm is within the 0.02 seed spread of one-shot. That is the
+  pre-registered prediction, and Minitron's finding at light sparsity.
+- **Small cuts do little damage.** A healed model takes the next cut well (0.10–0.38 nats per step,
+  against 1.11 for the one-shot cut), but short heals don't add up to a better end point.
+- **More steps keep the inside closer to the teacher.** Block errors stay at the unhealed level,
+  and every layer's hidden state tracks the teacher's more closely.
+- **Same coordinates kept.** The staged selections keep 97% of the same residual coordinates and
+  96% of the same FFN neurons as one-shot; the difference is in the weights.
+
+Staging is worth it only where block-level fidelity matters. The heavy cut, where one-shot stalls
+near 4.8 val CE, is still open.
+
 ## Infrastructure lessons
 
 - **Shared iGPUs can compute wrong answers silently.** On a Strix Halo box (gfx1151, ROCm)
@@ -288,6 +343,8 @@ orders of magnitude larger, and nothing here says whether it would get there.
    the residual stream is untouched.
 4. Branching from shared checkpoints, to test whether the best schedule changes by phase. The
    code is written: see the README.
+5. Staged pruning at the heavy cut (63.7%, seven steps), and block-wise healing followed by a joint
+   run, the setting where staging's block-level fidelity could pay off.
 
 Code, protocol, drivers and reproduction steps are in [README.md](README.md) and
 [protocol.json](protocol.json). Per-run curves, step logs and evaluations are in `runs/`

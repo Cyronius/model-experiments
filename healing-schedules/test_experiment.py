@@ -451,6 +451,60 @@ def test_branch_resume_matches_uninterrupted_run(models, tmp_path, monkeypatch):
     assert curve[0]['validation']['ce'] == pytest.approx(meta['trunk']['checkpoint_validation_ce'])
 
 
+def test_pause_and_resume_matches_uninterrupted_run(models, tmp_path, monkeypatch):
+    """--pause-after then --resume reproduces an uninterrupted cosine run exactly (CPU, joint)."""
+    import numpy as np
+    from safetensors.torch import load_file
+    import run
+    from pruning import sha256
+    teacher, damaged, manifest = models
+    teacher_dir, damaged_dir, data_dir = [tmp_path / x for x in ('teacher', 'damaged', 'data')]
+    teacher.save_pretrained(teacher_dir)
+    damaged.save_pretrained(damaged_dir)
+    record = copy.deepcopy(manifest)
+    record['source_sha256'] = {p.name: sha256(p) for p in teacher_dir.glob('*.safetensors')}
+    record['artifact_sha256'] = {p.name: sha256(p) for p in damaged_dir.iterdir() if p.is_file()}
+    (damaged_dir / 'pruning.json').write_text(json.dumps(record))
+    data_dir.mkdir()
+    arrays = {name: (np.arange(1, 9 * 3 + 1, dtype=np.int32).reshape(3, 9)[:, :8] + 8 * i) % 60 + 1
+              for i, name in enumerate(('train', 'calibration', 'controller', 'validation', 'test'))}
+    np.savez(data_dir / 'tokens.npz', **arrays)
+    (data_dir / 'manifest.json').write_text(json.dumps({'files_sha256': {'tokens.npz': sha256(data_dir / 'tokens.npz')}}))
+
+    def launch(out, budget, *extra):
+        monkeypatch.setattr('sys.argv', ['run.py', '--teacher', str(teacher_dir), '--damaged', str(damaged_dir),
+                                         '--data', str(data_dir), '--output', str(out), '--strategy', 'joint',
+                                         '--device', 'cpu', '--budget-flops', str(budget), '--target-ce', '1',
+                                         '--eval-points', '4', '--eval-sequences', '1', '--warmup-updates', '3',
+                                         '--lr-decay', 'cosine', *extra])
+        run.main()
+
+    probe = tmp_path / 'probe'
+    launch(probe, 10 ** 12, '--max-steps', '1')
+    cost = json.loads((probe / 'steps.jsonl').read_text().splitlines()[0])['step_flops']
+    full, paused = tmp_path / 'full', tmp_path / 'paused'
+    launch(full, 8 * cost)
+    segments = 0
+    with pytest.raises(SystemExit) as stop:
+        launch(paused, 8 * cost, '--pause-after', '0')
+    assert stop.value.code == 75
+    while True:
+        segments += 1
+        try:
+            launch(paused, 8 * cost, '--pause-after', '0', '--resume')
+            break
+        except SystemExit as again:
+            assert again.code == 75
+    assert segments == 3  # paused at each of the three evaluations before the budget ends
+    a, b = [load_file(next((x / 'final').glob('*.safetensors'))) for x in (full, paused)]
+    assert a.keys() == b.keys() and all(torch.equal(a[k], b[k]) for k in a)
+    assert (full / 'steps.jsonl').read_text() == (paused / 'steps.jsonl').read_text()
+    ce = lambda x: [r['validation']['ce'] for r in json.loads((x / 'curve.json').read_text())]
+    assert ce(full) == ce(paused)
+    assert not (paused / 'resume').exists()
+    assert len((paused / 'resumes.jsonl').read_text().splitlines()) == 3
+
+
 def test_batch_sequences_accumulate(models, tmp_path, monkeypatch):
     import numpy as np
     import run
@@ -521,3 +575,67 @@ def test_window_inputs_run_with_exact_accounting(models, tmp_path, monkeypatch, 
     fed = [r['teacher_input'] for r in rows if r['window'][0] > 0]
     assert fed and (all(fed) if inputs == 'teacher' else 0 < sum(fed) < len(fed))
     assert not any(r['teacher_input'] for r in rows if r['window'][0] == 0)
+
+
+def test_reprune_composes_indices_and_runs(models, tmp_path, monkeypatch):
+    """Iterative pruning: cut, heal a few steps, cut the healed model again, heal the result."""
+    import run
+    import pruning
+    from pruning import activation_stats, compose, sha256
+
+    assert compose({'residual_indices': [3, 5, 9], 'ffn_indices': [[0, 4, 7]]}, [0, 1, 2], [[0, 1, 2]]) == \
+        ([3, 5, 9], [[0, 4, 7]])
+    assert compose({'residual_indices': [3, 5, 9], 'ffn_indices': [[0, 4, 7]]}, [0, 2], [[1]]) == ([3, 9], [[4]])
+    with pytest.raises(ValueError, match='outside'):
+        compose({'residual_indices': [3, 5], 'ffn_indices': [[0]]}, [2], [[0]])
+
+    teacher, _, _ = models
+    cfg = teacher.config.to_dict()
+    teacher_dir, stage1_dir, data_dir = [tmp_path / x for x in ('teacher', 'stage1', 'data')]
+    teacher.save_pretrained(teacher_dir)
+    data_dir.mkdir()
+    arrays = {name: np.arange(1 + i * 8, 9 + i * 8, dtype=np.int32)[None]
+              for i, name in enumerate(('train', 'calibration', 'controller', 'validation', 'test'))}
+    np.savez(data_dir / 'tokens.npz', **arrays)
+    (data_dir / 'manifest.json').write_text(json.dumps({'files_sha256': {'tokens.npz': sha256(data_dir / 'tokens.npz')}}))
+    stats = activation_stats(teacher, [arrays['calibration'][0]])
+    stage1, record = build_student(cfg, teacher.state_dict().__getitem__, 24,
+                                   count(cfg | dict(hidden_size=24))['total'], stats, False)
+    stage1.save_pretrained(stage1_dir)
+    record.update(source_id='toy', source_revision='toy',
+                  source_sha256={p.name: sha256(p) for p in teacher_dir.glob('*.safetensors')})
+    record['artifact_sha256'] = {p.name: sha256(p) for p in stage1_dir.iterdir() if p.is_file()}
+    (stage1_dir / 'pruning.json').write_text(json.dumps(record))
+
+    def heal(damaged, out):
+        monkeypatch.setattr('sys.argv', ['run.py', '--teacher', str(teacher_dir), '--damaged', str(damaged),
+                                       '--data', str(data_dir), '--output', str(out), '--strategy', 'joint',
+                                       '--device', 'cpu', '--budget-flops', '30000000', '--target-ce', '10',
+                                       '--eval-points', '1', '--eval-sequences', '1', '--max-steps', '2',
+                                       '--lr', '0.01'])
+        run.main()
+
+    heal(stage1_dir, tmp_path / 'heal1')
+    target = count(cfg | dict(hidden_size=16, intermediate_size=64))['total']
+    monkeypatch.setattr('sys.argv', ['pruning.py', '--source', str(tmp_path / 'heal1/final'), '--from-artifact',
+                                   str(stage1_dir), '--output', str(tmp_path / 'stage2'), '--hidden', '16',
+                                   '--target', str(target), '--data', str(data_dir), '--train-rows', '1',
+                                   '--probe-rows', '1', '--threads', '1'])
+    pruning.main()
+    stage2 = json.loads((tmp_path / 'stage2/pruning.json').read_text())
+    assert stage2['parameter_counts']['total'] == target
+    assert stage2['residual_indices'] == [record['residual_indices'][i] for i in stage2['stage_residual_indices']]
+    for layer in range(4):
+        assert stage2['ffn_indices'][layer] == [record['ffn_indices'][layer][i] for i in stage2['stage_ffn_indices'][layer]]
+    assert stage2['source_sha256'] == record['source_sha256']
+    assert set(stage2['probe']) == {'activation', 'activation+norm_scale'}
+    # Weights are the healed model's, sliced by the stage indices (norm gains may be rescaled).
+    healed = run.load_model(tmp_path / 'heal1/final', 'cpu', torch.float32).state_dict()
+    cut = run.load_model(tmp_path / 'stage2', 'cpu', torch.float32).state_dict()
+    r = torch.tensor(stage2['stage_residual_indices'])
+    keep = [torch.tensor(x) for x in stage2['stage_ffn_indices']]
+    for name, p in cut.items():
+        if not (name.endswith('layernorm.weight') or name == 'model.norm.weight'):
+            assert torch.equal(p, slice_parameter(name, healed[name], r, keep)), name
+    heal(tmp_path / 'stage2', tmp_path / 'heal2')
+    assert json.loads((tmp_path / 'heal2/summary.json').read_text())['steps'] >= 1
