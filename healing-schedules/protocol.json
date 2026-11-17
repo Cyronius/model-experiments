@@ -277,7 +277,7 @@
     "block_probe": "block_probe.py on the unhealed, 1x and 10x students (runs/long-joint-cosine/block-probe.json): each block fed the teacher's input moved away from its teacher block, more with more training (update cosine down in all 24 layers); the student's own stream moved toward the teacher in layers 10-23 (cosine 0.82 -> 0.89, logit-lens KL at layer 18 2.28 -> 1.31); early-layer drift at 10x is mostly scale (norm ratio up to 1.14), not direction."
   },
   "followup_iterative_prune": {
-    "status": "run 2026-11-16/17 on a rented H100 (1x arms complete; seed-17 one-shot rerun and 10x arms pending at write-up); results-iterative-prune.md",
+    "status": "complete 2026-11-17 (1x arms; 10x arms skipped at the deadline); results-iterative-prune.md",
     "question": "Does removing 25% of Qwen3.5-2B in ~10% steps, healing after each, beat removing 25% at once and healing once, at equal total training FLOPs? (user, 2026-11-16)",
     "plan": "plan-iterative-prune.md",
     "stages": "each removes ~10% of the teacher's non-embedding parameters; residual shrinks 256 coordinates per 25% (aligned to 64), FFN takes the rest; the last stage lands on the light student's geometry exactly (h1792, FFN 4800, 1,473,244,736 parameters)",
@@ -308,26 +308,29 @@
         "oneshot-1x-seed2": 3.1223,
         "S2-1x-seed17": 3.1427,
         "S3-1x-seed17": 3.134,
-        "S5-1x-seed17": 3.1219
+        "S5-1x-seed17": 3.1219,
+        "oneshot-1x-seed17 (second pod, fla)": 3.142
       },
       "test_ce": {
         "oneshot-1x-seed17 (first pod)": 3.1166,
         "oneshot-1x-seed2": 3.0927,
         "S2-1x-seed17": 3.1353,
         "S3-1x-seed17": 3.1169,
-        "S5-1x-seed17": 3.0992
+        "S5-1x-seed17": 3.0992,
+        "oneshot-1x-seed17 (second pod, fla)": 3.1173
       },
       "predictions": {
         "primary_S3_within_0.03": "confirmed",
         "damage_per_cut_le_0.4": "confirmed (max 0.38)",
         "S5_no_better_than_S3": "confirmed within seed noise",
-        "helps_more_at_10x": "pending"
+        "helps_more_at_10x": "not tested: 10x arms skipped at the deadline"
       },
       "block_probe_stream_rel_err": {
         "oneshot-1x-seed2": 0.224,
         "S2": 0.214,
         "S3": 0.201,
-        "S5": 0.196
+        "S5": 0.196,
+        "oneshot-1x-seed17": 0.221
       },
       "selection_overlap_with_oneshot": {
         "S2": [
@@ -343,7 +346,8 @@
           0.962
         ]
       },
-      "records": "runs/iterative-prune/"
+      "records": "runs/iterative-prune/",
+      "spent_usd": 12.34
     }
   }
 }

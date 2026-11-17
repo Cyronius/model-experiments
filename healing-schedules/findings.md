@@ -285,7 +285,7 @@ It was run on a rented H100 and pre-registered: [plan](plan-iterative-prune.md),
 
 | Arm | Val CE | Test CE | Stream error vs teacher | Stream cosine |
 |---|---:|---:|---:|---:|
-| One-shot, seed 17 | 3.141 | 3.117 | | |
+| One-shot, seed 17 | 3.142 | 3.117 | .221 | .889 |
 | One-shot, seed 2 | 3.122 | 3.093 | .224 | .887 |
 | 12.5 → 25% | 3.143 | 3.135 | .214 | .890 |
 | 10 → 20 → 25% | 3.134 | 3.117 | .201 | .895 |

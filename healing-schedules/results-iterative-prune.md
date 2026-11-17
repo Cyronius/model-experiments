@@ -24,15 +24,15 @@ staged arms re-prune the healed model using its own activation statistics.
 
 | Arm (6e15 FLOPs) | Val CE | Test CE | Tokens | ARC-E | ARC-C | MMLU | GSM8K | Stream error | Stream cosine |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| One-shot, seed 17 † | 3.141 | 3.117 | 321,536 | | | | | | |
+| One-shot, seed 17 | 3.142 | 3.117 | 323,584 | .520 | .305 | .310 | .250 | .221 | .889 |
 | One-shot, seed 2 | 3.122 | **3.093** | 323,584 | .480 | .325 | .315 | .188 | .224 | .887 |
 | S2 (12.5 → 25%) | 3.143 | 3.135 | 313,344 | .490 | .270 | .310 | .188 | .214 | .890 |
 | S3 (10 → 20 → 25%) | 3.134 | 3.117 | 311,296 | .500 | .305 | .320 | .281 | .201 | .895 |
 | S5 (5% steps to 25%) | **3.122** | 3.099 | 303,104 | .500 | .295 | .315 | .188 | **.196** | **.897** |
 | One-shot 1× (local, earlier) | 3.142 | | | .525 | .315 | .320 | .250 | .221 | .889 |
 
-† First pod, before the fast attention kernel was installed. The worker crashed after this arm
-trained, so it has no quick evaluation or block probe.
+One-shot seed 17 is the second pod's rerun on the fast kernel. The first pod's run on the torch
+fallback gave val 3.141 and test 3.117, the same result.
 
 The benchmarks are the quick evaluation: the test split, 200 questions per multiple-choice task and
 32 GSM8K problems (1024 tokens), all on the frozen subsets. With 200 questions, one standard error
@@ -48,7 +48,7 @@ Val CE right after each cut (before healing) and after that stage's healing:
 
 | Arm | Stage cuts: val CE after the cut → after healing |
 |---|---|
-| One-shot | 25%: 3.660 → 3.122–3.141 |
+| One-shot | 25%: 3.660 → 3.122–3.142 |
 | S2 | 12.5%: 2.948 → 2.828; 25%: 3.205 → 3.143 |
 | S3 | 10%: 2.855 → 2.758; 20%: 3.056 → 3.002; 25%: 3.151 → 3.134 |
 | S5 | 5%: 2.671 → 2.634; 10%: 2.773 → 2.751; 15%: 2.914 → 2.891; 20%: 3.030 → 2.989; 25%: 3.140 → 3.122 |
@@ -61,10 +61,10 @@ of that, and the arms converge on the same final loss.
 
 | Prediction (written before the runs) | Outcome |
 |---|---|
-| S3 ends within 0.03 of one-shot at 6e15 | **Confirmed.** 3.134 against 3.122 and 3.141 for the two one-shot seeds. |
+| S3 ends within 0.03 of one-shot at 6e15 | **Confirmed.** 3.134 against 3.122 and 3.142 for the two one-shot seeds. |
 | Each cut of a healed model costs ≤ 0.4 val CE | **Confirmed.** The largest was 0.38 (S2's second cut); 5% cuts cost 0.10–0.14. |
 | S5 is no better than S3 | **Confirmed within noise.** S5 is 0.012 better on val CE and 0.018 on test CE, smaller than the 0.02 gap between one-shot seeds. Finer steps did not hurt either. |
-| If staging helps, it helps more at 10× | Pending (see below). |
+| If staging helps, it helps more at 10× | **Not tested.** The 10× arms did not fit before the deadline. |
 
 ## What staging changes: the internals
 
@@ -77,6 +77,7 @@ The block probe compares every layer with the teacher. Measures:
 |---|---:|---:|---:|---:|
 | Unhealed one-shot | .274 | .857 | .079 | .034 |
 | One-shot 1× (seed 2) | .224 | .887 | .082 | .036 |
+| One-shot 1× (seed 17) | .221 | .889 | .081 | .036 |
 | One-shot 10× (local) | .262 | .878 | .123 | .044 |
 | S2 | .214 | .890 | .075 | .035 |
 | S3 | .201 | .895 | .074 | .034 |
@@ -108,12 +109,15 @@ So the difference between the arms lies in the weights, not in which parts they 
 - The heavy cut (63.7%, the 0.8B size) is where staging has the most room, as the plan says. One-shot
   heavy healing stalls near 4.8 val CE.
 
-## Pending on the pod
+## Not run
 
-- **One-shot seed 17, rerun on the fast kernel:** running.
-- **S3-10× and one-shot-10×:** they run only if the deadline allows; probably one at most.
+S3-10× and one-shot-10× were skipped. Each needs about two hours on the H100, and the worker's time
+estimate ran past the deadline. Testing them needs a new pod: about $8–10 for the pair.
 
-This file is updated when the pod finishes.
+## Cost
+
+$12.34 of the $20 cap: $4.95 for the first pod and $7.39 for the second. The ledger is
+`runpod_budget_iterprune_20261116.json`.
 
 ## Run notes
 
