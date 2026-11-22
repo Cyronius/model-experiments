@@ -1,0 +1,60 @@
+{
+  "metrics": {
+    "synthetic": {
+      "none": {
+        "n": 16,
+        "exact_match": 0.0,
+        "numeric_match": 0.0,
+        "mean_seconds": 4.519562499999665
+      },
+      "oracle": {
+        "n": 16,
+        "exact_match": 0.0,
+        "numeric_match": 0.0,
+        "mean_seconds": 2.2344999999986612
+      },
+      "retrieved": {
+        "n": 16,
+        "exact_match": 0.0,
+        "numeric_match": 0.0,
+        "mean_seconds": 2.059437500000058
+      },
+      "text": {
+        "n": 16,
+        "exact_match": 0.5,
+        "numeric_match": 0.9375,
+        "mean_seconds": 2.7344375000029686
+      },
+      "wrong": {
+        "n": 16,
+        "exact_match": 0.0,
+        "numeric_match": 0.0,
+        "mean_seconds": 2.166000000001077
+      }
+    }
+  },
+  "paired_recovery": {
+    "synthetic": {
+      "eligible": 15,
+      "oracle": 0.0,
+      "retrieved": 0.0
+    }
+  },
+  "retrieval_recall_at_1": 1.0,
+  "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+  "split": "dev",
+  "steps": 150,
+  "slots": 16,
+  "bank_documents_encoded": 20,
+  "retrieval_index_documents": 435,
+  "heldout_facts": true,
+  "training_domain": "synthetic",
+  "source_support_after_truncation": true,
+  "memory_bank_bytes": 614400,
+  "limitations": [
+    "Small evaluation; no multi-hop claims",
+    "Untrained BM25 text index",
+    "Frozen recipient features are generated offline before compression",
+    "All XDNA questions are numeric span probes; not a domain reasoning benchmark"
+  ]
+}

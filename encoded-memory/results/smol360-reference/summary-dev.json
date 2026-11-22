@@ -1,0 +1,68 @@
+{
+  "metrics": {
+    "synthetic": {
+      "none": {
+        "n": 16,
+        "exact_match": 0.0,
+        "numeric_match": 0.0,
+        "mean_seconds": 3.3408124999969004
+      },
+      "oracle": {
+        "n": 16,
+        "exact_match": 0.125,
+        "numeric_match": 0.125,
+        "mean_seconds": 1.8740625000009459
+      },
+      "retrieved": {
+        "n": 16,
+        "exact_match": 0.125,
+        "numeric_match": 0.125,
+        "mean_seconds": 2.054499999996551
+      },
+      "text": {
+        "n": 16,
+        "exact_match": 0.5,
+        "numeric_match": 0.9375,
+        "mean_seconds": 2.6281250000047294
+      },
+      "wrong": {
+        "n": 16,
+        "exact_match": 0.125,
+        "numeric_match": 0.125,
+        "mean_seconds": 1.9443750000009459
+      }
+    }
+  },
+  "paired_recovery": {
+    "synthetic": {
+      "eligible": 15,
+      "oracle": 0.13333333333333333,
+      "retrieved": 0.13333333333333333
+    }
+  },
+  "retrieval_recall_at_1": 1.0,
+  "retrieval_definition": "Exact source-document ID; another finding may also contain valid evidence",
+  "retrieval_by_domain": {
+    "synthetic": {
+      "hits": 16,
+      "n": 16
+    }
+  },
+  "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+  "split": "dev",
+  "steps": 150,
+  "slots": 16,
+  "bank_documents_encoded": 20,
+  "memory_site": "reference",
+  "retrieval_index_documents": 435,
+  "heldout_facts": true,
+  "training_domain": "synthetic",
+  "source_support_after_truncation": true,
+  "memory_bank_bytes": 614400,
+  "limitations": [
+    "Small evaluation; no multi-hop claims",
+    "Untrained BM25 text index",
+    "Frozen recipient features are generated offline before compression",
+    "All XDNA questions are numeric span probes; not a domain reasoning benchmark"
+  ]
+}
