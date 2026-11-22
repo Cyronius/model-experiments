@@ -237,6 +237,8 @@ for s in range(2 * L):
             last = loss.item()
         for p in params:
             p.requires_grad_(False)
+            p.grad = None
+        del opt, sched
     z = step_all(sr, s, z)
     msg = f"half-layer {s}: heal loss {first} -> {last}"
     if half == 1 and li % 4 == 3 and not args.no_curve:

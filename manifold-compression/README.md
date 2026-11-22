@@ -8,7 +8,24 @@ The idea, in full, is in [`notes.md`](notes.md) §10. In short: treat each block
 
 All results to date are collected in [`findings.md`](findings.md); the idea backlog is in [`../.claude/plans/manifold-compression-ideas.md`](../.claude/plans/manifold-compression-ideas.md).
 
-Everything is measured as KL divergence of the final next-token distribution from the untouched model, broken down by domain: prose, code, maths, chat, and a synthetic long-context copy task.
+The original manifold measurements use KL divergence of the final next-token distribution from the untouched model, broken down by domain: prose, code, maths, chat, and a synthetic long-context copy task. Checkpoint chat quality is assessed separately by generated-answer coherence, repetition loops and correctness.
+
+## Checkpoint chat evaluation
+
+The current 0.752B student was built by compressing **`Qwen/Qwen3.5-2B`**, the post-trained chat checkpoint, into the 0.8B module layout, followed by layer-wise repair, tail polish and whole-network distillation. The distillation teacher is also `Qwen/Qwen3.5-2B`. The stock 0.8B comparison is `Qwen/Qwen3.5-0.8B`, the post-trained chat model, served as Unsloth's Q8_0 GGUF. The earlier `Qwen3.5-2B-Base` manifold studies are separate from this student's lineage. Build and training commands: `pod_distill_08b.sh`; teacher default: `distill_whole.py`.
+
+Use Qwen's recommended non-thinking text sampling preset for the primary checkpoint comparison: temperature 1.0, top_p 1.0, top_k 20, min_p 0.0, presence_penalty 2.0 and repetition_penalty 1.0 (`repeat_penalty` in llama.cpp). Apply the same preset to our checkpoints and stock references. Greedy decoding is a separately labeled diagnostic. Source: [Qwen's best practices](https://huggingface.co/Qwen/Qwen3.5-0.8B#best-practices).
+
+`smoke/gen.py` defaults to that preset and writes `answers_<model>-sampled[_<tag>].jsonl`; explicit `--greedy` retains the historical greedy filenames. Legacy `-sampled` suffixes still work, and `-sampled0` remains an explicitly different presence-penalty ablation. Use a new tag for a fresh run. For example:
+
+```powershell
+python manifold-compression/smoke/gen.py --tag comparison --skip-chat-parsing d300M stock08
+python manifold-compression/smoke/gen.py --greedy --tag diagnostic --skip-chat-parsing d300M stock08
+```
+
+Add `--dry-run` to inspect the chosen settings and output paths. Keep prompts, thinking mode, output allowance, quantization and judging consistent across comparison models. The current 40-prompt smoke test uses thinking off and a 400-token cap; it does not reproduce Qwen's longer recommended output allowance. The current llama.cpp runtime uses a 64-token penalty window. The 2026-10-23 single-seed pilot and its limitations are recorded in `findings.md`; its historical greedy results remain diagnostics, and the new sampling preference does not change existing scores.
+
+The final **500M** checkpoint completed training and was evaluated with the same preset: **2.35/5 coherence, 1/31 strict correctness and 1/40 judged loops**, compared with 300M's 2.35, 3/31 and 1/40, and stock 0.8B's 3.075, 8/31 and 0/40. This small single-seed review shows no clear answer-quality improvement at 500M. The pod is stopped and the final model is downloaded. Full comparison, examples and caveats are in `findings.md`; reproduce the validated summary with `python manifold-compression/smoke/summarize_500m.py`.
 
 ## Pre-registered predictions
 

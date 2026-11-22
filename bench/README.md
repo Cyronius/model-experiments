@@ -16,7 +16,17 @@ Shared benchmark harness for GGUF models behind llama-server. `run_bench.py` run
 
 Every open-ended answer (ifeval, mtbench) also gets `degenerate_rate`: the share of answers whose repeated word-4-gram share is above 0.15, which is how looping shows up.
 
+For a matched manifold-checkpoint IFEval comparison, run:
+
+```powershell
+python bench/compare_manifold_ifeval.py --checkpoints 300 500 --sampling qwen --runid ifeval-stock08-300M-500M-qwen-20261023
+```
+
+This runs stock Qwen3.5-0.8B and each selected checkpoint on all 541 prompts (834 instruction checks), using Q8_0, thinking off, four slots and a 1,280-token output cap. The default `qwen` preset follows the user's selected non-thinking sampling convention; `--sampling greedy` selects a separate diagnostic. Seeds are document keys shared across models. Results, responses, runtime settings and all pairwise strict-prompt comparisons are saved under `manifold-compression/results/<runid>/`. Reusing the same run ID resumes matching settings and saved responses; changed settings require a new ID. Use `--limit 4` with a separate run ID for a startup check. IFEval measures verifiable instruction compliance, separately from factual accuracy and coherence.
+
 Setup: `python -m pip install --user lm_eval langdetect immutabledict nltk` for the IFEval scorer. MT-Bench judging runs through Claude Haiku subagents in a Claude Code session (no API key needed): `python mtbench_judge.py batches --runid R`, judge each `batch_NN.json` into `batch_NN_out.json` following `INSTRUCTIONS.md`, then `python mtbench_judge.py merge --runid R`.
+
+Audit saved IFEval responses with `python bench/summarize_manifold_ifeval.py --runid <runid> --literal-characters`. The local correction counts the requested `#` and `!` in dataset keys 1122 and 1129; installed lm_eval 0.4.13 instead substitutes a random alphabetic letter. Corrected outputs use `-corrected` filenames and preserve native scores and responses. The audit rescores every answer twice and rejects score changes outside those two prompts. Without this flag, the audit requires exact agreement with the native scorer, which can fail on these random checks. This local scoring correction should be disclosed when reporting results; see the upstream report at https://github.com/google-research/google-research/issues/3427.
 
 ## Decisions
 

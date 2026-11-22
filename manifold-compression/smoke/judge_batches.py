@@ -22,7 +22,7 @@ for n, (m, i) in enumerate(items):
     key[iid] = {"model": m, "id": i}
     coh.append({"item": iid, "prompt": prompts[i]["prompt"], "answer": ans[m][i]["answer"]})
 
-pairs = [(m, i) for m in MODELS[1:] for i in prompts]
+pairs = [(m, i) for m in MODELS[1:] for i in prompts] if "stock" in ans else []
 rng.shuffle(pairs)
 agr = []
 for n, (m, i) in enumerate(pairs):
