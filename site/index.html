@@ -162,6 +162,27 @@
 
   <p class="note">The two prunes reached nearly opposite conclusions one model generation apart. On Qwen3.6, layer pruning was survivable and cheap healing recovered it. On Qwen3.8, the same layer cut was fatal without healing, but most of the n-gram table came out for free.</p>
 
+  <article class="experiment" id="flux2-klein-trim17">
+    <div>
+    <h3>FLUX.2 [klein] 4B Trim17</h3>
+    <p>The FLUX.2 [klein] 4B image denoiser with 8 of its 25 blocks removed. Two linear bridges stand in for the gaps, and the kept blocks were healed against the full model. It keeps the subject, layout and colors; faces and small text drift.</p>
+    <ul class="stats">
+      <li><b>1.32×</b> faster on the AMD NPU, 512², 4 steps</li>
+      <li><b>17 / 25</b> blocks kept</li>
+      <li><b>~$26</b> total cloud spend</li>
+    </ul>
+    <div class="links">
+      <a href="https://github.com/Cyronius/model-experiments/blob/main/flux-conditioning/BLOCK_ABLATE.md">Write-up</a>
+      <a href="https://github.com/Cyronius/model-experiments/tree/main/flux-conditioning">Code</a>
+      <a href="https://huggingface.co/Cyronius/FLUX.2-klein-4B-Trim17">Hugging Face</a>
+    </div>
+    </div>
+    <figure class="comparison"><figcaption>Seconds per 512² image on the NPU · Ryzen AI 9 HX 370</figcaption>
+      <div class="bar-row"><span>25 blocks</span><div class="bar-track" aria-hidden="true"><div class="bar original" style="--size:100%"></div></div><strong>3.84 s</strong></div>
+      <div class="bar-row"><span>Trim17</span><div class="bar-track" aria-hidden="true"><div class="bar" style="--size:75.7%"></div></div><strong>2.90 s</strong></div>
+    </figure>
+  </article>
+
   <article class="experiment" id="sprite-diffusion">
     <h3>Sprite diffusion</h3>
     <p>A 24.2M-parameter model for 32×32 transparent pixel-art sprites. Pick a category and seed, generate in your browser, and keep the designs you like. Choose 8, 16 or 32 sampling steps.</p>
