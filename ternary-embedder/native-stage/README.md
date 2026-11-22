@@ -234,3 +234,44 @@ kernel instead used pre-norm, eps=1e-5 and heads of 64, so it cannot be copied
 unchanged. Full-array routing and end-to-end quality/throughput are now measured
 above. Resident weights, replicas, pooled NPU vectors and a DMA-only control
 remain unmeasured.
+
+## Six-layer release check (2026-10-28)
+
+`Cyronius/ternary-embedder-6l384` runs on the same fused design. The core
+program loops over layers at run time, so six layers keep the 16096 B program;
+only the host instruction stream and buffers grow. Build with
+`build_fused.py --cap 128 --layers 6` (and `--cap 32`). `export_ternary.py`
+writes `model.ternary.safetensors` (packed 2-bit codes, bf16 row scales; exact
+round trip). `fused_encoder.py` loads a released folder and prefers that file.
+`check_release.py` verifies and times the NPU; `bench_ref.py` times the
+released PyTorch reference on CPU or GPU. Results are in ignored
+`results/release-check/`.
+
+| nDCG@10, 128 tokens | SciFact | NFCorpus |
+|---|---:|---:|
+| CPU reference | 59.81 | 30.35 |
+| GPU reference (890M, ROCm) | 60.03 | 30.41 |
+| NPU | 59.42 | 30.15 |
+
+NPU minus CPU: -0.39 (95% CI -1.17 to +0.38) and -0.20 (-0.52 to +0.11).
+Minimum vector cosine to CPU is 0.9938; valid-token state error grows by layer
+to 0.25. Speed (embeddings/s, text to vector):
+
+| Workload | NPU | CPU, 12 threads | GPU |
+|---|---:|---:|---:|
+| One short query | 212 | 169 | 74 |
+| 4 texts, 32 tokens | 616 | 228 | 241 |
+| 1 text, 128 tokens | 178 | 54 | 62 |
+| Corpus encode, 128-token cap | 180-184 | 72-73 | 120-122 |
+
+CPU and GPU run the unoptimized PyTorch reference (fake-quantized int8
+activations, decoded weights, length-sorted batches of 128). The NPU corpus
+pass sends one text per dispatch padded to 128 tokens; the dispatch takes 3.27 ms.
+
+Same-session depth comparison on the NPU (one 128-token text per dispatch):
+2 layers (grid1 2a_384) 1.25 ms per dispatch, 421-463 emb/s, nDCG 54.39 / 29.49;
+3 layers (grid1 r0_3x384) 1.77 ms, 280 emb/s, 57.21 / 29.75;
+6 layers (this release) 3.3-3.7 ms, 160-165 emb/s, 59.42 / 30.14.
+Float all-MiniLM-L6-v2 in PyTorch, same texts (`bench_minilm.py`): corpus encode
+139-145 emb/s on CPU and 202 emb/s on the 890M; one 128-token text 17.6 ms CPU,
+12.1 ms GPU. There is no current MiniLM NPU path to time.

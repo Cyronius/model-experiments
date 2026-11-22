@@ -1,4 +1,4 @@
-"""Compile the complete two-layer native-384 array encoder."""
+"""Compile the complete native-384 array encoder."""
 import argparse
 import hashlib
 import importlib.metadata
@@ -13,11 +13,18 @@ import time
 ROOT=Path(__file__).resolve().parent
 
 
+def build_dir(cap,layers):
+    # The two-layer builds keep their original paths.
+    return ROOT/(f'build_fused_cap{cap}' if layers==2 else f'build_fused_cap{cap}_l{layers}')
+
+
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('--cap',type=int,choices=(8,32,128),default=32)
+    p.add_argument('--layers',type=int,default=2)
     a=p.parse_args()
     os.environ['ENCODER_CAP']=str(a.cap)
+    os.environ['ENCODER_LAYERS']=str(a.layers)
     tools=ROOT.parent/'npu-width-probe/tools'
     packager=tools/'xclbinutil-build/Release/xclbinutil.exe'
     os.environ['AIE_XCLBINUTIL']=str(packager)
@@ -29,7 +36,7 @@ def main():
     # Keep failed compiler products for diagnosing the 16 KiB core budget.
     import aie.utils.compile.jit.compilabledesign as compiler_module
     compiler_module._cleanup_failed_compilation=lambda path: None
-    out=ROOT/f'build_fused_cap{a.cap}'
+    out=build_dir(a.cap,a.layers)
     out.mkdir(exist_ok=True)
     work=(out/'final.prj').resolve()
     if not work.is_relative_to(ROOT.resolve()) or work.name!='final.prj':
@@ -42,8 +49,8 @@ def main():
     sections=subprocess.check_output([str(size_tool),'-A',str(work/'elfs_main_core_0_2/elfs_main_core_0_2.elf')],text=True)
     text_bytes=int(re.search(r'^\.text\s+(\d+)',sections,re.MULTILINE)[1])
     sources=['fused.h','fused_design.py','vecmath.h','ironutil.py']+sorted(f.name for f in ROOT.glob('ep_*.cc'))
-    report={'cap':a.cap,'texts_per_dispatch':128//a.cap,'cores':32,'layers':2,
-            'scope':'One dispatch, two full encoder layers; host embedding lookup/input norm/output projection/pooling',
+    report={'cap':a.cap,'texts_per_dispatch':128//a.cap,'cores':32,'layers':a.layers,
+            'scope':f'One dispatch, {a.layers} full encoder layers; host embedding lookup/input norm/output projection/pooling',
             'program_text_bytes':text_bytes,'stack_bytes_per_core':0x1400,
             'mlir_aie':importlib.metadata.version('mlir_aie'),
             'llvm_aie':importlib.metadata.version('llvm-aie'),

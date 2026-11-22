@@ -1,4 +1,4 @@
-"""Two post-norm encoder layers, including attention and FFNs, one dispatch."""
+"""Post-norm encoder layers, including attention and FFNs, one dispatch."""
 import hashlib
 import os
 from pathlib import Path
@@ -15,6 +15,7 @@ from ironutil import Pipeline, include_dirs
 ROOT = Path(__file__).resolve().parent
 CAP = int(os.environ.get('ENCODER_CAP','32'))
 assert CAP in (8,32,128)
+LAYERS = int(os.environ.get('ENCODER_LAYERS','2'))
 NC,NR = 8,4
 PACKETS = 186
 
@@ -55,7 +56,7 @@ def encoder(wts: In, mask: In, x: In, kv: InOut, out: Out, *, cfg: CompileTime[i
             xv=ax.acquire(1)
             e=bx.acquire(1);lm(e,m);bx.release(1)
             # Constant loop counts are preserved by dynamic FIFO lowering.
-            for _ in range_(2):
+            for _ in range_(LAYERS):
                 qxf(xv,aq)
                 # Q remains local; K and V leave in one 8192-byte core packet.
                 dest=oy.acquire(1)
@@ -107,9 +108,9 @@ def encoder(wts: In, mask: In, x: In, kv: InOut, out: Out, *, cfg: CompileTime[i
                   copy,loadmask,qx,qq,qq384,linear,linear256,ln,att,af,xo]
             workers.append(Worker(make_body(c*NR+r),fn_args=args,tile=tile,stack_size=0x1400))
 
-    WT=2*PACKETS*4096
+    WT=LAYERS*PACKETS*4096
     KV=32*8192
-    XO=2*KV
+    XO=LAYERS*KV
     def linear_tap(total,offset,size):
         return TensorAccessPattern((1,total),offset,[1,1,1,size],[0,0,0,1])
     def sequence(w,m,x,scratch,o,wp,ins,outs):
@@ -118,7 +119,7 @@ def encoder(wts: In, mask: In, x: In, kv: InOut, out: Out, *, cfg: CompileTime[i
             ins[c].fill(x,tap=linear_tap(32*1536,c*NR*1536,NR*1536),wait=True,group=tx)
         pipe=Pipeline(inflight=3)
         pipe.fill(wp,m,linear_tap(4096,0,4096))
-        for layer in range(2):
+        for layer in range(LAYERS):
             base=layer*PACKETS*4096
             pipe.fill(wp,w,linear_tap(WT,base,39*4096))
             tk=TaskGroup()
@@ -143,6 +144,6 @@ def encoder(wts: In, mask: In, x: In, kv: InOut, out: Out, *, cfg: CompileTime[i
     return Program(iron.get_current_device(),rt,workers=workers).resolve_program()
 
 DESIGN=encoder
-SPECIALIZE={'cfg':CAP,'srchash':int(hashlib.sha256(b''.join(
+SPECIALIZE={'cfg':CAP|LAYERS<<8,'srchash':int(hashlib.sha256(b''.join(
     (ROOT/name).read_bytes() for name in ['fused.h','fused_design.py','vecmath.h','ironutil.py']+
     sorted(p.name for p in ROOT.glob('ep_*.cc')))).hexdigest()[:8],16)}
