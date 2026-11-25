@@ -1,5 +1,7 @@
 # Controlled Qwen3.5 pruning and healing
 
+**Adaptive MLP pruning follow-up closed November 25, 2026.** Removing 4.26% of Qwen3.5-2B raised held-out perplexity 5.94% with one-shot pruning and 6.01% with iterative pruning. The extra ranking and healing rounds gave no measurable quality gain. [Results and controls](adaptive-mlp/README.md)
+
 This experiment compares healing schedules, not finished model products: Qwen3.5-2B is
 pruned to about 0.8B, healed under seven schedules, and judged against stock Qwen3.5-0.8B
 (the bar) and the 2B teacher (the ceiling) on quality, healing tokens and wall time.
