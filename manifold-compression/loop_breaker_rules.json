@@ -1,0 +1,141 @@
+{
+ "note": "A loop breaker written by hand into the weights of the model healed in pieces, written 2026-11-27 before any run. The user: 'can you do direct neuron surgery as per some of the latest weight space programming concepts to fix the looping in this model'. Two earlier attempts on the LoRA-healed carve removed a 'loop direction' from mid-layer MLP outputs (loop_edit_rules.json; loop_edit2_rules.json, the weight-space-programming post's own recipe) and failed: a norm-matched random direction did as well, because greedy decoding flips about 20 of 96 prompts under any small weight change. This attempt differs in kind. (1) What the loops are: 26 of this model's 29 greedy loops on the check prompts are one pattern, a re-check cycle inside <think> (the model states an answer, writes 'Wait, let's check the question again', re-derives the same lines verbatim, and repeats). (2) So instead of suppressing a direction everywhere, it writes a small program: IF the answer is in a verbatim repeat of its own earlier text THEN raise the logits of </think> and <|im_end|> (amended before any generation, see amendment: AND at a line end; </think> alone). Read: a linear probe on the last layer's MLP input (difference of class means through the within-class covariance, closed form). Write: the two stop tokens' unembedding rows through the final norm's scale, as the latest papers' last-layer edits do (arXiv 2611.09382 edits one down column of the last MLP toward a token-defined direction; arXiv 2611.14210 uses a loop-minus-end direction). The edit is two always-on SwiGLU neurons beside the last carved MLP (heal_block's bridge slot), no gradient descent. (3) Each step is checked before generation by teacher forcing, and each fixed loop can be checked against the neuron's own activation, so a loop count alone is not the evidence. Sampled answers of the earlier carves never looped (0 of 96 at the model card's settings, 36 greedy), so the target is greedy decoding only; the sampled check of this model runs beside this.",
+ "model": {
+  "name": "whole-pieces4",
+  "pieces": [
+   "whole-pieces4-2400s-L0-3",
+   "whole-pieces4-2400s-L4-7",
+   "whole-pieces4-2400s-L8-11",
+   "whole-pieces4-2400s-L12-15",
+   "whole-pieces4-2400s-L16-19",
+   "whole-pieces4-2400s-L20-23",
+   "whole-pieces4-2400s-L24-27",
+   "whole-pieces4-2400s-L28-31-more"
+  ],
+  "folder": "results/moe-carve-v2-20261029/heal_pieces",
+  "baseline": "heal_pieces/checks (2026-11-27, torch 2.14): KL 0.5779; greedy at 2,048: 50/96 right, 63 finished, 29 loops."
+ },
+ "out": "results/moe-carve-v2-20261029/heal_pieces/loop_breaker",
+ "layer": 31,
+ "fit": {
+  "source": "GSM8K train rows 0 to 499 that the benchmark corpus does not use, the first 160 in row order (as loop_edit2). Never a check prompt (those are test rows).",
+  "rows": [
+   0,
+   500
+  ],
+  "count": 160,
+  "batch": 80,
+  "generate": {
+   "max_new_tokens": 2048,
+   "state": "fp32",
+   "compact": true,
+   "seed": 0
+  }
+ },
+ "loop": {
+  "window": 20,
+  "last": 1000,
+  "threshold": 0.45
+ },
+ "cycle": {
+  "rule": "Period p: the smallest p in [min_period, max_period] whose last two copies agree on at least `agree` of their tokens (the answer's last 2p tokens). Start s: the first index whose next p tokens agree with the p after them on at least `agree`, and that agrees itself. A looping answer without such a cycle ('drift') is left out of fitting and reported.",
+  "min_period": 8,
+  "max_period": 700,
+  "agree": 0.9
+ },
+ "labels": {
+  "positive": "Positions whose last generated token is at least `margin` tokens into the second copy (index >= s + p + margin): the answer is visibly repeating.",
+  "negative": "Every generated position of a finished, non-looping answer; and in looping answers, positions more than one period before the cycle starts (index < s - p).",
+  "left_out": "The first copy and one period before it; answers cut at the cap that the loop rule does not call loops; drift loops.",
+  "margin": 20
+ },
+ "split": "Within each kind (loop with a cycle, finished), answers alternate in order: even for fitting (direction), odd held out (screen).",
+ "probe": {
+  "read": "x: the input of layer 31's MLP (after the layer's second norm), the student's teacher-forced pass over its own answer.",
+  "w": "(S_w + ridge I)^-1 (mean_positive - mean_negative), S_w the pooled within-class covariance on the fitting answers, scaled so the within-class standard deviation of w.x is 1.",
+  "constant": "c: the direction with mean c.x = 1 and least variance over the fitting positions, (C + ridge I)^-1 m scaled; it stands in for a bias (the projections have none).",
+  "ridge": 0.01
+ },
+ "neurons": {
+  "form": "Two SwiGLU neurons with z = k (w.x - b c.x): A = silu(z) (n.x), B = silu(z - clamp c.x) (n.x); their down columns are +v/clamp and -v/clamp, so together they write about v min(max(z, 0), clamp) / clamp times n.x: nothing below the threshold b or away from a line end, at most v at a line end above it. (First design: the up projection read the constant c.x, so they wrote wherever the probe fired.)",
+  "k": 4,
+  "clamp": 4,
+  "write": "v = D rms q_think / |q_think|^2, q_think = (1 + gamma) * E_</think> (the final norm's scale times the token's unembedding row): the </think> logit rises by D at the typical residual RMS (the median over fitting positives). (First design: both </think> and <|im_end|>.)",
+  "tokens": [
+   "</think>"
+  ],
+  "up": "line_end",
+  "line_end": "n: the ridge least-squares read of 'the current token holds a line break' (1 or 0) from the same MLP input, on the fitting answers. A SwiGLU neuron multiplies its gate by its up projection, so this makes the pair an AND: repeating AND at a line end."
+ },
+ "grid": {
+  "false_positive_rates": [
+   0.01,
+   0.003,
+   0.001,
+   0.0003,
+   0.0001
+  ],
+  "doses": [
+   8,
+   10,
+   12,
+   14,
+   16,
+   20
+  ],
+  "threshold": "b is the score that this share of fitting negatives exceed."
+ },
+ "screen": {
+  "how": "Teacher-forced along each answer, from the captured final residual: the first position where the edited argmax (over the unedited top five and the two stop tokens) differs from the unedited one is where the edited model's greedy answer would leave the text.",
+  "broken": "A looping answer is broken if that first difference is </think> in the loop (inside a repeat: the 20 tokens before it occurred earlier in the answer; or no more than one period before the cycle starts, index >= s - p), before the end of the third copy (index < s + 3p); later is 'late'; another token there is 'other'.",
+  "collateral": "A looping answer is collateral if the first difference comes before the loop (more than one period before the cycle, and not inside a repeat). A finished answer is collateral if its first difference comes before its end, except </think> within 64 tokens before its own </think>; whether that position was inside a repeat is recorded (collateral_repeating) but it counts as collateral either way.",
+  "select": "On the fitting answers: the setting that breaks the most loops with collateral in at most max(1, 2%) of the finished answers and of the looping answers' beginnings; ties go to the smaller dose, then the lower false-positive rate.",
+  "gate": "Generation runs only if, on the held-out answers, the selected setting breaks at least 60% of the loops with a cycle and is collateral in at most 5% of the finished answers.",
+  "window": 20
+ },
+ "generate": {
+  "prompts": "probe_prompts_96.json, greedy, 2,048 new tokens, fp32 state, seed 26103102 (opd_long_rules.json's check, as heal_block_check.py gsm8k).",
+  "arms": {
+   "unedited": "The model as it is, rerun because torch changed (2.14 to 2.16 nightly) since the baseline.",
+   "breaker": "The two written neurons.",
+   "breaker-random-write": "Control, run only if breaker cuts loops: the same read, the write replaced by a random direction of the same norm orthogonal to both stop rows."
+  },
+  "compare": "Paired by prompt against unedited: loops fixed and new, right gained and lost (one-sided exact sign test). For each fixed loop, whether the neurons fired (activation above 0.5) within the 8 tokens before the answer left its unedited text."
+ },
+ "predictions": {
+  "fit": "At least 35 of the 160 fitting answers loop (this model: 29 of 96), at least 30 with a cycle.",
+  "separation": "Held-out AUROC of w.x, positives against negatives, at least 0.98. Confidence 70%: repetition is easy to read from a late residual, but the last layer may not tell a repeat of its own reasoning from a quote of the question.",
+  "screen": "The gate holds (at least 60% of held-out loops broken, at most 5% collateral). Confidence 50%: </think> may be too improbable at the loop's paragraph ends for a dose that leaves finished answers alone.",
+  "loops": "Greedy loops on the 96 check prompts fall to 10 or fewer (unedited: 29 under the old torch), with at least 12 more finished answers. Confidence 45%.",
+  "right": "Right answers change by -2 or better: the breaker ends the thinking, it does not improve it, and 3 of the 29 loops already counted as right by their last number.",
+  "kl": "KL on the eval documents within 0.005 of unedited (the neurons are silent on ordinary text).",
+  "fail": "Ways it fails: the probe fires on quotes of the question; the answer after a forced </think> loops in turn; short-period loops have no place where a stop token is plausible."
+ },
+ "criteria": "The loop claim needs the paired sign test below 0.05 against unedited (same torch), and the neurons firing before most fixed loops left their text. A loop count without both is not evidence (loop_edit2).",
+ "amendment": {
+  "written": "2026-11-27 18:40, after the fit stage and the first design's teacher-forced screen (build_first.json, breaker_first.pt, rules_first.json), before any generation with any edit.",
+  "first_screen": "Fit: 83/160 right, 106 finished, 48 loops, 46 with a cycle (prediction held). Probe: held-out AUROC 0.9988, c.x 1.000 +- 0.005 (prediction held). Selected false-positive rate 0.0001, dose 6. Held out: 13 of 23 loops broken, 7 'early', 1 other, 1 late, 1 collateral; 1 of 53 finished answers collateral. The gate failed (13/23 is 57%, under 60%).",
+  "what_it_showed": "The read works; the write was wrong. (1) Nearly every first difference was <|im_end|> in mid-sentence ('= 714.28571' then end of answer): inside a repeat <|im_end|> is 4 logits from winning somewhere in mid-sentence (least gap per loop: median 4.2, never at a line end), so the model would stop with no answer. </think> is 9.5 logits away at its closest (median per loop), and that closest place is a line end in 45 of 46 loops. In ordinary thinking </think> is no further away at line ends (median 10.5), so the dose needed (10 to 14) relies entirely on the probe's precision. (2) The 7 'early' answers were inside a repeat already (20-token repeat share 0.6 to 1.0 before the position): the cycle's start is found late when the first copies vary, so 'second or third copy' was the wrong test of 'is it repeating'. (3) 'The current token ends a line' is linearly readable from the same MLP input: held-out read 0.76 to 1.04 at line ends (0.1% to 90%), at most 0.25 elsewhere.",
+  "changes": "The write is </think> alone. The up projection reads the line-end indicator instead of the constant, so the neurons write only at a line end inside a repeat. Doses 8 to 20 instead of 4 to 16. The screen calls a position 'inside a repeat' by the 20-token rule instead of by the cycle, and names answers as the amended 'broken' and 'collateral' say. Everything else (the probe, its fitting and held-out answers, thresholds, selection, gate, generation arms, predictions) is unchanged.",
+  "caveat": "The held-out answers were read to find this (the outcomes above and the gap statistics over all 46 loops), so the second screen's held-out numbers are not blind. The 96 check prompts are untouched; the generation test is the evidence.",
+  "second_screen": "2026-11-27 18:50, still before any generation (build_second.json). With the amended neurons no finished fitting answer changed at any dose up to 20 (53 of 53, false-positive rates 0.001 and below), but the selection rule chose dose 8 (3 of 23 loops broken) because at higher doses 2 to 6 looping answers counted as collateral. Read on the fitting answers at rate 0.0001, dose 16: 20 of 23 broken, and the 3 'collateral' were in the loop: one at the first line of the second copy (12 verbatim tokens, not yet 20), one in the third copy of a loop whose step number counts up (never 20 verbatim tokens), one at 0.9 of the first copy. The 20-token rule alone is too strict a test of 'in the loop' for an answer that goes on to loop, so for looping answers a position also counts as in the loop from one period before the cycle (the first design's 'early' zone). Finished answers are judged as before. The screen's labels have now been revised twice after reading outcomes: its numbers describe, they do not confirm; the check prompts' generations are the test."
+ },
+ "outcome": {
+  "written": "2026-11-28 00:20, after the unedited and breaker arms (both 2026-11-27 22:25 to 23:27, torch 2.16 nightly; two earlier tries died with the arbiter wrapper before generating). The control arm ended 2026-11-28 01:39; its result is below.",
+  "unedited": "41/96 right, 60 finished, 28 loops, KL 0.5778. (The 2.14 baseline was 50, 63, 29: no answer is token-identical across the two torch builds, the first difference is at token 3 in the median, right +9 -18. Greedy answers of this model are that path dependent; only same-build comparisons count.)",
+  "breaker": "42/96 right, 75 finished, 12 loops, KL 0.5815. Paired with unedited: loops fixed 17, new 1 (one-sided sign test 7.2e-5); right +4 -3; 59 answers token-identical, 37 changed; 36 of the 37 left the unedited text at a token where the neurons had fired (within 8 tokens), 35 of them with </think> as the first changed token. Of the 60 answers the unedited model finished, 58 are identical and 2 were closed earlier (right unchanged).",
+  "predictions": {
+   "fit": "held (48 loops, 46 with a cycle)",
+   "separation": "held (held-out AUROC 0.9988)",
+   "screen": "gate held only after two amendments made on its own outcomes: not a confirmed prediction",
+   "loops": "missed narrowly: 12, predicted 10 or fewer; finished +15, predicted +12 or more (held)",
+   "right": "held (+1)",
+   "kl": "held (+0.0037, limit 0.005)",
+   "fail": "one of the three named ways happened: the answer after a forced </think> loops in turn (10 of the 12 loops left; the neurons fire again there and write </think> a second time, and the model then writes only </think> lines). The probe did not fire on quotes of the question in any finished answer."
+  },
+  "verify": "The model with the neurons left its own answer at the screen's forecast position in 5 of 6 held-out fitting answers (the sixth 11 tokens later, with </think>).",
+  "criteria": "Both hold: sign test 7e-5 against unedited on the same build; 16 of the 17 fixed loops left their text after the neurons fired.",
+  "what_is_left": "Of the 12 loops left: 10 are answer-part loops after the forced close ending in </think> lines, 1 the probe never saw (gsm8k-test-57, a 52-token cycle inside one line, max activation 0.05: no line end in the loop), 1 new (gsm8k-test-89, cut before, closed and then looping). loop_breaker2_rules.json adds the missing branch (<|im_end|> once the thinking is closed).",
+  "control": "breaker-random-write (2026-11-28 01:11-01:39, same build): 41/96 right, 60 finished, 28 loops, KL 0.5778 (unedited 0.5778). All 96 answers are token-identical to the unedited model's, although the detector fired in the same 37 answers (1,827 positions above 0.5). So firing alone, with a write of the same norm in a random direction orthogonal to the two stop rows, changes no token: the 17 fixed loops come from the </think> write, not from perturbing the last layer."
+ }
+}

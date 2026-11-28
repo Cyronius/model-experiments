@@ -183,6 +183,27 @@
     </figure>
   </article>
 
+  <article class="experiment" id="loop-breaker">
+    <div>
+    <h3>Loop-breaker neurons</h3>
+    <p>A Qwen3.5-9B carved into a mixture of experts loops when it thinks under greedy decoding. Four neurons written by hand beside its last MLP detect that the text is repeating itself at a line end, and write the end-of-thinking token, or the end-of-answer token once the thinking is closed. Answers the model already finished stay token-for-token the same. Greedy decoding only, and the carved model itself is still in progress.</p>
+    <ul class="stats">
+      <li><b>36 → 1</b> loops in 96 blind GSM8K prompts</li>
+      <li><b>46 → 56</b> right answers</li>
+      <li><b>0</b> training steps</li>
+    </ul>
+    <div class="links">
+      <a href="https://github.com/Cyronius/model-experiments/blob/main/manifold-compression/loop-breaker.md">Write-up</a>
+      <a href="https://github.com/Cyronius/model-experiments/tree/main/manifold-compression">Code</a>
+    </div>
+    </div>
+    <figure class="comparison"><figcaption>Greedy loops · 96 blind GSM8K prompts, 2,048-token cap</figcaption>
+      <div class="bar-row"><span>Unedited</span><div class="bar-track" aria-hidden="true"><div class="bar original" style="--size:100%"></div></div><strong>36</strong></div>
+      <div class="bar-row"><span>2 neurons</span><div class="bar-track" aria-hidden="true"><div class="bar" style="--size:33.3%"></div></div><strong>12</strong></div>
+      <div class="bar-row"><span>4 neurons</span><div class="bar-track" aria-hidden="true"><div class="bar" style="--size:2.8%"></div></div><strong>1</strong></div>
+    </figure>
+  </article>
+
   <article class="experiment" id="sprite-diffusion">
     <h3>Sprite diffusion</h3>
     <p>A 24.2M-parameter model for 32×32 transparent pixel-art sprites. Pick a category and seed, generate in your browser, and keep the designs you like. Choose 8, 16 or 32 sampling steps.</p>
